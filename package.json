@@ -1,0 +1,10 @@
+{
+  "name": "graph-canvas",
+  "version": "0.0.0",
+  "description": "Javascript library for drawing graphs",
+  "main": "src/index.js",
+  "author": "Ravi Raja Merugu <rrmerugu@gmail.com>",
+  "scripts": {
+    "build": "webpack"
+  }
+}
