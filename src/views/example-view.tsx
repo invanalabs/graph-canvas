@@ -29,19 +29,28 @@ import "./example-view.scss"
 const groupsModels: any = {nodeGroupModels, edgeGroupModels}
 
 const ExampleView = () => {
-    const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
-    const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
 
     const [view, setView] = React.useState<string>("viewer");
 
+    const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
+    const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
     const events = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
+    const graphData: GraphData = json2GraphData(spaceXMissionsData, groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
+    const graphDataJson = {nodes:graphData.nodes.get(), edges: graphData.edges.get() }
+    canvasCtrl.addNewData(graphDataJson.nodes,graphDataJson.edges);
 
 
-    // const sampleData: GraphData = json2GraphData(spaceXMissionsData, groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
-    const sampleData: GraphData = modelGroup2GraphData(groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
 
-    const data = {nodes:sampleData.nodes.get(), edges: sampleData.edges.get() }
-    canvasCtrl.addNewData(data.nodes,data.edges);
+    const modelCanvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
+    const [modelRenderCanvas, setModelRenderCanvas] = React.useState<boolean>(false);
+    const modelEvents = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
+    const schemaData: GraphData = modelGroup2GraphData(groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
+    const schemaDataJson = {nodes:schemaData.nodes.get(), edges: schemaData.edges.get() }
+    modelCanvasCtrl.addNewData(schemaDataJson.nodes,schemaDataJson.edges);
+
+
+
+
 
 
     // function getRndInteger(min: any, max: any) {
@@ -66,7 +75,7 @@ const ExampleView = () => {
             </ul>
             { view === "data"  
                 ? <div className="data-view">
-                    <textarea>{JSON.stringify(data, null, 2)}</textarea>
+                    <textarea>{JSON.stringify(graphDataJson, null, 2)}</textarea>
                     <button type="submit">Update</button>
                 </div>
                 : <React.Fragment />
@@ -79,12 +88,12 @@ const ExampleView = () => {
                 </div>
                 <div className="col-right">
                     <CanvasArtBoard
-                        containerId={"artboard-2"}
-                        renderCanvas={renderCanvas}
-                        setRenderCanvas={setRenderCanvas}
+                        containerId={"model-artboard"}
+                        renderCanvas={modelRenderCanvas}
+                        setRenderCanvas={setModelRenderCanvas}
                         options={defaultOptions}
-                        events={events}
-                        canvasCtrl={canvasCtrl}
+                        events={modelEvents}
+                        canvasCtrl={modelCanvasCtrl}
                         style={{width: "100%", height: "calc(-96px + 100vh)", border: "1px solid rgb(143, 143, 143)"}}
                     />
                 </div>

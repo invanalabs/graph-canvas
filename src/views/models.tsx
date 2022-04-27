@@ -33,9 +33,26 @@ export const nodeGroupModels: any = {
 
 
 export const edgeGroupModels: any = {
-        "Flight Number": {
+        "Flight Number launched_from Launch Site": {
             groupName: "launched_from",
             targetGroup: "Launch Site",
+            sourceGroup: "Flight Number",
+            // idField: "id",
+            // labelField: "",
+            propertyFields: {}
+        },
+        "Flight Number launched_from Customer Country": {
+            groupName: "has_customer_country",
+            targetGroup: "Customer Country",
+            sourceGroup: "Flight Number",
+            // idField: "id",
+            // labelField: "",
+            propertyFields: {}
+        },
+        "Flight Number launched_from Vehicle Type": {
+            groupName: "used_vehicle",
+            targetGroup: "Vehicle Type",
+            sourceGroup: "Flight Number",
             // idField: "id",
             // labelField: "",
             propertyFields: {}

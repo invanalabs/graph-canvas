@@ -77,7 +77,7 @@ const defaultOptions = {
             interpolation: true    // 'true' for intensive zooming
         },
         font: {
-            color: "#858585"
+            color: "#454545"
         }
     }
 }

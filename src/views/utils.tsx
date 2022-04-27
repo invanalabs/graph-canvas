@@ -96,13 +96,13 @@ export const modelGroup2GraphData = (nodeGroupModels: any, edgeGroupModels: any)
         if(!nodes.get(node.id)){ nodes.add([node])  }
     })
 
-    Object.keys(edgeGroupModels).forEach( sourceGroupKey => {
-        const edgeGroupModel = edgeGroupModels[sourceGroupKey];
+    Object.keys(edgeGroupModels).forEach( edgeId => {
+        const edgeGroupModel = edgeGroupModels[edgeId];
         let edge = {
-            id: sourceGroupKey + "-" + edgeGroupModel.groupName + "-" + edgeGroupModel.groupName,
+            id: edgeId,
             group:  edgeGroupModel.groupName,
             label: edgeGroupModel.groupName,
-            from: sourceGroupKey,
+            from: edgeGroupModel.sourceGroup,
             to: edgeGroupModel.targetGroup
             // properties: {}
         }
@@ -151,11 +151,11 @@ export const json2GraphData = (jsonData: any, nodeGroupModels: any, edgeGroupMod
         });
 
         nodeLets.forEach((node: any) =>{
-            Object.keys(edgeGroupModels).forEach(edgeTransformationKey => {
-                const edgeTransformation: any = edgeGroupModels[edgeTransformationKey];
-                if(edgeTransformationKey === node.group){ // node is source/from node
+            Object.keys(edgeGroupModels).forEach(edgeKey => {
+                const edgeTransformation: any = edgeGroupModels[edgeKey];
+                if(edgeTransformation.sourceGroup === node.group){ // node is source/from node
                     const targetNodeId = element[edgeTransformation.targetGroup];
-                    const sourceNodeId = node.id;
+                    const sourceNodeId = element[edgeTransformation.sourceGroup];
                     let edgeData: any = {
                         id: targetNodeId.toString() + "-" + sourceNodeId.toString(),
                         group: edgeTransformation.groupName,
