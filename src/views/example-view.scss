@@ -1,5 +1,7 @@
 body{
     margin: 0;
+    // font-size: 13px;
+    // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 $primary-color: rgb(29, 148, 124);
@@ -12,8 +14,14 @@ $primary-color: rgb(29, 148, 124);
         padding: 10px 15px;
         cursor: pointer;
     }
+    li.header-logo{
+       font-weight: bold; 
+       padding-left: 10px !important ;
+    }
     li.active {
         color: $primary-color;
+        border-bottom: 1px solid $primary-color;
+        background-color: #efefef;
     }
     li:hover{
         background-color: #efefef;
@@ -32,6 +40,7 @@ $primary-color: rgb(29, 148, 124);
         height: calc(100% - 40px);
         width: 100%;
         font-size: 12px;
+        resize: none;
     }
     button {
         background-color: $primary-color;
@@ -39,5 +48,44 @@ $primary-color: rgb(29, 148, 124);
         padding: 6px 15px;
         border-color: $primary-color;
         cursor: pointer;
+        margin-top: 5px;
+    }
+}
+
+
+
+.model-view{
+    height: calc(100vh - 60px);
+    // overflow-y: scroll;
+    // background-color: #efefef;
+    padding: 10px;
+
+    .col-left, .col-right{
+
+        height: 100%;
+        display: inline-block;
+        float: left;
+    }
+    .col-left{
+        width: calc(40% - 10px);
+    }
+    .col-right{
+        width: calc(60% - 10px);
+        margin-left: 15px;
+    }
+    textarea{
+        width: 100%;
+        font-size: 12px;
+        resize: none;
+        height: calc(100% - 40px);
+
+    }
+    button {
+        background-color: $primary-color;
+        color: white;
+        padding: 6px 15px;
+        border-color: $primary-color;
+        cursor: pointer;
+        margin-top: 5px;
     }
 }

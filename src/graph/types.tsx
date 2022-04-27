@@ -30,4 +30,5 @@ export interface CanvasArtBoardProps {
     containerId: string,
     options: object,
     events: object,
+    style: object
 }

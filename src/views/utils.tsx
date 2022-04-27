@@ -80,48 +80,47 @@ export interface  GraphData {
 // }
 
 
-export const json2GraphData = (jsonData: any ) => {
+export const modelGroup2GraphData = (nodeGroupModels: any, edgeGroupModels: any) => {
+    var options = {};
+    let nodes: DataSet<Node> = new DataSet(options);
+    let edges: DataSet<Edge> =  new DataSet(options);
+    
+    Object.keys(nodeGroupModels).forEach( nodeGroupKey => {
+        // const nodeGroupModel = nodeGroupModels[nodeGroupKey];
+        let node = {
+            id: nodeGroupKey,
+            group:  nodeGroupKey,
+            label: nodeGroupKey,
+            // properties: {}
+        }
+        if(!nodes.get(node.id)){ nodes.add([node])  }
+    })
+
+    Object.keys(edgeGroupModels).forEach( sourceGroupKey => {
+        const edgeGroupModel = edgeGroupModels[sourceGroupKey];
+        let edge = {
+            id: sourceGroupKey + "-" + edgeGroupModel.groupName + "-" + edgeGroupModel.groupName,
+            group:  edgeGroupModel.groupName,
+            label: edgeGroupModel.groupName,
+            from: sourceGroupKey,
+            to: edgeGroupModel.targetGroup
+            // properties: {}
+        }
+        if(!edges.get(edge.id)){ edges.add([edge])  }
+    })
+
+
+    return {nodes: nodes, edges: edges}
+}
+
+
+export const json2GraphData = (jsonData: any, nodeGroupModels: any, edgeGroupModels: any ) => {
 
     /*
         create nodes based on 
     */
 
-    const nodeGroupTransformations: any = {
-        "Flight Number": {
-            idField : "id",
-            // groupField: ,
-            labelField: "name",
-            propertyFields: {
-                // TODO - add data types also for the properties
-                name: "Flight Number",
-                launch_date: "Launch Date",
-                launch_time: "Launch Time"                
-            }
-        },
-        "Launch Site": {
-            idField: "id",
-            // groupField: "Launch Site",
-            labelField: "name",
-            propertyFields: {name: "Launch Site"}
-        },
-        "Vehicle Type": {
-            idField: "id",
-            // groupField: "Vehicle Type",
-            labelField: "name",
-            propertyFields: {name: "Vehicle Type"}            
-        }
-    }
 
-
-    const edgeGroupTransformations: any = {
-        "Flight Number": {
-            groupName: "launched_from",
-            targetGroup: "Launch Site",
-            // idField: "id",
-            // labelField: "",
-            propertyFields: {}
-        }
-    }
 
 
     var options = {};
@@ -130,8 +129,8 @@ export const json2GraphData = (jsonData: any ) => {
 
     jsonData.forEach(function(element:any){
         let nodeLets: any = []
-        Object.keys(nodeGroupTransformations).forEach(groupField => {
-            const transformation: any = nodeGroupTransformations[groupField];
+        Object.keys(nodeGroupModels).forEach(groupField => {
+            const transformation: any = nodeGroupModels[groupField];
             const propertiesData: any = {"name": element[groupField]}
             let node = {
                 id: element[groupField],
@@ -152,8 +151,8 @@ export const json2GraphData = (jsonData: any ) => {
         });
 
         nodeLets.forEach((node: any) =>{
-            Object.keys(edgeGroupTransformations).forEach(edgeTransformationKey => {
-                const edgeTransformation: any = edgeGroupTransformations[edgeTransformationKey];
+            Object.keys(edgeGroupModels).forEach(edgeTransformationKey => {
+                const edgeTransformation: any = edgeGroupModels[edgeTransformationKey];
                 if(edgeTransformationKey === node.group){ // node is source/from node
                     const targetNodeId = element[edgeTransformation.targetGroup];
                     const sourceNodeId = node.id;

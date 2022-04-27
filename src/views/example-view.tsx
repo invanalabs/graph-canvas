@@ -20,13 +20,13 @@ import CanvasArtBoard from "../graph/canvas-artboard";
 import defaultOptions from "../graph/networkOptions";
 import {GraphCanvasCtrl} from "../graph/canvas-ctrl";
 import GenerateEvents from "../graph/events";
-import { json2GraphData, GraphData } from "./utils";
+import { json2GraphData, modelGroup2GraphData, GraphData } from "./utils";
 // import spaceXLaunchData from "../sample-data/spacex-launch-data.json"
 import spaceXMissionsData from "../sample-data/spacex-missions-data.json"
+import {nodeGroupModels, edgeGroupModels} from "./models"
 import "./example-view.scss"
 
-
-const sampleData: GraphData = json2GraphData(spaceXMissionsData);
+const groupsModels: any = {nodeGroupModels, edgeGroupModels}
 
 const ExampleView = () => {
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
@@ -35,6 +35,11 @@ const ExampleView = () => {
     const [view, setView] = React.useState<string>("viewer");
 
     const events = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
+
+
+    // const sampleData: GraphData = json2GraphData(spaceXMissionsData, groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
+    const sampleData: GraphData = modelGroup2GraphData(groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
+
     const data = {nodes:sampleData.nodes.get(), edges: sampleData.edges.get() }
     canvasCtrl.addNewData(data.nodes,data.edges);
 
@@ -54,6 +59,7 @@ const ExampleView = () => {
             {/*    <Loader backdrop content="Fetching schema model ..." vertical/>*/}
             {/*) : (<span></span>)}*/}
             <ul className="inline-list hr">
+                <li className="header-logo">Graph Canvas</li>
                 <li className={view === "data" ? 'active' : ''} onClick={()=> setView("data")}>Data</li>
                 <li className={view === "model" ? 'active' : ''} onClick={()=> setView("model")}>Model</li>
                 <li className={view === "viewer" ? 'active' : ''} onClick={()=> setView("viewer")}>Viewer</li>
@@ -66,15 +72,26 @@ const ExampleView = () => {
                 : <React.Fragment />
             }
             { view === "model"  
-                ? <CanvasArtBoard
-                        containerId={"artboard-1"}
+            ? <div className="model-view">
+                <div className="col-left">
+                    <textarea>{JSON.stringify(groupsModels, null, 2)}</textarea>
+                    <button type="submit">Update</button>
+                </div>
+                <div className="col-right">
+                    <CanvasArtBoard
+                        containerId={"artboard-2"}
                         renderCanvas={renderCanvas}
                         setRenderCanvas={setRenderCanvas}
                         options={defaultOptions}
                         events={events}
                         canvasCtrl={canvasCtrl}
+                        style={{width: "100%", height: "calc(-96px + 100vh)", border: "1px solid rgb(143, 143, 143)"}}
                     />
-                : <React.Fragment />
+                </div>
+               
+            
+        </div>
+        : <React.Fragment />
             }
             { view === "viewer"  
                 ? <CanvasArtBoard
@@ -84,6 +101,7 @@ const ExampleView = () => {
                         options={defaultOptions}
                         events={events}
                         canvasCtrl={canvasCtrl}
+                        style={{width: "100%", height: "calc(100vh - 40px)"}}
                     />
                 : <React.Fragment />
             }

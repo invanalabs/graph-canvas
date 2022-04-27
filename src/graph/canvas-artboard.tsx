@@ -38,14 +38,14 @@ class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
 
     render() {
         return (
-            <div className={"canvasContainer w-100 h-100"}>
+            <div className={"canvasContainer"}>
                 <Graph
                     containerId={this.props.containerId}
                     data={this.props.canvasCtrl.getData()}
                     options={this.props.options}
                     events={this.props.events}
                     getNetwork={(network) => this.props.canvasCtrl.setNetwork(network)}
-                    style={{width: "100%", height: "calc(100vh - 28px - 45px - 8px)"}}
+                    style={this.props.style}
                     // getNodes={this.props.getNodes}
                     // getEdges={this.props.getEdges}
                     // getNodes={getNodes}
