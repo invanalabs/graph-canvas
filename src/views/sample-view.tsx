@@ -18,11 +18,8 @@
 import React from "react";
 import CanvasArtBoard from "../graph/canvas-artboard";
 import defaultOptions from "../graph/networkOptions";
-// import {noImplementedAlert} from "../../utils";
 import {GraphCanvasCtrl} from "../graph/canvas-ctrl";
 import GenerateEvents from "../graph/events";
-// import convertSchemaDataToVisJsData from "./utils";
-// import sampleData from "./data.tsx";
 import { json2GraphData, GraphData } from "./utils";
 // import spaceXLaunchData from "../sample-data/spacex-launch-data.json"
 import spaceXMissionsData from "../sample-data/spacex-missions-data.json"
@@ -32,15 +29,9 @@ import spaceXMissionsData from "../sample-data/spacex-missions-data.json"
 const sampleData: GraphData = json2GraphData(spaceXMissionsData);
 
 const SampleView = () => {
-    // const [expand, setExpand] = React.useState(false);
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
     const events = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
-
-    // const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
-    // if (error) return <NetworkErrorUI error={error}/>;
-
-    console.log("=====sampleData", sampleData)
     canvasCtrl.addNewData(sampleData.nodes.get(), sampleData.edges.get());
 
 
@@ -55,8 +46,6 @@ const SampleView = () => {
 
     return (
         <div className="show-fake-browser sidebar-page">
-
-
             {/*{loading ? (*/}
             {/*    <Loader backdrop content="Fetching schema model ..." vertical/>*/}
             {/*) : (<span></span>)}*/}
@@ -68,7 +57,6 @@ const SampleView = () => {
                 events={events}
                 canvasCtrl={canvasCtrl}
             />
-
         </div>
     );
 };
