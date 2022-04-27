@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { GraphCanvasCtrl } from "./canvas-ctrl"
 
-
-const GenerateEvents = (canvasCtrl: any, setSelectedData: any, setRightSidebar: any = null) => {
+const GenerateEvents = (canvasCtrl: GraphCanvasCtrl, setSelectedData: any, setRightSidebar: any = null) => {
 
     return {
         selectNode: function (params: any) {
@@ -40,6 +40,13 @@ const GenerateEvents = (canvasCtrl: any, setSelectedData: any, setRightSidebar: 
             if (setSelectedData) {
                 setSelectedData(null)
             }
+        },
+        stabilized: function (params:any) { 
+            console.log("stabilized Event:", params);
+    
+            canvasCtrl.disablePhysics()
+            // _this.props.setRenderingStatusEnded();
+            // _this.props.stopRenderingGraph();
         },
         // deselectEdge: function (params) {
         //     console.log("deselectEdge Event:", params);

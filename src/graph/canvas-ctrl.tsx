@@ -63,5 +63,9 @@ export class GraphCanvasCtrl {
         // });
     }
 
+    disablePhysics(){
+        this.network.setOptions({physics: false})
+    }
+
 
 }

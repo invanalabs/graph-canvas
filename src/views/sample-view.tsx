@@ -22,7 +22,14 @@ import defaultOptions from "../graph/networkOptions";
 import {GraphCanvasCtrl} from "../graph/canvas-ctrl";
 import GenerateEvents from "../graph/events";
 // import convertSchemaDataToVisJsData from "./utils";
-import sampleData from "./data.tsx";
+// import sampleData from "./data.tsx";
+import { json2GraphData, GraphData } from "./utils";
+// import spaceXLaunchData from "../sample-data/spacex-launch-data.json"
+import spaceXMissionsData from "../sample-data/spacex-missions-data.json"
+
+
+
+const sampleData: any = json2GraphData(spaceXMissionsData);
 
 const SampleView = () => {
     // const [expand, setExpand] = React.useState(false);
@@ -33,8 +40,8 @@ const SampleView = () => {
     // const {loading, error, data} = useQuery(GET_SCHEMA_QUERY);
     // if (error) return <NetworkErrorUI error={error}/>;
 
-
-    canvasCtrl.addNewData(sampleData.nodes, sampleData.edges);
+    console.log("=====sampleData", sampleData)
+    canvasCtrl.addNewData(sampleData.nodes.get(), sampleData.edges);
 
 
     // function getRndInteger(min: any, max: any) {
