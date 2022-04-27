@@ -18,16 +18,16 @@
 // const csv = require('csv-parser')
 // const fs = require('fs')
 import { DataSet } from "vis-data"
-import { Id, FullItem, PartItem } from "vis-data/declarations/data-interface"
+// import {  PartItem } from "vis-data/declarations/data-interface"
 
 
 
 
-const nodeSettings = {
-    idField : "id",
-    groupField: "label",
-    labelField: "name"
-}
+// const nodeSettings = {
+//     idField : "id",
+//     groupField: "label",
+//     labelField: "name"
+// }
 
 
 interface Node  {
@@ -53,9 +53,9 @@ interface Edge  {
 
 
 
-export interface  GraphData<Item extends PartItem<IdProp>, IdProp extends string>  {
-    nodes: DataSet<Item, string> ,
-    edges: DataSet<Item, string>
+export interface  GraphData {
+    nodes: DataSet<any> ,
+    edges: DataSet<any>
 }
 
 
@@ -82,59 +82,60 @@ export interface  GraphData<Item extends PartItem<IdProp>, IdProp extends string
 
 export const json2GraphData = (jsonData: any ) => {
 
-    const nodeSettings = {
-
-    }
     /*
         create nodes based on 
     */
 
-    const nodeGroupTransformations = [
-        {
+    const nodeGroupTransformations: any = {
+        "Flight Number": {
             idField : "id",
-            groupField: "Flight Number",
+            // groupField: ,
             labelField: "name",
             propertyFields: {
                 // TODO - add data types also for the properties
                 name: "Flight Number",
                 launch_date: "Launch Date",
-                launch_time: "Launch Site"                
+                launch_time: "Launch Time"                
             }
         },
-        {
+        "Launch Site": {
             idField: "id",
-            groupField: "Launch Site",
+            // groupField: "Launch Site",
             labelField: "name",
             propertyFields: {name: "Launch Site"}
         },
-        {
+        "Vehicle Type": {
             idField: "id",
-            groupField: "Vehicle Type",
+            // groupField: "Vehicle Type",
             labelField: "name",
-            propertyFields: {name: "Vehicle Type"}
-            
+            propertyFields: {name: "Vehicle Type"}            
         }
-    ]
+    }
+
+
+    const edgeGroupTransformations: any = {
+        "Flight Number": {
+            groupName: "launched_from",
+            targetGroup: "Launch Site",
+            // idField: "id",
+            // labelField: "",
+            propertyFields: {}
+        }
+    }
+
+
     var options = {};
     let nodes: DataSet<Node> = new DataSet(options);
-    let edges: Array<Edge> = [];
+    let edges: DataSet<Edge> =  new DataSet(options);
 
-
-    let nodesData = 
-
-    nodeGroupTransformations.forEach(transformation => {
-
-        jsonData.forEach(function(element:any){
-            // console.log(element)
-
-            const propertiesData: any = {"name": element[transformation.groupField]}
-            // console.log("===propertiesData", propertiesData)
-            // console.log("=== transformation.labelField]", transformation.labelField)
-            // console.log("===propertiesData[transformation.labelField]", propertiesData[transformation.labelField])
-            //
-            let d = {
-                id: element[transformation.groupField],
-                group:  transformation.groupField,
+    jsonData.forEach(function(element:any){
+        let nodeLets: any = []
+        Object.keys(nodeGroupTransformations).forEach(groupField => {
+            const transformation: any = nodeGroupTransformations[groupField];
+            const propertiesData: any = {"name": element[groupField]}
+            let node = {
+                id: element[groupField],
+                group:  groupField,
                 label: propertiesData[transformation.labelField],
                 // properties: {}
             }
@@ -146,21 +147,29 @@ export const json2GraphData = (jsonData: any ) => {
             //     return d;
 
             // })
-            console.log("=nodesData.get(d.id)", nodes.get(d.id))
-            if (!nodes.get(d.id)){
-                console.log("=====", d.id)
-                nodes.add([d])
-            }
-
-            // nodes.push(d)
-
-
+            nodeLets.push(node)
+            if(!nodes.get(node.id)){ nodes.add([node])  }
         });
 
+        nodeLets.forEach((node: any) =>{
+            Object.keys(edgeGroupTransformations).forEach(edgeTransformationKey => {
+                const edgeTransformation: any = edgeGroupTransformations[edgeTransformationKey];
+                if(edgeTransformationKey === node.group){ // node is source/from node
+                    const targetNodeId = element[edgeTransformation.targetGroup];
+                    const sourceNodeId = node.id;
+                    let edgeData: any = {
+                        id: targetNodeId.toString() + "-" + sourceNodeId.toString(),
+                        group: edgeTransformation.groupName,
+                        from: sourceNodeId,
+                        to: targetNodeId,
+                        label:  edgeTransformation.groupName
+                    }
+                    if(!edges.get(edgeData.id)){ edges.add([edgeData])  }
+                }
+            })
+        })
+ 
     })
-    console.log("====nodes", nodes)
-    console.log("=====nodes.get()", nodes.get());
-    console.log("=====nodes.get() typeof", typeof nodes.get()[0]);
     return {nodes: nodes, edges: edges}
 }
 

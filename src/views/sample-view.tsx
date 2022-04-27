@@ -29,7 +29,7 @@ import spaceXMissionsData from "../sample-data/spacex-missions-data.json"
 
 
 
-const sampleData: any = json2GraphData(spaceXMissionsData);
+const sampleData: GraphData = json2GraphData(spaceXMissionsData);
 
 const SampleView = () => {
     // const [expand, setExpand] = React.useState(false);
@@ -41,7 +41,7 @@ const SampleView = () => {
     // if (error) return <NetworkErrorUI error={error}/>;
 
     console.log("=====sampleData", sampleData)
-    canvasCtrl.addNewData(sampleData.nodes.get(), sampleData.edges);
+    canvasCtrl.addNewData(sampleData.nodes.get(), sampleData.edges.get());
 
 
     // function getRndInteger(min: any, max: any) {
