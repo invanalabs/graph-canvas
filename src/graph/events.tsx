@@ -20,12 +20,9 @@ const GenerateEvents = (canvasCtrl: GraphCanvasCtrl, setSelectedData: any, setRi
     return {
         selectNode: function (params: any) {
             const selectedNode = canvasCtrl.network.body.data.nodes.get(params.nodes[0])
-            if (setSelectedData) {
-                setSelectedData(selectedNode)
-            }
-            if (setRightSidebar) {
-                setRightSidebar("element-detail")
-            }
+            console.log("===selectedNode", selectedNode)
+            canvasCtrl.focusNodes([selectedNode])
+
         },
         // selectEdge: function (params) {
         //     console.log("selectEdge Event:", params);
@@ -34,12 +31,8 @@ const GenerateEvents = (canvasCtrl: GraphCanvasCtrl, setSelectedData: any, setRi
         deselectNode: function (params: any) {
             console.log("deselectNode Event:", params);
 
-            if (setRightSidebar) {
-                setRightSidebar(null)
-            }
-            if (setSelectedData) {
-                setSelectedData(null)
-            }
+            canvasCtrl.focusNodes([])
+
         },
         stabilized: function (params:any) { 
             console.log("stabilized Event:", params);
@@ -48,6 +41,23 @@ const GenerateEvents = (canvasCtrl: GraphCanvasCtrl, setSelectedData: any, setRi
             // _this.props.setRenderingStatusEnded();
             // _this.props.stopRenderingGraph();
         },
+        // click: function (params: any) {
+        //     params.event = "[click event]";
+        //     // console.log(
+        //     //     "click event, getNodeAt returns: ", params, this.getNodeAt(params.pointer.DOM)
+        //     // );
+        //     if (params.edges.length === 0 && params.nodes.length === 0) {
+        //         _this.props.setSelectedElementData(null);
+        //     }
+        // },
+ 
+        // hoverNode: function (params: any) {
+        //     console.log("hoverNode Event:", params);
+        //     if (params.event) {
+        //         // _this.props.setSelectedElementData(params.node, "g:Vertex");
+        //         // _this.props.setNodeMenuPosition(params.event.pageX, params.event.pageY);
+        //     }
+        // },
         // deselectEdge: function (params) {
         //     console.log("deselectEdge Event:", params);
         // },
