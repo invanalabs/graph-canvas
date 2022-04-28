@@ -69,13 +69,19 @@ const ExampleView = () => {
             {/*) : (<span></span>)}*/}
             <ul className="inline-list hr">
                 <li className="header-logo">Graph Canvas</li>
-                <li className={view === "data" ? 'active' : ''} onClick={()=> setView("data")}>Data</li>
+                <li className={view === "data" ? 'active ' : ''} onClick={()=> setView("data")}>Data</li>
                 <li className={view === "model" ? 'active' : ''} onClick={()=> setView("model")}>Model</li>
                 <li className={view === "viewer" ? 'active' : ''} onClick={()=> setView("viewer")}>Viewer</li>
+                <li className="float-right bold">
+                    <a target={"_blank"} href="https://github.com/invanalabs/graph-canvas">Github </a>
+                </li>
+                <li className="float-right nohover text-muted madewith">Made with love for
+                 data at <a target={"_blank"} href="https://github.com/invanalabs">InvanaLabs</a></li>
+            
             </ul>
             { view === "data"  
                 ? <div className="data-view">
-                    <textarea>{JSON.stringify(graphDataJson, null, 2)}</textarea>
+                    <textarea>{JSON.stringify(spaceXMissionsData, null, 2)}</textarea>
                     <button type="submit">Update</button>
                 </div>
                 : <React.Fragment />

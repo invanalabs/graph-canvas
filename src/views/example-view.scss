@@ -3,6 +3,12 @@ body{
     // font-size: 13px;
     // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+.bold{
+    font-weight: bold;
+}
+.text-muted{
+    color: #999 !important;
+}
 
 $primary-color: rgb(29, 148, 124);
 
@@ -13,6 +19,22 @@ $primary-color: rgb(29, 148, 124);
         display: inline-block;
         padding: 10px 15px;
         cursor: pointer;
+        color: #242424;
+        a{
+            color: #242424;
+            text-decoration: none;
+        }
+    }
+    li.nohover:hover{
+        background-color: transparent;
+        cursor: default;
+    }
+    .madewith a{
+        color: #999 !important;
+        text-decoration: underline;
+    }
+    li.float-right{
+        float: right;
     }
     li.header-logo{
        font-weight: bold; 
