@@ -21,9 +21,9 @@ import defaultOptions from "../graph/networkOptions";
 import {GraphCanvasCtrl} from "../graph/canvas-ctrl";
 import GenerateEvents from "../graph/events";
 import { json2GraphData, modelGroup2GraphData, GraphData } from "./utils";
-// import spaceXLaunchData from "../sample-data/spacex-launch-data.json"
-import spaceXMissionsData from "../sample-data/spacex-missions-data.json"
-import {nodeGroupModels, edgeGroupModels} from "./models"
+// import spaceXLaunchData from "../sample-data/spacex-launches/data.json"
+import spaceXMissionsData from "../sample-data/spacex-missions/data.json"
+import {nodeGroupModels, edgeGroupModels} from "../sample-data/spacex-missions/models"
 import "./example-view.scss"
 
 const groupsModels: any = {nodeGroupModels, edgeGroupModels}
