@@ -24,8 +24,9 @@ export type GraphDataType = {
 
 export interface CanvasArtBoardProps {
     // newData: GraphDataType,
-    renderCanvas: boolean,
-    setRenderCanvas: (state: boolean) => void,
+    // renderCanvas: boolean,
+    // setRenderCanvas: (state: boolean) => void,
+    groups: object,
     canvasCtrl: GraphCanvasCtrl,
     containerId: string,
     options: object,

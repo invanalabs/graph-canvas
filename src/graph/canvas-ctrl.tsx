@@ -64,12 +64,18 @@ export class GraphCanvasCtrl {
         // });
     }
 
-    disablePhysics(){
+    updateNetworkOptions(optionsData: any) {
+        console.log("update options", optionsData)
+        this.network.setOptions(optionsData)
+    }
+
+    disablePhysics() {
+        console.log("disablePhysics")
         this.network.setOptions({physics: false})
     }
 
 
-    focusNodes(selectedNodes: any){
+    focusNodes(selectedNodes: any) {
         console.log("===selectedNodes", selectedNodes);
         const allNodes = this.network.body.data.nodes;
         const allEdges = this.network.body.data.edges;
@@ -102,8 +108,9 @@ export class GraphCanvasCtrl {
             this.network.body.data.edges.update(allEdgesOptions)
 
         }// set all the nodes and edges opacity to 0.2
-            // set selected nodes and edges opacity to 1.0
-        else{    const allNodesOptions = allNodes.map((node: any) => ({
+        // set selected nodes and edges opacity to 1.0
+        else {
+            const allNodesOptions = allNodes.map((node: any) => ({
                 id: node.id,
                 opacity: 0.3,
                 // borderWidth: 2,
@@ -125,7 +132,7 @@ export class GraphCanvasCtrl {
             })
             console.log("=======selectedNodes", selectedNodes)
 
-            const focusedNodeIds: Array<any>= Array.from(new Set(selectedNodeIdsAll));
+            const focusedNodeIds: Array<any> = Array.from(new Set(selectedNodeIdsAll));
             const focusedNodesOptions = focusedNodeIds.map((nodeId: String) => ({
                 id: nodeId,
                 opacity: 1,
@@ -136,7 +143,7 @@ export class GraphCanvasCtrl {
                 // font: {
                 //     color: _this.getNodeColor(_this.network.body.data.nodes.get(nodeId))
                 // }
-        
+
                 font: {
                     color: defaultOptions.nodes.font.color
                 }

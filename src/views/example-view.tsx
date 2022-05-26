@@ -20,9 +20,10 @@ import CanvasArtBoard from "../graph/canvas-artboard";
 import defaultOptions from "../graph/networkOptions";
 import {GraphCanvasCtrl} from "../graph/canvas-ctrl";
 import GenerateEvents from "../graph/events";
-import { json2GraphData, modelGroup2GraphData, GraphData } from "./utils";
+import {json2GraphData, modelGroup2GraphData, GraphData} from "./utils";
 // import spaceXLaunchData from "../sample-data/spacex-launches/data.json"
 import spaceXMissionsData from "../sample-data/spacex-missions/data.json"
+import groupsData from "../sample-data/spacex-missions/groups.json"
 import {nodeGroupModels, edgeGroupModels} from "../sample-data/spacex-missions/models"
 import "./example-view.scss"
 
@@ -33,25 +34,26 @@ const ExampleView = () => {
     const [view, setView] = React.useState<string>("viewer");
 
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
-    const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
+    // const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
     const events = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
     const graphData: GraphData = json2GraphData(spaceXMissionsData, groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
-    const graphDataJson = {nodes:graphData.nodes.get(), edges: graphData.edges.get() }
-    canvasCtrl.addNewData(graphDataJson.nodes,graphDataJson.edges);
-
+    const graphDataJson = {nodes: graphData.nodes.get(), edges: graphData.edges.get()}
+    canvasCtrl.addNewData(graphDataJson.nodes, graphDataJson.edges);
 
 
     const modelCanvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
-    const [modelRenderCanvas, setModelRenderCanvas] = React.useState<boolean>(false);
+    // const [modelRenderCanvas, setModelRenderCanvas] = React.useState<boolean>(false);
     const modelEvents = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
     const schemaData: GraphData = modelGroup2GraphData(groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
-    const schemaDataJson = {nodes:schemaData.nodes.get(), edges: schemaData.edges.get() }
-    modelCanvasCtrl.addNewData(schemaDataJson.nodes,schemaDataJson.edges);
+    const schemaDataJson = {nodes: schemaData.nodes.get(), edges: schemaData.edges.get()}
+    modelCanvasCtrl.addNewData(schemaDataJson.nodes, schemaDataJson.edges);
 
 
-
-
-
+    // setTimeout(function () {
+    //     modelCanvasCtrl.updateNetworkOptions({groups: groupsData.nodeGroups})
+    //     canvasCtrl.updateNetworkOptions({groups: groupsData.nodeGroups})
+    //
+    // }, 5000);
 
     // function getRndInteger(min: any, max: any) {
     //     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -69,59 +71,64 @@ const ExampleView = () => {
             {/*) : (<span></span>)}*/}
             <ul className="inline-list hr">
                 <li className="header-logo">Graph Canvas</li>
-                <li className={view === "data" ? 'active ' : ''} onClick={()=> setView("data")}>Data</li>
-                <li className={view === "model" ? 'active' : ''} onClick={()=> setView("model")}>Model</li>
-                <li className={view === "viewer" ? 'active' : ''} onClick={()=> setView("viewer")}>Viewer</li>
+                <li className={view === "data" ? 'active ' : ''} onClick={() => setView("data")}>Data</li>
+                <li className={view === "model" ? 'active' : ''} onClick={() => setView("model")}>Model</li>
+                <li className={view === "viewer" ? 'active' : ''} onClick={() => setView("viewer")}>Viewer</li>
                 <li className="float-right bold">
-                    <a target={"_blank"} href="https://github.com/invanalabs/graph-canvas">Github </a>
+                    <a   href="https://github.com/invanalabs/graph-canvas">Github </a>
                 </li>
                 <li className="float-right nohover text-muted madewith">Made with love for
-                 data at <a target={"_blank"} href="https://github.com/invanalabs">InvanaLabs</a></li>
-            
+                    data at <a  href="https://github.com/invanalabs">InvanaLabs</a></li>
+
             </ul>
-            { view === "data"  
+            {view === "data"
                 ? <div className="data-view">
                     <textarea>{JSON.stringify(spaceXMissionsData, null, 2)}</textarea>
                     <button type="submit">Update</button>
                 </div>
-                : <React.Fragment />
+                : <React.Fragment/>
             }
-            { view === "model"  
-            ? <div className="model-view">
-                <div className="col-left">
-                    <textarea>{JSON.stringify(groupsModels, null, 2)}</textarea>
-                    <button type="submit">Update</button>
+            {view === "model"
+                ? <div className="model-view">
+                    <div className="col-left">
+                        <h3>Network Settings</h3>
+                        <textarea>{JSON.stringify(groupsModels, null, 2)}</textarea>
+                        <h3>Display Settings</h3>
+                        <textarea> </textarea>
+                        <button type="submit">Update</button>
+                    </div>
+                    <div className="col-right">
+                        <CanvasArtBoard
+                            containerId={"model-artboard"}
+                            // renderCanvas={modelRenderCanvas}
+                            // setRenderCanvas={setModelRenderCanvas}
+                            options={defaultOptions}
+                            groups={groupsData}
+                            events={modelEvents}
+                            canvasCtrl={modelCanvasCtrl}
+                            style={{width: "100%", height: "calc(-96px + 100vh)"}}
+                        />
+                    </div>
+
+
                 </div>
-                <div className="col-right">
-                    <CanvasArtBoard
-                        containerId={"model-artboard"}
-                        renderCanvas={modelRenderCanvas}
-                        setRenderCanvas={setModelRenderCanvas}
-                        options={defaultOptions}
-                        events={modelEvents}
-                        canvasCtrl={modelCanvasCtrl}
-                        style={{width: "100%", height: "calc(-96px + 100vh)", border: "1px solid rgb(143, 143, 143)"}}
-                    />
-                </div>
-               
-            
-        </div>
-        : <React.Fragment />
+                : <React.Fragment/>
             }
-            { view === "viewer"  
+            {view === "viewer"
                 ? <CanvasArtBoard
-                        containerId={"artboard-1"}
-                        renderCanvas={renderCanvas}
-                        setRenderCanvas={setRenderCanvas}
-                        options={defaultOptions}
-                        events={events}
-                        canvasCtrl={canvasCtrl}
-                        style={{width: "100%", height: "calc(100vh - 40px)"}}
-                    />
-                : <React.Fragment />
+                    containerId={"artboard-1"}
+                    // renderCanvas={renderCanvas}
+                    // setRenderCanvas={setRenderCanvas}
+                    options={defaultOptions}
+                    groups={groupsData}
+                    events={events}
+                    canvasCtrl={canvasCtrl}
+                    style={{width: "100%", height: "calc(100vh - 40px)"}}
+                />
+                : <React.Fragment/>
             }
 
-            </div>
+        </div>
     );
 };
 

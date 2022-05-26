@@ -1,0 +1,16 @@
+{
+	"nodeGroups": {
+		"Flight Number": {
+			"shape": "circle"
+		},
+		"Launch Site": {
+			"shape": "box"
+		},
+		"Vehicle Type": {
+			"shape": "circle"
+		},
+		"Customer Country": {
+			"shape": "circle"
+		}
+	}
+}
