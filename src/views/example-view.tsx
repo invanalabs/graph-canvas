@@ -37,6 +37,9 @@ const ExampleView = () => {
     const events = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
     const graphData: GraphData = json2GraphData(spaceXMissionsData, groupsModels.nodeGroupModels, groupsModels.edgeGroupModels);
     const graphDataJson = {nodes:graphData.nodes.get(), edges: graphData.edges.get() }
+    
+    console.log(graphData.nodes)
+    console.log(graphData.edges)
     canvasCtrl.addNewData(graphDataJson.nodes,graphDataJson.edges);
 
 
