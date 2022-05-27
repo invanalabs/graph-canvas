@@ -1,0 +1,23 @@
+{
+    "nodes": [
+        {
+            "id": 4,
+            "label": "Project",
+            "display_text": "Graph Canvas",
+            "properties": {
+                "name": "Graph Canvas"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "1-4",
+            "label": "authored",
+            "display_text": "authored",
+            "from": 1,
+            "to": 4,
+            "properties":{}
+        } 
+    ],
+    "focusedNodes": []
+}
