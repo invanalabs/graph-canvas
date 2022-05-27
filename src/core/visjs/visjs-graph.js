@@ -24,20 +24,22 @@ import {Network} from "vis-network/peer/esm/vis-network";
 import {DataSet} from "vis-data/peer/esm/vis-data";
 import PropTypes from "prop-types";
 import "vis-network/styles/vis-network.css";
+import ArtBoard from "../artboard";
  
 
 const VisJsGraph = ({
                    containerId,
-                   data,
+                   artBoard,
+       
                    options = {},
                    events = {},
                    style = {},
-                   getNetwork,
+                //    getNetwork,
                    getNodes,
                    getEdges,
                }) => {
-    const nodes = useRef(new DataSet(data.nodes));
-    const edges = useRef(new DataSet(data.edges));
+    const nodes = useRef(artBoard.dataStore.nodes);
+    const edges = useRef(artBoard.dataStore.edges);
     const network = useRef(null);
     const container = useRef(null);
 
@@ -47,10 +49,9 @@ const VisJsGraph = ({
             {nodes: nodes.current, edges: edges.current},
             options
         );
-
-        if (getNetwork) {
-            getNetwork(network.current);
-        }
+ 
+        artBoard.setNetwork(network.current);
+  
 
         if (getNodes) {
             getNodes(nodes.current);
@@ -62,23 +63,23 @@ const VisJsGraph = ({
     }, []);
 
     useEffect(() => {
-        const nodesChange = !isEqual(nodes.current, data.nodes);
-        const edgesChange = !isEqual(edges.current, data.edges);
+        const nodesChange = !isEqual(nodes.current, artBoard.dataStore.nodes);
+        const edgesChange = !isEqual(edges.current, artBoard.dataStore.edges);
 
         if (nodesChange) {
             const idIsEqual = (n1, n2) => n1.id === n2.id;
             const nodesRemoved = differenceWith(
                 nodes.current.get(),
-                data.nodes,
+                artBoard.dataStore.nodes,
                 idIsEqual
             );
             const nodesAdded = differenceWith(
-                data.nodes,
+                artBoard.dataStore.nodes,
                 nodes.current.get(),
                 idIsEqual
             );
             const nodesChanged = differenceWith(
-                differenceWith(data.nodes, nodes.current.get(), isEqual),
+                differenceWith(artBoard.dataStore.nodes, nodes.current.get(), isEqual),
                 nodesAdded
             );
 
@@ -90,16 +91,16 @@ const VisJsGraph = ({
         if (edgesChange) {
             const edgesRemoved = differenceWith(
                 edges.current.get(),
-                data.edges,
+                artBoard.dataStore.edges,
                 isEqual
             );
             const edgesAdded = differenceWith(
-                data.edges,
+                artBoard.dataStore.edges,
                 edges.current.get(),
                 isEqual
             );
             const edgesChanged = differenceWith(
-                differenceWith(data.edges, edges.current.get(), isEqual),
+                differenceWith(artBoard.dataStore.edges, edges.current.get(), isEqual),
                 edgesAdded
             );
             edges.current.remove(edgesRemoved);
@@ -107,8 +108,8 @@ const VisJsGraph = ({
             edges.current.update(edgesChanged);
         }
 
-        if ((nodesChange || edgesChange) && getNetwork) {
-            getNetwork(network.current);
+        if (nodesChange || edgesChange) {
+            artBoard.setNetwork(network.current);
         }
 
         if (nodesChange && getNodes) {
@@ -118,7 +119,7 @@ const VisJsGraph = ({
         if (edgesChange && getEdges) {
             getEdges(edges.current);
         }
-    }, [data]);
+    }, [artBoard.dataStore]);
 
     useEffect(() => {
         network.current.setOptions(options);
@@ -143,11 +144,12 @@ const VisJsGraph = ({
 
 VisJsGraph.propTypes = {
     containerId: PropTypes.string,
-    data: PropTypes.object,
+    artBoard: ArtBoard,
+ 
     options: PropTypes.object,
     events: PropTypes.object,
     style: PropTypes.object,
-    getNetwork: PropTypes.func,
+    // getNetwork: PropTypes.func,
     getNodes: PropTypes.func,
     getEdges: PropTypes.func,
 };

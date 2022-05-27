@@ -14,9 +14,6 @@ class ArtBoard {
     network: any = null;
     dataStore: DataStore = new DataStore();
  
-    constructor(){
-        this.dataStore = new DataStore()
-    }
 
     setNetwork(network: Network){
         this.network = this.network

@@ -16,54 +16,28 @@
 
 import { DataSet } from "vis-data"
 
-// import {GraphCanvasCtrl} from "./canvas-ctrl";
-
-export type GraphDataType = {
-    nodes: Array<any>;
-    edges: Array<any>;
-}
-
-// export interface CanvasArtBoardProps {
-//     // newData: GraphDataType,
-//     renderCanvas: boolean,
-//     setRenderCanvas: (state: boolean) => void,
-//     canvasCtrl: GraphCanvasCtrl,
-//     containerId: string,
-//     options: object,
-//     events: object,
-//     style: object
-// }
-
-// import {  PartItem } from "vis-data/declarations/data-interface"
-
-
-
-
  
-export interface Node  {
-    id: string,
-    group: string,
+export interface GraphNode  {
+    id: string | number,
     label: string,
-    // properties: any
+    display_text: string,
+    properties: any
 }
 
-
-export interface Edge  {
-    id: string,
-    group: string,
+export interface GraphEdge  {
+    id: string | number,
     label: string,
-    // properties: any
+    display_text: string,
+    from: string | number,
+    to: string | number,
+    properties: any
 }
-
-
- 
 
 export interface  GraphData {
-    nodes: DataSet<any> ,
-    edges: DataSet<any>,
-    focusedNodes: DataSet<any>
+    nodes: Array<GraphNode> ,
+    edges: Array<GraphEdge>,
+    focusedNodes: Array<GraphNode> 
 }
-
 
 export interface NodeStyle{
 

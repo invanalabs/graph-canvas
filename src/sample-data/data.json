@@ -1,0 +1,55 @@
+{
+    "nodes": [
+        {
+            "id": 1,
+            "label": "Person",
+            "display_text": "Ravi",
+            "properties": {
+                "name": "Ravi"
+            }
+        },
+        {
+            "id": 2,
+            "label": "Project",
+            "display_text": "Invana Studio",
+            "properties": {
+                "name": "Invana Studio"
+            }
+        },
+        {
+            "id": 3,
+            "label": "Project",
+            "display_text": "Invana Engine",
+            "properties": {
+                "name": "Invana Engine"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "id": "1-2",
+            "label": "authored",
+            "display_text": "authored",
+            "from": 1,
+            "to": 2,
+            "properties":{}
+        },
+        {
+            "id": "1-3",
+            "label": "authored",
+            "display_text": "authored",
+            "from": 1,
+            "to": 3,
+            "properties":{}
+        },
+        {
+            "id": "2-3",
+            "label": "depends_on",
+            "display_text": "depends_on",
+            "from": 2,
+            "to": 3,
+            "properties":{}
+        }
+    ],
+    "focusedNodes": []
+}
