@@ -13,18 +13,14 @@ const ExampleView = ()=> {
     const artBoard: ArtBoard = new ArtBoard();
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
     // const events = GenerateEvents(canvasCtrl, () => console.log("ok"), null)
-    // const graphDataJson = {nodes:sampleData.nodes, edges: sampleData.edges }
     const defaultOptions = {}
     console.log(sampleData.nodes)
     console.log(sampleData.edges)
-    // artBoard.dataStore.updateData(graphDataJson.nodes,graphDataJson.edges);
     const events = {}
     artBoard.dataStore.addData(sampleData.nodes, sampleData.edges, sampleData.focusedNodes);
 
     setTimeout(()=> {
-        artBoard.dataStore.addData(dataUpdate.nodes, dataUpdate.edges, dataUpdate.focusedNodes);
-
-        
+        artBoard.dataStore.addData(dataUpdate.nodes, dataUpdate.edges, dataUpdate.focusedNodes);        
     }, 2000)
    return (
  
