@@ -22,12 +22,11 @@ import isEqual from "lodash/isEqual";
 import differenceWith from "lodash/differenceWith";
 import {Network} from "vis-network/peer/esm/vis-network";
 import {DataSet} from "vis-data/peer/esm/vis-data";
-
 import PropTypes from "prop-types";
 import "vis-network/styles/vis-network.css";
+ 
 
-
-const Graph = ({
+const VisJsGraph = ({
                    containerId,
                    data,
                    options = {},
@@ -139,10 +138,10 @@ const Graph = ({
         };
     }, [events]);
 
-    return <div id={containerId} ref={container} style={style}/>;
+    return (<div id={containerId} ref={container} style={style}/>);
 };
 
-Graph.propTypes = {
+VisJsGraph.propTypes = {
     containerId: PropTypes.string,
     data: PropTypes.object,
     options: PropTypes.object,
@@ -153,4 +152,4 @@ Graph.propTypes = {
     getEdges: PropTypes.func,
 };
 
-export default Graph;
+export default VisJsGraph;

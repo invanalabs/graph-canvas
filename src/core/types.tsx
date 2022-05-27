@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
+import { DataSet } from "vis-data"
 
-import {GraphCanvasCtrl} from "./canvas-ctrl";
+// import {GraphCanvasCtrl} from "./canvas-ctrl";
 
 export type GraphDataType = {
     nodes: Array<any>;
     edges: Array<any>;
 }
 
-export interface CanvasArtBoardProps {
-    // newData: GraphDataType,
-    renderCanvas: boolean,
-    setRenderCanvas: (state: boolean) => void,
-    canvasCtrl: GraphCanvasCtrl,
-    containerId: string,
-    options: object,
-    events: object,
-    style: object
-}
+// export interface CanvasArtBoardProps {
+//     // newData: GraphDataType,
+//     renderCanvas: boolean,
+//     setRenderCanvas: (state: boolean) => void,
+//     canvasCtrl: GraphCanvasCtrl,
+//     containerId: string,
+//     options: object,
+//     events: object,
+//     style: object
+// }
 
-import { DataSet } from "vis-data"
 // import {  PartItem } from "vis-data/declarations/data-interface"
 
 
@@ -60,5 +60,15 @@ export interface Edge  {
 
 export interface  GraphData {
     nodes: DataSet<any> ,
-    edges: DataSet<any>
+    edges: DataSet<any>,
+    focusedNodes: DataSet<any>
+}
+
+
+export interface NodeStyle{
+
+}
+
+export interface EdgeStyle{
+    
 }
