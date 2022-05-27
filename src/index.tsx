@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 // import ExampleView from "./views/example-view";
-import ExampleView from "./views/simple-example-view"
+import ExampleView from "./views/example-view"
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement

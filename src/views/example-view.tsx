@@ -5,7 +5,7 @@ import {GraphCanvasCtrl} from "../contribs/visjs/canvas-ctrl";
 import GenerateEvents from "../contribs/visjs/events";
 import sampleData from "../sample-data/data.tsx"
 
-const SimpleExampleView = ()=> {
+const ExampleView = ()=> {
 
     const canvasCtrl: GraphCanvasCtrl = new GraphCanvasCtrl();
     const [renderCanvas, setRenderCanvas] = React.useState<boolean>(false);
@@ -32,4 +32,4 @@ const SimpleExampleView = ()=> {
      )
 }
 
-export default SimpleExampleView
+export default ExampleView
