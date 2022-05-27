@@ -21,21 +21,6 @@ import {CanvasArtBoardProps} from "./types";
 class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
 
 
-    // static propTypes = {
-    //     elementId: PropTypes.string,
-    //     // resetVisualizer: PropTypes.bool,
-    //     // setSelectedElementData: PropTypes.func,
-    //     // setNodeMenuPosition: PropTypes.func,
-    //     // setNetwork: PropTypes.func,
-    //     data: PropTypes.object,
-    //     // edges: PropTypes.array,
-    //     options: PropTypes.object,
-    //     // stopRenderingGraph: PropTypes.func,
-    //     // hiddenNodeLabels: PropTypes.array,
-    //     // hiddenEdgeLabels: PropTypes.array
-    // }
-
-
     render() {
         return (
             <div className={"canvasContainer"}>
@@ -46,9 +31,6 @@ class CanvasArtBoard extends React.Component<CanvasArtBoardProps, {}> {
                     events={this.props.events}
                     getNetwork={(network) => this.props.canvasCtrl.setNetwork(network)}
                     style={this.props.style}
-                    // getNodes={this.props.getNodes}
-                    // getEdges={this.props.getEdges}
-                    // getNodes={getNodes}
                 />
             </div>
         )
