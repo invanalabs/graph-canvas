@@ -61,25 +61,25 @@ export default class GraphCanvas {
 
         G6.Util.processParallelEdges(data.edges);
 
-        // this.graph.data({
-        //     nodes: data.nodes.map(function (node, i) {
-        //         node.id = node.id.toString();
-        //         return Object.assign({}, node);
-        //     }),
-        //     // edges: []
-        //     edges: data.edges.map(function (edge, i) {
-        //         if (edge.id) {
-        //             edge.id = edge.id.toString();
-        //         }
-        //         edge.source = edge.source.toString();
-        //         edge.target = edge.target.toString();
-        //
-        //         return Object.assign({}, edge);
-        //     })
-        // });
-        // this.graph.render();
-        // const canvas = this.graph.get("canvas");
-        // canvas.set("localRefresh", true);
+        this.graph.data({
+            nodes: data.nodes.map(function (node, i) {
+                node.id = node.id.toString();
+                return Object.assign({}, node);
+            }),
+            // edges: []
+            edges: data.edges.map(function (edge, i) {
+                if (edge.id) {
+                    edge.id = edge.id.toString();
+                }
+                edge.source = edge.source.toString();
+                edge.target = edge.target.toString();
+
+                return Object.assign({}, edge);
+            })
+        });
+        this.graph.render();
+        const canvas = this.graph.get("canvas");
+        canvas.set("localRefresh", true);
 
 
         // // for testing tree
@@ -94,11 +94,11 @@ export default class GraphCanvas {
         //     })
 
 
-        this.graph.data(data2)
-        this.graph.render();
-
-        const canvas = this.graph.get("canvas");
-        canvas.set("localRefresh", true);
+        // this.graph.data(data2)
+        // this.graph.render();
+        //
+        // const canvas = this.graph.get("canvas");
+        // canvas.set("localRefresh", true);
 
 
         // this.graph.on("node:dragstart", function (e) {

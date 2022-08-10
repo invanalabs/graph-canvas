@@ -1,8 +1,10 @@
 import G6 from "@antv/g6";
 import React from "react";
 import {gForceLayoutSettings, gridLayoutSettings} from "./layouts/settings";
+import {GraphOptions} from "@antv/g6";
 
 const defaultSettings = {
+    // renderer: "svg",
     // layout: compactBoxLayoutSettings,
     layout: gridLayoutSettings,
     // needed for undo and redo
@@ -43,7 +45,7 @@ const defaultSettings = {
         }
     },
     defaultEdge: {
-        type: "polyline", // "line",  "arc", "quadratic", "cubic", "polyline", "loop"
+        type: "line", // "line",  "arc", "quadratic", "cubic", "polyline", "loop"
         labelCfg: {
             autoRotate: true,
             style: {
@@ -62,19 +64,18 @@ const defaultSettings = {
             opacity: 0.6, // The opacity of edges
             stroke: "#999", // The color of the edges,
             shadowBlur: 0,
-            // endArrow: true
-            // startArrow: true,
-            // length: 200,
-            // endArrow: true
-
             endArrow: {
                 path: G6.Arrow.triangle(5, 7, 6), // Using the built-in edges for the path, parameters are the width, length, offset (0 by default, corresponds to d), respectively
-                d: 0,
+                // d: 0,
                 fill: "#999",
                 stroke: "#999"
                 // opacity: 1
                 // lineWidth: 2
-            }
+            },
+            // endArrow: {
+            //   path: 'M 0,0 L 8,4 L 8,-4 Z',
+            //   fill: '#e2e2e2',
+            // },
         },
         loopCfg: {
             position: "top"
@@ -93,6 +94,7 @@ const defaultSettings = {
             "activate-relations",
             "drag-canvas", "zoom-canvas", "drag-node"]
     },
+    // https://g6.antv.vision/en/docs/manual/middle/states/state
     nodeStateStyles: {
         // The state styles defined as following will take effect on keyShape only. To define state styles on other shapes, refer to the link Configure Styles for State above
         hover: {
@@ -102,7 +104,21 @@ const defaultSettings = {
         },
         selected: {
             shadowBlur: 0,
-        }
+        },
+        select: {
+            shadowBlur: 0,
+        },
+        click: {
+            shadowBlur: 0,
+        },
+        // activeByLegend: {
+        //     lineWidth: 5,
+        //     strokeOpacity: 0.5,
+        //     stroke: '#f00'
+        // },
+        // inactiveByLegend: {
+        //     opacity: 0.5
+        // }
     },
     /* styles for different states, there are built-in styles for states: active, inactive, selected, highlight, disable */
     edgeStateStyles: {
