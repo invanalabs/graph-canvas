@@ -1,38 +1,62 @@
 import {
-  gridLayoutSettings,
-  radialLayoutSettings,
-  circularLayoutSettings,
-  concentricLayoutSettings,
-  forceLayoutSettings,
-  gForceLayoutSettings
+    gridLayoutSettings,
+    radialLayoutSettings,
+    circularLayoutSettings,
+    concentricLayoutSettings,
+    forceLayoutSettings,
+    gForceLayoutSettings
 } from "./settings";
 
 export default class LayoutManager {
-  // change layout
-  //
+    // change layout
+    //
 
-  constructor(graph) {
-    this.graph = graph;
-  }
 
-  updateLayout(layoutName) {
-    let layoutSettings = null;
-    if (layoutName === "grid") {
-      layoutSettings = gridLayoutSettings;
-    } else if (layoutName === "radial") {
-      layoutSettings = radialLayoutSettings;
-    } else if (layoutName === "circular") {
-      layoutSettings = circularLayoutSettings;
-    } else if (layoutName === "concentric") {
-      layoutSettings = concentricLayoutSettings;
-    } else if (layoutName === "force") {
-      layoutSettings = forceLayoutSettings;
-    } else if (layoutName === "gForce") {
-      layoutSettings = gForceLayoutSettings;
+    gridLayout(graph) {
+        this.updateLayout(graph, "grid")
     }
-    this.graph.destroyLayout();
-    this.graph.updateLayout(layoutSettings);
 
-    this.graph.render(); // needed to add this line
-  }
+    radialLayout(graph) {
+        this.updateLayout(graph, "radial")
+    }
+
+    circularLayout(graph) {
+        this.updateLayout(graph, "circular")
+    }
+
+    concentricLayout(graph) {
+        this.updateLayout(graph, "concentric")
+    }
+
+    forceLayout(graph) {
+        this.updateLayout(graph, "force")
+    }
+
+
+    gForceLayout(graph) {
+        this.updateLayout(graph, "gForce")
+    }
+
+
+    updateLayout(graph, layoutName) {
+        let layoutSettings = null;
+        if (layoutName === "grid") {
+            layoutSettings = gridLayoutSettings;
+        } else if (layoutName === "radial") {
+            layoutSettings = radialLayoutSettings;
+        } else if (layoutName === "circular") {
+            layoutSettings = circularLayoutSettings;
+        } else if (layoutName === "concentric") {
+            layoutSettings = concentricLayoutSettings;
+        } else if (layoutName === "force") {
+            layoutSettings = forceLayoutSettings;
+        } else if (layoutName === "gForce") {
+            layoutSettings = gForceLayoutSettings;
+        }
+        graph.destroyLayout();
+
+        graph.updateLayout(layoutSettings);
+
+        graph.render(); // needed to add this line
+    }
 }

@@ -1,6 +1,7 @@
 import GraphCanvas from "../components/canvas";
 import React from "react";
 import exampleData, { testData } from "./data";
+import "./style.css";
 
 export default class ExampleUsage1 extends React.Component {
   constructor(props) {
@@ -10,7 +11,7 @@ export default class ExampleUsage1 extends React.Component {
   }
 
   componentDidMount() {
-    this.canvas = new GraphCanvas("container");
+    this.canvas = new GraphCanvas("container", null, 1080-250);
     const data = exampleData;
     // const data = testData;
     this.canvas.render(Object.assign({}, data));
