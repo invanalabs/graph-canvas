@@ -6,7 +6,7 @@ import gForceLayoutSettings, {
   radialLayoutSettings,
   circularLayoutSettings,
   concentricLayoutSettings
-} from "./layouts";
+} from "./layouts/settings";
 
 const defaultSettings = {
   layout: gridLayoutSettings,

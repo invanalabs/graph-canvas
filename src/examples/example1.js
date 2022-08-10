@@ -48,8 +48,8 @@ export default class ExampleUsage1 extends React.Component {
         </button>
         |<button onClick={() => this.canvas.graph.clear("graph")}>clear</button>
         <hr /> */}
-        <div id="toolbar"></div> 
-        <div id="container"></div>
+        <div id="toolbar"/>
+        <div id="container"/>
       </div>
     );
   }

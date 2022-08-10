@@ -1,6 +1,6 @@
 import G6 from "@antv/g6";
 import defaultSettings, { testSettings } from "../canvas/settings";
-import CanvasMenu from "../canvas/menu";
+import CanvasMenu from "../canvas/layouts/menu";
 
 export default class GraphCanvas {
   constructor(containerId, canvasWidth, canvasHeight) {
@@ -40,7 +40,7 @@ export default class GraphCanvas {
     });
 
     const toolbar = new G6.ToolBar({
-        container: document.getElementById("toolbar"),
+        // container: document.getElementById("toolbar"),
         getContent: () => {
         return `
           <ul>

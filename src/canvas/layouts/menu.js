@@ -5,7 +5,7 @@ import {
   concentricLayoutSettings,
   forceLayoutSettings,
   gForceLayoutSettings
-} from "./layouts";
+} from "./settings";
 
 export default class CanvasMenu {
   // change layout

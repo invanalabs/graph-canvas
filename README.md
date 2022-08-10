@@ -1,6 +1,6 @@
 # graph-canvas
 
-React UI components for creating meaning network graphs.
+React UI components for creating insightful network graphs.
 
 
 ## Feature Checking 

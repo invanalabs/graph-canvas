@@ -1,7 +1,7 @@
 {
   "name": "graph-canvas",
   "version": "0.0.0",
-  "description": "",
+  "description": "React UI components for creating insightful network graphs.",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
