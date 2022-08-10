@@ -17,17 +17,6 @@ export const gForceLayoutSettings = {
     // onTick: () => {
     //   console.log("ticking");
     // },
-    // onLayoutEnd: (graph) => {
-    //     console.log("force layout done");
-    //     // const nodes = graph.getNodes();
-    //     // const edges = graph.getEdges();
-    //     // nodes.forEach((node) => {
-    //     //     node.show();
-    //     // });
-    //     // edges.forEach((edge) => {
-    //     //     edge.show();
-    //     // });
-    // },
     workerEnabled: true, // Whether to activate web-worker
     gpuEnabled: true // Whether to enable the GPU parallel computing, supported by G6 4.0
     // ... // more options are shown below
@@ -68,20 +57,23 @@ export const concentricLayoutSettings = {
 
 export const compactBoxLayoutSettings = {
     type: 'compactBox',
-    direction: 'TB',
-    getId: function getId(d) {
-        return d.id;
-    },
-    getHeight: function getHeight() {
-        return 16;
-    },
-    getWidth: function getWidth() {
-        return 16;
-    },
-    getVGap: function getVGap() {
-        return 40;
-    },
-    getHGap: function getHGap() {
-        return 70;
-    },
+    direction: 'LR', // H / V / LR / RL / TB / BT
+    nodeSep: 50,
+    rankSep: 100,
+    // radial: true,
+    // getId: function getId(d) {
+    //     return d.id;
+    // },
+    // getHeight: function getHeight() {
+    //     return 16;
+    // },
+    // getWidth: function getWidth() {
+    //     return 16;
+    // },
+    // getVGap: function getVGap() {
+    //     return 40;
+    // },
+    // getHGap: function getHGap() {
+    //     return 70;
+    // },
 };

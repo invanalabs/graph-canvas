@@ -4,6 +4,7 @@ import LayoutManager from "../canvas/layouts/manager";
 import toolbar from "../canvas/plugins/toolbar";
 import minimap from "../canvas/plugins/minimap";
 import grid from "../canvas/plugins/grid";
+import data2 from "../examples/data2";
 
 export default class GraphCanvas {
     constructor(containerId, canvasWidth, canvasHeight) {
@@ -34,7 +35,6 @@ export default class GraphCanvas {
         // let defaultSettings_ = Object.assign({}, testSettings);
         // Configure Grid and Minimap to the graph
 
-
         defaultSettings_.plugins = [grid, minimap, toolbar];
 
         defaultSettings_.height = this.canvasHeight;
@@ -61,26 +61,45 @@ export default class GraphCanvas {
 
         G6.Util.processParallelEdges(data.edges);
 
-        this.graph.data({
-            nodes: data.nodes.map(function (node, i) {
-                node.id = node.id.toString();
-                return Object.assign({}, node);
-            }),
-            // edges: []
-            edges: data.edges.map(function (edge, i) {
-                if (edge.id) {
-                    edge.id = edge.id.toString();
-                }
-                edge.source = edge.source.toString();
-                edge.target = edge.target.toString();
+        // this.graph.data({
+        //     nodes: data.nodes.map(function (node, i) {
+        //         node.id = node.id.toString();
+        //         return Object.assign({}, node);
+        //     }),
+        //     // edges: []
+        //     edges: data.edges.map(function (edge, i) {
+        //         if (edge.id) {
+        //             edge.id = edge.id.toString();
+        //         }
+        //         edge.source = edge.source.toString();
+        //         edge.target = edge.target.toString();
+        //
+        //         return Object.assign({}, edge);
+        //     })
+        // });
+        // this.graph.render();
+        // const canvas = this.graph.get("canvas");
+        // canvas.set("localRefresh", true);
 
-                return Object.assign({}, edge);
-            })
-        });
+
+        // // for testing tree
+        // fetch('https://gw.alipayobjects.com/os/antvdemo/assets/data/algorithm-category.json')
+        //     .then((res) => res.json())
+        //     .then((data) => {
+        //         _this.graph.data(data)
+        //         this.graph.render();
+        //
+        //         const canvas = this.graph.get("canvas");
+        //         canvas.set("localRefresh", true);
+        //     })
+
+
+        this.graph.data(data2)
         this.graph.render();
 
         const canvas = this.graph.get("canvas");
         canvas.set("localRefresh", true);
+
 
         // this.graph.on("node:dragstart", function (e) {
         //   const forceLayout = _this.graph.get("layoutController").layoutMethods[0];
@@ -107,6 +126,15 @@ export default class GraphCanvas {
         //   e.item.get("model").fx = null;
         //   e.item.get("model").fy = null;
         // });
+
+
+//Highlight the node and its related nodes and edges when the mouse enter the node;
+        this.graph.on('afteractivaterelations', (e) => {
+            // The current manipulated item
+            console.log(e.item);
+            // A string tag to distinguish whether the current action is `'activate'` or `'deactivate'`
+            console.log(e.action);
+        });
 
         // Listen to the mouse enter event on node
         this.graph.on("node:mouseenter", (evt) => {
@@ -154,6 +182,8 @@ export default class GraphCanvas {
                 edge.show();
             });
             _this.graph.fitView();
+            _this.graph.paint();
+            _this.graph.refresh();
         });
         this.graph.on("beforelayout", function () {
             //descriptionDiv.innerHTML = 'Done!';

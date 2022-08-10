@@ -57,7 +57,8 @@ export default class LayoutManager {
 
         graph.updateLayout(layoutSettings);
 
+
         graph.render(); // needed to add this line
-        graph.paint();
+
     }
 }

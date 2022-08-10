@@ -1,10 +1,10 @@
 import G6 from "@antv/g6";
 import React from "react";
-import {gForceLayoutSettings} from "./layouts/settings";
+import {gForceLayoutSettings, gridLayoutSettings} from "./layouts/settings";
 
 const defaultSettings = {
-    layout: gForceLayoutSettings,
-    // layout: forceLayoutSettings,
+    // layout: compactBoxLayoutSettings,
+    layout: gridLayoutSettings,
     // needed for undo and redo
     enabledStack: true,
     // translate the graph to align the canvas's center, support by v3.5.1
@@ -21,7 +21,8 @@ const defaultSettings = {
         style: {
             // fill: "steelblue", // The filling color of nodes
             // stroke: "#666", // The stroke color of nodes
-            lineWidth: 1 // The line width of the stroke of nodes,
+            lineWidth: 1, // The line width of the stroke of nodes,
+            shadowBlur: 0,
         },
         // The properties for label of nodes
         labelCfg: {
@@ -60,7 +61,7 @@ const defaultSettings = {
             cursor: true,
             opacity: 0.6, // The opacity of edges
             stroke: "#999", // The color of the edges,
-
+            shadowBlur: 0,
             // endArrow: true
             // startArrow: true,
             // length: 200,
@@ -89,13 +90,18 @@ const defaultSettings = {
             //         return true;
             //     },
             // },
+            "activate-relations",
             "drag-canvas", "zoom-canvas", "drag-node"]
     },
     nodeStateStyles: {
         // The state styles defined as following will take effect on keyShape only. To define state styles on other shapes, refer to the link Configure Styles for State above
         hover: {
             // fillOpacity: 0.9,
-            lineWidth: 2
+            lineWidth: 2,
+            shadowBlur: 0,
+        },
+        selected: {
+            shadowBlur: 0,
         }
     },
     /* styles for different states, there are built-in styles for states: active, inactive, selected, highlight, disable */
@@ -103,12 +109,14 @@ const defaultSettings = {
         // edge style of active state
         active: {
             opacity: 0.5,
-            stroke: "#f00"
+            stroke: "#f00",
+            shadowBlur: 0,
         },
         // edge style of selected state
         selected: {
             stroke: "#28a11f",
-            lineWidth: 3
+            lineWidth: 3,
+            shadowBlur: 0,
         }
     }
 };
