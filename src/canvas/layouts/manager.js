@@ -7,7 +7,7 @@ import {
   gForceLayoutSettings
 } from "./settings";
 
-export default class CanvasMenu {
+export default class LayoutManager {
   // change layout
   //
 
