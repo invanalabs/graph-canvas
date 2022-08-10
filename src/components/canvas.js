@@ -144,8 +144,28 @@ export default class GraphCanvas {
 
         this.graph.on("afterlayout", function () {
             //descriptionDiv.innerHTML = 'Done!';
-            // after layout is done.
+            console.log("after layout is done.");
+            const nodes = _this.graph.getNodes();
+            const edges = _this.graph.getEdges();
+            nodes.forEach((node) => {
+                node.show();
+            });
+            edges.forEach((edge) => {
+                edge.show();
+            });
             _this.graph.fitView();
+        });
+        this.graph.on("beforelayout", function () {
+            //descriptionDiv.innerHTML = 'Done!';
+            console.log("before layout is done.");
+            const nodes = _this.graph.getNodes();
+            const edges = _this.graph.getEdges();
+            nodes.forEach((node) => {
+                node.hide();
+            });
+            edges.forEach((edge) => {
+                edge.hide();
+            });
         });
 
         if (typeof window !== "undefined")

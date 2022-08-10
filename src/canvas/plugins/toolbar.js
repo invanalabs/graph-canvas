@@ -65,6 +65,7 @@ const toolbar = new G6.ToolBar({
             graph.clear();
         } else if (code === "refresh") {
             graph.refresh();
+            graph.paint();
         }
     }
 });
