@@ -23,8 +23,9 @@ const defaultSettings = {
         style: {
             // fill: "steelblue", // The filling color of nodes
             // stroke: "#666", // The stroke color of nodes
-            lineWidth: 1, // The line width of the stroke of nodes,
+            lineWidth: 2, // The line width of the stroke of nodes,
             shadowBlur: 0,
+            backgroundStroke: "#d76e6e"
         },
         // The properties for label of nodes
         labelCfg: {
@@ -50,12 +51,13 @@ const defaultSettings = {
             autoRotate: true,
             style: {
                 fontSize: 12, // The font size of the label
-                background: {
-                    fill: "#ffffff",
-                    stroke: "#9EC9FF",
-                    padding: [1, 1, 1, 1],
-                    radius: 2
-                }
+                fill: "#999999"
+                // background: {
+                //     fill: "#ffffff",
+                //     stroke: "#9EC9FF",
+                //     padding: [1, 1, 1, 1],
+                //     radius: 2
+                // }
             }
         },
         // The style properties of edges
@@ -98,14 +100,20 @@ const defaultSettings = {
     nodeStateStyles: {
         // The state styles defined as following will take effect on keyShape only. To define state styles on other shapes, refer to the link Configure Styles for State above
         hover: {
-            // fillOpacity: 0.9,
-            lineWidth: 2,
-            shadowBlur: 0,
+            lineWidth: 5,
+            strokeOpacity: 0.5,
+            stroke: '#f00'
         },
         selected: {
             shadowBlur: 0,
         },
         select: {
+            shadowBlur: 0,
+        },
+        inactive: {
+            shadowBlur: 0,
+        },
+        active: {
             shadowBlur: 0,
         },
         click: {
@@ -123,17 +131,49 @@ const defaultSettings = {
     /* styles for different states, there are built-in styles for states: active, inactive, selected, highlight, disable */
     edgeStateStyles: {
         // edge style of active state
+
+        // default, active, inactive, disabled, selected, highlight
+        // https://g6.antv.vision/en/docs/design/global/style#%E4%BA%A4%E4%BA%92%E6%A0%B7%E5%BC%8F-1
         active: {
             opacity: 0.5,
             stroke: "#f00",
             shadowBlur: 0,
+            lineAppendWidth: 4,
+            // lineWidth: 4,
+            "edge-text": {
+                fill: "#f00f00"
+            }
+            // labelCfg: {
+            //     style: {
+            //         fill: "#f00f00"
+            //     }
+            // },
+        },
+        inactive: {
+            opacity: 0.5,
+            stroke: "#e2ff00",
+            shadowBlur: 0,
+            // 'edge-label': {
+            //     fill: "#e2ff00"
+            // },
         },
         // edge style of selected state
         selected: {
             stroke: "#28a11f",
-            lineWidth: 3,
+            lineWidth: 2,
             shadowBlur: 0,
-        }
+            // "edge-label": {
+            //     fill: "#28a11f"
+            // }
+        },
+        // default: {
+        //     stroke: "#b5c7b4",
+        //     lineWidth: 2,
+        //     shadowBlur: 0,
+        //     // "edge-label": {
+        //     //     fill: "#b5c7b4"
+        //     // }
+        // }
     }
 };
 

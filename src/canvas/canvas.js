@@ -6,11 +6,15 @@ import minimap from "./plugins/minimap";
 import grid from "./plugins/grid";
 import data2 from "../examples/data2";
 import convertJSONToObjects from "./utils";
+import {registerGraphinCircle} from "@antv/graphin/es/shape";
+import {registerGraphinLine} from "@antv/graphin/es/shape";
+
+registerGraphinCircle()
+registerGraphinLine()
 
 export default class GraphCanvas {
     constructor(containerId, canvasWidth, canvasHeight) {
         this.container = document.getElementById(containerId);
-
         this.containerId = containerId;
         this.canvasWidth = canvasWidth || this.container.scrollWidth;
         this.canvasHeight = canvasHeight || this.container.scrollHeight || 600;

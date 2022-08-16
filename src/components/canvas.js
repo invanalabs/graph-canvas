@@ -1,6 +1,7 @@
 import GraphCanvas from "../canvas/canvas";
 import React from "react";
 import exampleData, { testData } from "../examples/data";
+import flightsData from "../examples/fight-data";
 import "./canvas.css";
 
 export default class GraphCanvasComponent extends React.Component {
@@ -12,7 +13,7 @@ export default class GraphCanvasComponent extends React.Component {
 
   componentDidMount() {
     this.canvas = new GraphCanvas("container", null, 1080-250);
-    const data = exampleData;
+    const data = flightsData;
     // const data = testData;
     this.canvas.render(Object.assign({}, data));
     // this.canvas.graph.setTextWaterMarker(["Invana Studio"]);

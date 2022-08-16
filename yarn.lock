@@ -200,12 +200,23 @@
     "@antv/util" "^2.0.9"
     "insert-css" "^2.0.0"
 
-"@antv/g6@4.6.18":
+"@antv/g6@^4.6.17", "@antv/g6@4.6.18":
   "integrity" "sha512-0t2KVyQCi8zUkc/d9TdS56KFA0H0sWR4nuY/0dVIUIBk9EE9HpFIpFiQIV9hdyTHIIEoYRZFZuFMvyp1/8rEOw=="
   "resolved" "https://registry.npmjs.org/@antv/g6/-/g6-4.6.18.tgz"
   "version" "4.6.18"
   dependencies:
     "@antv/g6-pc" "0.6.18"
+
+"@antv/graphin@^2.7.3":
+  "integrity" "sha512-vTBpt1nv6XUjirhk2ztqXJblh1XEtgWC2ao4QBZ0r/Hf9jT9BNA2a+uksMqWQ85H1aS3eDD3LFRfbECAazLhrA=="
+  "resolved" "https://registry.npmjs.org/@antv/graphin/-/graphin-2.7.3.tgz"
+  "version" "2.7.3"
+  dependencies:
+    "@antv/g6" "^4.6.17"
+    "@antv/util" "^2.0.10"
+    "@types/lodash.clonedeep" "^4.5.6"
+    "d3-quadtree" "^3.0.1"
+    "lodash.clonedeep" "^4.5.0"
 
 "@antv/graphlib@^1.0.0":
   "integrity" "sha512-hhJOMThec51nU4Fe5p/viLlNIL71uDEgYFzKPajWjr2715SFG1HAgiP6AVylIeqBcAZ04u3Lw7usjl/TuI5RuQ=="
@@ -266,7 +277,7 @@
     "fecha" "~4.2.0"
     "tslib" "^2.0.0"
 
-"@antv/util@^2.0.13", "@antv/util@^2.0.7", "@antv/util@^2.0.9", "@antv/util@~2.0.0", "@antv/util@~2.0.13", "@antv/util@~2.0.3", "@antv/util@~2.0.5":
+"@antv/util@^2.0.10", "@antv/util@^2.0.13", "@antv/util@^2.0.7", "@antv/util@^2.0.9", "@antv/util@~2.0.0", "@antv/util@~2.0.13", "@antv/util@~2.0.3", "@antv/util@~2.0.5":
   "integrity" "sha512-o6I9hi5CIUvLGDhth0RxNSFDRwXeywmt6ExR4+RmVAzIi48ps6HUy+svxOCayvrPBN37uE6TAc2KDofRo0nK9Q=="
   "resolved" "https://registry.npmjs.org/@antv/util/-/util-2.0.17.tgz"
   "version" "2.0.17"
@@ -2181,6 +2192,18 @@
   "resolved" "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
   "version" "0.0.29"
 
+"@types/lodash.clonedeep@^4.5.6":
+  "integrity" "sha512-ccNqkPptFIXrpVqUECi60/DFxjNKsfoQxSQsgcBJCX/fuX1wgyQieojkcWH/KpE3xzLoWN/2k+ZeGqIN3paSvw=="
+  "resolved" "https://registry.npmjs.org/@types/lodash.clonedeep/-/lodash.clonedeep-4.5.7.tgz"
+  "version" "4.5.7"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  "integrity" "sha512-UXavyuxzXKMqJPEpFPri6Ku5F9af6ZJXUneHhvQJxavrEjuHkFp2YnDWHcxJiG7hk8ZkWqjcyNeW1s/smZv5cw=="
+  "resolved" "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.183.tgz"
+  "version" "4.14.183"
+
 "@types/mime@*":
   "integrity" "sha512-Y4XFY5VJAuw0FgAqPNd6NNoV44jbq9Bz2L7Rh/J6jLTiHBSBJa9fxqQIvkIld4GsoDOcCbvzOUAbLPsSKKg+uA=="
   "resolved" "https://registry.npmjs.org/@types/mime/-/mime-3.0.1.tgz"
@@ -3733,6 +3756,11 @@
   "version" "1.4.0"
   dependencies:
     "d3-color" "1"
+
+"d3-quadtree@^3.0.1":
+  "integrity" "sha512-04xDrxQTDTCFwP5H6hRhsRcb9xxv2RzkcsygFzmkSIOJy3PeRJP7sNk3VRIbKXcog561P9oU0/rVH6vDROAgUw=="
+  "resolved" "https://registry.npmjs.org/d3-quadtree/-/d3-quadtree-3.0.1.tgz"
+  "version" "3.0.1"
 
 "d3-quadtree@1 - 2":
   "integrity" "sha512-b0Ed2t1UUalJpc3qXzKi+cPGxeXRr4KU9YSlocN74aTzp6R/Ud43t79yLLqxHRWZfsvWXmbDWPpoENK1K539xw=="
@@ -6263,6 +6291,11 @@
   dependencies:
     "p-locate" "^5.0.0"
 
+"lodash.clonedeep@^4.5.0":
+  "integrity" "sha512-H5ZhCF25riFd9uB5UCkVKo61m3S/xZk1x4wA6yp/L3RFP6Z/eHH1ymQcGLo7J3GMPfm0V/7m1tryHuGVxpqEBQ=="
+  "resolved" "https://registry.npmjs.org/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz"
+  "version" "4.5.0"
+
 "lodash.debounce@^4.0.8":
   "integrity" "sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow=="
   "resolved" "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
@@ -7681,7 +7714,7 @@
     "strip-ansi" "^6.0.1"
     "text-table" "^0.2.0"
 
-"react-dom@18.2.0":
+"react-dom@>=16.9.0", "react-dom@18.2.0":
   "integrity" "sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g=="
   "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
   "version" "18.2.0"
@@ -7769,7 +7802,7 @@
   optionalDependencies:
     "fsevents" "^2.3.2"
 
-"react@^18.2.0", "react@>= 16", "react@18.2.0":
+"react@^18.2.0", "react@>= 16", "react@>=16.9.0", "react@18.2.0":
   "integrity" "sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ=="
   "resolved" "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   "version" "18.2.0"
