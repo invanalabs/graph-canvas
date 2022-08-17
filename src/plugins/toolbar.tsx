@@ -1,25 +1,9 @@
 import React from "react";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
-import { ZoomInOutlined, ZoomOutOutlined } from "@ant-design/icons";
+import {ZoomInOutlined, ZoomOutOutlined, PartitionOutlined} from "@ant-design/icons";
 // import '@antv/graphin-icons/dist/index.css';
 
-export const handleToolBarClick = (graphinContext: GraphinContextType, config: any) => {
-    const {apis, graph} = graphinContext;
-    const {handleZoomIn, handleZoomOut} = apis;
-    if (config.key === "zoomIn") {
 
-        handleZoomOut(); // for some weird reason, this is correct
-    } else if (config.key === "zoomOut") {
-        handleZoomIn(); // for some weird reason, this is correct
-    } else if (config.key === "add-data") {
-        graph.addItem("node", {
-            id: "node2",
-            label: "node2",
-            x: 300,
-            y: 150
-        });
-    }
-};
 
 export const toolBarOptions = [
     {
@@ -29,11 +13,49 @@ export const toolBarOptions = [
         //     zoom out
         //   </span>
         // ),
-        name: <ZoomOutOutlined />
+        name: <ZoomOutOutlined/>
     },
     {
         key: "zoomIn",
-        name: <ZoomInOutlined />
+        name: <ZoomInOutlined/>
+    },
+    {
+        key: "space-1",
+        name: "|"
+    },
+    {
+        key: "gForce-layout",
+        name: "gForce"
+    },    {
+        key: "radial-layout",
+        name: "radial"
+    },    {
+        key: "circular-layout",
+        name: "circular"
+    },    {
+        key: "grid-layout",
+        name: "grid"
+    },    {
+        key: "dagre-layout",
+        name: "dagre"
+    },    {
+        key: "space-2",
+        name: "|"
+    },   {
+        key: "screenshot",
+        name: "screenshot"
+    }, {
+        key: "fit-center",
+        name: "fit-center"
+    },    {
+        key: "space-3",
+        name: "|"
+    }, {
+        key: "canvas-clear",
+        name: "canvas-clear"
+    },{
+        key: "canvas-redraw",
+        name: "canvas-redraw"
     },
     // {
     //     key: "visSetting",

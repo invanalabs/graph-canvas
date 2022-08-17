@@ -3,10 +3,7 @@ import {Utils} from "@antv/graphin";
 
 export const defaultLayoutSettings = {
     type: "grid",
-    preventOverlap: true,
-    preset: {
-        type: "grid"
-    }
+    preventOverlap: true
 };
 
 export const defaultNodeStyle = Utils.getNodeStyleByTheme({

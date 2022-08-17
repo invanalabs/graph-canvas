@@ -1,11 +1,11 @@
-const layouts = [
+export const layoutsOptions = [
     {
         type: 'graphin-force',
-        label: '默认力导布局',
+        label: 'graphin-force',
     },
     {
         type: 'grid',
-        label: '网格布局',
+        label: 'grid',
         // begin: [0, 0], // 可选，
         // preventOverlap: true, // 可选，必须配合 nodeSize
         // preventOverlapPdding: 20, // 可选
@@ -18,32 +18,37 @@ const layouts = [
     },
     {
         type: 'circular',
-        label: '圆形布局',
-        // center: [200, 200], // 可选，默认为图的中心
-        // radius: null, // 可选
-        // startRadius: 10, // 可选
-        // endRadius: 100, // 可选
-        // clockwise: false, // 可选
-        // divisions: 5, // 可选
-        // ordering: 'degree', // 可选
-        // angleRatio: 1, // 可选
+        label: 'circular',
+        options: {
+            // center: [0, 0], // 可选，默认为图的中心
+            // radius: null, // 可选
+            // startRadius: 10, // 可选
+            // endRadius: 100, // 可选
+            // clockwise: false, // 可选
+            // divisions: 5, // 可选
+            // ordering: 'degree', // 可选
+            // // angleRatio: 1, // 可选
+        }
     },
     {
         type: 'radial',
-        label: '径向布局',
-        // center: [200, 200], // 可选，默认为图的中心
-        // linkDistance: 50, // 可选，边长
-        // maxIteration: 1000, // 可选
-        // focusNode: 'node11', // 可选
-        // unitRadius: 100, // 可选
-        // preventOverlap: true, // 可选，必须配合 nodeSize
-        // nodeSize: 30, // 可选
-        // strictRadial: false, // 可选
-        // workerEnabled: false, // 可选，开启 web-worker
+        label: 'radial',
+        options: {
+            center: [0, 0], // 可选，默认为图的中心
+            linkDistance: 150, // 可选，边长
+            maxIteration: 1000, // 可选
+            focusNode: 'node11', // 可选
+            unitRadius: 100, // 可选
+            preventOverlap: true, // 可选，必须配合 nodeSize
+            nodeSize: 30, // 可选
+            strictRadial: false, // 可选
+            workerEnabled: false, // 可选，开启 web-worker
+        }
     },
     {
         type: 'force',
-        label: '经典力导布局',
+        label: 'force',
+
         preventOverlap: true,
         // center: [200, 200], // 可选，默认为图的中心
         linkDistance: 50, // 可选，边长
@@ -66,7 +71,7 @@ const layouts = [
     },
     {
         type: 'gForce',
-        label: 'AntV力导布局',
+        label: 'gForce',
         linkDistance: 150, // 可选，边长
         nodeStrength: 30, // 可选
         edgeStrength: 0.1, // 可选
@@ -84,7 +89,7 @@ const layouts = [
     },
     {
         type: 'concentric',
-        label: '同心圆布局',
+        label: 'concentric',
         maxLevelDiff: 0.5,
         sortBy: 'degree',
         // center: [200, 200], // 可选，
@@ -101,7 +106,7 @@ const layouts = [
     },
     {
         type: 'dagre',
-        label: '层次布局',
+        label: 'dagre',
         rankdir: 'LR', // 可选，默认为图的中心
         // align: 'DL', // 可选
         // nodesep: 20, // 可选
@@ -110,7 +115,7 @@ const layouts = [
     },
     {
         type: 'fruchterman',
-        label: '力导布局',
+        label: 'fruchterman',
         // center: [200, 200], // 可选，默认为图的中心
         // gravity: 20, // 可选
         // speed: 2, // 可选
