@@ -1,0 +1,16 @@
+
+.graph-canvas-container {
+    position: relative;
+    border: 1px solid #ccc;
+}
+
+.graph-canvas-container .graph-canvas {
+
+}
+
+ul.graphin-components-toolbar-content {
+    box-shadow: none !important;
+    border: 1px solid #ccc;
+    /*border-top: none !important;*/
+    margin: 0 !important;
+}
