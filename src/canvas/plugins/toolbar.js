@@ -15,8 +15,8 @@ const toolbar = new G6.ToolBar({
             <li code='radial-layout'>radial layout</li>
             <li code='gforce-layout'>gforce layout</li>
             <li>|</li>
-            <li code='undo'>Undo</li>
-            <li code='redo'>redo</li>
+            <li code='undo' title="Undo">Undo</li>
+            <li code='redo' title="Redo">redo</li>
             <li>|</li>
             <li code='zoom-in'>zoom in</li>
             <li code='zoom-out'>zoom out</li>

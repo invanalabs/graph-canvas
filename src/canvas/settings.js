@@ -140,9 +140,9 @@ const defaultSettings = {
             shadowBlur: 0,
             lineAppendWidth: 4,
             // lineWidth: 4,
-            "edge-text": {
-                fill: "#f00f00"
-            }
+            // "edge-text": {
+            //     fill: "#f00f00"
+            // },
             // labelCfg: {
             //     style: {
             //         fill: "#f00f00"
@@ -151,11 +151,18 @@ const defaultSettings = {
         },
         inactive: {
             opacity: 0.5,
-            stroke: "#e2ff00",
+            stroke: "#dbdbdb",
             shadowBlur: 0,
             // 'edge-label': {
             //     fill: "#e2ff00"
             // },
+            // labelCfg: {
+            //     style: {
+            //         fontSize: 22, // The font size of the label
+            //         fill: "#999999"
+            //     }
+            // },
+
         },
         // edge style of selected state
         selected: {
