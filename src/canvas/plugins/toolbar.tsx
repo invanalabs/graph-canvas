@@ -5,8 +5,9 @@ import {
     FullscreenExitOutlined, ClearOutlined, RedoOutlined, CameraOutlined,
     ShareAltOutlined, DeploymentUnitOutlined, AppstoreOutlined
 } from "@ant-design/icons";
-// import '@antv/graphin-icons/dist/index.css';
-
+import "./toolbar.css"
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 export const toolBarOptions = [
     {
@@ -16,22 +17,43 @@ export const toolBarOptions = [
         //     zoom out
         //   </span>
         // ),
-        name: <ZoomOutOutlined/>
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-zoomOut`}>
+                    Zoom out
+                </Tooltip>
+            }><ZoomOutOutlined/>
+        </OverlayTrigger>
     },
     {
         key: "zoomIn",
-        name: <ZoomInOutlined/>
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-zoomIn`}>
+                    Zoom In
+                </Tooltip>
+            }><ZoomInOutlined/></OverlayTrigger>
     }, {
         key: "fit-center",
-        name: <FullscreenExitOutlined/>
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-fit-center`}>
+                    Fit to view
+                </Tooltip>
+            }><FullscreenExitOutlined/></OverlayTrigger>
     },
     {
         key: "space-1",
-        name: "|"
+        name: <div className={"divider"}></div>
     },
     {
         key: "gForce-layout",
-        name: <ShareAltOutlined />
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-gForce`}>
+                    gForce Layout
+                </Tooltip>
+            }><ShareAltOutlined/></OverlayTrigger>
     },
     // {
     //     key: "radial-layout",
@@ -39,28 +61,58 @@ export const toolBarOptions = [
     // },
     {
         key: "circular-layout",
-        name: <DeploymentUnitOutlined />
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-circular`}>
+                    Circular Layout
+                </Tooltip>
+            }><DeploymentUnitOutlined/></OverlayTrigger>
     }, {
         key: "grid-layout",
-        name: <AppstoreOutlined />
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-grid`}>
+                    Grid Layout
+                </Tooltip>
+            }><AppstoreOutlined/></OverlayTrigger>
     }, {
         key: "dagre-layout",
-        name: <PartitionOutlined />
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-dagre`}>
+                    Dagre Layout
+                </Tooltip>
+            }><PartitionOutlined/></OverlayTrigger>
     }, {
         key: "space-2",
-        name: "|"
+        name: <div className={"divider"}></div>
     }, {
         key: "screenshot",
-        name: <CameraOutlined/>
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-screenshot`}>
+                    Save as Image
+                </Tooltip>
+            }><CameraOutlined/></OverlayTrigger>
     }, {
         key: "space-3",
-        name: "|"
+        name: <div className={"divider"}></div>
     }, {
         key: "canvas-clear",
-        name: <ClearOutlined/>
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-clear`}>
+                    Clear Canvas
+                </Tooltip>
+            }><ClearOutlined/></OverlayTrigger>
     }, {
         key: "canvas-redraw",
-        name: <RedoOutlined/>
+        name: <OverlayTrigger placement={"bottom"}
+            overlay={
+                <Tooltip id={`tooltip-redraw`}>
+                    Redraw Canvas
+                </Tooltip>
+            }><RedoOutlined/></OverlayTrigger>
     },
     // {
     //     key: "visSetting",
@@ -74,12 +126,12 @@ export const toolBarOptions = [
     //     key: "showHideElement",
     //     name: <VideoCameraAddOutlined/>
     // },
-     {
-        key: "space-4",
-        name: "|"
-    },
     {
-        key: "add-data",
-        name: "add data"
-    }
+        key: "space-4",
+        name: <div className={"divider"}></div>
+    },
+    // {
+    //     key: "add-data",
+    //     name: "add data"
+    // }
 ];

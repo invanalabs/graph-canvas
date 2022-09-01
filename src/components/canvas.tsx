@@ -100,7 +100,7 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
     return (
         <div className="grid-plugin-container graph-canvas-container"
              style={{width: width, height: height,
-                 paddingTop: "38px"
+                 paddingTop: "30px"
         }}>
       
             <Graphin
@@ -154,7 +154,7 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
                     direction={"horizontal"}
                     style={{
                         position: "absolute",
-                        top: -38,
+                        top: -31,
                         width: "100%",
                         left: -1,
                         boxShadow: "none",
