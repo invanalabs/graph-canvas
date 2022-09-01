@@ -52,8 +52,8 @@ function ShowSelectedNodes(props: any) {
         graph.setItemState(node, "selected", false)
     }
     return (
-        <div className={"selectedNodes"}>
-            selected Nodes {selectedNodes.map((node: INode) => {
+        <div className={"selectedNodes"} style={props.style}>
+           {selectedNodes.map((node: INode) => {
             const model = node.get("model")
             console.log("model---", model)
 
@@ -78,6 +78,7 @@ function ShowSelectedNodes(props: any) {
 }
 
 ShowSelectedNodes.propTypes = {
-    selectedNodeIds: PropTypes.any
+    selectedNodeIds: PropTypes.any,
+    style: PropTypes.object
 }
 export default ShowSelectedNodes

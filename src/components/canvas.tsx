@@ -99,10 +99,11 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
     };
     return (
         <div className="grid-plugin-container graph-canvas-container"
-             style={{width: width, height: height,
+             style={{
+                 width: width, height: height,
                  paddingTop: "30px"
-        }}>
-      
+             }}>
+
             <Graphin
                 data={data}
                 className={"graph-canvas"}
@@ -129,20 +130,23 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
                 <BrushSelect/>
                 <ActivateRelations/>
                 {/*<UndoRedo ref={historyRef}/>*/}
-                <FocusSelectedNodes />
+                <FocusSelectedNodes/>
                 {/*<SelectMultipleNodes />*/}
-                 {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
+                {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
                 {/* <TreeCollapse /> */}
-                  {/** hovering node**/}
-                <Hoverable bindType="node" />
-                    
-                <ShowSelectedNodes />
+                {/** hovering node**/}
+                <Hoverable bindType="node"/>
+
+                <ShowSelectedNodes style={{
+                    "top": "10px",
+                    "position": "absolute"
+                }}/>
                 <ContextMenu style={{background: "#fff"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
                     }}
                 </ContextMenu>
-                
+
 
                 <LassoSelect/>
                 <Hoverable bindType="edge"/>
