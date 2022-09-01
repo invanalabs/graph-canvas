@@ -14,6 +14,7 @@ import "../canvas/style.css";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
 import {layoutsOptions} from "../canvas/layouts";
 import ResizeCanvas from "@antv/graphin/lib/behaviors/ResizeCanvas";
+import ShowSelectedNodes from "./selectedNodes"
 
 const {
     DragCanvas, // Drag the canvas
@@ -97,11 +98,16 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
 
     };
     return (
-        <div className="grid-plugin-container graph-canvas-container" style={{width: width, height: height}}>
+        <div className="grid-plugin-container graph-canvas-container"
+             style={{width: width, height: height,
+                 paddingTop: "38px"
+        }}>
+      
             <Graphin
                 data={data}
                 className={"graph-canvas"}
                 autoPaint={true}
+                // height={height - 38}
                 layout={{type, ...options}}
                 containerId={containerId}
                 defaultNodeStyle={defaultNodeStyle}
@@ -129,12 +135,14 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
                 {/* <TreeCollapse /> */}
                   {/** hovering node**/}
                 <Hoverable bindType="node" />
-
+                    
+                <ShowSelectedNodes />
                 <ContextMenu style={{background: "#fff"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
                     }}
                 </ContextMenu>
+                
 
                 <LassoSelect/>
                 <Hoverable bindType="edge"/>
@@ -146,7 +154,7 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
                     direction={"horizontal"}
                     style={{
                         position: "absolute",
-                        top: -15,
+                        top: -38,
                         width: "100%",
                         left: -1,
                         boxShadow: "none",

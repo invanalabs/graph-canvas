@@ -1,8 +1,8 @@
 import React from "react";
 import {Utils} from "@antv/graphin";
 import {applyStylesToData} from "../canvas/utils";
-import GraphCanvas from "../components/graph-canvas";
-
+import GraphCanvas from "../components/canvas";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ExampleView() {
     let data = Utils.mock(45).random().graphin();
@@ -14,8 +14,8 @@ function ExampleView() {
     return <div className="">
         <h1>Graph Canvas</h1>
         <GraphCanvas data={data} containerId={"graph-canvas"}
-                              width={1500} height={720}
-                              style={style}/>
+                width={1500} height={720}
+                style={style}/>
     </div>
 }
 
