@@ -3,15 +3,15 @@ import Graphin, {Behaviors, Components} from "@antv/graphin";
 import {Grid} from "@antv/graphin-components";
 import {Toolbar} from '@antv/graphin-components';
 
-import {toolBarOptions} from "../plugins/toolbar";
+import {toolBarOptions} from "../canvas/plugins/toolbar";
 import "@antv/graphin-icons/dist/index.css";
-import {NodeContextMenu} from "../plugins/contextMenu";
-import {defaultLayoutSettings, miniMapOptions} from "./settings";
-import {defaultNodeStyle} from "./settings";
+import {NodeContextMenu} from "../canvas/plugins/contextMenu";
+import {defaultLayoutSettings, miniMapOptions} from "../canvas/settings";
+import {defaultNodeStyle} from "../canvas/settings";
 import PropTypes from 'prop-types';
-import "./style.css";
+import "../canvas/style.css";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
-import {layoutsOptions} from "./layouts";
+import {layoutsOptions} from "../canvas/layouts";
 
 const {
     DragCanvas, // Drag the canvas
@@ -32,7 +32,7 @@ const {ContextMenu} = Components;
 
 
 // @ts-ignore
-function GraphCanvasComponent({data, containerId, width, height}) {
+function GraphCanvas({data, containerId, width, height}) {
     console.log(data);
 
 
@@ -154,10 +154,10 @@ function GraphCanvasComponent({data, containerId, width, height}) {
 }
 
 
-GraphCanvasComponent.propTypes = {
+GraphCanvas.propTypes = {
     data: PropTypes.any,
     containerId: PropTypes.string,
     style: PropTypes.object,
 }
 
-export default GraphCanvasComponent;
+export default GraphCanvas;

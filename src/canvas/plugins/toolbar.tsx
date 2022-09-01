@@ -1,8 +1,11 @@
 import React from "react";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
-import {ZoomInOutlined, ZoomOutOutlined, PartitionOutlined} from "@ant-design/icons";
+import {
+    ZoomInOutlined, ZoomOutOutlined, PartitionOutlined,
+    FullscreenExitOutlined, ClearOutlined, RedoOutlined, CameraOutlined,
+    ShareAltOutlined, DeploymentUnitOutlined, AppstoreOutlined
+} from "@ant-design/icons";
 // import '@antv/graphin-icons/dist/index.css';
-
 
 
 export const toolBarOptions = [
@@ -25,37 +28,39 @@ export const toolBarOptions = [
     },
     {
         key: "gForce-layout",
-        name: "gForce"
-    },    {
-        key: "radial-layout",
-        name: "radial"
-    },    {
+        name: <ShareAltOutlined />
+    },
+    // {
+    //     key: "radial-layout",
+    //     name: "radial"
+    // },
+    {
         key: "circular-layout",
-        name: "circular"
-    },    {
+        name: <DeploymentUnitOutlined />
+    }, {
         key: "grid-layout",
-        name: "grid"
-    },    {
+        name: <AppstoreOutlined />
+    }, {
         key: "dagre-layout",
-        name: "dagre"
-    },    {
+        name: <PartitionOutlined />
+    }, {
         key: "space-2",
         name: "|"
-    },   {
+    }, {
         key: "screenshot",
-        name: "screenshot"
+        name: <CameraOutlined/>
     }, {
         key: "fit-center",
-        name: "fit-center"
-    },    {
+        name: <FullscreenExitOutlined/>
+    }, {
         key: "space-3",
         name: "|"
     }, {
         key: "canvas-clear",
-        name: "canvas-clear"
-    },{
+        name: <ClearOutlined/>
+    }, {
         key: "canvas-redraw",
-        name: "canvas-redraw"
+        name: <RedoOutlined/>
     },
     // {
     //     key: "visSetting",
@@ -69,6 +74,10 @@ export const toolBarOptions = [
     //     key: "showHideElement",
     //     name: <VideoCameraAddOutlined/>
     // },
+     {
+        key: "space-4",
+        name: "|"
+    },
     {
         key: "add-data",
         name: "add data"

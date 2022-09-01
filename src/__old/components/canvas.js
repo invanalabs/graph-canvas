@@ -4,7 +4,7 @@ import exampleData, { testData } from "../examples/data";
 import flightsData from "../examples/fight-data";
 import "./canvas.css";
 
-export default class GraphCanvasComponent extends React.Component {
+export default class GraphCanvas extends React.Component {
   constructor(props) {
     console.log("App");
     super(props);

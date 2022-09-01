@@ -10,7 +10,9 @@
     "@antv/graphin": "^2.7.3",
     "@antv/graphin-components": "^2.4.0",
     "@antv/graphin-icons": "^1.0.0",
+    "bootstrap": "^5.2.0",
     "react": "18.2.0",
+    "react-bootstrap": "^2.5.0",
     "react-dom": "18.2.0",
     "react-scripts": "^2.1.3"
   },

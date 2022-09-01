@@ -47,7 +47,7 @@ const toolbar = new G6.ToolBar({
             layoutManager.circularLayout(graph)
         } else if (code === "radial-layout") {
             layoutManager.radialLayout(graph)
-        } else if (code === "gforce-layout") {
+        } else if (code === "gForce-layout") {
             layoutManager.gForceLayout(graph)
         } else if (code === "undo") {
             toolbar.undo();
