@@ -57,7 +57,7 @@ export default class LayoutManager {
 
         graph.updateLayout(layoutSettings);
 
-
+        // graph.fitView();
         graph.render(); // needed to add this line
 
     }

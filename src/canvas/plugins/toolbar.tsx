@@ -21,6 +21,9 @@ export const toolBarOptions = [
     {
         key: "zoomIn",
         name: <ZoomInOutlined/>
+    }, {
+        key: "fit-center",
+        name: <FullscreenExitOutlined/>
     },
     {
         key: "space-1",
@@ -49,9 +52,6 @@ export const toolBarOptions = [
     }, {
         key: "screenshot",
         name: <CameraOutlined/>
-    }, {
-        key: "fit-center",
-        name: <FullscreenExitOutlined/>
     }, {
         key: "space-3",
         name: "|"

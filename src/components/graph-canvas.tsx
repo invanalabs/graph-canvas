@@ -2,7 +2,8 @@ import React from "react";
 import Graphin, {Behaviors, Components} from "@antv/graphin";
 import {Grid} from "@antv/graphin-components";
 import {Toolbar} from '@antv/graphin-components';
-
+import SelectMultipleNodes from "../canvas/behaviours/selectMultiple"
+import FocusSelectedNodes from "../canvas/behaviours/focusSelected"
 import {toolBarOptions} from "../canvas/plugins/toolbar";
 import "@antv/graphin-icons/dist/index.css";
 import {NodeContextMenu} from "../canvas/plugins/contextMenu";
@@ -12,6 +13,7 @@ import PropTypes from 'prop-types';
 import "../canvas/style.css";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
 import {layoutsOptions} from "../canvas/layouts";
+import ResizeCanvas from "@antv/graphin/lib/behaviors/ResizeCanvas";
 
 const {
     DragCanvas, // Drag the canvas
@@ -24,6 +26,7 @@ const {
     DragCombo, // Drag Combo
     ActivateRelations, // associated highlight
     Hoverable // Hover operation,
+
     // DragNodeWithForce
 } = Behaviors;
 
@@ -32,7 +35,7 @@ const {ContextMenu} = Components;
 
 
 // @ts-ignore
-function GraphCanvas({data, containerId, width, height}) {
+function GraphCanvas(this: any, {data, containerId, width, height}) {
     console.log(data);
 
 
@@ -86,6 +89,7 @@ function GraphCanvas({data, containerId, width, height}) {
         } else if (keyCode === "canvas-redraw") {
             const autoPaint = graph.get('autoPaint');
             graph.setAutoPaint(false);
+            graph.render();
             graph.paint();
             graph.setAutoPaint(autoPaint);
 
@@ -119,9 +123,12 @@ function GraphCanvas({data, containerId, width, height}) {
                 <BrushSelect/>
                 <ActivateRelations/>
                 {/*<UndoRedo ref={historyRef}/>*/}
-
-                {/* <ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} /> */}
+                <FocusSelectedNodes />
+                {/*<SelectMultipleNodes />*/}
+                 {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
                 {/* <TreeCollapse /> */}
+                  {/** hovering node**/}
+                <Hoverable bindType="node" />
 
                 <ContextMenu style={{background: "#fff"}} bindType="node">
                     {(value) => {
