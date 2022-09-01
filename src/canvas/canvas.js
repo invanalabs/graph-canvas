@@ -53,7 +53,7 @@ export default class GraphCanvas {
         return new G6.Graph(this.getSettings());
     }
 
-    refreshDragedNodePosition(e) {
+    refreshDraggedNodePosition(e) {
         const model = e.item.get("model");
         model.fx = e.x;
         model.fy = e.y;
@@ -97,19 +97,19 @@ export default class GraphCanvas {
         // });
 
         // this.graph.on("node:drag", function (e) {
-        //   _this.refreshDragedNodePosition(e);
+        //   _this.refreshDraggedNodePosition(e);
         //   _this.graph.layout();
         // });
 
         // this.graph.on("node:dragstart", function (e) {
         //   _this.graph.layout();
-        //   _this.refreshDragedNodePosition(e);
+        //   _this.refreshDraggedNodePosition(e);
         // });
 
         // this.graph.on("node:drag", function (e) {
         //   const forceLayout = _this.graph.get("layoutController").layoutMethods[0];
         //   forceLayout.execute();
-        //   _this.refreshDragedNodePosition(e);
+        //   _this.refreshDraggedNodePosition(e);
         // });
 
         // this.graph.on("node:dragend", function (e) {
@@ -138,6 +138,14 @@ export default class GraphCanvas {
             // inactivate the hover state of the node
             _this.graph.setItemState(node, "hover", false);
         });
+        this.graph.on("node:click", (evt) => {
+            console.log("node:click", evt);
+            const node = evt.item;
+            _this.graph.setItemState(node, "selected", true);
+        });
+
+
+
 
         this.graph.on("edge:mouseenter", (evt) => {
             const {item} = evt;

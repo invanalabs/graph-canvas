@@ -51,13 +51,13 @@ const defaultSettings = {
             autoRotate: true,
             style: {
                 fontSize: 12, // The font size of the label
-                fill: "#999999"
-                // background: {
-                //     fill: "#ffffff",
-                //     stroke: "#9EC9FF",
-                //     padding: [1, 1, 1, 1],
-                //     radius: 2
-                // }
+                fill: "#999999",
+                background: {
+                    fill: "#ffffff",
+                    // stroke: "#9EC9FF",
+                    padding: [1, 2, 1, 2],
+                    radius: 2
+                }
             }
         },
         // The style properties of edges
@@ -106,10 +106,14 @@ const defaultSettings = {
         },
         selected: {
             shadowBlur: 0,
+            // lineWidth: 15,
+            strokeOpacity: 0.5,
+            stroke: '#7ad040'
         },
-        select: {
-            shadowBlur: 0,
-        },
+        // select: {
+        //     shadowBlur: 0,
+        //
+        // },
         inactive: {
             shadowBlur: 0,
         },
@@ -118,6 +122,9 @@ const defaultSettings = {
         },
         click: {
             shadowBlur: 0,
+            // lineWidth: 15,
+            // strokeOpacity: 0.5,
+            // stroke: '#7ad040'
         },
         // activeByLegend: {
         //     lineWidth: 5,
@@ -162,6 +169,11 @@ const defaultSettings = {
             //         fill: "#999999"
             //     }
             // },
+            style: {
+                stroke: '#eaff8f',
+                lineWidth: 5,
+                // ... Other style properties
+            },
 
         },
         // edge style of selected state

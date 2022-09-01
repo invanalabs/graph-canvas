@@ -2,21 +2,28 @@ const exampleData = {
   nodes: [
     {
       id: 1,
-      label: "Person"
+      label: "Ravi"
       // properties: {
       //   name: "Ravi"
       // }
     },
     {
       id: 2,
-      label: "Person"
+      label: "Roja"
       // properties: {
       //   name: "Roja"
       // }
     },
     {
       id: 3,
-      label: "Person"
+      label: "Rudra"
+      // properties: {
+      //   name: "Rinku"
+      // }
+    },
+    {
+      id: 4,
+      label: "Milk"
       // properties: {
       //   name: "Rinku"
       // }
@@ -67,6 +74,15 @@ const exampleData = {
       label: "married_to",
       source: 2,
       target: 1
+      // properties: {
+      //   married_since: "2020"
+      // }
+    },
+    {
+      id: 10,
+      label: "loves_playing",
+      source: 3,
+      target: 4
       // properties: {
       //   married_since: "2020"
       // }
