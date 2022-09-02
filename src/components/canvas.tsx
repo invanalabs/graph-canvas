@@ -36,7 +36,7 @@ const {ContextMenu} = Components;
 
 
 // @ts-ignore
-function GraphCanvas(this: any, {data, containerId, width, height}) {
+function GraphCanvas(  {data, containerId, width, height}) {
     console.log(data);
 
 
@@ -97,6 +97,9 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
         }
 
     };
+    // @ts-ignore
+    // @ts-ignore
+    // @ts-ignore
     return (
         <div className="grid-plugin-container graph-canvas-container"
              style={{
@@ -132,6 +135,7 @@ function GraphCanvas(this: any, {data, containerId, width, height}) {
                 {/*<UndoRedo ref={historyRef}/>*/}
                 <FocusSelectedNodes/>
                 {/*<SelectMultipleNodes />*/}
+
                 {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
                 {/* <TreeCollapse /> */}
                 {/** hovering node**/}

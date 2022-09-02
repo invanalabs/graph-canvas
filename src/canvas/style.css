@@ -14,3 +14,6 @@ ul.graphin-components-toolbar-content {
     /*border-top: none !important;*/
     margin: 0 !important;
 }
+html, body{
+    font-size: 14px;
+}
