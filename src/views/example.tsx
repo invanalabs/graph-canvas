@@ -14,7 +14,7 @@ function ExampleView() {
     return <div className="">
         <h1>Graph Canvas</h1>
         <GraphCanvas data={data} containerId={"graph-canvas"}
-                width={1500} height={720}
+                width={1100} height={720}
                 style={style}/>
     </div>
 }

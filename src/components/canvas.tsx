@@ -15,6 +15,7 @@ import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
 import {layoutsOptions} from "../canvas/layouts";
 import ResizeCanvas from "@antv/graphin/lib/behaviors/ResizeCanvas";
 import ShowSelectedNodes from "./selectedNodes"
+import Footer from "./footer";
 
 const {
     DragCanvas, // Drag the canvas
@@ -36,7 +37,7 @@ const {ContextMenu} = Components;
 
 
 // @ts-ignore
-function GraphCanvas(  {data, containerId, width, height}) {
+function GraphCanvas({data, containerId, width, height}) {
     console.log(data);
 
 
@@ -133,7 +134,7 @@ function GraphCanvas(  {data, containerId, width, height}) {
                 <BrushSelect/>
                 <ActivateRelations/>
                 {/*<UndoRedo ref={historyRef}/>*/}
-                <FocusSelectedNodes/>
+                {/*<FocusSelectedNodes/>*/}
                 {/*<SelectMultipleNodes />*/}
 
                 {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
@@ -163,13 +164,37 @@ function GraphCanvas(  {data, containerId, width, height}) {
                     style={{
                         position: "absolute",
                         top: -31,
-                        width: "100%",
+                        width: "calc(100% + 2px)",
+                        left: -1,
+                        boxShadow: "none",
+
+                    }}
+                />
+                <Toolbar
+                    options={toolBarOptions}
+                    onChange={handleToolBarClick}
+                    direction={"horizontal"}
+                    style={{
+                        position: "absolute",
+                        top: -31,
+                        width: "calc(100% + 2px)",
                         left: -1,
                         boxShadow: "none",
 
                     }}
                 />
                 {/* <DragNodeWithForce /> */}
+                <Footer
+                    style={{
+                        border: "1px solid #cccccc",
+                        width: "calc(100% + 2px)",
+                        left: "-1px",
+                        position: "absolute",
+                        bottom: "-1px",
+                        height: "24px",
+                        opacity: "0.75",
+                        background: "white"
+                    }}/>
 
             </Graphin>
         </div>

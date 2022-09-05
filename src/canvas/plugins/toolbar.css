@@ -1,9 +1,10 @@
 ul.graphin-components-toolbar-content > li span {
     padding: 6px 16px;
     cursor: pointer;
-        line-height: 10px;
+    line-height: 10px;
 
 }
+
 ul.graphin-components-toolbar-content > li {
     padding: 0;
     height: 30px;
