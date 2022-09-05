@@ -1,6 +1,7 @@
 import {ContextMenuValue} from "@antv/graphin";
 import React from "react";
 import "./contextMenu.css"
+import {INode} from "@antv/g6";
 
 
 export const NodeContextMenu = (value: ContextMenuValue) => {
@@ -16,17 +17,29 @@ export const NodeContextMenu = (value: ContextMenuValue) => {
     // @ts-ignore
     const model = value.item.get("model");
     console.log("model", model)
+    const primaryColor = model.style.keyshape.stroke;
 
     return (
-        <div className={"contextMenu"}>
-            <h4>{model.label} &\ue7ce;</h4>
-            <p className={"small"}>Id: {model.id}</p>
-            <hr/>
-            <ul>
-                <div data-code="copy" onClick={handleClick}> item 1</div>
-                <div data-code="delete" onClick={handleClick}>item 2</div>
-                <div data-code="tag" onClick={handleClick}>item 3</div>
-            </ul>
+        <div className={"contextMenu"} style={{borderTopColor: primaryColor}}>
+            <h4 style={{color: primaryColor}}><span className="icon-foo"
+                                                    style={{fontFamily: model.style.icon.fontFamily,}}>
+                {model.style.icon.value}</span> {model.label} </h4>
+            <p className={"small border-bottom pb-2 mb-0"}>ID: {model.id}</p>
+            <div className={"properties"}>
+                <div className="header text-uppercase mb-2 p-2 ">Properties</div>
+                <div className="body">
+                    {Object.keys(model.data).map((key, index) => {
+                        if (model) {
+                            return (<div className={"propertyItem border-bottom pb-1 "}>
+                                <h6 className={"mb-1"}>{key} :</h6>
+                                <p className={"mb-1"}>{model.data[key]}</p>
+                            </div>)
+                        }
+                    })
+                    }
+                </div>
+            </div>
+
         </div>
 
     );

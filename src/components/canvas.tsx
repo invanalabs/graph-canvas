@@ -123,7 +123,9 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                         "position": "absolute"
                     }}/>
                 <HoveredItemInfo  stateManager={stateManager} />
-                <ContextMenu style={{background: "#fff", width: "240px"}} bindType="node">
+                <ContextMenu style={{background: "#fff",
+                    maxHeight: "600px",
+                    width: "280px"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
                     }}
