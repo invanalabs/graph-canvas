@@ -1,0 +1,11 @@
+
+.selectedNode {
+    border-bottom: 2px solid !important;
+    background: white !important;
+}
+
+.selectedNode:hover {
+    color: inherit !important;
+    border-bottom-color: #333;
+    /*border-bottom-width: 2px;*/
+}
