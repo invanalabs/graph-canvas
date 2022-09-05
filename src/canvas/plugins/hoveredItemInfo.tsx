@@ -11,7 +11,7 @@ function HoveredItemInfo(props: any) {
     const {graph, apis} = useContext(GraphinContext);
 
     const createItemText = (model: any) => {
-        return `<strong>${model.label}</strong>(id:${model.id})`
+        return `<strong>${model.label}</strong>[id:${model.id}]`
     }
 
     useEffect(() => {
