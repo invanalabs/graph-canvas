@@ -7,15 +7,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function ExampleView() {
     let data = Utils.mock(45).random().graphin();
     data = applyStylesToData(data)
-    const style = {
-        "width": "100%",
-        "height": "720px"
+    const initState = {
+        layoutSettings: {
+            type: 'dagre',
+            options: {},
+        },
+        messageText: "Welcome to graph canvas (beta)."
     }
-    return <div className="" style={{"padding": "50px"}}>
-        <h1>Graph Canvas</h1>
-        <GraphCanvas data={data} containerId={"graph-canvas"}
-                     width={1100} height={720}
-                     style={style}/>
+    return <div className="" style={{"padding": "30px"}}>
+        <GraphCanvas data={data}
+                     initState={initState}
+                     containerId={"graph-canvas"}
+                     width={"100%"} height={980}
+        />
     </div>
 }
 

@@ -1,11 +1,11 @@
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
 import {layoutsOptions} from "../../layouts";
 
-const handleLayoutChange = (value: any) => {
-    console.log('value', value);
-    // setState(value);
-};
-const handleToolBarClick = (graphinContext: GraphinContextType, config: any) => {
+// const handleLayoutChange = (value: any) => {
+//     console.log('value', value);
+//     setState(value);
+// };
+export const handleToolBarClick = (graphinContext: GraphinContextType, config: any, stateManager: any) => {
     const {apis, graph} = graphinContext;
     const {handleZoomIn, handleZoomOut} = apis;
     const keyCode = config.key;
@@ -23,7 +23,7 @@ const handleToolBarClick = (graphinContext: GraphinContextType, config: any) => 
         graph.layout()
     } else if (keyCode.endsWith("-layout")) {
         const layoutData = layoutsOptions.find(item => item.type === keyCode.replace("-layout", ""));
-        handleLayoutChange(layoutData)
+        stateManager.setLayoutSettings(layoutData)
     } else if (keyCode === "screenshot") {
         graph.downloadImage()
     } else if (keyCode === "fit-center") {
@@ -40,3 +40,4 @@ const handleToolBarClick = (graphinContext: GraphinContextType, config: any) => 
     }
 
 };
+

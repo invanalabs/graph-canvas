@@ -9,14 +9,14 @@ import "@antv/graphin-icons/dist/index.css";
 import {NodeContextMenu} from "../canvas/plugins/contextMenu";
 import {defaultLayoutSettings, miniMapOptions} from "../canvas/settings";
 import {defaultNodeStyle} from "../canvas/settings";
-import PropTypes from 'prop-types';
 import "../canvas/style.css";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
-import {layoutsOptions} from "../canvas/layouts";
-import ResizeCanvas from "@antv/graphin/lib/behaviors/ResizeCanvas";
 import ShowSelectedNodes from "./selectedNodes"
 import Footer from "../canvas/plugins/footer/footer";
 import "./canvas.css"
+import {handleToolBarClick} from "../canvas/plugins/toolbar/handler";
+import PropTypes from 'prop-types';
+import StateManager from "../canvas/stateManager";
 
 const {
     DragCanvas, // Drag the canvas
@@ -49,21 +49,25 @@ const {ContextMenu} = Components;
     hoveredItem: null,
     displaySettings: {
         canvas: {
-            background: null
+            background: null,
+            layout: {}
+        },
+        nodeSettings: {
+        },
+        edgeSettings: {
         }
-
     }
 }
 */
 
+
 // @ts-ignore
-function GraphCanvas({data, containerId, width, height}) {
+function GraphCanvas({data, containerId, width, height, initState}) {
     console.log(data);
-    const [state, setState] = React.useState({
-        type: 'dagre',
-        options: {},
-    });
-    const {type, options} = state;
+    const [state, setState] = React.useState(initState);
+    const stateManager = new StateManager(setState)
+    const {layoutSettings, messageText} = state;
+
 
     // const historyRef = React.createRef();
     //
@@ -77,10 +81,6 @@ function GraphCanvas({data, containerId, width, height}) {
     // };
 
 
-
-
-    // @ts-ignore
-    // @ts-ignore
     // @ts-ignore
     return (
         <div className="grid-plugin-container graph-canvas-container"
@@ -94,7 +94,7 @@ function GraphCanvas({data, containerId, width, height}) {
                 className={"graph-canvas"}
                 autoPaint={true}
                 // height={height - 38}
-                layout={{type, ...options}}
+                layout={{type: layoutSettings.type, ...layoutSettings.options}}
                 containerId={containerId}
                 defaultNodeStyle={defaultNodeStyle}
             >
@@ -125,6 +125,7 @@ function GraphCanvas({data, containerId, width, height}) {
 
                 <ShowSelectedNodes style={{
                     "top": "10px",
+                    "left": "15px",
                     "position": "absolute"
                 }}/>
                 <ContextMenu style={{background: "#fff"}} bindType="node">
@@ -133,30 +134,20 @@ function GraphCanvas({data, containerId, width, height}) {
                     }}
                 </ContextMenu>
 
-
                 <LassoSelect/>
                 <Hoverable bindType="edge"/>
                 <Hoverable bindType="node"/>
 
                 <Toolbar
                     options={toolBarOptions}
-                    // onChange={handleToolBarClick}
+                    onChange={(graphinContext: GraphinContextType, config: any) =>
+                        handleToolBarClick(graphinContext, config, stateManager)}
                     direction={"horizontal"}
 
                 />
 
                 {/* <DragNodeWithForce /> */}
-                <Footer
-                    style={{
-                        border: "1px solid #cccccc",
-                        width: "calc(100% + 2px)",
-                        left: "-1px",
-                        position: "absolute",
-                        bottom: "-1px",
-                        height: "24px",
-                        opacity: "0.75",
-                        background: "white"
-                    }}/>
+                <Footer messageText={messageText}/>
 
             </Graphin>
         </div>
@@ -168,6 +159,7 @@ GraphCanvas.propTypes = {
     data: PropTypes.any,
     containerId: PropTypes.string,
     style: PropTypes.object,
+    initState: PropTypes.object,
 }
 
 export default GraphCanvas;

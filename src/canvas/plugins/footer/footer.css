@@ -1,3 +1,11 @@
-.graphin-components-footer{
+.graphin-components-footer {
     padding-left: 20px;
+    border: 1px solid #cccccc;
+    width: calc(100% + 2px);
+    left: -1px;
+    position: absolute;
+    bottom: -1px;
+    height: 24px;
+    opacity: 0.75;
+    background: white;
 }

@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import PropTypes from "prop-types";
 import {ContextMenuValue, GraphinContext, IG6GraphEvent} from "@antv/graphin";
 import {INode, NodeConfig} from '@antv/g6';
-import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 import {CloseSquareOutlined} from "@ant-design/icons"
 
 // @ts-ignore
@@ -60,7 +60,7 @@ function ShowSelectedNodes(props: any) {
             if (model) {
                 return (
 
-                    <Badge bg="secondary me-2" key={model.id}>
+                    <Button className="me-3" size="sm" variant="outline-secondary" key={model.id}>
                         {model.label.toString()}
                         <CloseSquareOutlined
                             className={"ms-1"}
@@ -69,7 +69,7 @@ function ShowSelectedNodes(props: any) {
                                 "top": "-2px",
                                 "position": "relative"
                             }}/>
-                    </Badge>
+                    </Button>
                 )
             }
         })}

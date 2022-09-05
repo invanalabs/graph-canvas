@@ -13,5 +13,5 @@ export const defaultNodeStyle = Utils.getNodeStyleByTheme({
 });
 
 
-export const miniMapOptions = {size: [150, 100]};
+export const miniMapOptions = {size: [250, 150]};
 
