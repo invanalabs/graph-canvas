@@ -11,11 +11,11 @@ function ExampleView() {
         "width": "100%",
         "height": "720px"
     }
-    return <div className="">
+    return <div className="" style={{"padding": "50px"}}>
         <h1>Graph Canvas</h1>
         <GraphCanvas data={data} containerId={"graph-canvas"}
-                width={1100} height={720}
-                style={style}/>
+                     width={1100} height={720}
+                     style={style}/>
     </div>
 }
 

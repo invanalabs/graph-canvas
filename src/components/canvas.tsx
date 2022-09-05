@@ -15,7 +15,7 @@ import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
 import {layoutsOptions} from "../canvas/layouts";
 import ResizeCanvas from "@antv/graphin/lib/behaviors/ResizeCanvas";
 import ShowSelectedNodes from "./selectedNodes"
-import Footer from "./footer";
+import Footer from "../canvas/plugins/footer/footer";
 import "./canvas.css"
 
 const {
@@ -36,6 +36,25 @@ const {
 const {MiniMap} = Components;
 const {ContextMenu} = Components;
 
+/*
+
+{
+
+    statusMessageText : null,
+    data : {
+        nodes: [],
+        edges: [],
+    },
+    selectedNodes: [],
+    hoveredItem: null,
+    displaySettings: {
+        canvas: {
+            background: null
+        }
+
+    }
+}
+*/
 
 // @ts-ignore
 function GraphCanvas({data, containerId, width, height}) {
