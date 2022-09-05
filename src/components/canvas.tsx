@@ -4,7 +4,7 @@ import {Grid} from "@antv/graphin-components";
 import {Toolbar} from '@antv/graphin-components';
 import SelectMultipleNodes from "../canvas/behaviours/selectMultiple"
 import FocusSelectedNodes from "../canvas/behaviours/focusSelected"
-import {toolBarOptions} from "../canvas/plugins/toolbar";
+import {toolBarOptions} from "../canvas/plugins/toolbar/toolbar";
 import "@antv/graphin-icons/dist/index.css";
 import {NodeContextMenu} from "../canvas/plugins/contextMenu";
 import {defaultLayoutSettings, miniMapOptions} from "../canvas/settings";
@@ -16,6 +16,7 @@ import {layoutsOptions} from "../canvas/layouts";
 import ResizeCanvas from "@antv/graphin/lib/behaviors/ResizeCanvas";
 import ShowSelectedNodes from "./selectedNodes"
 import Footer from "./footer";
+import "./canvas.css"
 
 const {
     DragCanvas, // Drag the canvas
@@ -39,12 +40,11 @@ const {ContextMenu} = Components;
 // @ts-ignore
 function GraphCanvas({data, containerId, width, height}) {
     console.log(data);
-
-
     const [state, setState] = React.useState({
         type: 'dagre',
         options: {},
     });
+    const {type, options} = state;
 
     // const historyRef = React.createRef();
     //
@@ -57,47 +57,9 @@ function GraphCanvas({data, containerId, width, height}) {
     //     historyRef.current.undo();
     // };
 
-    const handleLayoutChange = (value: any) => {
-        console.log('value', value);
-        setState(value);
-    };
-    const {type, options} = state;
 
-    const handleToolBarClick = (graphinContext: GraphinContextType, config: any) => {
-        const {apis, graph} = graphinContext;
-        const {handleZoomIn, handleZoomOut} = apis;
-        const keyCode = config.key;
-        if (keyCode === "zoomIn") {
-            handleZoomOut(); // for some weird reason, this is correct
-        } else if (keyCode === "zoomOut") {
-            handleZoomIn(); // for some weird reason, this is correct
-        } else if (keyCode === "add-data") {
-            graph.addItem("node", {
-                id: "node2",
-                label: "node2",
-                x: 300,
-                y: 150
-            });
-            graph.layout()
-        } else if (keyCode.endsWith("-layout")) {
-            const layoutData = layoutsOptions.find(item => item.type === keyCode.replace("-layout", ""));
-            handleLayoutChange(layoutData)
-        } else if (keyCode === "screenshot") {
-            graph.downloadImage()
-        } else if (keyCode === "fit-center") {
-            graph.fitView()
-        } else if (keyCode === "canvas-clear") {
-            graph.clear()
-        } else if (keyCode === "canvas-redraw") {
-            const autoPaint = graph.get('autoPaint');
-            graph.setAutoPaint(false);
-            graph.render();
-            graph.paint();
-            graph.setAutoPaint(autoPaint);
 
-        }
 
-    };
     // @ts-ignore
     // @ts-ignore
     // @ts-ignore
@@ -159,30 +121,11 @@ function GraphCanvas({data, containerId, width, height}) {
 
                 <Toolbar
                     options={toolBarOptions}
-                    onChange={handleToolBarClick}
+                    // onChange={handleToolBarClick}
                     direction={"horizontal"}
-                    style={{
-                        position: "absolute",
-                        top: -31,
-                        width: "calc(100% + 2px)",
-                        left: -1,
-                        boxShadow: "none",
 
-                    }}
                 />
-                <Toolbar
-                    options={toolBarOptions}
-                    onChange={handleToolBarClick}
-                    direction={"horizontal"}
-                    style={{
-                        position: "absolute",
-                        top: -31,
-                        width: "calc(100% + 2px)",
-                        left: -1,
-                        boxShadow: "none",
 
-                    }}
-                />
                 {/* <DragNodeWithForce /> */}
                 <Footer
                     style={{
