@@ -1,5 +1,6 @@
 import {ContextMenuValue} from "@antv/graphin";
 import React from "react";
+import "./contextMenu.css"
 
 
 export const NodeContextMenu = (value: ContextMenuValue) => {
@@ -12,10 +13,15 @@ export const NodeContextMenu = (value: ContextMenuValue) => {
         // message.info(`${e.key}:${id}`);
         onClose();
     };
+    // @ts-ignore
+    const model = value.item.get("model");
+    console.log("model", model)
 
     return (
-        <div>
-            <h4>Node 1</h4>
+        <div className={"contextMenu"}>
+            <h4>{model.label} &\ue7ce;</h4>
+            <p className={"small"}>Id: {model.id}</p>
+            <hr/>
             <ul>
                 <div data-code="copy" onClick={handleClick}> item 1</div>
                 <div data-code="delete" onClick={handleClick}>item 2</div>

@@ -4,6 +4,7 @@ import {ContextMenuValue, GraphinContext, IG6GraphEvent} from "@antv/graphin";
 import {INode, NodeConfig} from '@antv/g6';
 import Button from 'react-bootstrap/Button';
 import {CloseSquareOutlined} from "@ant-design/icons"
+import "./selectedNodes.css";
 
 // @ts-ignore
 function ShowSelectedNodes(props: any) {
@@ -11,6 +12,10 @@ function ShowSelectedNodes(props: any) {
     const {graph, apis} = useContext(GraphinContext);
     const {selectedNodes, stateManager} = props
 
+    const focusOnNode = (node: INode) => {
+        // const model = node.getModel() as NodeConfig;
+        stateManager.focusOnNode(apis, node);
+    };
     useEffect(() => {
         console.log("ShowSelectedNodes useEffect")
         const handleSelectChanged = (evt: IG6GraphEvent) => {
@@ -46,9 +51,17 @@ function ShowSelectedNodes(props: any) {
         <div className={"selectedNodes"} style={props.style}>
             {selectedNodes.map((node: INode) => {
                 const model = node.get("model")
+                console.log("model+++", model)
                 if (model) {
                     return (
-                        <Button className="me-3" size="sm" variant="outline-secondary" key={model.id}>
+                        // @ts-ignore
+                        <Button className="me-3 selectedNode" size="sm"
+                                onClick={()=> focusOnNode(node)}
+                                style={{
+                                    borderColor: model.style.keyshape.stroke,
+                                    color: model.style.keyshape.stroke,
+                                }}
+                                variant="outline-secondary" key={model.id}>
                             {model.label.toString()}
                             <CloseSquareOutlined
                                 className={"ms-1"}

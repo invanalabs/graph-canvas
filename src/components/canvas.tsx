@@ -6,7 +6,7 @@ import SelectMultipleNodes from "../canvas/behaviours/selectMultiple"
 import FocusSelectedNodes from "../canvas/behaviours/focusSelected"
 import {toolBarOptions} from "../canvas/plugins/toolbar/toolbar";
 import "@antv/graphin-icons/dist/index.css";
-import {NodeContextMenu} from "../canvas/plugins/contextMenu";
+import {NodeContextMenu} from "../canvas/plugins/contextMenu/contextMenu";
 import {defaultLayoutSettings, miniMapOptions} from "../canvas/settings";
 import {defaultNodeStyle} from "../canvas/settings";
 import "../canvas/style.css";
@@ -123,7 +123,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                         "position": "absolute"
                     }}/>
                 <HoveredItemInfo  stateManager={stateManager} />
-                <ContextMenu style={{background: "#fff"}} bindType="node">
+                <ContextMenu style={{background: "#fff", width: "240px"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
                     }}
