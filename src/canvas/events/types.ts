@@ -4,7 +4,7 @@ export class EventTypes {
 
 class Event {
     type = null
-    created_by = new Date()
+    created_by = () => new Date()
     message = null
 
     create(type: string, message: string) {
@@ -12,6 +12,7 @@ class Event {
         this.type = type
         // @ts-ignore
         this.message = message
+        this.commit();
     }
 
     commit() {

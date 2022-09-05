@@ -6,6 +6,7 @@ export default class EventManager {
         const e = new Event()
         // @ts-ignore
         e.create(EventTypes.welcome, "Welcome to graph canvas (beta)...")
+        return e
     }
 
     // welcome_event() {

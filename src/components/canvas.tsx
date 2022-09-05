@@ -66,9 +66,9 @@ const {ContextMenu} = Components;
 function GraphCanvas({data, containerId, width, height, initState}) {
     console.log(data);
     const [state, setState] = React.useState(initState);
-    const stateManager = new StateManager(setState)
-    const {layoutSettings, messageText} = state;
-
+    const stateManager = new StateManager({}, setState)
+    const {layoutSettings, messageText, selectedNodes} = state;
+    console.log("++layoutSettings", layoutSettings)
 
     // @ts-ignore
     return (
@@ -108,11 +108,11 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 {/** hovering node**/}
                 <Hoverable bindType="node"/>
 
-                <ShowSelectedNodes style={{
-                    "top": "10px",
-                    "left": "15px",
-                    "position": "absolute"
-                }}/>
+                <ShowSelectedNodes
+                    stateManager={stateManager}
+                    selectedNodes={selectedNodes}
+                    style={{ "top": "10px",
+                        "left": "15px", "position": "absolute" }}/>
                 <ContextMenu style={{background: "#fff"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;

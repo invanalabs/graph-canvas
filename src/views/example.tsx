@@ -12,6 +12,7 @@ function ExampleView() {
             type: 'dagre',
             options: {},
         },
+        selectedNodes: [],
         messageText: "Welcome to graph canvas (beta)."
     }
     return <div className="" style={{"padding": "30px"}}>
