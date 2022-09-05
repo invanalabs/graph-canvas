@@ -17,6 +17,7 @@ import "./canvas.css"
 import {handleToolBarClick} from "../canvas/plugins/toolbar/handler";
 import PropTypes from 'prop-types';
 import StateManager from "../canvas/state/manager";
+// import EventManager from "../canvas/events/manager";
 
 const {
     DragCanvas, // Drag the canvas
@@ -69,26 +70,10 @@ function GraphCanvas({data, containerId, width, height, initState}) {
     const {layoutSettings, messageText} = state;
 
 
-    // const historyRef = React.createRef();
-    //
-    // const handleTodo = () => {
-    //     // @ts-ignore
-    //     historyRef.current.todo();
-    // };
-    // const handleUndo = () => {
-    //     // @ts-ignore
-    //     historyRef.current.undo();
-    // };
-
-
     // @ts-ignore
     return (
         <div className="grid-plugin-container graph-canvas-container"
-             style={{
-                 width: width, height: height,
-                 paddingTop: "30px"
-             }}>
-
+             style={{width: width, height: height, paddingTop: "30px"}}>
             <Graphin
                 data={data}
                 className={"graph-canvas"}

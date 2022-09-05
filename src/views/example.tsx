@@ -18,7 +18,7 @@ function ExampleView() {
         <GraphCanvas data={data}
                      initState={initState}
                      containerId={"graph-canvas"}
-                     width={"100%"} height={980}
+                     width={"100%"} height={880}
         />
     </div>
 }

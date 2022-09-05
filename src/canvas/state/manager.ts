@@ -1,8 +1,10 @@
 import PropTypes from "prop-types";
+import EventManager from "../events/manager";
 
 
 export default class StateManager {
     setState = null
+    eventManager = new EventManager();
 
     // @ts-ignore
     constructor(setState: PropTypes.func) {
@@ -10,13 +12,19 @@ export default class StateManager {
         this.setState = setState
     }
 
-    setMessage(msgText: string){
+    setMessage(msgText: string) {
         // @ts-ignore
         this.setState({messageText: msgText})
     }
 
-    setLayoutSettings(layoutConfig: object){
+    welcome() {
+        // this.setState({messageText: msgText})
+        this.eventManager.welcome_event()
+    }
+
+    setLayoutSettings(layoutConfig: object) {
         // @ts-ignore
+
         this.setState({layoutSettings: layoutConfig})
     }
 }

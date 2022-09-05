@@ -1,9 +1,17 @@
-import EventTypes from "./types";
+import Event, {EventTypes} from "./types";
 
-export default class Manager {
+export default class EventManager {
 
-    createEvent() {
-
+    welcome_event() {
+        const e = new Event()
+        // @ts-ignore
+        e.create(EventTypes.welcome, "Welcome to graph canvas (beta)...")
     }
+
+    // welcome_event() {
+    //     const e = new Event()
+    //     // @ts-ignore
+    //     e.create(EventTypes.welcome, "Welcome to graph canvas (beta)...")
+    // }
 }
 

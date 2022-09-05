@@ -1,5 +1,22 @@
-class EventTypes {
+export class EventTypes {
     welcome = "Welcome"
 }
 
-export default EventTypes
+class Event {
+    type = null
+    created_by = new Date()
+    message = null
+
+    create(type: string, message: string) {
+        // @ts-ignore
+        this.type = type
+        // @ts-ignore
+        this.message = message
+    }
+
+    commit() {
+        console.log(`Created event type=${this.type} message=${this.message}`)
+    }
+}
+
+export default Event
