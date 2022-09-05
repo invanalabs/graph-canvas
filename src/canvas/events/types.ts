@@ -1,13 +1,20 @@
 export class EventTypes {
-    welcome = "Welcome"
+    welcome = "WELCOME"
+
 }
 
 class Event {
     type = null
-    created_by = () => new Date()
     message = null
+    created_by = null
+
+    constructor() {
+        // @ts-ignore
+        this.created_by = new Date()
+    }
 
     create(type: string, message: string) {
+        console.log("=======created--type", type)
         // @ts-ignore
         this.type = type
         // @ts-ignore
@@ -16,7 +23,7 @@ class Event {
     }
 
     commit() {
-        console.log(`Created event type=${this.type} message=${this.message}`)
+        console.log(`Created event type=${this.type} message=${this.message} at ${this.created_by}`)
     }
 }
 

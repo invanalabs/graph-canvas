@@ -64,12 +64,15 @@ const {ContextMenu} = Components;
 
 // @ts-ignore
 function GraphCanvas({data, containerId, width, height, initState}) {
-    console.log(data);
+    console.log("initState", initState);
     const [state, setState] = React.useState(initState);
-    const stateManager = new StateManager({}, setState)
+    const stateManager = new StateManager()
     const {layoutSettings, messageText, selectedNodes} = state;
     console.log("++layoutSettings", layoutSettings)
+    console.log("++state", state)
 
+    stateManager.welcome(setState)
+    const {type, options} = layoutSettings
     // @ts-ignore
     return (
         <div className="grid-plugin-container graph-canvas-container"
@@ -79,7 +82,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 className={"graph-canvas"}
                 autoPaint={true}
                 // height={height - 38}
-                layout={{type: layoutSettings.type, ...layoutSettings.options}}
+                layout={{type: type, ...options}}
                 containerId={containerId}
                 defaultNodeStyle={defaultNodeStyle}
             >
@@ -111,8 +114,11 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 <ShowSelectedNodes
                     stateManager={stateManager}
                     selectedNodes={selectedNodes}
-                    style={{ "top": "10px",
-                        "left": "15px", "position": "absolute" }}/>
+                    setState={setState}
+                    style={{
+                        "top": "10px",
+                        "left": "15px", "position": "absolute"
+                    }}/>
                 <ContextMenu style={{background: "#fff"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
@@ -128,7 +134,6 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                     onChange={(graphinContext: GraphinContextType, config: any) =>
                         handleToolBarClick(graphinContext, config, stateManager)}
                     direction={"horizontal"}
-
                 />
 
                 {/* <DragNodeWithForce /> */}

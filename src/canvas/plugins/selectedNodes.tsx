@@ -8,14 +8,11 @@ import {CloseSquareOutlined} from "@ant-design/icons"
 // @ts-ignore
 function ShowSelectedNodes(props) {
     console.log("ShowSelectedNodes props", props)
-    console.log("stateManager.state.selectedNodes", props.stateManager.state)
-    const {style, stateManager, selectedNodes} = props;
+    const {style, stateManager, selectedNodes, setState} = props;
     const {graph, apis} = useContext(GraphinContext);
-
-    console.log("========selectedNodes", selectedNodes);
     // @ts-ignore
     const setSelectedNodes = (nodes) => {
-        stateManager.setSelectedNodes(nodes);
+        // stateManager.setSelectedNodes(nodes, setState);
     }
 
     useEffect(() => {
@@ -78,6 +75,7 @@ function ShowSelectedNodes(props) {
 ShowSelectedNodes.propTypes = {
     stateManager: PropTypes.object,
     selectedNodes: PropTypes.any,
+    setState: PropTypes.any,
     style: PropTypes.object
 }
 export default ShowSelectedNodes

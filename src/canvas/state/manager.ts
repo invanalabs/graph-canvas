@@ -1,42 +1,45 @@
 import PropTypes, {arrayOf} from "prop-types";
 import EventManager from "../events/manager";
 import {INode} from "@antv/g6";
+import {EventTypes} from "../events/types";
 
 
 export default class StateManager {
-    state = null
-    setState = null
+    // state = null
+    // setState = null
     eventManager = new EventManager();
 
+    // // @ts-ignore
+    // constructor(state, setState: PropTypes.func) {
+    //     console.log("setState", typeof setState, setState)
+    //     this.setState = setState
+    //     this.state = state
+    // }
+
     // @ts-ignore
-    constructor(state, setState: PropTypes.func) {
-        console.log("setState", typeof setState, setState)
-        this.setState = setState
-        this.state = state
+    setMessage(msgText: string, setState: PropTypes.any) {
+        setState({messageText: msgText})
     }
 
-    setMessage(msgText: string) {
-        // @ts-ignore
-        this.setState({messageText: msgText})
-    }
-
-    welcome() {
+    // @ts-ignore
+    welcome(setState) {
         const e = this.eventManager.welcome_event()
         // @ts-ignore
-        this.setState({messageText: e.message})
-
+        // this.setMessage(e.message, setState)
     }
 
     // @ts-ignore
-    setSelectedNodes(nodes) {
+    setSelectedNodes(nodes, setState) {
         // @ts-ignore
-        // this.setState({selectedNodes: nodes})
+        console.log("***** state", this.state)
+        // @ts-ignore
+        setState({selectedNodes: nodes})
         // this.setMessage("Updated selected nodes")
     }
 
-    setLayoutSettings(layoutConfig: object) {
-        // @ts-ignore
-
-        this.setState({layoutSettings: layoutConfig})
-    }
+    //
+    // setLayoutSettings(layoutConfig: object) {
+    //     // @ts-ignore
+    //     this.setState({layoutSettings: layoutConfig})
+    // }
 }

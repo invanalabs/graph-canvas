@@ -13,7 +13,7 @@ function ExampleView() {
             options: {},
         },
         selectedNodes: [],
-        messageText: "Welcome to graph canvas (beta)."
+        messageText: "Welcome to Graph Canvas (beta)..."
     }
     return <div className="" style={{"padding": "30px"}}>
         <GraphCanvas data={data}
