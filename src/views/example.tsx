@@ -12,7 +12,9 @@ function ExampleView() {
             type: 'dagre',
             options: {},
         },
-        messageText: "Welcome to graph canvas (beta)."
+        messageText: "Welcome to graph canvas (beta).",
+        selectedNodes: [],
+        hoveredItem: null
     }
     return <div className="" style={{"padding": "30px"}}>
         <GraphCanvas data={data}

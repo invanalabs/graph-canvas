@@ -6,7 +6,9 @@ import "./footer.css"
 function Footer(props: any) {
 
     return (
-        <div className="graphin-components-footer" style={props.style}>{props.messageText}</div>
+        <div className="graphin-components-footer" style={props.style}>
+            <span dangerouslySetInnerHTML={{__html: props.messageText}}></span>
+        </div>
     )
 }
 

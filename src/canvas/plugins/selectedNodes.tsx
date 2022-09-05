@@ -9,27 +9,17 @@ import {CloseSquareOutlined} from "@ant-design/icons"
 function ShowSelectedNodes(props: any) {
     console.log("ShowSelectedNodes props", props)
     const {graph, apis} = useContext(GraphinContext);
-    const [selectedNodes, setSelectedNodes] = useState([]);
+    const {selectedNodes, stateManager} = props
 
-
-    // const activeNodes = graph.findAllByState('node', 'selected')
-    // console.log("activeNodes==", activeNodes)
-
-    // useEffect(() => {
-    //     const activeNodes = graph.findAllByState('node', 'selected')
-    //     console.log("activeNodes==", activeNodes)
-
-    // }, []);
     useEffect(() => {
         console.log("ShowSelectedNodes useEffect")
-
         const handleSelectChanged = (evt: IG6GraphEvent) => {
             console.log("handleSelectChanged", evt.selectedItems)
             // @ts-ignore
             const nodes = evt.selectedItems.nodes;
             // @ts-ignore
             if (nodes.length !== selectedNodes.length) {
-                setSelectedNodes(nodes)
+                stateManager.setSelectedNodes(nodes)
             }
         };
         const handleStateChanged = (evt: IG6GraphEvent) => {
@@ -37,9 +27,8 @@ function ShowSelectedNodes(props: any) {
             // @ts-ignore
             const nodes = graph.findAllByState('node', 'selected')
             // @ts-ignore
-            setSelectedNodes(nodes)
+            stateManager.setSelectedNodes(nodes)
         };
-
 
         graph.on('nodeselectchange', handleSelectChanged);
         graph.on('afteritemstatechange', handleStateChanged);
@@ -55,32 +44,27 @@ function ShowSelectedNodes(props: any) {
     }
     return (
         <div className={"selectedNodes"} style={props.style}>
-           {selectedNodes.map((node: INode) => {
-            const model = node.get("model")
-            console.log("model---", model)
-
-            if (model) {
-                return (
-
-                    <Button className="me-3" size="sm" variant="outline-secondary" key={model.id}>
-                        {model.label.toString()}
-                        <CloseSquareOutlined
-                            className={"ms-1"}
-                            onClick={() => removeActiveNode(node)}
-                            style={{
-                                "top": "-2px",
-                                "position": "relative"
-                            }}/>
-                    </Button>
-                )
-            }
-        })}
+            {selectedNodes.map((node: INode) => {
+                const model = node.get("model")
+                if (model) {
+                    return (
+                        <Button className="me-3" size="sm" variant="outline-secondary" key={model.id}>
+                            {model.label.toString()}
+                            <CloseSquareOutlined
+                                className={"ms-1"}
+                                onClick={() => removeActiveNode(node)}
+                                style={{"top": "-2px", "position": "relative"}}/>
+                        </Button>
+                    )
+                }
+            })}
         </div>
     )
 }
 
 ShowSelectedNodes.propTypes = {
-    selectedNodeIds: PropTypes.any,
+    selectedNodes: PropTypes.any,
+    stateManager: PropTypes.any,
     style: PropTypes.object
 }
 export default ShowSelectedNodes

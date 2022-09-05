@@ -17,6 +17,7 @@ import "./canvas.css"
 import {handleToolBarClick} from "../canvas/plugins/toolbar/handler";
 import PropTypes from 'prop-types';
 import StateManager from "../canvas/state/manager";
+import HoveredItemInfo from "../canvas/plugins/hoveredItemInfo";
 
 const {
     DragCanvas, // Drag the canvas
@@ -39,7 +40,6 @@ const {ContextMenu} = Components;
 /*
 
 {
-
     statusMessageText : null,
     data : {
         nodes: [],
@@ -64,21 +64,12 @@ const {ContextMenu} = Components;
 // @ts-ignore
 function GraphCanvas({data, containerId, width, height, initState}) {
     console.log(data);
-    const [state, setState] = React.useState(initState);
-    const stateManager = new StateManager(setState)
-    const {layoutSettings, messageText} = state;
+    const [layoutSettings, setLayoutSettings] = React.useState(initState["layoutSettings"]);
+    const [selectedNodes, setSelectedNodes] = React.useState(initState["selectedNodes"]);
+    const [messageText, setMessageText] = React.useState(initState["messageText"]);
+    const [hoveredItem, setHoveredItem] = React.useState(initState["hoveredItem"]);
 
-
-    // const historyRef = React.createRef();
-    //
-    // const handleTodo = () => {
-    //     // @ts-ignore
-    //     historyRef.current.todo();
-    // };
-    // const handleUndo = () => {
-    //     // @ts-ignore
-    //     historyRef.current.undo();
-    // };
+    const stateManager = new StateManager(setLayoutSettings, setSelectedNodes, setMessageText, setHoveredItem)
 
 
     // @ts-ignore
@@ -123,11 +114,15 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 {/** hovering node**/}
                 <Hoverable bindType="node"/>
 
-                <ShowSelectedNodes style={{
-                    "top": "10px",
-                    "left": "15px",
-                    "position": "absolute"
-                }}/>
+                <ShowSelectedNodes
+                    selectedNodes={selectedNodes}
+                    stateManager={stateManager}
+                    style={{
+                        "top": "10px",
+                        "left": "15px",
+                        "position": "absolute"
+                    }}/>
+                <HoveredItemInfo  stateManager={stateManager} />
                 <ContextMenu style={{background: "#fff"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
@@ -142,9 +137,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                     options={toolBarOptions}
                     onChange={(graphinContext: GraphinContextType, config: any) =>
                         handleToolBarClick(graphinContext, config, stateManager)}
-                    direction={"horizontal"}
-
-                />
+                    direction={"horizontal"}/>
 
                 {/* <DragNodeWithForce /> */}
                 <Footer messageText={messageText}/>

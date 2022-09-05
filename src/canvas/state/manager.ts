@@ -2,21 +2,19 @@ import PropTypes from "prop-types";
 
 
 export default class StateManager {
-    setState = null
+    setLayoutSettings = null
+    setSelectedNodes = null
+    setMessageText = null
+    setHoveredItem = null
 
     // @ts-ignore
-    constructor(setState: PropTypes.func) {
-        console.log("setState", typeof setState, setState)
-        this.setState = setState
+    constructor(setLayoutSettings: PropTypes.func, setSelectedNodes: PropTypes.func,
+                // @ts-ignore
+                setMessageText: PropTypes.func, setHoveredItem: PropTypes.func) {
+        this.setLayoutSettings = setLayoutSettings
+        this.setSelectedNodes = setSelectedNodes
+        this.setMessageText = setMessageText
+        this.setHoveredItem = setHoveredItem
     }
 
-    setMessage(msgText: string){
-        // @ts-ignore
-        this.setState({messageText: msgText})
-    }
-
-    setLayoutSettings(layoutConfig: object){
-        // @ts-ignore
-        this.setState({layoutSettings: layoutConfig})
-    }
 }
