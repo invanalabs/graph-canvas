@@ -5,15 +5,15 @@ import {INode} from "@antv/g6";
 
 
 export const NodeContextMenu = (value: ContextMenuValue) => {
-    const handleClick = (evt: React.MouseEvent<Element, MouseEvent>) => {
-        const {onClose, id} = value;
-        const target = evt.target as HTMLElement;
-        let code = target.getAttribute("data-code");
-        // console.log("===menu item clicked", `${e.code}:${id}`);
-        console.log("===menu item clicked", code);
-        // message.info(`${e.key}:${id}`);
-        onClose();
-    };
+    // const handleClick = (evt: React.MouseEvent<Element, MouseEvent>) => {
+    //     const {onClose, id} = value;
+    //     const target = evt.target as HTMLElement;
+    //     let code = target.getAttribute("data-code");
+    //     // console.log("===menu item clicked", `${e.code}:${id}`);
+    //     console.log("===menu item clicked", code);
+    //     // message.info(`${e.key}:${id}`);
+    //     onClose();
+    // };
     // @ts-ignore
     const model = value.item.get("model");
     console.log("model", model)

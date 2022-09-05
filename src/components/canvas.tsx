@@ -4,7 +4,7 @@ import {Grid} from "@antv/graphin-components";
 import {Toolbar} from '@antv/graphin-components';
 import SelectMultipleNodes from "../canvas/behaviours/selectMultiple"
 import FocusSelectedNodes from "../canvas/behaviours/focusSelected"
-import {toolBarOptions} from "../canvas/plugins/toolbar/toolbar";
+import {leftToolBarOptions} from "../canvas/plugins/toolbar/leftToolbar";
 import "@antv/graphin-icons/dist/index.css";
 import {NodeContextMenu} from "../canvas/plugins/contextMenu/contextMenu";
 import {defaultLayoutSettings, miniMapOptions} from "../canvas/settings";
@@ -18,6 +18,7 @@ import {handleToolBarClick} from "../canvas/plugins/toolbar/handler";
 import PropTypes from 'prop-types';
 import StateManager from "../canvas/state/manager";
 import HoveredItemInfo from "../canvas/plugins/hoveredItemInfo";
+import {rightleftToolBarOptions} from "../canvas/plugins/toolbar/rightToolBar";
 
 const {
     DragCanvas, // Drag the canvas
@@ -112,7 +113,6 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
                 {/* <TreeCollapse /> */}
                 {/** hovering node**/}
-                <Hoverable bindType="node"/>
 
                 <ShowSelectedNodes
                     selectedNodes={selectedNodes}
@@ -125,7 +125,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 <HoveredItemInfo  stateManager={stateManager} />
                 <ContextMenu style={{background: "#fff",
                     maxHeight: "600px",
-                    width: "280px"}} bindType="node">
+                    width: "320px"}} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
                     }}
@@ -135,14 +135,28 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 <Hoverable bindType="edge"/>
                 <Hoverable bindType="node"/>
 
+
+
                 <Toolbar
-                    options={toolBarOptions}
+                    style={{ "top": "-31px", "left": "-1px"}}
+                    // className={"leftToolBar"}
+                    options={leftToolBarOptions}
                     onChange={(graphinContext: GraphinContextType, config: any) =>
                         handleToolBarClick(graphinContext, config, stateManager)}
-                    direction={"horizontal"}/>
+                    // direction={"horizontal"}
+                />
+
+                <Toolbar
+                    style={{ "top": "-31px", "right": "-1px"}}
+                          // className={"rightToolBar"}
+                    options={rightleftToolBarOptions}
+                    onChange={(graphinContext: GraphinContextType, config: any) =>
+                        handleToolBarClick(graphinContext, config, stateManager)}
+                    // direction={"horizontal"}
+                />
 
                 {/* <DragNodeWithForce /> */}
-                <Footer messageText={messageText}/>
+                <Footer messageText={messageText} selectedNodes={selectedNodes}/>
 
             </Graphin>
         </div>

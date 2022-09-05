@@ -9,7 +9,7 @@ import "./toolbar.css"
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-export const toolBarOptions = [
+export const leftToolBarOptions = [
     {
         key: "zoomOut",
         // name: (
@@ -86,52 +86,5 @@ export const toolBarOptions = [
     }, {
         key: "space-2",
         name: <div className={"divider"}></div>
-    }, {
-        key: "screenshot",
-        name: <OverlayTrigger placement={"bottom"}
-            overlay={
-                <Tooltip id={`tooltip-screenshot`}>
-                    Save as Image
-                </Tooltip>
-            }><CameraOutlined/></OverlayTrigger>
-    }, {
-        key: "space-3",
-        name: <div className={"divider"}></div>
-    }, {
-        key: "canvas-clear",
-        name: <OverlayTrigger placement={"bottom"}
-            overlay={
-                <Tooltip id={`tooltip-clear`}>
-                    Clear Canvas
-                </Tooltip>
-            }><ClearOutlined/></OverlayTrigger>
-    }, {
-        key: "canvas-redraw",
-        name: <OverlayTrigger placement={"bottom"}
-            overlay={
-                <Tooltip id={`tooltip-redraw`}>
-                    Redraw Canvas
-                </Tooltip>
-            }><RedoOutlined/></OverlayTrigger>
-    },
-    // {
-    //     key: "visSetting",
-    //     name: <PieChartOutlined/>
-    // },
-    // {
-    //     key: "clearCanvas",
-    //     name: <DeleteOutlined/>
-    // },
-    // {
-    //     key: "showHideElement",
-    //     name: <VideoCameraAddOutlined/>
-    // },
-    {
-        key: "space-4",
-        name: <div className={"divider"}></div>
-    },
-    // {
-    //     key: "add-data",
-    //     name: "add data"
-    // }
+    }
 ];
