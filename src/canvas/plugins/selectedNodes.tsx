@@ -10,6 +10,8 @@ function ShowSelectedNodes(props: any) {
     console.log("ShowSelectedNodes props", props)
     const {graph, apis} = useContext(GraphinContext);
     const [selectedNodes, setSelectedNodes] = useState([]);
+
+
     // const activeNodes = graph.findAllByState('node', 'selected')
     // console.log("activeNodes==", activeNodes)
 

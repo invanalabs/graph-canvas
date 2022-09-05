@@ -11,12 +11,12 @@ import {defaultLayoutSettings, miniMapOptions} from "../canvas/settings";
 import {defaultNodeStyle} from "../canvas/settings";
 import "../canvas/style.css";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
-import ShowSelectedNodes from "./selectedNodes"
+import ShowSelectedNodes from "../canvas/plugins/selectedNodes"
 import Footer from "../canvas/plugins/footer/footer";
 import "./canvas.css"
 import {handleToolBarClick} from "../canvas/plugins/toolbar/handler";
 import PropTypes from 'prop-types';
-import StateManager from "../canvas/stateManager";
+import StateManager from "../canvas/state/manager";
 
 const {
     DragCanvas, // Drag the canvas
