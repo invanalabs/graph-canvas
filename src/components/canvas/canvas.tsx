@@ -117,7 +117,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 containerId={containerId}
                 defaultNodeStyle={defaultNodeStyle}
             >
-                <Grid/>
+                {/*<Grid/>*/}
                 <MiniMap options={miniMapOptions}/>
                 <ZoomCanvas enableOptimize/>
                 {/* Drag and Drop Canvas */}

@@ -89,7 +89,7 @@ const generateNodeStyle = (node: INode, styleData: object) => {
     const color = (styleData && styleData.nodeColor) ? styleData.nodeColor : pastel_colour(label)
 
     // @ts-ignore
-    const nodeSize = (styleData && styleData.nodeSize) ? styleData.nodeSize : 28
+    const nodeSize = (styleData && styleData.nodeSize) ? styleData.nodeSize : 18
     // @ts-ignore
     const nodeIcon = (styleData && styleData.nodeIcon) ? styleData.nodeIcon : null
     // @ts-ignore

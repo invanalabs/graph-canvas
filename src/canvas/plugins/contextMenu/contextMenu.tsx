@@ -22,14 +22,16 @@ export const NodeContextMenu = (value: ContextMenuValue) => {
 
         return (
             <div className={"contextMenu"} style={{borderTopColor: primaryColor}}>
-                <h4 style={{color: primaryColor}}><span className="icon-foo"
-                                                        style={{fontFamily: model.style.icon.fontFamily,}}>
-                {model.style.icon.value}</span> {model.label} </h4>
+                <h4 style={{color: primaryColor}}>
+                    {model.style.icon ? <span className="icon-foo"
+                                              style={{fontFamily: model.style.icon.fontFamily,}}>
+                {model.style.icon.value}</span> : <span></span>}
+                    {model.label} </h4>
                 <p className={"small border-bottom pb-2 mb-0"}>ID: {model.id}</p>
                 <div className={"properties"}>
                     <div className="header text-uppercase mb-2 p-2 ">Properties</div>
                     <div className="body">
-                        {Object.keys(model.properties).map((key, index) => {
+                        {Object.keys(model.properties || {}).map((key, index) => {
                             if (model) {
                                 return (<div className={"propertyItem border-bottom pb-1 "}>
                                     <h6 className={"mb-1"}>{key} :</h6>
@@ -45,5 +47,5 @@ export const NodeContextMenu = (value: ContextMenuValue) => {
 
         );
     }
-    return ( <div />)
+    return (<div/>)
 };

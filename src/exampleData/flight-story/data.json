@@ -1,5 +1,7 @@
-const flightsData = {
-    "nodes": [
+{
+    "nodes"
+:
+    [
         {
             "id": "F1-1",
             "groupName": "Flight Number",
@@ -281,7 +283,9 @@ const flightsData = {
             "label": "Kennedy Space Center LC-39A"
         }
     ],
-    "edges": [
+        "edges"
+:
+    [
         {
             "id": "Marshall Islands-F1-1",
             "groupName": "launched_from",
@@ -1054,5 +1058,3 @@ const flightsData = {
         }
     ]
 }
-
-export default flightsData

@@ -21,7 +21,7 @@ function HoveredItemInfo(props: any) {
             const model = evt.item.get("model");
             props.stateManager.setHoveredItem(evt.item)
             // @ts-ignore
-            props.stateManager.setMessageText(`Hovered on ${createItemText(model)}`)
+            props.stateManager.setMessageText(`Hovered on Node: ${createItemText(model)}`)
         }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
 
@@ -37,7 +37,7 @@ function HoveredItemInfo(props: any) {
             console.log("====model", model)
             props.stateManager.setHoveredItem(evt.item)
             // @ts-ignore
-            props.stateManager.setMessageText(`Hovered on ${createItemText(model)}`)
+            props.stateManager.setMessageText(`Hovered on Edge: ${createItemText(model)}`)
 
         }; // eslint-disable-next-line @typescript-eslint/no-explicit-any
 

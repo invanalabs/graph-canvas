@@ -62,9 +62,12 @@ function ShowSelectedNodes(props: any) {
                                     color: model.style.keyshape.stroke,
                                 }}
                                 variant="outline-secondary" key={model.id}>
-                            <span className="icon-foo me-1"
+                            {
+                                model.style.icon? <span className="icon-foo me-1"
                                   style={{fontFamily: model.style.icon.fontFamily,}}>
-                {model.style.icon.value}</span>
+                {model.style.icon.value}</span> : <span />
+                            }
+
                             {model.style.label.value.toString()}
                             <CloseSquareOutlined
                                 className={"ms-1"}
