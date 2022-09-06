@@ -22,7 +22,7 @@ const exampleData = {
       }
     },
     {
-      id: 4,
+      id: 35,
       label: "Project",
       properties: {
         name: "Invana Studio"
@@ -82,7 +82,7 @@ const exampleData = {
       id: 10,
       label: "authored",
       source: 1,
-      target: 4,
+      target: 35,
       properties: {
         since: "2020"
       }

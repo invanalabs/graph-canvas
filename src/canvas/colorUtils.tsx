@@ -85,10 +85,8 @@ const generateNodeStyle = (node: INode, styleData: object) => {
     const label = node.label;
 
 
-    console.log("=====label", label)
     // @ts-ignore
     const color = (styleData && styleData.nodeColor) ? styleData.nodeColor : pastel_colour(label)
-       console.log("=====label, color",label, color)
 
     // @ts-ignore
     const nodeSize = (styleData && styleData.nodeSize) ? styleData.nodeSize : 28
