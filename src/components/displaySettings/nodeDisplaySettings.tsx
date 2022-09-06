@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useContext} from "react";
 import PropTypes from "prop-types";
-import {Card} from "react-bootstrap";
+import {Card, FloatingLabel, Form} from "react-bootstrap";
+import {ContextMenuValue, GraphinContext, IG6GraphEvent} from "@antv/graphin";
 
 
 /*
@@ -17,14 +18,74 @@ nodeDisplaySettings = {
 
 // @ts-ignore
 function NodeDisplaySettings(props: any) {
+
+    const {apis, graph} = useContext(GraphinContext);
+
+    const updateConfig = (labelType: string) => {
+
+        // update the styles of type
+        const nodes = graph.findAll('node', (node) => {
+            return node.get('model').type === labelType;
+        });
+        // props.stateManager.
+    }
     return (
         <div className="nodeDisplaySettings bg-white" style={props.style}>
-            <Card  style={{height: "100%"}}>
-                <Card.Header>Display Settings</Card.Header>
+            <Card>
+                <Card.Header>Node display settings</Card.Header>
                 <Card.Body className={""}>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
+                        {Object.keys(props.nodeDisplaySettings).map((nodeLabel, index) => {
+                            const nodeSetting = props.nodeDisplaySettings[nodeLabel];
+                            if (nodeSetting) {
+                                return (<div className={"propertyItem border-bottom pb-1 "}>
+                                    <h6 className={"mb-1"}>{nodeLabel} :</h6>
+                                    <FloatingLabel
+                                        controlId="nodeDisplayFloatingTextarea"
+                                        label="Node Display config"
+                                        className="mb-3"
+                                    > <Form.Control
+                                        style={{"minHeight": "130px"}}
+                                        as="textarea" placeholder="add node display config here"
+                                        value={JSON.stringify(nodeSetting, null, 2)}
+                                    />
+                                    </FloatingLabel>
+                                </div>)
+                            }
+                        })
+                        }
+
+
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+            <Card>
+                <Card.Header>Edge display settings</Card.Header>
+                <Card.Body className={""}>
+                    <Card.Text>
+                        {Object.keys(props.edgeDisplaySettings).map((edgeLabel, index) => {
+                            const edgeSetting = props.edgeDisplaySettings[edgeLabel] || {};
+                            if (edgeSetting) {
+                                return (<div className={"propertyItem border-bottom pb-1 "}>
+                                    <h6 className={"mb-1"}>{edgeLabel} :</h6>
+                                    <FloatingLabel
+                                        controlId="edgeDisplayFloatingTextarea"
+                                        label="edge Display config"
+                                        className="mb-3"
+                                    > <Form.Control
+                                        style={{"minHeight": "130px"}}
+                                        as="textarea" placeholder="update edge display config here"
+                                        value={JSON.stringify(edgeSetting, null, 2)}
+                                    />
+                                    </FloatingLabel>
+                                </div>)
+                            }
+                        })
+                        }
+
+
+
+
                     </Card.Text>
                 </Card.Body>
             </Card>
@@ -34,5 +95,8 @@ function NodeDisplaySettings(props: any) {
 
 NodeDisplaySettings.propTypes = {
     style: PropTypes.object,
+    nodeDisplaySettings: PropTypes.object,
+    edgeDisplaySettings: PropTypes.object,
+    stateManager: PropTypes.any,
 }
 export default NodeDisplaySettings

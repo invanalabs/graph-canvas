@@ -21,6 +21,7 @@ import {rightToolBarOptions} from "../../canvas/plugins/toolbar/rightToolBar";
 import {leftToolBarOptions} from "../../canvas/plugins/toolbar/leftToolbar";
 import NodeDisplaySettings from "../displaySettings/nodeDisplaySettings";
 import "../normalise.css";
+import {applyStylesToData} from "../../canvas/colorUtils";
 
 const {
     DragCanvas, // Drag the canvas
@@ -75,6 +76,12 @@ function GraphCanvas({data, containerId, width, height, initState}) {
     const [nodeDisplaySettings, setNodeDisplaySettings] = React.useState(initState["nodeDisplaySettings"]);
     const [edgeDisplaySettings, setEdgeDisplaySettings] = React.useState(initState["edgeDisplaySettings"]);
 
+
+
+    const processedData = applyStylesToData(data,
+        initState["nodeDisplaySettings"],
+        initState["edgeDisplaySettings"])
+
     const stateManager = new StateManager(
         setLayoutSettings,
         setSelectedNodes,
@@ -102,7 +109,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
              }}>
 
             <Graphin
-                data={data}
+                data={processedData}
                 className={"graph-canvas"}
                 autoPaint={true}
                 // height={height - 38}
@@ -158,7 +165,13 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 <Hoverable bindType="node"/>
 
                 {
-                    showDisplaySettings ? <NodeDisplaySettings/> : <span/>
+                    showDisplaySettings
+                        ? <NodeDisplaySettings
+                            nodeDisplaySettings={nodeDisplaySettings}
+                            edgeDisplaySettings={edgeDisplaySettings}
+                            stateManager={stateManager}
+                        />
+                        : <span/>
                 }
 
 

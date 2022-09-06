@@ -1,20 +1,21 @@
 import Graphin from "@antv/graphin";
 import iconLoader from "@antv/graphin-icons";
 import PropTypes from "prop-types";
-
+import {INode} from '@antv/g6';
+import {IUserNode, IUserEdge} from "@antv/graphin/lib/typings/type";
 export const IconsPalette = Graphin.registerFontFamily(iconLoader);
-export const ColorPalette = [
-    '#5F95FF', // blue
-    '#61DDAA',
-    '#65789B',
-    '#F6BD16',
-    '#7262FD',
-    '#78D3F8',
-    '#9661BC',
-    '#F6903D',
-    '#008685',
-    '#F08BB4'
-];
+// export const ColorPalette = [
+//     '#5F95FF', // blue
+//     '#61DDAA',
+//     '#65789B',
+//     '#F6BD16',
+//     '#7262FD',
+//     '#78D3F8',
+//     '#9661BC',
+//     '#F6903D',
+//     '#008685',
+//     '#F08BB4'
+// ];
 
 
 function lightOrDark(color: any) {
@@ -76,40 +77,68 @@ const pastel_colour = function (str: string) {
     }
 }
 
+const generateNodeStyle = (node: INode, styleData: object) => {
+    // @ts-ignore
+    const labelType = node.label;
 
+
+    console.log("=====node", node)
+    // @ts-ignore
+    const color = (styleData && styleData.nodeColor) ? styleData.nodeColor : pastel_colour(labelType.toLowerCase())
+    // @ts-ignore
+    const nodeSize = (styleData && styleData.nodeSize) ? styleData.nodeSize : 28
+    // @ts-ignore
+    const nodeIcon = (styleData && styleData.nodeIcon) ? styleData.nodeIcon : null
+    // @ts-ignore
+    const nodeShape = (styleData && styleData.nodeShape) ? styleData.nodeShape : "graphin-circle"
+
+    const iconSize = nodeSize * 0.5
+
+    let data = {
+        label: {
+            // @ts-ignore
+            value: node.id
+        },
+        keyshape: {
+            size: nodeSize,
+            stroke: color,
+            fill: color,
+            fillOpacity: 0.2,
+            strokeOpacity: 1
+        },
+
+    };
+
+    if (nodeIcon) {
+        // @ts-ignore
+        data["icon"] = {
+            type: "font",
+            value: IconsPalette[nodeIcon],
+            size: iconSize,
+            fill: color,
+            fontFamily: "graphin"
+        }
+    }
+
+    return data
+}
 // @ts-ignore
 export const applyStylingToNodes = (nodes: Array<any>, nodeDisplaySettings: PropTypes.object) => {
     return nodes.map((node, i) => {
-        const {id} = node;
+        // @ts-ignore
+        node.originalId = node.id;
+
+        // @ts-ignore
+        node.id = node.id.toString();
         // const labelNo = i / 6;
         if (i < 16) {
             node.data = {type: "Company"};
         } else {
             node.data = {type: "User"};
         }
-
-        const {type, count} = node.data;
-        const color = pastel_colour(type.toLowerCase())
-        node.style = {
-            label: {
-                value: id
-            },
-            keyshape: {
-                size: count ? (count / 10) * 2 : 30,
-                stroke: color,
-                fill: color,
-                fillOpacity: 0.2,
-                strokeOpacity: 1
-            },
-            icon: {
-                type: "font",
-                value: IconsPalette[type.toLowerCase()],
-                size: count ? count / 10 : 15,
-                fill: color,
-                fontFamily: "graphin"
-            }
-        };
-        return Object.assign({}, node);
+        const type = node.data.type;
+        node.style = generateNodeStyle(node, nodeDisplaySettings[type])
+        return Object.assign({}, node) as IUserNode;
 
     });
 }
@@ -117,8 +146,20 @@ export const applyStylingToNodes = (nodes: Array<any>, nodeDisplaySettings: Prop
 // @ts-ignore
 export const applyStylingToEdges = (edges: Array<any>, edgeDisplaySettings: PropTypes.object) => {
     return edges.map(function (edge, i) {
+        if (edge.id) {
+            // @ts-ignore
+            edge.originalId = edge.id;
+
+            // @ts-ignore
+            edge.id = edge.id.toString();
+        }
         edge.style = {};
         edge.data = {type: "relation"};
+        edge.sourceOriginal = edge.source
+        edge.source = edge.source.toString()
+
+        edge.targetOriginal = edge.target
+        edge.target = edge.target.toString()
 
         const color = pastel_colour(edge.data.type.toLowerCase())
 
@@ -136,7 +177,7 @@ export const applyStylingToEdges = (edges: Array<any>, edgeDisplaySettings: Prop
         edge.style.keyshape = {
             stroke: color // assign color based on edge type
         };
-        return Object.assign({}, edge);
+        return Object.assign({}, edge) as IUserEdge;
     });
 }
 
