@@ -17,30 +17,33 @@ export const NodeContextMenu = (value: ContextMenuValue) => {
     // @ts-ignore
     const model = value.item.get("model");
     console.log("model", model)
-    const primaryColor = model.style.keyshape.stroke;
+    if (model) {
+        const primaryColor = model.style.keyshape.stroke;
 
-    return (
-        <div className={"contextMenu"} style={{borderTopColor: primaryColor}}>
-            <h4 style={{color: primaryColor}}><span className="icon-foo"
-                                                    style={{fontFamily: model.style.icon.fontFamily,}}>
+        return (
+            <div className={"contextMenu"} style={{borderTopColor: primaryColor}}>
+                <h4 style={{color: primaryColor}}><span className="icon-foo"
+                                                        style={{fontFamily: model.style.icon.fontFamily,}}>
                 {model.style.icon.value}</span> {model.label} </h4>
-            <p className={"small border-bottom pb-2 mb-0"}>ID: {model.id}</p>
-            <div className={"properties"}>
-                <div className="header text-uppercase mb-2 p-2 ">Properties</div>
-                <div className="body">
-                    {Object.keys(model.data).map((key, index) => {
-                        if (model) {
-                            return (<div className={"propertyItem border-bottom pb-1 "}>
-                                <h6 className={"mb-1"}>{key} :</h6>
-                                <p className={"mb-1"}>{model.data[key]}</p>
-                            </div>)
+                <p className={"small border-bottom pb-2 mb-0"}>ID: {model.id}</p>
+                <div className={"properties"}>
+                    <div className="header text-uppercase mb-2 p-2 ">Properties</div>
+                    <div className="body">
+                        {Object.keys(model.properties).map((key, index) => {
+                            if (model) {
+                                return (<div className={"propertyItem border-bottom pb-1 "}>
+                                    <h6 className={"mb-1"}>{key} :</h6>
+                                    <p className={"mb-1"}>{model.properties[key]}</p>
+                                </div>)
+                            }
+                        })
                         }
-                    })
-                    }
+                    </div>
                 </div>
+
             </div>
 
-        </div>
-
-    );
+        );
+    }
+    return ( <div />)
 };

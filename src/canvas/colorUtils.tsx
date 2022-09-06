@@ -3,6 +3,7 @@ import iconLoader from "@antv/graphin-icons";
 import PropTypes from "prop-types";
 import {INode} from '@antv/g6';
 import {IUserNode, IUserEdge} from "@antv/graphin/lib/typings/type";
+
 export const IconsPalette = Graphin.registerFontFamily(iconLoader);
 // export const ColorPalette = [
 //     '#5F95FF', // blue
@@ -59,6 +60,7 @@ function lightOrDark(color: any) {
     }
 }
 
+// @ts-ignore
 const pastel_colour = function (str: string) {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
@@ -70,34 +72,40 @@ const pastel_colour = function (str: string) {
         colour += ('00' + value.toString(16)).substr(-2);
     }
 
-    if (lightOrDark(colour) === "dark") {
-        return colour
-    } else {
-        pastel_colour(str + "1")
-    }
+    // if (lightOrDark(colour) === "dark") {
+    //     return colour
+    // } else {
+    //     return pastel_colour(str + "tested" )
+    // }
+    return colour
 }
 
 const generateNodeStyle = (node: INode, styleData: object) => {
     // @ts-ignore
-    const labelType = node.label;
+    const label = node.label;
 
 
-    console.log("=====node", node)
+    console.log("=====label", label)
     // @ts-ignore
-    const color = (styleData && styleData.nodeColor) ? styleData.nodeColor : pastel_colour(labelType.toLowerCase())
+    const color = (styleData && styleData.nodeColor) ? styleData.nodeColor : pastel_colour(label)
+       console.log("=====label, color",label, color)
+
     // @ts-ignore
     const nodeSize = (styleData && styleData.nodeSize) ? styleData.nodeSize : 28
     // @ts-ignore
     const nodeIcon = (styleData && styleData.nodeIcon) ? styleData.nodeIcon : null
     // @ts-ignore
     const nodeShape = (styleData && styleData.nodeShape) ? styleData.nodeShape : "graphin-circle"
-
     const iconSize = nodeSize * 0.5
+    // @ts-ignore
+    const nodeLabel = (styleData && styleData.labelPropertyKey && node.properties[styleData.labelPropertyKey]) ?
+        // @ts-ignore
+        node.properties[styleData.labelPropertyKey] : node.id;
 
-    let data = {
+    let style = {
         label: {
             // @ts-ignore
-            value: node.id
+            value: nodeLabel
         },
         keyshape: {
             size: nodeSize,
@@ -111,7 +119,7 @@ const generateNodeStyle = (node: INode, styleData: object) => {
 
     if (nodeIcon) {
         // @ts-ignore
-        data["icon"] = {
+        style["icon"] = {
             type: "font",
             value: IconsPalette[nodeIcon],
             size: iconSize,
@@ -120,64 +128,77 @@ const generateNodeStyle = (node: INode, styleData: object) => {
         }
     }
 
-    return data
+    return style
 }
+
+const createNode = (node: object, nodeSetting: object) => {
+    // @ts-ignore
+    node.originalId = node.id;
+    // @ts-ignore
+    node.id = node.id.toString();
+    // @ts-ignore
+    // node.labelType = node.label
+    // @ts-ignore
+    node.style = generateNodeStyle(node, nodeSetting);
+    return Object.assign({}, node) as IUserNode;
+
+}
+
 // @ts-ignore
 export const applyStylingToNodes = (nodes: Array<any>, nodeDisplaySettings: PropTypes.object) => {
     return nodes.map((node, i) => {
         // @ts-ignore
-        node.originalId = node.id;
-
-        // @ts-ignore
-        node.id = node.id.toString();
-        // const labelNo = i / 6;
-        if (i < 16) {
-            node.data = {type: "Company"};
-        } else {
-            node.data = {type: "User"};
-        }
-        const type = node.data.type;
-        node.style = generateNodeStyle(node, nodeDisplaySettings[type])
-        return Object.assign({}, node) as IUserNode;
-
+        return createNode(node, nodeDisplaySettings[node.label])
     });
+}
+
+
+const createEdge = (edge: IUserEdge, edgeSetting: object) => {
+    // @ts-ignore
+    if (edge.id) {
+        // @ts-ignore
+        edge.originalId = edge.id;
+        // @ts-ignore
+        edge.id = edge.id.toString();
+    }
+    edge.labelType = edge.label
+
+
+    edge.sourceOriginal = edge.source
+    edge.source = edge.source.toString()
+
+    edge.targetOriginal = edge.target
+    edge.target = edge.target.toString()
+
+    edge.style = {};
+    const labelType = edge.labelType;
+    const color = pastel_colour(labelType)
+    // @ts-ignore
+    const edgeLabel = (edgeSetting && edgeSetting.labelPropertyKey && edge.properties[edgeSetting.labelPropertyKey]) ?
+        // @ts-ignore
+        edge.properties[edgeSetting.labelPropertyKey] :  labelType;
+    //edge.source.toString() + "-" + edge.target.toString();
+    edge.style.label = {
+        value: edgeLabel,
+        fill: color, // assign color based on edge type
+        background: {
+            fill: "#fff",
+            radius: 8,
+            stroke: "#fff"
+        },
+        strokeOpacity: 0
+    };
+
+    edge.style.keyshape = {
+        stroke: color // assign color based on edge type
+    };
+    return Object.assign({}, edge) as IUserEdge;
 }
 
 // @ts-ignore
 export const applyStylingToEdges = (edges: Array<any>, edgeDisplaySettings: PropTypes.object) => {
     return edges.map(function (edge, i) {
-        if (edge.id) {
-            // @ts-ignore
-            edge.originalId = edge.id;
-
-            // @ts-ignore
-            edge.id = edge.id.toString();
-        }
-        edge.style = {};
-        edge.data = {type: "relation"};
-        edge.sourceOriginal = edge.source
-        edge.source = edge.source.toString()
-
-        edge.targetOriginal = edge.target
-        edge.target = edge.target.toString()
-
-        const color = pastel_colour(edge.data.type.toLowerCase())
-
-        edge.style.label = {
-            value: edge.source.toString() + "-" + edge.target.toString(),
-            fill: color, // assign color based on edge type
-            background: {
-                fill: "#fff",
-                radius: 8,
-                stroke: "#fff"
-            },
-            strokeOpacity: 0
-        };
-
-        edge.style.keyshape = {
-            stroke: color // assign color based on edge type
-        };
-        return Object.assign({}, edge) as IUserEdge;
+        return createEdge(edge, edgeDisplaySettings[edge.label])
     });
 }
 

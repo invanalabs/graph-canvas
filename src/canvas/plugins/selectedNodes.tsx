@@ -44,7 +44,7 @@ function ShowSelectedNodes(props: any) {
     }, []);
 
     const removeActiveNode = (node: INode) => {
-        console.log("removeActiveNode", removeActiveNode)
+        console.log("removeActiveNode", node)
         graph.setItemState(node, "selected", false)
     }
     return (
@@ -56,13 +56,16 @@ function ShowSelectedNodes(props: any) {
                     return (
                         // @ts-ignore
                         <Button className="me-3 selectedNode" size="sm"
-                                onClick={()=> focusOnNode(node)}
+                                onClick={() => focusOnNode(node)}
                                 style={{
                                     borderColor: model.style.keyshape.stroke,
                                     color: model.style.keyshape.stroke,
                                 }}
                                 variant="outline-secondary" key={model.id}>
-                            {model.label.toString()}
+                            <span className="icon-foo me-1"
+                                  style={{fontFamily: model.style.icon.fontFamily,}}>
+                {model.style.icon.value}</span>
+                            {model.style.label.value.toString()}
                             <CloseSquareOutlined
                                 className={"ms-1"}
                                 onClick={() => removeActiveNode(node)}

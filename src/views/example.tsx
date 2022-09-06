@@ -13,13 +13,15 @@ const initState = {
         options: {},
     },
     nodeDisplaySettings: {
-        "User": {
+        "Person": {
             "nodeSize": 44,
             "nodeIcon": "user",
-            "nodeColor": "#ff0000"
+            // "nodeColor": "#ff0000",
+            "labelPropertyKey": "name"
         },
-        "Company": {
+        "Project": {
             "nodeIcon": "company",
+            "labelPropertyKey": "name"
         }
     },
     edgeDisplaySettings: {},

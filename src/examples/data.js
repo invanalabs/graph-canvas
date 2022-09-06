@@ -2,24 +2,31 @@ const exampleData = {
   nodes: [
     {
       id: 1,
-      label: "Person"
-      // properties: {
-      //   name: "Ravi"
-      // }
+      label: "Person",
+      properties: {
+        name: "Ravi"
+      }
     },
     {
       id: 2,
-      label: "Person"
-      // properties: {
-      //   name: "Roja"
-      // }
+      label: "Person",
+      properties: {
+        name: "Roja"
+      }
     },
     {
       id: 3,
-      label: "Person"
-      // properties: {
-      //   name: "Rinku"
-      // }
+      label: "Person",
+      properties: {
+        name: "Rinku"
+      }
+    },
+    {
+      id: 4,
+      label: "Project",
+      properties: {
+        name: "Invana Studio"
+      }
     }
   ],
   edges: [
@@ -27,19 +34,19 @@ const exampleData = {
       id: 4,
       label: "has_spouse",
       source: 1,
-      target: 2
-      // properties: {
-      //   married_since: "2020"
-      // }
+      target: 2,
+      properties: {
+        married_since: "2020"
+      }
     },
     {
       id: 5,
       label: "has_spouse",
       source: 2,
-      target: 1
-      // properties: {
-      //   married_since: "2020"
-      // }
+      target: 1,
+      properties: {
+        married_since: "2020"
+      }
     },
     {
       id: 6,
@@ -57,19 +64,28 @@ const exampleData = {
       id: 8,
       label: "married_to",
       source: 1,
-      target: 2
-      // properties: {
-      //   married_since: "2020"
-      // }
+      target: 2,
+      properties: {
+        since: "2020"
+      }
     },
     {
       id: 9,
       label: "married_to",
       source: 2,
-      target: 1
-      // properties: {
-      //   married_since: "2020"
-      // }
+      target: 1,
+      properties: {
+        since: "2020"
+      }
+    },
+    {
+      id: 10,
+      label: "authored",
+      source: 1,
+      target: 4,
+      properties: {
+        since: "2020"
+      }
     }
   ]
 };
