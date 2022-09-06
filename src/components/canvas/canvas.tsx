@@ -72,6 +72,8 @@ function GraphCanvas({data, containerId, width, height, initState}) {
     const [messageText, setMessageText] = React.useState(initState["messageText"]);
     const [hoveredItem, setHoveredItem] = React.useState(initState["hoveredItem"]);
     const [showDisplaySettings, setShowDisplaySettings] = React.useState(initState["showDisplaySettings"]);
+    const [nodeDisplaySettings, setNodeDisplaySettings] = React.useState(initState["nodeDisplaySettings"]);
+    const [edgeDisplaySettings, setEdgeDisplaySettings] = React.useState(initState["edgeDisplaySettings"]);
 
     const stateManager = new StateManager(
         setLayoutSettings,
@@ -79,12 +81,16 @@ function GraphCanvas({data, containerId, width, height, initState}) {
         setMessageText,
         setHoveredItem,
         setShowDisplaySettings,
+        setNodeDisplaySettings,
+        setEdgeDisplaySettings,
         layoutSettings,
         selectedNodes,
         messageText,
         hoveredItem,
-        showDisplaySettings
-        )
+        showDisplaySettings,
+        nodeDisplaySettings,
+        edgeDisplaySettings
+    )
 
 
     // @ts-ignore

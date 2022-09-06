@@ -3,6 +3,18 @@ import PropTypes from "prop-types";
 import {Card} from "react-bootstrap";
 
 
+/*
+
+nodeDisplaySettings = {
+    "labelType":
+    "nodeIcon": !
+    "nodeSize",
+    "nodeColor"
+    "nodeShape",
+}
+
+ */
+
 // @ts-ignore
 function NodeDisplaySettings(props: any) {
     return (

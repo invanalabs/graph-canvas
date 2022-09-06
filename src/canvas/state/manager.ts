@@ -8,20 +8,28 @@ export default class StateManager {
     setMessageText = null
     setHoveredItem = null
     setShowDisplaySettings = null
+
+
     layoutSettings = null
     selectedNodes = null
     messageText = null
     hoveredItem = null
     showDisplaySettings = null
+    nodeDisplaySettings = null
+    edgeDisplaySettings = null
 
     // @ts-ignore
     constructor(setLayoutSettings: PropTypes.func, setSelectedNodes: PropTypes.func,
                 // @ts-ignore
                 setMessageText: PropTypes.func, setHoveredItem: PropTypes.func, setShowDisplaySettings: PropTypes.func,
                 // @ts-ignore
+                setNodeDisplaySettings: PropTypes.func, setEdgeDisplaySettings: PropTypes.func,
+                // @ts-ignore
                 layoutSettings: PropTypes.object, selectedNodes: PropTypes.object, messageText: PropTypes.object,
                 // @ts-ignore
-                hoveredItem: PropTypes.object, showDisplaySettings: PropTypes.object
+                hoveredItem: PropTypes.object, showDisplaySettings: PropTypes.object,
+                // @ts-ignore
+                nodeDisplaySettings, edgeDisplaySettings
     ) {
         this.setLayoutSettings_ = setLayoutSettings
         this.setSelectedNodes = setSelectedNodes
@@ -35,6 +43,8 @@ export default class StateManager {
         this.messageText = messageText
         this.hoveredItem = hoveredItem
         this.showDisplaySettings = showDisplaySettings
+        this.nodeDisplaySettings = nodeDisplaySettings
+        this.edgeDisplaySettings = edgeDisplaySettings
     }
 
 

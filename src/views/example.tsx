@@ -1,33 +1,40 @@
 import React from "react";
 import {Utils} from "@antv/graphin";
-import {applyStylesToData} from "../canvas/utils";
+import {applyStylesToData} from "../canvas/colorUtils";
 import GraphCanvas from "../components/canvas/canvas";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+const initState = {
+    // display settings
+    layoutSettings: {
+        type: 'dagre',
+        options: {},
+    },
+    nodeDisplaySettings: {
+        // "User"
+    },
+    edgeDisplaySettings: {},
+
+    showDisplaySettings: false,
+
+    // message
+    messageText: "Welcome to graph canvas (beta).",
+
+    //
+    selectedNodes: [],
+    hoveredItem: null,
+
+    //
+
+}
+
 function ExampleView() {
     let data = Utils.mock(45).random().graphin();
-    data = applyStylesToData(data)
-    const initState = {
-        // display settings
-        layoutSettings: {
-            type: 'dagre',
-            options: {},
-        },
-        nodeSettings: {},
-        edgeSettings: {},
+    data = applyStylesToData(data,
+        initState["nodeDisplaySettings"],
+        initState["edgeDisplaySettings"])
 
-        showDisplaySettings: false,
-
-        // message
-        messageText: "Welcome to graph canvas (beta).",
-
-        //
-        selectedNodes: [],
-        hoveredItem: null,
-
-        //
-
-    }
     return <div className="" style={{"padding": "30px"}}>
         <GraphCanvas data={data}
                      initState={initState}
