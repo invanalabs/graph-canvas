@@ -7,16 +7,36 @@ export default class StateManager {
     setSelectedNodes = null
     setMessageText = null
     setHoveredItem = null
+    setShowDisplaySettings = null
+    layoutSettings = null
+    selectedNodes = null
+    messageText = null
+    hoveredItem = null
+    showDisplaySettings = null
 
     // @ts-ignore
     constructor(setLayoutSettings: PropTypes.func, setSelectedNodes: PropTypes.func,
                 // @ts-ignore
-                setMessageText: PropTypes.func, setHoveredItem: PropTypes.func) {
+                setMessageText: PropTypes.func, setHoveredItem: PropTypes.func, setShowDisplaySettings: PropTypes.func,
+                // @ts-ignore
+                layoutSettings: PropTypes.object, selectedNodes: PropTypes.object, messageText: PropTypes.object,
+                // @ts-ignore
+                hoveredItem: PropTypes.object, showDisplaySettings: PropTypes.object
+    ) {
         this.setLayoutSettings_ = setLayoutSettings
         this.setSelectedNodes = setSelectedNodes
         this.setMessageText = setMessageText
         this.setHoveredItem = setHoveredItem
+        this.setShowDisplaySettings = setShowDisplaySettings
+
+
+        this.layoutSettings = layoutSettings
+        this.selectedNodes = selectedNodes
+        this.messageText = messageText
+        this.hoveredItem = hoveredItem
+        this.showDisplaySettings = showDisplaySettings
     }
+
 
     setLayoutSettings(data: any) {
         // @ts-ignore
@@ -29,13 +49,13 @@ export default class StateManager {
     }
 
     focusOnNode(apis: any, node: any) {
-        // graph.focusItem(node.getID(), true, {
-        //     duration: 300,
-        //     easing: 'easeCubic'
-        // });
         apis.focusNodeById(node.getID());
-
         node.toFront();
     }
+
+    // showDisplaySettings() {
+    //     // @ts-ignore
+    //     this.setShowDisplaySettings(true)
+    // }
 
 }

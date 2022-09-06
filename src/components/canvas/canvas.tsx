@@ -2,23 +2,25 @@ import React from "react";
 import Graphin, {Behaviors, Components} from "@antv/graphin";
 import {Grid} from "@antv/graphin-components";
 import {Toolbar} from '@antv/graphin-components';
-import SelectMultipleNodes from "../canvas/behaviours/selectMultiple"
-import FocusSelectedNodes from "../canvas/behaviours/focusSelected"
-import {leftToolBarOptions} from "../canvas/plugins/toolbar/leftToolbar";
+import SelectMultipleNodes from "../../canvas/behaviours/selectMultiple"
+import FocusSelectedNodes from "../../canvas/behaviours/focusSelected"
 import "@antv/graphin-icons/dist/index.css";
-import {NodeContextMenu} from "../canvas/plugins/contextMenu/contextMenu";
-import {defaultLayoutSettings, miniMapOptions} from "../canvas/settings";
-import {defaultNodeStyle} from "../canvas/settings";
-import "../canvas/style.css";
+import {NodeContextMenu} from "../../canvas/plugins/contextMenu/contextMenu";
+import {defaultLayoutSettings, miniMapOptions} from "../../canvas/settings";
+import {defaultNodeStyle} from "../../canvas/settings";
+import "../../canvas/style.css";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
-import ShowSelectedNodes from "../canvas/plugins/selectedNodes"
-import Footer from "../canvas/plugins/footer/footer";
+import ShowSelectedNodes from "../../canvas/plugins/selectedNodes"
+import Footer from "../../canvas/plugins/footer/footer";
 import "./canvas.css"
-import {handleToolBarClick} from "../canvas/plugins/toolbar/handler";
+import {handleToolBarClick} from "../../canvas/plugins/toolbar/handler";
 import PropTypes from 'prop-types';
-import StateManager from "../canvas/state/manager";
-import HoveredItemInfo from "../canvas/plugins/hoveredItemInfo";
-import {rightleftToolBarOptions} from "../canvas/plugins/toolbar/rightToolBar";
+import StateManager from "../../canvas/state/manager";
+import HoveredItemInfo from "../../canvas/plugins/hoveredItemInfo";
+import {rightToolBarOptions} from "../../canvas/plugins/toolbar/rightToolBar";
+import {leftToolBarOptions} from "../../canvas/plugins/toolbar/leftToolbar";
+import NodeDisplaySettings from "../displaySettings/nodeDisplaySettings";
+import "../normalise.css";
 
 const {
     DragCanvas, // Drag the canvas
@@ -69,8 +71,20 @@ function GraphCanvas({data, containerId, width, height, initState}) {
     const [selectedNodes, setSelectedNodes] = React.useState(initState["selectedNodes"]);
     const [messageText, setMessageText] = React.useState(initState["messageText"]);
     const [hoveredItem, setHoveredItem] = React.useState(initState["hoveredItem"]);
+    const [showDisplaySettings, setShowDisplaySettings] = React.useState(initState["showDisplaySettings"]);
 
-    const stateManager = new StateManager(setLayoutSettings, setSelectedNodes, setMessageText, setHoveredItem)
+    const stateManager = new StateManager(
+        setLayoutSettings,
+        setSelectedNodes,
+        setMessageText,
+        setHoveredItem,
+        setShowDisplaySettings,
+        layoutSettings,
+        selectedNodes,
+        messageText,
+        hoveredItem,
+        showDisplaySettings
+        )
 
 
     // @ts-ignore
@@ -122,10 +136,12 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                         "left": "15px",
                         "position": "absolute"
                     }}/>
-                <HoveredItemInfo  stateManager={stateManager} />
-                <ContextMenu style={{background: "#fff",
+                <HoveredItemInfo stateManager={stateManager}/>
+                <ContextMenu style={{
+                    background: "#fff",
                     maxHeight: "600px",
-                    width: "320px"}} bindType="node">
+                    width: "320px"
+                }} bindType="node">
                     {(value) => {
                         return <NodeContextMenu {...value} />;
                     }}
@@ -135,24 +151,23 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 <Hoverable bindType="edge"/>
                 <Hoverable bindType="node"/>
 
+                {
+                    showDisplaySettings ? <NodeDisplaySettings/> : <span/>
+                }
 
 
                 <Toolbar
-                    style={{ "top": "-31px", "left": "-1px"}}
-                    // className={"leftToolBar"}
+                    style={{"top": "-31px", "left": "-1px"}}
                     options={leftToolBarOptions}
                     onChange={(graphinContext: GraphinContextType, config: any) =>
                         handleToolBarClick(graphinContext, config, stateManager)}
-                    // direction={"horizontal"}
                 />
 
                 <Toolbar
-                    style={{ "top": "-31px", "right": "-1px"}}
-                          // className={"rightToolBar"}
-                    options={rightleftToolBarOptions}
+                    style={{"top": "-31px", "right": "-1px"}}
+                    options={rightToolBarOptions}
                     onChange={(graphinContext: GraphinContextType, config: any) =>
                         handleToolBarClick(graphinContext, config, stateManager)}
-                    // direction={"horizontal"}
                 />
 
                 {/* <DragNodeWithForce /> */}

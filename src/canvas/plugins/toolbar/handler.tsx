@@ -37,6 +37,12 @@ export const handleToolBarClick = (graphinContext: GraphinContextType, config: a
         graph.paint();
         graph.setAutoPaint(autoPaint);
 
+    } else if (keyCode === "display-settings") {
+        if (stateManager.showDisplaySettings === true) {
+            stateManager.setShowDisplaySettings(false)
+        } else {
+            stateManager.setShowDisplaySettings(true)
+        }
     }
 
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import {Utils} from "@antv/graphin";
 import {applyStylesToData} from "../canvas/utils";
-import GraphCanvas from "../components/canvas";
+import GraphCanvas from "../components/canvas/canvas";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ExampleView() {
@@ -16,12 +16,14 @@ function ExampleView() {
         nodeSettings: {},
         edgeSettings: {},
 
+        showDisplaySettings: false,
+
         // message
         messageText: "Welcome to graph canvas (beta).",
 
         //
         selectedNodes: [],
-        hoveredItem: null
+        hoveredItem: null,
 
         //
 

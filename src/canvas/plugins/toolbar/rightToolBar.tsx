@@ -1,15 +1,10 @@
 import React from "react";
-import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
-import {
-    ZoomInOutlined, ZoomOutOutlined, PartitionOutlined,
-    FullscreenExitOutlined, ClearOutlined, RedoOutlined, CameraOutlined,
-    ShareAltOutlined, DeploymentUnitOutlined, AppstoreOutlined
-} from "@ant-design/icons";
+import {ClearOutlined, RedoOutlined, CameraOutlined, SettingOutlined} from "@ant-design/icons";
 import "./toolbar.css"
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
-export const rightleftToolBarOptions = [
+export const rightToolBarOptions = [
     {
         key: "canvas-clear",
         name: <OverlayTrigger placement={"bottom"}
@@ -40,4 +35,17 @@ export const rightleftToolBarOptions = [
                                   </Tooltip>
                               }><CameraOutlined/></OverlayTrigger>
     },
+    {
+        key: "space-4",
+        name: <div className={"divider"}></div>
+    },
+    {
+        key: "display-settings",
+        name: <OverlayTrigger placement={"bottom"}
+                              overlay={
+                                  <Tooltip id={`tooltip-display-settings`}>
+                                      Display Settings
+                                  </Tooltip>
+                              }><SettingOutlined/></OverlayTrigger>
+    }
 ];

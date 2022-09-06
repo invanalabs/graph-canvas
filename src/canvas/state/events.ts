@@ -1,6 +1,8 @@
 class EventTypes {
-    welcome = "Welcome"
+    welcome = "WELCOME"
     updateLayout = "LAYOUT_UPDATE"
+
+
 }
 
 class Event {
