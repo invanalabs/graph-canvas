@@ -171,12 +171,17 @@ const createEdge = (edge: IUserEdge, edgeSetting: object) => {
     edge.target = edge.target.toString()
 
     edge.style = {};
-    const labelType = edge.labelType;
-    const color = pastel_colour(labelType)
+
+    // const color = pastel_colour(labelType)
+// @ts-ignore
+    const color = (edgeSetting && edgeSetting.edgeColor) ? edgeSetting.edgeColor : pastel_colour(edge.label)
+
     // @ts-ignore
-    const edgeLabel = (edgeSetting && edgeSetting.labelPropertyKey && edge.properties[edgeSetting.labelPropertyKey]) ?
+    const edgeLabel = (edgeSetting && edgeSetting.labelPropertyKey
+    // @ts-ignore
+        && edge.properties && edge.properties[edgeSetting.labelPropertyKey]) ?
         // @ts-ignore
-        edge.properties[edgeSetting.labelPropertyKey] :  labelType;
+        edge.properties[edgeSetting.labelPropertyKey] :  edge.label;
     //edge.source.toString() + "-" + edge.target.toString();
     edge.style.label = {
         value: edgeLabel,
@@ -198,7 +203,7 @@ const createEdge = (edge: IUserEdge, edgeSetting: object) => {
 // @ts-ignore
 export const applyStylingToEdges = (edges: Array<any>, edgeDisplaySettings: PropTypes.object) => {
     return edges.map(function (edge, i) {
-        return createEdge(edge, edgeDisplaySettings[edge.label])
+        return createEdge(edge, edgeDisplaySettings[edge.label] || {})
     });
 }
 

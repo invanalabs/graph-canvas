@@ -24,7 +24,12 @@ const initState = {
             "labelPropertyKey": "name"
         }
     },
-    edgeDisplaySettings: {},
+    edgeDisplaySettings: {
+        "has_child": {
+            "edgeColor": "#b6961c",
+            // "labelPropertyKey": "name"
+        }
+    },
 
     showDisplaySettings: false,
 
