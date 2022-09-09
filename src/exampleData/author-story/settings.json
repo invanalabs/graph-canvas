@@ -5,7 +5,7 @@
   },
   "nodeDisplaySettings": {
     "Person": {
-      "nodeSize": 44,
+      "nodeSize": 20,
       "nodeIcon": "user",
       "nodeColor": "#ff0000",
       "labelPropertyKey": "name"

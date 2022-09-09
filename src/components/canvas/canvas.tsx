@@ -38,9 +38,14 @@ const {
     // DragNodeWithForce
 } = Behaviors;
 
-const {MiniMap} = Components;
-const {ContextMenu} = Components;
-
+const {MiniMap, ContextMenu, SnapLine} = Components;
+// const {ContextMenu} = Components;
+const options = {
+  line: {
+    stroke: 'lightgreen',
+    lineWidth: 0.5,
+  },
+};
 /*
 
 {
@@ -117,7 +122,10 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 containerId={containerId}
                 defaultNodeStyle={defaultNodeStyle}
             >
-                {/*<Grid/>*/}
+
+                        <SnapLine options={options} visible />
+
+                <Grid/>
                 <MiniMap options={miniMapOptions}/>
                 <ZoomCanvas enableOptimize/>
                 {/* Drag and Drop Canvas */}

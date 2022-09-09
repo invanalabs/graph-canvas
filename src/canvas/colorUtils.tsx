@@ -189,7 +189,7 @@ const createEdge = (edge: IUserEdge, edgeSetting: object) => {
             radius: 8,
             stroke: "#fff"
         },
-        strokeOpacity: 0
+        strokeOpacity: 0.2
     };
 
     edge.style.keyshape = {
