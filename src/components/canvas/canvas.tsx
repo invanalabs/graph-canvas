@@ -6,8 +6,8 @@ import SelectMultipleNodes from "../../canvas/behaviours/selectMultiple"
 import FocusSelectedNodes from "../../canvas/behaviours/focusSelected"
 import "@antv/graphin-icons/dist/index.css";
 import {NodeContextMenu} from "../../canvas/plugins/contextMenu/contextMenu";
-import {defaultLayoutSettings, miniMapOptions} from "../../canvas/settings";
-import {defaultNodeStyle} from "../../canvas/settings";
+import {defaultLayoutSettings, miniMapOptions} from "../../settings/default";
+import {defaultNodeStyle} from "../../settings/default";
 import "../../canvas/style.css";
 import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
 import ShowSelectedNodes from "../../canvas/plugins/selectedNodes"
@@ -15,7 +15,7 @@ import Footer from "../../canvas/plugins/footer/footer";
 import "./canvas.css"
 import {handleToolBarClick} from "../../canvas/plugins/toolbar/handler";
 import PropTypes from 'prop-types';
-import StateManager from "../../canvas/state/manager";
+import StateManager from "../../state/manager";
 import HoveredItemInfo from "../../canvas/plugins/hoveredItemInfo";
 import {rightToolBarOptions} from "../../canvas/plugins/toolbar/rightToolBar";
 import {leftToolBarOptions} from "../../canvas/plugins/toolbar/leftToolbar";
