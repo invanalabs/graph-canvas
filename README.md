@@ -1,6 +1,6 @@
 # graph-canvas
 
-React UI components for creating beautiful network graphs based on [Vis.js](https://github.com/visjs/vis-network).
+React UI components for creating insightful network graphs.
 
 
 ## Feature Checking 
@@ -11,13 +11,6 @@ React UI components for creating beautiful network graphs based on [Vis.js](http
  - [ ] log events to track history of positions of elements in graph canvas
  - [ ] freeze positions of graph canvas
 
-## Screenshots
-
-![Alt text](screenshots/viewer.png "Graph Viewer")
-
-![Alt text](screenshots/model.png "Graph Model")
-\
-![Alt text](screenshots/data.png "JSON data")
-
+ 
 
 
