@@ -20,7 +20,6 @@ nodeDisplaySettings = {
 function NodeDisplaySettings(props: any) {
 
     const {apis, graph} = useContext(GraphinContext);
-
     const updateConfig = (labelType: string) => {
 
         // update the styles of type
@@ -30,7 +29,7 @@ function NodeDisplaySettings(props: any) {
         // props.stateManager.
     }
     return (
-        <div className="nodeDisplaySettings bg-white" style={props.style}>
+        <div className="rightModal  bg-white" style={props.style}>
             <Card>
                 <Card.Header>Node display settings</Card.Header>
                 <Card.Body className={""}>

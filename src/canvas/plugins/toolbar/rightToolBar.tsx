@@ -1,11 +1,24 @@
 import React from "react";
-import {ClearOutlined, RedoOutlined, CameraOutlined, SettingOutlined} from "@ant-design/icons";
+import {ClearOutlined, RedoOutlined, SearchOutlined ,  CameraOutlined, SettingOutlined} from "@ant-design/icons";
 import "./toolbar.css"
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 
 export const rightToolBarOptions = [
 
+    {
+        key: "find-and-focus",
+        name: <OverlayTrigger placement={"bottom"}
+                              overlay={
+                                  <Tooltip id={`tooltip-screenshot`}>
+                                      Find and focus node
+                                  </Tooltip>
+                              }><SearchOutlined/></OverlayTrigger>
+    },
+    {
+        key: "space-4",
+        name: <div className={"divider"}></div>
+    },
     {
         key: "screenshot",
         name: <OverlayTrigger placement={"bottom"}
@@ -16,7 +29,7 @@ export const rightToolBarOptions = [
                               }><CameraOutlined/></OverlayTrigger>
     },
     {
-        key: "space-4",
+        key: "space-5",
         name: <div className={"divider"}></div>
     },
     {

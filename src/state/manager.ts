@@ -8,7 +8,7 @@ export default class StateManager {
     setMessageText = null
     setHoveredItem = null
     setShowDisplaySettings = null
-
+    setShowFindAndFocus = null
 
     layoutSettings = null
     selectedNodes = null
@@ -17,25 +17,27 @@ export default class StateManager {
     showDisplaySettings = null
     nodeDisplaySettings = null
     edgeDisplaySettings = null
+    showFindAndFocus= null
 
     // @ts-ignore
     constructor(setLayoutSettings: PropTypes.func, setSelectedNodes: PropTypes.func,
                 // @ts-ignore
                 setMessageText: PropTypes.func, setHoveredItem: PropTypes.func, setShowDisplaySettings: PropTypes.func,
                 // @ts-ignore
-                setNodeDisplaySettings: PropTypes.func, setEdgeDisplaySettings: PropTypes.func,
+                setNodeDisplaySettings: PropTypes.func, setEdgeDisplaySettings: PropTypes.func, setShowFindAndFocus: PropTypes.func,
                 // @ts-ignore
                 layoutSettings: PropTypes.object, selectedNodes: PropTypes.object, messageText: PropTypes.object,
                 // @ts-ignore
                 hoveredItem: PropTypes.object, showDisplaySettings: PropTypes.object,
                 // @ts-ignore
-                nodeDisplaySettings, edgeDisplaySettings
+                nodeDisplaySettings, edgeDisplaySettings,showFindAndFocus
     ) {
         this.setLayoutSettings_ = setLayoutSettings
         this.setSelectedNodes = setSelectedNodes
         this.setMessageText = setMessageText
         this.setHoveredItem = setHoveredItem
         this.setShowDisplaySettings = setShowDisplaySettings
+        this.setShowFindAndFocus = setShowFindAndFocus
 
 
         this.layoutSettings = layoutSettings
@@ -45,6 +47,7 @@ export default class StateManager {
         this.showDisplaySettings = showDisplaySettings
         this.nodeDisplaySettings = nodeDisplaySettings
         this.edgeDisplaySettings = edgeDisplaySettings
+        this.showFindAndFocus = showFindAndFocus
     }
 
 

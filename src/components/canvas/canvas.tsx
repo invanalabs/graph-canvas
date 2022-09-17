@@ -22,6 +22,7 @@ import {leftToolBarOptions} from "../../canvas/plugins/toolbar/leftToolbar";
 import NodeDisplaySettings from "../displaySettings/nodeDisplaySettings";
 import "../normalise.css";
 import {applyStylesToData} from "../../canvas/colorUtils";
+import FindAndFocus from "../find/findAndFocus";
 
 const {
     DragCanvas, // Drag the canvas
@@ -41,10 +42,10 @@ const {
 const {MiniMap, ContextMenu, SnapLine} = Components;
 // const {ContextMenu} = Components;
 const options = {
-  line: {
-    stroke: 'lightgreen',
-    lineWidth: 0.5,
-  },
+    line: {
+        stroke: 'lightgreen',
+        lineWidth: 0.5,
+    },
 };
 /*
 
@@ -78,9 +79,9 @@ function GraphCanvas({data, containerId, width, height, initState}) {
     const [messageText, setMessageText] = React.useState(initState["messageText"]);
     const [hoveredItem, setHoveredItem] = React.useState(initState["hoveredItem"]);
     const [showDisplaySettings, setShowDisplaySettings] = React.useState(initState["showDisplaySettings"]);
+    const [showFindAndFocus, setShowFindAndFocus] = React.useState(initState["showFindAndFocus"]);
     const [nodeDisplaySettings, setNodeDisplaySettings] = React.useState(initState["nodeDisplaySettings"]);
     const [edgeDisplaySettings, setEdgeDisplaySettings] = React.useState(initState["edgeDisplaySettings"]);
-
 
 
     const processedData = applyStylesToData(data,
@@ -95,13 +96,15 @@ function GraphCanvas({data, containerId, width, height, initState}) {
         setShowDisplaySettings,
         setNodeDisplaySettings,
         setEdgeDisplaySettings,
+        setShowFindAndFocus,
         layoutSettings,
         selectedNodes,
         messageText,
         hoveredItem,
         showDisplaySettings,
         nodeDisplaySettings,
-        edgeDisplaySettings
+        edgeDisplaySettings,
+        showFindAndFocus
     )
 
 
@@ -123,7 +126,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 defaultNodeStyle={defaultNodeStyle}
             >
 
-                        <SnapLine options={options} visible />
+                <SnapLine options={options} visible/>
 
                 <Grid/>
                 <MiniMap options={miniMapOptions}/>
@@ -178,11 +181,12 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                             nodeDisplaySettings={nodeDisplaySettings}
                             edgeDisplaySettings={edgeDisplaySettings}
                             stateManager={stateManager}
-                        />
-                        : <span/>
+                        /> : <span/>
                 }
-
-
+                {
+                    showFindAndFocus
+                        ? <FindAndFocus stateManager={stateManager} /> : <span/>
+                }
                 <Toolbar
                     style={{"top": "-31px", "left": "-1px"}}
                     options={leftToolBarOptions}

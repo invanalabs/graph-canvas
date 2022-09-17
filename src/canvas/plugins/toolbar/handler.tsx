@@ -36,12 +36,19 @@ export const handleToolBarClick = (graphinContext: GraphinContextType, config: a
         graph.render();
         graph.paint();
         graph.setAutoPaint(autoPaint);
+        graph.fitCenter()
 
     } else if (keyCode === "display-settings") {
         if (stateManager.showDisplaySettings === true) {
             stateManager.setShowDisplaySettings(false)
         } else {
             stateManager.setShowDisplaySettings(true)
+        }
+    } else if (keyCode === "find-and-focus") {
+        if (stateManager.showFindAndFocus === true) {
+            stateManager.setShowFindAndFocus(false)
+        } else {
+            stateManager.setShowFindAndFocus(true)
         }
     }
 

@@ -7,14 +7,14 @@ export const layoutsOptions = [
         type: 'grid',
         label: 'grid',
         // begin: [0, 0], // 可选，
-        // preventOverlap: true, // 可选，必须配合 nodeSize
-        // preventOverlapPdding: 20, // 可选
+        preventOverlap: true, // 可选，必须配合 nodeSize
+        preventOverlapPadding: 20, // 可选
         // nodeSize: 30, // 可选
         // condense: false, // 可选
         // rows: 5, // 可选
         // cols: 5, // 可选
         // sortBy: 'degree', // 可选
-        // workerEnabled: false, // 可选，开启 web-worker
+        workerEnabled: true, // 可选，开启 web-worker
     },
     {
         type: 'circular',
