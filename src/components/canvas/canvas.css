@@ -25,12 +25,13 @@
     /*opacity: 0.95;*/
 }
 
-.nodeDisplaySettings {
+.rightModal {
     width: 360px;
     height: calc(100% - 28px);
     position: absolute;
     right: -1px;
     top: 0;
+
     /*background: white;*/
 
     /*padding: 10px;*/

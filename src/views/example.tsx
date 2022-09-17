@@ -23,7 +23,7 @@ function ExampleView() {
         <GraphCanvas data={data}
                      initState={initState}
                      containerId={"graph-canvas"}
-                     width={"100%"} height={920}
+                     width={1280} height={920}
         />
     </div>
 }
