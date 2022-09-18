@@ -25,7 +25,13 @@ export const handleToolBarClick = (graphinContext: GraphinContextType, config: a
         const layoutData = layoutsOptions.find(item => item.type === keyCode.replace("-layout", ""));
         stateManager.setLayoutSettings(layoutData)
     } else if (keyCode === "screenshot") {
-        graph.downloadImage()
+        console.log("Screenshow ");
+        if (stateManager.showExportCanvas === true) {
+            stateManager.setExportCanvas(false)
+        } else {
+            stateManager.setExportCanvas(true)
+        }
+
     } else if (keyCode === "fit-center") {
         graph.fitView()
     } else if (keyCode === "canvas-clear") {

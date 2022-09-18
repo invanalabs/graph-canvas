@@ -23,6 +23,7 @@ import NodeDisplaySettings from "../displaySettings/nodeDisplaySettings";
 import "../normalise.css";
 import {applyStylesToData} from "../../canvas/colorUtils";
 import FindAndFocus from "../find/findAndFocus";
+import ExportCanvas from "../export/exportCanvas"
 
 const {
     DragCanvas, // Drag the canvas
@@ -80,6 +81,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
     const [hoveredItem, setHoveredItem] = React.useState(initState["hoveredItem"]);
     const [showDisplaySettings, setShowDisplaySettings] = React.useState(initState["showDisplaySettings"]);
     const [showFindAndFocus, setShowFindAndFocus] = React.useState(initState["showFindAndFocus"]);
+    const [showExportCanvas, setExportCanvas] = React.useState(false);
     const [nodeDisplaySettings, setNodeDisplaySettings] = React.useState(initState["nodeDisplaySettings"]);
     const [edgeDisplaySettings, setEdgeDisplaySettings] = React.useState(initState["edgeDisplaySettings"]);
 
@@ -97,14 +99,16 @@ function GraphCanvas({data, containerId, width, height, initState}) {
         setNodeDisplaySettings,
         setEdgeDisplaySettings,
         setShowFindAndFocus,
+        setExportCanvas,
         layoutSettings,
         selectedNodes,
         messageText,
         hoveredItem,
-        showDisplaySettings,
         nodeDisplaySettings,
         edgeDisplaySettings,
-        showFindAndFocus
+        showDisplaySettings,
+        showFindAndFocus,
+        showExportCanvas
     )
 
 
@@ -186,6 +190,9 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 {
                     showFindAndFocus
                         ? <FindAndFocus stateManager={stateManager} /> : <span/>
+                }  {
+                    showExportCanvas
+                        ? <ExportCanvas stateManager={stateManager} /> : <span/>
                 }
                 <Toolbar
                     style={{"top": "-31px", "left": "-1px"}}

@@ -8,7 +8,10 @@ export default class StateManager {
     setMessageText = null
     setHoveredItem = null
     setShowDisplaySettings = null
+    setNodeDisplaySettings = null
+    setEdgeDisplaySettings = null
     setShowFindAndFocus = null
+    setExportCanvas = null
 
     layoutSettings = null
     selectedNodes = null
@@ -17,7 +20,8 @@ export default class StateManager {
     showDisplaySettings = null
     nodeDisplaySettings = null
     edgeDisplaySettings = null
-    showFindAndFocus= null
+    showFindAndFocus = null
+    showExportCanvas= null
 
     // @ts-ignore
     constructor(setLayoutSettings: PropTypes.func, setSelectedNodes: PropTypes.func,
@@ -26,18 +30,25 @@ export default class StateManager {
                 // @ts-ignore
                 setNodeDisplaySettings: PropTypes.func, setEdgeDisplaySettings: PropTypes.func, setShowFindAndFocus: PropTypes.func,
                 // @ts-ignore
+                setExportCanvas: PropTypes.func,
+                // @ts-ignore
                 layoutSettings: PropTypes.object, selectedNodes: PropTypes.object, messageText: PropTypes.object,
                 // @ts-ignore
                 hoveredItem: PropTypes.object, showDisplaySettings: PropTypes.object,
                 // @ts-ignore
-                nodeDisplaySettings, edgeDisplaySettings,showFindAndFocus
+                nodeDisplaySettings: PropTypes.object, edgeDisplaySettings: PropTypes.object,
+                // @ts-ignore
+                showFindAndFocus: PropTypes.bool, showExportCanvas: PropTypes.bool
     ) {
         this.setLayoutSettings_ = setLayoutSettings
         this.setSelectedNodes = setSelectedNodes
         this.setMessageText = setMessageText
         this.setHoveredItem = setHoveredItem
         this.setShowDisplaySettings = setShowDisplaySettings
+        this.setNodeDisplaySettings = setNodeDisplaySettings
+        this.setEdgeDisplaySettings = setEdgeDisplaySettings
         this.setShowFindAndFocus = setShowFindAndFocus
+        this.setExportCanvas = setExportCanvas
 
 
         this.layoutSettings = layoutSettings
@@ -48,6 +59,7 @@ export default class StateManager {
         this.nodeDisplaySettings = nodeDisplaySettings
         this.edgeDisplaySettings = edgeDisplaySettings
         this.showFindAndFocus = showFindAndFocus
+        this.showExportCanvas = showExportCanvas
     }
 
 
