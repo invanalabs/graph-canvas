@@ -1,5 +1,5 @@
 import React from "react";
-import {ClearOutlined, RedoOutlined, SearchOutlined ,  CameraOutlined, SettingOutlined} from "@ant-design/icons";
+import {ClearOutlined, RedoOutlined, SearchOutlined ,  ExportOutlined, SettingOutlined} from "@ant-design/icons";
 import "./toolbar.css"
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
@@ -11,7 +11,7 @@ export const rightToolBarOptions = [
         name: <OverlayTrigger placement={"bottom"}
                               overlay={
                                   <Tooltip id={`tooltip-screenshot`}>
-                                      Find and focus node
+                                      Find and focus node in the canvas
                                   </Tooltip>
                               }><SearchOutlined/></OverlayTrigger>
     },
@@ -24,9 +24,9 @@ export const rightToolBarOptions = [
         name: <OverlayTrigger placement={"bottom"}
                               overlay={
                                   <Tooltip id={`tooltip-screenshot`}>
-                                      Save as Image
+                                      Export canvas
                                   </Tooltip>
-                              }><CameraOutlined/></OverlayTrigger>
+                              }><ExportOutlined /></OverlayTrigger>
     },
     {
         key: "space-5",

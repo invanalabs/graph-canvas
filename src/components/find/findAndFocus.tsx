@@ -71,9 +71,6 @@ function FindAndFocus(props: any) {
 }
 
 FindAndFocus.propTypes = {
-    // style: PropTypes.object,
-    FindAndFocus: PropTypes.object,
-    edgeDisplaySettings: PropTypes.object,
     stateManager: PropTypes.any,
 }
 export default FindAndFocus
