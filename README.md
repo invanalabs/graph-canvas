@@ -2,6 +2,7 @@
 
 React UI components for creating insightful network graphs.
 
+ ![screen](screenshot.png)
 
 ## Feature Checking 
  - [x] Draw network graph from JSON data
@@ -11,6 +12,5 @@ React UI components for creating insightful network graphs.
  - [ ] log events to track history of positions of elements in graph canvas
  - [ ] freeze positions of graph canvas
 
- 
 
 
