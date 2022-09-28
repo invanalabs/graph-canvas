@@ -73,7 +73,7 @@ const options = {
 
 
 // @ts-ignore
-function GraphCanvas({data, containerId, width, height, initState}) {
+function GraphCanvas({data, containerId, width, height, initState, welcomeComponent}) {
     console.log(data);
     const [layoutSettings, setLayoutSettings] = React.useState(initState["layoutSettings"]);
     const [selectedNodes, setSelectedNodes] = React.useState(initState["selectedNodes"]);
@@ -119,6 +119,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                  width: width, height: height,
                  paddingTop: "30px"
              }}>
+            <span>{welcomeComponent|| ""}</span>
 
             <Graphin
                 data={processedData}
@@ -180,6 +181,10 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 <Hoverable bindType="node"/>
 
                 {
+                    welcomeComponent
+                        ? welcomeComponent : <span/>
+                }
+                {
                     showDisplaySettings
                         ? <NodeDisplaySettings
                             nodeDisplaySettings={nodeDisplaySettings}
@@ -222,6 +227,7 @@ GraphCanvas.propTypes = {
     containerId: PropTypes.string,
     style: PropTypes.object,
     initState: PropTypes.object,
+    welcomeComponent: PropTypes.any,
 }
 
 export default GraphCanvas;

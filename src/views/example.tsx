@@ -9,6 +9,7 @@ import flightStoryData from "../exampleData/flight-story/data.json";
 import flightStoryInitState from "../exampleData/flight-story/settings.json"
 import blankStoryData from "../exampleData/blank-story/data.json";
 import blankStoryInitState from "../exampleData/blank-story/settings.json"
+import WelcomeToCanvas from "../components/welcome/welcome";
 
 
 // import data from "../exampleData/flight-story/data.json";
@@ -47,6 +48,8 @@ function ExampleView() {
                                 initState={blankStoryInitState}
                                 containerId={"graph-canvas"}
                                 width={"100%"} height={920}
+                                 welcomeComponent={<WelcomeToCanvas />}
+
                             />
 
                             : <React.Fragment/>
