@@ -36,7 +36,10 @@ function generateName() {
 }
 
 
-const canvasStoreExamples = [
+
+// @ts-ignore
+function EdgeCanvasView(props: any) {
+    const canvasStoreExamples = [
     {
         "canvas_id": "xyz-000",
         "name": "hello world canvas",
@@ -63,9 +66,7 @@ const canvasStoreExamples = [
 
 ]
 
-// @ts-ignore
-function EdgeCanvasView(props: any) {
-    const [selectedCanvas, setSelectedCanvas] = React.useState(canvasStoreExamples[0])
+    const [selectedCanvas, setSelectedCanvas] = React.useState(null)
     const [canvasStore, setCanvasStore] = React.useState(canvasStoreExamples)
 
     const createNewCanvas = (name: string) => {
@@ -80,6 +81,7 @@ function EdgeCanvasView(props: any) {
         canvasStore__.unshift(canvas,)
         console.log("canvasStore__", Object.keys(canvasStore__))
         setCanvasStore(canvasStore__)
+        // @ts-ignore
         setSelectedCanvas(canvas)
     }
 
@@ -137,6 +139,7 @@ function EdgeCanvasView(props: any) {
                                  initState={selectedCanvas.initState}
                                  containerId={"graph-canvas"}
                                  width={"100%"} height={920}
+                                 welcomeComponent={WelcomeToCanvas}
                     />
 
                     :

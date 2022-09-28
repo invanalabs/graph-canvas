@@ -5,18 +5,19 @@
   },
   "nodeDisplaySettings": {
     "Person": {
+      "nodeSize": 30,
       "nodeIcon": "user",
-      "nodeColor": "#ff00ff",
+      "nodeColor": "#ff0000",
       "labelPropertyKey": "name"
     },
     "Project": {
       "nodeIcon": "company",
-      "nodeColor": "#0000ff",
       "labelPropertyKey": "name"
     }
   },
   "edgeDisplaySettings": {
     "has_child": {
+      "edgeColor": "#b6961c",
       "labelPropertyKey": "name"
     }
   },

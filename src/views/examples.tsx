@@ -27,7 +27,7 @@ import WelcomeToCanvas from "../components/welcome/welcome";
 function ExamplesView() {
 
 
-    const [selectedCanvas, setSelectedCanvas] = React.useState("blank-story")
+    const [selectedCanvas, setSelectedCanvas] = React.useState(" -story")
     return <div className="container-fluid" style={{"padding": "30px"}}>
         <div className="row">
             <div className="col-10">
