@@ -1,0 +1,27 @@
+{
+  "layoutSettings": {
+    "type": "dagre",
+    "options": {}
+  },
+  "nodeDisplaySettings": {
+    "Person": {
+      "nodeIcon": "user",
+      "nodeColor": "#ff00ff",
+      "labelPropertyKey": "name"
+    },
+    "Project": {
+      "nodeIcon": "company",
+      "nodeColor": "#0000ff",
+      "labelPropertyKey": "name"
+    }
+  },
+  "edgeDisplaySettings": {
+    "has_child": {
+      "labelPropertyKey": "name"
+    }
+  },
+  "showDisplaySettings": false,
+  "messageText": "Welcome to graph canvas (beta).",
+  "selectedNodes": [],
+  "hoveredItem": null
+}

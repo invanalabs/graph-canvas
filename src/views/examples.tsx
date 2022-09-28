@@ -24,31 +24,33 @@ import WelcomeToCanvas from "../components/welcome/welcome";
 //     node.label = "relationship"
 // })
 
-function ExampleView() {
-    const [uiComponentType, setUIComponentType] = React.useState("blank-story")
+function ExamplesView() {
+
+
+    const [selectedCanvas, setSelectedCanvas] = React.useState("blank-story")
     return <div className="container-fluid" style={{"padding": "30px"}}>
         <div className="row">
             <div className="col-10">
-                {uiComponentType == "full-ravi-story" ?
+                {selectedCanvas == "full-ravi-story" ?
                     <GraphCanvas data={authorStoryData}
                                  initState={authorStoryInitState}
                                  containerId={"graph-canvas"}
                                  width={"100%"} height={920}
                     />
-                    : uiComponentType == "full-flight-story" ?
+                    : selectedCanvas == "full-flight-story" ?
                         <GraphCanvas data={flightStoryData}
                                      initState={flightStoryInitState}
                                      containerId={"graph-canvas"}
                                      width={"100%"} height={920}
                         />
 
-                        : uiComponentType == "blank-story" ?
+                        : selectedCanvas == "blank-story" ?
                             <GraphCanvas
                                 data={blankStoryData}
                                 initState={blankStoryInitState}
                                 containerId={"graph-canvas"}
                                 width={"100%"} height={920}
-                                 welcomeComponent={<WelcomeToCanvas />}
+                                welcomeComponent={<WelcomeToCanvas/>}
 
                             />
 
@@ -58,19 +60,19 @@ function ExampleView() {
             </div>
             <div className="col-2">
                 <ul className="list-group  list-group-flush">
-                    <li className={"list-group-item " + (uiComponentType == "blank-story" ? 'active' : '')}
+                    <li className={"list-group-item " + (selectedCanvas == "blank-story" ? 'active' : '')}
                         style={{"cursor": "pointer"}}
-                        onClick={() => setUIComponentType("blank-story")}>
+                        onClick={() => setSelectedCanvas("blank-story")}>
                         Blank Canvas
                     </li>
-                    <li className={"list-group-item " + (uiComponentType == "full-ravi-story" ? 'active' : '')}
+                    <li className={"list-group-item " + (selectedCanvas == "full-ravi-story" ? 'active' : '')}
                         style={{"cursor": "pointer"}}
-                        onClick={() => setUIComponentType("full-ravi-story")}>
+                        onClick={() => setSelectedCanvas("full-ravi-story")}>
                         Full Canvas(Story of Ravi)
                     </li>
-                    <li className={"list-group-item " + (uiComponentType == "full-flight-story" ? 'active' : '')}
+                    <li className={"list-group-item " + (selectedCanvas == "full-flight-story" ? 'active' : '')}
                         style={{"cursor": "pointer"}}
-                        onClick={() => setUIComponentType("full-flight-story")}>
+                        onClick={() => setSelectedCanvas("full-flight-story")}>
                         Full Canvas(Story of Flights)
                     </li>
 
@@ -81,4 +83,4 @@ function ExampleView() {
     </div>
 }
 
-export default ExampleView;
+export default ExamplesView;
