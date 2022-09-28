@@ -26,12 +26,11 @@ export const handleToolBarClick = (graphinContext: GraphinContextType, config: a
         stateManager.setLayoutSettings(layoutData)
     } else if (keyCode === "screenshot") {
         console.log("Screenshow ");
-        if (stateManager.showExportCanvas === true) {
-            stateManager.setExportCanvas(false)
+        if (stateManager.rightModal === "showExportCanvas") {
+            stateManager.setRightModal(null)
         } else {
-            stateManager.setExportCanvas(true)
+            stateManager.setRightModal("showExportCanvas")
         }
-
     } else if (keyCode === "fit-center") {
         graph.fitView()
     } else if (keyCode === "canvas-clear") {
@@ -45,16 +44,16 @@ export const handleToolBarClick = (graphinContext: GraphinContextType, config: a
         graph.fitCenter()
 
     } else if (keyCode === "display-settings") {
-        if (stateManager.showDisplaySettings === true) {
-            stateManager.setShowDisplaySettings(false)
+        if (stateManager.rightModal === "showDisplaySettings") {
+            stateManager.setRightModal(null)
         } else {
-            stateManager.setShowDisplaySettings(true)
+            stateManager.setRightModal("showDisplaySettings")
         }
     } else if (keyCode === "find-and-focus") {
-        if (stateManager.showFindAndFocus === true) {
-            stateManager.setShowFindAndFocus(false)
+        if (stateManager.rightModal === "showFindAndFocus") {
+            stateManager.setRightModal(null)
         } else {
-            stateManager.setShowFindAndFocus(true)
+            stateManager.setRightModal("showFindAndFocus")
         }
     }
 

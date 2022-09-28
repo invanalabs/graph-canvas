@@ -73,15 +73,19 @@ const options = {
 
 
 // @ts-ignore
-function GraphCanvas({data, containerId, width, height, initState}) {
+function GraphCanvas({data, containerId, width, height, initState, welcomeComponent}) {
     console.log(data);
     const [layoutSettings, setLayoutSettings] = React.useState(initState["layoutSettings"]);
     const [selectedNodes, setSelectedNodes] = React.useState(initState["selectedNodes"]);
     const [messageText, setMessageText] = React.useState(initState["messageText"]);
     const [hoveredItem, setHoveredItem] = React.useState(initState["hoveredItem"]);
-    const [showDisplaySettings, setShowDisplaySettings] = React.useState(initState["showDisplaySettings"]);
-    const [showFindAndFocus, setShowFindAndFocus] = React.useState(initState["showFindAndFocus"]);
-    const [showExportCanvas, setExportCanvas] = React.useState(false);
+
+    const [rightModal, setRightModal] = React.useState(null)
+
+    // const [showDisplaySettings, setShowDisplaySettings] = React.useState(initState["showDisplaySettings"]);
+    // const [showFindAndFocus, setShowFindAndFocus] = React.useState(initState["showFindAndFocus"]);
+    // const [showExportCanvas, setExportCanvas] = React.useState(false);
+
     const [nodeDisplaySettings, setNodeDisplaySettings] = React.useState(initState["nodeDisplaySettings"]);
     const [edgeDisplaySettings, setEdgeDisplaySettings] = React.useState(initState["edgeDisplaySettings"]);
 
@@ -95,20 +99,22 @@ function GraphCanvas({data, containerId, width, height, initState}) {
         setSelectedNodes,
         setMessageText,
         setHoveredItem,
-        setShowDisplaySettings,
+        // setShowDisplaySettings,
         setNodeDisplaySettings,
         setEdgeDisplaySettings,
-        setShowFindAndFocus,
-        setExportCanvas,
+        setRightModal,
+        // setShowFindAndFocus,
+        // setExportCanvas,
         layoutSettings,
         selectedNodes,
         messageText,
         hoveredItem,
         nodeDisplaySettings,
         edgeDisplaySettings,
-        showDisplaySettings,
-        showFindAndFocus,
-        showExportCanvas
+        // showDisplaySettings,
+        // showFindAndFocus,
+        // showExportCanvas
+        rightModal
     )
 
 
@@ -119,6 +125,7 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                  width: width, height: height,
                  paddingTop: "30px"
              }}>
+            <span>{welcomeComponent || ""}</span>
 
             <Graphin
                 data={processedData}
@@ -180,19 +187,19 @@ function GraphCanvas({data, containerId, width, height, initState}) {
                 <Hoverable bindType="node"/>
 
                 {
-                    showDisplaySettings
+                    welcomeComponent
+                        ? welcomeComponent : <span/>
+                }
+                {
+                    rightModal === "showDisplaySettings"
                         ? <NodeDisplaySettings
                             nodeDisplaySettings={nodeDisplaySettings}
                             edgeDisplaySettings={edgeDisplaySettings}
                             stateManager={stateManager}
-                        /> : <span/>
-                }
-                {
-                    showFindAndFocus
-                        ? <FindAndFocus stateManager={stateManager} /> : <span/>
-                }  {
-                    showExportCanvas
-                        ? <ExportCanvas stateManager={stateManager} /> : <span/>
+                        /> : rightModal === "showFindAndFocus"
+                            ? <FindAndFocus stateManager={stateManager}/>
+                            : rightModal === "showExportCanvas"
+                                ? <ExportCanvas stateManager={stateManager}/> : <span/>
                 }
                 <Toolbar
                     style={{"top": "-31px", "left": "-1px"}}
@@ -222,6 +229,7 @@ GraphCanvas.propTypes = {
     containerId: PropTypes.string,
     style: PropTypes.object,
     initState: PropTypes.object,
+    welcomeComponent: PropTypes.any,
 }
 
 export default GraphCanvas;

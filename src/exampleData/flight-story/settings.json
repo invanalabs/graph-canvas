@@ -1,0 +1,12 @@
+{
+  "layoutSettings": {
+    "type": "grid",
+    "options": {}
+  },
+  "nodeDisplaySettings": {},
+  "edgeDisplaySettings": {},
+  "showDisplaySettings": false,
+  "messageText": "Welcome to graph canvas (beta).",
+  "selectedNodes": [],
+  "hoveredItem": null
+}
