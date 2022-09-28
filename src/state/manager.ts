@@ -7,59 +7,68 @@ export default class StateManager {
     setSelectedNodes = null
     setMessageText = null
     setHoveredItem = null
-    setShowDisplaySettings = null
+    // setShowDisplaySettings = null
     setNodeDisplaySettings = null
     setEdgeDisplaySettings = null
-    setShowFindAndFocus = null
-    setExportCanvas = null
+    // setShowFindAndFocus = null
+    // setExportCanvas = null
+    rightModal = null
+
 
     layoutSettings = null
     selectedNodes = null
     messageText = null
     hoveredItem = null
-    showDisplaySettings = null
+    // showDisplaySettings = null
     nodeDisplaySettings = null
     edgeDisplaySettings = null
-    showFindAndFocus = null
-    showExportCanvas= null
+    // showFindAndFocus = null
+    // showExportCanvas= null
+    setRightModal = null
 
     // @ts-ignore
     constructor(setLayoutSettings: PropTypes.func, setSelectedNodes: PropTypes.func,
                 // @ts-ignore
-                setMessageText: PropTypes.func, setHoveredItem: PropTypes.func, setShowDisplaySettings: PropTypes.func,
+                setMessageText: PropTypes.func, setHoveredItem: PropTypes.func,
+                // setShowDisplaySettings: PropTypes.func,
                 // @ts-ignore
-                setNodeDisplaySettings: PropTypes.func, setEdgeDisplaySettings: PropTypes.func, setShowFindAndFocus: PropTypes.func,
-                // @ts-ignore
-                setExportCanvas: PropTypes.func,
+                setNodeDisplaySettings: PropTypes.func, setEdgeDisplaySettings: PropTypes.func,
+                // setShowFindAndFocus: PropTypes.func,
+                //@ts-ignore
+                setRightModal: PropTypes.func,
                 // @ts-ignore
                 layoutSettings: PropTypes.object, selectedNodes: PropTypes.object, messageText: PropTypes.object,
                 // @ts-ignore
-                hoveredItem: PropTypes.object, showDisplaySettings: PropTypes.object,
+                hoveredItem: PropTypes.object,
+                // showDisplaySettings: PropTypes.object,
                 // @ts-ignore
                 nodeDisplaySettings: PropTypes.object, edgeDisplaySettings: PropTypes.object,
+                // showFindAndFocus: PropTypes.bool, showExportCanvas: PropTypes.bool
                 // @ts-ignore
-                showFindAndFocus: PropTypes.bool, showExportCanvas: PropTypes.bool
+                rightModal: PropTypes.string,
     ) {
         this.setLayoutSettings_ = setLayoutSettings
         this.setSelectedNodes = setSelectedNodes
         this.setMessageText = setMessageText
         this.setHoveredItem = setHoveredItem
-        this.setShowDisplaySettings = setShowDisplaySettings
+        // this.setShowDisplaySettings = setShowDisplaySettings
         this.setNodeDisplaySettings = setNodeDisplaySettings
         this.setEdgeDisplaySettings = setEdgeDisplaySettings
-        this.setShowFindAndFocus = setShowFindAndFocus
-        this.setExportCanvas = setExportCanvas
-
+        // this.setShowFindAndFocus = setShowFindAndFocus
+        // this.setExportCanvas = setExportCanvas
+        this.setRightModal = setRightModal
 
         this.layoutSettings = layoutSettings
         this.selectedNodes = selectedNodes
         this.messageText = messageText
         this.hoveredItem = hoveredItem
-        this.showDisplaySettings = showDisplaySettings
+        // this.showDisplaySettings = showDisplaySettings
         this.nodeDisplaySettings = nodeDisplaySettings
         this.edgeDisplaySettings = edgeDisplaySettings
-        this.showFindAndFocus = showFindAndFocus
-        this.showExportCanvas = showExportCanvas
+        // this.showFindAndFocus = showFindAndFocus
+        // this.showExportCanvas = showExportCanvas
+        this.rightModal = rightModal
+
     }
 
 
