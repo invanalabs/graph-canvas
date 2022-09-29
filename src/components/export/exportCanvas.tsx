@@ -19,8 +19,8 @@ function ExportCanvas(props: any) {
                 <Card.Header>Export canvas</Card.Header>
                 <Card.Body className={""}>
 
-                    <Button className={"me-3"} onClick={() => graph.downloadImage("canvas.png", 'image/png' )}>PNG</Button>
-                    <Button className={"me-3"} onClick={() => graph.downloadImage("canvas.jpeg", 'image/jpeg', "#ffffff" )}>JPEG</Button>
+                    <Button className={"me-3"} variant={"outline-success"} onClick={() => graph.downloadImage("canvas.png", 'image/png' )}>PNG</Button>
+                    <Button className={"me-3"} variant={"outline-success"} onClick={() => graph.downloadImage("canvas.jpeg", 'image/jpeg', "#ffffff" )}>JPEG</Button>
                     {/*<Button className={"me-3"} onClick={() => graph.toDataURL()}>SVG</Button>*/}
 
 

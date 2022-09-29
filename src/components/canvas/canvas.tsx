@@ -1,29 +1,19 @@
 import React from "react";
 import Graphin, {Behaviors, Components} from "@antv/graphin";
 import {Grid} from "@antv/graphin-components";
-import {Toolbar} from '@antv/graphin-components';
-import SelectMultipleNodes from "../../canvas/behaviours/selectMultiple"
-import FocusSelectedNodes from "../../canvas/behaviours/focusSelected"
 import "@antv/graphin-icons/dist/index.css";
 import {NodeContextMenu} from "../../canvas/plugins/contextMenu/contextMenu";
 import {defaultLayoutSettings, miniMapOptions} from "../../settings/default";
 import {defaultNodeStyle} from "../../settings/default";
 import "../../canvas/style.css";
-import {GraphinContextType} from "@antv/graphin/lib/GraphinContext";
 import ShowSelectedNodes from "../../canvas/plugins/selectedNodes"
 import Footer from "../../canvas/plugins/footer/footer";
 import "./canvas.css"
-import {handleToolBarClick} from "../../canvas/plugins/toolbar/handler";
 import PropTypes from 'prop-types';
 import StateManager from "../../state/manager";
 import HoveredItemInfo from "../../canvas/plugins/hoveredItemInfo";
-import {rightToolBarOptions} from "../../canvas/plugins/toolbar/rightToolBar";
-import {leftToolBarOptions} from "../../canvas/plugins/toolbar/leftToolbar";
-import NodeDisplaySettings from "../displaySettings/nodeDisplaySettings";
 import "../normalise.css";
 import {applyStylesToData} from "../../canvas/colorUtils";
-import FindAndFocus from "../find/findAndFocus";
-import ExportCanvas from "../export/exportCanvas"
 import CanvasNav from "../../canvas/plugins/canvasNav/canvasNav";
 
 const {
@@ -161,7 +151,7 @@ function GraphCanvas({data, containerId, width, height, initState, welcomeCompon
                 {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
                 {/* <TreeCollapse /> */}
                 {/** hovering node**/}
-                <CanvasNav />
+                <CanvasNav     stateManager={stateManager} />
                 <ShowSelectedNodes
                     selectedNodes={selectedNodes}
                     stateManager={stateManager}
@@ -189,30 +179,30 @@ function GraphCanvas({data, containerId, width, height, initState, welcomeCompon
                     welcomeComponent
                         ? welcomeComponent : <span/>
                 }
-                {
-                    rightModal === "showDisplaySettings"
-                        ? <NodeDisplaySettings
-                            nodeDisplaySettings={nodeDisplaySettings}
-                            edgeDisplaySettings={edgeDisplaySettings}
-                            stateManager={stateManager}
-                        /> : rightModal === "showFindAndFocus"
-                            ? <FindAndFocus stateManager={stateManager}/>
-                            : rightModal === "showExportCanvas"
-                                ? <ExportCanvas stateManager={stateManager}/> : <span/>
-                }
-                <Toolbar
-                    style={{"top": "-31px", "left": "-1px"}}
-                    options={leftToolBarOptions}
-                    onChange={(graphinContext: GraphinContextType, config: any) =>
-                        handleToolBarClick(graphinContext, config, stateManager)}
-                />
+                {/*{*/}
+                {/*    rightModal === "showDisplaySettings"*/}
+                {/*        ? <DisplaySettings*/}
+                {/*            nodeDisplaySettings={nodeDisplaySettings}*/}
+                {/*            edgeDisplaySettings={edgeDisplaySettings}*/}
+                {/*            stateManager={stateManager}*/}
+                {/*        /> : rightModal === "showFindAndFocus"*/}
+                {/*            ? <FindAndFocus stateManager={stateManager}/>*/}
+                {/*            : rightModal === "showExportCanvas"*/}
+                {/*                ? <ExportCanvas stateManager={stateManager}/> : <span/>*/}
+                {/*}*/}
+                {/*<Toolbar*/}
+                {/*    style={{"top": "-31px", "left": "-1px"}}*/}
+                {/*    options={leftToolBarOptions}*/}
+                {/*    onChange={(graphinContext: GraphinContextType, config: any) =>*/}
+                {/*        handleToolBarClick(graphinContext, config, stateManager)}*/}
+                {/*/>*/}
 
-                <Toolbar
-                    style={{"top": "-31px", "right": "-1px"}}
-                    options={rightToolBarOptions}
-                    onChange={(graphinContext: GraphinContextType, config: any) =>
-                        handleToolBarClick(graphinContext, config, stateManager)}
-                />
+                {/*<Toolbar*/}
+                {/*    style={{"top": "-31px", "right": "-1px"}}*/}
+                {/*    options={rightToolBarOptions}*/}
+                {/*    onChange={(graphinContext: GraphinContextType, config: any) =>*/}
+                {/*        handleToolBarClick(graphinContext, config, stateManager)}*/}
+                {/*/>*/}
 
                 {/* <DragNodeWithForce /> */}
                 <Footer messageText={messageText} selectedNodes={selectedNodes}/>

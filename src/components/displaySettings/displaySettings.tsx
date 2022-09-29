@@ -17,7 +17,7 @@ nodeDisplaySettings = {
  */
 
 // @ts-ignore
-function NodeDisplaySettings(props: any) {
+function DisplaySettings(props: any) {
 
     const {apis, graph} = useContext(GraphinContext);
     const updateConfig = (labelType: string) => {
@@ -34,8 +34,8 @@ function NodeDisplaySettings(props: any) {
                 <Card.Header>Node display settings</Card.Header>
                 <Card.Body className={""}>
                     <Card.Text>
-                        {Object.keys(props.nodeDisplaySettings).map((nodeLabel, index) => {
-                            const nodeSetting = props.nodeDisplaySettings[nodeLabel];
+                        {Object.keys(props.stateManager.nodeDisplaySettings).map((nodeLabel, index) => {
+                            const nodeSetting = props.stateManager.nodeDisplaySettings[nodeLabel];
                             if (nodeSetting) {
                                 return (<div className={"propertyItem border-bottom pb-1 "}>
                                     <h6 className={"mb-1"}>{nodeLabel} :</h6>
@@ -61,9 +61,9 @@ function NodeDisplaySettings(props: any) {
             <Card>
                 <Card.Header>Edge display settings</Card.Header>
                 <Card.Body className={""}>
-                    <Card.Text>
-                        {Object.keys(props.edgeDisplaySettings).map((edgeLabel, index) => {
-                            const edgeSetting = props.edgeDisplaySettings[edgeLabel] || {};
+                     <Card.Text>
+                        {Object.keys(props.stateManager.edgeDisplaySettings).map((edgeLabel, index) => {
+                            const edgeSetting = props.stateManager.edgeDisplaySettings[edgeLabel] || {};
                             if (edgeSetting) {
                                 return (<div className={"propertyItem border-bottom pb-1 "}>
                                     <h6 className={"mb-1"}>{edgeLabel} :</h6>
@@ -82,9 +82,6 @@ function NodeDisplaySettings(props: any) {
                         })
                         }
 
-
-
-
                     </Card.Text>
                 </Card.Body>
             </Card>
@@ -92,10 +89,10 @@ function NodeDisplaySettings(props: any) {
     )
 }
 
-NodeDisplaySettings.propTypes = {
+DisplaySettings.propTypes = {
     style: PropTypes.object,
     nodeDisplaySettings: PropTypes.object,
     edgeDisplaySettings: PropTypes.object,
     stateManager: PropTypes.any,
 }
-export default NodeDisplaySettings
+export default DisplaySettings
