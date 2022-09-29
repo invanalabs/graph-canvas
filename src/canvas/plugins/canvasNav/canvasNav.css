@@ -1,0 +1,42 @@
+.canvasNav {
+    position: absolute !important;
+    top: 30px;
+    left: 0;
+    width: 100%;
+
+}
+
+.canvasNav .divider{
+    top: 1px;
+    position: relative;
+    color: #c2c2c2;
+    font-size: 16px;
+    margin-left: 12px;
+    margin-right: 12px;
+
+}
+
+.canvasNav button{
+    padding: 5px !important;
+    /* line-height: auto !important; */
+    line-height: 14px;
+}
+
+.canvasNav button:hover,
+.canvasNav button,
+.canvasNav  button:active,
+.canvasNav button:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    font-size: 1.1rem;
+
+}
+
+.canvasNav .dropdown-toggle.nav-link {
+    padding: 0;
+  }
+
+  .canvasNav .dropdown.show button{
+    color: rgb(38, 160, 120) !important;
+  }

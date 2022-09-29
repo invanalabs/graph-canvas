@@ -1,6 +1,4 @@
 import React from "react";
-import {Utils} from "@antv/graphin";
-import {applyStylesToData} from "../canvas/colorUtils";
 import GraphCanvas from "../components/canvas/canvas";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import authorStoryData from "../exampleData/author-story/data.json";
@@ -24,10 +22,10 @@ import WelcomeToCanvas from "../components/welcome/welcome";
 //     node.label = "relationship"
 // })
 
-function ExamplesView() {
+function TestView() {
 
 
-    const [selectedCanvas, setSelectedCanvas] = React.useState(" -story")
+    const [selectedCanvas, setSelectedCanvas] = React.useState("full-ravi-story")
     return <div className="container-fluid" style={{"padding": "30px"}}>
         <div className="row">
             <div className="col-10">
@@ -87,4 +85,4 @@ function ExamplesView() {
     </div>
 }
 
-export default ExamplesView;
+export default TestView;

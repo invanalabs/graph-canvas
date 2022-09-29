@@ -14,6 +14,14 @@ ul.graphin-components-toolbar-content {
     /*border-top: none !important;*/
     margin: 0 !important;
 }
-html, body{
+
+html, body {
     font-size: 14px;
+}
+
+a:hover, a {
+    text-decoration: none !important;
+}
+.border{
+    border-color: #cccccc !important;
 }

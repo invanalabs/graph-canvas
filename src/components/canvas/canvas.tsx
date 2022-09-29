@@ -24,6 +24,7 @@ import "../normalise.css";
 import {applyStylesToData} from "../../canvas/colorUtils";
 import FindAndFocus from "../find/findAndFocus";
 import ExportCanvas from "../export/exportCanvas"
+import CanvasNav from "../../canvas/plugins/canvasNav/canvasNav";
 
 const {
     DragCanvas, // Drag the canvas
@@ -125,8 +126,6 @@ function GraphCanvas({data, containerId, width, height, initState, welcomeCompon
                  width: width, height: height,
                  paddingTop: "30px"
              }}>
-            <span>{welcomeComponent || ""}</span>
-
             <Graphin
                 data={processedData}
                 className={"graph-canvas"}
@@ -162,7 +161,7 @@ function GraphCanvas({data, containerId, width, height, initState, welcomeCompon
                 {/*<ResizeCanvas graphDOM={this.graphDOM as HTMLDivElement} />*/}
                 {/* <TreeCollapse /> */}
                 {/** hovering node**/}
-
+                <CanvasNav />
                 <ShowSelectedNodes
                     selectedNodes={selectedNodes}
                     stateManager={stateManager}

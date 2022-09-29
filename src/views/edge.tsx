@@ -91,7 +91,7 @@ function EdgeCanvasView(props: any) {
             <div className="col-12">
                 <nav className="navbar navbar-expand-lg border bg-light p-0">
                     <div className="container-fluid">
-                        <a className="navbar-brand" href="#">Canvas Store</a>
+                        <a className="navbar-brand" href="/">Canvas Store</a>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -139,7 +139,7 @@ function EdgeCanvasView(props: any) {
                                  initState={selectedCanvas.initState}
                                  containerId={"graph-canvas"}
                                  width={"100%"} height={920}
-                                 welcomeComponent={WelcomeToCanvas}
+                                 welcomeComponent={<WelcomeToCanvas />}
                     />
 
                     :
