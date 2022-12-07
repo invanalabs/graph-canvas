@@ -1,16 +1,41 @@
 # graph-canvas
 
-React UI components for creating insightful network graphs.
+React UI components for creating network graphs.
 
- ![screen](screenshot.png)
+## Feature Checklist 
+- [ ] ArtBoard
+- [ ] Node/Edge Detail Viewer
+  - [ ] Property Viewer
+  - [ ] Neighbors schema
+- [ ] DisplaySetting
+  - [ ] Node/Edge 
+    - [ ] color
+    - [ ] shape
+    - [ ] shapeSize
+    - [ ] display text
+  - [ ] Canvas 
+    - [ ] Background Color
+    - [ ] Background grid
+- [ ] Canvas ToolBar
+  - [ ] layout
+  - [ ] Find in Canvas
+  - [ ] Zoom in/out
+  - [ ] Fit to screem
+  - [ ] redraw
+  - [ ] Save as 
+    - [ ] image.png/jpeg
+    - [ ] json
+    - [ ] json with positions freezed
+  - [ ] Clear Canvas
+  - [ ] Select Node/Edge (Multi select)
+  - [ ] undo, redo 
+  - [ ] enable/disable read only mode (freeze data)
+  - [ ] Create Notes on Canvas
+- [ ] Story Creator 
+  - [ ] Create story state 
+  - [ ] Play, Pause, next, prev state 
 
-## Feature Checking 
- - [x] Draw network graph from JSON data
- - [x] model nodes and edges dynamically from JSON data.
- - [ ] modify display settings of nodes, edges.
- - [ ] View properties of a node/edge in the canvas
- - [ ] log events to track history of positions of elements in graph canvas
- - [ ] freeze positions of graph canvas
 
+All the featuers use localStorage as default data store, 
 
 
