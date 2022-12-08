@@ -9,13 +9,13 @@
 </head>
 <body>
 <div id="root"></div>
-<script src="http://localhost:8080/dist/umd/bundle.js"></script>
-<link rel="stylesheet" href="http://localhost:8080/dist/umd/bundle.css">
+<script src="../../dist/umd/bundle.js"></script>
+<link rel="stylesheet" href="../../dist/umd/bundle.css">
 <script type="text/javascript">
     const e = React.createElement;
     const domContainer = document.querySelector('#root');
     const root = ReactDOM.createRoot(domContainer);
-    root.render(e(HelloApp.ArtBoard, {label: "R2Lab"}));
+    root.render(e(GraphCanvas.ArtBoard));
 </script>
 
 </body>
