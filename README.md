@@ -4,6 +4,7 @@ React UI components for creating network graphs.
 
 ## Feature Checklist 
 - [ ] ArtBoard
+  - Node/Edge Context Menu
 - [ ] Node/Edge Detail Viewer
   - [ ] Property Viewer
   - [ ] Neighbors schema
@@ -13,12 +14,12 @@ React UI components for creating network graphs.
     - [ ] shape
     - [ ] shapeSize
     - [ ] display text
-  - [ ] Canvas 
+  - [ ] ArtBoard 
     - [ ] Background Color
     - [ ] Background grid
-- [ ] Canvas ToolBar
+- [ ] ArtBoard ToolBar
   - [ ] layout
-  - [ ] Find in Canvas
+  - [ ] Find in ArtBoard
   - [ ] Zoom in/out
   - [ ] Fit to screem
   - [ ] redraw
@@ -26,11 +27,11 @@ React UI components for creating network graphs.
     - [ ] image.png/jpeg
     - [ ] json
     - [ ] json with positions freezed
-  - [ ] Clear Canvas
+  - [ ] Clear ArtBoard
   - [ ] Select Node/Edge (Multi select)
   - [ ] undo, redo 
   - [ ] enable/disable read only mode (freeze data)
-  - [ ] Create Notes on Canvas
+  - [ ] Create Notes on ArtBoard
 - [ ] Story Creator 
   - [ ] Create story state 
   - [ ] Play, Pause, next, prev state 
@@ -67,7 +68,7 @@ example in `examples/html-umd/index.html`
 ## To use with in a ReactJS App
 
 ```typescript jsx
-import {ArtBoard} from "graph-canvas"
+import {ArtBoard} from "graph-artBoard"
 
 function App() {
     return (
