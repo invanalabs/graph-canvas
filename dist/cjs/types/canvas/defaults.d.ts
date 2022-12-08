@@ -1,4 +1,4 @@
-declare let defaultEvents: {
+declare const createDefaultEvents: (eventStore: any) => {
     click: (params?: any) => void;
     doubleClick: (params?: any) => void;
     oncontext: (params?: any) => void;
@@ -20,4 +20,4 @@ declare let defaultEvents: {
     blurNode: (params?: any) => void;
     blurEdge: (params?: any) => void;
 };
-export default defaultEvents;
+export default createDefaultEvents;

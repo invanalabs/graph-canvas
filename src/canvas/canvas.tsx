@@ -8,7 +8,10 @@ import {Network} from "vis-network/peer/esm/vis-network";
 import PropTypes from "prop-types";
 import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
-import defaultEvents from "./defaults";
+import createDefaultEvents from "./defaults";
+import EventStore, {VisEventLog} from "../evenStore/eventStore";
+
+
 
 const defaultOptions = {
     physics: {
@@ -39,7 +42,8 @@ export interface CanvasProps {
     data?: TestData; // TODO - fix this later
     options?: Options;
     // events?: { [id: string]: eventCallback };
-    events?: any; // TODO - fix this later
+    // events?: any; // TODO - fix this later
+    eventStore: EventStore,
     getNetwork?: getNetworkCallback;
     style?: {
         width: string,
@@ -54,19 +58,21 @@ const defaultData = {nodes: [], edges: []}
 const Canvas = ({
                     data = defaultData,
                     options = defaultOptions,
-                    events = defaultEvents,
+                    // events = defaultEvents,
+                    eventStore,
                     getNetwork,
                     style = defaultStyle
                 }: CanvasProps) => {
     const nodes = useRef(new DataSet(data.nodes));
     const edges = useRef(new DataSet(data.edges));
-    // style = ,
+    // const eventStoreRef = useRef(eventStore);
+    const events = createDefaultEvents(eventStore);
+
 
     // @ts-ignore
     let network: React.MutableRefObject<Network> = useRef(null);
     // @ts-ignore
     const container: React.MutableRefObject<HTMLElement> = useRef(null);
-    console.log("======container", typeof container, container)
     useEffect(() => {
         network.current = new Network(
             container.current,
@@ -79,13 +85,6 @@ const Canvas = ({
             getNetwork(network.current);
         }
 
-        // if (getNodes) {
-        //     getNodes(nodes.current);
-        // }
-        //
-        // if (getEdges) {
-        //     getEdges(edges.current);
-        // }
     }, []);
 
     useEffect(() => {
@@ -138,13 +137,6 @@ const Canvas = ({
             getNetwork(network.current);
         }
 
-        // if (nodesChange && getNodes) {
-        //     getNodes(nodes.current);
-        // }
-        //
-        // if (edgesChange && getEdges) {
-        //     getEdges(edges.current);
-        // }
     }, [data]);
 
     useEffect(() => {
@@ -152,7 +144,7 @@ const Canvas = ({
     }, [options]);
 
     useEffect(() => {
-        // Add user provied events to network
+        // Add user provided events to network
         // eslint-disable-next-line no-restricted-syntax
         for (const eventName of Object.keys(events)) {
             // @ts-ignore
@@ -172,12 +164,5 @@ const Canvas = ({
 
 };
 
-// Canvas.propTypes = {
-//     data: PropTypes.object,
-//     options: PropTypes.object,
-//     events: PropTypes.object,
-//     style: PropTypes.object,
-//     getNetwork: PropTypes.func,
-// };
 
 export default Canvas;
