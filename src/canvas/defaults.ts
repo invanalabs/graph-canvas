@@ -2,14 +2,14 @@ import {DataSet} from "vis-data/peer/esm/vis-data";
 import {VisEventLog} from "../evenStore/eventStore";
 
 
-const createDefaultEvents = (eventStore: any) => {
+const createDefaultEvents = (addEvent: any) => {
     return {
         // @ts-ignore
         click: function (params?: any) {
             params.event = "[original event]";
             // @ts-ignore
-            console.log("click event, getNodeAt returns: " + this.getNodeAt(params.pointer.DOM), eventStore);
-            eventStore.addEvent("click", params)
+            console.log("click event, getNodeAt returns: " + this.getNodeAt(params.pointer.DOM), addEvent);
+            addEvent("click", params)
         },
         doubleClick: function (params?: any) {
             console.log("doubleClick Event:", params);

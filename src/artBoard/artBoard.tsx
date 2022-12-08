@@ -1,12 +1,16 @@
-import React from "react";
+import React, {useRef} from "react";
 import "./artBoard.scss"
 import {Canvas} from "../canvas";
-import {DataSet} from "vis-data/peer/esm/vis-data";
 import {VisEventLog} from "../evenStore/eventStore";
-import EventStore, {EventStoreView} from "../evenStore/eventStore"
+import EventStoreView from "../evenStore/eventStore"
+import uuidv4 from "../evenStore/utils"
 
 export interface ArtBoardProps {
     label: string;
+    data: {
+        nodes: [],
+        edges: []
+    }
 }
 
 let defaultData = {
@@ -25,25 +29,27 @@ let defaultData = {
         {from: 3, to: 3},
     ],
 };
+
+
 const ArtBoard = (props: ArtBoardProps) => {
+    let [events, setEvents] = React.useState([]);
 
-    const eventStore = new EventStore()
-    const [ events, setEvents ] = React.useState([]);
+    const addEvent = (eventName: string, eventParams: any) => {
+        let old_events = JSON.parse(JSON.stringify(events));
+        const d: VisEventLog = {
+            id: uuidv4(),
+            eventName: eventName,
+            eventParams: eventParams,
+            time: JSON.stringify(new Date())
+        }
+        old_events.push(d)
+        setEvents(old_events)
+    }
 
-    // subscribe to any change in the DataSet
-    eventStore.data.on('*', function (event, properties, senderId) {
-        console.log('event happened =====', event, properties);
-        const u = eventStore.data.get();
-        console.log("uuuuuuuuuuuuuuuuuuu=", u, eventStore.data);
-        // @ts-ignore
-        setEvents(u)
-    });
     return <div className={"artBoard"}>
         <h1>Artboard</h1>
         <EventStoreView events={events}/>
-        {/*<EventStoreView eventStore={eventStore}/>*/}
-
-        <Canvas data={defaultData} eventStore={eventStore}/>
+        <Canvas data={defaultData} addEvent={addEvent}/>
     </div>;
 };
 

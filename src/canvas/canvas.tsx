@@ -5,11 +5,9 @@ import isEqual from "lodash/isEqual";
 import differenceWith from "lodash/differenceWith";
 import {DataSet} from "vis-data/peer/esm/vis-data";
 import {Network} from "vis-network/peer/esm/vis-network";
-import PropTypes from "prop-types";
 import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
 import createDefaultEvents from "./defaults";
-import EventStore, {VisEventLog} from "../evenStore/eventStore";
 
 
 
@@ -43,7 +41,7 @@ export interface CanvasProps {
     options?: Options;
     // events?: { [id: string]: eventCallback };
     // events?: any; // TODO - fix this later
-    eventStore: EventStore,
+    addEvent: any, // TODO - fix ths later
     getNetwork?: getNetworkCallback;
     style?: {
         width: string,
@@ -59,14 +57,14 @@ const Canvas = ({
                     data = defaultData,
                     options = defaultOptions,
                     // events = defaultEvents,
-                    eventStore,
+                    addEvent,
                     getNetwork,
                     style = defaultStyle
                 }: CanvasProps) => {
     const nodes = useRef(new DataSet(data.nodes));
     const edges = useRef(new DataSet(data.edges));
     // const eventStoreRef = useRef(eventStore);
-    const events = createDefaultEvents(eventStore);
+    const events = createDefaultEvents(addEvent);
 
 
     // @ts-ignore

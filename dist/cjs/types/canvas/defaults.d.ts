@@ -1,4 +1,4 @@
-declare const createDefaultEvents: (eventStore: any) => {
+declare const createDefaultEvents: (addEvent: any) => {
     click: (params?: any) => void;
     doubleClick: (params?: any) => void;
     oncontext: (params?: any) => void;
