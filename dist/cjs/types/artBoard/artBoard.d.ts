@@ -1,6 +1,6 @@
-interface ArtBoardProps {
+import "./artBoard.scss";
+export interface ArtBoardProps {
     label: string;
 }
 declare const ArtBoard: (props: ArtBoardProps) => JSX.Element;
-
-export { ArtBoard };
+export default ArtBoard;

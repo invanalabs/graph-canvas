@@ -2,14 +2,11 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
 import dts from "rollup-plugin-dts";
-
 // To handle css files
 import postcss from "rollup-plugin-postcss";
 import babel from '@rollup/plugin-babel';
-
 import terser from '@rollup/plugin-terser';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-// import image from '@rollup/plugin-image';
 
 
 import packageJson from "./package.json" assert {type: "json"};
@@ -34,11 +31,11 @@ export default [
             {
                 "exports": "named",
                 file: packageJson.module,
-                // dir: 'esm/',
                 format: "esm",
                 sourcemap: true,
                 preserveModules: false,
-            },  {
+            },
+            {
                 file: "dist/umd/bundle.js",
                 format: "umd",
                 exports: "named",
@@ -49,18 +46,28 @@ export default [
         ],
         plugins: [
             peerDepsExternal(),
-            resolve(),
+            resolve({
+                browser: true
+            }),
             commonjs(),
             typescript({tsconfig: "./tsconfig.json"}),
-            // typescript(),
-            // postcss(),
+            postcss({
+                minimize: true,
+                extract: true,
+                // modules: true,
+            }),
 
-            // terser(),
+            terser(),
             // image()
             babel({
-                // exclude: 'node_modules/**',
-                presets: ["@babel/preset-react", {runtime: 'classic'}],
-                // presets: ["@babel/preset-react"],
+                babelHelpers: 'bundled',
+                presets: [
+                    ["@babel/preset-react", {
+                        runtime: 'classic',
+                        useBuiltIns: "usage",
+                        forceAllTransforms: true,
+                    }]
+                ],
             }),
         ],
     },
@@ -69,6 +76,6 @@ export default [
         output: [{file: "dist/index.d.ts", format: "esm"}],
         plugins: [dts()],
 
-        external: [/\.css$/], // telling rollup anything that is .css aren't part of type exports
+        external: [/\.css$/, /\.scss$/], // telling rollup anything that is .css aren't part of type exports
     },
 ]

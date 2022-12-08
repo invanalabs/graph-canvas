@@ -1,16 +1,2 @@
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react')) :
-    typeof define === 'function' && define.amd ? define(['exports', 'react'], factory) :
-    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.HelloApp = global.HelloApp || {}, global.React));
-})(this, (function (exports, React) { 'use strict';
-
-    const ArtBoard = (props) => {
-        return React.createElement("h1", null,
-            "Hello World! - ",
-            props.label);
-    };
-
-    exports.ArtBoard = ArtBoard;
-
-}));
+!function(e,t){"object"==typeof exports&&"undefined"!=typeof module?t(exports,require("react")):"function"==typeof define&&define.amd?define(["exports","react"],t):t((e="undefined"!=typeof globalThis?globalThis:e||self).HelloApp=e.HelloApp||{},e.React)}(this,(function(e,t){"use strict";e.ArtBoard=e=>t.createElement("div",{className:"artBoard"},t.createElement("h1",null,"Hello Board"))}));
 //# sourceMappingURL=bundle.js.map
