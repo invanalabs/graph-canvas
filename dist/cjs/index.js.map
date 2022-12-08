@@ -1,1 +1,1 @@
-{"version":3,"file":"index.js","sources":["../../src/artBoard/artBoard.tsx"],"sourcesContent":[null],"names":["props","React","createElement","className"],"mappings":"qDAOkBA,GACPC,EAAAC,cAAA,MAAA,CAAKC,UAAW,YACnBF,EAAAC,cAAA,KAAA,KAAA"}
+{"version":3,"file":"index.js","sources":["../../src/artBoard/artBoard.tsx"],"sourcesContent":[null],"names":["props","React","createElement","className"],"mappings":"uTAOkBA,GACPC,EAAKC,cAAA,MAAA,CAAAC,UAAW"}

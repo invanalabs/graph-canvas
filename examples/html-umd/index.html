@@ -2,15 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>HTML - umd</title>
+    <title>GraphCanvas Dev</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-
+    <style>
+        #root {
+            width: 100%;
+            height: calc(100% - 200px);
+        }
+    </style>
 </head>
 <body>
 <div id="root"></div>
 <script src="../../dist/umd/bundle.js"></script>
 <link rel="stylesheet" href="../../dist/umd/bundle.css">
+
 <script type="text/javascript">
     const e = React.createElement;
     const domContainer = document.querySelector('#root');

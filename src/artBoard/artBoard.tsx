@@ -7,7 +7,7 @@ export interface ArtBoardProps {
 
 const ArtBoard = (props: ArtBoardProps) => {
     return <div className={"artBoard"}>
-        <h1>Hello Board</h1>
+
     </div>;
 };
 

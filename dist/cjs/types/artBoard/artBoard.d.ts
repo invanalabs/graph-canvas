@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import "./artBoard.scss";
 export interface ArtBoardProps {
     label: string;

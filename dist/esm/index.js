@@ -1,2 +1,2 @@
-import e from"react";const r=r=>e.createElement("div",{className:"artBoard"},e.createElement("h1",null,"Hello Board"));export{r as ArtBoard};
+var e,t;(e=self.document)&&!e.getElementById("livereloadscript")&&((t=e.createElement("script")).async=1,t.src="//"+(self.location.host||"localhost").split(":")[0]+":35729/livereload.js?snipver=1",t.id="livereloadscript",e.getElementsByTagName("head")[0].appendChild(t));import a from"react";const l=e=>a.createElement("div",{className:"artBoard"});export{l as ArtBoard};
 //# sourceMappingURL=index.js.map
