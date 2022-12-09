@@ -6,20 +6,20 @@ export interface Properties {
     [key: string]: any;
 }
 
-interface GCNodeType {
+interface CanvasNode {
     id: string;
     label: string;
     properties: Properties
 }
 
-interface GCEdgeType extends GCNodeType {
+interface CanvasEdge extends CanvasNode {
     from: string
     to: string
 }
 
 interface CanvasData {
-    nodes: GCNodeType[],
-    edges: GCEdgeType[]
+    nodes: CanvasNode[],
+    edges: CanvasEdge[]
 }
 
 type ArrowShapeTypes =
@@ -34,8 +34,8 @@ type ArrowShapeTypes =
     'cubicBezier'
 
 interface EdgeSetting {
-    labelField: string;
-    arrowColor: string;
+    labelField?: string;
+    arrowColor?: string;
     arrowShape?: ArrowShapeTypes;
     labelColor?: string;
 }
@@ -59,21 +59,25 @@ type NodeShapeTypes =
 // 'text'
 
 interface NodeSetting {
-    labelField: string;
-    labelColor: string;
-    shape: NodeShapeTypes;
-    shapeColor: string;
-    shapeSize: number;
+    labelField?: string;
+    labelColor?: string;
+    shape?: NodeShapeTypes;
+    shapeColor?: string;
+    shapeSize?: number;
     shapeIcon?: string
 }
 
 interface CanvasDisplaySettings {
     canvasSettings?: CanvasSetting;
-    nodeSettings: NodeSetting[];
+    nodeSettings: {
+        [key: string]: NodeSetting;
+    };
     defaultNodeSetting?: NodeSetting;
-    edgeSettings: EdgeSetting[];
+    edgeSettings: {
+        [key: string]: EdgeSetting;
+    };
     defaultEdgeSetting?: EdgeSetting;
 }
 
 export default CanvasDisplaySettings
-export {CanvasSetting, EdgeSetting, NodeSetting, CanvasData, GCEdgeType, GCNodeType}
+export {CanvasSetting, EdgeSetting, NodeSetting, CanvasData, CanvasEdge, CanvasNode}

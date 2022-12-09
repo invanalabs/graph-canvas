@@ -1,44 +1,44 @@
-import {CanvasSetting, NodeSetting, EdgeSetting} from "./types";
+import CanvasDisplaySettings, {CanvasSetting, NodeSetting, EdgeSetting, CanvasData} from "./types";
 import DisplayManager from "./displayManager";
+import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
 
 const processEvent = (params: any) => {
 
 }
 
 
-const defaultCanvasSettings: CanvasSetting = {
-    backgroundColor: "#ffffff"
+const detectGroups = (data: CanvasData) => {
+    let nodeLabels = [...new Set(data.nodes.map(node => node.label))]
+    let edgeLabels = [...new Set(data.edges.map(edge => edge.label))]
+    return {nodeLabels, edgeLabels}
 }
 
 
-const defaultNodeSettings: NodeSetting = {
-    labelField: "id",
-    labelColor: "#333333",
-    shapeColor: "#2256bb",
-    shape: "dot",
-    shapeSize: 12
-    // shapeIcon?: string
-}
-
-const defaultEdgeSettings: EdgeSetting = {
-    arrowColor: "#333333",
-    arrowShape: "continuous",
-    labelField: "id",
-    labelColor: "#333333"
-
-}
-
-const createDefaultOptions = () => {
+const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: CanvasData) => {
     const settingManager = new DisplayManager()
 
-    return {
+    let settings: Options = {
         physics: false,
         autoResize: true,
         interaction: {hover: true},
-        nodes: settingManager.createNodeSettings(defaultNodeSettings),
-        edges: settingManager.createEdgeSettings(defaultEdgeSettings)
-
+        nodes: settingManager.createNodeSettings({}, ""),
+        edges: settingManager.createEdgeSettings({}, ""),
     }
+    const {nodeLabels, edgeLabels} = detectGroups(data)
+    let groups: any = {}
+    console.log("Object.keys(displaySettings.nodeSettings)", Object.keys(displaySettings.nodeSettings))
+    nodeLabels.forEach((label) => {
+        groups[label] = settingManager.createNodeSettings({}, label)
+    })
+
+
+    for (const label in displaySettings.nodeSettings) {
+        const groupSetting: NodeSetting = displaySettings.nodeSettings[label];
+        groups[label] = settingManager.createNodeSettings(groupSetting, label)
+    }
+    console.log("======groups", groups)
+    settings.groups = groups
+    return settings
 }
 
 const createDefaultEvents = (addEvent: any) => {

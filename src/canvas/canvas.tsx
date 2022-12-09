@@ -9,7 +9,7 @@ import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
 import createDefaultEvents, {createDefaultOptions} from "./defaults";
 import CanvasDisplaySettings, {CanvasData} from "./types";
-
+import {convertCanvasNodeToVisNode, convertCanvasEdgeToVisEdge} from "./utils";
 
 export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void
@@ -18,7 +18,7 @@ export type eventCallback = (params?: any) => void
 
 export interface CanvasProps {
     data?: CanvasData; // TODO - fix this later
-    options?: Options;
+    // options?: Options;
     addEvent: any, // TODO - fix ths later
     displaySettings: CanvasDisplaySettings
     getNetwork?: getNetworkCallback;
@@ -32,20 +32,23 @@ export interface CanvasProps {
 const defaultStyle = {width: "100%", height: "100%"}
 const defaultData: CanvasData = {nodes: [], edges: []}
 
-const defaultOptions =  createDefaultOptions()
+
 
 const Canvas = ({
                     data = defaultData,
                     displaySettings,
-                    options = defaultOptions,
+                    // options = defaultOptions,
                     // events = defaultEvents,
                     addEvent,
                     getNetwork,
                     style = defaultStyle
                 }: CanvasProps) => {
-    const nodes = useRef(new DataSet(data.nodes));
-    const edges = useRef(new DataSet(data.edges));
-    // const eventStoreRef = useRef(eventStore);
+
+
+    const options: Options =  createDefaultOptions(displaySettings, data)
+
+    const nodes = useRef(new DataSet(convertCanvasNodeToVisNode(data.nodes)));
+    const edges = useRef(new DataSet(convertCanvasEdgeToVisEdge(data.edges)));
     const events = createDefaultEvents(addEvent);
 
 

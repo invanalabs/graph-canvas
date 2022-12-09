@@ -4,5 +4,10 @@ const uuidv4 = ()=> {
         (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
     );
 }
+const copyObject=(obj: any)=>{
+     return Object.assign({}, obj)
+}
+
 
 export default uuidv4
+export {copyObject}

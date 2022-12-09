@@ -1,38 +1,6 @@
-declare const createDefaultOptions: () => {
-    physics: boolean;
-    autoResize: boolean;
-    interaction: {
-        hover: boolean;
-    };
-    nodes: {
-        color: {
-            border: string;
-            background: string;
-        };
-        borderWidth: number;
-        shape: "dot" | "image" | "diamond" | "star" | "triangle" | "triangleDown" | "hexagon" | "square";
-        font: {
-            color: string;
-        };
-        size: number;
-    };
-    edges: {
-        smooth: {
-            type: ("continuous" | "dynamic" | "discrete" | "diagonalCross" | "straightCross" | "horizontal" | "vertical" | "curvedCW" | "curvedCCW" | "cubicBezier") | undefined;
-        };
-        color: string;
-        width: number;
-        arrows: {
-            to: {
-                enabled: boolean;
-                scaleFactor: number;
-            };
-        };
-        font: {
-            color: string | undefined;
-        };
-    };
-};
+import CanvasDisplaySettings, { CanvasData } from "./types";
+import { Options } from "vis-network/declarations/network/Network";
+declare const createDefaultOptions: (displaySettings: CanvasDisplaySettings, data: CanvasData) => Options;
 declare const createDefaultEvents: (addEvent: any) => {
     click: (params?: any) => void;
     doubleClick: (params?: any) => void;

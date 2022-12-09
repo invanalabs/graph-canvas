@@ -1,11 +1,22 @@
-import { EdgeSetting, NodeSetting } from "./types";
+import { CanvasSetting, EdgeSetting, NodeSetting } from "./types";
+declare class ColorPalleteManager {
+    colors: string[];
+    getColor(label: string): string | number;
+}
 declare class DisplayManager {
-    constructor();
-    createEdgeSettings: (edgeSetting: EdgeSetting) => {
+    colorPallete: ColorPalleteManager;
+    defaultCanvasSettings: CanvasSetting;
+    defaultNodeSettings: NodeSetting;
+    defaultEdgeSettings: EdgeSetting;
+    getNodeColorConfig(label: string, nodeSetting: NodeSetting): {
+        background: string | number;
+    };
+    getEdgeColorConfig(label: string, edgeSetting: EdgeSetting): string | number;
+    createEdgeSettings: (edgeSetting: EdgeSetting, label?: string) => {
         smooth: {
-            type: ("dynamic" | "continuous" | "discrete" | "diagonalCross" | "straightCross" | "horizontal" | "vertical" | "curvedCW" | "curvedCCW" | "cubicBezier") | undefined;
+            type: ("continuous" | "dynamic" | "discrete" | "diagonalCross" | "straightCross" | "horizontal" | "vertical" | "curvedCW" | "curvedCCW" | "cubicBezier") | undefined;
         };
-        color: string;
+        color: string | number;
         width: number;
         arrows: {
             to: {
@@ -17,17 +28,16 @@ declare class DisplayManager {
             color: string | undefined;
         };
     };
-    createNodeSettings: (nodeSetting: NodeSetting) => {
+    createNodeSettings: (nodeSetting: NodeSetting, label?: string) => {
         color: {
-            border: string;
-            background: string;
+            background: string | number;
         };
         borderWidth: number;
-        shape: "dot" | "image" | "diamond" | "star" | "triangle" | "triangleDown" | "hexagon" | "square";
+        shape: ("dot" | "image" | "diamond" | "star" | "triangle" | "triangleDown" | "hexagon" | "square") | undefined;
         font: {
-            color: string;
+            color: string | undefined;
         };
-        size: number;
+        size: number | undefined;
     };
 }
 export default DisplayManager;
