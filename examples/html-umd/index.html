@@ -64,6 +64,14 @@
                     name: "graph-canvas",
                     description: "UI Library for building graphs"
                 }
+            },
+            {
+                id: 4,
+                label: "Project",
+                properties: {
+                    name: "reactjs",
+                    description: "UI Library for building web applications"
+                }
             }
         ],
         edges: [
@@ -79,6 +87,12 @@
                 from: 1,
                 to: 3,
                 properties: {}
+            }, {
+                id: '3-4',
+                label: "uses",
+                from: 3,
+                to: 4,
+                properties: {}
             }
         ]
     }
@@ -86,7 +100,7 @@
     const displaySettings = {
         nodeSettings: {
             'Person': {
-               shape: "triangle",
+               shape: "square",
             }
         }
     }

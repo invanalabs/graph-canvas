@@ -50,7 +50,7 @@ class DisplayManager {
 
     public defaultEdgeSettings: EdgeSetting = {
         // arrowColor: "#333333",
-        arrowShape: "continuous",
+        arrowShape: "dynamic",
         labelField: "id",
         labelColor: "#333333"
 
