@@ -1,3 +1,46 @@
+declare const createDefaultOptions: () => {
+    physics: boolean;
+    autoResize: boolean;
+    interaction: {
+        hover: boolean;
+    };
+    nodes: {
+        color: {
+            border: string;
+            background: string;
+            highlight: {
+                border: string;
+                background: string;
+            };
+            hover: {
+                border: string;
+                background: string;
+            };
+        };
+        borderWidth: number;
+        shape: "dot" | "image" | "diamond" | "star" | "triangle" | "triangleDown" | "hexagon" | "square";
+        font: {
+            color: string;
+        };
+        size: number;
+    };
+    edges: {
+        smooth: {
+            type: ("dynamic" | "continuous" | "discrete" | "diagonalCross" | "straightCross" | "horizontal" | "vertical" | "curvedCW" | "curvedCCW" | "cubicBezier") | undefined;
+        };
+        color: string;
+        width: number;
+        arrows: {
+            to: {
+                enabled: boolean;
+                scaleFactor: number;
+            };
+        };
+        font: {
+            color: string | undefined;
+        };
+    };
+};
 declare const createDefaultEvents: (addEvent: any) => {
     click: (params?: any) => void;
     doubleClick: (params?: any) => void;
@@ -21,3 +64,4 @@ declare const createDefaultEvents: (addEvent: any) => {
     blurEdge: (params?: any) => void;
 };
 export default createDefaultEvents;
+export { createDefaultOptions };

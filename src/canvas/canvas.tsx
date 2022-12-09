@@ -7,26 +7,9 @@ import {DataSet} from "vis-data/peer/esm/vis-data";
 import {Network} from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
-import createDefaultEvents from "./defaults";
+import createDefaultEvents, {createDefaultOptions} from "./defaults";
+import DisplaySettings from "./types";
 
-
-
-const defaultOptions = {
-    physics:false,
-    autoResize: true,
-    interaction:{hover:true},
-    edges: {
-        smooth: false,
-        color: "#000000",
-        width: 0.5,
-        arrows: {
-            to: {
-                enabled: true,
-                scaleFactor: 0.5,
-            },
-        },
-    },
-};
 
 export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void
@@ -41,6 +24,7 @@ export interface CanvasProps {
     // events?: { [id: string]: eventCallback };
     // events?: any; // TODO - fix this later
     addEvent: any, // TODO - fix ths later
+    displaySettings: DisplaySettings
     getNetwork?: getNetworkCallback;
     style?: {
         width: string,
@@ -54,7 +38,8 @@ const defaultData = {nodes: [], edges: []}
 
 const Canvas = ({
                     data = defaultData,
-                    options = defaultOptions,
+                    displaySettings,
+                    options = createDefaultOptions(),
                     // events = defaultEvents,
                     addEvent,
                     getNetwork,

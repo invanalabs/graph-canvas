@@ -1,9 +1,46 @@
-import {DataSet} from "vis-data/peer/esm/vis-data";
-import {VisEventLog} from "../eventStore/eventStore";
-
+import {CanvasSetting, NodeSetting, EdgeSetting} from "./types";
+import DisplayManager from "./displayManager";
 
 const processEvent = (params: any) => {
 
+}
+
+
+const defaultCanvasSettings: CanvasSetting = {
+    backgroundColor: "#ffffff"
+}
+
+
+const defaultNodeSettings: NodeSetting = {
+    labelField: "id",
+    labelColor: "#333333",
+    shapeColor: "#2256bb",
+    shape: "dot",
+    shapeSize: 12
+    // shapeIcon?: string
+}
+
+const defaultEdgeSettings: EdgeSetting = {
+    arrowColor: "#333333",
+    arrowShape: "continuous",
+    labelField: "id",
+    labelColor: "#333333"
+
+}
+
+const createDefaultOptions = () => {
+    const settingManager = new DisplayManager()
+    const nodeSetting = settingManager.createNodeSettings(defaultNodeSettings)
+    const edgeSetting = settingManager.createEdgeSettings(defaultEdgeSettings)
+
+    let _ = {
+        physics: false,
+        autoResize: true,
+        interaction: {hover: true},
+        nodes: nodeSetting,
+        edges: edgeSetting
+    };
+    return _
 }
 
 const createDefaultEvents = (addEvent: any) => {
@@ -125,3 +162,4 @@ const createDefaultEvents = (addEvent: any) => {
 }
 
 export default createDefaultEvents
+export {createDefaultOptions}

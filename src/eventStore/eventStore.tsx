@@ -21,7 +21,7 @@ export const EventStoreView = (props: EventStoreViewProps) => {
                     return <div key={index}>
                         <h4>{event.eventName} --- {event.id}</h4>
                         <p>{event.time}</p>
-                        {JSON.stringify(event)}
+                        <pre>{JSON.stringify(event, null, 4)}</pre>
                         <hr/>
                     </div>
                 }

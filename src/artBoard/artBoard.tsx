@@ -4,13 +4,16 @@ import {Canvas} from "../canvas";
 import {VisEventLog} from "../eventStore/eventStore";
 import EventStoreView from "../eventStore/eventStore"
 import uuidv4 from "../eventStore/utils"
+import DisplaySettings from "../canvas/types"
+
 
 export interface ArtBoardProps {
     label: string;
     data: {
         nodes: [],
         edges: []
-    }
+    },
+    displaySettings: DisplaySettings
 }
 
 
@@ -32,7 +35,7 @@ const ArtBoard = (props: ArtBoardProps) => {
     return <div className={"artBoard"}>
         <h1>Artboard</h1>
         <div style={{"width": "60%", "height": "100%", "float": "left"}}>
-            <Canvas data={props.data} addEvent={addEvent}/>
+            <Canvas data={props.data} addEvent={addEvent} displaySettings={props.displaySettings}/>
         </div>
         <div style={{"width": "40%", "height": "100%", "float": "left"}}>
             <EventStoreView events={events}/>
