@@ -1,14 +1,18 @@
 import {CanvasSetting, EdgeSetting, NodeSetting} from "./types";
+import {copyObject} from "../eventStore/utils";
 
+const defaultShapeColor = "#2256bb";
 
 class ColorPalleteManager {
     public colors = ["#e51c23", "#e91e63", "#9c27b0", "#673ab7", "#3f51b5",
-        "#5677fc", "#03a9f4", "#00bcd4", "#009688", "#259b24",
+        "#5677fc", "#18d94f", "#4db2c0", "#12a99c", "#259b24",
         "#8bc34a", "#afb42b", "#ff9800", "#ff5722", "#795548", "#607d8b"]
 
-    getColor(label: string) {
+    getColor(label: string): string {
         let hash = 0;
-        if (label.length === 0) return hash;
+        // if (label.length === 0){
+        //     return defaultShapeColor;
+        // }
         for (let i = 0; i < label.length; i++) {
             hash = label.charCodeAt(i) + ((hash << 5) - hash);
             hash = hash & hash;
@@ -18,6 +22,13 @@ class ColorPalleteManager {
     }
 }
 
+function addAlphaToHex(color: string, opacity: any) {
+    // coerce values so ti is between 0 and 1.
+    // usage: addAlphaToHex("#222222", 0.5)
+    let _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+    return color + _opacity.toString(16).toUpperCase();
+}
+
 class DisplayManager {
     public colorPallete = new ColorPalleteManager()
 
@@ -25,6 +36,8 @@ class DisplayManager {
         backgroundColor: "#ffffff"
     }
 
+    public defaultShapeColor = defaultShapeColor;
+    public defaultArrowColor = "#222222"
 
     public defaultNodeSettings: NodeSetting = {
         labelField: "id",
@@ -43,34 +56,44 @@ class DisplayManager {
 
     }
 
-    getNodeColorConfig(label: string, nodeSetting: NodeSetting) {
-        const color = nodeSetting.shapeColor ? nodeSetting.shapeColor : this.colorPallete.getColor(label);
+    // getDefaultNodeSetting() {
+    //     return copyObject(this.defaultNodeSettings)
+    // }
+
+    getNodeColorConfig(label: string | undefined, nodeSetting: NodeSetting) {
+        // let color: string = this.defaultShapeColor;
+        // let color = label ? this.colorPallete.getColor(label) : nodeSetting.shapeColor
+
+        let color = label ? this.colorPallete.getColor(label) : nodeSetting.shapeColor;
+        color = !color ? this.defaultShapeColor : color
         console.log("======label", label, color)
+        const highlightColor = addAlphaToHex(color, 0.8)
         return {
-            // border: '#2B7CE9',
+            border: color,
             background: color,
-            // highlight: {
-            //     border: '#2B7CE9',
-            //     background: '#D2E5FF'
-            // },
-            // hover: {
-            //     border: '#2B7CE9',
-            //     background: '#D2E5FF'
-            // }
+            highlight: {
+                border: highlightColor,
+                background: highlightColor
+            },
+            hover: {
+                border: highlightColor,
+                background: highlightColor
+            }
         }
     }
 
-    getEdgeColorConfig(label: string, edgeSetting: EdgeSetting) {
-        const color = edgeSetting.arrowColor ? edgeSetting.arrowColor : this.colorPallete.getColor(label);
+    getEdgeColorConfig(label: string | undefined, edgeSetting: EdgeSetting) {
+        let color = label ? this.colorPallete.getColor(label) : edgeSetting.arrowColor;
+        color = !color ? this.defaultArrowColor : color
         console.log("======label", label, color)
         return color;
     }
 
 
-    createEdgeSettings = (edgeSetting: EdgeSetting, label: string = "") => {
+    createEdgeSettings = (edgeSetting: EdgeSetting, label: string | undefined) => {
         return {
             smooth: {
-                type: edgeSetting.arrowShape || this.defaultEdgeSettings.arrowShape
+                type: edgeSetting.arrowShape ? edgeSetting.arrowShape : this.defaultEdgeSettings.arrowShape
             },
             color: this.getEdgeColorConfig(label, edgeSetting),
             width: 0.5,
@@ -86,8 +109,10 @@ class DisplayManager {
         }
     }
 
-    createNodeSettings = (nodeSetting: NodeSetting, label: string = "") => {
-        console.log("createNodeSettings:: label", label, nodeSetting)
+    createNodeSettings = (nodeSetting: NodeSetting, label: string | undefined) => {
+        console.log("createNodeSettings:: label", label, nodeSetting);
+        const color = this.getNodeColorConfig(label, nodeSetting);
+        console.log("================colorConfig", color)
         return {
             color: this.getNodeColorConfig(label, nodeSetting),
             borderWidth: 2,

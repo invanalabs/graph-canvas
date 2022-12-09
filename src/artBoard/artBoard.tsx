@@ -30,7 +30,7 @@ const ArtBoard = (props: ArtBoardProps) => {
     }
 
     return <div className={"artBoard"}>
-        <h1>Artboard</h1>
+        {/*<h1>Artboard</h1>*/}
         <div style={{"width": "60%", "height": "100%", "float": "left"}}>
             <Canvas data={props.data} addEvent={addEvent} displaySettings={props.displaySettings}/>
         </div>
