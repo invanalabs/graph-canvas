@@ -12,10 +12,9 @@ import createDefaultEvents from "./defaults";
 
 
 const defaultOptions = {
-    physics: {
-        stabilization: false,
-    },
-    autoResize: false,
+    physics:false,
+    autoResize: true,
+    interaction:{hover:true},
     edges: {
         smooth: false,
         color: "#000000",

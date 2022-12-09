@@ -1,9 +1,9 @@
 import React, {useRef} from "react";
 import "./artBoard.scss"
 import {Canvas} from "../canvas";
-import {VisEventLog} from "../evenStore/eventStore";
-import EventStoreView from "../evenStore/eventStore"
-import uuidv4 from "../evenStore/utils"
+import {VisEventLog} from "../eventStore/eventStore";
+import EventStoreView from "../eventStore/eventStore"
+import uuidv4 from "../eventStore/utils"
 
 export interface ArtBoardProps {
     label: string;

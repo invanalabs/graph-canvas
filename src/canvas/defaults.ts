@@ -1,5 +1,5 @@
 import {DataSet} from "vis-data/peer/esm/vis-data";
-import {VisEventLog} from "../evenStore/eventStore";
+import {VisEventLog} from "../eventStore/eventStore";
 
 
 const processEvent = (params: any) => {
