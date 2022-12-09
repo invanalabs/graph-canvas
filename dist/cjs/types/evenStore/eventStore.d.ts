@@ -1,3 +1,4 @@
+/// <reference types="react" />
 export interface VisEventLog {
     id: string;
     eventName: string;

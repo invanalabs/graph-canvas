@@ -30,7 +30,7 @@ const getPluginsConfig = (prod, mini) => {
         commonjs(),
         typescript({tsconfig: "./tsconfig.json"}),
         postcss({
-            minimize: true,
+            // minimize: true,
             extract: true,
             // modules: true,
         }),
