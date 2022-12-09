@@ -49,7 +49,6 @@ const Canvas = ({
 
     const nodes = useRef(new DataSet(convertCanvasNodeToVisNode(data.nodes)));
     const edges = useRef(new DataSet(convertCanvasEdgeToVisEdge(data.edges)));
-    const events = createDefaultEvents(addEvent);
 
 
     // @ts-ignore
@@ -126,7 +125,12 @@ const Canvas = ({
         network.current.setOptions(options);
     }, [options]);
 
+    const events = createDefaultEvents(addEvent, nodes.current, edges.current, network.current);
+
     useEffect(() => {
+
+
+
         // Add user provided events to network
         // eslint-disable-next-line no-restricted-syntax
         for (const eventName of Object.keys(events)) {

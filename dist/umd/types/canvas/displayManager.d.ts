@@ -8,9 +8,23 @@ declare class DisplayManager {
     defaultCanvasSettings: CanvasSetting;
     defaultShapeColor: string;
     defaultArrowColor: string;
+    inActiveNodeColor: string;
+    secondDegreeNodeColor: string;
     defaultNodeSettings: NodeSetting;
     defaultEdgeSettings: EdgeSetting;
-    getNodeColorConfig(label: string | undefined, nodeSetting: NodeSetting): {
+    getNodeColorConfigByLabel(label: string | undefined, nodeSetting: NodeSetting): {
+        border: string;
+        background: string;
+        highlight: {
+            border: string;
+            background: string;
+        };
+        hover: {
+            border: string;
+            background: string;
+        };
+    };
+    getNodeColorConfigWithColor(color: string): {
         border: string;
         background: string;
         highlight: {

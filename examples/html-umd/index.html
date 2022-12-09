@@ -72,6 +72,14 @@
                     name: "reactjs",
                     description: "UI Library for building web applications"
                 }
+            },
+            {
+                id: 5,
+                label: "Company",
+                properties: {
+                    name: "Facebook",
+                    description: "Facebook"
+                }
             }
         ],
         edges: [
@@ -92,6 +100,12 @@
                 label: "uses",
                 from: 3,
                 to: 4,
+                properties: {}
+            } ,{
+                id: '4-5',
+                label: "created_by",
+                from: 4,
+                to: 5,
                 properties: {}
             }
         ]

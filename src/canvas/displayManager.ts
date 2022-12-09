@@ -37,7 +37,10 @@ class DisplayManager {
     }
 
     public defaultShapeColor = defaultShapeColor;
-    public defaultArrowColor = "#222222"
+    public defaultArrowColor = "#222222";
+
+    public inActiveNodeColor = "#c8c8c8"
+    public secondDegreeNodeColor = "#969696"
 
     public defaultNodeSettings: NodeSetting = {
         labelField: "id",
@@ -60,13 +63,21 @@ class DisplayManager {
     //     return copyObject(this.defaultNodeSettings)
     // }
 
-    getNodeColorConfig(label: string | undefined, nodeSetting: NodeSetting) {
+
+    getNodeColorConfigByLabel(label: string | undefined, nodeSetting: NodeSetting) {
         // let color: string = this.defaultShapeColor;
         // let color = label ? this.colorPallete.getColor(label) : nodeSetting.shapeColor
 
         let color = label ? this.colorPallete.getColor(label) : nodeSetting.shapeColor;
         color = !color ? this.defaultShapeColor : color
         console.log("======label", label, color)
+        return this.getNodeColorConfigWithColor(color)
+    }
+
+    getNodeColorConfigWithColor(color: string) {
+        // let color: string = this.defaultShapeColor;
+        // let color = label ? this.colorPallete.getColor(label) : nodeSetting.shapeColor
+
         const highlightColor = addAlphaToHex(color, 0.8)
         return {
             border: color,
@@ -89,6 +100,11 @@ class DisplayManager {
         return color;
     }
 
+    // getInActiveNodeSettings = () => {
+    //     let _ = this.createNodeSettings({}, "")
+    //     _.color = this.getNodeColorConfigWithColor(this.inActiveNodeColor)
+    //     return _
+    // }
 
     createEdgeSettings = (edgeSetting: EdgeSetting, label: string | undefined) => {
         return {
@@ -111,10 +127,10 @@ class DisplayManager {
 
     createNodeSettings = (nodeSetting: NodeSetting, label: string | undefined) => {
         console.log("createNodeSettings:: label", label, nodeSetting);
-        const color = this.getNodeColorConfig(label, nodeSetting);
+        const color = this.getNodeColorConfigByLabel(label, nodeSetting);
         console.log("================colorConfig", color)
         return {
-            color: this.getNodeColorConfig(label, nodeSetting),
+            color: this.getNodeColorConfigByLabel(label, nodeSetting),
             borderWidth: 2,
             shape: nodeSetting.shape || this.defaultNodeSettings.shape,
             font: {

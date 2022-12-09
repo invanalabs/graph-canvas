@@ -1,6 +1,9 @@
 import CanvasDisplaySettings, {CanvasSetting, NodeSetting, EdgeSetting, CanvasData} from "./types";
 import DisplayManager from "./displayManager";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
+import {DataSet} from "vis-data/peer/esm/vis-data";
+import CanvasEventHandler from "./clickHandlers";
+import {Network} from "vis-network/peer/esm/vis-network";
 
 const processEvent = (params: any) => {
 
@@ -39,18 +42,27 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
         groups[label] = settingManager.createNodeSettings(groupSetting, label)
     }
     console.log("======groups", groups)
-    settings.groups = groups
+    // settings.groups = groups
     return settings
 }
 
-const createDefaultEvents = (addEvent: any) => {
+const createDefaultEvents = (addEvent: any, nodes: DataSet<Node>, edges: DataSet<Edge>,
+                             network: Network) => {
+
+    const eventHandler = new CanvasEventHandler()
     return {
         // @ts-ignore
         click: function (params?: any) {
             // // params.event = "[original event]";
             // @ts-ignore
-            console.log("click event, getNodeAt returns: " + this.getNodeAt(params.pointer.DOM), addEvent);
+            const selectedNode = this.getNodeAt(params.pointer.DOM)
+            console.log("click event, getNodeAt returns: " + selectedNode, addEvent);
             addEvent("click", params)
+            if (selectedNode) {
+                eventHandler.highlightNeighbors([selectedNode], nodes, edges, network)
+            }else{
+                eventHandler.resetHighlight(nodes, edges)
+            }
         },
         doubleClick: function (params?: any) {
             console.log("doubleClick Event:", params);
