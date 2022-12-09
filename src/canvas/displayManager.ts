@@ -30,14 +30,14 @@ class DisplayManager {
             color: {
                 border: '#2B7CE9',
                 background: nodeSetting.shapeColor,
-                highlight: {
-                    border: '#2B7CE9',
-                    background: '#D2E5FF'
-                },
-                hover: {
-                    border: '#2B7CE9',
-                    background: '#D2E5FF'
-                }
+                // highlight: {
+                //     border: '#2B7CE9',
+                //     background: '#D2E5FF'
+                // },
+                // hover: {
+                //     border: '#2B7CE9',
+                //     background: '#D2E5FF'
+                // }
             },
             borderWidth: 2,
             shape: nodeSetting.shape,
@@ -47,6 +47,8 @@ class DisplayManager {
             size: nodeSetting.shapeSize
         }
     }
+
+
 
 }
 

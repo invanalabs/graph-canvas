@@ -1,18 +1,14 @@
 import { Network } from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
-import { Node, Edge, Options } from "vis-network/declarations/network/Network";
-import DisplaySettings from "./types";
+import { Options } from "vis-network/declarations/network/Network";
+import CanvasDisplaySettings, { CanvasData } from "./types";
 export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void;
-export type TestData = {
-    nodes: Node[];
-    edges: Edge[];
-};
 export interface CanvasProps {
-    data?: TestData;
+    data?: CanvasData;
     options?: Options;
     addEvent: any;
-    displaySettings: DisplaySettings;
+    displaySettings: CanvasDisplaySettings;
     getNetwork?: getNetworkCallback;
     style?: {
         width: string;

@@ -30,17 +30,15 @@ const defaultEdgeSettings: EdgeSetting = {
 
 const createDefaultOptions = () => {
     const settingManager = new DisplayManager()
-    const nodeSetting = settingManager.createNodeSettings(defaultNodeSettings)
-    const edgeSetting = settingManager.createEdgeSettings(defaultEdgeSettings)
 
-    let _ = {
+    return {
         physics: false,
         autoResize: true,
         interaction: {hover: true},
-        nodes: nodeSetting,
-        edges: edgeSetting
-    };
-    return _
+        nodes: settingManager.createNodeSettings(defaultNodeSettings),
+        edges: settingManager.createEdgeSettings(defaultEdgeSettings)
+
+    }
 }
 
 const createDefaultEvents = (addEvent: any) => {

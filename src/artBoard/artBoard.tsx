@@ -4,16 +4,13 @@ import {Canvas} from "../canvas";
 import {VisEventLog} from "../eventStore/eventStore";
 import EventStoreView from "../eventStore/eventStore"
 import uuidv4 from "../eventStore/utils"
-import DisplaySettings from "../canvas/types"
+import CanvasDisplaySettings, {CanvasData} from "../canvas/types"
 
 
 export interface ArtBoardProps {
     label: string;
-    data: {
-        nodes: [],
-        edges: []
-    },
-    displaySettings: DisplaySettings
+    data: CanvasData,
+    displaySettings: CanvasDisplaySettings
 }
 
 

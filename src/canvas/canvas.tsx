@@ -8,23 +8,19 @@ import {Network} from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
 import createDefaultEvents, {createDefaultOptions} from "./defaults";
-import DisplaySettings from "./types";
+import CanvasDisplaySettings, {CanvasData} from "./types";
 
 
 export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void
 
 
-export type TestData = { nodes: Node[]; edges: Edge[] };
-
 
 export interface CanvasProps {
-    data?: TestData; // TODO - fix this later
+    data?: CanvasData; // TODO - fix this later
     options?: Options;
-    // events?: { [id: string]: eventCallback };
-    // events?: any; // TODO - fix this later
     addEvent: any, // TODO - fix ths later
-    displaySettings: DisplaySettings
+    displaySettings: CanvasDisplaySettings
     getNetwork?: getNetworkCallback;
     style?: {
         width: string,
@@ -34,12 +30,14 @@ export interface CanvasProps {
 }
 
 const defaultStyle = {width: "100%", height: "100%"}
-const defaultData = {nodes: [], edges: []}
+const defaultData: CanvasData = {nodes: [], edges: []}
+
+const defaultOptions =  createDefaultOptions()
 
 const Canvas = ({
                     data = defaultData,
                     displaySettings,
-                    options = createDefaultOptions(),
+                    options = defaultOptions,
                     // events = defaultEvents,
                     addEvent,
                     getNetwork,

@@ -1,8 +1,24 @@
 import { Network } from 'vis-network/peer/esm/vis-network';
-import { Options, Node, Edge } from 'vis-network/declarations/network/Network';
+import { Options } from 'vis-network/declarations/network/Network';
 
 interface CanvasSetting {
     backgroundColor: string;
+}
+interface Properties {
+    [key: string]: any;
+}
+interface GCNodeType {
+    id: string;
+    label: string;
+    properties: Properties;
+}
+interface GCEdgeType extends GCNodeType {
+    from: string;
+    to: string;
+}
+interface CanvasData {
+    nodes: GCNodeType[];
+    edges: GCEdgeType[];
 }
 type ArrowShapeTypes = 'dynamic' | 'continuous' | 'discrete' | 'diagonalCross' | 'straightCross' | 'horizontal' | 'vertical' | 'curvedCW' | 'curvedCCW' | 'cubicBezier';
 interface EdgeSetting {
@@ -20,7 +36,7 @@ interface NodeSetting {
     shapeSize: number;
     shapeIcon?: string;
 }
-interface DisplaySettings {
+interface CanvasDisplaySettings {
     canvasSettings?: CanvasSetting;
     nodeSettings: NodeSetting[];
     defaultNodeSetting?: NodeSetting;
@@ -30,24 +46,17 @@ interface DisplaySettings {
 
 interface ArtBoardProps {
     label: string;
-    data: {
-        nodes: [];
-        edges: [];
-    };
-    displaySettings: DisplaySettings;
+    data: CanvasData;
+    displaySettings: CanvasDisplaySettings;
 }
 declare const ArtBoard: (props: ArtBoardProps) => JSX.Element;
 
 type getNetworkCallback = (network: Network) => {};
-type TestData = {
-    nodes: Node[];
-    edges: Edge[];
-};
 interface CanvasProps {
-    data?: TestData;
+    data?: CanvasData;
     options?: Options;
     addEvent: any;
-    displaySettings: DisplaySettings;
+    displaySettings: CanvasDisplaySettings;
     getNetwork?: getNetworkCallback;
     style?: {
         width: string;

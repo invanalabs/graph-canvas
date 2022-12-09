@@ -2,6 +2,26 @@ interface CanvasSetting {
     backgroundColor: string;
 }
 
+export interface Properties {
+    [key: string]: any;
+}
+
+interface GCNodeType {
+    id: string;
+    label: string;
+    properties: Properties
+}
+
+interface GCEdgeType extends GCNodeType {
+    from: string
+    to: string
+}
+
+interface CanvasData {
+    nodes: GCNodeType[],
+    edges: GCEdgeType[]
+}
+
 type ArrowShapeTypes =
     'dynamic' |
     'continuous' |
@@ -47,7 +67,7 @@ interface NodeSetting {
     shapeIcon?: string
 }
 
-interface DisplaySettings {
+interface CanvasDisplaySettings {
     canvasSettings?: CanvasSetting;
     nodeSettings: NodeSetting[];
     defaultNodeSetting?: NodeSetting;
@@ -55,5 +75,5 @@ interface DisplaySettings {
     defaultEdgeSetting?: EdgeSetting;
 }
 
-export default DisplaySettings
-export {CanvasSetting, EdgeSetting, NodeSetting}
+export default CanvasDisplaySettings
+export {CanvasSetting, EdgeSetting, NodeSetting, CanvasData, GCEdgeType, GCNodeType}

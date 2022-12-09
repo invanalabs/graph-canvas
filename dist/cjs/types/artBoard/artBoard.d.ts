@@ -1,12 +1,9 @@
 import "./artBoard.scss";
-import DisplaySettings from "../canvas/types";
+import CanvasDisplaySettings, { CanvasData } from "../canvas/types";
 export interface ArtBoardProps {
     label: string;
-    data: {
-        nodes: [];
-        edges: [];
-    };
-    displaySettings: DisplaySettings;
+    data: CanvasData;
+    displaySettings: CanvasDisplaySettings;
 }
 declare const ArtBoard: (props: ArtBoardProps) => JSX.Element;
 export default ArtBoard;

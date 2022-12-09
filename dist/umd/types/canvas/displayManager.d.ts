@@ -21,14 +21,6 @@ declare class DisplayManager {
         color: {
             border: string;
             background: string;
-            highlight: {
-                border: string;
-                background: string;
-            };
-            hover: {
-                border: string;
-                background: string;
-            };
         };
         borderWidth: number;
         shape: "dot" | "image" | "diamond" | "star" | "triangle" | "triangleDown" | "hexagon" | "square";
