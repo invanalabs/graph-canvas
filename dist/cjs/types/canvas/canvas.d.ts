@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Network } from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
 import CanvasDisplaySettings, { CanvasData } from "./types";

@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import "./artBoard.scss";
 import CanvasDisplaySettings, { CanvasData } from "../canvas/types";
 export interface ArtBoardProps {
