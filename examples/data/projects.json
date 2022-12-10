@@ -1,0 +1,74 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "label": "Person",
+      "properties": {
+        "name": "Ravi",
+        "jobTitle": "Graph Science Lead"
+      }
+    },
+    {
+      "id": 2,
+      "label": "Project",
+      "properties": {
+        "name": "invana-engine",
+        "description": "GraphQL API for creating connected data"
+      }
+    },
+    {
+      "id": 3,
+      "label": "Project",
+      "properties": {
+        "name": "graph-canvas",
+        "description": "UI Library for building graphs"
+      }
+    },
+    {
+      "id": 4,
+      "label": "Project",
+      "properties": {
+        "name": "reactjs",
+        "description": "UI Library for building web applications"
+      }
+    },
+    {
+      "id": 5,
+      "label": "Company",
+      "properties": {
+        "name": "Facebook",
+        "description": "Facebook"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1-2",
+      "label": "created",
+      "from": 1,
+      "to": 2,
+      "properties": {}
+    },
+    {
+      "id": "1-3",
+      "label": "created",
+      "from": 1,
+      "to": 3,
+      "properties": {}
+    },
+    {
+      "id": "3-4",
+      "label": "uses",
+      "from": 3,
+      "to": 4,
+      "properties": {}
+    },
+    {
+      "id": "4-5",
+      "label": "created_by",
+      "from": 4,
+      "to": 5,
+      "properties": {}
+    }
+  ]
+}

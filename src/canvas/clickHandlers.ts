@@ -11,6 +11,7 @@ class CanvasEventHandler {
 
         console.log("===================nodeOnClick", selectedItems, nodes, edges, network)
         let allNodes = nodes.get({returnType: "Object"});
+        let allEdges = edges.get({returnType: "Object"});
         console.log("===========allNodes first", allNodes)
         let highlightActive = true;
 
@@ -30,6 +31,20 @@ class CanvasEventHandler {
                     allNodes[nodeId].label = undefined;
                 }
             }
+
+            // mark all nodes as hard to read.
+            for (var edgeId in allEdges) {
+                allEdges[edgeId].color = "rgba(200,200,200,0.5)";
+                // @ts-ignore
+                if (allEdges[edgeId].hiddenLabel === undefined) {
+                    // @ts-ignore
+                    allEdges[edgeId].hiddenLabel = allEdges[edgeId].label;
+                    allEdges[edgeId].label = undefined;
+                }
+            }
+
+
+
             // @ts-ignore
             var connectedNodes = network.getConnectedNodes(selectedNode);
             let allConnectedNodes: any = [];
@@ -80,6 +95,19 @@ class CanvasEventHandler {
                 // @ts-ignore
                 allNodes[selectedNode].hiddenLabel = undefined;
             }
+
+            Object.keys(allEdges).forEach((edgeId)=>{
+                const edge: Edge = allEdges[edgeId]
+                // @ts-ignore
+                if (connectedNodes.indexOf(edge.from) || connectedNodes.indexOf(edge.to)){
+                    allEdges[edgeId].color = {inherit: "both"}
+                }
+                if (selectedNode === edge.from || selectedNode === edge.to){
+                        allEdges[edgeId].color = {inherit: "both"}
+                }
+            })
+
+
         } else if (highlightActive) {
             // reset all nodes
             for (var nodeId in allNodes) {
@@ -103,6 +131,16 @@ class CanvasEventHandler {
             }
         }
         nodes.update(updateArray);
+
+
+        // transform the object into an array
+        var updateEdgeArray = [];
+        for (edgeId in allEdges) {
+            if (allEdges.hasOwnProperty(edgeId)) {
+                updateEdgeArray.push(allEdges[edgeId]);
+            }
+        }
+        edges.update(updateEdgeArray);
         console.log("=============allNodes last", nodes.get({returnType: "Object"}))
     }
 
