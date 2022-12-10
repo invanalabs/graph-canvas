@@ -10,10 +10,10 @@ import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations
 import createDefaultEvents, {createDefaultOptions} from "./defaults";
 import CanvasDisplaySettings, {CanvasData} from "./types";
 import {convertCanvasNodeToVisNode, convertCanvasEdgeToVisEdge} from "./utils";
+import {copyObject} from "../eventStore/utils";
 
 export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void
-
 
 
 export interface CanvasProps {
@@ -33,7 +33,6 @@ const defaultStyle = {width: "100%", height: "100%"}
 const defaultData: CanvasData = {nodes: [], edges: []}
 
 
-
 const Canvas = ({
                     data = defaultData,
                     displaySettings,
@@ -45,10 +44,33 @@ const Canvas = ({
                 }: CanvasProps) => {
 
 
-    const options: Options =  createDefaultOptions(displaySettings, data)
+    const options: Options = createDefaultOptions(displaySettings, data)
 
     const nodes = useRef(new DataSet(convertCanvasNodeToVisNode(data.nodes)));
     const edges = useRef(new DataSet(convertCanvasEdgeToVisEdge(data.edges)));
+
+    // add value to nodes
+    let nodeLinkStats = {}
+    nodes.current.forEach((node: Node) => {
+        // @ts-ignore
+        nodeLinkStats[node.id] = 0
+    })
+    edges.current.forEach((edge: Edge) => {
+        // @ts-ignore
+        nodeLinkStats[edge.from] += 1
+        // @ts-ignore
+        nodeLinkStats[edge.to] += 1
+    })
+    let nodesArray: any[] = []
+    nodes.current.forEach((node: Node) => {
+        // @ts-ignore
+        let _ = copyObject(node)
+        // @ts-ignore
+        _.value = nodeLinkStats[node.id]
+        nodesArray.push(_)
+    })
+
+    nodes.current.update(nodesArray);
 
 
     // @ts-ignore
@@ -128,7 +150,6 @@ const Canvas = ({
     const events = createDefaultEvents(addEvent, nodes.current, edges.current, network.current);
 
     useEffect(() => {
-
 
 
         // Add user provided events to network

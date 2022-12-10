@@ -23,7 +23,20 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     let settings: Options = {
         physics: false,
         autoResize: true,
-        interaction: {hover: true},
+        // physics: {
+        //     stabilization: true,
+            // barnesHut: {
+            //     gravitationalConstant: -80000,
+            //     springConstant: 0.001,
+            //     springLength: 200,
+            // },
+        // },
+        interaction: {
+            tooltipDelay: 200,
+            hover: true,
+            hideEdgesOnDrag: true,
+        },
+
         nodes: settingManager.createNodeSettings({}, undefined),
         edges: settingManager.createEdgeSettings({}, undefined),
     }
@@ -60,7 +73,7 @@ const createDefaultEvents = (addEvent: any, nodes: DataSet<Node>, edges: DataSet
             addEvent("click", params)
             if (selectedNode) {
                 eventHandler.highlightNeighbors([selectedNode], nodes, edges, network)
-            }else{
+            } else {
                 eventHandler.resetHighlight(nodes, edges)
             }
         },
