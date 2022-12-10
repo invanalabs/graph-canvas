@@ -19,7 +19,7 @@ export type eventCallback = (params?: any) => void
 export interface CanvasProps {
     data?: CanvasData; // TODO - fix this later
     // options?: Options;
-    addEvent: any, // TODO - fix ths later
+    logEvent: any, // TODO - fix ths later
     displaySettings: CanvasDisplaySettings
     getNetwork?: getNetworkCallback;
     style?: {
@@ -38,7 +38,7 @@ const Canvas = ({
                     displaySettings,
                     // options = defaultOptions,
                     // events = defaultEvents,
-                    addEvent,
+                    logEvent,
                     getNetwork,
                     style = defaultStyle
                 }: CanvasProps) => {
@@ -147,7 +147,7 @@ const Canvas = ({
         network.current.setOptions(options);
     }, [options]);
 
-    const events = createDefaultEvents(addEvent, nodes.current, edges.current, network.current);
+    const events = createDefaultEvents(logEvent, nodes.current, edges.current, network.current);
 
     useEffect(() => {
 

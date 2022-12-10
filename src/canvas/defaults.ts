@@ -59,7 +59,7 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     return settings
 }
 
-const createDefaultEvents = (addEvent: any, nodes: DataSet<Node>, edges: DataSet<Edge>,
+const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet<Edge>,
                              network: Network) => {
 
     const eventHandler = new CanvasEventHandler()
@@ -69,8 +69,8 @@ const createDefaultEvents = (addEvent: any, nodes: DataSet<Node>, edges: DataSet
             // // params.event = "[original event]";
             // @ts-ignore
             const selectedNode = this.getNodeAt(params.pointer.DOM)
-            console.log("click event, getNodeAt returns: " + selectedNode, addEvent);
-            addEvent("click", params)
+            console.log("click event, getNodeAt returns: " + selectedNode, logEvent);
+            logEvent("click", params)
             if (selectedNode) {
                 eventHandler.highlightNeighbors([selectedNode], nodes, edges, network)
             } else {
@@ -80,13 +80,13 @@ const createDefaultEvents = (addEvent: any, nodes: DataSet<Node>, edges: DataSet
         doubleClick: function (params?: any) {
             console.log("doubleClick Event:", params);
             // // params.event = "[original event]";
-            addEvent("doubleClick", params)
+            logEvent("doubleClick", params)
 
         },
         oncontext: function (params?: any) {
             console.log("oncontext Event:", params);
             // // params.event = "[original event]";
-            addEvent("oncontext", params)
+            logEvent("oncontext", params)
         },
         dragStart: function (params?: any) {
             // There's no point in displaying this event on screen, it gets immediately overwritten
@@ -97,11 +97,11 @@ const createDefaultEvents = (addEvent: any, nodes: DataSet<Node>, edges: DataSet
                 // @ts-ignore
                 this.getNodeAt(params.pointer.DOM)
             );
-            addEvent("dragStart", params)
+            logEvent("dragStart", params)
         },
         dragging: function (params?: any) {
             // // params.event = "[original event]";
-            addEvent("dragging", params)
+            logEvent("dragging", params)
 
         },
         dragEnd: function (params?: any) {
@@ -111,75 +111,75 @@ const createDefaultEvents = (addEvent: any, nodes: DataSet<Node>, edges: DataSet
                 // @ts-ignore
                 "dragEnd event, getNodeAt returns: " + this.getNodeAt(params.pointer.DOM)
             );
-            addEvent("dragEnd", params)
+            logEvent("dragEnd", params)
         },
         controlNodeDragging: function (params?: any) {
             // params.event = "[original event]";
-            addEvent("controlNodeDragging", params)
+            logEvent("controlNodeDragging", params)
 
         },
         controlNodeDragEnd: function (params?: any) {
             // params.event = "[original event]";
             console.log("controlNodeDragEnd Event:", params);
-            addEvent("controlNodeDragEnd", params)
+            logEvent("controlNodeDragEnd", params)
 
         },
         zoom: function (params?: any) {
-            addEvent("zoom", params)
+            logEvent("zoom", params)
 
         },
         showPopup: function (params?: any) {
-            addEvent("showPopup", params)
+            logEvent("showPopup", params)
 
         },
         hidePopup: function () {
             console.log("hidePopup Event");
-            addEvent("hidePopup", null)
+            logEvent("hidePopup", null)
 
         },
         select: function (params?: any) {
             console.log("select Event:", params);
-            addEvent("select", params)
+            logEvent("select", params)
 
         },
         selectNode: function (params?: any) {
             console.log("selectNode Event:", params);
-            addEvent("selectNode", params)
+            logEvent("selectNode", params)
 
         },
         selectEdge: function (params?: any) {
             console.log("selectEdge Event:", params);
-            addEvent("selectEdge", params)
+            logEvent("selectEdge", params)
 
         },
         deselectNode: function (params?: any) {
             console.log("deselectNode Event:", params);
-            addEvent("deselectNode", params)
+            logEvent("deselectNode", params)
 
         },
         deselectEdge: function (params?: any) {
             console.log("deselectEdge Event:", params);
-            addEvent("deselectEdge", params)
+            logEvent("deselectEdge", params)
 
         },
         hoverNode: function (params?: any) {
             console.log("hoverNode Event:", params);
-            addEvent("hoverNode", params)
+            logEvent("hoverNode", params)
 
         },
         hoverEdge: function (params?: any) {
             console.log("hoverEdge Event:", params);
-            addEvent("hoverEdge", params)
+            logEvent("hoverEdge", params)
 
         },
         blurNode: function (params?: any) {
             console.log("blurNode Event:", params);
-            addEvent("blurNode", params)
+            logEvent("blurNode", params)
 
         },
         blurEdge: function (params?: any) {
             console.log("blurEdge Event:", params);
-            addEvent("blurEdge", params)
+            logEvent("blurEdge", params)
 
         },
     };

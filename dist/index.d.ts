@@ -58,7 +58,7 @@ declare const ArtBoard: (props: ArtBoardProps) => JSX.Element;
 type getNetworkCallback = (network: Network) => {};
 interface CanvasProps {
     data?: CanvasData;
-    addEvent: any;
+    logEvent: any;
     displaySettings: CanvasDisplaySettings;
     getNetwork?: getNetworkCallback;
     style?: {
@@ -66,6 +66,6 @@ interface CanvasProps {
         height: string;
     };
 }
-declare const Canvas: ({ data, displaySettings, addEvent, getNetwork, style }: CanvasProps) => JSX.Element;
+declare const Canvas: ({ data, displaySettings, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
 
 export { ArtBoard, Canvas };

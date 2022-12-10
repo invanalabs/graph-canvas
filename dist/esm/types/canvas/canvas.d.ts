@@ -6,7 +6,7 @@ export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void;
 export interface CanvasProps {
     data?: CanvasData;
-    addEvent: any;
+    logEvent: any;
     displaySettings: CanvasDisplaySettings;
     getNetwork?: getNetworkCallback;
     style?: {
@@ -14,5 +14,5 @@ export interface CanvasProps {
         height: string;
     };
 }
-declare const Canvas: ({ data, displaySettings, addEvent, getNetwork, style }: CanvasProps) => JSX.Element;
+declare const Canvas: ({ data, displaySettings, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
 export default Canvas;

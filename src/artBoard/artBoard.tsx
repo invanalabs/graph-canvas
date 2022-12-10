@@ -17,7 +17,7 @@ export interface ArtBoardProps {
 const ArtBoard = (props: ArtBoardProps) => {
     let [events, setEvents] = React.useState([]);
 
-    const addEvent = (eventName: string, eventParams: any) => {
+    const logEvent = (eventName: string, eventParams: any) => {
         let old_events = JSON.parse(JSON.stringify(events));
         const d: VisEventLog = {
             id: uuidv4(),
@@ -32,7 +32,8 @@ const ArtBoard = (props: ArtBoardProps) => {
     return <div className={"artBoard"}>
         {/*<h1>Artboard</h1>*/}
         <div style={{"width": "60%", "height": "100%", "float": "left"}}>
-            <Canvas data={props.data} addEvent={addEvent} displaySettings={props.displaySettings}/>
+            <Canvas data={props.data} logEvent={logEvent}
+                    displaySettings={props.displaySettings}/>
         </div>
         <div style={{"width": "40%", "height": "100%", "float": "left"}}>
             <EventStoreView events={events}/>

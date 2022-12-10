@@ -3,7 +3,7 @@ import { Node, Edge, Options } from "vis-network/declarations/network/Network";
 import { DataSet } from "vis-data/peer/esm/vis-data";
 import { Network } from "vis-network/peer/esm/vis-network";
 declare const createDefaultOptions: (displaySettings: CanvasDisplaySettings, data: CanvasData) => Options;
-declare const createDefaultEvents: (addEvent: any, nodes: DataSet<Node>, edges: DataSet<Edge>, network: Network) => {
+declare const createDefaultEvents: (logEvent: any, nodes: DataSet<Node>, edges: DataSet<Edge>, network: Network) => {
     click: (params?: any) => void;
     doubleClick: (params?: any) => void;
     oncontext: (params?: any) => void;
