@@ -100,15 +100,17 @@ class CanvasEventHandler {
                 allNodes[selectedNode].hiddenLabel = undefined;
             }
 
+            console.log("=====connectedNodes",connectedNodes)
+
             Object.keys(allEdges).forEach((edgeId) => {
                 const edge: Edge = allEdges[edgeId]
                 // @ts-ignore
-                if (connectedNodes.indexOf(edge.from) || connectedNodes.indexOf(edge.to)) {
+                if (connectedNodes.indexOf(edge.from) >=0 || connectedNodes.indexOf(edge.to) >= 0) {
                     allEdges[edgeId].color = {inherit: "both"}
                     // @ts-ignore
                     // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
                     // @ts-ignore
-                    // allEdges[edgeId].font = { color: "#333333"}
+                    allEdges[edgeId].font = { color: "#a4a4a4"}
 
                 }
                 if (selectedNode === edge.from || selectedNode === edge.to) {
