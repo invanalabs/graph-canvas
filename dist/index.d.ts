@@ -1,3 +1,4 @@
+/// <reference types="react" />
 import { Network } from 'vis-network/peer/esm/vis-network';
 
 interface CanvasSetting {
