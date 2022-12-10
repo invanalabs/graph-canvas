@@ -39,6 +39,14 @@
         "name": "Facebook",
         "description": "Facebook"
       }
+    },
+    {
+      "id": 6,
+      "label": "Technology",
+      "properties": {
+        "name": "knowledge graphs",
+        "description": "KG"
+      }
     }
   ],
   "edges": [
@@ -68,6 +76,13 @@
       "label": "created_by",
       "from": 4,
       "to": 5,
+      "properties": {}
+    },
+    {
+      "id": "2-6",
+      "label": "about",
+      "from": 2,
+      "to": 6,
       "properties": {}
     }
   ]

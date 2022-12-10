@@ -5,6 +5,7 @@ import {DataSet} from "vis-data/peer/esm/vis-data";
 
 class CanvasEventHandler {
 
+    inActiveEdgeFontColor = "#f3f3f3"
 
     highlightNeighbors = (selectedItems: Node[], nodes: DataSet<Node>,
                           edges: DataSet<Edge>, network: Network) => {
@@ -36,13 +37,16 @@ class CanvasEventHandler {
             for (var edgeId in allEdges) {
                 allEdges[edgeId].color = "rgba(200,200,200,0.5)";
                 // @ts-ignore
-                if (allEdges[edgeId].hiddenLabel === undefined) {
+                // if (allEdges[edgeId].hiddenLabel === undefined) {
+                //     // @ts-ignore
+                //     allEdges[edgeId].hiddenLabel = allEdges[edgeId].label;
+                //     // @ts-ignore
+                //     // allEdges[edgeId].hiddenFont = allEdges[edgeId].font;
+                //     allEdges[edgeId].label = undefined;
                     // @ts-ignore
-                    allEdges[edgeId].hiddenLabel = allEdges[edgeId].label;
-                    allEdges[edgeId].label = undefined;
-                }
+                    allEdges[edgeId].font = {color: "#f3f3f3"};
+                // }
             }
-
 
 
             // @ts-ignore
@@ -96,14 +100,23 @@ class CanvasEventHandler {
                 allNodes[selectedNode].hiddenLabel = undefined;
             }
 
-            Object.keys(allEdges).forEach((edgeId)=>{
+            Object.keys(allEdges).forEach((edgeId) => {
                 const edge: Edge = allEdges[edgeId]
                 // @ts-ignore
-                if (connectedNodes.indexOf(edge.from) || connectedNodes.indexOf(edge.to)){
+                if (connectedNodes.indexOf(edge.from) || connectedNodes.indexOf(edge.to)) {
                     allEdges[edgeId].color = {inherit: "both"}
+                    // @ts-ignore
+                    // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
+                    // @ts-ignore
+                    // allEdges[edgeId].font = { color: "#333333"}
+
                 }
-                if (selectedNode === edge.from || selectedNode === edge.to){
-                        allEdges[edgeId].color = {inherit: "both"}
+                if (selectedNode === edge.from || selectedNode === edge.to) {
+                    allEdges[edgeId].color = {inherit: "both"}
+                    // @ts-ignore
+                    // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
+                    // @ts-ignore
+                    allEdges[edgeId].font = { color: "#333333"}
                 }
             })
 
@@ -120,6 +133,22 @@ class CanvasEventHandler {
                     allNodes[nodeId].hiddenLabel = undefined;
                 }
             }
+
+            // mark all nodes as hard to read.
+            for (var edgeId in allEdges) {
+                allEdges[edgeId].color = "rgba(200,200,200,0.5)";
+                // @ts-ignore
+                // if (allEdges[edgeId].hiddenLabel === undefined) {
+                    // @ts-ignore
+                    // allEdges[edgeId].hiddenLabel = allEdges[edgeId].label;
+                    // @ts-ignore
+                    // allEdges[edgeId].hiddenFont = allEdges[edgeId].font;
+                    // allEdges[edgeId].label = undefined;
+                    // @ts-ignore
+                    allEdges[edgeId].font = {color: "#f3f3f3"};
+                // }
+            }
+
             highlightActive = false;
         }
 
