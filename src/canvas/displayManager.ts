@@ -97,7 +97,7 @@ class DisplayManager {
         let color = label ? this.colorPallete.getColor(label) : edgeSetting.arrowColor;
         color = !color ? this.defaultArrowColor : color
         console.log("======label", label, color)
-        return color;
+        return {inherit: "both"};
     }
 
     // getInActiveNodeSettings = () => {

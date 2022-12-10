@@ -36,12 +36,16 @@ declare class DisplayManager {
             background: string;
         };
     };
-    getEdgeColorConfig(label: string | undefined, edgeSetting: EdgeSetting): string;
+    getEdgeColorConfig(label: string | undefined, edgeSetting: EdgeSetting): {
+        inherit: string;
+    };
     createEdgeSettings: (edgeSetting: EdgeSetting, label: string | undefined) => {
         smooth: {
             type: ("dynamic" | "continuous" | "discrete" | "diagonalCross" | "straightCross" | "horizontal" | "vertical" | "curvedCW" | "curvedCCW" | "cubicBezier") | undefined;
         };
-        color: string;
+        color: {
+            inherit: string;
+        };
         width: number;
         arrows: {
             to: {
