@@ -9,7 +9,11 @@ import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
 import createDefaultEvents, {createDefaultOptions} from "./defaults";
 import CanvasDisplaySettings, {CanvasData} from "./types";
-import {convertCanvasNodeToVisNode, convertCanvasEdgeToVisEdge} from "./utils";
+import {
+    convertCanvasNodeToVisNode,
+    detectNodeSizeBasedOnEdges,
+    convertCanvasEdgeToVisEdge
+} from "./utils";
 import {copyObject} from "../eventStore/utils";
 
 export type getNetworkCallback = (network: Network) => {};
@@ -20,7 +24,8 @@ export interface CanvasProps {
     data?: CanvasData; // TODO - fix this later
     // options?: Options;
     logEvent: any, // TODO - fix ths later
-    displaySettings: CanvasDisplaySettings
+    displaySettings: CanvasDisplaySettings,
+    nodeSizeBasedOnLinks: Boolean,
     getNetwork?: getNetworkCallback;
     style?: {
         width: string,
@@ -36,6 +41,7 @@ const defaultData: CanvasData = {nodes: [], edges: []}
 const Canvas = ({
                     data = defaultData,
                     displaySettings,
+                    nodeSizeBasedOnLinks,
                     // options = defaultOptions,
                     // events = defaultEvents,
                     logEvent,
@@ -49,29 +55,11 @@ const Canvas = ({
     const nodes = useRef(new DataSet(convertCanvasNodeToVisNode(data.nodes)));
     const edges = useRef(new DataSet(convertCanvasEdgeToVisEdge(data.edges)));
 
-    // add value to nodes
-    let nodeLinkStats = {}
-    nodes.current.forEach((node: Node) => {
-        // @ts-ignore
-        nodeLinkStats[node.id] = 0
-    })
-    edges.current.forEach((edge: Edge) => {
-        // @ts-ignore
-        nodeLinkStats[edge.from] += 1
-        // @ts-ignore
-        nodeLinkStats[edge.to] += 1
-    })
-    let nodesArray: any[] = []
-    nodes.current.forEach((node: Node) => {
-        // @ts-ignore
-        let _ = copyObject(node)
-        // @ts-ignore
-        _.value = nodeLinkStats[node.id]
-        nodesArray.push(_)
-    })
-
-    nodes.current.update(nodesArray);
-
+    if (nodeSizeBasedOnLinks) {
+        const updatedNodesArray = detectNodeSizeBasedOnEdges(nodes.current,
+            edges.current)
+        nodes.current.update(updatedNodesArray)
+    }
 
     // @ts-ignore
     let network: React.MutableRefObject<Network> = useRef(null);

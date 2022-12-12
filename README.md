@@ -35,6 +35,11 @@ React UI components for creating network graphs.
 - [ ] Story Creator 
   - [ ] Create story state 
   - [ ] Play, Pause, next, prev state 
+- [ ] Node options
+  - [ ] Create size of node based on connected edges
+- [ ]  UI Components
+  - [ ]  Filter Nodes
+  - [ ]
 
 
 All the featuers use localStorage as default data store, 

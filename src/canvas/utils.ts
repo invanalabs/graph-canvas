@@ -12,7 +12,8 @@ const convertCanvasNodeToVisNode = (canvasNodes: CanvasNode[]): Node[] => {
     return nodes
 }
 
-const convertCanvasEdgeToVisEdge = (canvasEdges: CanvasEdge[]):Edge[] => {
+
+const convertCanvasEdgeToVisEdge = (canvasEdges: CanvasEdge[]): Edge[] => {
     let edges: Edge[] = []
     canvasEdges.forEach(canvasEdge => {
         let edge: Edge = copyObject(canvasEdge)
@@ -21,4 +22,32 @@ const convertCanvasEdgeToVisEdge = (canvasEdges: CanvasEdge[]):Edge[] => {
     })
     return edges
 }
-export {convertCanvasNodeToVisNode, convertCanvasEdgeToVisEdge}
+
+
+const detectNodeSizeBasedOnEdges = (allNodes: any[], allEdges: any[]) => {
+    // add value to nodes
+    let nodeLinkStats = {}
+    allNodes.forEach((node: Node) => {
+        // @ts-ignore
+        nodeLinkStats[node.id] = 0
+    })
+    allEdges.forEach((edge: Edge) => {
+        // @ts-ignore
+        nodeLinkStats[edge.from] += 1
+        // @ts-ignore
+        nodeLinkStats[edge.to] += 1
+    })
+    let updatedNodesArray: Node[] = []
+    allNodes.forEach((node: Node) => {
+        // @ts-ignore
+        let _ = copyObject(node)
+        // @ts-ignore
+        _.value = nodeLinkStats[node.id]
+        updatedNodesArray.push(_)
+    })
+
+    return updatedNodesArray;
+}
+
+export {convertCanvasNodeToVisNode, convertCanvasEdgeToVisEdge,
+    detectNodeSizeBasedOnEdges}

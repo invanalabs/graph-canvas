@@ -60,12 +60,13 @@ interface CanvasProps {
     data?: CanvasData;
     logEvent: any;
     displaySettings: CanvasDisplaySettings;
+    nodeSizeBasedOnLinks: Boolean;
     getNetwork?: getNetworkCallback;
     style?: {
         width: string;
         height: string;
     };
 }
-declare const Canvas: ({ data, displaySettings, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
+declare const Canvas: ({ data, displaySettings, nodeSizeBasedOnLinks, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
 
 export { ArtBoard, Canvas };

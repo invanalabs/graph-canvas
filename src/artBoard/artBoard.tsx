@@ -33,6 +33,7 @@ const ArtBoard = (props: ArtBoardProps) => {
         {/*<h1>Artboard</h1>*/}
         <div style={{"width": "60%", "height": "100%", "float": "left"}}>
             <Canvas data={props.data} logEvent={logEvent}
+                    nodeSizeBasedOnLinks={true}
                     displaySettings={props.displaySettings}/>
         </div>
         <div style={{"width": "40%", "height": "100%", "float": "left"}}>
