@@ -49,5 +49,25 @@ const detectNodeSizeBasedOnEdges = (allNodes: any[], allEdges: any[]) => {
     return updatedNodesArray;
 }
 
-export {convertCanvasNodeToVisNode, convertCanvasEdgeToVisEdge,
-    detectNodeSizeBasedOnEdges}
+const createCanvasNode = (data: any): CanvasNode => {
+    return {
+        id: data.id,
+        label: data.label,
+        properties: data.properties
+    }
+}
+
+const createCanvasEdge = (data: any): CanvasEdge => {
+    return {
+        id: data.id,
+        from: data.from,
+        to: data.to,
+        label: data.label,
+        properties: data.properties
+    }
+}
+
+export {
+    convertCanvasNodeToVisNode, convertCanvasEdgeToVisEdge,
+    detectNodeSizeBasedOnEdges, createCanvasEdge, createCanvasNode
+}

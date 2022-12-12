@@ -27,6 +27,7 @@ export interface CanvasProps {
     displaySettings?: CanvasDisplaySettings,
     nodeSizeBasedOnLinks: Boolean,
     getNetwork?: getNetworkCallback;
+    setSelectedElement?: (el: Node|Edge|null) => void,
     style?: {
         width: string,
         height: string
@@ -42,6 +43,7 @@ const Canvas = ({
                     data = defaultData,
                     displaySettings = {},
                     nodeSizeBasedOnLinks,
+                    setSelectedElement,
                     // options = defaultOptions,
                     // events = defaultEvents,
                     logEvent,
@@ -136,7 +138,9 @@ const Canvas = ({
         network.current.setOptions(options);
     }, [options]);
 
-    const events = createDefaultEvents(logEvent, nodes.current, edges.current, network.current);
+    // @ts-ignore
+    const events = createDefaultEvents(logEvent, nodes.current,
+        edges.current, network.current, setSelectedElement);
 
     useEffect(() => {
 

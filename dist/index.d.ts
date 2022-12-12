@@ -1,4 +1,5 @@
 import { Network } from 'vis-network/peer/esm/vis-network';
+import { Node, Edge } from 'vis-network/declarations/network/Network';
 
 interface CanvasSetting {
     backgroundColor: string;
@@ -60,11 +61,12 @@ interface CanvasProps {
     displaySettings?: CanvasDisplaySettings;
     nodeSizeBasedOnLinks: Boolean;
     getNetwork?: getNetworkCallback;
+    setSelectedElement?: (el: Node | Edge | null) => void;
     style?: {
         width: string;
         height: string;
     };
 }
-declare const Canvas: ({ data, displaySettings, nodeSizeBasedOnLinks, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
+declare const Canvas: ({ data, displaySettings, nodeSizeBasedOnLinks, setSelectedElement, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
 
 export { ArtBoard, Canvas };

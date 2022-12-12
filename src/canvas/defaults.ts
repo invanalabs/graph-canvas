@@ -4,6 +4,7 @@ import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations
 import {DataSet} from "vis-data/peer/esm/vis-data";
 import CanvasEventHandler from "./clickHandlers";
 import {Network} from "vis-network/peer/esm/vis-network";
+import {createCanvasEdge,createCanvasNode} from "./utils";
 
 const processEvent = (params: any) => {
 
@@ -60,7 +61,8 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
 }
 
 const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet<Edge>,
-                             network: Network) => {
+                             network: Network,
+                             setSelectedElement: (el: any)=> void) => {
 
     const eventHandler = new CanvasEventHandler()
     return {
@@ -165,21 +167,32 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
         hoverNode: function (params?: any) {
             console.log("hoverNode Event:", params);
             logEvent("hoverNode", params)
+            // @ts-ignore
+            const selectedNode = this.getNodeAt(params.pointer.DOM)
+            console.log("proper hovered", selectedNode)
+            setSelectedElement(createCanvasNode(nodes.get(selectedNode)))
 
         },
         hoverEdge: function (params?: any) {
             console.log("hoverEdge Event:", params);
             logEvent("hoverEdge", params)
+            // @ts-ignore
+            const selectedEdge = this.getEdgeAt(params.pointer.DOM)
+            console.log("proper", selectedEdge)
+            setSelectedElement(createCanvasEdge(edges.get(selectedEdge)))
 
         },
         blurNode: function (params?: any) {
             console.log("blurNode Event:", params);
             logEvent("blurNode", params)
+            setSelectedElement(null)
 
         },
         blurEdge: function (params?: any) {
             console.log("blurEdge Event:", params);
             logEvent("blurEdge", params)
+                        setSelectedElement(null)
+
 
         },
     };

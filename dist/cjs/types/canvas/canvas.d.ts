@@ -1,5 +1,6 @@
 import { Network } from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
+import { Node, Edge } from "vis-network/declarations/network/Network";
 import CanvasDisplaySettings, { CanvasData } from "./types";
 export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void;
@@ -9,10 +10,11 @@ export interface CanvasProps {
     displaySettings?: CanvasDisplaySettings;
     nodeSizeBasedOnLinks: Boolean;
     getNetwork?: getNetworkCallback;
+    setSelectedElement?: (el: Node | Edge | null) => void;
     style?: {
         width: string;
         height: string;
     };
 }
-declare const Canvas: ({ data, displaySettings, nodeSizeBasedOnLinks, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
+declare const Canvas: ({ data, displaySettings, nodeSizeBasedOnLinks, setSelectedElement, logEvent, getNetwork, style }: CanvasProps) => JSX.Element;
 export default Canvas;

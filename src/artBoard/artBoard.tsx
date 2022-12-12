@@ -6,6 +6,7 @@ import EventStoreView from "../eventStore/eventStore"
 import uuidv4 from "../eventStore/utils"
 import CanvasDisplaySettings, {CanvasData} from "../canvas/types"
 import GraphSchema from "../components/graphSchema/graphSchema";
+import PropertiesViewer from "../components/propertiesViewer/propertiesViewer";
 
 
 export interface ArtBoardProps {
@@ -17,6 +18,8 @@ export interface ArtBoardProps {
 
 const ArtBoard = ({data, displaySettings}: ArtBoardProps) => {
     let [events, setEvents] = React.useState([]);
+    let [selectedElement, setSelectedElement] = React.useState(null);
+
 
     const logEvent = (eventName: string, eventParams: any) => {
         let old_events = JSON.parse(JSON.stringify(events));
@@ -35,9 +38,11 @@ const ArtBoard = ({data, displaySettings}: ArtBoardProps) => {
         <div style={{"width": "60%", "height": "100%", "float": "left"}}>
             <Canvas data={data} logEvent={logEvent}
                     nodeSizeBasedOnLinks={true}
+                    setSelectedElement={setSelectedElement}
                     displaySettings={displaySettings}/>
         </div>
         <div style={{"width": "40%", "height": "100%", "float": "left"}}>
+            <PropertiesViewer element={selectedElement} />
             <GraphSchema canvasData={data}/>
             <EventStoreView events={events}/>
         </div>
