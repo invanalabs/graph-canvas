@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { Network } from 'vis-network/peer/esm/vis-network';
 
 interface CanvasSetting {
@@ -38,28 +37,27 @@ interface NodeSetting {
 }
 interface CanvasDisplaySettings {
     canvasSettings?: CanvasSetting;
-    nodeSettings: {
+    nodeSettings?: {
         [key: string]: NodeSetting;
     };
     defaultNodeSetting?: NodeSetting;
-    edgeSettings: {
+    edgeSettings?: {
         [key: string]: EdgeSetting;
     };
     defaultEdgeSetting?: EdgeSetting;
 }
 
 interface ArtBoardProps {
-    label: string;
     data: CanvasData;
     displaySettings: CanvasDisplaySettings;
 }
-declare const ArtBoard: (props: ArtBoardProps) => JSX.Element;
+declare const ArtBoard: ({ data, displaySettings }: ArtBoardProps) => JSX.Element;
 
 type getNetworkCallback = (network: Network) => {};
 interface CanvasProps {
     data?: CanvasData;
-    logEvent: any;
-    displaySettings: CanvasDisplaySettings;
+    logEvent?: any;
+    displaySettings?: CanvasDisplaySettings;
     nodeSizeBasedOnLinks: Boolean;
     getNetwork?: getNetworkCallback;
     style?: {

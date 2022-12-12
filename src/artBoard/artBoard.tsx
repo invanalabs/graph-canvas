@@ -5,16 +5,17 @@ import {VisEventLog} from "../eventStore/eventStore";
 import EventStoreView from "../eventStore/eventStore"
 import uuidv4 from "../eventStore/utils"
 import CanvasDisplaySettings, {CanvasData} from "../canvas/types"
+import GraphSchema from "../components/graphSchema/graphSchema";
 
 
 export interface ArtBoardProps {
-    label: string;
+    // label: string;
     data: CanvasData,
     displaySettings: CanvasDisplaySettings
 }
 
 
-const ArtBoard = (props: ArtBoardProps) => {
+const ArtBoard = ({data, displaySettings}: ArtBoardProps) => {
     let [events, setEvents] = React.useState([]);
 
     const logEvent = (eventName: string, eventParams: any) => {
@@ -32,11 +33,12 @@ const ArtBoard = (props: ArtBoardProps) => {
     return <div className={"artBoard"}>
         {/*<h1>Artboard</h1>*/}
         <div style={{"width": "60%", "height": "100%", "float": "left"}}>
-            <Canvas data={props.data} logEvent={logEvent}
+            <Canvas data={data} logEvent={logEvent}
                     nodeSizeBasedOnLinks={true}
-                    displaySettings={props.displaySettings}/>
+                    displaySettings={displaySettings}/>
         </div>
         <div style={{"width": "40%", "height": "100%", "float": "left"}}>
+            <GraphSchema canvasData={data}/>
             <EventStoreView events={events}/>
         </div>
     </div>;

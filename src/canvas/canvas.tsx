@@ -23,8 +23,8 @@ export type eventCallback = (params?: any) => void
 export interface CanvasProps {
     data?: CanvasData; // TODO - fix this later
     // options?: Options;
-    logEvent: any, // TODO - fix ths later
-    displaySettings: CanvasDisplaySettings,
+    logEvent?: any, // TODO - fix ths later
+    displaySettings?: CanvasDisplaySettings,
     nodeSizeBasedOnLinks: Boolean,
     getNetwork?: getNetworkCallback;
     style?: {
@@ -40,7 +40,7 @@ const defaultData: CanvasData = {nodes: [], edges: []}
 
 const Canvas = ({
                     data = defaultData,
-                    displaySettings,
+                    displaySettings = {},
                     nodeSizeBasedOnLinks,
                     // options = defaultOptions,
                     // events = defaultEvents,
@@ -56,7 +56,8 @@ const Canvas = ({
     const edges = useRef(new DataSet(convertCanvasEdgeToVisEdge(data.edges)));
 
     if (nodeSizeBasedOnLinks) {
-        const updatedNodesArray = detectNodeSizeBasedOnEdges(nodes.current,
+        const updatedNodesArray = detectNodeSizeBasedOnEdges(
+            nodes.current,
             edges.current)
         nodes.current.update(updatedNodesArray)
     }

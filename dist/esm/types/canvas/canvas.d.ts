@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { Network } from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
 import CanvasDisplaySettings, { CanvasData } from "./types";
@@ -6,8 +5,8 @@ export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void;
 export interface CanvasProps {
     data?: CanvasData;
-    logEvent: any;
-    displaySettings: CanvasDisplaySettings;
+    logEvent?: any;
+    displaySettings?: CanvasDisplaySettings;
     nodeSizeBasedOnLinks: Boolean;
     getNetwork?: getNetworkCallback;
     style?: {

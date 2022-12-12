@@ -69,11 +69,11 @@ interface NodeSetting {
 
 interface CanvasDisplaySettings {
     canvasSettings?: CanvasSetting;
-    nodeSettings: {
+    nodeSettings?: {
         [key: string]: NodeSetting;
     };
     defaultNodeSetting?: NodeSetting;
-    edgeSettings: {
+    edgeSettings?: {
         [key: string]: EdgeSetting;
     };
     defaultEdgeSetting?: EdgeSetting;

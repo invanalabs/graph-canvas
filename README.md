@@ -39,7 +39,7 @@ React UI components for creating network graphs.
   - [ ] Create size of node based on connected edges
 - [ ]  UI Components
   - [ ]  Filter Nodes
-  - [ ]
+- [ ] Graph Schema Viewer
 
 
 All the featuers use localStorage as default data store, 
