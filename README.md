@@ -84,3 +84,11 @@ function App() {
 export default App;
 ```
 Full example in `examples/react-app`
+
+
+## Developer setup 
+
+```
+http-server --cors="*"  
+npm run-script dev
+```
