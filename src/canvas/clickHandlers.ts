@@ -24,7 +24,7 @@ class CanvasEventHandler {
 
             // mark all nodes as hard to read.
             for (var nodeId in allNodes) {
-                allNodes[nodeId].color = "rgba(200,200,200,0.5)";
+                allNodes[nodeId].color =  "rgba(200,200,200,0.3)";
                 // @ts-ignore
                 if (allNodes[nodeId].hiddenLabel === undefined) {
                     // @ts-ignore
@@ -35,7 +35,7 @@ class CanvasEventHandler {
 
             // mark all nodes as hard to read.
             for (var edgeId in allEdges) {
-                allEdges[edgeId].color = "rgba(200,200,200,0.5)";
+                allEdges[edgeId].color = "rgba(200,200,200,0.3)";
                 // @ts-ignore
                 // if (allEdges[edgeId].hiddenLabel === undefined) {
                 //     // @ts-ignore
@@ -44,7 +44,7 @@ class CanvasEventHandler {
                 //     // allEdges[edgeId].hiddenFont = allEdges[edgeId].font;
                 //     allEdges[edgeId].label = undefined;
                     // @ts-ignore
-                    allEdges[edgeId].font = {color: "#f3f3f3"};
+                    allEdges[edgeId].font = {color: "rgba(200,200,200,0.3)"};
                 // }
             }
 
@@ -110,7 +110,7 @@ class CanvasEventHandler {
                     // @ts-ignore
                     // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
                     // @ts-ignore
-                    allEdges[edgeId].font = { color: "#a4a4a4"}
+                    allEdges[edgeId].font = { color: "#a4a4a4"} // secondary highlighted edge
 
                 }
                 if (selectedNode === edge.from || selectedNode === edge.to) {
@@ -118,7 +118,7 @@ class CanvasEventHandler {
                     // @ts-ignore
                     // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
                     // @ts-ignore
-                    allEdges[edgeId].font = { color: "#333333"}
+                    allEdges[edgeId].font = { color: "#ffffff"} // primary highlighted edge
                 }
             })
 
@@ -138,7 +138,7 @@ class CanvasEventHandler {
 
             // mark all nodes as hard to read.
             for (var edgeId in allEdges) {
-                allEdges[edgeId].color = "rgba(200,200,200,0.5)";
+                allEdges[edgeId].color = "rgba(200,200,200,0.3)";
                 // @ts-ignore
                 // if (allEdges[edgeId].hiddenLabel === undefined) {
                     // @ts-ignore

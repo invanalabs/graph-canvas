@@ -41,21 +41,24 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
         nodes: settingManager.createNodeSettings({}, undefined),
         edges: settingManager.createEdgeSettings({}, undefined),
     }
-    // const {nodeLabels, edgeLabels} = detectGroups(data)
-    // let groups: any = {}
+    console.log("===settings", settings)
+    const {nodeLabels, edgeLabels} = detectGroups(data)
+    let groups: any = {}
     // console.log("Object.keys(displaySettings.nodeSettings)", Object.keys(displaySettings.nodeSettings))
     // nodeLabels.forEach((label) => {
     //     console.log("===============nodeLabels", label)
     //     groups[label] = settingManager.createNodeSettings({}, label)
     // })
-    //
-    //
-    // for (const label in displaySettings.nodeSettings) {
-    //     console.log("=====displaySettings.nodeSettings", label)
-    //     const groupSetting: NodeSetting = displaySettings.nodeSettings[label];
-    //     groups[label] = settingManager.createNodeSettings(groupSetting, label)
-    // }
-    // console.log("======groups", groups)
+    
+    
+    for (const label in displaySettings.nodeSettings) {
+        console.log("=====displaySettings.nodeSettings", label)
+        const groupSetting: NodeSetting = displaySettings.nodeSettings[label];
+        groups[label] = settingManager.createNodeSettings(groupSetting, label)
+    }
+
+
+    console.log("======groups", groups)
     // settings.groups = groups
     return settings
 }

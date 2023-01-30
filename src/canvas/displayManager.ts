@@ -44,7 +44,7 @@ class DisplayManager {
 
     public defaultNodeSettings: NodeSetting = {
         labelField: "id",
-        labelColor: "#333333",
+        labelColor: "#f1f1f1",
         // shapeColor: "#2256bb",
         shape: "dot",
         shapeSize: 12
@@ -55,7 +55,7 @@ class DisplayManager {
         // arrowColor: "#333333",
         arrowShape: "dynamic",
         labelField: "id",
-        labelColor: "#333333"
+        labelColor: "#f1f1f1"
 
     }
 
@@ -79,6 +79,7 @@ class DisplayManager {
         // let color = label ? this.colorPallete.getColor(label) : nodeSetting.shapeColor
 
         const highlightColor = addAlphaToHex(color, 0.8)
+        // const highlightColor = color
         return {
             border: color,
             background: color,
@@ -97,7 +98,11 @@ class DisplayManager {
         let color = label ? this.colorPallete.getColor(label) : edgeSetting.arrowColor;
         color = !color ? this.defaultArrowColor : color
         console.log("======label", label, color)
-        return {inherit: "both"};
+        return {
+            inherit: "both",        
+            highlight: color,
+            hover: color
+        };
     }
 
     // getInActiveNodeSettings = () => {
@@ -107,12 +112,13 @@ class DisplayManager {
     // }
 
     createEdgeSettings = (edgeSetting: EdgeSetting, label: string | undefined) => {
+        const labelColor = edgeSetting.labelColor || this.defaultEdgeSettings.labelColor;
         return {
             smooth: {
                 type: edgeSetting.arrowShape ? edgeSetting.arrowShape : this.defaultEdgeSettings.arrowShape
             },
             color: this.getEdgeColorConfig(label, edgeSetting),
-            width: 0.5,
+            // width: 0.5,
             arrows: {
                 to: {
                     enabled: true,
@@ -120,7 +126,8 @@ class DisplayManager {
                 },
             },
             font: {
-                color: edgeSetting.labelColor || this.defaultEdgeSettings.labelColor
+                color: labelColor,
+                strokeWidth: 0
             }
         }
     }
@@ -130,13 +137,13 @@ class DisplayManager {
         const color = this.getNodeColorConfigByLabel(label, nodeSetting);
         console.log("================colorConfig", color)
         return {
-            color: this.getNodeColorConfigByLabel(label, nodeSetting),
+            color: color,
             borderWidth: 2,
             shape: nodeSetting.shape || this.defaultNodeSettings.shape,
             font: {
                 color: nodeSetting.labelColor || this.defaultNodeSettings.labelColor
             },
-            size: nodeSetting.shapeSize || this.defaultNodeSettings.shapeSize
+            // size: nodeSetting.shapeSize || this.defaultNodeSettings.shapeSize
         }
 
     }
