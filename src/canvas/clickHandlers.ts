@@ -1,9 +1,110 @@
 import {Node, Edge, Data, Options, NetworkEvents, Network} from "vis-network/declarations/network/Network";
 import {CanvasData} from "./types";
 import {DataSet} from "vis-data/peer/esm/vis-data";
+import DisplayManager from "./displayManager";
 
+
+const resetGroup = (label: string)=>{
+    return   label.replace("-inactive","").replace("-secondary-active","");
+}
+
+
+const changeToInactiveNodeGroup =(node: Node)=>{
+    console.log("changeToInactiveNodeGroup--first", node.group)
+
+    // @ts-ignore
+    const group = resetGroup(node.group);
+    node.group = group + "-inactive"
+    console.log("changeToInactiveNodeGroup--updated", node.group)
+    return node
+}
+
+const changeToSecondayActiveNodeGroup =(node:Node) =>{
+
+    /*
+
+             allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+                // @ts-ignore
+                if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
+                    // @ts-ignore
+                    allNodes[allConnectedNodes[i]].label = allNodes[allConnectedNodes[i]].hiddenLabel;
+                    // @ts-ignore
+                    allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
+                }
+        */
+
+    // @ts-ignore
+    const group = resetGroup(node.group);
+    node.group = group + "-secondary-active"
+    // @ts-ignore
+    // if (node.hiddenLabel === undefined) {
+    //     // @ts-ignore
+    //     node.hiddenLabel = node.label;
+    //     node.label = undefined;
+    // }
+    return node
+}
+
+
+const changeToActiveNodeGroup =(node: Node)=>{
+    console.log("changeToActiveNodeGroup--first", node.group)
+    // @ts-ignore
+    const group = resetGroup(node.group);
+    node.group = group;
+
+    /*
+          // @ts-ignore
+                allNodes[connectedNodes[i]].color = undefined;
+                // @ts-ignore
+                if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
+
+                    // @ts-ignore
+                    allNodes[connectedNodes[i]].label = allNodes[connectedNodes[i]].hiddenLabel;
+                    // @ts-ignore
+                    allNodes[connectedNodes[i]].hiddenLabel = undefined;
+                }
+
+        */
+    // @ts-ignore
+    // if (node.hiddenLabel !== undefined) {
+    //     // @ts-ignore
+    //     node.label = node.hiddenLabel;
+    //     // @ts-ignore
+    //     node.hiddenLabel = undefined;
+    // }
+    console.log("changeToActiveNodeGroup--updated", node)
+    return node
+}
+
+
+const changeToInactiveEdgeGroup = (edge: Edge, displayManager: DisplayManager )=> {
+    edge.color = displayManager.defaultInactiveEdgeSettings.labelColor;;
+    // @ts-ignore
+    edge.font = {color: displayManager.defaultInactiveEdgeSettings.labelColor};
+    // }
+    return edge
+}
+
+const changeToActiveEdgeGroup = (edge: Edge, displayManager: DisplayManager)=> {
+    edge.color = {inherit: "both"}
+    // @ts-ignore
+    // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
+    // @ts-ignore
+    edge.font = { color: displayManager.defaultEdgeSettings.labelColor} // primary highlighted edge
+
+    return edge
+}
+
+
+const changeToSecondaryActiveEdgeGroup = (edge: Edge, displayManager: DisplayManager)=> {
+    edge.color = {inherit: "both"}
+    edge.font = { color: displayManager.defaultSecondayActiveEdgeSettings.labelColor} // secondary highlighted edge
+
+    return edge
+}
 
 class CanvasEventHandler {
+    displayManager = new DisplayManager()
 
     inActiveEdgeFontColor = "#f3f3f3"
 
@@ -24,28 +125,14 @@ class CanvasEventHandler {
 
             // mark all nodes as hard to read.
             for (var nodeId in allNodes) {
-                allNodes[nodeId].color =  "rgba(200,200,200,0.3)";
                 // @ts-ignore
-                if (allNodes[nodeId].hiddenLabel === undefined) {
-                    // @ts-ignore
-                    allNodes[nodeId].hiddenLabel = allNodes[nodeId].label;
-                    allNodes[nodeId].label = undefined;
-                }
+                allNodes[nodeId] = changeToInactiveNodeGroup(allNodes[nodeId])
             }
 
             // mark all nodes as hard to read.
             for (var edgeId in allEdges) {
-                allEdges[edgeId].color = "rgba(200,200,200,0.3)";
                 // @ts-ignore
-                // if (allEdges[edgeId].hiddenLabel === undefined) {
-                //     // @ts-ignore
-                //     allEdges[edgeId].hiddenLabel = allEdges[edgeId].label;
-                //     // @ts-ignore
-                //     // allEdges[edgeId].hiddenFont = allEdges[edgeId].font;
-                //     allEdges[edgeId].label = undefined;
-                    // @ts-ignore
-                    allEdges[edgeId].font = {color: "rgba(200,200,200,0.3)"};
-                // }
+                allEdges[edgeId] = changeToInactiveEdgeGroup(allEdges[edgeId], this.displayManager)
             }
 
 
@@ -57,68 +144,34 @@ class CanvasEventHandler {
             for (i = 1; i < degrees; i++) {
                 for (j = 0; j < connectedNodes.length; j++) {
                     // @ts-ignore
-
                     allConnectedNodes = allConnectedNodes.concat(network.getConnectedNodes(connectedNodes[j])
                     );
                 }
             }
 
             // all second degree nodes get a different color and their label back
-            for (i = 0; i < allConnectedNodes.length; i++) {
-                allNodes[allConnectedNodes[i]].color = "rgba(150,150,150,0.75)";
+            for (i = 0; i < allConnectedNodes.length; i++) {     
                 // @ts-ignore
-                if (allNodes[allConnectedNodes[i]].hiddenLabel !== undefined) {
-                    // @ts-ignore
-                    allNodes[allConnectedNodes[i]].label = allNodes[allConnectedNodes[i]].hiddenLabel;
-                    // @ts-ignore
-                    allNodes[allConnectedNodes[i]].hiddenLabel = undefined;
-                }
+                allNodes[allConnectedNodes[i]] = changeToSecondayActiveNodeGroup(allNodes[allConnectedNodes[i]])
             }
 
             // all first degree nodes get their own color and their label back
             for (i = 0; i < connectedNodes.length; i++) {
                 // @ts-ignore
-                allNodes[connectedNodes[i]].color = undefined;
-                // @ts-ignore
-                if (allNodes[connectedNodes[i]].hiddenLabel !== undefined) {
-
-                    // @ts-ignore
-                    allNodes[connectedNodes[i]].label = allNodes[connectedNodes[i]].hiddenLabel;
-                    // @ts-ignore
-                    allNodes[connectedNodes[i]].hiddenLabel = undefined;
-                }
+                allNodes[connectedNodes[i]] = changeToActiveNodeGroup(allNodes[connectedNodes[i]])                
             }
-
-            // the main node gets its own color and its label back.
             // @ts-ignore
-            allNodes[selectedNode].color = undefined;
-            // @ts-ignore
-            if (allNodes[selectedNode].hiddenLabel !== undefined) {
-                // @ts-ignore
-                allNodes[selectedNode].label = allNodes[selectedNode].hiddenLabel;
-                // @ts-ignore
-                allNodes[selectedNode].hiddenLabel = undefined;
-            }
-
-            console.log("=====connectedNodes",connectedNodes)
-
+            allNodes[selectedNode] = changeToActiveNodeGroup(allNodes[selectedNode])
             Object.keys(allEdges).forEach((edgeId) => {
                 const edge: Edge = allEdges[edgeId]
                 // @ts-ignore
                 if (connectedNodes.indexOf(edge.from) >=0 || connectedNodes.indexOf(edge.to) >= 0) {
-                    allEdges[edgeId].color = {inherit: "both"}
                     // @ts-ignore
-                    // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
-                    // @ts-ignore
-                    allEdges[edgeId].font = { color: "#a4a4a4"} // secondary highlighted edge
-
+                    allEdges[edgeId] = changeToSecondaryActiveEdgeGroup(allEdges[edgeId], this.displayManager)
                 }
                 if (selectedNode === edge.from || selectedNode === edge.to) {
-                    allEdges[edgeId].color = {inherit: "both"}
                     // @ts-ignore
-                    // allEdges[edgeId].label = allEdges[edgeId].hiddenLabel
-                    // @ts-ignore
-                    allEdges[edgeId].font = { color: "#ffffff"} // primary highlighted edge
+                    allEdges[edgeId] = changeToActiveEdgeGroup(allEdges[edgeId], this.displayManager)
                 }
             })
 
@@ -126,29 +179,15 @@ class CanvasEventHandler {
         } else if (highlightActive) {
             // reset all nodes
             for (var nodeId in allNodes) {
-                allNodes[nodeId].color = undefined;
                 // @ts-ignore
-                if (allNodes[nodeId].hiddenLabel !== undefined) {
-                    // @ts-ignore
-                    allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
-                    // @ts-ignore
-                    allNodes[nodeId].hiddenLabel = undefined;
-                }
+                allNodes[nodeId] = changeToActiveNodeGroup(allNodes[nodeId])
+
             }
 
             // mark all nodes as hard to read.
             for (var edgeId in allEdges) {
-                allEdges[edgeId].color = "rgba(200,200,200,0.3)";
                 // @ts-ignore
-                // if (allEdges[edgeId].hiddenLabel === undefined) {
-                    // @ts-ignore
-                    // allEdges[edgeId].hiddenLabel = allEdges[edgeId].label;
-                    // @ts-ignore
-                    // allEdges[edgeId].hiddenFont = allEdges[edgeId].font;
-                    // allEdges[edgeId].label = undefined;
-                    // @ts-ignore
-                    allEdges[edgeId].font = {color: "#f3f3f3"};
-                // }
+                allEdges[edgeId] = changeToActiveEdgeGroup(allEdges[edgeId], this.displayManager)
             }
 
             highlightActive = false;
@@ -181,14 +220,9 @@ class CanvasEventHandler {
         let allNodes = nodes.get({returnType: "Object"});
 
         for (var nodeId in allNodes) {
-            allNodes[nodeId].color = undefined;
             // @ts-ignore
-            if (allNodes[nodeId].hiddenLabel !== undefined) {
-                // @ts-ignore
-                allNodes[nodeId].label = allNodes[nodeId].hiddenLabel;
-                // @ts-ignore
-                allNodes[nodeId].hiddenLabel = undefined;
-            }
+            allNodes[nodeId] = changeToActiveNodeGroup(allNodes[nodeId])
+
         }
         // transform the object into an array
         var updateArray = [];

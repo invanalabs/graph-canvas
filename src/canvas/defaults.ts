@@ -38,28 +38,36 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
             hideEdgesOnDrag: true,
         },
 
-        nodes: settingManager.createNodeSettings({}, undefined),
+        nodes: settingManager.createNodeSettings({}, undefined, "active"),
         edges: settingManager.createEdgeSettings({}, undefined),
     }
     console.log("===settings", settings)
     const {nodeLabels, edgeLabels} = detectGroups(data)
-    let groups: any = {}
+    let groups: any = {
+        useDefaultGroups: false
+    }
     // console.log("Object.keys(displaySettings.nodeSettings)", Object.keys(displaySettings.nodeSettings))
-    // nodeLabels.forEach((label) => {
-    //     console.log("===============nodeLabels", label)
-    //     groups[label] = settingManager.createNodeSettings({}, label)
-    // })
+    // create default groups 
+    nodeLabels.forEach((label) => {
+        console.log("===============nodeLabels", label)
+        groups[label] = settingManager.createNodeSettings({}, label, "active")
+        groups[label+ "-inactive"] = settingManager.createNodeSettings({}, label, "inactive")
+        groups[label + "-seconary-active"] = settingManager.createNodeSettings({}, label, "secondary-active")
+        
+    })
     
-    
+    // override group styles with user definitions
     for (const label in displaySettings.nodeSettings) {
         console.log("=====displaySettings.nodeSettings", label)
         const groupSetting: NodeSetting = displaySettings.nodeSettings[label];
-        groups[label] = settingManager.createNodeSettings(groupSetting, label)
+        groups[label] = settingManager.createNodeSettings(groupSetting, label, "active")
+        groups[label+ "-inactive"] = settingManager.createNodeSettings(groupSetting, label, "inactive")
+        groups[label + "-seconary-active"] = settingManager.createNodeSettings(groupSetting, label, "secondary-active")
     }
 
 
     console.log("======groups", groups)
-    // settings.groups = groups
+    settings.groups = groups
     return settings
 }
 

@@ -51,6 +51,24 @@ class DisplayManager {
         // shapeIcon?: string
     }
 
+
+    public defaultInactiveNodeSettings: NodeSetting = {
+        labelColor: "rgba(200,200,200,0.2)",
+    }
+
+    public defaultSecondayActiveNodeSettings: NodeSetting = {
+        labelColor: "rgba(200,200,200,0.5)",
+    }
+
+
+    public defaultInactiveEdgeSettings: EdgeSetting = {
+        labelColor: "rgba(200,200,200,0.2)",
+    }
+
+    public defaultSecondayActiveEdgeSettings: EdgeSetting = {
+        labelColor: "rgba(200,200,200,0.5)",
+    }
+
     public defaultEdgeSettings: EdgeSetting = {
         // arrowColor: "#333333",
         arrowShape: "dynamic",
@@ -132,17 +150,26 @@ class DisplayManager {
         }
     }
 
-    createNodeSettings = (nodeSetting: NodeSetting, label: string | undefined) => {
+    createNodeSettings = (nodeSetting: NodeSetting, label: string | undefined, state: "active"|"inactive"|"secondary-active") => {
         console.log("createNodeSettings:: label", label, nodeSetting);
-        const color = this.getNodeColorConfigByLabel(label, nodeSetting);
-        console.log("================colorConfig", color)
+        let shapeColor = null;
+        let font = null;
+        if (state == "active"){
+            shapeColor = this.getNodeColorConfigByLabel(label, nodeSetting);
+            font =  {color: nodeSetting.labelColor || this.defaultNodeSettings.labelColor }
+        }else if (state == "inactive"){
+            shapeColor = "rgba(200,200,200,0.3)";
+            font =  {color: this.defaultInactiveNodeSettings.labelColor }
+        }else if (state == "secondary-active"){
+            shapeColor = "rgba(150,150,150,0.75)"
+            font =  {color: this.defaultSecondayActiveNodeSettings.labelColor }
+        }
+        console.log("================shapeColor", shapeColor)
         return {
-            color: color,
+            color: shapeColor,
             borderWidth: 2,
             shape: nodeSetting.shape || this.defaultNodeSettings.shape,
-            font: {
-                color: nodeSetting.labelColor || this.defaultNodeSettings.labelColor
-            },
+            font: font,
             // size: nodeSetting.shapeSize || this.defaultNodeSettings.shapeSize
         }
 
