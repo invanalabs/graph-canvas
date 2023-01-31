@@ -89,6 +89,6 @@ Full example in `examples/react-app`
 ## Developer setup 
 
 ```
-http-server --cors="*"  
+http-server --cors="*" -c-1
 npm run-script dev
 ```

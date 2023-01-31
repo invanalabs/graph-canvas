@@ -62,9 +62,10 @@ interface NodeSetting {
     labelField?: string;
     labelColor?: string;
     shape?: NodeShapeTypes;
-    shapeColor?: string;
+    shapeColor?: string|any;
     shapeSize?: number;
-    shapeIcon?: string
+    shapeIcon?: string,
+    opacity?: number
 }
 
 interface CanvasDisplaySettings {

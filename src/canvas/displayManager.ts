@@ -1,5 +1,6 @@
 import {CanvasSetting, EdgeSetting, NodeSetting} from "./types";
 import {copyObject} from "../eventStore/utils";
+import { nodeStateSufix } from "./defaults";
 
 const defaultShapeColor = "#2256bb";
 
@@ -47,17 +48,22 @@ class DisplayManager {
         labelColor: "#f1f1f1",
         // shapeColor: "#2256bb",
         shape: "dot",
-        shapeSize: 12
+        shapeSize: 12,
         // shapeIcon?: string
+        opacity: 0
     }
 
 
     public defaultInactiveNodeSettings: NodeSetting = {
         labelColor: "rgba(200,200,200,0.2)",
+        shapeColor: "rgba(200,200,200,0.2)",
+        opacity: 0
     }
 
     public defaultSecondayActiveNodeSettings: NodeSetting = {
         labelColor: "rgba(200,200,200,0.5)",
+        shapeColor: "rgba(150,150,150,0.75)",
+        opacity: 0
     }
 
 
@@ -150,28 +156,29 @@ class DisplayManager {
         }
     }
 
-    createNodeSettings = (nodeSetting: NodeSetting, label: string | undefined, state: "active"|"inactive"|"secondary-active") => {
+    createNodeSettings = (nodeSetting: NodeSetting, label: string | undefined, 
+        state: nodeStateSufix.DEFAULT |nodeStateSufix.SECONDARY_ACTIVE|nodeStateSufix.INACTIVE) => {
         console.log("createNodeSettings:: label", label, nodeSetting);
-        let shapeColor = null;
-        let font = null;
-        if (state == "active"){
-            shapeColor = this.getNodeColorConfigByLabel(label, nodeSetting);
-            font =  {color: nodeSetting.labelColor || this.defaultNodeSettings.labelColor }
-        }else if (state == "inactive"){
-            shapeColor = "rgba(200,200,200,0.3)";
-            font =  {color: this.defaultInactiveNodeSettings.labelColor }
-        }else if (state == "secondary-active"){
-            shapeColor = "rgba(150,150,150,0.75)"
-            font =  {color: this.defaultSecondayActiveNodeSettings.labelColor }
-        }
-        console.log("================shapeColor", shapeColor)
-        return {
-            color: shapeColor,
-            borderWidth: 2,
+        let setting : any = {
             shape: nodeSetting.shape || this.defaultNodeSettings.shape,
-            font: font,
-            // size: nodeSetting.shapeSize || this.defaultNodeSettings.shapeSize
+            borderWidth: 2
         }
+        if (state == nodeStateSufix.DEFAULT){
+            setting.color = this.getNodeColorConfigByLabel(label, nodeSetting);
+            setting.font =  {color: nodeSetting.labelColor || this.defaultNodeSettings.labelColor }
+            // setting.opacity = this.defaultNodeSettings.opacity;
+        }else if (state == nodeStateSufix.INACTIVE){
+            setting.color = this.defaultInactiveNodeSettings.shapeColor;
+            setting.font =  {color: this.defaultInactiveNodeSettings.labelColor }
+            // setting.opacity= this.defaultInactiveNodeSettings.opacity;
+        }else if (state == nodeStateSufix.SECONDARY_ACTIVE){
+            // setting.color = this.getNodeColorConfigByLabel(label, nodeSetting);
+            setting.color = this.defaultSecondayActiveNodeSettings.shapeColor
+            setting.font =  {color: this.defaultSecondayActiveNodeSettings.labelColor }
+            // setting.opacity = this.defaultSecondayActiveNodeSettings.opacity;
+        }
+        console.log("================label state shapeColor",label, state,  setting)
+        return setting
 
     }
 

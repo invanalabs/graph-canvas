@@ -2,10 +2,12 @@ import {Node, Edge, Data, Options, NetworkEvents, Network} from "vis-network/dec
 import {CanvasData} from "./types";
 import {DataSet} from "vis-data/peer/esm/vis-data";
 import DisplayManager from "./displayManager";
+import { nodeStateSufix } from "./defaults";
 
 
-const resetGroup = (label: string)=>{
-    return   label.replace("-inactive","").replace("-secondary-active","");
+const resetGroup = (group: string)=>{
+    console.log("resetGroup====", group)
+    return  group.replace("-"+nodeStateSufix.INACTIVE,"").replace("-"+nodeStateSufix.SECONDARY_ACTIVE,"").replace("-"+nodeStateSufix.DEFAULT, "");
 }
 
 
@@ -14,8 +16,8 @@ const changeToInactiveNodeGroup =(node: Node)=>{
 
     // @ts-ignore
     const group = resetGroup(node.group);
-    node.group = group + "-inactive"
-    console.log("changeToInactiveNodeGroup--updated", node.group)
+    node.group = group + "-" + nodeStateSufix.INACTIVE
+    console.log("changeToInactiveNodeGroup++++++--updated", node.group)
     return node
 }
 
@@ -35,22 +37,24 @@ const changeToSecondayActiveNodeGroup =(node:Node) =>{
 
     // @ts-ignore
     const group = resetGroup(node.group);
-    node.group = group + "-secondary-active"
+    node.group = group + "-" +  nodeStateSufix.SECONDARY_ACTIVE
     // @ts-ignore
     // if (node.hiddenLabel === undefined) {
     //     // @ts-ignore
     //     node.hiddenLabel = node.label;
     //     node.label = undefined;
     // }
+    console.log("changeToSecondayActiveNodeGroup++++++--updated", node.group)
+
     return node
 }
 
 
-const changeToActiveNodeGroup =(node: Node)=>{
-    console.log("changeToActiveNodeGroup--first", node.group)
+const changeToDefaultNodeGroup =(node: Node)=>{
+    console.log("changeToDefaultNodeGroup--first", node.group)
     // @ts-ignore
     const group = resetGroup(node.group);
-    node.group = group;
+    node.group = group + "-" + nodeStateSufix.DEFAULT;
 
     /*
           // @ts-ignore
@@ -72,7 +76,7 @@ const changeToActiveNodeGroup =(node: Node)=>{
     //     // @ts-ignore
     //     node.hiddenLabel = undefined;
     // }
-    console.log("changeToActiveNodeGroup--updated", node)
+    console.log("changeToDefaultNodeGroup++++++--updated", node.group)
     return node
 }
 
@@ -158,10 +162,10 @@ class CanvasEventHandler {
             // all first degree nodes get their own color and their label back
             for (i = 0; i < connectedNodes.length; i++) {
                 // @ts-ignore
-                allNodes[connectedNodes[i]] = changeToActiveNodeGroup(allNodes[connectedNodes[i]])                
+                allNodes[connectedNodes[i]] = changeToDefaultNodeGroup(allNodes[connectedNodes[i]])                
             }
             // @ts-ignore
-            allNodes[selectedNode] = changeToActiveNodeGroup(allNodes[selectedNode])
+            allNodes[selectedNode] = changeToDefaultNodeGroup(allNodes[selectedNode])
             Object.keys(allEdges).forEach((edgeId) => {
                 const edge: Edge = allEdges[edgeId]
                 // @ts-ignore
@@ -180,7 +184,7 @@ class CanvasEventHandler {
             // reset all nodes
             for (var nodeId in allNodes) {
                 // @ts-ignore
-                allNodes[nodeId] = changeToActiveNodeGroup(allNodes[nodeId])
+                allNodes[nodeId] = changeToDefaultNodeGroup(allNodes[nodeId])
 
             }
 
@@ -221,7 +225,7 @@ class CanvasEventHandler {
 
         for (var nodeId in allNodes) {
             // @ts-ignore
-            allNodes[nodeId] = changeToActiveNodeGroup(allNodes[nodeId])
+            allNodes[nodeId] = changeToDefaultNodeGroup(allNodes[nodeId])
 
         }
         // transform the object into an array

@@ -10,6 +10,12 @@ const processEvent = (params: any) => {
 
 }
 
+const nodeStateSufix = {
+    SECONDARY_ACTIVE : "secondary-active",
+    INACTIVE: "inactive",
+    DEFAULT : "default"
+}
+
 
 const detectGroups = (data: CanvasData) => {
     let nodeLabels = [...new Set(data.nodes.map(node => node.label))]
@@ -38,7 +44,7 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
             hideEdgesOnDrag: true,
         },
 
-        nodes: settingManager.createNodeSettings({}, undefined, "active"),
+        nodes: settingManager.createNodeSettings({}, undefined, nodeStateSufix.DEFAULT),
         edges: settingManager.createEdgeSettings({}, undefined),
     }
     console.log("===settings", settings)
@@ -50,9 +56,9 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     // create default groups 
     nodeLabels.forEach((label) => {
         console.log("===============nodeLabels", label)
-        groups[label] = settingManager.createNodeSettings({}, label, "active")
-        groups[label+ "-inactive"] = settingManager.createNodeSettings({}, label, "inactive")
-        groups[label + "-seconary-active"] = settingManager.createNodeSettings({}, label, "secondary-active")
+        groups[label + "-" + nodeStateSufix.DEFAULT] = settingManager.createNodeSettings({}, label, nodeStateSufix.DEFAULT)
+        groups[label+ "-" + nodeStateSufix.INACTIVE] = settingManager.createNodeSettings({}, label, nodeStateSufix.INACTIVE)
+        groups[label + "-" + nodeStateSufix.SECONDARY_ACTIVE] = settingManager.createNodeSettings({}, label, nodeStateSufix.SECONDARY_ACTIVE)
         
     })
     
@@ -60,9 +66,9 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     for (const label in displaySettings.nodeSettings) {
         console.log("=====displaySettings.nodeSettings", label)
         const groupSetting: NodeSetting = displaySettings.nodeSettings[label];
-        groups[label] = settingManager.createNodeSettings(groupSetting, label, "active")
-        groups[label+ "-inactive"] = settingManager.createNodeSettings(groupSetting, label, "inactive")
-        groups[label + "-seconary-active"] = settingManager.createNodeSettings(groupSetting, label, "secondary-active")
+        groups[label + "-"+nodeStateSufix.DEFAULT] = settingManager.createNodeSettings(groupSetting, label, nodeStateSufix.DEFAULT)
+        groups[label+ "-"+ nodeStateSufix.INACTIVE] = settingManager.createNodeSettings(groupSetting, label, nodeStateSufix.INACTIVE)
+        groups[label + "-" + nodeStateSufix.SECONDARY_ACTIVE] = settingManager.createNodeSettings(groupSetting, label,nodeStateSufix.SECONDARY_ACTIVE)
     }
 
 
@@ -71,7 +77,7 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     return settings
 }
 
-const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet<Edge>,
+const createDefaultEvents = (logEventHandler: any, nodes: DataSet<Node>, edges: DataSet<Edge>,
                              network: Network,
                              setSelectedElement: (el: any)=> void) => {
 
@@ -82,8 +88,8 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
             // // params.event = "[original event]";
             // @ts-ignore
             const selectedNode = this.getNodeAt(params.pointer.DOM)
-            console.log("click event, getNodeAt returns: " + selectedNode, logEvent);
-            logEvent("click", params)
+            console.log("click event, getNodeAt returns: " + selectedNode, logEventHandler);
+            logEventHandler("click", params)
             if (selectedNode) {
                 eventHandler.highlightNeighbors([selectedNode], nodes, edges, network)
             } else {
@@ -93,13 +99,13 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
         doubleClick: function (params?: any) {
             console.log("doubleClick Event:", params);
             // // params.event = "[original event]";
-            logEvent("doubleClick", params)
+            logEventHandler("doubleClick", params)
 
         },
         oncontext: function (params?: any) {
             console.log("oncontext Event:", params);
             // // params.event = "[original event]";
-            logEvent("oncontext", params)
+            logEventHandler("oncontext", params)
         },
         dragStart: function (params?: any) {
             // There's no point in displaying this event on screen, it gets immediately overwritten
@@ -110,11 +116,11 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
                 // @ts-ignore
                 this.getNodeAt(params.pointer.DOM)
             );
-            logEvent("dragStart", params)
+            logEventHandler("dragStart", params)
         },
         dragging: function (params?: any) {
             // // params.event = "[original event]";
-            logEvent("dragging", params)
+            logEventHandler("dragging", params)
 
         },
         dragEnd: function (params?: any) {
@@ -124,60 +130,60 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
                 // @ts-ignore
                 "dragEnd event, getNodeAt returns: " + this.getNodeAt(params.pointer.DOM)
             );
-            logEvent("dragEnd", params)
+            logEventHandler("dragEnd", params)
         },
         controlNodeDragging: function (params?: any) {
             // params.event = "[original event]";
-            logEvent("controlNodeDragging", params)
+            logEventHandler("controlNodeDragging", params)
 
         },
         controlNodeDragEnd: function (params?: any) {
             // params.event = "[original event]";
             console.log("controlNodeDragEnd Event:", params);
-            logEvent("controlNodeDragEnd", params)
+            logEventHandler("controlNodeDragEnd", params)
 
         },
         zoom: function (params?: any) {
-            logEvent("zoom", params)
+            logEventHandler("zoom", params)
 
         },
         showPopup: function (params?: any) {
-            logEvent("showPopup", params)
+            logEventHandler("showPopup", params)
 
         },
         hidePopup: function () {
             console.log("hidePopup Event");
-            logEvent("hidePopup", null)
+            logEventHandler("hidePopup", null)
 
         },
         select: function (params?: any) {
             console.log("select Event:", params);
-            logEvent("select", params)
+            logEventHandler("select", params)
 
         },
         selectNode: function (params?: any) {
             console.log("selectNode Event:", params);
-            logEvent("selectNode", params)
+            logEventHandler("selectNode", params)
 
         },
         selectEdge: function (params?: any) {
             console.log("selectEdge Event:", params);
-            logEvent("selectEdge", params)
+            logEventHandler("selectEdge", params)
 
         },
         deselectNode: function (params?: any) {
             console.log("deselectNode Event:", params);
-            logEvent("deselectNode", params)
+            logEventHandler("deselectNode", params)
 
         },
         deselectEdge: function (params?: any) {
             console.log("deselectEdge Event:", params);
-            logEvent("deselectEdge", params)
+            logEventHandler("deselectEdge", params)
 
         },
         hoverNode: function (params?: any) {
             console.log("hoverNode Event:", params);
-            logEvent("hoverNode", params)
+            logEventHandler("hoverNode", params)
             // @ts-ignore
             const selectedNode = this.getNodeAt(params.pointer.DOM)
             console.log("proper hovered", selectedNode)
@@ -186,7 +192,7 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
         },
         hoverEdge: function (params?: any) {
             console.log("hoverEdge Event:", params);
-            logEvent("hoverEdge", params)
+            logEventHandler("hoverEdge", params)
             // @ts-ignore
             const selectedEdge = this.getEdgeAt(params.pointer.DOM)
             console.log("proper", selectedEdge)
@@ -195,13 +201,13 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
         },
         blurNode: function (params?: any) {
             console.log("blurNode Event:", params);
-            logEvent("blurNode", params)
+            logEventHandler("blurNode", params)
             setSelectedElement(null)
 
         },
         blurEdge: function (params?: any) {
             console.log("blurEdge Event:", params);
-            logEvent("blurEdge", params)
+            logEventHandler("blurEdge", params)
                         setSelectedElement(null)
 
 
@@ -211,4 +217,4 @@ const createDefaultEvents = (logEvent: any, nodes: DataSet<Node>, edges: DataSet
 }
 
 export default createDefaultEvents
-export {createDefaultOptions}
+export {createDefaultOptions, nodeStateSufix}

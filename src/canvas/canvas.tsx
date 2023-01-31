@@ -23,7 +23,7 @@ export type eventCallback = (params?: any) => void
 export interface CanvasProps {
     data?: CanvasData; // TODO - fix this later
     // options?: Options;
-    logEvent?: any, // TODO - fix ths later
+    logEventHandler?: any, // TODO - fix ths later
     displaySettings?: CanvasDisplaySettings,
     nodeSizeBasedOnLinks: Boolean,
     getNetwork?: getNetworkCallback;
@@ -38,6 +38,10 @@ export interface CanvasProps {
 const defaultStyle = {width: "100%", height: "100%"}
 const defaultData: CanvasData = {nodes: [], edges: []}
 
+const defaultLogEventHandler = (eventName: string, eventParams: any) => {
+    console.log("using defaultLogEventHandler", eventName, eventParams)
+}
+
 
 const Canvas = ({
                     data = defaultData,
@@ -46,7 +50,7 @@ const Canvas = ({
                     setSelectedElement,
                     // options = defaultOptions,
                     // events = defaultEvents,
-                    logEvent,
+                    logEventHandler=defaultLogEventHandler,
                     getNetwork,
                     style = defaultStyle
                 }: CanvasProps) => {
@@ -139,7 +143,7 @@ const Canvas = ({
     }, [options]);
 
     // @ts-ignore
-    const events = createDefaultEvents(logEvent, nodes.current,
+    const events = createDefaultEvents(logEventHandler, nodes.current,
         edges.current, network.current, setSelectedElement);
 
     useEffect(() => {

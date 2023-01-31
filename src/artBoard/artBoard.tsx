@@ -7,6 +7,7 @@ import uuidv4 from "../eventStore/utils"
 import CanvasDisplaySettings, {CanvasData} from "../canvas/types"
 import GraphSchema from "../components/graphSchema/graphSchema";
 import PropertiesViewer from "../components/propertiesViewer/propertiesViewer";
+import CanvasNav from "../plugins/canvasNav";
 
 
 export interface ArtBoardProps {
@@ -22,6 +23,7 @@ const ArtBoard = ({data, displaySettings}: ArtBoardProps) => {
 
 
     const logEvent = (eventName: string, eventParams: any) => {
+        console.log("====logevent", eventName, eventParams); 
         let old_events = JSON.parse(JSON.stringify(events));
         const d: VisEventLog = {
             id: uuidv4(),
@@ -35,15 +37,17 @@ const ArtBoard = ({data, displaySettings}: ArtBoardProps) => {
 
     return <div className={"artBoard"}>
         {/*<h1>Artboard</h1>*/}
+
         <div style={{"width": "60%", "height": "100%", "float": "left"}}>
-            <Canvas data={data} logEvent={logEvent}
+            <CanvasNav />
+            <Canvas data={data} logEventHandler={logEvent}
                     nodeSizeBasedOnLinks={true}
                     setSelectedElement={setSelectedElement}
                     displaySettings={displaySettings}/>
         </div>
         <div style={{"width": "40%", "height": "100%", "float": "left"}}>
             <PropertiesViewer element={selectedElement} />
-            <GraphSchema canvasData={data}/>
+            <GraphSchema canvasData={data} displaySettings={displaySettings}/>
             <EventStoreView events={events}/>
         </div>
     </div>;
