@@ -7,7 +7,8 @@ import {DataSet} from "vis-data/peer/esm/vis-data";
 import {Network} from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
-import createDefaultEventHandlers, {createDefaultOptions} from "./defaults";
+import createDefaultOptions from "./defaults";
+import createDefaultEventHandlers from "./eventHandlers";
 import CanvasDisplaySettings, {CanvasData} from "./types";
 import {
     convertCanvasNodeToVisNode,
