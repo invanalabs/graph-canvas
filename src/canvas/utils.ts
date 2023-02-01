@@ -1,6 +1,6 @@
 import {CanvasEdge, CanvasNode} from "./types";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
-import {copyObject} from "../eventStore/utils";
+import {copyObject} from "../utils";
 import { nodeStateSuffix } from "./defaults";
 
 

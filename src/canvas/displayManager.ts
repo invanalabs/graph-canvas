@@ -1,5 +1,5 @@
 import {CanvasSetting, EdgeSetting, NodeSetting} from "./types";
-import {copyObject} from "../eventStore/utils";
+import {copyObject} from "../utils";
 import { nodeStateSuffix } from "./defaults";
 
 const defaultShapeColor = "#2256bb";

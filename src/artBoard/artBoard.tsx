@@ -1,9 +1,9 @@
 import React, { useRef } from "react";
 import "./artBoard.scss"
 import { Canvas } from "../canvas";
-import { VisEventLog } from "../eventStore/eventStore";
-import EventStoreView from "../eventStore/eventStore"
-import uuidv4 from "../eventStore/utils"
+import { VisEventLog } from "../plugins/eventsList/eventsList";
+import EventsList from "../plugins/eventsList/eventsList"
+import uuidv4 from "../utils"
 import CanvasDisplaySettings, { CanvasData } from "../canvas/types"
 import GraphSchema from "../components/graphSchema/graphSchema";
 import PropertiesViewer from "../components/propertiesViewer/propertiesViewer";
@@ -65,7 +65,7 @@ const ArtBoard = ({ data, displaySettings }: ArtBoardProps) => {
         <div style={{ "width": "40%", "height": "100%", "float": "left" }}>
             <PropertiesViewer element={selectedElement} />
             <GraphSchema canvasData={data} displaySettings={displaySettings} />
-            <EventStoreView events={events} />
+            <EventsList events={events} />
         </div>
     </div>;
 };

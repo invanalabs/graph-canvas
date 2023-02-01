@@ -15,7 +15,7 @@ import {
     detectNodeSizeBasedOnEdges,
     convertCanvasEdgeToVisEdge
 } from "./utils";
-import {copyObject} from "../eventStore/utils";
+import {copyObject} from "../utils";
 
 export type getNetworkCallback = (network: Network) => {};
 export type eventCallback = (params?: any) => void
