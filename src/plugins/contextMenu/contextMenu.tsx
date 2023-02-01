@@ -6,10 +6,10 @@ import { Node, Edge } from "vis-network/declarations/network/Network";
 
 interface ContextMenuProps {
     network: Network,
-    selectedElement: Node | Edge
+    // selectedElement: Node | Edge
 }
 
-const ContextMenu = ({ network, selectedElement }: ContextMenuProps) => {
+const ContextMenu = ({ network }: ContextMenuProps) => {
 
     // const [show, setShow] = React.useState(false);
     const [selectedNodẻ̉̉̉, setSelectedNodẻ̉̉̉] = React.useState(null) 
@@ -38,7 +38,6 @@ const ContextMenu = ({ network, selectedElement }: ContextMenuProps) => {
         }
     });
 
-    console.log("selectedElement+++++", selectedElement)
     if (selectedNodẻ̉̉̉) {
         return <div className="ContextMenu" style={{top: positionY, left: positionX  }} >
             ContextMenu  here {selectedNodẻ̉̉̉.id}
