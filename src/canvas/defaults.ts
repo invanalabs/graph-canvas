@@ -77,7 +77,8 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     return settings
 }
 
-const createDefaultEvents = (logEventHandler: any, nodes: DataSet<Node>, edges: DataSet<Edge>,
+const createDefaultEventHandlers = (logEventHandler: any, 
+                            nodes: DataSet<Node>, edges: DataSet<Edge>,
                              network: Network,
                              setSelectedElement: (el: any)=> void) => {
 
@@ -216,5 +217,5 @@ const createDefaultEvents = (logEventHandler: any, nodes: DataSet<Node>, edges: 
 
 }
 
-export default createDefaultEvents
+export default createDefaultEventHandlers
 export {createDefaultOptions, nodeStateSufix}

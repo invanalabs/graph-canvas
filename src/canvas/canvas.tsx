@@ -7,7 +7,7 @@ import {DataSet} from "vis-data/peer/esm/vis-data";
 import {Network} from "vis-network/peer/esm/vis-network";
 import "vis-network/styles/vis-network.css";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
-import createDefaultEvents, {createDefaultOptions} from "./defaults";
+import createDefaultEventHandlers, {createDefaultOptions} from "./defaults";
 import CanvasDisplaySettings, {CanvasData} from "./types";
 import {
     convertCanvasNodeToVisNode,
@@ -49,7 +49,7 @@ const Canvas = ({
                     nodeSizeBasedOnLinks,
                     setSelectedElement,
                     // options = defaultOptions,
-                    // events = defaultEvents,
+                    // eventHandlers = defaultEvents,
                     logEventHandler=defaultLogEventHandler,
                     getNetwork,
                     style = defaultStyle
@@ -143,7 +143,7 @@ const Canvas = ({
     }, [options]);
 
     // @ts-ignore
-    const events = createDefaultEvents(logEventHandler, nodes.current,
+    const eventHandlers = createDefaultEventHandlers(logEventHandler, nodes.current,
         edges.current, network.current, setSelectedElement);
 
     useEffect(() => {
@@ -151,18 +151,18 @@ const Canvas = ({
 
         // Add user provided events to network
         // eslint-disable-next-line no-restricted-syntax
-        for (const eventName of Object.keys(events)) {
+        for (const eventName of Object.keys(eventHandlers)) {
             // @ts-ignore
-            network.current.on(eventName as NetworkEvents, events[eventName]);
+            network.current.on(eventName as NetworkEvents, eventHandlers[eventName]);
         }
 
         return () => {
-            for (const eventName of Object.keys(events)) {
+            for (const eventName of Object.keys(eventHandlers)) {
                 // @ts-ignore
-                network.current.off(eventName as NetworkEvents, events[eventName]);
+                network.current.off(eventName as NetworkEvents, eventHandlers[eventName]);
             }
         };
-    }, [events]);
+    }, [eventHandlers]);
 
     // @ts-ignore
     return <div ref={container} style={style}/>;
