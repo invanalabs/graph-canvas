@@ -1,6 +1,6 @@
 import {CanvasSetting, EdgeSetting, NodeSetting} from "./types";
 import {copyObject} from "../eventStore/utils";
-import { nodeStateSufix } from "./defaults";
+import { nodeStateSuffix } from "./defaults";
 
 const defaultShapeColor = "#2256bb";
 
@@ -157,24 +157,27 @@ class DisplayManager {
     }
 
     createNodeSettings = (nodeSetting: NodeSetting, label: string | undefined, 
-        state: nodeStateSufix.DEFAULT |nodeStateSufix.SECONDARY_ACTIVE|nodeStateSufix.INACTIVE) => {
+        state: nodeStateSuffix.DEFAULT |nodeStateSuffix.SECONDARY_ACTIVE|nodeStateSuffix.INACTIVE|nodeStateSuffix.HIGHLIGHT) => {
         console.log("createNodeSettings:: label", label, nodeSetting);
         let setting : any = {
             shape: nodeSetting.shape || this.defaultNodeSettings.shape,
             borderWidth: 2
         }
-        if (state == nodeStateSufix.DEFAULT){
+        if (state == nodeStateSuffix.DEFAULT){
             setting.color = this.getNodeColorConfigByLabel(label, nodeSetting);
             setting.font =  {color: nodeSetting.labelColor || this.defaultNodeSettings.labelColor }
             // setting.opacity = this.defaultNodeSettings.opacity;
-        }else if (state == nodeStateSufix.INACTIVE){
+        }else if (state == nodeStateSuffix.INACTIVE){
             setting.color = this.defaultInactiveNodeSettings.shapeColor;
             setting.font =  {color: this.defaultInactiveNodeSettings.labelColor }
             // setting.opacity= this.defaultInactiveNodeSettings.opacity;
-        }else if (state == nodeStateSufix.SECONDARY_ACTIVE){
-            // setting.color = this.getNodeColorConfigByLabel(label, nodeSetting);
+        }else if (state == nodeStateSuffix.SECONDARY_ACTIVE){
             setting.color = this.defaultSecondayActiveNodeSettings.shapeColor
             setting.font =  {color: this.defaultSecondayActiveNodeSettings.labelColor }
+        }
+        else if (state == nodeStateSuffix.HIGHLIGHT){
+            setting.color = this.getNodeColorConfigByLabel(label, nodeSetting);
+            setting.font =  {color: nodeSetting.labelColor || this.defaultNodeSettings.labelColor, background: "#FF0000" }
             // setting.opacity = this.defaultSecondayActiveNodeSettings.opacity;
         }
         console.log("================label state shapeColor",label, state,  setting)

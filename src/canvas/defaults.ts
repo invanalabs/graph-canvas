@@ -6,10 +6,11 @@ const processEvent = (params: any) => {
 
 }
 
-const nodeStateSufix = {
+const nodeStateSuffix = {
     SECONDARY_ACTIVE : "secondary-active",
     INACTIVE: "inactive",
-    DEFAULT : "default"
+    DEFAULT : "default",
+    HIGHLIGHT: "highlight"
 }
 
 
@@ -40,7 +41,7 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
             hideEdgesOnDrag: true,
         },
 
-        nodes: settingManager.createNodeSettings({}, undefined, nodeStateSufix.DEFAULT),
+        nodes: settingManager.createNodeSettings({}, undefined, nodeStateSuffix.DEFAULT),
         edges: settingManager.createEdgeSettings({}, undefined),
     }
     console.log("===settings", settings)
@@ -52,9 +53,10 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     // create default groups 
     nodeLabels.forEach((label) => {
         console.log("===============nodeLabels", label)
-        groups[label + "-" + nodeStateSufix.DEFAULT] = settingManager.createNodeSettings({}, label, nodeStateSufix.DEFAULT)
-        groups[label+ "-" + nodeStateSufix.INACTIVE] = settingManager.createNodeSettings({}, label, nodeStateSufix.INACTIVE)
-        groups[label + "-" + nodeStateSufix.SECONDARY_ACTIVE] = settingManager.createNodeSettings({}, label, nodeStateSufix.SECONDARY_ACTIVE)
+        groups[label + "-" + nodeStateSuffix.DEFAULT] = settingManager.createNodeSettings({}, label, nodeStateSuffix.DEFAULT)
+        groups[label+ "-" + nodeStateSuffix.INACTIVE] = settingManager.createNodeSettings({}, label, nodeStateSuffix.INACTIVE)
+        groups[label + "-" + nodeStateSuffix.SECONDARY_ACTIVE] = settingManager.createNodeSettings({}, label, nodeStateSuffix.SECONDARY_ACTIVE)
+        groups[label + "-" + nodeStateSuffix.HIGHLIGHT] = settingManager.createNodeSettings({}, label, nodeStateSuffix.HIGHLIGHT)
         
     })
     
@@ -62,9 +64,11 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
     for (const label in displaySettings.nodeSettings) {
         console.log("=====displaySettings.nodeSettings", label)
         const groupSetting: NodeSetting = displaySettings.nodeSettings[label];
-        groups[label + "-"+nodeStateSufix.DEFAULT] = settingManager.createNodeSettings(groupSetting, label, nodeStateSufix.DEFAULT)
-        groups[label+ "-"+ nodeStateSufix.INACTIVE] = settingManager.createNodeSettings(groupSetting, label, nodeStateSufix.INACTIVE)
-        groups[label + "-" + nodeStateSufix.SECONDARY_ACTIVE] = settingManager.createNodeSettings(groupSetting, label,nodeStateSufix.SECONDARY_ACTIVE)
+        groups[label + "-"+nodeStateSuffix.DEFAULT] = settingManager.createNodeSettings(groupSetting, label, nodeStateSuffix.DEFAULT)
+        groups[label+ "-"+ nodeStateSuffix.INACTIVE] = settingManager.createNodeSettings(groupSetting, label, nodeStateSuffix.INACTIVE)
+        groups[label + "-" + nodeStateSuffix.SECONDARY_ACTIVE] = settingManager.createNodeSettings(groupSetting, label,nodeStateSuffix.SECONDARY_ACTIVE)
+        groups[label + "-" + nodeStateSuffix.HIGHLIGHT] = settingManager.createNodeSettings(groupSetting, label,nodeStateSuffix.HIGHLIGHT)
+
     }
 
 
@@ -74,4 +78,4 @@ const createDefaultOptions = (displaySettings: CanvasDisplaySettings, data: Canv
 }
 
 export default createDefaultOptions
-export {nodeStateSufix}
+export {nodeStateSuffix}

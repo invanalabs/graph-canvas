@@ -2,12 +2,13 @@ import {Node, Edge, Data, Options, NetworkEvents, Network} from "vis-network/dec
 import {CanvasData} from "./types";
 import {DataSet} from "vis-data/peer/esm/vis-data";
 import DisplayManager from "./displayManager";
-import { nodeStateSufix } from "./defaults";
+import { nodeStateSuffix } from "./defaults";
 
 
 const resetGroup = (group: string)=>{
     console.log("resetGroup====", group)
-    return  group.replace("-"+nodeStateSufix.INACTIVE,"").replace("-"+nodeStateSufix.SECONDARY_ACTIVE,"").replace("-"+nodeStateSufix.DEFAULT, "");
+    return  group.replace("-"+nodeStateSuffix.INACTIVE,"").replace("-"+nodeStateSuffix.SECONDARY_ACTIVE,"")
+    .replace("-"+nodeStateSuffix.DEFAULT, "").replace("-"+nodeStateSuffix.HIGHLIGHT, "");
 }
 
 
@@ -16,7 +17,7 @@ const changeToInactiveNodeGroup =(node: Node)=>{
 
     // @ts-ignore
     const group = resetGroup(node.group);
-    node.group = group + "-" + nodeStateSufix.INACTIVE
+    node.group = group + "-" + nodeStateSuffix.INACTIVE
     console.log("changeToInactiveNodeGroup++++++--updated", node.group)
     return node
 }
@@ -37,7 +38,7 @@ const changeToSecondayActiveNodeGroup =(node:Node) =>{
 
     // @ts-ignore
     const group = resetGroup(node.group);
-    node.group = group + "-" +  nodeStateSufix.SECONDARY_ACTIVE
+    node.group = group + "-" +  nodeStateSuffix.SECONDARY_ACTIVE
     // @ts-ignore
     // if (node.hiddenLabel === undefined) {
     //     // @ts-ignore
@@ -54,7 +55,7 @@ const changeToDefaultNodeGroup =(node: Node)=>{
     console.log("changeToDefaultNodeGroup--first", node.group)
     // @ts-ignore
     const group = resetGroup(node.group);
-    node.group = group + "-" + nodeStateSufix.DEFAULT;
+    node.group = group + "-" + nodeStateSuffix.DEFAULT;
 
     /*
           // @ts-ignore
@@ -242,3 +243,4 @@ class CanvasEventHandler {
 
 
 export default CanvasEventHandler
+export {resetGroup}

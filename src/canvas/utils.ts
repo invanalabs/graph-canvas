@@ -1,14 +1,14 @@
 import {CanvasEdge, CanvasNode} from "./types";
 import {Node, Edge, Data, Options, NetworkEvents} from "vis-network/declarations/network/Network";
 import {copyObject} from "../eventStore/utils";
-import { nodeStateSufix } from "./defaults";
+import { nodeStateSuffix } from "./defaults";
 
 
 const convertCanvasNodeToVisNode = (canvasNodes: CanvasNode[]): Node[] => {
     let nodes: Node[] = []
     canvasNodes.forEach(canvasNode => {
         let node: Node = copyObject(canvasNode)
-        node.group = canvasNode.label + "-" + nodeStateSufix.DEFAULT
+        node.group = canvasNode.label + "-" + nodeStateSuffix.DEFAULT
         nodes.push(node)
     })
     return nodes

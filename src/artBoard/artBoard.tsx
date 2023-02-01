@@ -9,7 +9,7 @@ import GraphSchema from "../components/graphSchema/graphSchema";
 import PropertiesViewer from "../components/propertiesViewer/propertiesViewer";
 import CanvasNav from "../plugins/canvasNav/canvasNav";
 import ContextMenu from "../plugins/contextMenu/contextMenu";
-
+import CanvasCtrl from "../canvas/canvasCtrl";
 
 export interface ArtBoardProps {
     // label: string;
@@ -22,6 +22,10 @@ const ArtBoard = ({ data, displaySettings }: ArtBoardProps) => {
     let [events, setEvents] = React.useState([]);
     let [selectedElement, setSelectedElement] = React.useState(null);
     let [network, setNetwork] = React.useState(null);
+    let canvasCtrl = null
+    if (network){
+        canvasCtrl = new CanvasCtrl(network);
+    }
 
 
     const logEvent = (eventName: string, eventParams: any) => {
@@ -56,10 +60,7 @@ const ArtBoard = ({ data, displaySettings }: ArtBoardProps) => {
                 nodeSizeBasedOnLinks={true}
                 setSelectedElement={setSelectedElement}
                 displaySettings={displaySettings}
-                getNetwork={setNetwork}
-            >
-
-            </Canvas>
+                getNetwork={setNetwork} />
         </div>
         <div style={{ "width": "40%", "height": "100%", "float": "left" }}>
             <PropertiesViewer element={selectedElement} />

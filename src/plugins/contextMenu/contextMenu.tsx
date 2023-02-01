@@ -41,6 +41,9 @@ const ContextMenu = ({ network }: ContextMenuProps) => {
     if (selectedNodẻ̉̉̉) {
         return <div className="ContextMenu" style={{top: positionY, left: positionX  }} >
             ContextMenu  here {selectedNodẻ̉̉̉.id}
+            <ul>
+                <li>Focus on this Node</li>
+            </ul>
         </div>
     } else {
         return <React.Fragment />
