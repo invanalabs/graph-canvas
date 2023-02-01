@@ -5,8 +5,8 @@ import { VisEventLog } from "../plugins/eventsList/eventsList";
 import EventsList from "../plugins/eventsList/eventsList"
 import uuidv4 from "../utils"
 import CanvasDisplaySettings, { CanvasData } from "../canvas/types"
-import GraphSchema from "../components/graphSchema/graphSchema";
-import PropertiesViewer from "../components/propertiesViewer/propertiesViewer";
+import GraphSchema from "../plugins/graphSchema/graphSchema";
+import PropertiesViewer from "../plugins/propertiesViewer/propertiesViewer";
 import CanvasNav from "../plugins/canvasNav/canvasNav";
 import ContextMenu from "../plugins/contextMenu/contextMenu";
 import CanvasCtrl from "../canvas/canvasCtrl";
