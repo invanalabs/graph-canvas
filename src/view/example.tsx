@@ -35,7 +35,7 @@ const ArtBoardExample = ({ data, displaySettings }: ArtBoardProps) => {
         {/*<h1>Artboard</h1>*/}
 
         <div style={{ "width": "60%", "height": "100%", "float": "left" }}>
-            <ArtBoard data={data} displaySettings={displaySettings} eventLogger={eventLogger}>
+            <ArtBoard data={data} displaySettings={displaySettings} eventLogger={eventLogger} />
         </div>
         <div style={{ "width": "40%", "height": "100%", "float": "left" }}>
             <PropertiesViewer element={selectedElement} />
