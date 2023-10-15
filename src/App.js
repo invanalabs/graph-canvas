@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from "react";
+import { darkTheme, lightTheme } from "./theme";
+import styled, { ThemeProvider } from "styled-components";
+import Flow from "./flow";
+import ReactFlow, {
+  useNodesState,
+  useEdgesState,
+  addEdge,
+  MiniMap,
+  Controls,
+  Panel
+} from "reactflow";
 
-function App() {
+export const App = () => {
+  const [mode, setMode] = useState("light");
+  const theme = mode === "light" ? lightTheme : darkTheme;
+
+  const toggleMode = () => {
+    setMode((m) => (m === "light" ? "dark" : "light"));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Flow>
+        <Panel position="top-left">
+          <button onClick={toggleMode}>switch mode</button>
+        </Panel>
+      </Flow>
+    </ThemeProvider>
   );
-}
-
-export default App;
+};
