@@ -20,7 +20,7 @@ export const contentStyle = {
   right: { right: "-8px" },
   textRight: { textAlign: "right" },
   handle: {
-    widht: "2px", // Does not work
+    width: "2px", // Does not work
     height: "2px",
     margin: "auto",
     background: "#ddd",

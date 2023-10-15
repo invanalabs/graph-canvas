@@ -8,7 +8,11 @@ import ReactFlow, {
   Background,
   useNodesState,
   useEdgesState,
-  ConnectionLineType
+  ConnectionLineType,
+  Node,
+  ReactFlowInstance,
+  Edge,
+  Position
 } from "reactflow";
 import { resetHandlePathHighlight } from "./highlight-utils";
 
@@ -36,14 +40,14 @@ const defaultNodeWidth = 180 + 30;
 const defaultColumnHeight = 36;
 // const nodeHeight = 36;
 
-function calcNodeHeight(node) {
+function calcNodeHeight(node: Node) {
   if (node.data.fields) {
     return defaultColumnHeight * node.data.fields.length + 60;
   }
   return defaultColumnHeight + 60;
 }
 
-const onInit = (reactFlowInstance) =>
+const onInit = (reactFlowInstance: ReactFlowInstance) =>
   console.log("flow loaded:", reactFlowInstance);
 
 const dagreGraph = new dagre.graphlib.Graph();
@@ -54,7 +58,7 @@ dagreGraph.setDefaultEdgeLabel(() => ({}));
 // In a real world app you would use the correct width and height values of
 // const nodes = useStoreState(state => state.nodes) and then node.__rf.width, node.__rf.height
 
-const getLayoutedElements = (nodes, edges, direction = "LR") => {
+const getLayoutedElements = (nodes: [any], edges: [Edge], direction: string = "LR") => {
   const isHorizontal = direction === "LR";
   dagreGraph.setGraph({ rankdir: direction });
 
@@ -76,8 +80,8 @@ const getLayoutedElements = (nodes, edges, direction = "LR") => {
 
   nodes.forEach((node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = isHorizontal ? "left" : "top";
-    node.sourcePosition = isHorizontal ? "right" : "bottom";
+    node.targetPosition = isHorizontal ? Position.Left : Position.Top;
+    node.sourcePosition = isHorizontal ? Position.Right : Position.Bottom;
 
     // We are shifting the dagre node position (anchor=center center) to the top left
     // so it matches the React Flow node anchor point (top left).
@@ -101,13 +105,13 @@ const OverviewFlow = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onElementClick = (event, object) => {
-    const graphElements = [object.id];
-    console.log("======onElementClick", graphElements);
-  };
+  // const onElementClick = (event, object) => {
+  //   const graphElements = [object.id];
+  //   console.log("======onElementClick", graphElements);
+  // };
 
   const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
+    (params: any) => setEdges((eds) => addEdge(params, eds)),
     []
   );
 
@@ -130,7 +134,7 @@ const OverviewFlow = () => {
   // );
 
   const onLayout = useCallback(
-    (direction) => {
+    (direction: string) => {
       const {
         nodes: layoutedNodes,
         edges: layoutedEdges
@@ -163,11 +167,11 @@ const OverviewFlow = () => {
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       onInit={onInit}
-      onNodeClick={onElementClick}
-      onEdgeClick={onElementClick}
+      // onNodeClick={onElementClick}
+      // onEdgeClick={onElementClick}
       fitView
       attributionPosition="top-right"
-      connectionLineType={ConnectionLineType.Bezierre}
+      connectionLineType={ConnectionLineType.Bezier}
       nodeTypes={nodeTypes}
       onNodeMouseLeave={() =>
         resetHandlePathHighlight(
