@@ -1,6 +1,5 @@
 import "./styles.css";
 import OverviewFlow from './canvas';
-
 import { ReactFlowProvider } from "reactflow";
 
 export default function Flow() {

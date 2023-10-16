@@ -1,4 +1,4 @@
-import {   useCallback } from "react";
+import { useCallback, useState } from "react";
 import ReactFlow, {
   addEdge,
   MiniMap,
@@ -13,12 +13,17 @@ import ReactFlow, {
   ReactFlowInstance,
   // Edge,
   Position,
- 
+
 } from "reactflow";
+import styled, { ThemeProvider } from 'styled-components';
+
+import { darkTheme, lightTheme } from "./theme";
+import React from "react";
 import { resetHandlePathHighlight } from "./highlight-utils";
+// import { ThemeProvider } from "styled-components";
 
 // https://reactflow.dev/docs/examples/styling/styled-components/
- 
+
 import { initialNodes, initialEdges } from "./mock-data";
 import CollectionNode from "./customNodes/Collection";
 import DerivedCollectionNode from "./customNodes/DerivedCollection";
@@ -93,7 +98,7 @@ const getLayoutedElements = (nodes: any[], edges: any[], direction: string = "LR
 
     return node;
   });
-  const layoutedNodes= nodes;
+  const layoutedNodes = nodes;
   const layoutedEdges = edges;
 
   return { layoutedNodes, layoutedEdges };
@@ -107,7 +112,17 @@ const { layoutedNodes, layoutedEdges } = getLayoutedElements(
 );
 
 console.log("===layoutedNodes", layoutedNodes)
-const OverviewFlow = () => {
+const OverviewFlow = ({ children }: { children: React.ReactNode }) => {
+
+
+  const [mode, setMode] = useState('light');
+  const theme = mode === 'light' ? lightTheme : darkTheme;
+
+  const toggleMode = () => {
+    console.log("toggleMode")
+    setMode((m) => (m === 'light' ? 'dark' : 'light'));
+  };
+
 
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
@@ -166,55 +181,94 @@ const OverviewFlow = () => {
     return edge;
   });
 
+  // console.log("theme ====", theme);
+
+  const MiniMapStyled = styled(MiniMap)`
+  background-color: ${(props) => props.theme.bg};
+
+  .react-flow__minimap-mask {
+    fill: ${(props) => props.theme.minimapMaskBg};
+  }
+
+  .react-flow__minimap-node {
+    // fill: ${(props) => props.theme.nodeBg};
+    stroke: none;
+  }
+`;
+
+  const ControlsStyled = styled(Controls)`
+  button {
+    background-color: ${(props) => props.theme.controlsBg};
+    color: ${(props) => props.theme.controlsColor};
+    border-bottom: 1px solid ${(props) => props.theme.controlsBorder};
+
+    &:hover {
+      background-color: ${(props) => props.theme.controlsBgHover};
+    }
+
+    path {
+      fill: currentColor;
+    }
+  }
+`;
+
+  const ReactFlowStyled = styled(ReactFlow)`
+  background-color: ${(props) => props.theme.bg};
+`;
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edgesWithUpdatedTypes}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      onInit={onInit}
-      // onNodeClick={onElementClick}
-      // onEdgeClick={onElementClick}
-      fitView
-      attributionPosition="top-right"
-      connectionLineType={ConnectionLineType.Bezier}
-      nodeTypes={nodeTypes}
-      onNodeMouseLeave={() =>
-        resetHandlePathHighlight(
-          nodes,
-          edgesWithUpdatedTypes,
-          setNodes,
-          setEdges
-        )
-      }
-    >
-      <MiniMap
-        // style={minimapStyle}
-        nodeColor={(node) => {
-          switch (node.type) {
-            case "DataStore":
-              return "LightGreen";
-            case "Collection":
-              return "Lavender";
-            case "DerivedCollectionNode":
-              return "LightBlue";
-            // case "sourceNode":
-            //   return "Gold";
-            default:
-              return "#eee";
-          }
-        }}
-        zoomable
-        pannable
-      />
-      <Controls />
-      <Background color="#aaa" gap={16} />
-      <Panel position="top-right">
-        <button onClick={() => onLayout("TB")}>vertical layout</button>
-        <button onClick={() => onLayout("LR")}>horizontal layout</button>
-      </Panel>
-    </ReactFlow>
+    <ThemeProvider theme={theme}>
+
+      <ReactFlow
+        nodes={nodes}
+        edges={edgesWithUpdatedTypes}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
+        onConnect={onConnect}
+        onInit={onInit}
+        // onNodeClick={onElementClick}
+        // onEdgeClick={onElementClick}
+        fitView
+        attributionPosition="top-right"
+        connectionLineType={ConnectionLineType.Bezier}
+        nodeTypes={nodeTypes}
+        onNodeMouseLeave={() =>
+          resetHandlePathHighlight(
+            nodes,
+            edgesWithUpdatedTypes,
+            setNodes,
+            setEdges
+          )
+        }
+      >
+ 
+        <MiniMapStyled
+          nodeColor={(node) => {
+            switch (node.type) {
+              case "DataStore":
+                return "LightGreen";
+              case "Collection":
+                return "Lavender";
+              case "DerivedCollectionNode":
+                return "LightBlue";
+              // case "sourceNode":
+              //   return "Gold";
+              default:
+                return "#eee";
+            }
+          }}
+          zoomable
+          pannable
+        />
+        <ControlsStyled />
+        <Background color="#aaa" style={{ backgroundColor: theme.bg }} gap={16} />
+        <Panel position="top-right">
+          <button onClick={() => onLayout("TB")}>vertical layout</button>
+          <button onClick={() => onLayout("LR")}>horizontal layout</button>
+          <button onClick={toggleMode}>switch mode</button>
+        </Panel>
+        {children}
+      </ReactFlow>
+    </ThemeProvider>
   );
 };
 
