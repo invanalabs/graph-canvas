@@ -1,5 +1,4 @@
- 
+
 export const generateFieldName = (nodeId, handleId) => {
-    return nodeId + "-" + handleId;
-  };
-  
+  return nodeId + "-" + handleId;
+};

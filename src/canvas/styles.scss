@@ -155,6 +155,12 @@
 
     .nodeField {
       cursor: pointer !important;
+      .fieldDataType {
+        float: right;
+        font-size: 10px;
+        color: #999
+      }
+  
     }
 
     .nodeField.highlight {
@@ -177,11 +183,6 @@
       text-align: left
     }
 
-    .fieldDataType {
-      float: right;
-      font-size: 10px;
-      color: #999
-    }
 
     .textRight {
       text-align: right

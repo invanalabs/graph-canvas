@@ -126,6 +126,9 @@ export const highlightHandlePath = (
         ...edge.style,
         stroke: "blue"
       };
+    }else{
+      edge.hidden = true // 
+    
     }
     return edge;
   });
@@ -157,8 +160,9 @@ export const resetHandlePathHighlight = (nodes, edges, setNodes, setEdges) => {
     edge.animated = false;
     edge.style = {
       ...edge.style,
-      stroke: "#ccc"
+      stroke: "#ccc",
     };
+    edge.hidden = false;
     return edge;
   });
   setEdges(edgesHighlighted);
