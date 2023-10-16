@@ -37,7 +37,7 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
       color={"Lavender"}
       content={
         <>
-          <div className={"contentHeader"}>{"Fields"}</div>
+          <div className={"bodyHeader"}>{"Fields"}</div>
           {data.fields.map((field: NodeField) => (
             <div
               className="nodeField textLeft io"

@@ -20,19 +20,22 @@ const Node: React.FC<NodeProps> = ({
   if (color) customTitle.backgroundColor = color;
 
   return (
-    <div className={"body " + (selected ? "selected" : "")}  >
-      <div className={"title"} style={customTitle}>{label}</div>
-      <Handle
-        type="source"
-        position={Position.Right}
-        id={id}
-        className=" handle nodeContainerRightHandle right" />
-      <div className="contentWrapper">{content}</div>
-      <Handle
-        type="target"
-        position={Position.Left}
-        id={id}
-        className=" handle nodeContainerLeftHandle left" />
+    <div className={"customNode " + (selected ? "selected" : "")}  >
+      <div className="nodeHeader">
+        <div className={"nodeName"} style={customTitle}>{label}</div>
+        <Handle
+          type="source"
+          position={Position.Right}
+          id={id}
+          className="handle nodeContainerRightHandle right" />
+        <Handle
+          type="target"
+          position={Position.Left}
+          id={id}
+          className="handle nodeContainerLeftHandle left" />
+      </div>
+      <div className="nodeBody">{content}</div>
+
     </div>
   );
 };

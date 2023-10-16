@@ -1,4 +1,4 @@
-import "./styles.css";
+import "./styles.scss";
 import OverviewFlow from './canvas';
 import { ReactFlowProvider } from "reactflow";
 
