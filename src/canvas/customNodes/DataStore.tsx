@@ -1,24 +1,23 @@
 import { memo } from "react";
 import { Handle, Position } from "reactflow";
-import Node  from "./Node";
+import Node from "./Node";
 import { generateFieldName } from "../utils";
-import { CanvasNodeProps, NodeField } from "../types";
- 
+import { CanvasNodeProps, NodeField } from "../core/types";
 
-const DerivedCollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
+
+const DataStoreNode = ({ id, data, selected }: CanvasNodeProps) => {
   return (
     <Node
       id={id}
       label={data.name}
       selected={selected}
-      color={"LightBlue"}
+      color={"#E0ffe0"}
       content={
         <>
-          <div className="contentHeader">{"Fields"}</div>
           {data.fields.map((field: NodeField) => (
             <div
-              className="nodeField io textLeft"
               key={"i-" + field.name}
+              className="nodeField io textLeft"
               id={generateFieldName(id, field.id)}
             >
               <Handle
@@ -29,15 +28,12 @@ const DerivedCollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
               />
               <div className="">
                 <span>{field.name}</span>
-                <span className="fieldDataType">{field.data_type}</span>
+                {field.data_type ? (
+                  <span className="fieldDataType">{field.id}</span>
+                ) : (
+                  <span />
+                )}
               </div>
-
-              <Handle
-                type="target"
-                position={Position.Left}
-                id={field.id}
-                className="handle left"
-              />
             </div>
           ))}
         </>
@@ -46,4 +42,4 @@ const DerivedCollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
   );
 };
 
-export default memo(DerivedCollectionNode);
+export default memo(DataStoreNode);

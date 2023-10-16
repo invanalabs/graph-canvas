@@ -1,15 +1,11 @@
 import React, {  useState } from "react";
-import { darkTheme, lightTheme } from "./theme";
+import { darkTheme, lightTheme } from "./canvas/theme";
 import  { ThemeProvider } from "styled-components";
-import Flow from "./flow";
+import Flow from "./canvas/flow";
 import  {
-  // useNodesState,
-  // useEdgesState,
-  // addEdge,
-  // MiniMap,
-  // Controls,
   Panel
 } from "reactflow";
+
 
 export const App = () => {
   const [mode, setMode] = useState("light");

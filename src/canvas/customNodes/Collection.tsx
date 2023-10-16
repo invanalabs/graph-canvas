@@ -6,7 +6,7 @@ import {
   highlightHandlePath,
   resetHandlePathHighlight
 } from "../highlight-utils";
-import { NodeField, CanvasNodeProps } from "../types";
+import { NodeField, CanvasNodeProps } from "../core/types";
 
 
 const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
