@@ -13,8 +13,9 @@ import ReactFlow, {
   ReactFlowInstance,
   // Edge,
   Position,
-
+ReactFlowProvider
 } from "reactflow";
+
 import styled, { ThemeProvider } from 'styled-components';
 
 import { darkTheme, lightTheme } from "./theme";
@@ -112,7 +113,7 @@ const { layoutedNodes, layoutedEdges } = getLayoutedElements(
 );
 
 console.log("===layoutedNodes", layoutedNodes)
-const OverviewFlow = ({ children }: { children: React.ReactNode }) => {
+const FlowCanvas = ({ children }: { children: React.ReactNode }) => {
 
 
   const [mode, setMode] = useState('light');
@@ -217,7 +218,7 @@ const OverviewFlow = ({ children }: { children: React.ReactNode }) => {
 `;
   return (
     <ThemeProvider theme={theme}>
-
+  <ReactFlowProvider>
       <ReactFlow
         nodes={nodes}
         edges={edgesWithUpdatedTypes}
@@ -268,8 +269,9 @@ const OverviewFlow = ({ children }: { children: React.ReactNode }) => {
         </Panel>
         {children}
       </ReactFlow>
+      </ReactFlowProvider>
     </ThemeProvider>
   );
 };
 
-export default OverviewFlow;
+export default FlowCanvas;

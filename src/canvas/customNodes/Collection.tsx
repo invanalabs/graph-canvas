@@ -9,7 +9,7 @@ import {
 import { NodeField, CanvasNodeProps } from "../core/types";
 
 
-const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
+const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
   const store = useStoreApi();
   const { edges, getNodes, setNodes, setEdges } = store.getState();
   const nodes = getNodes();
@@ -22,12 +22,13 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
     // https://github.com/wbkd/react-flow/issues/2418
   };
 
-  const MouseOut = () => {
+  const MouseOut = (e: React.MouseEvent) => {
     resetHandlePathHighlight(nodes, edges, setNodes, setEdges);
   };
-  // const handleClick = (e) => {
-  //   MouseOver(e);
-  // };
+
+  const handleClick = (e: React.MouseEvent) => {
+    MouseOver(e);
+  };
 
   return (
     <Node
@@ -44,7 +45,7 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
               onMouseOver={MouseOver}
               onMouseOut={MouseOut}
               id={generateFieldName(id, field.id)}
-              // onClick={handleClick}
+              onClick={handleClick}
               data-node-id={id}
               data-handle-id={field.id}
               key={"i-" + field.name}
