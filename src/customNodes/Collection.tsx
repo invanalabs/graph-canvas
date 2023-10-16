@@ -1,21 +1,13 @@
 import React, { memo } from "react";
-// import * as R from "ramda";
 import { Handle, Position, useStoreApi } from "reactflow";
-import Node, { contentStyle as style } from "./Node";
+import Node from "./Node";
 import { generateFieldName } from "../utils";
 import {
   highlightHandlePath,
   resetHandlePathHighlight
 } from "../highlight-utils";
 import { NodeField, CanvasNodeProps } from "../types";
-// const isValidInput = (connection, type) => {
-//   return R.last(R.split("__", connection.source)) === type;
-// };
-// const isValidOutput = (connection, type) => {
-//   console.log("====", connection, type);
 
-//   return R.last(R.split("__", connection.target)) === type;
-// };
 
 const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
   const store = useStoreApi();
@@ -45,7 +37,7 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
       color={"Lavender"}
       content={
         <>
-          <div style={style.contentHeader}>{"Fields"}</div>
+          <div className={"contentHeader"}>{"Fields"}</div>
           {data.fields.map((field: NodeField) => (
             <div
               className="nodeField textLeft io"
@@ -56,25 +48,23 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
               data-node-id={id}
               data-handle-id={field.id}
               key={"i-" + field.name}
-              // style={{ ...style.io, ...style.textLeft }}
             >
               <Handle
                 type="source"
                 position={Position.Right}
                 id={field.id}
-                style={{ ...style.handle, ...style.right }}
+                className="handle right"
                 onConnect={(params) => console.log("handle onConnect", params)}
               />
               <div>
                 <span>{field.name}</span>
                 <span className="fieldDataType">{field.data_type}</span>
               </div>
-
               <Handle
                 type="target"
                 position={Position.Left}
                 id={field.id}
-                style={{ ...style.handle, ...style.left }}
+                className="handle left"
                 onConnect={(params) => console.log("handle onConnect", params)}
               />
             </div>

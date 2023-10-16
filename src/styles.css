@@ -134,25 +134,25 @@
 }
 
 .handle {
-  /* width: 2px; // Does not work */
-  height: 2px;
+  width: 2px !important; 
+  height: 2px !important;
   margin: auto;
-  background: #ddd;
-  border-radius: 2px;
-  /* border: 1px solid #ddd */
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+  background: #ddd !important;
+  border-radius: 2px !important;
+  border: 1px solid #ddd !important;
+  /* box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px; */
 }
 
 .nodeContainerRightHandle {
-  /* // position: absolute; */
-  top: 10px;
-  right: 0
+  position: absolute !important;
+  top: 10px !important;
+  /* right: 0 !important; */
 }
 
 .nodeContainerLeftHandle {
-  /* // position: absolute; */
-  top: 10px;
-  left: 0 !important
+   position: absolute !important;
+  top: 10px !important;
+  /* left: 0 !important; */
 }
 
 
@@ -166,10 +166,12 @@
   font-size: 12px;
   width: 180px
 }
+
 .selected {
   border: 1px solid blue;
   /* // boxShadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22) */
 }
+
 .title {
   position: relative;
   padding: 8px 10px;
@@ -177,6 +179,7 @@
   background-color: #eee;
   border-bottom: 1px solid #ddd
 }
+
 .contentWrapper {
   padding: 0px 0px
 }
