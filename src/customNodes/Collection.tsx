@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 // import * as R from "ramda";
-import { Handle, Position, useStoreApi, useNodeId } from "reactflow";
+import { Handle, Position, useStoreApi } from "reactflow";
 import Node, { contentStyle as style } from "./Node";
 import { generateFieldName } from "../utils";
 import {
@@ -48,7 +48,7 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
           <div style={style.contentHeader}>{"Fields"}</div>
           {data.fields.map((field: NodeField) => (
             <div
-              className="nodeField"
+              className="nodeField textLeft io"
               onMouseOver={MouseOver}
               onMouseOut={MouseOut}
               id={generateFieldName(id, field.id)}
@@ -56,7 +56,7 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
               data-node-id={id}
               data-handle-id={field.id}
               key={"i-" + field.name}
-              style={{ ...style.io, ...style.textLeft }}
+              // style={{ ...style.io, ...style.textLeft }}
             >
               <Handle
                 type="source"
@@ -67,7 +67,7 @@ const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
               />
               <div>
                 <span>{field.name}</span>
-                <span style={style.fieldDataType}>{field.data_type}</span>
+                <span className="fieldDataType">{field.data_type}</span>
               </div>
 
               <Handle

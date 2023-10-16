@@ -26,7 +26,7 @@ const getAllIncomers = (
     memo.push(inComingEdge);
     console.log("inComingEdge", inComingEdge);
 
-    if (prevIncomingEdge.findIndex((n) => n.id === inComingEdge.target) == -1) {
+    if (prevIncomingEdge.findIndex((n) => n.id === inComingEdge.target) === -1) {
       prevIncomingEdge.push(inComingEdge);
 
       getAllIncomers(
@@ -38,7 +38,7 @@ const getAllIncomers = (
       ).forEach((foundNode) => {
         memo.push(foundNode);
 
-        if (prevIncomingEdge.findIndex((n) => n.id === foundNode.id) == -1) {
+        if (prevIncomingEdge.findIndex((n) => n.id === foundNode.id) === -1) {
           prevIncomingEdge.push(inComingEdge);
         }
       });
@@ -55,7 +55,7 @@ const getAllOutgoers = (nodeId, handleId, nodes, edges, prevOutgoers = []) => {
     memo.push(outGoingEdge);
     console.log("====outGoingEdge", outGoingEdge);
 
-    if (prevOutgoers.findIndex((n) => n.id == outGoingEdge.id) == -1) {
+    if (prevOutgoers.findIndex((n) => n.id === outGoingEdge.id) === -1) {
       prevOutgoers.push(outGoingEdge);
 
       getAllOutgoers(
@@ -67,7 +67,7 @@ const getAllOutgoers = (nodeId, handleId, nodes, edges, prevOutgoers = []) => {
       ).forEach((foundNode) => {
         memo.push(foundNode);
 
-        if (prevOutgoers.findIndex((n) => n.id == foundNode.id) == -1) {
+        if (prevOutgoers.findIndex((n) => n.id === foundNode.id) === -1) {
           prevOutgoers.push(foundNode);
         }
       });

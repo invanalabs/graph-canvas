@@ -24,9 +24,9 @@ const DataStoreNode = ({ id, data, selected }: CanvasNodeProps) => {
           {data.fields.map((field: NodeField) => (
             <div
               key={"i-" + field.name}
-              className="nodeField"
+              className="nodeField io textLeft"
               id={generateFieldName(id, field.id)}
-              style={{ ...style.io, ...style.textLeft }}
+              // style={{ ...style.io, ...style.textLeft }}
             >
               <Handle
                 type="source"
@@ -41,7 +41,7 @@ const DataStoreNode = ({ id, data, selected }: CanvasNodeProps) => {
               <div className="">
                 <span>{field.name}</span>
                 {field.data_type ? (
-                  <span style={style.fieldDataType}>{field.id}</span>
+                  <span className="fieldDataType">{field.id}</span>
                 ) : (
                   <span />
                 )}

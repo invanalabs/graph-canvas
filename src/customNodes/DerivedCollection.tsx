@@ -26,10 +26,10 @@ const DerivedCollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
           <div style={style.contentHeader}>{"Fields"}</div>
           {data.fields.map((field: NodeField) => (
             <div
-              className="nodeField"
+              className="nodeField io textLeft"
               key={"i-" + field.name}
               id={generateFieldName(id, field.id)}
-              style={{ ...style.io, ...style.textLeft }}
+              // style={{ ...style.io, ...style.textLeft }}
             >
               <Handle
                 type="source"
@@ -43,7 +43,7 @@ const DerivedCollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
               />
               <div className="">
                 <span>{field.name}</span>
-                <span style={style.fieldDataType}>{field.data_type}</span>
+                <span className="fieldDataType">{field.data_type}</span>
               </div>
 
               <Handle

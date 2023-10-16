@@ -82,14 +82,14 @@ const Node: React.FC<NodeProps> = ({
   color,
   content
 }: NodeProps) => {
-  let customTitle = { ...style.title };
+  let customTitle : {backgroundColor: string} = { backgroundColor: "#ccc" };
   if (color) customTitle.backgroundColor = color;
 
   console.log("====customTitle", customTitle)
   // Collapse contentWrapper on icon click
   return (
-    <div style={{ ...style.body, ...(selected ? style.selected : {}) }}>
-      <div style={customTitle}>{label}</div>
+    <div className="body" style={{ ...(selected ? style.selected : {}) }}>
+      <div className={"title"} style={customTitle}>{label}</div>
 
       <Handle
         type="source"
@@ -97,11 +97,13 @@ const Node: React.FC<NodeProps> = ({
         // id={"o-" + field.label + "__" + field.type}
         id={id}
         // className={"nodeContainerHandle"}
-        style={{
-          ...contentStyle.handle,
-          ...contentStyle.nodeContainerRightHandle,
-          ...contentStyle.right
-        }}
+        className=" handle nodeContainerRightHandle right"
+
+        // style={{
+        //   ...contentStyle.handle,
+        //   ...contentStyle.nodeContainerRightHandle,
+        //   ...contentStyle.right
+        // }}
       />
       <div style={style.contentWrapper}>{content}</div>
       <Handle
@@ -110,11 +112,12 @@ const Node: React.FC<NodeProps> = ({
         // id={"o-" + field.label + "__" + field.type}
         id={id}
         // className={"nodeContainerHandle"}
-        style={{
-          ...contentStyle.handle,
-          ...contentStyle.nodeContainerLeftHandle,
-          ...contentStyle.left
-        }}
+        className=" handle nodeContainerLeftHandle left"
+        // style={{
+        //   ...contentStyle.handle,
+        //   ...contentStyle.nodeContainerLeftHandle,
+        //   ...contentStyle.left
+        // }}
       />
     </div>
   );
