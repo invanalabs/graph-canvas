@@ -7,7 +7,7 @@ import {
   highlightHandlePath,
   resetHandlePathHighlight
 } from "../highlight-utils";
-
+import { NodeField, CanvasNodeProps } from "../types";
 // const isValidInput = (connection, type) => {
 //   return R.last(R.split("__", connection.source)) === type;
 // };
@@ -17,12 +17,12 @@ import {
 //   return R.last(R.split("__", connection.target)) === type;
 // };
 
-const CollectionNode = ({ id, data, selected }) => {
+const CollectionNode = ({ id , data, selected }: CanvasNodeProps) => {
   const store = useStoreApi();
   const { edges, getNodes, setNodes, setEdges } = store.getState();
   const nodes = getNodes();
 
-  const MouseOver = (e) => {
+  const MouseOver = (e: React.MouseEvent) => {
     let el = e.currentTarget;
     const nodeId = el.getAttribute("data-node-id");
     const handleId = el.getAttribute("data-handle-id");
@@ -46,7 +46,7 @@ const CollectionNode = ({ id, data, selected }) => {
       content={
         <>
           <div style={style.contentHeader}>{"Fields"}</div>
-          {data.fields.map((field) => (
+          {data.fields.map((field: NodeField) => (
             <div
               className="nodeField"
               onMouseOver={MouseOver}

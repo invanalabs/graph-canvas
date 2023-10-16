@@ -3,6 +3,7 @@ import React, { memo } from "react";
 import { Handle, Position } from "reactflow";
 import Node, { contentStyle as style } from "./Node";
 import { generateFieldName } from "../utils";
+import { CanvasNodeProps, NodeField } from "../types";
 // const isValidInput = (connection) => {
 //   return R.last(R.split("__", connection.source)) === "value";
 // };
@@ -10,7 +11,7 @@ import { generateFieldName } from "../utils";
 //   return R.last(R.split("__", connection.target)) === "value";
 // };
 
-const DataStoreNode = ({ id, data, selected }) => {
+const DataStoreNode = ({ id, data, selected }: CanvasNodeProps) => {
   return (
     <Node
       id={id}
@@ -20,7 +21,7 @@ const DataStoreNode = ({ id, data, selected }) => {
       content={
         <>
           {/* <div style={style.contentHeader}>{"Collections"}</div> */}
-          {data.fields.map((field) => (
+          {data.fields.map((field: NodeField) => (
             <div
               key={"i-" + field.name}
               className="nodeField"

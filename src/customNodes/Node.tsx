@@ -30,12 +30,12 @@ export const contentStyle = {
     //   "rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px"
   },
   nodeContainerRightHandle: {
-    position: "absolute",
+    // position: "absolute",
     top: "10px",
     right: 0
   },
   nodeContainerLeftHandle: {
-    position: "absolute",
+    // position: "absolute",
     top: "10px",
     left: "0 !important"
   }
@@ -85,9 +85,10 @@ const Node: React.FC<NodeProps> = ({
   let customTitle = { ...style.title };
   if (color) customTitle.backgroundColor = color;
 
+  console.log("====customTitle", customTitle)
   // Collapse contentWrapper on icon click
   return (
-    <div style={{ ...style.body, ...(selected ? style.selected : []) }}>
+    <div style={{ ...style.body, ...(selected ? style.selected : {}) }}>
       <div style={customTitle}>{label}</div>
 
       <Handle

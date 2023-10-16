@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
+import {   useCallback } from "react";
 import ReactFlow, {
   addEdge,
   MiniMap,
-  MarkerType,
+  // MarkerType,
   Panel,
   Controls,
   Background,
@@ -12,7 +12,8 @@ import ReactFlow, {
   Node,
   ReactFlowInstance,
   Edge,
-  Position
+  Position,
+ 
 } from "reactflow";
 import { resetHandlePathHighlight } from "./highlight-utils";
 
@@ -58,19 +59,19 @@ dagreGraph.setDefaultEdgeLabel(() => ({}));
 // In a real world app you would use the correct width and height values of
 // const nodes = useStoreState(state => state.nodes) and then node.__rf.width, node.__rf.height
 
-const getLayoutedElements = (nodes: [any], edges: [Edge], direction: string = "LR") => {
+const getLayoutedElements = (nodes: any[], edges: any[], direction: string = "LR") => {
   const isHorizontal = direction === "LR";
   dagreGraph.setGraph({ rankdir: direction });
 
-  nodes.forEach((node) => {
-    console.log("node.id", node);
+  nodes.forEach((node: Node) => {
+    // console.log("node.id", node);
     dagreGraph.setNode(node.id, {
       width: defaultNodeWidth,
       height: calcNodeHeight(node)
     });
   });
 
-  edges.forEach((edge) => {
+  edges.forEach((edge: { source: string; target: string; }) => {
     dagreGraph.setEdge(edge.source, edge.target, {
       // length: 200
     });
@@ -78,7 +79,7 @@ const getLayoutedElements = (nodes: [any], edges: [Edge], direction: string = "L
 
   dagre.layout(dagreGraph);
 
-  nodes.forEach((node) => {
+  nodes.forEach((node: Node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     node.targetPosition = isHorizontal ? Position.Left : Position.Top;
     node.sourcePosition = isHorizontal ? Position.Right : Position.Bottom;
@@ -92,18 +93,24 @@ const getLayoutedElements = (nodes: [any], edges: [Edge], direction: string = "L
 
     return node;
   });
+  const layoutedNodes= nodes;
+  const layoutedEdges = edges;
 
-  return { nodes, edges };
+  return { layoutedNodes, layoutedEdges };
 };
 
-const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+
+
+const { layoutedNodes, layoutedEdges } = getLayoutedElements(
   initialNodes,
   initialEdges
 );
 
+console.log("===layoutedNodes", layoutedNodes)
 const OverviewFlow = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+
+  const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
 
   // const onElementClick = (event, object) => {
   //   const graphElements = [object.id];
@@ -136,13 +143,13 @@ const OverviewFlow = () => {
   const onLayout = useCallback(
     (direction: string) => {
       const {
-        nodes: layoutedNodes,
-        edges: layoutedEdges
+        layoutedNodes,
+        layoutedEdges
       } = getLayoutedElements(nodes, edges, direction);
 
       console.log("layoutedEdges", layoutedEdges);
-      setNodes([...layoutedNodes]);
-      setEdges([...layoutedEdges]);
+      setNodes([...nodes]);
+      setEdges([...edges]);
     },
     [nodes, edges]
   );
