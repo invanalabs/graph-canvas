@@ -1,9 +1,10 @@
- 
-import Flow from "./canvas/flow";
- 
-export const App = () => {
- 
+import FlowCanvas  from './canvas/canvas';
+
+export default function App() {
   return (
-       <Flow />
+    <div className="App">
+      <h1>ER diagram with Reactflow</h1>
+      <FlowCanvas />
+    </div>
   );
-};
+}

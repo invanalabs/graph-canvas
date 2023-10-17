@@ -5,7 +5,7 @@ import { generateFieldName } from "../utils";
 import {
   highlightHandlePath,
   resetHandlePathHighlight
-} from "../highlight-utils";
+} from "../core/highlight-utils";
 import { NodeField, CanvasNodeProps } from "../core/types";
 
 
