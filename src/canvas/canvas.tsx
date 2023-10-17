@@ -16,7 +16,7 @@ import { darkTheme, lightTheme } from "./theme";
 import React from "react";
 import { resetHandlePathHighlight } from "./utils/highlight";
 import CollectionNode from "./customNodes/Collection";
- 
+
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
 import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
@@ -30,7 +30,7 @@ const nodeTypes = {
 };
 
 
-const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings=defaultCanvasSettings }: FlowCanvasProps) => {
+const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = defaultCanvasSettings }: FlowCanvasProps) => {
 
   const { layoutedNodes, layoutedEdges } = getLayoutedElements(
     initialNodes,
@@ -48,13 +48,13 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings=defau
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
 
   const onInit = (reactFlowInstance: ReactFlowInstance) =>
-  console.log("flow loaded:", reactFlowInstance);
+    console.log("flow loaded:", reactFlowInstance);
 
-  const onNodeClick = (event: React.MouseEvent, object: CanvasNode ) => {
+  const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
     const graphElements = [object.id];
     console.log("======onNodeClick", graphElements);
   };
-  const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge ) => {
+  const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge) => {
     const graphElements = [object.id];
     console.log("======onEdgeClick", graphElements);
   };
@@ -73,10 +73,10 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings=defau
       eds
     );
     */
-    (params: any) => setEdges((eds) => addEdge({...params, }, eds)),
+    (params: any) => setEdges((eds) => addEdge({ ...params, }, eds)),
     []
   );
- 
+
   const onLayout = useCallback(
     (direction: string) => {
       const {
@@ -134,65 +134,68 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings=defau
   }
 `;
 
-// const ReactFlowStyled = styled(ReactFlow)`
-//     background-color: ${(props) => props.theme.bg};
-// `;
+  // const ReactFlowStyled = styled(ReactFlow)`
+  //     background-color: ${(props) => props.theme.bg};
+  // `;
+  document.querySelector("html")?.setAttribute("data-canvas-theme", mode);
   return (
-    <ThemeProvider theme={theme}>
-      <ReactFlowProvider>
-        <ReactFlow
-          nodes={nodes}
-          className="dark-theme"
-          edges={edgesWithUpdatedTypes}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onInit={onInit}
-          onNodeClick={onNodeClick}
-          onEdgeClick={onEdgeClick}
-          fitView
-          attributionPosition="top-right"
-          connectionLineType={canvasSettings.edges.type}
-          nodeTypes={nodeTypes}
-          onNodeMouseLeave={() =>
-            resetHandlePathHighlight(
-              nodes,
-              edgesWithUpdatedTypes,
-              setNodes,
-              setEdges
-            )
-          }
-        >
+    // <div data-canvas-theme="dark">
+      <ThemeProvider theme={theme}>
+        <ReactFlowProvider>
+          <ReactFlow
+            nodes={nodes}
+            className="dark-theme"
+            edges={edgesWithUpdatedTypes}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onInit={onInit}
+            onNodeClick={onNodeClick}
+            onEdgeClick={onEdgeClick}
+            fitView
+            attributionPosition="top-right"
+            connectionLineType={canvasSettings.edges.type}
+            nodeTypes={nodeTypes}
+            onNodeMouseLeave={() =>
+              resetHandlePathHighlight(
+                nodes,
+                edgesWithUpdatedTypes,
+                setNodes,
+                setEdges
+              )
+            }
+          >
 
-          <MiniMapStyled
-            nodeColor={(node) => {
-              switch (node.type) {
-                case "DataStore":
-                  return "LightGreen";
-                case "Collection":
-                  return "Lavender";
-                case "DerivedCollectionNode":
-                  return "LightBlue";
-                // case "sourceNode":
-                //   return "Gold";
-                default:
-                  return "#eee";
-              }
-            }}
-            zoomable
-            pannable
-          />
-          <ControlsStyled />
-          <Background color="#aaa" style={{ backgroundColor: theme.bg }} gap={16} />
-          <Panel position="top-right">
-            <button onClick={() => onLayout("TB")}>vertical layout</button>
-            <button onClick={() => onLayout("LR")}>horizontal layout</button>
-            <button onClick={toggleMode}>switch mode</button>
-          </Panel>
-          {children}
-        </ReactFlow>
-      </ReactFlowProvider>
-    </ThemeProvider>
+            <MiniMapStyled
+              nodeColor={(node) => {
+                switch (node.type) {
+                  case "DataStore":
+                    return "LightGreen";
+                  case "Collection":
+                    return "Lavender";
+                  case "DerivedCollectionNode":
+                    return "LightBlue";
+                  // case "sourceNode":
+                  //   return "Gold";
+                  default:
+                    return "#eee";
+                }
+              }}
+              zoomable
+              pannable
+            />
+            <ControlsStyled />
+            <Background color="#aaa" style={{ backgroundColor: theme.bg }} gap={16} />
+            <Panel position="top-right">
+              <button onClick={() => onLayout("TB")}>vertical layout</button>
+              <button onClick={() => onLayout("LR")}>horizontal layout</button>
+              <button onClick={toggleMode}>switch mode</button>
+            </Panel>
+            {children}
+          </ReactFlow>
+        </ReactFlowProvider>
+      </ThemeProvider>
+    // </div>
   );
 };
 
