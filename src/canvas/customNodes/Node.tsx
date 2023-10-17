@@ -9,6 +9,8 @@ interface NodeProps {
   color?: string;
   content: React.ReactNode;
 }
+
+
 const Node: React.FC<NodeProps> = ({
   id,
   label,
@@ -35,7 +37,6 @@ const Node: React.FC<NodeProps> = ({
           className="handle nodeContainerLeftHandle left" />
       </div>
       <div className="nodeBody">{content}</div>
-
     </div>
   );
 };

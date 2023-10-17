@@ -16,8 +16,7 @@ import { darkTheme, lightTheme } from "./theme";
 import React from "react";
 import { resetHandlePathHighlight } from "./utils/highlight";
 import CollectionNode from "./customNodes/Collection";
-import DerivedCollectionNode from "./customNodes/DerivedCollection";
-import DataStoreNode from "./customNodes/DataStore";
+ 
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
 import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
@@ -26,8 +25,8 @@ import { defaultCanvasSettings } from "./settings";
 
 const nodeTypes = {
   Collection: CollectionNode,
-  DataStore: DataStoreNode,
-  DerivedCollection: DerivedCollectionNode
+  // DataStore: DataStoreNode,
+  // DerivedCollection: DerivedCollectionNode
 };
 
 

@@ -33,12 +33,11 @@ const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
   return (
     <Node
       id={id}
-      label={data.name}
+      label={data.label}
       selected={selected}
       color={"Lavender"}
       content={
         <>
-          <div className={"bodyHeader"}>{"Fields"}</div>
           {data.fields.map((field: NodeField) => (
             <div
               className="nodeField textLeft io"
@@ -48,7 +47,7 @@ const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
               onClick={handleClick}
               data-node-id={id}
               data-handle-id={field.id}
-              key={"i-" + field.name}
+              key={"i-" + field.label}
             >
               <Handle
                 type="source"
@@ -58,7 +57,7 @@ const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
                 onConnect={(params) => console.log("handle onConnect", params)}
               />
               <div>
-                <span>{field.name}</span>
+                <span>{field.label}</span>
                 <span className="fieldDataType">{field.data_type}</span>
               </div>
               <Handle

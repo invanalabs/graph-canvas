@@ -7,7 +7,7 @@ export const defaultCanvasSettings: CanvasSettingsType = {
         type: "Collection"
     },
     edges: {
-        type: ConnectionLineType.SmoothStep,
+        type: ConnectionLineType.Step,
         markerEnd: {
             type: MarkerType.ArrowClosed
         },

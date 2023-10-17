@@ -6,8 +6,8 @@ export const initialNodes = [
     type: "DataStore",
     data: {
       // storeType: "MongoDB",
-      name: "MongoDB (1.1)",
-      fields: [{ name: "crawlerflow", id: "crawlerflow" }]
+      label: "MongoDB (1.1)",
+      fields: [{ label: "crawlerflow", id: "crawlerflow" }]
     }
   },
   {
@@ -15,8 +15,8 @@ export const initialNodes = [
     type: "DataStore",
     data: {
       // storeType: "FileStorage",
-      name: "FileStorage (1.2)",
-      fields: [{ name: "myfile.csv", id: "myfile-csv", data_type: "string" }]
+      label: "FileStorage (1.2)",
+      fields: [{ label: "myfile.csv", id: "myfile-csv", data_type: "string" }]
     }
   },
   // {
@@ -24,8 +24,8 @@ export const initialNodes = [
   //   type: "DataStore",
   //   data: {
   //     // storeType: "MongoDB",
-  //     name: "MongoDB (1.3)",
-  //     fields: [{ name: "crawlerflow", id: "crawlerflow" }]
+  //     label: "MongoDB (1.3)",
+  //     fields: [{ label: "crawlerflow", id: "crawlerflow" }]
   //   }
   // },
   // {
@@ -33,18 +33,18 @@ export const initialNodes = [
   //   type: "DataStore",
   //   data: {
   //     // storeType: "FileStorage",
-  //     name: "FileStorage (1.3)",
-  //     fields: [{ name: "myfile.csv", id: "myfile-csv", data_type: "string" }]
+  //     label: "FileStorage (1.3)",
+  //     fields: [{ label: "myfile.csv", id: "myfile-csv", data_type: "string" }]
   //   }
   // },
   {
     id: "2.1",
     type: "Collection",
     data: {
-      name: "NSE Data (2.1)",
+      label: "NSE Data (2.1)",
       fields: [
-        { name: "identifier", id: "identifier", data_type: "string" },
-        { name: "is_active", id: "is_active", data_type: "string" }
+        { label: "identifier", id: "identifier", data_type: "string" },
+        { label: "is_active", id: "is_active", data_type: "string" }
       ]
       // unique_together: [
       //   { label: "Model", type: "data" },
@@ -56,12 +56,12 @@ export const initialNodes = [
     id: "2.2",
     type: "Collection",
     data: {
-      name: "Source1 - Candle Data (2.2)",
+      label: "Source1 - Candle Data (2.2)",
       fields: [
-        { name: "candle", id: "candle", data_type: "string" },
-        { name: "title", id: "title", data_type: "string" },
-        { name: "description", id: "description", data_type: "string" },
-        { name: "is_active", id: "is_active", data_type: "bool" }
+        { label: "candle", id: "candle", data_type: "string" },
+        { label: "title", id: "title", data_type: "string" },
+        { label: "description", id: "description", data_type: "string" },
+        { label: "is_active", id: "is_active", data_type: "bool" }
       ]
       // outputs: [
       //   { label: "Model", type: "data" },
@@ -73,12 +73,12 @@ export const initialNodes = [
     id: "3.1",
     type: "DerivedCollection",
     data: {
-      name: "Derived Data (3.1)",
+      label: "Derived Data (3.1)",
       fields: [
-        { name: "identifier", id: "identifier", data_type: "string" },
-        { name: "candle", id: "candle", data_type: "string" },
-        { name: "title", id: "title", data_type: "string" },
-        { name: "description", id: "description", data_type: "string" }
+        { label: "identifier", id: "identifier", data_type: "string" },
+        { label: "candle", id: "candle", data_type: "string" },
+        { label: "title", id: "title", data_type: "string" },
+        { label: "description", id: "description", data_type: "string" }
       ]
       // outputs: [
       //   { label: "Model", type: "data" },
@@ -90,10 +90,10 @@ export const initialNodes = [
     id: "3.2",
     type: "DerivedCollection",
     data: {
-      name: "Derived Data (3.2)",
+      label: "Derived Data (3.2)",
       fields: [
-        { name: "identifier", id: "identifier", data_type: "string" },
-        { name: "analysed_field", id: "analysed_field", data_type: "integer" }
+        { label: "identifier", id: "identifier", data_type: "string" },
+        { label: "analysed_field", id: "analysed_field", data_type: "integer" }
       ]
       // outputs: [
       //   { label: "Model", type: "data" },

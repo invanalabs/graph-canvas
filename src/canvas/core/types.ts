@@ -3,12 +3,12 @@ import { Node, Edge, ConnectionLineType } from "reactflow"
 
 export type NodeField = {
     id: string,
-    name: string,
+    label: string,
     data_type: string
 }
 export type CanvasNodeData = {
     // data property in the Node 
-    name: string,
+    label: string,
     fields: NodeField[]
 }
 export type CanvasNode = Node & {
