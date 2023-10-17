@@ -124,11 +124,15 @@ export const highlightHandlePath = (
       edge.animated = true;
       edge.style = {
         ...edge.style,
-        stroke: "blue"
+        stroke: "lightblue",
+        opacity: 1
       };
     }else{
-      edge.hidden = true // 
-    
+      // edge.hidden = true // 
+      edge.style = {
+        // ...edge.style,
+        opacity: 0.4
+      };
     }
     return edge;
   });
@@ -163,6 +167,8 @@ export const resetHandlePathHighlight = (nodes: CanvasNode[], edges: CanvasEdge[
     edge.style = {
       ...edge.style,
       stroke: "#ccc",
+      opacity: 1
+
     };
     edge.hidden = false;
     return edge;
