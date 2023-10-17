@@ -4,7 +4,7 @@ import { initialNodes, initialEdges } from "./example-datasets/er-mock-data";
 export default function App() {
   return (
     <div className="App">
-      <h1>ER diagram with Reactflow</h1>
+      {/* <h1>ER diagram with Reactflow</h1> */}
       <FlowCanvas  initialNodes={initialNodes} initialEdges={initialEdges} />
     </div>
   );

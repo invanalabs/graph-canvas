@@ -142,6 +142,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings=defau
       <ReactFlowProvider>
         <ReactFlow
           nodes={nodes}
+          className="dark-theme"
           edges={edgesWithUpdatedTypes}
           onNodesChange={onNodesChange}
           onEdgesChange={onEdgesChange}
