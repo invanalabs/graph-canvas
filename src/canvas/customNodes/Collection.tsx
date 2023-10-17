@@ -3,7 +3,7 @@ import { Handle, Position, useStoreApi } from "reactflow";
 import Node from "./Node";
 import { generateFieldName } from "../utils";
 import {
-  highlightHandlePath,
+  highlightHandlePathByNodeHandleId,
   resetHandlePathHighlight
 } from "../utils/highlight";
 import { NodeField, CanvasNodeProps } from "../core/types";
@@ -18,7 +18,7 @@ const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
     let el = e.currentTarget;
     const nodeId: string = el.getAttribute("data-node-id") || "";
     const handleId: string | null = el.getAttribute("data-handle-id");
-    highlightHandlePath(nodeId, handleId, nodes, edges, setNodes, setEdges);
+    highlightHandlePathByNodeHandleId(nodeId, handleId, nodes, edges, setNodes, setEdges);
     // https://github.com/wbkd/react-flow/issues/2418
   };
 

@@ -37,6 +37,8 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = def
     initialEdges
   );
 
+  const [flowInstance, setFlowInstance] = useState<ReactFlowInstance|null|undefined>(null);
+
   const [mode, setMode] = useState('dark');
   const theme = mode === 'light' ? lightTheme : darkTheme;
 
@@ -47,8 +49,10 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = def
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
 
-  const onInit = (reactFlowInstance: ReactFlowInstance) =>
+  const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
+    setFlowInstance(reactFlowInstance);
+  }
 
   const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
     const graphElements = [object.id];
@@ -57,6 +61,8 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = def
   const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge) => {
     const graphElements = [object.id];
     console.log("======onEdgeClick", graphElements);
+    const edge = flowInstance?.getEdge(object.id)
+    console.log("clicked edge", edge)
   };
 
   const onConnect = useCallback(
@@ -83,8 +89,6 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = def
         layoutedNodes,
         layoutedEdges
       } = getLayoutedElements(nodes, edges, direction);
-
-      // console.log("layoutedEdges", layoutedEdges);
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
@@ -99,7 +103,6 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = def
     //   edge.type = edgeType;
     // }
     edge.type = canvasSettings.edges.type;
-
     return edge;
   });
 

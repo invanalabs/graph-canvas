@@ -98,7 +98,7 @@ export const getNodeHandles = (edges: CanvasEdge[]) => {
   return [...new Set(nodeHandles)];
 };
 
-export const highlightHandlePath = (
+export const highlightHandlePathByNodeHandleId = (
   nodeId: string,
   handleId: StringOrNull,
   nodes: CanvasNode[],
@@ -168,7 +168,6 @@ export const resetHandlePathHighlight = (nodes: CanvasNode[], edges: CanvasEdge[
       ...edge.style,
       stroke: "#ccc",
       opacity: 1
-
     };
     edge.hidden = false;
     return edge;
