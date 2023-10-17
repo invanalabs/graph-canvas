@@ -29,12 +29,12 @@ const Node: React.FC<NodeProps> = ({
           type="source"
           position={Position.Right}
           id={id}
-          className="handle nodeContainerRightHandle right" />
+          className="handle nodeContainerRightHandle right react-flow__handle" />
         <Handle
           type="target"
           position={Position.Left}
           id={id}
-          className="handle nodeContainerLeftHandle left" />
+          className="handle nodeContainerLeftHandle left react-flow__handle" />
       </div>
       <div className="nodeBody">{content}</div>
     </div>

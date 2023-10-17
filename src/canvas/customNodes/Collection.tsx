@@ -53,7 +53,7 @@ const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
                 type="source"
                 position={Position.Right}
                 id={field.id}
-                className="handle"
+                className="handle react-flow__handle"
                 onConnect={(params) => console.log("handle onConnect", params)}
               />
               <div>
@@ -64,7 +64,7 @@ const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
                 type="target"
                 position={Position.Left}
                 id={field.id}
-                className="handle"
+                className="handle react-flow__handle"
                 onConnect={(params) => console.log("handle onConnect", params)}
               />
             </div>
