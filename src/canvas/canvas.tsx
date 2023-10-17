@@ -15,7 +15,7 @@ import "./styles.scss";
 import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from "./theme";
 import React from "react";
-import { resetHandlePathHighlight } from "./core/highlight-utils";
+import { resetHandlePathHighlight } from "./utils/highlight";
 import CollectionNode from "./customNodes/Collection";
 import DerivedCollectionNode from "./customNodes/DerivedCollection";
 import DataStoreNode from "./customNodes/DataStore";

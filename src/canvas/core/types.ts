@@ -28,3 +28,5 @@ export type FlowCanvasProps = {
     initialNodes: CanvasNode[],
     initialEdges: CanvasEdge[]
 }
+
+export type StringOrNull = string | null | undefined;

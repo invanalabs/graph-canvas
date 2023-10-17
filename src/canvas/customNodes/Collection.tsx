@@ -5,7 +5,7 @@ import { generateFieldName } from "../utils";
 import {
   highlightHandlePath,
   resetHandlePathHighlight
-} from "../core/highlight-utils";
+} from "../utils/highlight";
 import { NodeField, CanvasNodeProps } from "../core/types";
 
 
@@ -16,8 +16,8 @@ const CollectionNode = ({ id, data, selected }: CanvasNodeProps) => {
 
   const MouseOver = (e: React.MouseEvent) => {
     let el = e.currentTarget;
-    const nodeId = el.getAttribute("data-node-id");
-    const handleId = el.getAttribute("data-handle-id");
+    const nodeId: string = el.getAttribute("data-node-id") || "";
+    const handleId: string | null = el.getAttribute("data-handle-id");
     highlightHandlePath(nodeId, handleId, nodes, edges, setNodes, setEdges);
     // https://github.com/wbkd/react-flow/issues/2418
   };
