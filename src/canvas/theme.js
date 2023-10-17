@@ -1,3 +1,5 @@
+// https://reactflow.dev/docs/examples/styling/styled-components/
+
 export const lightTheme = {
   bg: "#fff",
   primary: "#ff0072",

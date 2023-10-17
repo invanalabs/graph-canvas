@@ -1,5 +1,5 @@
-import { type } from "os"
-import { Node } from "reactflow"
+import { Node, Edge } from "reactflow"
+
 
 export type NodeField = {
     id: string,
@@ -14,9 +14,17 @@ export type CanvasNodeData = {
 export type CanvasNode = Node & {
     data: CanvasNodeData
 }
+
+export type CanvasEdge = Edge;
+
 export type CanvasNodeProps = {
     id: string,
     data: CanvasNodeData,
     selected: boolean
 }
 
+export type FlowCanvasProps = {
+    children: React.ReactNode,
+    initialNodes: CanvasNode[],
+    initialEdges: CanvasEdge[]
+}

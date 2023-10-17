@@ -1,5 +1,6 @@
 // Reference https://github.com/wbkd/react-flow/issues/2418
 import { generateFieldName } from "../utils";
+
 const getNextIncomingEdges = (nodeId, handleId, nodes, edges) => {
   const incomingEdges = edges
     .filter((e) => e.target === nodeId && e.targetHandle === handleId)
@@ -140,7 +141,7 @@ export const highlightHandlePath = (
       ? [generateFieldName(nodeId, handleId)]
       : getNodeHandles(toHighlightEdges);
 
-  toHighlightHandleIds.map((handleId) => {
+   toHighlightHandleIds.forEach((handleId) => {
     const el = document.getElementById(handleId);
     el.classList.add("highlight");
     el.classList.remove("inactive");

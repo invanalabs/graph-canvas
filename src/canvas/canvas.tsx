@@ -2,17 +2,13 @@ import { useCallback, useState } from "react";
 import ReactFlow, {
   addEdge,
   MiniMap,
-  // MarkerType,
   Panel,
   Controls,
   Background,
   useNodesState,
   useEdgesState,
   ConnectionLineType,
-  Node,
   ReactFlowInstance,
-  // Edge,
-  // Position,
   ReactFlowProvider
 } from "reactflow";
 import "./styles.scss";
@@ -20,17 +16,13 @@ import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from "./theme";
 import React from "react";
 import { resetHandlePathHighlight } from "./core/highlight-utils";
-// import { ThemeProvider } from "styled-components";
-
-// https://reactflow.dev/docs/examples/styling/styled-components/
-
-import { initialNodes, initialEdges } from "./mock-data";
 import CollectionNode from "./customNodes/Collection";
 import DerivedCollectionNode from "./customNodes/DerivedCollection";
 import DataStoreNode from "./customNodes/DataStore";
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
-// import "./overview.css";
+import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
+
 
 const nodeTypes = {
   Collection: CollectionNode,
@@ -38,44 +30,36 @@ const nodeTypes = {
   DerivedCollection: DerivedCollectionNode
 };
 
-// const minimapStyle = {
-//   height: 140
-// };
 
 
-const onInit = (reactFlowInstance: ReactFlowInstance) =>
-  console.log("flow loaded:", reactFlowInstance);
+const FlowCanvas = ({ children, initialNodes, initialEdges }: FlowCanvasProps) => {
 
-
-
-
-
-
-const { layoutedNodes, layoutedEdges } = getLayoutedElements(
-  initialNodes,
-  initialEdges
-);
-
-console.log("===layoutedNodes", layoutedNodes)
-const FlowCanvas = ({ children }: { children: React.ReactNode }) => {
-
+  const { layoutedNodes, layoutedEdges } = getLayoutedElements(
+    initialNodes,
+    initialEdges
+  );
 
   const [mode, setMode] = useState('dark');
   const theme = mode === 'light' ? lightTheme : darkTheme;
 
   const toggleMode = () => {
-    console.log("toggleMode")
     setMode((m) => (m === 'light' ? 'dark' : 'light'));
   };
-
 
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
 
-  // const onElementClick = (event, object) => {
-  //   const graphElements = [object.id];
-  //   console.log("======onElementClick", graphElements);
-  // };
+  const onInit = (reactFlowInstance: ReactFlowInstance) =>
+  console.log("flow loaded:", reactFlowInstance);
+
+  const onNodeClick = (event: React.MouseEvent, object: CanvasNode ) => {
+    const graphElements = [object.id];
+    console.log("======onNodeClick", graphElements);
+  };
+  const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge ) => {
+    const graphElements = [object.id];
+    console.log("======onEdgeClick", graphElements);
+  };
 
   const onConnect = useCallback(
     (params: any) => setEdges((eds) => addEdge(params, eds)),
@@ -107,9 +91,9 @@ const FlowCanvas = ({ children }: { children: React.ReactNode }) => {
         layoutedEdges
       } = getLayoutedElements(nodes, edges, direction);
 
-      console.log("layoutedEdges", layoutedEdges);
-      setNodes([...nodes]);
-      setEdges([...edges]);
+      // console.log("layoutedEdges", layoutedEdges);
+      setNodes([...layoutedNodes]);
+      setEdges([...layoutedEdges]);
     },
     [nodes, edges]
   );
@@ -157,9 +141,9 @@ const FlowCanvas = ({ children }: { children: React.ReactNode }) => {
   }
 `;
 
-  const ReactFlowStyled = styled(ReactFlow)`
-  background-color: ${(props) => props.theme.bg};
-`;
+// const ReactFlowStyled = styled(ReactFlow)`
+//     background-color: ${(props) => props.theme.bg};
+// `;
   return (
     <ThemeProvider theme={theme}>
       <ReactFlowProvider>
@@ -170,8 +154,8 @@ const FlowCanvas = ({ children }: { children: React.ReactNode }) => {
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           onInit={onInit}
-          // onNodeClick={onElementClick}
-          // onEdgeClick={onElementClick}
+          onNodeClick={onNodeClick}
+          onEdgeClick={onEdgeClick}
           fitView
           attributionPosition="top-right"
           connectionLineType={ConnectionLineType.Bezier}
