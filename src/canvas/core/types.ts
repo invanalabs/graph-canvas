@@ -1,4 +1,4 @@
-import { Node, Edge } from "reactflow"
+import { Node, Edge, ConnectionLineType } from "reactflow"
 
 
 export type NodeField = {
@@ -23,10 +23,30 @@ export type CanvasNodeProps = {
     selected: boolean
 }
 
+export type StringOrNull = string | null | undefined;
+
+export type CanvasEdgeSettings = {
+    type: ConnectionLineType;
+    markerEnd?: object
+    markerStart?: string
+    animated?: boolean
+    style?: object
+}
+
+export type CanvasNodeSettings = {
+    type: string;
+    style?: object
+}
+
+export type CanvasSettingsType = {
+    edges: CanvasEdgeSettings
+    nodes: CanvasNodeSettings
+}
+
 export type FlowCanvasProps = {
     children: React.ReactNode,
     initialNodes: CanvasNode[],
-    initialEdges: CanvasEdge[]
+    initialEdges: CanvasEdge[],
+    canvasSettings: CanvasSettingsType
 }
 
-export type StringOrNull = string | null | undefined;

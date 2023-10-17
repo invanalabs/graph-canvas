@@ -7,7 +7,6 @@ import ReactFlow, {
   Background,
   useNodesState,
   useEdgesState,
-  ConnectionLineType,
   ReactFlowInstance,
   ReactFlowProvider
 } from "reactflow";
@@ -22,6 +21,7 @@ import DataStoreNode from "./customNodes/DataStore";
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
 import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
+import { defaultCanvasSettings } from "./settings";
 
 
 const nodeTypes = {
@@ -31,8 +31,7 @@ const nodeTypes = {
 };
 
 
-
-const FlowCanvas = ({ children, initialNodes, initialEdges }: FlowCanvasProps) => {
+const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings=defaultCanvasSettings }: FlowCanvasProps) => {
 
   const { layoutedNodes, layoutedEdges } = getLayoutedElements(
     initialNodes,
@@ -62,28 +61,23 @@ const FlowCanvas = ({ children, initialNodes, initialEdges }: FlowCanvasProps) =
   };
 
   const onConnect = useCallback(
-    (params: any) => setEdges((eds) => addEdge(params, eds)),
+    /*
+    addEdge(
+      {
+        ...params,
+        // type: ConnectionLineType.Bezier,
+        markerEnd: {
+          type: MarkerType.ArrowClosed
+        }
+        // animated: true
+      },
+      eds
+    );
+    */
+    (params: any) => setEdges((eds) => addEdge({...params, }, eds)),
     []
   );
-
-  // const onConnect = useCallback(
-  //   (params) =>
-  //     setEdges((eds) =>
-  //     addEdge(
-  //       {
-  //         ...params,
-  //         // type: ConnectionLineType.Bezier,
-  //         markerEnd: {
-  //           type: MarkerType.ArrowClosed
-  //         }
-  //         // animated: true
-  //       },
-  //       eds
-  //     );
-  //     ),
-  //   []
-  // );
-
+ 
   const onLayout = useCallback(
     (direction: string) => {
       const {
@@ -105,7 +99,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges }: FlowCanvasProps) =
     //     .selects[edge.sourceHandle];
     //   edge.type = edgeType;
     // }
-    edge.type = ConnectionLineType.Step;
+    edge.type = canvasSettings.edges.type;
 
     return edge;
   });
@@ -158,7 +152,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges }: FlowCanvasProps) =
           onEdgeClick={onEdgeClick}
           fitView
           attributionPosition="top-right"
-          connectionLineType={ConnectionLineType.Bezier}
+          connectionLineType={canvasSettings.edges.type}
           nodeTypes={nodeTypes}
           onNodeMouseLeave={() =>
             resetHandlePathHighlight(
