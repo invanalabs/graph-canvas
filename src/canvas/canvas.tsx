@@ -20,7 +20,7 @@ import NodeWithFields from "./nodeTemplates/NodeWithFields";
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
 import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
-import { defaultCanvasSettings } from "./settings";
+import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 
 
 const nodeTypes = {
@@ -30,7 +30,7 @@ const nodeTypes = {
 };
 
 
-const FlowCanvas = ({ children, initialNodes, initialEdges, style={width: "100%", height:"100vh"}, canvasSettings = defaultCanvasSettings }: FlowCanvasProps) => {
+const FlowCanvas = ({ children, initialNodes, initialEdges, style=defaultCanvasStyle, canvasSettings = defaultCanvasSettings }: FlowCanvasProps) => {
 
   const { layoutedNodes, layoutedEdges } = getLayoutedElements(
     initialNodes,
@@ -142,11 +142,10 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, style={width: "100%"
   // `;
   document.querySelector("html")?.setAttribute("data-canvas-theme", mode);
   return (
-    // <div data-canvas-theme="dark">
+    <div  style={style} >
       <ThemeProvider theme={theme}>
         <ReactFlowProvider>
           <ReactFlow
-          style={style}
             nodes={nodes}
             className="dark-theme"
             edges={edgesWithUpdatedTypes}
@@ -199,7 +198,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, style={width: "100%"
           </ReactFlow>
         </ReactFlowProvider>
       </ThemeProvider>
-    // </div>
+   </div>
   );
 };
 
