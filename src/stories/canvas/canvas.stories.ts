@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import FlowCanvas from '../../canvas/canvas';
-import { initialNodes as erInitialNodes, initialEdges as erInitialEdges  } from "../../example-datasets/er-mock-data";
-import { initialNodes, initialEdges } from '../../example-datasets/simple-hello-world';
+import { initialNodes as erInitialNodes, initialEdges as erInitialEdges  } from "../../example-datasets/raw/er-mock-data";
+import { initialNodes, initialEdges } from '../../example-datasets/raw/simple-hello-world';
 
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

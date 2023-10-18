@@ -1,5 +1,5 @@
 import FlowCanvas  from './canvas/canvas';
-import { initialNodes, initialEdges } from "./example-datasets/er-mock-data";
+import { initialNodes, initialEdges } from "./example-datasets/raw/er-mock-data";
 
 export default function App() {
   return (

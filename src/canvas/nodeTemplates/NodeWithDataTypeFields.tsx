@@ -9,7 +9,7 @@ import {
 import { NodeField, CanvasNodeProps } from "../core/types";
 
 
-const NodeWithFields = ({ id, data, selected }: CanvasNodeProps) => {
+const NodeWithDataTypeFields = ({ id, data, selected }: CanvasNodeProps) => {
   const store = useStoreApi();
   const { edges, getNodes, setNodes, setEdges } = store.getState();
   const nodes = getNodes();
@@ -75,4 +75,4 @@ const NodeWithFields = ({ id, data, selected }: CanvasNodeProps) => {
   );
 };
 
-export default memo(NodeWithFields);
+export default memo(NodeWithDataTypeFields);

@@ -3,7 +3,7 @@ import { MarkerType } from "reactflow";
 export const initialNodes = [
   {
     id: "1.1",
-    type: "DataStore",
+    type: "NodeWithDataTypeFields",
     data: {
       // storeType: "MongoDB",
       label: "MongoDB (1.1)",
@@ -12,34 +12,15 @@ export const initialNodes = [
   },
   {
     id: "1.2",
-    type: "DataStore",
+    type: "NodeWithDataTypeFields",
     data: {
-      // storeType: "FileStorage",
       label: "FileStorage (1.2)",
       fields: [{ label: "myfile.csv", id: "myfile-csv", data_type: "string" }]
     }
   },
-  // {
-  //   id: "1.3",
-  //   type: "DataStore",
-  //   data: {
-  //     // storeType: "MongoDB",
-  //     label: "MongoDB (1.3)",
-  //     fields: [{ label: "crawlerflow", id: "crawlerflow" }]
-  //   }
-  // },
-  // {
-  //   id: "1.3",
-  //   type: "DataStore",
-  //   data: {
-  //     // storeType: "FileStorage",
-  //     label: "FileStorage (1.3)",
-  //     fields: [{ label: "myfile.csv", id: "myfile-csv", data_type: "string" }]
-  //   }
-  // },
   {
     id: "2.1",
-    type: "Collection",
+    type: "NodeWithDataTypeFields",
     data: {
       label: "NSE Data (2.1)",
       fields: [
@@ -54,7 +35,7 @@ export const initialNodes = [
   },
   {
     id: "2.2",
-    type: "Collection",
+    type: "NodeWithDataTypeFields",
     data: {
       label: "Source1 - Candle Data (2.2)",
       fields: [
@@ -63,15 +44,11 @@ export const initialNodes = [
         { label: "description", id: "description", data_type: "string" },
         { label: "is_active", id: "is_active", data_type: "bool" }
       ]
-      // outputs: [
-      //   { label: "Model", type: "data" },
-      //   { label: "Error", type: "value" }
-      // ]
     }
   },
   {
     id: "3.1",
-    type: "DerivedCollection",
+    type: "NodeWithDataTypeFields",
     data: {
       label: "Derived Data (3.1)",
       fields: [
@@ -80,25 +57,17 @@ export const initialNodes = [
         { label: "title", id: "title", data_type: "string" },
         { label: "description", id: "description", data_type: "string" }
       ]
-      // outputs: [
-      //   { label: "Model", type: "data" },
-      //   { label: "Error", type: "value" }
-      // ]
     }
   },
   {
     id: "3.2",
-    type: "DerivedCollection",
+    type: "NodeWithDataTypeFields",
     data: {
       label: "Derived Data (3.2)",
       fields: [
         { label: "identifier", id: "identifier", data_type: "string" },
         { label: "analysed_field", id: "analysed_field", data_type: "integer" }
       ]
-      // outputs: [
-      //   { label: "Model", type: "data" },
-      //   { label: "Error", type: "value" }
-      // ]
     }
   }
 ];
@@ -111,7 +80,7 @@ export const initialEdges = [
     target: "2.1",
     targetHandle: "2.1",
     animated: false,
-    label: "has_collection",
+    label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -124,7 +93,7 @@ export const initialEdges = [
     target: "2.2",
     targetHandle: "2.2",
     animated: false,
-    label: "has_collection",
+    label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -137,7 +106,7 @@ export const initialEdges = [
     target: "3.1",
     targetHandle: "identifier",
     animated: false,
-    // label: "has_collection",
+    // label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -150,7 +119,7 @@ export const initialEdges = [
     target: "3.1",
     targetHandle: "candle",
     animated: false,
-    // label: "has_collection",
+    // label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -163,7 +132,7 @@ export const initialEdges = [
     target: "3.1",
     targetHandle: "title",
     animated: false,
-    // label: "has_collection",
+    // label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -176,7 +145,7 @@ export const initialEdges = [
     target: "3.2",
     targetHandle: "identifier",
     animated: false,
-    // label: "has_collection",
+    // label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -189,7 +158,7 @@ export const initialEdges = [
     target: "3.2",
     targetHandle: "analysed_field",
     animated: false,
-    // label: "has_collection",
+    // label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -202,7 +171,7 @@ export const initialEdges = [
   //   target: "1.1",
   //   targetHandle: "crawlerflow",
   //   animated: false,
-  //   // label: "has_collection",
+  //   // label: "has_NodeWithDataTypeFields",
   //   type: "step",
   //   markerEnd: {
   //     type: MarkerType.ArrowClosed

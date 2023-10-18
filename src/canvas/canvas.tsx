@@ -15,7 +15,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from "./theme";
 import React from "react";
 import { resetHandlePathHighlight } from "./utils/highlight";
-import NodeWithFields from "./nodeTemplates/NodeWithFields";
+import NodeWithDataTypeFields from "./nodeTemplates/NodeWithDataTypeFields";
 
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
@@ -24,7 +24,7 @@ import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 
 
 const nodeTypes = {
-  Collection: NodeWithFields,
+  NodeWithDataTypeFields: NodeWithDataTypeFields,
   // DataStore: DataStoreNode,
   // DerivedCollection: DerivedCollectionNode
 };
