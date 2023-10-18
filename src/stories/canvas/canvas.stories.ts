@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import FlowCanvas from '../../canvas/canvas';
-import { initialNodes, initialEdges } from "../../example-datasets/er-mock-data";
+import { initialNodes as erInitialNodes, initialEdges as erInitialEdges  } from "../../example-datasets/er-mock-data";
+import { initialNodes, initialEdges } from '../../example-datasets/simple-hello-world';
+
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -24,9 +26,16 @@ type Story = StoryObj<typeof meta>;
 
 console.log("[=======initialNodes" , initialNodes)
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
-export const SimpleCanvas: Story = {
+export const SimpleStoryCanvas: Story = {
     args: {
         initialNodes:  initialNodes,
         initialEdges: initialEdges,
     },
+};
+
+export const EntityRelationCanvas: Story = {
+  args: {
+      initialNodes:  erInitialNodes,
+      initialEdges: erInitialEdges,
+  },
 };

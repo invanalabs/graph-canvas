@@ -13,7 +13,7 @@ export type NodeField = {
 export type CanvasNodeData = {
     // data property in the Node 
     label: string
-    fields: NodeField[]
+    fields?: NodeField[]
 }
 
 
