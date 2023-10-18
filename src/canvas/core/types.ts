@@ -50,3 +50,12 @@ export type FlowCanvasProps = {
     canvasSettings: CanvasSettingsType
 }
 
+
+export interface NodeProps {
+    id: string;
+    label: string;
+    selected: boolean;
+    color?: string;
+    content: React.ReactNode;
+  }
+  

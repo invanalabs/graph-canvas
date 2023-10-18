@@ -1,14 +1,7 @@
 import React, { memo } from "react";
 import { Handle, Position } from "reactflow";
+import { NodeProps } from "../core/types";
 
-
-interface NodeProps {
-  id: string;
-  label: string;
-  selected: boolean;
-  color?: string;
-  content: React.ReactNode;
-}
 
 
 const Node: React.FC<NodeProps> = ({

@@ -15,7 +15,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from "./theme";
 import React from "react";
 import { resetHandlePathHighlight } from "./utils/highlight";
-import CollectionNode from "./customNodes/Collection";
+import NodeWithFields from "./nodeTemplates/NodeWithFields";
 
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
@@ -24,7 +24,7 @@ import { defaultCanvasSettings } from "./settings";
 
 
 const nodeTypes = {
-  Collection: CollectionNode,
+  Collection: NodeWithFields,
   // DataStore: DataStoreNode,
   // DerivedCollection: DerivedCollectionNode
 };
@@ -188,7 +188,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = def
               pannable
             />
             <ControlsStyled />
-            <Background color="#aaa" style={{ backgroundColor: theme.bg }} gap={16} />
+            <Background color="#444" style={{ backgroundColor: theme.bg }} gap={16} />
             <Panel position="top-right">
               <button onClick={() => onLayout("TB")}>vertical layout</button>
               <button onClick={() => onLayout("LR")}>horizontal layout</button>
