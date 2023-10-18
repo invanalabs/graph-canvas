@@ -1,16 +1,8 @@
-# graph-canvas
-
-React UI components for creating insightful network graphs.
-
- ![screen](screenshot.png)
-
-## Feature Checking 
- - [x] Draw network graph from JSON data
- - [x] model nodes and edges dynamically from JSON data.
- - [ ] modify display settings of nodes, edges.
- - [ ] View properties of a node/edge in the canvas
- - [ ] log events to track history of positions of elements in graph canvas
- - [ ] freeze positions of graph canvas
+# flow-canvas
 
 
+Typescript library for drawing pretty representations of data flows and stories.
 
+Checkout examples on storybook at https://invana.github.io/flow-canvas/
+
+![alt text](screenshot.png "Title")
