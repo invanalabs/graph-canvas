@@ -8,37 +8,46 @@ import ReactFlow, {
   useNodesState,
   useEdgesState,
   ReactFlowInstance,
-  ReactFlowProvider
+  ReactFlowProvider,
+  useStore
 } from "reactflow";
 import "./styles.scss";
 import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from "./theme";
 import React from "react";
 import { resetHandlePathHighlight } from "./utils/highlight";
-import NodeWithDataTypeFields from "./nodeTemplates/NodeWithDataTypeFields";
-
 import "reactflow/dist/style.css";
 import { getLayoutedElements } from "./core/layouts/dagre";
 import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
 import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
+import { CanvasNodeTemplates } from "./nodeTemplates";
 
 
-const nodeTypes = {
-  NodeWithDataTypeFields: NodeWithDataTypeFields,
-  // DataStore: DataStoreNode,
-  // DerivedCollection: DerivedCollectionNode
-};
+const FlowCanvas = ({ children, initialNodes, initialEdges,
+  style = defaultCanvasStyle,
+  canvasSettings = defaultCanvasSettings,
+  canvasNodeTemplates = CanvasNodeTemplates
+}: FlowCanvasProps) => {
 
 
-const FlowCanvas = ({ children, initialNodes, initialEdges, style=defaultCanvasStyle, canvasSettings = defaultCanvasSettings }: FlowCanvasProps) => {
+  // const getNodeSizeInfo = (nodeId: string) => {
+  //   return useStore((s: any) => {
+  //     const mynode = s.nodeInternals.get(nodeId);
+  //     console.log("==mynode", mynode)
+  //     return {
+  //       width: mynode?.width,
+  //       height: mynode?.height,
+  //     };
+  //   });
+  // }
 
   const { layoutedNodes, layoutedEdges } = getLayoutedElements(
     initialNodes,
-    initialEdges
+    initialEdges,
+    // getNodeSizeInfo
   );
 
-  const [flowInstance, setFlowInstance] = useState<ReactFlowInstance|null|undefined>(null);
-
+  const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
   const [mode, setMode] = useState('dark');
   const theme = mode === 'light' ? lightTheme : darkTheme;
 
@@ -55,12 +64,9 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, style=defaultCanvasS
   }
 
   const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
-    const graphElements = [object.id];
-    console.log("======onNodeClick", graphElements);
+    console.log("======onNodeClick", object.id);
   };
   const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge) => {
-    const graphElements = [object.id];
-    console.log("======onEdgeClick", graphElements);
     const edge = flowInstance?.getEdge(object.id)
     console.log("clicked edge", edge)
   };
@@ -88,7 +94,9 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, style=defaultCanvasS
       const {
         layoutedNodes,
         layoutedEdges
-      } = getLayoutedElements(nodes, edges, direction);
+      } = getLayoutedElements(nodes, edges,
+        //  getNodeSizeInfo,
+         direction);
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
@@ -142,7 +150,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, style=defaultCanvasS
   // `;
   document.querySelector("html")?.setAttribute("data-canvas-theme", mode);
   return (
-    <div  style={style} >
+    <div style={style} >
       <ThemeProvider theme={theme}>
         <ReactFlowProvider>
           <ReactFlow
@@ -158,7 +166,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, style=defaultCanvasS
             fitView
             attributionPosition="top-right"
             connectionLineType={canvasSettings.edges.type}
-            nodeTypes={nodeTypes}
+            nodeTypes={canvasNodeTemplates}
             onNodeMouseLeave={() =>
               resetHandlePathHighlight(
                 nodes,
@@ -198,7 +206,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, style=defaultCanvasS
           </ReactFlow>
         </ReactFlowProvider>
       </ThemeProvider>
-   </div>
+    </div>
   );
 };
 

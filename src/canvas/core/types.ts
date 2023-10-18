@@ -1,4 +1,4 @@
-import { Node, Edge, ConnectionLineType, XYPosition } from "reactflow"
+import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes } from "reactflow"
 import { CSSProperties } from "styled-components";
 
 //https://stackoverflow.com/a/55032655/3448851
@@ -56,7 +56,8 @@ export type FlowCanvasProps = {
     initialNodes: CanvasNode[],
     initialEdges: CanvasEdge[],
     canvasSettings?: CanvasSettingsType,
-    style?: CSSProperties
+    style?: CSSProperties,
+    canvasNodeTemplates?: NodeTypes 
 }
 
 
