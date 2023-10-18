@@ -38,7 +38,7 @@ const NodeWithFields = ({ id, data, selected }: CanvasNodeProps) => {
       color={"Lavender"}
       content={
         <>
-          {data.fields.map((field: NodeField) => (
+          {data.fields && data.fields.map((field: NodeField) => (
             <div
               className="nodeField textLeft io"
               onMouseOver={MouseOver}

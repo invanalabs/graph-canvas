@@ -30,7 +30,7 @@ const nodeTypes = {
 };
 
 
-const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = defaultCanvasSettings }: FlowCanvasProps) => {
+const FlowCanvas = ({ children, initialNodes, initialEdges, style={width: "100%", height:"100vh"}, canvasSettings = defaultCanvasSettings }: FlowCanvasProps) => {
 
   const { layoutedNodes, layoutedEdges } = getLayoutedElements(
     initialNodes,
@@ -146,6 +146,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges, canvasSettings = def
       <ThemeProvider theme={theme}>
         <ReactFlowProvider>
           <ReactFlow
+          style={style}
             nodes={nodes}
             className="dark-theme"
             edges={edgesWithUpdatedTypes}
