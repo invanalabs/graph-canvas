@@ -80,7 +80,7 @@ export const initialEdges = [
     target: "2.1",
     targetHandle: "2.1",
     animated: false,
-    label: "has_NodeWithDataTypeFields",
+    // label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
@@ -93,7 +93,7 @@ export const initialEdges = [
     target: "2.2",
     targetHandle: "2.2",
     animated: false,
-    label: "has_NodeWithDataTypeFields",
+    // label: "has_NodeWithDataTypeFields",
     type: "step",
     markerEnd: {
       type: MarkerType.ArrowClosed
