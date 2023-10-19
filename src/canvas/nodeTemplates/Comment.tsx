@@ -6,7 +6,7 @@ import NodeBase from "./NodeBase";
 //   resetHandlePathHighlight
 // } from "../utils/highlight";
 import { CanvasNodeProps, NodeStyles } from "../core/types";
-
+import RenderedHTML from "../components/renderedHtml";
 
 const nodeStyles: NodeStyles = {
   shape: {
@@ -62,9 +62,8 @@ const Comment = ({ id, data, selected }: CanvasNodeProps) => {
       header={
         <div style={{paddingBottom: "2px"}}><strong>{data.label}</strong></div>
       }
-      // color={"Lavender"}
       body={ <>
-        <div dangerouslySetInnerHTML={{__html: data.commentText || ""}} />
+        <RenderedHTML html={data?.commentText || ""} />
       </>} 
     />
   );

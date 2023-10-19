@@ -15,7 +15,7 @@
     id: "2.2",
     type: "GenericNode",
     data: {
-      label: "Source1 - Candle Data (2.2)",
+      label: "Source1 - Candle Data \n (2.2)",
       properties: {
         "title": "string",
         "identifier": "string",
