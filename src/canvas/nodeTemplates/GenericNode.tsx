@@ -6,14 +6,15 @@ import NodeBase from "./NodeBase";
 //   resetHandlePathHighlight
 // } from "../utils/highlight";
 import { CanvasNodeProps, NodeStyles } from "../core/types";
+import RenderIconOrImgString from "../components/rendereIconOrImgString";
 
 
 const nodeStyles: NodeStyles = {
   shape: {
-    padding: "10px"
+    // padding: "10px"
   },
   header: {
-
+    margin: "5px 0 "
   },
   body: {
  
@@ -42,6 +43,7 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
     // MouseOver(e);
   };
 
+  console.log("=====data.icon", data.icon, typeof data.icon)
   return (
     <NodeBase
       id={id}
@@ -49,7 +51,17 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
       selected={selected}
       nodeStyles={nodeStyles}
       header={
-        <div style={{paddingBottom: "2px"}}><strong>{data.label}</strong></div>
+        <div >
+          {data.icon? 
+          <div className="floatLeft" 
+          style={{  marginLeft: "10px", }}
+           >
+           <RenderIconOrImgString html={data.icon} />
+           </div>
+           : <></>
+          }
+          <div className="floatLeft" style={{ marginLeft: "10px"}} ><strong>{data.label}</strong> </div>
+          </div>
       }
       // color={"Lavender"}
       body={ <>
