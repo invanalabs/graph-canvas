@@ -10,21 +10,25 @@ import { CanvasNodeProps, NodeStyles } from "../core/types";
 
 const nodeStyles: NodeStyles = {
   shape: {
-    backgroundColor: "#ffffcc",
-    border: "1px solid #ffeb3b !important",
-    borderLeft: "5px solid #ffeb3b !important",
-    color: "#222222",
-    padding: "5px 10px"
+    padding: "10px"
   },
   header: {
 
   },
   body: {
  
+  },
+  nodeContainerTargeHandleStyle: {
+    position: "absolute !important",
+    top: "10px !important"
+  },
+  nodeContainerSourceHandleStyle:{
+    position: "absolute !important",
+    top: "10px !important"
   }
 }
 
-const Comment = ({ id, data, selected }: CanvasNodeProps) => {
+const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
   const store = useStoreApi();
   const { edges, getNodes, setNodes, setEdges } = store.getState();
   const nodes = getNodes();
@@ -56,10 +60,9 @@ const Comment = ({ id, data, selected }: CanvasNodeProps) => {
       }
       // color={"Lavender"}
       body={ <>
-        <div dangerouslySetInnerHTML={{__html: data.commentText || ""}} />
       </>} 
     />
   );
 };
 
-export default memo(Comment);
+export default memo(GenericNode);

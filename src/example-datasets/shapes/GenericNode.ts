@@ -2,7 +2,7 @@
 
  const exampleData = [{
     id: "2.1",
-    type: "NodeWithDataTypeFields",
+    type: "GenericNode",
     data: {
       label: "NSE Data (2.1)",
       properties: {
@@ -13,7 +13,7 @@
   },
   {
     id: "2.2",
-    type: "NodeWithDataTypeFields",
+    type: "GenericNode",
     data: {
       label: "Source1 - Candle Data (2.2)",
       properties: {
