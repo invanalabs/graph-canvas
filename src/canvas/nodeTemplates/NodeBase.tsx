@@ -1,23 +1,22 @@
 import React, { memo } from "react";
 import { Handle, Position } from "reactflow";
-import { NodeProps } from "../core/types";
+import { NodeBaseProps } from "../core/types";
 
 
 
-const NodeBase: React.FC<NodeProps> = ({
+const NodeBase: React.FC<NodeBaseProps> = ({
   id,
   label,
   selected,
-  color,
-  content
-}: NodeProps) => {
-  let customTitle: { backgroundColor: string } = { backgroundColor: "#ccc" };
-  if (color) customTitle.backgroundColor = color;
+  style,
+  header,
+  body
+}: NodeBaseProps) => {
 
   return (
-    <div className={"customNode " + (selected ? "selected" : "")}  >
+    <div className={"customNode " + (selected ? "selected" : "")} style={style}  >
       <div className="nodeHeader">
-        <div className={"nodeName"} style={customTitle}>{label}</div>
+        {header}
         <Handle
           type="source"
           position={Position.Right}
@@ -29,7 +28,7 @@ const NodeBase: React.FC<NodeProps> = ({
           id={id}
           className="handle nodeContainerLeftHandle left react-flow__handle" />
       </div>
-      <div className="nodeBody">{content}</div>
+      <div className="nodeBody">{body}</div>
     </div>
   );
 };

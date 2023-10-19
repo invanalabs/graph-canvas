@@ -14,6 +14,7 @@ export type CanvasNodeData = {
     // data property in the Node 
     label: string
     fields?: NodeField[]
+    commentText?: string // TODO - move this to seperate CommentNode type 
 }
 
 
@@ -61,11 +62,12 @@ export type FlowCanvasProps = {
 }
 
 
-export interface NodeProps {
+export interface NodeBaseProps {
     id: string;
     label: string;
     selected: boolean;
-    color?: string;
-    content: React.ReactNode;
+    style?: CSSProperties;
+    header? : React.ReactNode;
+    body?: React.ReactNode;
   }
   

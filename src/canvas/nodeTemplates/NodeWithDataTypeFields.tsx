@@ -35,8 +35,10 @@ const NodeWithDataTypeFields = ({ id, data, selected }: CanvasNodeProps) => {
       id={id}
       label={data.label}
       selected={selected}
-      color={"Lavender"}
-      content={
+      header={
+        <div className={"nodeName"} style={{ backgroundColor: "#ccc" }}>{data.label}</div>
+      }
+      body={
         <>
           {data.fields && data.fields.map((field: NodeField) => (
             <div
