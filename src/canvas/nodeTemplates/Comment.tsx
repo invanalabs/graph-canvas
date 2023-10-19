@@ -11,8 +11,8 @@ import { CanvasNodeProps, NodeStyles } from "../core/types";
 const nodeStyles: NodeStyles = {
   shape: {
     backgroundColor: "#ffffcc",
-    border: "1px solid #ffeb3b !important",
-    borderLeft: "5px solid #ffeb3b !important",
+    // border: "1px solid #ffeb3b",
+    borderLeft: "5px solid #ffeb3b",
     color: "#222222",
     padding: "5px 10px"
   },
@@ -21,6 +21,14 @@ const nodeStyles: NodeStyles = {
   },
   body: {
  
+  },
+  nodeContainerTargeHandleStyle: {
+    position: "absolute",
+    top: "10px"
+  },
+  nodeContainerSourceHandleStyle:{
+    position: "absolute",
+    top: "10px"
   }
 }
 

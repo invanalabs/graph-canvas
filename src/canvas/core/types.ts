@@ -1,4 +1,5 @@
 import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes } from "reactflow"
+import { CSSProperties } from "styled-components";
 
 //https://stackoverflow.com/a/55032655/3448851
 // Example usage : Modify<Node, { a: string}> // to override `a` data type
@@ -16,7 +17,9 @@ export type CanvasNodeData = {
     commentText?: string // TODO - move this to seperate CommentNode type 
     properties?: object
 }
-
+// export type MyCustomCSS=  Modify<React.CSSProperties,   {
+//     'absolute': string;
+//   }>
 export type NodeStyles  = {
     shape: React.CSSProperties,
     header: React.CSSProperties,
@@ -24,6 +27,8 @@ export type NodeStyles  = {
     nodeContainerTargeHandleStyle?: React.CSSProperties,
     nodeContainerSourceHandleStyle?: React.CSSProperties
 }
+
+
 
 export type CanvasNode = Modify<Node, {
     data: CanvasNodeData

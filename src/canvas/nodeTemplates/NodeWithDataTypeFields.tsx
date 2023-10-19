@@ -6,8 +6,28 @@ import {
   highlightHandlePathByNodeHandleId,
   resetHandlePathHighlight
 } from "../utils/highlight";
-import { NodeField, CanvasNodeProps } from "../core/types";
+import { NodeField, CanvasNodeProps, NodeStyles } from "../core/types";
 
+
+const nodeStyles: NodeStyles ={
+  shape: {
+    // padding: "10px"
+  },
+  header: {
+
+  },
+  body: {
+ 
+  },
+  nodeContainerTargeHandleStyle: {
+    position: "absolute",
+    top: "10px"
+  },
+  nodeContainerSourceHandleStyle:{
+    position: "absolute",
+    top: "10px"
+  }
+}
 
 const NodeWithDataTypeFields = ({ id, data, selected }: CanvasNodeProps) => {
   const store = useStoreApi();
@@ -35,6 +55,7 @@ const NodeWithDataTypeFields = ({ id, data, selected }: CanvasNodeProps) => {
       id={id}
       label={data.label}
       selected={selected}
+      nodeStyles={nodeStyles}
       header={
         <div className={"nodeName"} style={{ backgroundColor: "#ccc" }}>{data.label}</div>
       }

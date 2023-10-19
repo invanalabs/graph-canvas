@@ -18,14 +18,7 @@ const nodeStyles: NodeStyles = {
   body: {
  
   },
-  nodeContainerTargeHandleStyle: {
-    position: "absolute !important",
-    top: "10px !important"
-  },
-  nodeContainerSourceHandleStyle:{
-    position: "absolute !important",
-    top: "10px !important"
-  }
+
 }
 
 const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
