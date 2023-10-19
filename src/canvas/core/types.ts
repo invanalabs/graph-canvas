@@ -1,5 +1,5 @@
+import React from "react";
 import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes } from "reactflow"
-import { CSSProperties } from "styled-components";
 
 //https://stackoverflow.com/a/55032655/3448851
 // Example usage : Modify<Node, { a: string}> // to override `a` data type
@@ -14,6 +14,7 @@ export type CanvasNodeData = {
     // data property in the Node 
     label: string
     fields?: NodeField[]
+    icon?: any, 
     commentText?: string // TODO - move this to seperate CommentNode type 
     properties?: object
 }

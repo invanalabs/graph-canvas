@@ -1,5 +1,5 @@
 import NodeWithDataTypeFields from "./NodeWithDataTypeFields";
-import Comment from "./Comment";
+import Comment from "./Comment/Comment";
 import GenericNode from "./GenericNode";
 
 export const CanvasNodeTemplates = {
