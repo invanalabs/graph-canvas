@@ -22,12 +22,12 @@ const NodeBase: React.FC<NodeBaseProps> = ({
   return (
     <div className={"customNode " + (selected ? "selected" : "")} style={nodeStyles?.shape || {}}  >
       <div className="nodeHeader" style={nodeStyles?.header || {}}>
-        {header}
         <Handle
           type="source"
           position={Position.Right}
           id={id}
           className="handle right react-flow__handle" style={nodeStyles?.nodeContainerTargeHandleStyle || {}} />
+        {header}
         <Handle
           type="target"
           position={Position.Left}
