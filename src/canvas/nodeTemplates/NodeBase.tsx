@@ -12,7 +12,7 @@ const NodeBase: React.FC<NodeBaseProps> = ({
   header,
   body
 }: NodeBaseProps) => {
-
+  console.log("====style", style)
   return (
     <div className={"customNode " + (selected ? "selected" : "")} style={style}  >
       <div className="nodeHeader">

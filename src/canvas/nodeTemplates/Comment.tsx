@@ -12,7 +12,7 @@ const styles = {
   shape: {
     backgroundColor: "#ffffcc",
     border: "1px solid #ffeb3b !important",
-    borderLeftWidth: "4px !important",
+    borderLeft: "5px solid #ffeb3b !important",
     color: "#222222",
     padding: "5px 10px"
   },
@@ -52,7 +52,7 @@ const Comment = ({ id, data, selected }: CanvasNodeProps) => {
       selected={selected}
       style={styles.shape}
       header={
-        <div>{data.label}</div>
+        <div style={{paddingBottom: "2px"}}><strong>{data.label}</strong></div>
       }
       // color={"Lavender"}
       body={ <>

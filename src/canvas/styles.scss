@@ -85,8 +85,8 @@
     .customNode {
       display: flex;
       flex-direction: column;
-      border-top: 3px solid var(--canvas-border) !important;
-      border: 1px solid var(--canvas-border) !important;
+      // border-top: 3px solid var(--canvas-border) !important;
+      // border: 1px solid var(--canvas-border) !important;
 
       transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       /* // boxShadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
@@ -105,7 +105,7 @@
 
 
       .nodeHeader {
-        border-bottom: 1px solid var(--canvas-border);
+        // border-bottom: 1px solid var(--canvas-border);
 
         .nodeName {
           position: relative;
