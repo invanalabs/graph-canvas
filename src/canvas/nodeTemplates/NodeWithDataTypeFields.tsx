@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { Handle, Position, useStoreApi } from "reactflow";
-import Node from "./Node";
+import NodeBase from "./NodeBase";
 import { generateFieldName } from "../utils";
 import {
   highlightHandlePathByNodeHandleId,
@@ -31,7 +31,7 @@ const NodeWithDataTypeFields = ({ id, data, selected }: CanvasNodeProps) => {
   };
 
   return (
-    <Node
+    <NodeBase
       id={id}
       label={data.label}
       selected={selected}

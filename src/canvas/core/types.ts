@@ -54,7 +54,7 @@ export type CanvasSettingsType = {
 export type FlowCanvasProps = {
     children?: React.ReactNode,
     initialNodes: CanvasNode[],
-    initialEdges: CanvasEdge[],
+    initialEdges?: CanvasEdge[],
     canvasSettings?: CanvasSettingsType,
     style?: CSSProperties,
     canvasNodeTemplates?: NodeTypes 

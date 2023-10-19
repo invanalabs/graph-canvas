@@ -4,7 +4,7 @@ import { NodeProps } from "../core/types";
 
 
 
-const Node: React.FC<NodeProps> = ({
+const NodeBase: React.FC<NodeProps> = ({
   id,
   label,
   selected,
@@ -34,4 +34,4 @@ const Node: React.FC<NodeProps> = ({
   );
 };
 
-export default memo(Node);
+export default memo(NodeBase);

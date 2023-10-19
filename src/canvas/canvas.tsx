@@ -23,7 +23,7 @@ import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 import { CanvasNodeTemplates } from "./nodeTemplates";
 
 
-const FlowCanvas = ({ children, initialNodes, initialEdges,
+const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates
