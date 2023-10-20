@@ -13,6 +13,9 @@
 
   --canvas-node-field-hightlight-bg:rgb(86, 101, 105);
   --canvas-node-field-hightlight-text: #fff;
+
+  --canvas-node-shadow:  rgb(51 51 51 / 70%);
+
 }
 
 [data-canvas-theme="light"] {
@@ -30,6 +33,9 @@
 
   --canvas-node-field-hightlight-bg: rgb(86, 101, 105);
   --canvas-node-field-hightlight-text: #fff;
+
+  --canvas-node-shadow:  rgb(232 232 232 / 70%);
+
 }
 
 
@@ -74,17 +80,28 @@
     box-shadow: none !important;
     border: none;
 
+
+
     .react-flow__handle {
-      width: 1px !important;
-      height: 1px !important;
+      width: 0px !important;
+      height: 0px !important;
       margin: auto;
       border: none !important;
       background: var(--canvas-handle-color) !important;
       // border-radius: 2px !important;
-      border: 1px solid #ddd !important;
+      // border: 1px solid #ddd !important;
       /* box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px; */
+      // display: none !important;
+      border-radius: 0 !important;
+
     }
 
+
+    // .show-handles{
+    //   .react-flow__handle{
+    //     border-color: red;
+    //   }
+    // }
 
     .customNode {
       display: flex;
@@ -112,6 +129,12 @@
       }
       .floatRight{
         float: right;
+      }
+
+
+
+      .node-shadow{
+        box-shadow: 2px 4px 0px 1px var(--canvas-node-shadow) !important;
       }
 
 

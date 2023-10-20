@@ -13,7 +13,9 @@ const nodeStyles: NodeStyles ={
   shape: {
     border: "1px solid var(--canvas-border)",
     borderTop:  "2px solid var(--canvas-border)",
-    borderRadius: "3px"
+    borderRadius: "3px",
+    boxShadow: "2px 4px 0px 1px var(--canvas-node-shadow)"
+
   },
   header: {
 

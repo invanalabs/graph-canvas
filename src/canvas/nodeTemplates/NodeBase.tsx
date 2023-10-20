@@ -3,7 +3,6 @@ import { Handle, Position } from "reactflow";
 import { NodeBaseProps } from "../core/types";
 
 
-
 const NodeBase: React.FC<NodeBaseProps> = ({
   id,
   label,
@@ -12,13 +11,7 @@ const NodeBase: React.FC<NodeBaseProps> = ({
   header,
   body
 }: NodeBaseProps) => {
-  console.log("====style", nodeStyles)
-
-  // nodeContainerTargeHandleStyle={styles.nodeContainerTargeHandleStyle}
-  // nodeContainerSourceHandleStyle={styles.nodeContainerSourceHandleStyle}
-
-
-
+ 
   return (
     <div className={"customNode " + (selected ? "selected" : "")} style={nodeStyles?.shape || {}}  >
       <div className="nodeHeader" style={nodeStyles?.header || {}}>
