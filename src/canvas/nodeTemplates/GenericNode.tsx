@@ -14,7 +14,6 @@ const nodeStyles: NodeStyles = {
     // padding: "10px"
   },
   header: {
-    margin: "5px 0 "
   },
   body: {
  
@@ -54,13 +53,13 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
         <div >
           {data.icon? 
           <div className="floatLeft" 
-          style={{  marginLeft: "10px", }}
+          style={{   }}
            >
            <RenderIconOrImgString html={data.icon} />
            </div>
            : <></>
           }
-          <div className="floatLeft" style={{ marginLeft: "10px"}} ><strong>{data.label}</strong> </div>
+          <div className="floatLeft" style={{     margin: "5px 0 ",  marginLeft: "10px",}} ><strong>{data.label}</strong> </div>
           </div>
       }
       // color={"Lavender"}
