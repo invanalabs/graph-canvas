@@ -20,21 +20,25 @@ function calcNodeHeight(node: CanvasNode) {
 }
 
 
-export const getLayoutedElements = (nodes: any[], edges: any[], direction: string = "LR") => {
+export const getLayoutedElements = (nodes: any[], edges: any[], flowInstance: any= null,  direction: string = "LR") => {
     // https://v9.reactflow.dev/examples/layouting/
     // In order to keep this example simple the node width and height are hardcoded.
     // In a real world app you would use the correct width and height values of
     // const nodes = useStoreState(state => state.nodes) and then node.__rf.width, node.__rf.height
 
-
+    console.log("getLayoutedElements", flowInstance)
     const isHorizontal = direction === "LR";
     dagreGraph.setGraph({ rankdir: direction });
 
     nodes.forEach((node: CanvasNode) => {
-        // console.log("node.id", node);
+        // console.log("node.id", node.id, flowInstance, flowInstance?.getNode(node.id));
+
+        const nodeSizeInfo = flowInstance ? flowInstance.getNode(node.id)  :{}
+        // console.log("=====nodeSizeInfo.__rf", nodeSizeInfo?.width, nodeSizeInfo?.height)
+        // console.log("==========nodeSizeInfo", nodeSizeInfo)
         dagreGraph.setNode(node.id, {
-            width: defaultNodeWidth,
-            height: calcNodeHeight(node)
+            width: nodeSizeInfo?.width || defaultNodeWidth,
+            height: nodeSizeInfo?.height ||  calcNodeHeight(node)
         });
     });
 
@@ -54,8 +58,8 @@ export const getLayoutedElements = (nodes: any[], edges: any[], direction: strin
         // We are shifting the dagre node position (anchor=center center) to the top left
         // so it matches the React Flow node anchor point (top left).
         node.position = {
-            x: nodeWithPosition.x - defaultNodeWidth / 2,
-            y: nodeWithPosition.y - calcNodeHeight(node) / 2
+            x: nodeWithPosition.x - nodeWithPosition.width / 2,
+            y: nodeWithPosition.y - nodeWithPosition.height / 2
         };
 
         return node;
