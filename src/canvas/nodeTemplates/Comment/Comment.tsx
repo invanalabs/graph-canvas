@@ -17,7 +17,8 @@ const nodeStyles: NodeStyles = {
     // border: "1px solid #ffeb3b",
     borderLeft: "5px solid #ffeb3b",
     color: "#222222",
-    padding: "5px 10px"
+    padding: "5px 10px",
+    boxShadow: "0 4px 6px -1px rgb(0 0 0 / 15%), 0 2px 4px -1px rgb(0 0 0 / 8%);"
   },
   header: {
 

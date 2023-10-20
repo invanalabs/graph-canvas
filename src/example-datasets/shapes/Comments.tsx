@@ -15,7 +15,7 @@
     data: {
       label: "Comment 2",
       // icon: <StickNotes />,
-      commentText: "<strong>Hello World !</strong> this is yet another attempt to create beautiful visualisations"
+      commentText: "<strong>Hello World !</strong> this is yet another attempt to create beautiful visualisations.  This is also just a node 🥳"
     }
   }];
 
