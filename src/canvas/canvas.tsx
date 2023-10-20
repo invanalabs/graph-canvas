@@ -61,6 +61,8 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
     setFlowInstance(reactFlowInstance);
+    reactFlowInstance.zoomTo(1);
+    reactFlowInstance.fitView();
   }
 
   const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
