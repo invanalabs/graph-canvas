@@ -16,7 +16,7 @@ const nodeStyles: NodeStyles = {
   header: {
   },
   body: {
- 
+
   },
 
 }
@@ -27,11 +27,11 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
   const nodes = getNodes();
 
   const MouseOver = (e: React.MouseEvent) => {
-//     let el = e.currentTarget;
-//     const nodeId: string = el.getAttribute("data-node-id") || "";
-//     const handleId: string | null = el.getAttribute("data-handle-id");
-//     highlightHandlePathByNodeHandleId(nodeId, handleId, nodes, edges, setNodes, setEdges);
-//     // https://github.com/wbkd/react-flow/issues/2418
+    //     let el = e.currentTarget;
+    //     const nodeId: string = el.getAttribute("data-node-id") || "";
+    //     const handleId: string | null = el.getAttribute("data-handle-id");
+    //     highlightHandlePathByNodeHandleId(nodeId, handleId, nodes, edges, setNodes, setEdges);
+    //     // https://github.com/wbkd/react-flow/issues/2418
   };
 
   const MouseOut = (e: React.MouseEvent) => {
@@ -51,20 +51,16 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
       nodeStyles={nodeStyles}
       header={
         <div >
-          {data.icon? 
-          <div className="floatLeft" 
-          style={{   }}
-           >
-           <RenderIconOrImgString html={data.icon} />
-           </div>
-           : <></>
+          {data.icon ?
+            <div className="floatLeft"><RenderIconOrImgString html={data.icon} /></div>
+            : <></>
           }
-          <div className="floatLeft" style={{     margin: "5px 0 ",  marginLeft: "10px",}} ><strong>{data.label}</strong> </div>
-          </div>
+          <div className="floatLeft" style={{ margin: "5px 0 ", marginLeft: "10px", }} ><strong>{data.label}</strong> </div>
+        </div>
       }
       // color={"Lavender"}
-      body={ <>
-      </>} 
+      body={<>
+      </>}
     />
   );
 };
