@@ -15,6 +15,7 @@ export type CanvasNodeData = {
     label: string
     fields?: NodeField[]
     icon?: any, 
+    body?: any,
     commentText?: string // TODO - move this to seperate CommentNode type 
     properties?: object
 }
