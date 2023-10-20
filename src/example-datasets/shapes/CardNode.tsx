@@ -12,6 +12,9 @@ import {BsFillBuildingsFill} from "react-icons/bs";
 <input type='text'>      
 <button>submit</button>
       `
+    },
+    style:{
+      width: "400px"
     }
   },
   {

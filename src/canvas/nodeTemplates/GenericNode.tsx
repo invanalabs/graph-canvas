@@ -11,7 +11,9 @@ import RenderIconOrImgString from "../components/rendereIconOrImgString";
 
 const nodeStyles: NodeStyles = {
   shape: {
-    // padding: "10px"
+   border: "1px solid var(--canvas-border)",
+   borderTop:  "2px solid var(--canvas-border)",
+   borderRadius: "3px"
   },
   header: {
   },
@@ -55,7 +57,7 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
             <div className="floatLeft"><RenderIconOrImgString html={data.icon} /></div>
             : <></>
           }
-          <div className="floatLeft" style={{ margin: "5px 0 ", marginLeft: "10px", }} ><strong>{data.label}</strong> </div>
+          <div className="floatLeft" style={{ margin: "5px 10px ", }} ><strong>{data.label}</strong> </div>
         </div>
       }
       // color={"Lavender"}

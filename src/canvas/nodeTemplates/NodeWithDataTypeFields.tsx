@@ -11,7 +11,9 @@ import { NodeField, CanvasNodeProps, NodeStyles } from "../core/types";
 
 const nodeStyles: NodeStyles ={
   shape: {
-    // padding: "10px"
+    border: "1px solid var(--canvas-border)",
+    borderTop:  "2px solid var(--canvas-border)",
+    borderRadius: "3px"
   },
   header: {
 
