@@ -14,6 +14,13 @@ export const initialNodes = [
         data: {
             label: "flow-canvas"
         }
+    },
+    {
+        id: "1.3",
+        type: "DataStore",
+        data: {
+            label: "python"
+        }
     }
 ]
 
@@ -24,7 +31,18 @@ export const initialEdges = [
         target: "1.2",
         animated: false,
         label: "authored",
-        type: "straight",
+        type: "default",
+        markerEnd: {
+            type: MarkerType.ArrowClosed
+        }
+    },
+    {
+        id: "e0-2",
+        source: "1.1",
+        target: "1.3",
+        animated: false,
+        label: "loves",
+        type: "default",
         markerEnd: {
             type: MarkerType.ArrowClosed
         }
