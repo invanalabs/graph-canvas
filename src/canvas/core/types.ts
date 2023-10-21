@@ -1,5 +1,5 @@
 import React from "react";
-import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes } from "reactflow"
+import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes, EdgeTypes } from "reactflow"
 
 //https://stackoverflow.com/a/55032655/3448851
 // Example usage : Modify<Node, { a: string}> // to override `a` data type
@@ -72,7 +72,8 @@ export type FlowCanvasProps = {
     initialEdges?: CanvasEdge[],
     canvasSettings?: CanvasSettingsType,
     style?: React.CSSProperties,
-    canvasNodeTemplates?: NodeTypes 
+    canvasNodeTemplates?: NodeTypes,
+    canvasEdgeTemplates?: EdgeTypes 
 }
 
 

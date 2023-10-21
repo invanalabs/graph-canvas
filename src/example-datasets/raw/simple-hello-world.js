@@ -46,5 +46,16 @@ export const initialEdges = [
         markerEnd: {
             type: MarkerType.ArrowClosed
         }
+    },
+    {
+        id: "e0-3",
+        source: "1.1",
+        target: "1.1",
+        animated: false,
+        label: "is",
+        type: "default",
+        markerEnd: {
+            type: MarkerType.ArrowClosed
+        }
     }
 ]

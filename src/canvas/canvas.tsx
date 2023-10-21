@@ -22,12 +22,14 @@ import { getLayoutedElements } from "./core/layouts/dagre";
 import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
 import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 import { CanvasNodeTemplates } from "./nodeTemplates";
+import { CanvasEdgeTemplates } from "./edgeTemplates";
 
 
 const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
-  canvasNodeTemplates = CanvasNodeTemplates
+  canvasNodeTemplates = CanvasNodeTemplates,
+  canvasEdgeTemplates= CanvasEdgeTemplates
 }: FlowCanvasProps) => {
 
 
@@ -128,6 +130,9 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
     //   edge.type = edgeType;
     // }
     // edge.type = canvasSettings.edges.type;
+    if(edge.source === edge.target){
+      edge.type = "SelfConnectingEdge"
+    }
     return edge;
   });
 
@@ -185,6 +190,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
             attributionPosition="top-right"
             // connectionLineType={canvasSettings.edges.type}
             nodeTypes={canvasNodeTemplates}
+            edgeTypes={canvasEdgeTemplates}
             onNodeMouseLeave={() =>
               resetHandlePathHighlight(
                 nodes,
