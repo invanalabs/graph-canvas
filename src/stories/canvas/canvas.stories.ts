@@ -24,7 +24,7 @@ const meta = {
   export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const AllDataCanvas: Story = {
+export const MixedDataCanvas: Story = {
   args: {
       initialNodes:  allNodesInitialNodes,
       initialEdges: allEdgesInitialEdges,
