@@ -7,10 +7,15 @@
   --canvas-node-selected-border: #6aadeb;
   --canvas-border: #4d4d4d;
 
+  --canavas-header-bg: #212121;
+
   --canvas-handle-color: #8a8a8a;
 
   --canvas-node-field-hightlight-bg:rgb(86, 101, 105);
   --canvas-node-field-hightlight-text: #fff;
+
+  --canvas-node-shadow:  rgb(51 51 51 / 70%);
+
 }
 
 [data-canvas-theme="light"] {
@@ -22,10 +27,15 @@
   --canvas-node-selected-border: #6aadeb;
   --canvas-border: #cacaca;
 
+  --canavas-header-bg: #cfcfcf;
+
   --canvas-handle-color: #ccc;
 
   --canvas-node-field-hightlight-bg: rgb(86, 101, 105);
   --canvas-node-field-hightlight-text: #fff;
+
+  --canvas-node-shadow:  rgb(232 232 232 / 70%);
+
 }
 
 
@@ -66,32 +76,45 @@
   .react-flow__node {
     background-color: var(--canvas-node-bg) !important;
     color: var(--canvas-node-text) !important;
-    border: 1px solid var(--canvas-border) !important;
     border-radius: 2px;
-    border-top: 3px solid var(--canvas-border) !important;
     box-shadow: none !important;
+    border: none;
+
+
 
     .react-flow__handle {
-      width: 1px !important;
-      height: 1px !important;
+      width: 0px !important;
+      height: 0px !important;
       margin: auto;
       border: none !important;
       background: var(--canvas-handle-color) !important;
       // border-radius: 2px !important;
-      border: 1px solid #ddd !important;
+      // border: 1px solid #ddd !important;
       /* box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px; */
+      // display: none !important;
+      border-radius: 0 !important;
+
     }
 
+
+    // .show-handles{
+    //   .react-flow__handle{
+    //     border-color: red;
+    //   }
+    // }
 
     .customNode {
       display: flex;
       flex-direction: column;
+      // border-top: 3px solid var(--canvas-border) !important;
+      // border: 1px solid var(--canvas-border) !important;
 
       transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
       /* // boxShadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); */
       // border: 1px solid #bbb;
       font-size: 12px;
-      width: 180px;
+      // width: 180px;
+      background-color: var(--canvas-node-bg);
 
       // .left {
       //   left: -8px
@@ -101,9 +124,22 @@
       //   right: -8px
       // }
 
+      .floatLeft{
+        float: left;
+      }
+      .floatRight{
+        float: right;
+      }
+
+
+
+      // .node-shadow{
+      //   box-shadow: 2px 4px 0px 1px var(--canvas-node-shadow) !important;
+      // }
+
 
       .nodeHeader {
-        border-bottom: 1px solid var(--canvas-border);
+        // border-bottom: 1px solid var(--canvas-border);
 
         .nodeName {
           position: relative;

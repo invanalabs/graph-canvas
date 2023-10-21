@@ -9,6 +9,7 @@ import ReactFlow, {
   useEdgesState,
   ReactFlowInstance,
   ReactFlowProvider,
+  applyEdgeChanges, applyNodeChanges, NodeChange, EdgeChange
   // useStore
 } from "reactflow";
 import "./styles.scss";
@@ -23,7 +24,7 @@ import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 import { CanvasNodeTemplates } from "./nodeTemplates";
 
 
-const FlowCanvas = ({ children, initialNodes, initialEdges,
+const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates
@@ -40,14 +41,14 @@ const FlowCanvas = ({ children, initialNodes, initialEdges,
   //     };
   //   });
   // }
+  const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
 
   const { layoutedNodes, layoutedEdges } = getLayoutedElements(
     initialNodes,
     initialEdges,
-    // getNodeSizeInfo
+    flowInstance
   );
-
-  const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
+  
   const [mode, setMode] = useState('dark');
   const theme = mode === 'light' ? lightTheme : darkTheme;
 
@@ -55,12 +56,29 @@ const FlowCanvas = ({ children, initialNodes, initialEdges,
     setMode((m) => (m === 'light' ? 'dark' : 'light'));
   };
 
-  const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
+  // const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
+  // const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
+
+  const [nodes, setNodes] = useNodesState(layoutedNodes);
+  const [edges, setEdges] = useEdgesState(layoutedEdges);
+
+  const [direction, setDirection] = useState("LR");
+
+  const onNodesChange = useCallback(
+    (changes: NodeChange[]) => setNodes((nds) =>  applyNodeChanges(changes, nds) ),
+    [setNodes]
+  );
+  const onEdgesChange = useCallback(
+    (changes: EdgeChange[]) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+    [setEdges]
+  );
 
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
     setFlowInstance(reactFlowInstance);
+    reactFlowInstance.zoomTo(1);
+    reactFlowInstance.fitView();
+    onLayout(direction)
   }
 
   const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
@@ -90,13 +108,12 @@ const FlowCanvas = ({ children, initialNodes, initialEdges,
   );
 
   const onLayout = useCallback(
+    
     (direction: string) => {
       const {
         layoutedNodes,
         layoutedEdges
-      } = getLayoutedElements(nodes, edges,
-        //  getNodeSizeInfo,
-         direction);
+      } = getLayoutedElements(nodes, edges, flowInstance,  direction);
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },

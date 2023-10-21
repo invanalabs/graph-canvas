@@ -1,13 +1,37 @@
 import React, { memo } from "react";
 import { Handle, Position, useStoreApi } from "reactflow";
-import Node from "./Node";
+import NodeBase from "./NodeBase";
 import { generateFieldName } from "../utils";
 import {
   highlightHandlePathByNodeHandleId,
   resetHandlePathHighlight
 } from "../utils/highlight";
-import { NodeField, CanvasNodeProps } from "../core/types";
+import { NodeField, CanvasNodeProps, NodeStyles } from "../core/types";
 
+
+const nodeStyles: NodeStyles ={
+  shape: {
+    border: "1px solid var(--canvas-border)",
+    borderTop:  "2px solid var(--canvas-border)",
+    borderRadius: "3px",
+    boxShadow: "2px 4px 0px 1px var(--canvas-node-shadow)"
+
+  },
+  header: {
+
+  },
+  body: {
+ 
+  },
+  nodeContainerTargeHandleStyle: {
+    position: "absolute",
+    top: "10px"
+  },
+  nodeContainerSourceHandleStyle:{
+    position: "absolute",
+    top: "10px"
+  }
+}
 
 const NodeWithDataTypeFields = ({ id, data, selected }: CanvasNodeProps) => {
   const store = useStoreApi();
@@ -31,12 +55,15 @@ const NodeWithDataTypeFields = ({ id, data, selected }: CanvasNodeProps) => {
   };
 
   return (
-    <Node
+    <NodeBase
       id={id}
       label={data.label}
       selected={selected}
-      color={"Lavender"}
-      content={
+      nodeStyles={nodeStyles}
+      header={
+        <div className={"nodeName"} style={{ backgroundColor: "#ccc" }}>{data.label}</div>
+      }
+      body={
         <>
           {data.fields && data.fields.map((field: NodeField) => (
             <div
