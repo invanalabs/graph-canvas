@@ -127,7 +127,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
     //     .selects[edge.sourceHandle];
     //   edge.type = edgeType;
     // }
-    edge.type = canvasSettings.edges.type;
+    // edge.type = canvasSettings.edges.type;
     return edge;
   });
 
@@ -181,6 +181,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
             onNodeClick={onNodeClick}
             onEdgeClick={onEdgeClick}
             fitView
+            minZoom={0.2}
             attributionPosition="top-right"
             // connectionLineType={canvasSettings.edges.type}
             nodeTypes={canvasNodeTemplates}

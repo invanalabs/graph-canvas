@@ -4,7 +4,10 @@ import { initialNodes as erInitialNodes, initialEdges as erInitialEdges  } from 
 import { initialNodes, initialEdges } from '../../example-datasets/raw/simple-hello-world';
 import { initialNodes as allNodesInitialNodes, initialEdges as allEdgesInitialEdges  } from "../../example-datasets/raw/all-nodes";
 import { initialNodes as allNodesInitialNodes2, initialEdges as allEdgesInitialEdges2  } from "../../example-datasets/raw/all-nodes-2";
+import {getNodesAndEdges,   } from "../../example-datasets/raw/large-data";
 
+
+const largeDataSet =  getNodesAndEdges();
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -49,6 +52,14 @@ export const EntityRelationCanvas: Story = {
   args: {
       initialNodes:  erInitialNodes,
       initialEdges: erInitialEdges,
+  },
+};
+
+
+export const LargeDataCanvas: Story = {
+  args: {
+      initialNodes:  largeDataSet.initialNodes,
+      initialEdges: largeDataSet.initialEdges,
   },
 };
 
