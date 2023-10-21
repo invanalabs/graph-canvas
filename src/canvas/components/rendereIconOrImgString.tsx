@@ -11,7 +11,7 @@ const RenderIconOrImgString = ({html}: {html: string| object | React.ReactNode})
          border: "none",
          backgroundSize: "cover"}} />
     }else{
-        return <div style={{margin: "5px 0 5px 10px"}}>{html}</div>
+        return <span style={{"marginRight": "10px"}} >{html}</span>
     }
 }
 

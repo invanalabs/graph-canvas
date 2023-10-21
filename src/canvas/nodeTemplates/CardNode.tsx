@@ -65,12 +65,10 @@ const CardNode = ({ id, data, selected }: CanvasNodeProps) => {
       selected={selected}
       nodeStyles={nodeStyles}
       header={
-        <div >
-          {data.icon ?
-            <div className="floatLeft"><RenderIconOrImgString html={data.icon} /></div>
-            : <></>
-          }
-          <div className="floatLeft" style={{ margin: "5px 10px" }} ><strong>{data.label}</strong></div>
+    
+        <div  style={{ margin: "5px 10px" }} >
+            {data.icon? <RenderIconOrImgString html={data.icon} />: <></>}
+            <strong>{data.label}</strong>
         </div>
       }
       // color={"Lavender"}
