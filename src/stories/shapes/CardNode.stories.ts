@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import FlowCanvas from '../../canvas/canvas';
+import FlowCanvas from '../../flow-canvas/canvas';
 import exampleData from '../../example-datasets/shapes/CardNode';
 
 
