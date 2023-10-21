@@ -59,7 +59,7 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
             <div className="floatLeft"><RenderIconOrImgString html={data.icon} /></div>
             : <></>
           }
-          <div className="floatLeft" style={{ margin: "5px 10px ", }} ><strong>{data.label}</strong> </div>
+          <div className="floatLeft" style={{ margin: "5px 10px" }} ><strong>{data.label}</strong> </div>
         </div>
       }
       // color={"Lavender"}
