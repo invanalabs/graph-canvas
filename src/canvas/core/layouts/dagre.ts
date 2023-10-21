@@ -3,9 +3,6 @@ import dagre from "dagre";
 import { Position } from 'reactflow';
 
 
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
-
 
 
 const defaultNodeWidth = 180 + 30;
@@ -19,6 +16,9 @@ function calcNodeHeight(node: CanvasNode) {
     return defaultColumnHeight + 60;
 }
 
+const dagreGraph = new dagre.graphlib.Graph();
+dagreGraph.setDefaultEdgeLabel(() => ({}));
+
 
 export const getLayoutedElements = (nodes: any[], edges: any[], flowInstance: any= null,  direction: string = "LR") => {
     // https://v9.reactflow.dev/examples/layouting/
@@ -26,9 +26,15 @@ export const getLayoutedElements = (nodes: any[], edges: any[], flowInstance: an
     // In a real world app you would use the correct width and height values of
     // const nodes = useStoreState(state => state.nodes) and then node.__rf.width, node.__rf.height
 
-    console.log("getLayoutedElements", flowInstance)
+    console.log("getLayoutedElements", flowInstance, direction)
     const isHorizontal = direction === "LR";
-    dagreGraph.setGraph({ rankdir: direction });
+    const graphOptions =  direction === "LR" ? {rankSep: 150} : {rankSep: 100}
+
+
+    dagreGraph.setGraph({ rankdir: direction, 
+        // nodesep:200,
+        ...graphOptions
+    });
 
     nodes.forEach((node: CanvasNode) => {
         // console.log("node.id", node.id, flowInstance, flowInstance?.getNode(node.id));

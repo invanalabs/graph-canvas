@@ -78,7 +78,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
     setFlowInstance(reactFlowInstance);
     reactFlowInstance.zoomTo(1);
     reactFlowInstance.fitView();
-    onLayout(direction)
+    // onLayout(direction)
   }
 
   const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
@@ -182,7 +182,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
             onEdgeClick={onEdgeClick}
             fitView
             attributionPosition="top-right"
-            connectionLineType={canvasSettings.edges.type}
+            // connectionLineType={canvasSettings.edges.type}
             nodeTypes={canvasNodeTemplates}
             onNodeMouseLeave={() =>
               resetHandlePathHighlight(

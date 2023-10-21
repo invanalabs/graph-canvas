@@ -24,7 +24,7 @@ export const initialEdges = [
         target: "1.2",
         animated: false,
         label: "authored",
-        type: "step",
+        type: "straight",
         markerEnd: {
             type: MarkerType.ArrowClosed
         }
