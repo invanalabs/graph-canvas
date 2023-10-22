@@ -10,9 +10,7 @@ export default class CanvasInteractionActions {
         const allEdges = findNeighbors.getNextBothEdges(node.id, edges);
         const _this = this;
         allEdges.forEach((edge: Edge)=>{
-            _this.highlightNode(flowInstance.getNode(edge.source), flowInstance);
-            _this.highlightNode(flowInstance.getNode(edge.target), flowInstance);
-            _this.highlightEdge(edge, flowInstance)
+            _this.highlightEdgeNeighbors(event, edge,  flowInstance);
         })
     }
 
@@ -21,19 +19,21 @@ export default class CanvasInteractionActions {
         const allEdges = findNeighbors.getNextBothEdges(node.id, edges);
         const _this = this;
         allEdges.forEach((edge: Edge)=>{
-            _this.unHighlightNode(flowInstance.getNode(edge.source), flowInstance);
-            _this.unHighlightNode(flowInstance.getNode(edge.target), flowInstance);
-            _this.unHighlightEdge(edge, flowInstance);
-        })
-        
+            _this.unHighlightEdgeNeighbors(event, edge, flowInstance)
+        })        
     }
 
-    // hightlightEdgeNeighbors
+    highlightEdgeNeighbors = (event: React.MouseEvent,edge: Edge, flowInstance: ReactFlowInstance)=> {
+        this.highlightNode(flowInstance.getNode(edge.source), flowInstance);
+        this.highlightNode(flowInstance.getNode(edge.target), flowInstance);
+        this.highlightEdge(edge, flowInstance)
+    }
 
-
-
-
-    // unHighlightEdgeNeighbors 
+    unHighlightEdgeNeighbors = (event: React.MouseEvent,edge: Edge, flowInstance: ReactFlowInstance)=> {
+        this.unHighlightNode(flowInstance.getNode(edge.source), flowInstance);
+        this.unHighlightNode(flowInstance.getNode(edge.target), flowInstance);
+        this.unHighlightEdge(edge, flowInstance);
+    }
 
  
 
@@ -41,6 +41,8 @@ export default class CanvasInteractionActions {
         const el = document.querySelector(".react-flow__node[data-id='"+ node.id+"']");
         if (el){
             el.style.borderColor = "green";
+            // el.style.borderStyle = "dashed";
+
         }
     }
 
@@ -49,6 +51,8 @@ export default class CanvasInteractionActions {
         console.log("=====onNodeMouseLeave el", el)
         if (el){
             el.style.borderColor =  "var(--canvas-border)";
+            // el.style.borderStyle = "solid";
+
         }
     }
 

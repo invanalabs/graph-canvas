@@ -24,13 +24,13 @@ export default class CanvasInteractions {
     onEdgeMouseEnter = (event: React.MouseEvent, edge: Edge, flowInstance: FlowInstanceType) => {
         console.log("==onEdgeMouseEnter", event, edge, flowInstance, flowInstance?.getEdges());
         if (flowInstance){
-            canvasInteractionActions.highlightEdge(edge, flowInstance)
+            canvasInteractionActions.highlightEdgeNeighbors(event, edge, flowInstance)
         }
     }
     onEdgeMouseLeave = (event: React.MouseEvent, edge: Edge, flowInstance: FlowInstanceType) => {
         console.log("==onEdgeMouseLeave", event, edge, flowInstance, flowInstance?.getEdges());
         if (flowInstance){
-            canvasInteractionActions.unHighlightEdge(edge, flowInstance)
+            canvasInteractionActions.unHighlightEdgeNeighbors(event, edge, flowInstance)
         }
     }
     onEdgeContextMenu = (event: React.MouseEvent, edge: Edge) => { }
