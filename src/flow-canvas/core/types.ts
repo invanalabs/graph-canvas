@@ -86,6 +86,7 @@ export type FlowCanvasProps = {
     canvasNodeTemplates?: NodeTypes,
     canvasEdgeTemplates?: EdgeTypes ,
     onLayoutChange?: any
+    canvasInteractions: object
 }
 
 

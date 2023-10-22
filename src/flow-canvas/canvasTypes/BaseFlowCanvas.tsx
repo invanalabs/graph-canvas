@@ -29,14 +29,6 @@ import DagreLayoutEngine from "../layouts/dagre";
 import { node } from "prop-types";
 import {defaultLayoutChange} from "../layouts/noLayout";
 
-const canvasInteractions = new CanvasInteractions()
-
-
-
-// const layoutEngine: DagreLayoutEngine = new DagreLayoutEngine()
-// const dagreOnLayoutChange = (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: ReactFlowInstance, direction: string) => {
-//   layoutEngine.getLayoutedElements(nodes, edges, flowInstance, direction)
-// }
 
 
 
@@ -49,6 +41,8 @@ const BaseFlowCanvas = ({
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
   canvasEdgeTemplates = CanvasEdgeTemplates,
+  canvasInteractions = new CanvasInteractions()
+
 }: FlowCanvasProps) => {
 
 
