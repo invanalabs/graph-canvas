@@ -5,60 +5,55 @@ const findNeighbors = new FindNeighbors()
 
 export default class CanvasInteractionActions {
 
-    highlightNodeAndNeighbors= (event: React.MouseEvent,node: Node, flowInstance: ReactFlowInstance)=> {
+    highlightNodeAndNeighbors = (event: React.MouseEvent, node: Node, flowInstance: ReactFlowInstance) => {
         const edges = flowInstance.getEdges();
         const allEdges = findNeighbors.getNextBothEdges(node.id, edges);
         const _this = this;
-        allEdges.forEach((edge: Edge)=>{
-            _this.highlightEdgeNeighbors(event, edge,  flowInstance);
+        allEdges.forEach((edge: Edge) => {
+            _this.highlightEdgeNeighbors(event, edge, flowInstance);
         })
     }
 
-    unHightlightNodeAndNeighbors = (event: React.MouseEvent,node: Node, flowInstance: ReactFlowInstance)=>{
+    unHightlightNodeAndNeighbors = (event: React.MouseEvent, node: Node, flowInstance: ReactFlowInstance) => {
         const edges = flowInstance.getEdges();
         const allEdges = findNeighbors.getNextBothEdges(node.id, edges);
         const _this = this;
-        allEdges.forEach((edge: Edge)=>{
+        allEdges.forEach((edge: Edge) => {
             _this.unHighlightEdgeNeighbors(event, edge, flowInstance)
-        })        
+        })
     }
 
-    highlightEdgeNeighbors = (event: React.MouseEvent,edge: Edge, flowInstance: ReactFlowInstance)=> {
+    highlightEdgeNeighbors = (event: React.MouseEvent, edge: Edge, flowInstance: ReactFlowInstance) => {
         this.highlightNode(flowInstance.getNode(edge.source), flowInstance);
         this.highlightNode(flowInstance.getNode(edge.target), flowInstance);
         this.highlightEdge(edge, flowInstance)
     }
 
-    unHighlightEdgeNeighbors = (event: React.MouseEvent,edge: Edge, flowInstance: ReactFlowInstance)=> {
+    unHighlightEdgeNeighbors = (event: React.MouseEvent, edge: Edge, flowInstance: ReactFlowInstance) => {
         this.unHighlightNode(flowInstance.getNode(edge.source), flowInstance);
         this.unHighlightNode(flowInstance.getNode(edge.target), flowInstance);
         this.unHighlightEdge(edge, flowInstance);
     }
 
- 
-
-    highlightNode= (node: Node, flowInstance: ReactFlowInstance)=> {
-        const el = document.querySelector(".react-flow__node[data-id='"+ node.id+"']");
-        if (el){
+    highlightNode = (node: Node, flowInstance: ReactFlowInstance) => {
+        const el = document.querySelector(".react-flow__node[data-id='" + node.id + "']");
+        if (el) {
             el.style.borderColor = "green";
             // el.style.borderStyle = "dashed";
 
         }
     }
 
-    unHighlightNode = ( node: Node, flowInstance: ReactFlowInstance)=>{
-        const el = document.querySelector(".react-flow__node[data-id='"+ node.id+"']");
-        console.log("=====onNodeMouseLeave el", el)
-        if (el){
-            el.style.borderColor =  "var(--canvas-border)";
+    unHighlightNode = (node: Node, flowInstance: ReactFlowInstance) => {
+        const el = document.querySelector(".react-flow__node[data-id='" + node.id + "']");
+        if (el) {
+            el.style.borderColor = "var(--canvas-border)";
             // el.style.borderStyle = "solid";
 
         }
     }
 
-
-
-    highlightEdge= (edge: Edge, flowInstance: ReactFlowInstance)=> {
+    highlightEdge = (edge: Edge, flowInstance: ReactFlowInstance) => {
         flowInstance?.setEdges((eds) =>
             eds.map((edg) => {
                 if (edg.id === edge.id) {
@@ -69,16 +64,17 @@ export default class CanvasInteractionActions {
             })
         );
     }
-    unHighlightEdge = (edge: Edge, flowInstance: ReactFlowInstance)=> {
+
+    unHighlightEdge = (edge: Edge, flowInstance: ReactFlowInstance) => {
         flowInstance?.setEdges((eds) =>
-        eds.map((edg) => {
-            if (edg.id === edge.id) {
-                // edg.style = { stroke: "#ccc" };
-                edg.animated = false
-            }
-            return edg;
-        })
-    );
+            eds.map((edg) => {
+                if (edg.id === edge.id) {
+                    // edg.style = { stroke: "#ccc" };
+                    edg.animated = false
+                }
+                return edg;
+            })
+        );
     }
 
 

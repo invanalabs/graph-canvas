@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react";
 import ReactFlow, {
   addEdge,
   MiniMap,
@@ -9,7 +9,7 @@ import ReactFlow, {
   useEdgesState,
   ReactFlowInstance,
   ReactFlowProvider,
-  applyEdgeChanges, applyNodeChanges, NodeChange, EdgeChange, Edge
+  applyEdgeChanges, applyNodeChanges, NodeChange, EdgeChange, Edge, Node
   // useStore
 } from "reactflow";
 import "./styles.scss";
@@ -24,14 +24,14 @@ import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 import { CanvasNodeTemplates } from "./nodeTemplates";
 import { CanvasEdgeTemplates } from "./edgeTemplates";
 import CanvasInteractions from "./interactions/interactions";
-
+import ContextMenu from "./components/contextMenu";
 
 const canvasInteractions = new CanvasInteractions()
-const FlowCanvas = ({ children, initialNodes, initialEdges=[],
+const FlowCanvas = ({ children, initialNodes, initialEdges = [],
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
-  canvasEdgeTemplates= CanvasEdgeTemplates
+  canvasEdgeTemplates = CanvasEdgeTemplates
 }: FlowCanvasProps) => {
 
 
@@ -52,7 +52,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
     initialEdges,
     flowInstance
   );
-  
+
   const [mode, setMode] = useState('dark');
   const theme = mode === 'light' ? lightTheme : darkTheme;
 
@@ -66,16 +66,48 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   const [nodes, setNodes] = useNodesState(layoutedNodes);
   const [edges, setEdges] = useEdgesState(layoutedEdges);
 
+  const [menu, setMenu] = useState(null);
+
   const [direction, setDirection] = useState("LR");
 
   const onNodesChange = useCallback(
-    (changes: NodeChange[]) => setNodes((nds) =>  applyNodeChanges(changes, nds) ),
+    (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [setNodes]
   );
   const onEdgesChange = useCallback(
     (changes: EdgeChange[]) => setEdges((eds) => applyEdgeChanges(changes, eds)),
     [setEdges]
   );
+  const ref = useRef(null);
+
+  const onNodeContextMenu = useCallback(
+    (event: React.MouseEvent, node: Node) => {
+      // Prevent native context menu from showing
+      event.preventDefault();
+
+      if (node && node.width && node.height) {
+        console.log("====onNodeContextMenu", node, event,  event.clientX, event.clientY)
+
+
+        // Calculate position of the context menu. We want to make sure it
+        // doesn't get positioned off-screen.
+        // const pane = document.querySelector('[data-id="'+ node.id+'"]')?.getBoundingClientRect();
+        // const pane = document.querySelector(`[data-id="${node.id}"]`).getBoundingClientRect();
+        const pane = ref.current.getBoundingClientRect();
+        console.log("=====pane, pane", pane, node)
+        setMenu({
+          id: node.id,
+          top: event.clientY < pane.height - 200 && event.clientY,
+          left: event.clientX < pane.width - 200 && event.clientX,
+          right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
+          bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
+        });
+      }
+    },
+    [setMenu]
+  );
+  const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
+
 
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
@@ -85,9 +117,9 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
     // onLayout(direction)
   }
 
-  const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
-    console.log("======onNodeClick", object.id);
-  };
+  // const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
+  //   console.log("======onNodeClick", object.id);
+  // };
   // const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge) => {
   //   const edge = flowInstance?.getEdge(object.id)
   //   console.log("clicked edge", edge)
@@ -112,12 +144,12 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   );
 
   const onLayout = useCallback(
-    
+
     (direction: string) => {
       const {
         layoutedNodes,
         layoutedEdges
-      } = getLayoutedElements(nodes, edges, flowInstance,  direction);
+      } = getLayoutedElements(nodes, edges, flowInstance, direction);
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
@@ -132,7 +164,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
     //   edge.type = edgeType;
     // }
     // edge.type = canvasSettings.edges.type;
-    if(edge.source === edge.target){
+    if (edge.source === edge.target) {
       edge.type = "SelfConnectingEdge"
     }
     return edge;
@@ -178,6 +210,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
       <ThemeProvider theme={theme}>
         <ReactFlowProvider>
           <ReactFlow
+            ref={ref}
             nodes={nodes}
             className="dark-theme"
             edges={edgesWithUpdatedTypes}
@@ -185,16 +218,16 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
             onInit={onInit}
-            onNodeClick={onNodeClick}
+            // onNodeClick={onNodeClick}
             onEdgeClick={(event: React.MouseEvent, edge: Edge) => canvasInteractions.onEdgeClick(event, edge, flowInstance)}
             onEdgeMouseEnter={(event: React.MouseEvent, edge: Edge) => canvasInteractions.onEdgeMouseEnter(event, edge, flowInstance)}
             onEdgeMouseLeave={(event: React.MouseEvent, edge: Edge) => canvasInteractions.onEdgeMouseLeave(event, edge, flowInstance)}
             onNodeMouseEnter={(event: React.MouseEvent, node: Node) => canvasInteractions.onNodeMouseEnter(event, node, flowInstance)}
             onNodeMouseLeave={(event: React.MouseEvent, node: Node) => canvasInteractions.onNodeMouseLeave(event, node, flowInstance)}
 
+            onNodeContextMenu={onNodeContextMenu}
 
-            
-            
+
             fitView
             minZoom={0.2}
             attributionPosition="top-right"
@@ -202,16 +235,17 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
             nodeTypes={canvasNodeTemplates}
             edgeTypes={canvasEdgeTemplates}
 
-            // onNodeMouseLeave={() =>
-            //   resetHandlePathHighlight(
-            //     nodes,
-            //     edgesWithUpdatedTypes,
-            //     setNodes,
-            //     setEdges
-            //   )
-            // }
+          // onNodeMouseLeave={() =>
+          //   resetHandlePathHighlight(
+          //     nodes,
+          //     edgesWithUpdatedTypes,
+          //     setNodes,
+          //     setEdges
+          //   )
+          // }
           >
 
+            {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
             <MiniMapStyled
               nodeColor={(node) => {
                 switch (node.type) {

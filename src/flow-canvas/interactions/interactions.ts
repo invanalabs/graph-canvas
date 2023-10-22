@@ -40,12 +40,12 @@ export default class CanvasInteractions {
     onNodeClick = (event: React.MouseEvent, edge: Edge) => { }
     onNodeDoubleClick = (event: React.MouseEvent, edge: Edge) => { }
     onNodeMouseEnter = (event: React.MouseEvent, node: Node, flowInstance: FlowInstanceType) => {
-        console.log("==onNodeMouseEnter", event, node, flowInstance, flowInstance?.getNodes());
+        console.log("==onNodeMouseEnter",node.id);
         if (flowInstance) {canvasInteractionActions.highlightNodeAndNeighbors(event, node, flowInstance)}  
     }
 
     onNodeMouseLeave = (event: React.MouseEvent, node: Node, flowInstance: FlowInstanceType) => { 
-        console.log("==onNodeMouseLeave", event, node, flowInstance, flowInstance?.getNodes());
+        console.log("==onNodeMouseLeave", node.id);
         if (flowInstance) {canvasInteractionActions.unHightlightNodeAndNeighbors(event, node, flowInstance)}             
     }
     onNodeContextMenu = (event: React.MouseEvent, edge: Edge) => { }
