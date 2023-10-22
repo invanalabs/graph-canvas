@@ -12,22 +12,22 @@ import ReactFlow, {
   applyEdgeChanges, applyNodeChanges, NodeChange, EdgeChange, Edge, Node
   // useStore
 } from "reactflow";
-import "./styles.scss";
+import "../styles.scss";
 import styled, { ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from "./theme";
+import { darkTheme, lightTheme } from "../theme";
 import React from "react";
-import { resetHandlePathHighlight } from "./interactions/EntityRelationHighlight";
+import { resetHandlePathHighlight } from "../interactions/EntityRelationHighlight";
 import "reactflow/dist/style.css";
-import { getLayoutedElements } from "./core/layouts/dagre";
-import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
-import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
-import { CanvasNodeTemplates } from "./nodeTemplates";
-import { CanvasEdgeTemplates } from "./edgeTemplates";
-import CanvasInteractions from "./interactions/interactions";
-import ContextMenu from "./components/ContextMenu";
+import { getLayoutedElements } from "../core/layouts/dagre";
+import { CanvasEdge, CanvasNode, FlowCanvasProps } from "../core/types";
+import { defaultCanvasSettings, defaultCanvasStyle } from "../settings";
+import { CanvasNodeTemplates } from "../nodeTemplates";
+import { CanvasEdgeTemplates } from "../edgeTemplates";
+import CanvasInteractions from "../interactions/interactions";
+import ContextMenu from "../components/ContextMenu";
 
 const canvasInteractions = new CanvasInteractions()
-const FlowCanvas = ({ children, initialNodes, initialEdges = [],
+const BaseFlowCanvas = ({ children, initialNodes, initialEdges = [],
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
@@ -292,4 +292,4 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
   );
 };
 
-export default FlowCanvas;
+export default BaseFlowCanvas;

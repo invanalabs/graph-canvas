@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import FlowCanvas from '../../flow-canvas/canvas';
+import BaseFlowCanvas from '../../flow-canvas/canvasTypes/BaseCanvas';
 import { initialNodes as erInitialNodes, initialEdges as erInitialEdges  } from "../../example-datasets/raw/er-mock-data";
 import { initialNodes, initialEdges } from '../../example-datasets/raw/simple-hello-world';
 import { initialNodes as allNodesInitialNodes, initialEdges as allEdgesInitialEdges  } from "../../example-datasets/raw/all-nodes";
@@ -11,8 +11,8 @@ const largeDataSet =  getNodesAndEdges();
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
-    title: 'Canvas/FlowCanvas',
-    component: FlowCanvas,
+    title: 'Canvas/BaseFlowCanvas',
+    component: BaseFlowCanvas,
     parameters: {
       // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
       layout: 'fullscreen',
@@ -23,7 +23,7 @@ const meta = {
     argTypes: {
     //   backgroundColor: { control: 'color' },
     },
-  } satisfies Meta<typeof FlowCanvas>;
+  } satisfies Meta<typeof BaseFlowCanvas>;
   
   export default meta;
 type Story = StoryObj<typeof meta>;
