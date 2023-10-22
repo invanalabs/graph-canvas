@@ -24,7 +24,7 @@ import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 import { CanvasNodeTemplates } from "./nodeTemplates";
 import { CanvasEdgeTemplates } from "./edgeTemplates";
 import CanvasInteractions from "./interactions/interactions";
-import ContextMenu from "./components/contextMenu";
+import ContextMenu from "./components/ContextMenu";
 
 const canvasInteractions = new CanvasInteractions()
 const FlowCanvas = ({ children, initialNodes, initialEdges = [],
@@ -84,17 +84,8 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
     (event: React.MouseEvent, node: Node) => {
       // Prevent native context menu from showing
       event.preventDefault();
-
-      if (node && node.width && node.height) {
         console.log("====onNodeContextMenu", node, event,  event.clientX, event.clientY)
-
-
-        // Calculate position of the context menu. We want to make sure it
-        // doesn't get positioned off-screen.
-        // const pane = document.querySelector('[data-id="'+ node.id+'"]')?.getBoundingClientRect();
-        // const pane = document.querySelector(`[data-id="${node.id}"]`).getBoundingClientRect();
         const pane = ref.current.getBoundingClientRect();
-        console.log("=====pane, pane", pane, node)
         setMenu({
           id: node.id,
           top: event.clientY < pane.height - 200 && event.clientY,
@@ -102,10 +93,31 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
           right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
           bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
         });
-      }
+ 
     },
     [setMenu]
   );
+
+  const onEdgeContextMenu = useCallback(
+    (event: React.MouseEvent, edge: Edge) => {
+      // Prevent native context menu from showing
+      event.preventDefault();
+        console.log("====onEdgeContextMenu", edge, event,  event.clientX, event.clientY)
+        const pane = ref.current.getBoundingClientRect();
+        setMenu({
+          id: edge.id,
+          top: event.clientY < pane.height - 200 && event.clientY,
+          left: event.clientX < pane.width - 200 && event.clientX,
+          right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
+          bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
+        });
+ 
+    },
+    [setMenu]
+  );
+
+
+
   const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
 
 
@@ -226,6 +238,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
             onNodeMouseLeave={(event: React.MouseEvent, node: Node) => canvasInteractions.onNodeMouseLeave(event, node, flowInstance)}
 
             onNodeContextMenu={onNodeContextMenu}
+            onEdgeContextMenu={onEdgeContextMenu}
 
 
             fitView
