@@ -1,7 +1,8 @@
 import React from "react";
-import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes, EdgeTypes } from "reactflow"
+import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes, EdgeTypes, ReactFlowInstance } from "reactflow"
 import { CanvasNodeStylingOptions } from "../styling/types";
 import DagreLayoutEngine from "../layouts/dagre";
+import { FlowInstanceType } from "../interactions/interactions";
 //https://stackoverflow.com/a/55032655/3448851
 // Example usage : Modify<Node, { a: string}> // to override `a` data type
 type Modify<T, R> = Omit<T, keyof R> & R;
@@ -85,8 +86,9 @@ export type FlowCanvasProps = {
     style?: React.CSSProperties,
     canvasNodeTemplates?: NodeTypes,
     canvasEdgeTemplates?: EdgeTypes ,
-    onLayoutChange?: any
-    canvasInteractions: object
+    onLayoutChange: (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: FlowInstanceType, direction: string) => void,
+    // onLayoutChange?: (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: ReactFlowInstance, direction: string) => {} | null,
+    canvasInteractions: object | null
 }
 
 

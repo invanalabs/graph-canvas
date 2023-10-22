@@ -6,3 +6,10 @@ export const defaultLayoutChange = (nodes: CanvasNode[], edges: CanvasEdge[], fl
     console.log("=====defaultLayoutChange", nodes, edges)
     return {layoutedNodes: nodes, layoutedEdges: edges}
 }
+
+
+// function defaultLayoutChange(nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: FlowInstanceType, direction: string)  {
+//     console.log("=====defaultLayoutChange", nodes, edges)
+//     return {layoutedNodes: nodes, layoutedEdges: edges}
+// }
+// export defaultLayoutChange
