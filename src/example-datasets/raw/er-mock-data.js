@@ -3,7 +3,7 @@ import { MarkerType } from "reactflow";
 export const initialNodes = [
   {
     id: "1.1",
-    type: "NodeWithDataTypeFields",
+    type: "DataTypeFieldsNode",
     data: {
       // storeType: "MongoDB",
       label: "MongoDB (1.1)",
@@ -12,7 +12,7 @@ export const initialNodes = [
   },
   {
     id: "1.2",
-    type: "NodeWithDataTypeFields",
+    type: "DataTypeFieldsNode",
     data: {
       label: "FileStorage (1.2)",
       fields: [{ label: "myfile.csv", id: "myfile-csv", data_type: "string" }]
@@ -20,7 +20,7 @@ export const initialNodes = [
   },
   {
     id: "2.1",
-    type: "NodeWithDataTypeFields",
+    type: "DataTypeFieldsNode",
     data: {
       label: "NSE Data (2.1)",
       fields: [
@@ -35,7 +35,7 @@ export const initialNodes = [
   },
   {
     id: "2.2",
-    type: "NodeWithDataTypeFields",
+    type: "DataTypeFieldsNode",
     data: {
       label: "Source1 - Candle Data (2.2)",
       fields: [
@@ -48,7 +48,7 @@ export const initialNodes = [
   },
   {
     id: "3.1",
-    type: "NodeWithDataTypeFields",
+    type: "DataTypeFieldsNode",
     data: {
       label: "Derived Data (3.1)",
       fields: [
@@ -61,7 +61,7 @@ export const initialNodes = [
   },
   {
     id: "3.2",
-    type: "NodeWithDataTypeFields",
+    type: "DataTypeFieldsNode",
     data: {
       label: "Derived Data (3.2)",
       fields: [

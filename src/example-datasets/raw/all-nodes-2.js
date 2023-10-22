@@ -50,7 +50,7 @@ export const initialNodes = [
         id: "3.1",
         type: "CardNode",
         data: {
-            label: "Comment 1",
+            label: "CommentNode 1",
             // icon: <StickNotes />,
  
         },

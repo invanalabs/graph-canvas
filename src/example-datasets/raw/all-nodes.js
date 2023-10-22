@@ -57,9 +57,9 @@ specimen book. </p>
     },
     {
         id: "3.1",
-        type: "Comment",
+        type: "CommentNode",
         data: {
-            label: "Comment 1",
+            label: "CommentNode 1",
             // icon: <StickNotes />,
             commentText: "Hello World ! this is yet another attempt to create beautiful visualisations"
         }
