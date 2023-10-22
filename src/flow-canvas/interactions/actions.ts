@@ -57,7 +57,7 @@ export default class CanvasInteractionActions {
         flowInstance?.setEdges((eds) =>
             eds.map((edg) => {
                 if (edg.id === edge.id) {
-                    // edg.style = { stroke: "green" };
+                    edg.style = { strokeWidth: 2 };
                     edg.animated = true
                 }
                 return edg;
@@ -70,6 +70,8 @@ export default class CanvasInteractionActions {
             eds.map((edg) => {
                 if (edg.id === edge.id) {
                     // edg.style = { stroke: "#ccc" };
+                    edg.style = { strokeWidth: 1 };
+
                     edg.animated = false
                 }
                 return edg;
