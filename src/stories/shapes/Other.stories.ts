@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BaseFlowCanvas from '../../flow-canvas/canvasTypes/BaseFlowCanvas';
+// import FlowCanvas from '../../flow-canvas/canvasTypes/FlowCanvas';
 import exampleData from '../../example-datasets/shapes/other';
+import FlowCanvas from '../../flow-canvas/canvasTypes/FlowCanvas';
 
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
     title: 'Shapes/Other',
-    component: BaseFlowCanvas,
+    component: FlowCanvas,
     parameters: {
       // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
       layout: 'fullscreen',
@@ -17,7 +18,7 @@ const meta = {
     argTypes: {
     //   backgroundColor: { control: 'color' },
     },
-  } satisfies Meta<typeof BaseFlowCanvas>;
+  } satisfies Meta<typeof FlowCanvas>;
   
   export default meta;
 type Story = StoryObj<typeof meta>;
