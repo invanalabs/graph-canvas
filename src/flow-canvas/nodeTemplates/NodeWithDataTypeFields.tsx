@@ -5,7 +5,7 @@ import { generateFieldName } from "../utils";
 import {
   highlightHandlePathByNodeHandleId,
   resetHandlePathHighlight
-} from "../utils/highlight";
+} from "../interactions/EntityRelationHighlight";
 import { NodeField, CanvasNodeProps, NodeStyles } from "../core/types";
 
 

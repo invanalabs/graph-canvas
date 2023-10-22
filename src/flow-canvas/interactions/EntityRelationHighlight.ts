@@ -2,19 +2,20 @@
 import { CanvasEdge, CanvasNode, StringOrNull } from "../core/types";
 import { generateFieldName } from "../utils";
 
-const getNextIncomingEdges = (nodeId: string, handleId: StringOrNull, nodes: CanvasNode[], edges: CanvasEdge[]) => {
+export const getNextIncomingEdges = (nodeId: string, handleId: StringOrNull, nodes: CanvasNode[], edges: CanvasEdge[]) => {
   const incomingEdges = edges
     .filter((e) => e.target === nodeId && e.targetHandle === handleId)
     .map((e) => e);
   return incomingEdges;
 };
 
-const getNextOutgoingEdges = (nodeId: string, handleId: StringOrNull, nodes: CanvasNode[], edges: CanvasEdge[]) => {
+export const getNextOutgoingEdges = (nodeId: string, handleId: StringOrNull, nodes: CanvasNode[], edges: CanvasEdge[]) => {
   const outgoingEdges = edges
     .filter((e) => e.source === nodeId && e.sourceHandle === handleId)
     .map((e) => e);
   return outgoingEdges;
 };
+
 
 const getAllIncomers = (
   nodeId : string,

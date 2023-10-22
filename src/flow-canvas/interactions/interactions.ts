@@ -1,9 +1,11 @@
 import { Edge, Node, ReactFlowInstance } from "reactflow"
-import { CanvasNode } from "./core/types";
-
+import { CanvasNode } from "../core/types";
+import CanvasInteractionActions from "./actions";
 
 
 type FlowInstanceType = ReactFlowInstance | undefined | null;
+const canvasInteractionActions = new CanvasInteractionActions();
+
 
 export default class CanvasInteractions {
     // https://reactflow.dev/docs/api/react-flow-props/
@@ -21,25 +23,15 @@ export default class CanvasInteractions {
     // onEdgeDoubleClick = (event: React.MouseEvent, edge: Edge) => { }
     onEdgeMouseEnter = (event: React.MouseEvent, edge: Edge, flowInstance: FlowInstanceType) => {
         console.log("==onEdgeMouseEnter", event, edge, flowInstance, flowInstance?.getEdges());
-        flowInstance?.setEdges((eds) =>
-            eds.map((edg) => {
-                if (edg.id === edge.id) {
-                    edg.style = { stroke: "red" };
-                }
-                return edg;
-            })
-        );
+        if (flowInstance){
+            canvasInteractionActions.highlightEdge(edge, flowInstance)
+        }
     }
     onEdgeMouseLeave = (event: React.MouseEvent, edge: Edge, flowInstance: FlowInstanceType) => {
         console.log("==onEdgeMouseLeave", event, edge, flowInstance, flowInstance?.getEdges());
-        flowInstance?.setEdges((eds) =>
-            eds.map((edg) => {
-                if (edg.id === edge.id) {
-                    edg.style = { stroke: "#ccc" };
-                }
-                return edg;
-            })
-        );
+        if (flowInstance){
+            canvasInteractionActions.unHighlightEdge(edge, flowInstance)
+        }
     }
     onEdgeContextMenu = (event: React.MouseEvent, edge: Edge) => { }
 
@@ -49,23 +41,20 @@ export default class CanvasInteractions {
     onNodeDoubleClick = (event: React.MouseEvent, edge: Edge) => { }
     onNodeMouseEnter = (event: React.MouseEvent, node: Node, flowInstance: FlowInstanceType) => {
         console.log("==onNodeMouseEnter", event, node, flowInstance, flowInstance?.getNodes());
-        const el = document.querySelector(".react-flow__node[data-id='"+ node.id+"']");
-        console.log("=====onNodeMouseEnter el", el)
-        if (el){
-            el.style.borderColor = "red";
-        }
+        if (flowInstance) {canvasInteractionActions.highlightNodeAndNeighbors(event, node, flowInstance)}  
     }
 
     onNodeMouseLeave = (event: React.MouseEvent, node: Node, flowInstance: FlowInstanceType) => { 
         console.log("==onNodeMouseLeave", event, node, flowInstance, flowInstance?.getNodes());
-        const el = document.querySelector(".react-flow__node[data-id='"+ node.id+"']");
-        console.log("=====onNodeMouseLeave el", el)
-        if (el){
-            el.style.borderColor =  "var(--canvas-border)";
-        }
+        if (flowInstance) {canvasInteractionActions.unHightlightNodeAndNeighbors(event, node, flowInstance)}             
     }
     onNodeContextMenu = (event: React.MouseEvent, edge: Edge) => { }
 
 
     onSelectionContextMenu = (event: React.MouseEvent, nodes: Node[]) => { }
+
+
+    onPaneClick = (event: React.MouseEvent, flowInstance: FlowInstanceType)=>{ // Called when user clicks directly on the canvas
+
+    }
 }
