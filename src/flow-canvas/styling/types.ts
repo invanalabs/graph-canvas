@@ -1,6 +1,9 @@
 import { ReactNode, CSSProperties } from "react"
 import { Edge } from "reactflow"
 
+
+// export type CanvasNodeData
+
 export type CanvasEdgeStylingOptions  = {
     // this 
     color: string, // color of the edge
