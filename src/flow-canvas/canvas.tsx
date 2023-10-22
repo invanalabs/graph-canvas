@@ -9,7 +9,7 @@ import ReactFlow, {
   useEdgesState,
   ReactFlowInstance,
   ReactFlowProvider,
-  applyEdgeChanges, applyNodeChanges, NodeChange, EdgeChange
+  applyEdgeChanges, applyNodeChanges, NodeChange, EdgeChange, Edge
   // useStore
 } from "reactflow";
 import "./styles.scss";
@@ -23,8 +23,10 @@ import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
 import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
 import { CanvasNodeTemplates } from "./nodeTemplates";
 import { CanvasEdgeTemplates } from "./edgeTemplates";
+import CanvasInteractions from "./interactions";
 
 
+const canvasInteractions = new CanvasInteractions()
 const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
@@ -86,10 +88,10 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
   const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
     console.log("======onNodeClick", object.id);
   };
-  const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge) => {
-    const edge = flowInstance?.getEdge(object.id)
-    console.log("clicked edge", edge)
-  };
+  // const onEdgeClick = (event: React.MouseEvent, object: CanvasEdge) => {
+  //   const edge = flowInstance?.getEdge(object.id)
+  //   console.log("clicked edge", edge)
+  // };
 
   const onConnect = useCallback(
     /*
@@ -184,21 +186,30 @@ const FlowCanvas = ({ children, initialNodes, initialEdges=[],
             onConnect={onConnect}
             onInit={onInit}
             onNodeClick={onNodeClick}
-            onEdgeClick={onEdgeClick}
+            onEdgeClick={(event: React.MouseEvent, edge: Edge) => canvasInteractions.onEdgeClick(event, edge, flowInstance)}
+            onEdgeMouseEnter={(event: React.MouseEvent, edge: Edge) => canvasInteractions.onEdgeMouseEnter(event, edge, flowInstance)}
+            onEdgeMouseLeave={(event: React.MouseEvent, edge: Edge) => canvasInteractions.onEdgeMouseLeave(event, edge, flowInstance)}
+            onNodeMouseEnter={(event: React.MouseEvent, node: Node) => canvasInteractions.onNodeMouseEnter(event, node, flowInstance)}
+            onNodeMouseLeave={(event: React.MouseEvent, node: Node) => canvasInteractions.onNodeMouseLeave(event, node, flowInstance)}
+
+
+            
+            
             fitView
             minZoom={0.2}
             attributionPosition="top-right"
             // connectionLineType={canvasSettings.edges.type}
             nodeTypes={canvasNodeTemplates}
             edgeTypes={canvasEdgeTemplates}
-            onNodeMouseLeave={() =>
-              resetHandlePathHighlight(
-                nodes,
-                edgesWithUpdatedTypes,
-                setNodes,
-                setEdges
-              )
-            }
+
+            // onNodeMouseLeave={() =>
+            //   resetHandlePathHighlight(
+            //     nodes,
+            //     edgesWithUpdatedTypes,
+            //     setNodes,
+            //     setEdges
+            //   )
+            // }
           >
 
             <MiniMapStyled

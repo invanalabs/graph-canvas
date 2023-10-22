@@ -21,7 +21,6 @@ export default function SelfConnectingEdge(props: EdgeProps) {
   //   targetPosition: props.targetPosition,
   //   curvature: 0.5
   // });
-  console.log("props", props, edgePath)
   return <>
     <BaseEdge path={edgePath} {...props} />
     <EdgeText
