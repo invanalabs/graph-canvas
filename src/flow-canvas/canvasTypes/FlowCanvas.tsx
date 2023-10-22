@@ -17,6 +17,8 @@ const FlowCanvas = ({
   initialNodes,
   initialEdges = [],
   onLayoutChange,
+  NodeContextMenu, 
+  EdgeContextMenu,
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
@@ -29,6 +31,8 @@ const FlowCanvas = ({
   return <BaseFlowCanvas children={children} initialNodes={initialNodes} initialEdges={initialEdges}
      onLayoutChange={dagreOnLayoutChange} style={style} canvasSettings={canvasSettings} 
      canvasEdgeTemplates={canvasEdgeTemplates} canvasNodeTemplates={canvasNodeTemplates}
+     NodeContextMenu={NodeContextMenu} EdgeContextMenu={EdgeContextMenu}
+
      canvasInteractions={canvasInteractions} />
 }
 

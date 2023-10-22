@@ -36,11 +36,14 @@ const BaseFlowCanvas = ({
   initialNodes,
   initialEdges = [],
   onLayoutChange,
+  NodeContextMenu, 
+  EdgeContextMenu,
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
   canvasEdgeTemplates = CanvasEdgeTemplates,
-  canvasInteractions = new CanvasInteractions()
+  canvasInteractions = new CanvasInteractions(),
+
 
 }: FlowCanvasProps) => {
 
@@ -274,8 +277,8 @@ const BaseFlowCanvas = ({
           // }
           >
 
-            {contextMenuItem && contextMenuItem?.type === "edge" && <GenericEdgeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
-            {contextMenuItem && contextMenuItem?.type === "node" && <GenericNodeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
+            {contextMenuItem && contextMenuItem?.type === "edge" && <NodeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
+            {contextMenuItem && contextMenuItem?.type === "node" && <EdgeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
 
             <MiniMapStyled
               nodeColor={(node) => {
@@ -313,7 +316,10 @@ const BaseFlowCanvas = ({
 
 BaseFlowCanvas.defaultProps = {
   onLayoutChange: defaultLayoutChange,
-  canvasInteractions: new CanvasInteractions()
+  canvasInteractions: new CanvasInteractions(),
+  NodeContextMenu: GenericNodeContextMenu,
+  EdgeContextMenu: GenericEdgeContextMenu
+
 };
 
 export default BaseFlowCanvas;

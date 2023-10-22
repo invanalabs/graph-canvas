@@ -104,7 +104,9 @@ export type FlowCanvasProps = {
         flowInstance: FlowInstanceType, 
         direction: string) => LayoutEngineResponse,
     // onLayoutChange?: (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: ReactFlowInstance, direction: string) => {} | null,
-    canvasInteractions: object | null
+    canvasInteractions: object | null,
+    NodeContextMenu: React.ReactElement
+    EdgeContextMenu: React.ReactElement
 }
 
 
