@@ -24,10 +24,9 @@ import { defaultCanvasSettings, defaultCanvasStyle } from "../settings";
 import { CanvasNodeTemplates } from "../nodeTemplates";
 import { CanvasEdgeTemplates } from "../edgeTemplates";
 import CanvasInteractions from "../interactions/interactions";
-import ContextMenu from "../components/ContextMenu";
-import DagreLayoutEngine from "../layouts/dagre";
-import { node } from "prop-types";
-import {defaultLayoutChange} from "../layouts/noLayout";
+import GenericNodeContextMenu from "../components/ContextMenu/GenericNodeContextMenu";
+import GenericEdgeContextMenu from "../components/ContextMenu/GenericEdgeContextMenu";
+import { defaultLayoutChange } from "../layouts/noLayout";
 
 
 
@@ -56,11 +55,11 @@ const BaseFlowCanvas = ({
   //     };
   //   });
   // }
-   
+
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
- 
+
   console.log("====onLayoutChange", onLayoutChange);
- 
+
   const { layoutedNodes, layoutedEdges } = onLayoutChange(
     initialNodes,
     initialEdges,
@@ -81,7 +80,7 @@ const BaseFlowCanvas = ({
   const [nodes, setNodes] = useNodesState(layoutedNodes);
   const [edges, setEdges] = useEdgesState(layoutedEdges);
 
-  const [menu, setMenu] = useState(null);
+  const [contextMenuItem, setContextMenuItem] = useState(null);
 
   const [direction, setDirection] = useState("LR");
 
@@ -97,12 +96,12 @@ const BaseFlowCanvas = ({
 
   const onNodeContextMenu = useCallback(
     (event: React.MouseEvent, node: Node) => {
-      // Prevent native context menu from showing
+      // Prevent native context contextMenuItem from showing
       event.preventDefault();
-      console.log("====onNodeContextMenu", node, event, event.clientX, event.clientY)
       const pane = ref.current.getBoundingClientRect();
-      setMenu({
+      setContextMenuItem({
         id: node.id,
+        type: "node",
         top: event.clientY < pane.height - 200 && event.clientY,
         left: event.clientX < pane.width - 200 && event.clientX,
         right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
@@ -110,17 +109,18 @@ const BaseFlowCanvas = ({
       });
 
     },
-    [setMenu]
+    [setContextMenuItem]
   );
 
   const onEdgeContextMenu = useCallback(
     (event: React.MouseEvent, edge: Edge) => {
-      // Prevent native context menu from showing
+      // Prevent native context contextMenuItem from showing
       event.preventDefault();
       console.log("====onEdgeContextMenu", edge, event, event.clientX, event.clientY)
       const pane = ref.current.getBoundingClientRect();
-      setMenu({
+      setContextMenuItem({
         id: edge.id,
+        type: "edge",
         top: event.clientY < pane.height - 200 && event.clientY,
         left: event.clientX < pane.width - 200 && event.clientX,
         right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
@@ -128,20 +128,20 @@ const BaseFlowCanvas = ({
       });
 
     },
-    [setMenu]
+    [setContextMenuItem]
   );
 
 
 
-  const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
+  const onPaneClick = useCallback(() => setContextMenuItem(null), [setContextMenuItem]);
 
 
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
     setFlowInstance(reactFlowInstance);
     reactFlowInstance?.zoomTo(1);
-    reactFlowInstance?.fitView();  
- 
+    reactFlowInstance?.fitView();
+
     onLayout(direction)
   }
 
@@ -274,7 +274,9 @@ const BaseFlowCanvas = ({
           // }
           >
 
-            {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
+            {contextMenuItem && contextMenuItem?.type === "edge" && <GenericEdgeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
+            {contextMenuItem && contextMenuItem?.type === "node" && <GenericNodeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
+
             <MiniMapStyled
               nodeColor={(node) => {
                 switch (node.type) {
@@ -311,7 +313,7 @@ const BaseFlowCanvas = ({
 
 BaseFlowCanvas.defaultProps = {
   onLayoutChange: defaultLayoutChange,
-  canvasInteractions:new CanvasInteractions()
+  canvasInteractions: new CanvasInteractions()
 };
 
 export default BaseFlowCanvas;

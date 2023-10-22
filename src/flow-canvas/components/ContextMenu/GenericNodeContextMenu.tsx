@@ -11,9 +11,11 @@ const styles = {
     zIndex: 10
 }
 
-export default function ContextMenu({ id, top, left, right, bottom, ...props }: {
-    id: string, top: number, left: number, right: number, bottom: number, props: object
+export default function GenericNodeContextMenu({ id, type,  top, left, right, bottom, ...props }: {
+    id: string, type: string,  top: number, left: number, right: number, bottom: number, props: object
 }) {
+    // type = edge/node 
+    
     const { getNode, setNodes, addNodes, setEdges } = useReactFlow();
     //   const duplicateNode = useCallback(() => {
     //     const node = getNode(id);
