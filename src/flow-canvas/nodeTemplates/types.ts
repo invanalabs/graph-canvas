@@ -1,10 +1,10 @@
 
 
-type NodeTemplateStyleOptions = {
+// type NodeTemplateStyleOptions = {
 
-}
+// }
 
-type CanvasNodeTemplateDataBase = {
+export type CanvasNodeTemplateDataBase = {
     nodeLabel: string // equals to Person, Project in graph db world
     nodeProperties: object // all the properties of the node in the graph db world
 
@@ -13,7 +13,7 @@ type CanvasNodeTemplateDataBase = {
     templateStyleOptionStates: object
 }
 
-type CanvasNodeTemplateProps = CanvasNodeTemplateDataBase & {
+export type CanvasNodeTemplateProps = CanvasNodeTemplateDataBase & {
     id: string
     label: string // there should be copy of label in templateData.label
     selected: boolean
