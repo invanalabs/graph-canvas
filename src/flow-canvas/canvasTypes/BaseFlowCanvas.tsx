@@ -41,7 +41,7 @@ const BaseFlowCanvas = ({
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
   canvasEdgeTemplates = CanvasEdgeTemplates,
-  canvasInteractions 
+  canvasInteractions = new CanvasInteractions()
 
 }: FlowCanvasProps) => {
 
@@ -139,9 +139,11 @@ const BaseFlowCanvas = ({
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
     setFlowInstance(reactFlowInstance);
-    reactFlowInstance.zoomTo(1);
-    reactFlowInstance.fitView();
-    // onLayout(direction)
+    if(reactFlowInstance){
+      reactFlowIstance.zoomTo(1);
+      reactFlowInstance.fitView();  
+    }
+    onLayout(direction)
   }
 
   // const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
