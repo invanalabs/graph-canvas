@@ -1,1 +1,1 @@
-export * from "./canvasTypes/BaseCanvas";
+export * from "./canvasTypes/BaseFlowCanvas";

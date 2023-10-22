@@ -1,4 +1,4 @@
-import BaseFlowCanvas  from './flow-canvas/canvasTypes/BaseCanvas';
+import BaseFlowCanvas  from './flow-canvas/canvasTypes/BaseFlowCanvas';
 import { initialNodes, initialEdges } from "./example-datasets/raw/er-mock-data";
 
 export default function App() {

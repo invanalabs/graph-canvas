@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BaseFlowCanvas from '../../flow-canvas/canvasTypes/BaseCanvas';
+import BaseFlowCanvas from '../../flow-canvas/canvasTypes/BaseFlowCanvas';
 import exampleData from '../../example-datasets/shapes/other';
 
 

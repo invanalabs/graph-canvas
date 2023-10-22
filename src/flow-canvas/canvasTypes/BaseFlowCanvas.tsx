@@ -18,20 +18,37 @@ import { darkTheme, lightTheme } from "../theme";
 import React from "react";
 import { resetHandlePathHighlight } from "../interactions/EntityRelationHighlight";
 import "reactflow/dist/style.css";
-import { getLayoutedElements } from "../core/layouts/dagre";
+// import { getLayoutedElements } from "../layouts/dagre";
 import { CanvasEdge, CanvasNode, FlowCanvasProps } from "../core/types";
 import { defaultCanvasSettings, defaultCanvasStyle } from "../settings";
 import { CanvasNodeTemplates } from "../nodeTemplates";
 import { CanvasEdgeTemplates } from "../edgeTemplates";
 import CanvasInteractions from "../interactions/interactions";
 import ContextMenu from "../components/ContextMenu";
+import DagreLayoutEngine from "../layouts/dagre";
+import { node } from "prop-types";
+import {defaultLayoutChange} from "../layouts/noLayout";
 
 const canvasInteractions = new CanvasInteractions()
-const BaseFlowCanvas = ({ children, initialNodes, initialEdges = [],
+
+
+
+// const layoutEngine: DagreLayoutEngine = new DagreLayoutEngine()
+// const dagreOnLayoutChange = (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: ReactFlowInstance, direction: string) => {
+//   layoutEngine.getLayoutedElements(nodes, edges, flowInstance, direction)
+// }
+
+
+
+const BaseFlowCanvas = ({
+  children,
+  initialNodes,
+  initialEdges = [],
+  onLayoutChange = null,
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
-  canvasEdgeTemplates = CanvasEdgeTemplates
+  canvasEdgeTemplates = CanvasEdgeTemplates,
 }: FlowCanvasProps) => {
 
 
@@ -45,12 +62,16 @@ const BaseFlowCanvas = ({ children, initialNodes, initialEdges = [],
   //     };
   //   });
   // }
+   
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
-
-  const { layoutedNodes, layoutedEdges } = getLayoutedElements(
+ 
+  console.log("====onLayoutChange", onLayoutChange, defaultLayoutChange);
+ 
+  const { layoutedNodes, layoutedEdges } = defaultLayoutChange(
     initialNodes,
     initialEdges,
-    flowInstance
+    flowInstance,
+    "LR"
   );
 
   const [mode, setMode] = useState('dark');
@@ -84,16 +105,16 @@ const BaseFlowCanvas = ({ children, initialNodes, initialEdges = [],
     (event: React.MouseEvent, node: Node) => {
       // Prevent native context menu from showing
       event.preventDefault();
-        console.log("====onNodeContextMenu", node, event,  event.clientX, event.clientY)
-        const pane = ref.current.getBoundingClientRect();
-        setMenu({
-          id: node.id,
-          top: event.clientY < pane.height - 200 && event.clientY,
-          left: event.clientX < pane.width - 200 && event.clientX,
-          right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
-          bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
-        });
- 
+      console.log("====onNodeContextMenu", node, event, event.clientX, event.clientY)
+      const pane = ref.current.getBoundingClientRect();
+      setMenu({
+        id: node.id,
+        top: event.clientY < pane.height - 200 && event.clientY,
+        left: event.clientX < pane.width - 200 && event.clientX,
+        right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
+        bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
+      });
+
     },
     [setMenu]
   );
@@ -102,16 +123,16 @@ const BaseFlowCanvas = ({ children, initialNodes, initialEdges = [],
     (event: React.MouseEvent, edge: Edge) => {
       // Prevent native context menu from showing
       event.preventDefault();
-        console.log("====onEdgeContextMenu", edge, event,  event.clientX, event.clientY)
-        const pane = ref.current.getBoundingClientRect();
-        setMenu({
-          id: edge.id,
-          top: event.clientY < pane.height - 200 && event.clientY,
-          left: event.clientX < pane.width - 200 && event.clientX,
-          right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
-          bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
-        });
- 
+      console.log("====onEdgeContextMenu", edge, event, event.clientX, event.clientY)
+      const pane = ref.current.getBoundingClientRect();
+      setMenu({
+        id: edge.id,
+        top: event.clientY < pane.height - 200 && event.clientY,
+        left: event.clientX < pane.width - 200 && event.clientX,
+        right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
+        bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
+      });
+
     },
     [setMenu]
   );
@@ -161,7 +182,7 @@ const BaseFlowCanvas = ({ children, initialNodes, initialEdges = [],
       const {
         layoutedNodes,
         layoutedEdges
-      } = getLayoutedElements(nodes, edges, flowInstance, direction);
+      } = onLayoutChange(nodes, edges, flowInstance, direction);
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },

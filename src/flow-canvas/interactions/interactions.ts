@@ -3,7 +3,7 @@ import { CanvasNode } from "../core/types";
 import CanvasInteractionActions from "./actions";
 
 
-type FlowInstanceType = ReactFlowInstance | undefined | null;
+export type FlowInstanceType = ReactFlowInstance | undefined | null;
 const canvasInteractionActions = new CanvasInteractionActions();
 
 
