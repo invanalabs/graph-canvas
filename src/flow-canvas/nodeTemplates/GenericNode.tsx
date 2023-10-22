@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useStoreApi } from "reactflow";
-import NodeBase from "./NodeBase";
+import BaseNode from "./BaseNode";
 // import {
 //   highlightHandlePathByNodeHandleId,
 //   resetHandlePathHighlight
@@ -44,7 +44,7 @@ const GenericNode = ({ id, data, selected }: CanvasNodeProps) => {
 
   console.log("=====data.icon", data.icon, typeof data.icon)
   return (
-    <NodeBase
+    <BaseNode
       id={id}
       label={data.label}
       selected={selected}

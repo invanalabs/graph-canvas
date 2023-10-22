@@ -87,7 +87,7 @@ export type FlowCanvasProps = {
 }
 
 
-export interface NodeBaseProps {
+export interface BaseNodeProps {
     id: string;
     label: string;
     selected: boolean;
