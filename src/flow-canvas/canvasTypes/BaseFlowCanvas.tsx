@@ -139,10 +139,9 @@ const BaseFlowCanvas = ({
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
     setFlowInstance(reactFlowInstance);
-    if(reactFlowInstance){
-      reactFlowIstance.zoomTo(1);
-      reactFlowInstance.fitView();  
-    }
+    reactFlowInstance?.zoomTo(1);
+    reactFlowInstance?.fitView();  
+ 
     onLayout(direction)
   }
 
