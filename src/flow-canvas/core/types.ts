@@ -78,6 +78,19 @@ export type CanvasSettingsType = {
     nodes: CanvasNodeSettings
 }
 
+export type LayoutEngineResponse  = {
+    layoutedNodes: CanvasNode[]
+    layoutedEdges: CanvasEdge[]
+
+}
+
+export type LayoutEngineFuncProps = {
+    nodes: CanvasNode[], 
+    edges: CanvasEdge[], 
+    flowInstance: FlowInstanceType, 
+    direction: string
+}
+
 export type FlowCanvasProps = {
     children?: React.ReactNode,
     initialNodes: CanvasNode[],
@@ -86,7 +99,10 @@ export type FlowCanvasProps = {
     style?: React.CSSProperties,
     canvasNodeTemplates?: NodeTypes,
     canvasEdgeTemplates?: EdgeTypes ,
-    onLayoutChange: (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: FlowInstanceType, direction: string) => void,
+    onLayoutChange: (   nodes: CanvasNode[], 
+        edges: CanvasEdge[], 
+        flowInstance: FlowInstanceType, 
+        direction: string) => LayoutEngineResponse,
     // onLayoutChange?: (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: ReactFlowInstance, direction: string) => {} | null,
     canvasInteractions: object | null
 }

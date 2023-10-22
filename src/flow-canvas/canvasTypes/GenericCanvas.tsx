@@ -6,13 +6,14 @@ import { CanvasEdgeTemplates } from "../edgeTemplates";
 import CanvasInteractions, { FlowInstanceType } from "../interactions/interactions";
 import DagreLayoutEngine from "../layouts/dagre";
 import { CanvasEdge , CanvasNode } from "../core/types";
+import { defaultLayoutChange } from "../layouts/noLayout";
 
 
 const layoutEngine: DagreLayoutEngine = new DagreLayoutEngine()
 const dagreOnLayoutChange = (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: FlowInstanceType, direction: string) => {
   return layoutEngine.getLayoutedElements(nodes, edges, flowInstance, direction)
 }
-const FlowCanvas = ({
+const GenericFlowCanvas = ({
   children,
   initialNodes,
   initialEdges = [],
@@ -27,15 +28,15 @@ const FlowCanvas = ({
 
 
   return <BaseFlowCanvas children={children} initialNodes={initialNodes} initialEdges={initialEdges}
-     onLayoutChange={dagreOnLayoutChange} style={style} canvasSettings={canvasSettings} 
+     onLayoutChange={defaultLayoutChange} style={style} canvasSettings={canvasSettings} 
      canvasEdgeTemplates={canvasEdgeTemplates} canvasNodeTemplates={canvasNodeTemplates}
      canvasInteractions={canvasInteractions} />
 }
 
-FlowCanvas.defaultProps = {
+GenericFlowCanvas.defaultProps = {
   onLayoutChange: dagreOnLayoutChange,
   canvasInteractions:new CanvasInteractions()
 
 };
 
-export default FlowCanvas
+export default GenericFlowCanvas

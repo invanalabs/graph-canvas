@@ -57,4 +57,6 @@ export default class CanvasInteractions {
     onPaneClick = (event: React.MouseEvent, flowInstance: FlowInstanceType)=>{ // Called when user clicks directly on the canvas
 
     }
+
+    
 }

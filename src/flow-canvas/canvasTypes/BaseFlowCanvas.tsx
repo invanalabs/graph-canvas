@@ -36,12 +36,12 @@ const BaseFlowCanvas = ({
   children,
   initialNodes,
   initialEdges = [],
-  onLayoutChange = null,
+  onLayoutChange,
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
   canvasEdgeTemplates = CanvasEdgeTemplates,
-  canvasInteractions = new CanvasInteractions()
+  canvasInteractions 
 
 }: FlowCanvasProps) => {
 
@@ -59,9 +59,9 @@ const BaseFlowCanvas = ({
    
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
  
-  console.log("====onLayoutChange", onLayoutChange, defaultLayoutChange);
+  console.log("====onLayoutChange", onLayoutChange);
  
-  const { layoutedNodes, layoutedEdges } = defaultLayoutChange(
+  const { layoutedNodes, layoutedEdges } = onLayoutChange(
     initialNodes,
     initialEdges,
     flowInstance,
@@ -305,6 +305,12 @@ const BaseFlowCanvas = ({
       </ThemeProvider>
     </div>
   );
+};
+
+
+BaseFlowCanvas.defaultProps = {
+  onLayoutChange: defaultLayoutChange,
+  canvasInteractions:new CanvasInteractions()
 };
 
 export default BaseFlowCanvas;
