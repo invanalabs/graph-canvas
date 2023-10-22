@@ -1,6 +1,6 @@
 import React from "react";
 import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes, EdgeTypes } from "reactflow"
-
+import { CanvasNodeStylingOptions } from "../styling/types";
 //https://stackoverflow.com/a/55032655/3448851
 // Example usage : Modify<Node, { a: string}> // to override `a` data type
 type Modify<T, R> = Omit<T, keyof R> & R;
@@ -12,18 +12,16 @@ export type NodeField = {
 }
 export type CanvasNodeData = {
     // data property in the Node 
-    label: string
     fields?: NodeField[]
     icon?: any, 
     body?: any,
     commentText?: string // TODO - move this to seperate CommentNode type 
-    properties?: object,
 
     //
-    
-    // properties: object
+    label: string  // display label
+    properties?: object
     type? : string // this equal to node label in graph ex: Person, Project, 
-    stylingOptions?: object // coloring options
+    stylingOptions?: CanvasNodeStylingOptions // coloring options
     templateOptions?: object // config to get the pre-defined templatefields data from all properties
     templateData?: object // template fields with data // 
     // different between properties and templateData is, templateData is subset of all 

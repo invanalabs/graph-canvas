@@ -20,8 +20,12 @@ export type CanvasEdgeStylingOptions  = {
 
 
 export type CanvasNodeStylingOptions = {
-    shapeColor: string, // color used for styling the node header/border etc ; color used in MiniMap also
-    shapeBorderColor: string, // 
-    shapeBgColor: string ,
-    shapeTextColor: string    
+    shapeColor: string // color used for background ; color used in MiniMap also
+    shapeBorderColor: string // 
+
+    shapeHeaderBgColor: string
+    shapeHeaderTextColor: string    
+
+    shapeBodyBgColor : string // defaults to shapeColor
+    shapeBodyTextColor: string
 }
