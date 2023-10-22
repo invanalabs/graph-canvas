@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import FlowCanvas from '../../flow-canvas/canvas';
+import FlowCanvas from '../../flow-canvas/canvasTypes/FlowCanvas';
 import { initialNodes as erInitialNodes, initialEdges as erInitialEdges  } from "../../example-datasets/raw/er-mock-data";
 import { initialNodes, initialEdges } from '../../example-datasets/raw/simple-hello-world';
 import { initialNodes as allNodesInitialNodes, initialEdges as allEdgesInitialEdges  } from "../../example-datasets/raw/all-nodes";
@@ -64,3 +64,4 @@ export const LargeDataCanvas: Story = {
 };
 
 
+ 

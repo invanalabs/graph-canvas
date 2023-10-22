@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useStoreApi } from "reactflow";
-import NodeBase from "../NodeBase";
+import BaseNode from "../BaseNode";
 import iconUrl , {ReactComponent as StickyNotes} from "./stickyNotes.svg"
 
 
@@ -59,7 +59,7 @@ const CommentNode = ({ id, data, selected }: CanvasNodeProps) => {
   };
 
   return (
-    <NodeBase
+    <BaseNode
       id={id}
       label={data.label}
       selected={selected}

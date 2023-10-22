@@ -8,6 +8,9 @@ export const initialNodes = [
       // storeType: "MongoDB",
       label: "MongoDB (1.1)",
       fields: [{ label: "crawlerflow", id: "crawlerflow" }]
+    },
+    style: {
+      width: "200px"
     }
   },
   {
@@ -16,6 +19,9 @@ export const initialNodes = [
     data: {
       label: "FileStorage (1.2)",
       fields: [{ label: "myfile.csv", id: "myfile-csv", data_type: "string" }]
+    },
+    style: {
+      width: "200px"
     }
   },
   {
@@ -31,6 +37,9 @@ export const initialNodes = [
       //   { label: "Model", type: "data" },
       //   { label: "Error", type: "value" }
       // ]
+    },
+    style: {
+      width: "200px"
     }
   },
   {
@@ -44,6 +53,9 @@ export const initialNodes = [
         { label: "description", id: "description", data_type: "string" },
         { label: "is_active", id: "is_active", data_type: "bool" }
       ]
+    },
+    style: {
+      width: "200px"
     }
   },
   {
@@ -57,6 +69,9 @@ export const initialNodes = [
         { label: "title", id: "title", data_type: "string" },
         { label: "description", id: "description", data_type: "string" }
       ]
+    },
+    style: {
+      width: "200px"
     }
   },
   {
@@ -68,6 +83,9 @@ export const initialNodes = [
         { label: "identifier", id: "identifier", data_type: "string" },
         { label: "analysed_field", id: "analysed_field", data_type: "integer" }
       ]
+    },
+    style: {
+      width: "200px"
     }
   }
 ];

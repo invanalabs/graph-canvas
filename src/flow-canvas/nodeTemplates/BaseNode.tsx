@@ -1,16 +1,16 @@
 import React, { memo } from "react";
 import { Handle, Position } from "reactflow";
-import { NodeBaseProps } from "../core/types";
+import { BaseNodeProps } from "../core/types";
 
 
-const NodeBase: React.FC<NodeBaseProps> = ({
+const BaseNode: React.FC<BaseNodeProps> = ({
   id,
   label,
   selected,
   nodeStyles,
   header,
   body
-}: NodeBaseProps) => {
+}: BaseNodeProps) => {
  
   return (
     <div className={"customNode " + (selected ? "selected" : "")} style={nodeStyles?.shape || {}}  >
@@ -32,4 +32,4 @@ const NodeBase: React.FC<NodeBaseProps> = ({
   );
 };
 
-export default memo(NodeBase);
+export default memo(BaseNode);

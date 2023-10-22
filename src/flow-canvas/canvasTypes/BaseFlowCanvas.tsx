@@ -12,26 +12,39 @@ import ReactFlow, {
   applyEdgeChanges, applyNodeChanges, NodeChange, EdgeChange, Edge, Node
   // useStore
 } from "reactflow";
-import "./styles.scss";
+import "../styles.scss";
 import styled, { ThemeProvider } from 'styled-components';
-import { darkTheme, lightTheme } from "./theme";
+import { darkTheme, lightTheme } from "../theme";
 import React from "react";
-import { resetHandlePathHighlight } from "./interactions/EntityRelationHighlight";
+import { resetHandlePathHighlight } from "../interactions/EntityRelationHighlight";
 import "reactflow/dist/style.css";
-import { getLayoutedElements } from "./core/layouts/dagre";
-import { CanvasEdge, CanvasNode, FlowCanvasProps } from "./core/types";
-import { defaultCanvasSettings, defaultCanvasStyle } from "./settings";
-import { CanvasNodeTemplates } from "./nodeTemplates";
-import { CanvasEdgeTemplates } from "./edgeTemplates";
-import CanvasInteractions from "./interactions/interactions";
-import ContextMenu from "./components/ContextMenu";
+// import { getLayoutedElements } from "../layouts/dagre";
+import { CanvasEdge, CanvasNode, FlowCanvasProps } from "../core/types";
+import { defaultCanvasSettings, defaultCanvasStyle } from "../settings";
+import { CanvasNodeTemplates } from "../nodeTemplates";
+import { CanvasEdgeTemplates } from "../edgeTemplates";
+import CanvasInteractions from "../interactions/interactions";
+import GenericNodeContextMenu from "../components/ContextMenu/GenericNodeContextMenu";
+import GenericEdgeContextMenu from "../components/ContextMenu/GenericEdgeContextMenu";
+import { defaultLayoutChange } from "../layouts/noLayout";
 
-const canvasInteractions = new CanvasInteractions()
-const FlowCanvas = ({ children, initialNodes, initialEdges = [],
+
+
+
+const BaseFlowCanvas = ({
+  children,
+  initialNodes,
+  initialEdges = [],
+  onLayoutChange,
+  NodeContextMenu, 
+  EdgeContextMenu,
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
-  canvasEdgeTemplates = CanvasEdgeTemplates
+  canvasEdgeTemplates = CanvasEdgeTemplates,
+  canvasInteractions = new CanvasInteractions(),
+
+
 }: FlowCanvasProps) => {
 
 
@@ -45,12 +58,16 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
   //     };
   //   });
   // }
+
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
 
-  const { layoutedNodes, layoutedEdges } = getLayoutedElements(
+  console.log("====onLayoutChange", onLayoutChange);
+
+  const { layoutedNodes, layoutedEdges } = onLayoutChange(
     initialNodes,
     initialEdges,
-    flowInstance
+    flowInstance,
+    "LR"
   );
 
   const [mode, setMode] = useState('dark');
@@ -66,7 +83,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
   const [nodes, setNodes] = useNodesState(layoutedNodes);
   const [edges, setEdges] = useEdgesState(layoutedEdges);
 
-  const [menu, setMenu] = useState(null);
+  const [contextMenuItem, setContextMenuItem] = useState(null);
 
   const [direction, setDirection] = useState("LR");
 
@@ -82,51 +99,53 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
 
   const onNodeContextMenu = useCallback(
     (event: React.MouseEvent, node: Node) => {
-      // Prevent native context menu from showing
+      // Prevent native context contextMenuItem from showing
       event.preventDefault();
-        console.log("====onNodeContextMenu", node, event,  event.clientX, event.clientY)
-        const pane = ref.current.getBoundingClientRect();
-        setMenu({
-          id: node.id,
-          top: event.clientY < pane.height - 200 && event.clientY,
-          left: event.clientX < pane.width - 200 && event.clientX,
-          right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
-          bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
-        });
- 
+      const pane = ref.current.getBoundingClientRect();
+      setContextMenuItem({
+        id: node.id,
+        type: "node",
+        top: event.clientY < pane.height - 200 && event.clientY,
+        left: event.clientX < pane.width - 200 && event.clientX,
+        right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
+        bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
+      });
+
     },
-    [setMenu]
+    [setContextMenuItem]
   );
 
   const onEdgeContextMenu = useCallback(
     (event: React.MouseEvent, edge: Edge) => {
-      // Prevent native context menu from showing
+      // Prevent native context contextMenuItem from showing
       event.preventDefault();
-        console.log("====onEdgeContextMenu", edge, event,  event.clientX, event.clientY)
-        const pane = ref.current.getBoundingClientRect();
-        setMenu({
-          id: edge.id,
-          top: event.clientY < pane.height - 200 && event.clientY,
-          left: event.clientX < pane.width - 200 && event.clientX,
-          right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
-          bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
-        });
- 
+      console.log("====onEdgeContextMenu", edge, event, event.clientX, event.clientY)
+      const pane = ref.current.getBoundingClientRect();
+      setContextMenuItem({
+        id: edge.id,
+        type: "edge",
+        top: event.clientY < pane.height - 200 && event.clientY,
+        left: event.clientX < pane.width - 200 && event.clientX,
+        right: event.clientX >= pane.width - 200 && pane.width - event.clientX,
+        bottom: event.clientY >= pane.height - 200 && pane.height - event.clientY,
+      });
+
     },
-    [setMenu]
+    [setContextMenuItem]
   );
 
 
 
-  const onPaneClick = useCallback(() => setMenu(null), [setMenu]);
+  const onPaneClick = useCallback(() => setContextMenuItem(null), [setContextMenuItem]);
 
 
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     console.log("flow loaded:", reactFlowInstance);
     setFlowInstance(reactFlowInstance);
-    reactFlowInstance.zoomTo(1);
-    reactFlowInstance.fitView();
-    // onLayout(direction)
+    reactFlowInstance?.zoomTo(1);
+    reactFlowInstance?.fitView();
+
+    onLayout(direction)
   }
 
   // const onNodeClick = (event: React.MouseEvent, object: CanvasNode) => {
@@ -161,7 +180,7 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
       const {
         layoutedNodes,
         layoutedEdges
-      } = getLayoutedElements(nodes, edges, flowInstance, direction);
+      } = onLayoutChange(nodes, edges, flowInstance, direction);
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
@@ -258,7 +277,9 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
           // }
           >
 
-            {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
+            {contextMenuItem && contextMenuItem?.type === "edge" && <NodeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
+            {contextMenuItem && contextMenuItem?.type === "node" && <EdgeContextMenu onClick={onPaneClick} {...contextMenuItem} />}
+
             <MiniMapStyled
               nodeColor={(node) => {
                 switch (node.type) {
@@ -292,4 +313,13 @@ const FlowCanvas = ({ children, initialNodes, initialEdges = [],
   );
 };
 
-export default FlowCanvas;
+
+BaseFlowCanvas.defaultProps = {
+  onLayoutChange: defaultLayoutChange,
+  canvasInteractions: new CanvasInteractions(),
+  NodeContextMenu: GenericNodeContextMenu,
+  EdgeContextMenu: GenericEdgeContextMenu
+
+};
+
+export default BaseFlowCanvas;

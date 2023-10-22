@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import FlowCanvas from '../../flow-canvas/canvas';
+// import FlowCanvas from '../../flow-canvas/canvasTypes/FlowCanvas';
 import exampleData from '../../example-datasets/shapes/Comments';
+import FlowCanvas from '../../flow-canvas/canvasTypes/FlowCanvas';
 
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
