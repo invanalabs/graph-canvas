@@ -17,7 +17,19 @@ export type CanvasNodeData = {
     icon?: any, 
     body?: any,
     commentText?: string // TODO - move this to seperate CommentNode type 
-    properties?: object
+    properties?: object,
+
+    //
+    
+    // properties: object
+    type? : string // this equal to node label in graph ex: Person, Project, 
+    stylingOptions?: object // coloring options
+    templateOptions?: object // config to get the pre-defined templatefields data from all properties
+    templateData?: object // template fields with data // 
+    // different between properties and templateData is, templateData is subset of all 
+    // the properties data.
+
+
 }
 // export type MyCustomCSS=  Modify<React.CSSProperties,   {
 //     'absolute': string;
