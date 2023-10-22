@@ -30,10 +30,8 @@ export const nodes = [
     type: 'custom',
     position: { x: 100, y: 200 },
     data: {
-      selects: {
-        'handle-0': 'smoothstep',
-        'handle-1': 'smoothstep',
-      },
+        label: 'Default Node 4',
+ 
     },
   },
   {
