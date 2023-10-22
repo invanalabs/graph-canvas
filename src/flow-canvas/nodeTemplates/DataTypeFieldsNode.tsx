@@ -38,7 +38,7 @@ const DataTypeFieldsNode = ({ id, data, selected }: CanvasNodeProps) => {
   const { edges, getNodes, setNodes, setEdges } = store.getState();
   const nodes = getNodes();
 
-  const MouseOver = (e: React.MouseEvent) => {
+  const onMouseOver = (e: React.MouseEvent) => {
     let el = e.currentTarget;
     const nodeId: string = el.getAttribute("data-node-id") || "";
     const handleId: string | null = el.getAttribute("data-handle-id");
@@ -46,12 +46,12 @@ const DataTypeFieldsNode = ({ id, data, selected }: CanvasNodeProps) => {
     // https://github.com/wbkd/react-flow/issues/2418
   };
 
-  const MouseOut = (e: React.MouseEvent) => {
+  const onMouseOut = (e: React.MouseEvent) => {
     resetHandlePathHighlight(nodes, edges, setNodes, setEdges);
   };
 
   const handleClick = (e: React.MouseEvent) => {
-    MouseOver(e);
+    onMouseOver(e);
   };
 
   return (
@@ -68,8 +68,8 @@ const DataTypeFieldsNode = ({ id, data, selected }: CanvasNodeProps) => {
           {data.fields && data.fields.map((field: NodeField) => (
             <div
               className="nodeField textLeft io"
-              onMouseOver={MouseOver}
-              onMouseOut={MouseOut}
+              onMouseOver={onMouseOver}
+              onMouseOut={onMouseOut}
               id={generateFieldName(id, field.id)}
               onClick={handleClick}
               data-node-id={id}
