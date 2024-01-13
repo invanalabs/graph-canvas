@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import NetworkLayout from '../../layouts/network';
+import NetworkLayout from '../../layouts/network/network';
 import data from "../datasets/nivo-dataset";
 
 
