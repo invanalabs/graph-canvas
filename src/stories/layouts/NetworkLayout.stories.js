@@ -1,4 +1,5 @@
 import data from "../datasets/nivo-dataset";
+import helloWorldData from "../datasets/hello-world-story";
 import { NetworkLayoutStory } from './NetworkLayoutStory';
 
 export default {
@@ -18,3 +19,10 @@ export const NivoDataset = {
   },
 };
 
+
+
+export const helloWorldDataset = {
+  args: {
+    data: helloWorldData
+  },
+};

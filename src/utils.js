@@ -1,0 +1,10 @@
+
+
+
+class SerializerUtils {
+
+    convertToNetworkNode(canvasNode){
+        
+    }
+
+}
