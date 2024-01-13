@@ -2,7 +2,7 @@
   "name": "canvas",
   "description": "Graph and drawing library for beautiful visualizations",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.0",
   "scripts": {
     "dev": "SHOW_ALL_COMPONENT_DEMOS=true vite serve docs",
     "build-docs": "rimraf docs/dist && vite build docs && serve -s docs/dist",
@@ -12,6 +12,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@nivo/core": "^0.84.0",
+    "@nivo/network": "^0.84.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
