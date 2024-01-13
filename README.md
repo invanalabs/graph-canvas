@@ -1,16 +1,27 @@
-# flow-canvas
+# Canvas 
 
-Typescript library for drawing pretty representations of data flows and stories.
-
- <a href="https://github.com/invana/flow-canvas/workflows/build/">
-    <img src="https://github.com/reaviz/reaflow/workflows/build/badge.svg?branch" />
-</a>
- <a href="https://github.com/invana/flow-canvas/workflows/blob/dev/LICENSE.md">
-    <img src="https://badgen.now.sh/badge/license/Apache" />
-</a>
+Graph and drawing library for beautiful visualizations
 
 
+## Features 
 
-Checkout usage examples at https://invana.github.io/flow-canvas/
-
-![alt text](screenshot.png "Title")
+- [ ] Layouts - Organic, Heirarchic, Circular, Radial, Orthogonal, cactus tree
+- [ ] Renderers - SVG, Canvas, WebGL (CPU/GPU)
+- [ ] Shapes and Templates for Nodes and Relationships - tags, and states (active, inactive, highlight, hidden)
+- [ ] Node Templates
+    - [ ] Generic node
+    - [ ] IDCard, WebsiteCard, Notes, StockCard, MachineCard, Shapes
+- [ ] Support for Time series and GeoMap 
+- [ ] Canvas 
+    - [ ] backgrounds
+    - [ ] Tooltip
+    - [ ] ContextMenu
+    - [ ] Filter Nodes - by properties, time
+    - [ ] Legend
+    - [ ] Selected Nodes 
+    - [ ] Highlighte Nodes
+    - [ ] Hull 
+    - [ ] Annotations/Notes
+    - [ ] Canvas Options - Zoom, Fit to view,  
+- [ ] key bindings for shortcuts
+- [ ] Support for theming - dark mode to start with.
