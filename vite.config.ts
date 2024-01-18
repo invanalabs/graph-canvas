@@ -6,6 +6,10 @@ import { defineConfig } from 'vite'
 import typescript from '@rollup/plugin-typescript'
 
 export default defineConfig({
+  // for dev
+  server: {
+      port: 3005,
+  },
   build: {
     // use vite library mode to build the package
     // https://vitejs.dev/guide/build.html#library-mode
