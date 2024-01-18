@@ -1,4 +1,4 @@
-import SimpleNode from "../../../shapes/nodes/simpleNode/SimpleNode";
+import HTMLNode from "../../../shapes/nodes/HTMLNode/HTMLNode";
 
 
 const exampleNode = {
@@ -12,8 +12,8 @@ const exampleNode = {
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-  title: 'Shapes/Node/SimpleNode',
-  component: SimpleNode,
+  title: 'Shapes/Node/HTMLNode',
+  component: HTMLNode,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',

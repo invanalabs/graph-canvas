@@ -3,7 +3,7 @@ import PropTypes, { any } from 'prop-types';
 import { NodeDefaults } from "../../../defaults";
 
 
-const SimpleNode = ({ ...props }) => {
+const HTMLNode = ({ ...props }) => {
     return (<div
         style={{
             border: '2px solid #999',
@@ -15,7 +15,7 @@ const SimpleNode = ({ ...props }) => {
             boxShadow: '0 3px 9px rgba(0, 0, 0, .35)',
         }}
     >
-        <h1>SimpleNode</h1>
+        <h1>HTMLNode</h1>
         <strong>ID: {props.node.id}</strong>
         <br />
         label: {props.node.label}
@@ -23,7 +23,7 @@ const SimpleNode = ({ ...props }) => {
     )
 
 }
-SimpleNode.propTypes = {
+HTMLNode.propTypes = {
     node: any,
     shapeName: PropTypes.oneOf(['circle', 'square', 'reactangle']),
 
@@ -39,7 +39,7 @@ SimpleNode.propTypes = {
     bgShadow: PropTypes.string
 }
 
-SimpleNode.defaultProps = {
+HTMLNode.defaultProps = {
     node: null,
     shapeName: 'circle',
 
@@ -55,4 +55,4 @@ SimpleNode.defaultProps = {
     bgShadow: null
 }
 
-export default SimpleNode;
+export default HTMLNode;
