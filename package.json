@@ -12,7 +12,11 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@pixi/react": "^7.1.1",
+    "pixi-graphpaper": "^2.0.1",
+    "pixi-viewport": "^5.0.2",
     "pixi.js": "^7.3.3",
+    "pixi.js-legacy": "^7.3.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

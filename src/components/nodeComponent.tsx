@@ -1,7 +1,7 @@
 // import { memo } from 'react'
  
-// import IDCard from "../shapes/nodes/IDCard";
-// import NoteCard from "../shapes/nodes/NoteCard";
+// import IDCard from "../graphics/nodes/IDCard";
+// import NoteCard from "../graphics/nodes/NoteCard";
  
 
 // const NonMemoizedCanvasRouterNode = <Node extends InputNode>({
