@@ -1,12 +1,15 @@
 import PropTypes, { any } from 'prop-types';
 import * as PIXI from 'pixi.js';
 import { Viewport } from 'pixi-viewport'
-import { useRef, useEffect } from 'react';
-import generateRectangleGraphics from '../graphics/nodes/rectangle';
-import { GraphPaper } from "pixi-graphpaper";
+import { useRef, useEffect, useState } from 'react';
+// import generateRectangleGraphics from '../graphics/nodes/rectangle';
+// import { GraphPaper } from "pixi-graphpaper";
+import CircleGraphics from '../graphics/nodes/circle';
+import EdgeGraphics from '../graphics/edges/edge';
+import * as d3 from "d3";
 
 
-const Canvas = () => {
+const Canvas = ({nodes, edges}) => {
     // https://observablehq.com/@tlinkner/d3-webgl-force-graph-with-pixi-js-and-forceinabox-js-cluster
     // https://github.com/markuslerner/d3-webworker-pixijs?tab=readme-ov-file
     // https://observablehq.com/@zakjan/force-directed-graph-pixi
@@ -31,13 +34,25 @@ const Canvas = () => {
     - theme
 
 
+
+
     */
     const containerRef = useRef(null);
+    const toolTipRef = useRef(null); // for tooltip
+    const [viewport, setViewport] = useState(null)
+    // const stageContainer = useRef(null); // this is the container to which all the graphics are pushed .
     // const app = useRef(null);
+
+    // https://levelup.gitconnected.com/creating-a-force-graph-using-react-d3-and-pixijs-95616051aba
+
+    // const containerRect = container.getBoundingClientRect();
+    // const screenHeight = containerRect.height;
+    // const screenWidth = containerRect.width;
+    // let dragged = false;
 
 
     const screenHeight = 800;
-    const screenWidth = 800;
+    const screenWidth = 1200;
     const displaySettings = {
         screenWidth: screenWidth,
         screenHeight: screenHeight,
@@ -55,6 +70,35 @@ const Canvas = () => {
     //     minorGridVisible: false
     // });
 
+
+
+
+    // d3 color scaling function
+    // const color = (function() {
+    //     let scale = d3.scaleOrdinal(d3.schemeCategory10);
+    //     return (num) => parseInt(scale(num).slice(1), 16);
+    // })();
+
+
+
+
+    const createSimulation = (nodes, edges) => {
+        const simulation =   d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(edges) // This force provides links between nodes
+                .id((d) => d.id) // This sets the node id accessor to the specified function.
+                // If not specified, will default to the index of a node.
+                .distance(200)
+            )
+            .force("charge", d3.forceManyBody().strength(-500)) // This adds repulsion (if it's negative) between nodes.
+            .force("center", d3.forceCenter(displaySettings.screenWidth / 2, displaySettings.screenHeight / 2))
+            .force("collision", d3.forceCollide().radius((d) => d.radius).iterations(2))
+            .velocityDecay(0.8);
+
+        simulation
+            .force('link')
+            .links(edges);
+        return simulation
+    }
 
     const createViewPort = (events) =>{
         const viewport =  new Viewport({
@@ -85,6 +129,53 @@ const Canvas = () => {
     }
 
 
+    const ticked = (nodes, edges, artBoard , app) => {
+        nodes.forEach((node) => {
+          let { x, y, gfx } = node;
+          gfx.position = new PIXI.Point(x, y);
+        });
+    
+        // for (let i = visualLinksGfxs.children.length - 1; i >= 0; i--) {
+        //     visualLinksGfxs.children[i].destroy();
+        // }
+    
+        // visualLinksGfxs.clear();
+        // visualLinksGfxs.removeChildren();
+        // visualLinksGfxs.alpha = 1;
+
+
+        // linkArc = d =>`M${d.source.x},${d.source.y}A0,0 0 0,1 ${d.target.x},${d.target.y}`
+    
+        edges.forEach((link) => {
+          let { source, target, number } = link;
+        //   visualLinksGfxs.lineStyle(2, 0xD3D3D3);
+        //   visualLinksGfxs.moveTo(source.x, source.y);
+        //   visualLinksGfxs.lineTo(target.x, target.y);
+        link.gfx = EdgeGraphics({source, target, app})
+            artBoard.addChild(link.gfx);
+
+        });
+    
+        // visualLinksGfxs.endFill();
+      }
+
+    // const addTooltip = (hoverTooltip, d, x, y) => {
+    //     toolTipRef.current
+    //         .transition()
+    //         .duration(200)
+    //         .style("opacity", 0.9);
+
+    //     toolTipRef.current
+    //         .html(hoverTooltip(d))
+    //         .style("left", `${x}px`)
+    //         .style("top", `${y - 28}px`);
+    //   };
+    
+    //   const removeTooltip = () => {
+    //     div.transition().duration(200).style("opacity", 0);
+    //   };
+    
+
     useEffect(() => {
         // Create our application instance
         const app = new PIXI.Application({
@@ -101,29 +192,48 @@ const Canvas = () => {
         containerRef.current.appendChild(app.view);
         // const events = new PIXI.EventSystem(app.renderer);
         // events.domElement = app.renderer.view;
-        const events = app.renderer.events;
+        const viewport = createViewPort(app.renderer.events) // create viewport 
+        app.stage.addChild(viewport); // add viewport to stage
 
-        const viewport = createViewPort(events)
-        app.stage.addChild(viewport);
+        // stage for all the canvas dr
+        const artBoard = new PIXI.Graphics();
 
- 
-        // viewport.addChild(paper)
 
- 
+        // render links first; so that they remain in the bg
+        let visualLinksGfxs = new PIXI.Graphics();
+        viewport.addChild(visualLinksGfxs);
 
-        const rectangle = generateRectangleGraphics()
-        viewport.addChild( rectangle);
+        // render nodes 
+        nodes.forEach((node) => {
+            node.gfx = CircleGraphics({})
+            artBoard.addChild(node.gfx);
+        });
+        viewport.addChild(artBoard);
         app.ticker.start();
-
-
         // Start the PixiJS app
         app.start();
         viewport.fit(true);
+        setViewport(viewport);
+
+
+        const simulation = createSimulation(nodes, edges);
+
+
+
+
+        simulation.on("tick", ()=> ticked(nodes, edges, artBoard, app));
 
         return () => {
             // On unload stop the application
             app.stop();
+            simulation.stop();
+            nodes.forEach((node) => {
+              node.gfx.clear();
+            });
+            // visualLinksGfxs.clear();
+            setViewport(null)
         };
+
 
 
     }, []); // on first load 
@@ -140,7 +250,8 @@ const Canvas = () => {
 
 
     return (<div>
-        <div><button>center</button></div>
+        <div className='toolBar'><button>center</button></div>
+        <div ref={toolTipRef}></div>
         <div ref={containerRef} className="graphCanvas"></div>
     </div>)
 
@@ -149,12 +260,16 @@ const Canvas = () => {
 Canvas.propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
-    resolution: PropTypes.number
+    resolution: PropTypes.number,
+    nodes: PropTypes.any,
+    edges: PropTypes.any
 }
 
 Canvas.defaultProps = {
     height: 600,
     width: 400,
-    resolution: window.devicePixelRatio
+    resolution: window.devicePixelRatio,
+    nodes: [],
+    edges: []
 }
 export default Canvas;

@@ -1,5 +1,5 @@
 import Canvas from "../../canvas/canvas";
- 
+ import { nodes, edges } from "../../datasets/hello-world";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
@@ -20,6 +20,9 @@ export default {
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Normal = {
   args: {
+    nodes: nodes,
+    edges: edges,
+    // width: 1200
     // node: exampleNode,
     // accentColor: "#999"
   },
