@@ -48,13 +48,41 @@ const Canvas = () => {
         // backgroundColor: 0xf2eecb, // wheat
     }
 
-    let paper = new GraphPaper({
-        graphWidth: displaySettings.worldWidth,
-        graphHeight: displaySettings.worldHeight,
-        majorGridVisible: false,
-        minorGridVisible: false
-      });
+    // let paper = new GraphPaper({
+    //     graphWidth: displaySettings.worldWidth,
+    //     graphHeight: displaySettings.worldHeight,
+    //     majorGridVisible: false,
+    //     minorGridVisible: false
+    // });
 
+
+    const createViewPort = (events) =>{
+        const viewport =  new Viewport({
+            screenWidth: displaySettings.screenWidth,
+            screenHeight: displaySettings.screenHeight,
+            worldWidth: displaySettings.screenWidth * 4,
+            worldHeight: displaySettings.screenHeight * 4,
+            events: events,
+        });
+
+        return viewport
+            .drag()
+            .pinch({ percent: 2 })
+            .wheel()
+            .decelerate()
+            .clamp({
+                left: false,                // whether to clamp to the left and at what value
+                right: false,               // whether to clamp to the right and at what value
+                top: false,                 // whether to clamp to the top and at what value
+                bottom: false,              // whether to clamp to the bottom and at what value
+                direction: 'all',           // (all, x, or y) using clamps of [0, viewport.worldWidth / viewport.worldHeight]; replaces left / right / top / bottom if set
+                underflow: 'center',	       // where to place world if too small for screen (e.g., top - right, center, none, bottomleft)
+            })
+            .clampZoom({
+                minWidth: displaySettings.screenWidth / 2,
+                minHeight: displaySettings.screenHeight / 2
+            })
+    }
 
 
     useEffect(() => {
@@ -71,64 +99,26 @@ const Canvas = () => {
         });
         // Add the view to the DOM 
         containerRef.current.appendChild(app.view);
+        // const events = new PIXI.EventSystem(app.renderer);
+        // events.domElement = app.renderer.view;
+        const events = app.renderer.events;
 
-
-        const events = new PIXI.EventSystem(app.renderer);
-        events.domElement = app.renderer.view;
-
-
-        const viewport = new Viewport({
-            screenWidth: displaySettings.screenWidth,
-            screenHeight: displaySettings.screenHeight,
-            worldWidth: displaySettings.screenWidth * 4,
-            worldHeight: displaySettings.screenHeight * 4,
-            events: events,
-        });
-
-
-
-
-
-
-
-
-
-        //   viewport.drag().pinch({ percent: 2 }).wheel().decelerate();
-        viewport
-            .drag()
-            .pinch({ percent: 2 })
-            .wheel()
-            .decelerate()
-            .clamp({
-                left: false,                // whether to clamp to the left and at what value
-                right: false,               // whether to clamp to the right and at what value
-                top: false,                 // whether to clamp to the top and at what value
-                bottom: false,              // whether to clamp to the bottom and at what value
-                direction: 'all',           // (all, x, or y) using clamps of [0, viewport.worldWidth / viewport.worldHeight]; replaces left / right / top / bottom if set
-                underflow: 'center',	       // where to place world if too small for screen (e.g., top - right, center, none, bottomleft)
-            })
-            .clampZoom({
-                minWidth: displaySettings.screenWidth / 2,
-                minHeight: displaySettings.screenHeight / 2
-                // minWidth: 300,                 // minimum width
-                // maxWidth: 8000,                 // maximum width
-            })
-
+        const viewport = createViewPort(events)
         app.stage.addChild(viewport);
-        viewport.addChild(paper)
+
+ 
+        // viewport.addChild(paper)
 
  
 
         const rectangle = generateRectangleGraphics()
-
-        
-
-        viewport.addChild(rectangle);
+        viewport.addChild( rectangle);
         app.ticker.start();
 
 
         // Start the PixiJS app
         app.start();
+        viewport.fit(true);
 
         return () => {
             // On unload stop the application
@@ -140,10 +130,10 @@ const Canvas = () => {
 
 
 
-    // const resetViewport = () => {
-    //     viewport.center = new PIXI.Point(WORLD_WIDTH / 2, WORLD_HEIGHT / 2);
-    //     viewport.fitWorld(true);
-    // };
+    const resetViewport = () => {
+        viewport.center = new PIXI.Point(WORLD_WIDTH / 2, WORLD_HEIGHT / 2);
+        viewport.fitWorld(true);
+    };
 
 
 
