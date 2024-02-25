@@ -107,6 +107,7 @@ const Canvas = ({nodes, edges}) => {
             worldWidth: displaySettings.screenWidth * 4,
             worldHeight: displaySettings.screenHeight * 4,
             events: events,
+            resolution: 4, //window.devicePixelRatio
         });
 
         return viewport

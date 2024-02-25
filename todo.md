@@ -1,0 +1,35 @@
+# TODO 
+
+
+- [ ] Canvas
+    - [ ] Canvas Toolbar 
+        - [ ] zoom In
+        - [ ] zoom Out
+        - [ ] fit/center
+        - [ ] 
+- [ ] NodeShapes
+    - [ ] ShapesOptions 
+        - [ ] type
+            - [ ] Circle
+            - [ ] Square
+            - [ ] Rectangle
+            - [ ] Triangle
+        - [ ] size
+        - [ ] border
+            - [ ] width 
+            - [ ] color
+        - [ ] background
+            - [ ] Color
+            - [ ] Image
+        - [ ] label 
+            - [ ] content
+            - [ ] color
+            - [ ] background 
+            - [ ] fontsize
+    - [ ] events 
+        - [ ] mouseOut 
+        - [ ] mouseOver
+        - [ ] mouseIn 
+    - [ ] states
+        - [ ] normal 
+        - [ ] highlighted
