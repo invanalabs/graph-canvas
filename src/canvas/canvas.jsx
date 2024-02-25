@@ -63,15 +63,7 @@ const Canvas = ({nodes, edges}) => {
         // backgroundColor: 0xf2eecb, // wheat
     }
 
-    // let paper = new GraphPaper({
-    //     graphWidth: displaySettings.worldWidth,
-    //     graphHeight: displaySettings.worldHeight,
-    //     majorGridVisible: false,
-    //     minorGridVisible: false
-    // });
-
-
-
+ 
 
     // d3 color scaling function
     // const color = (function() {

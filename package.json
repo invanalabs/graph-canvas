@@ -1,6 +1,6 @@
 {
   "name": "canvas",
-  "description": "Graph and drawing library for beautiful visualizations",
+  "description": "Drawing library for beautiful graph data representation",
   "private": true,
   "version": "0.0.0",
   "scripts": {
@@ -12,14 +12,10 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@pixi/react": "^7.1.1",
-    "d3": "^7.8.5",
-    "pixi-graphpaper": "^2.0.1",
-    "pixi-viewport": "^5.0.2",
     "pixi.js": "^7.3.3",
     "pixi.js-legacy": "^7.3.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "pixi-viewport": "^5.0.2",
+    "d3": "^7.8.5"
   },
   "devDependencies": {
     "@mdx-js/react": "^2.3.0",
@@ -42,6 +38,9 @@
     "storybook": "^7.6.8",
     "vite": "^4.3.9",
     "vite-pages-theme-doc": "^4.0.0",
-    "vite-plugin-react-pages": "^4.0.0"
+    "vite-plugin-react-pages": "^4.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+
   }
 }
