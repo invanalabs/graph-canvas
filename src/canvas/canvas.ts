@@ -52,6 +52,11 @@ class Canvas {
         }
 
         const divRectangle = div?.getBoundingClientRect();
+
+        // if (divRectangle.width === 0 || divRectangle.height === 0 ){
+        //     throw (`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
+        // }
+
         this.displaySettings = this.createDisplaySettings(divRectangle.width, divRectangle.height)
 
         this.app = new PIXI.Application({
@@ -61,7 +66,7 @@ class Canvas {
             antialias: true,
             // autoResize: true,
             autoDensity: false,
-            // resolution: window.devicePixelRatio || 1, /// 2 for retina displays
+            resolution: window.devicePixelRatio || 2, /// 2 for retina displays
             backgroundColor: this.displaySettings.backgroundColor,
         });
 
