@@ -2,7 +2,10 @@ import * as PIXI from 'pixi.js';
 import { Viewport } from 'pixi-viewport'
 import type { ICanvas } from '@pixi/core';
 import type { EventSystem } from 'pixi.js';
-
+import Circle from '../structures/nodes/circle';
+import { ILink, INode, IGraphData } from './types';
+import Graph from 'graphology';
+import * as d3 from "d3";
 
 
 class Canvas {
@@ -15,49 +18,29 @@ class Canvas {
 
     viewport: Viewport;
     app: PIXI.Application;
-    artBoard: PIXI.Graphics;
+    artBoard: PIXI.Container;
 
     displaySettings: any;
 
-
-    // screenHeight = 800;
-    // screenWidth = 1200;
-    // displaySettings = {
-    //     screenWidth: this.screenWidth,
-    //     screenHeight: this.screenHeight,
-    //     worldWidth: this.screenWidth * 4,
-    //     worldHeight: this.screenHeight * 4,
-
-    //     backgroundColor: 0x1099bb, // light blue 
-    //     // backgroundColor: 0xf2eecb, // wheat
-    // }
-
-    createDisplaySettings(divWidth: number, divHeight: number) {
-        return {
-            screenWidth: divWidth,
-            screenHeight: divHeight,
-            worldWidth: divWidth * 4,
-            worldHeight: divHeight * 4,
-    
-            backgroundColor: 0x1099bb, // light blue 
-            // backgroundColor: 0xf2eecb, // wheat
-        }
-    }
-
+    graphData: IGraphData;
 
     constructor(div: ICanvas) {
-
         if (!div) {
             throw ("div cannot be null")
         }
 
+        // @ts-ignore
         const divRectangle = div?.getBoundingClientRect();
 
         // if (divRectangle.width === 0 || divRectangle.height === 0 ){
         //     throw (`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
         // }
-
+        console.log("===divRectangle", divRectangle)
         this.displaySettings = this.createDisplaySettings(divRectangle.width, divRectangle.height)
+        // this.displaySettings = this.createDisplaySettings(800,800)
+
+        // this.graph = new Graph();
+        this.graphData = { nodes: [], links: [] }
 
         this.app = new PIXI.Application({
             width: this.displaySettings.screenWidth,
@@ -74,9 +57,45 @@ class Canvas {
         this.app.stage.addChild(this.viewport); // add viewport to stage
 
         // stage for all the canvas dr
-        this.artBoard = new PIXI.Graphics();
+        this.artBoard = new PIXI.Container();
+        this.viewport.addChild(this.artBoard)
+        this.app.ticker.start();
+        // // Start the PixiJS app
+        this.app.start();
+        // this.viewport.fit(true);
+
     }
 
+
+     createSimulation = (nodes: INode[], edges: ILink[]) => {
+        const simulation = d3.forceSimulation(nodes)
+            .force("link", d3.forceLink(edges) // This force provides links between nodes
+                .id((d: ILink) => d.id) // This sets the node id accessor to the specified function.
+                // If not specified, will default to the index of a node.
+                .distance(200)
+            )
+            .force("charge", d3.forceManyBody().strength(-500)) // This adds repulsion (if it's negative) between nodes.
+            .force("center", d3.forceCenter(this.displaySettings.screenWidth / 2, this.displaySettings.screenHeight / 2))
+            .force("collision", d3.forceCollide().radius((d: INode) => 20).iterations(2))
+            .velocityDecay(0.8);
+
+        simulation
+            .force('link')
+            .links(edges);
+        return simulation
+    }
+
+    createDisplaySettings(divWidth: number, divHeight: number) {
+        return {
+            screenWidth: divWidth,
+            screenHeight: divHeight,
+            worldWidth: divWidth * 4,
+            worldHeight: divHeight * 4,
+
+            backgroundColor: 0x1099bb, // light blue 
+            // backgroundColor: 0xf2eecb, // wheat
+        }
+    }
 
     createViewPort = (events: EventSystem) => {
         const viewport = new Viewport({
@@ -87,7 +106,7 @@ class Canvas {
             events: events,
             // resolution: 2, //window.devicePixelRatio
         });
-
+        viewport.moveCenter(0, 0);
         return viewport
             .drag()
             .pinch({ percent: 2 })
@@ -106,6 +125,93 @@ class Canvas {
                 minHeight: this.displaySettings.screenHeight / 2
             })
     }
+
+
+    ticked = (nodes: INode[], edges: ILink[]) => {
+        nodes.forEach((node: INode) => {
+            let { x, y, shapeGfx } = node;
+            shapeGfx?.position.set(x, y);
+        });
+
+        // edges.forEach((link) => {
+        //     let { source, target } = link;
+        //     link.shapeGfx = EdgeGraphics({ source, target, app })
+        //     artBoard.addChild(link.shapeGfx);
+        // });
+
+        // visualLinksGfxs.endFill();
+    }
+
+    addData = (nodes: Array<INode>, links: Array<ILink>) => {
+        console.log("Adding nodes and edges", nodes, links)
+        let _this = this;
+
+        // // add to graphology
+        // nodes.forEach((node: INode) => {
+        //     _this.graphData.addNode(node.id, node);
+        // });
+
+
+
+        this.graphData = { nodes: nodes, links: links }
+
+        this.graphData.nodes.map((node: INode) => {
+
+            console.log("node===", typeof node, node)
+
+            if (!node.shapeGfx) {
+                const shapeContainer = new Circle()
+                node.shapeGfx = shapeContainer.draw(node)
+                _this.artBoard.addChild(node.shapeGfx);
+            }
+        });
+
+
+        const simulation = this.createSimulation(nodes, links);
+        simulation.on("tick", () => this.ticked(nodes, links));
+
+        this.fitView()
+
+        // _this.artBoard.
+        // console.log("edges", edges)
+    }
+
+    fitView() {
+
+
+
+        const nodesX = this.graphData.nodes.map((node: INode) => node.x);
+        const nodesY = this.graphData.nodes.map((node: INode) => node.y);
+
+
+        console.log("===nodesX", nodesX, nodesY)
+        // @ts-ignore
+        const minX = Math.min(...nodesX);
+        // @ts-ignore
+        const maxX = Math.max(...nodesX);
+        // @ts-ignore
+        const minY = Math.min(...nodesY);
+        // @ts-ignore
+        const maxY = Math.max(...nodesY);
+
+        const graphWidth = Math.abs(maxX - minX);
+        const graphHeight = Math.abs(maxY - minY);
+        const graphCenter = new PIXI.Point(
+            minX + graphWidth / 2,
+            minY + graphHeight / 2
+        );
+
+        // const worldWidth = graphWidth + option.padding * 2;
+        // const worldHeight = graphHeight + option.padding * 2;
+
+        // this.viewport.resize(this.displaySettings.screenWidth, this.displaySettings.screenHeight,
+        //      worldWidth, worldHeight);
+
+        this.viewport.center = graphCenter;
+        this.viewport.fit(true);
+    }
+
+
 
 }
 
