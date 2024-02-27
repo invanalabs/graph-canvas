@@ -215,8 +215,11 @@ class GraphCanvas {
         console.log("Adding nodes and edges", nodes, links)
         let _this = this;
 
+        // add data to store 
+        this.graphData = { nodes: nodes, links: links }
+
         // clear canvas
-        // this.viewport.removeChildren();
+        // this.viewport.removeChildren(); // fix this 
 
         // render nodes 
 
@@ -228,10 +231,6 @@ class GraphCanvas {
         // nodes.forEach((node: INode) => {
         //     _this.graphData.addNode(node.id, node);
         // });
-
-
-        // add to graphData for reuse
-        this.graphData = { nodes: nodes, links: links }
 
         // render nodes
         this.graphData.nodes.map((node: INode) => {
@@ -249,21 +248,9 @@ class GraphCanvas {
             }
         })
 
-
-
-
-
-
-
         const simulation = this.createSimulation(nodes, links);
         simulation.on("tick", () => this.ticked(nodes, links));
         simulation.on('end', function() { console.log("=Simulation ended");  simulation.stop(); _this.fitView(); });
-        // simulation.stop();
-
-        
-
-        // _this.artBoard.
-        // console.log("edges", edges)
     }
 
     // dragstarted(e: any, d: any) {
