@@ -122,7 +122,6 @@ class GraphCanvas {
         const nodesX = this.graphData.nodes.map((node: INode) => node.x);
         const nodesY = this.graphData.nodes.map((node: INode) => node.y);
 
-
         // @ts-ignore
         const minX = Math.min(...nodesX);
         // @ts-ignore
@@ -144,11 +143,7 @@ class GraphCanvas {
         // this.viewport.resize(this.displaySettings.screenWidth, 
         //     this.displaySettings.screenHeight,
         //     this.displaySettings.graphWorldWidth, this.displaySettings.graphWorldHeight);
-
-
-        this.viewport.toWorld(graphCenter);
-        this.viewport.center = graphCenter;
-        this.viewport.fit(true);
+        this.viewport.moveCenter( graphCenter)
     }
 
 
