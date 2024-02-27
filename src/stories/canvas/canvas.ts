@@ -1,4 +1,4 @@
-import Canvas from "../../canvas/canvas";
+import GraphCanvas from "../../canvas/graph";
 import { INode, ILink } from "../../canvas/types";
 
 
@@ -23,6 +23,12 @@ const nodes: Array<INode> = [
         // x: 0, 
         // y: 0
 
+    },
+    {
+        id: "3",
+        label: "TestNode",
+        type: "Test",
+        shape: "circle"
     }
 ];
 
@@ -47,7 +53,7 @@ export const createPage = () => {
     document.addEventListener("DOMContentLoaded", function(event) {
         /* The stuff I needed to initialise */
         console.log("=DOM is ready", event)
-        const canvas = new Canvas(canvasDiv);
+        const canvas = new GraphCanvas(canvasDiv);
         canvas.addData(nodes, edges)
     }, false);
 

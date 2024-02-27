@@ -1,16 +1,21 @@
 import * as PIXI from 'pixi.js';
 import { INode } from '../../canvas/types';
 import { BaseShape } from './base';
+import GraphCanvas from '../../canvas/graph';
 
 
 class Circle extends BaseShape {
 
-    // @ts-ignore
-    private container: PIXI.Container;
+
     // @ts-ignore
     private data: INode
     bgColor: string = '#ff00ff';
     radius: number = 20;
+
+    constructor(graphCanvas: GraphCanvas){
+        super(graphCanvas)
+        console.log("======graphCanvas", graphCanvas)
+    }
 
     drawLabel() {
         // Refer https://pixijs.com/examples/text/pixi-text
@@ -22,7 +27,7 @@ class Circle extends BaseShape {
             // breakWords: true,
             // wordWrapWidth: (n.size || this.cfg.node.size) * 2
         });
-        const nodeLabel = "My Label here";
+        const nodeLabel = `Node ${this.data.id} - (${this.container.position.x}, ${this.container.position.y}`;
         const text = new PIXI.Text(nodeLabel, textStyle);
         text.interactive = true;
         text.cursor = "pointer";
@@ -59,24 +64,72 @@ class Circle extends BaseShape {
         // renderer.render(stage);
     }
 
+
+
+    // drag 
+
+     onDragStart(event: PIXI.FederatedPointerEvent)  {
+        // store a reference to the data
+        // the reason for this is because of multitouch
+        // we want to track the movement of this particular touch
+        console.log("onDragStart event", event)
+        // @ts-ignore
+        const container: PIXI.Container = this.container;
+
+ 
+        this.graphCanvas.app.stage.cursor = 'pointer';
+        const dragTarget = event.target;
+        // console.log("===onDragStart dragTarget", dragTarget, dragTarget.scale)
+        container.toLocal(event.global, undefined, this.graphCanvas.offset);
+
+        this.graphCanvas.offset.x *= dragTarget.scale.x;
+        this.graphCanvas.offset.y *= dragTarget.scale.y;
+
+
+
+        console.log("====onDragStart this", event, this)
+        // console.log("====onDragStart graphCanvas", graphCanvas)
+        // @ts-ignore
+        // graphCanvas.updateDragTarget(this);
+        this.graphCanvas.app.stage.on('pointermove',  this.graphCanvas.onDragMove.bind(this));
+    }
+
+
     draw(node: INode) {
         this.data = node;
-        this.container = new PIXI.Container()
+        
         this.container.cursor = 'pointer';
-        this.container.position.set(node.x, node.y);
+        // this.container.position.set(node.x, node.y);
+        if (node.x && node.y){
+            this.updatePosition(node.x, node.y)
+        }
         // draw shape
         let shapeGfx = this.drawShape(); 
         this.container.addChild(shapeGfx);
         // draw label
-        let labelGfx = this.drawLabel(); 
-        this.container.addChild(labelGfx);
+        // let labelGfx = this.drawLabel(); 
+        // this.container.addChild(labelGfx);
         // listeners for hover effect
-        this.container.on("pointerover", () => this.pointerOver(shapeGfx));
-        this.container.on("pointerout", () => this.pointerOut(shapeGfx));
+        // this.container.on("pointerover", () => this.pointerOver(shapeGfx));
+        // this.container.on("pointerout", () => this.pointerOut(shapeGfx));
         // listeners for dragging
-        // this.container.on('pointerdown', this.onDragStart, this.container);
+        // on click
+        this.container.on('pointerdown', this.onDragStart.bind(this));
+        // this.container.on('mousedown', this.onDragStart.bind(this));
+        // on release 
+        // this.container.on('mouseup', this.graphCanvas.onDragEnd.bind(this));
+        this.container.on('pointerup', this.graphCanvas.onDragEnd.bind(this));
+        this.container.on('pointerupoutside', this.graphCanvas.onDragEnd.bind(this));
+        this.container.on('pointerout', this.graphCanvas.onDragEnd.bind(this));
+
+        
         // this.container.on('pointerup', stopDrag);
         return this.container;
+    }
+    
+    redraw( ){
+        this.container.removeChildren();
+        this.draw(this.data)
     }
 
     update(node: INode) {

@@ -6,9 +6,10 @@ import Circle from '../structures/nodes/circle';
 import { ILink, INode, IGraphData } from './types';
 import Graph from 'graphology';
 import * as d3 from "d3";
+import { BaseShape } from '../structures/nodes/base';
 
 
-class Canvas {
+class GraphCanvas {
 
     /*
 
@@ -22,12 +23,14 @@ class Canvas {
 
     displaySettings: any;
 
+    dragTarget: BaseShape | null; // selected item for drag 
     graphData: IGraphData;
 
     constructor(div: ICanvas) {
         if (!div) {
             throw ("div cannot be null")
         }
+        this.dragTarget= null;
 
         // @ts-ignore
         const divRectangle = div?.getBoundingClientRect();
@@ -48,12 +51,18 @@ class Canvas {
             view: div,
             antialias: true,
             resizeTo: window,
+            autoStart: false, // // disable automatic rendering by ticker, render manually instead, only when needed
             // autoResize: true,
             autoDensity: false,
             resolution: window.devicePixelRatio || 2, /// 2 for retina displays
             backgroundColor: this.displaySettings.backgroundColor,
             eventMode : 'static' //  Emit events and is hit tested. Same as interaction = true in v7
         });
+
+        this.app.stage.hitArea = this.app.screen;
+        this.app.stage.on('pointerup', this.onDragEnd.bind(this));
+        this.app.stage.on('pointerupoutside',  this.onDragEnd.bind(this));
+
 
         // // Scale mode for all textures, will retain pixelation
         // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
@@ -78,6 +87,27 @@ class Canvas {
     }
 
 
+    // Handle the relative offset point
+    // of the click on the object
+    offset = new PIXI.Point();
+
+
+    zoomIn = () => {
+        this.viewport.zoom(-this.displaySettings.worldWidth / 10, true);
+    };
+
+    zoomOut = () => {
+        this.viewport.zoom(this.displaySettings.worldWidth / 10, true);
+    };
+    resetViewport = () => {
+        this.viewport.center = new PIXI.Point(
+                                    this.displaySettings.worldWidth / 2,
+                                    this.displaySettings.worldHeight / 2
+                                 );
+        this.viewport.fitWorld(true);
+    };
+
+
     createSimulation = (nodes: INode[], edges: ILink[]) => {
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(edges) // This force provides links between nodes
@@ -100,8 +130,8 @@ class Canvas {
         return {
             screenWidth: divWidth,
             screenHeight: divHeight,
-            worldWidth: divWidth * 4,
-            worldHeight: divHeight * 4,
+            worldWidth: divWidth, // * 2,
+            worldHeight: divHeight, // * 2,
             backgroundColor: 0x2a2c2e, // dark 
             // backgroundColor: 0x1099bb, // light blue 
             // backgroundColor: 0xf2eecb, // wheat
@@ -112,8 +142,8 @@ class Canvas {
         const viewport = new Viewport({
             screenWidth: this.displaySettings.screenWidth,
             screenHeight: this.displaySettings.screenHeight,
-            worldWidth: this.displaySettings.screenWidth * 4,
-            worldHeight: this.displaySettings.screenHeight * 4,
+            worldWidth: this.displaySettings.worldWidth,  
+            worldHeight: this.displaySettings.worldHeight, 
             events: events,
             // resolution: 2, //window.devicePixelRatio
         });
@@ -178,7 +208,7 @@ class Canvas {
         // render nodes
         this.graphData.nodes.map((node: INode) => {
             if (!node.shapeGfx) {
-                const shapeContainer = new Circle(this.app)
+                const shapeContainer = new Circle(_this)
                 node.shapeGfx = shapeContainer.draw(node)
                 _this.artBoard.addChild(node.shapeGfx);
             }
@@ -199,6 +229,8 @@ class Canvas {
 
         const simulation = this.createSimulation(nodes, links);
         simulation.on("tick", () => this.ticked(nodes, links));
+        simulation.on('end', function() { console.log("=Simulation ended");  simulation.stop(); });
+        // simulation.stop();
 
         this.fitView()
 
@@ -206,28 +238,66 @@ class Canvas {
         // console.log("edges", edges)
     }
 
-    dragstarted(e: any, d: any) {
-        // hideTooltip();
-        // if (!e.active) {
-        //   simulation
-        //   .alphaTarget(0.3)
-        //   .restart();
-        // } 
-        e.subject.fx = e.subject.x;
-        e.subject.fy = e.subject.y;
+    // dragstarted(e: any, d: any) {
+    //     // hideTooltip();
+    //     // if (!e.active) {
+    //     //   simulation
+    //     //   .alphaTarget(0.3)
+    //     //   .restart();
+    //     // } 
+    //     e.subject.fx = e.subject.x;
+    //     e.subject.fy = e.subject.y;
+    // }
+
+    // dragged(e: any, d: any) {
+    //     e.subject.fx = e.x;
+    //     e.subject.fy = e.y;
+    // }
+
+    // dragended(e: any, d: any) {
+    //     // if (!e.active) {
+    //     //     simulation.alphaTarget(0);
+    //     // }
+    //     e.subject.fx = null;
+    //     e.subject.fy = null;
+    // }
+
+    // updateDragTarget (dragTarget: BaseShape){
+    //     console.log("====updateDragTarget", dragTarget);
+    //     this.dragTarget = dragTarget;
+    // }
+
+    // getDragTarget() {
+    //     console.log("=======getDragTarget", this.dragTarget)
+    //     return this.dragTarget;
+    // }
+
+    onDragMove(event: any){
+        // const params = this;
+        console.log("onDragMove", this, event.global, event)
+            
+        // @ts-ignore
+        let dragTarget: BaseShape = this;
+        console.log("===onDragMove graphCanvas.dragTarget", dragTarget)
+
+        // dragTarget.container.x = event.global.x - dragTarget.graphCanvas.offset.x;
+        // dragTarget.container.y = event.global.y - dragTarget.graphCanvas.offset.y;
+
+        dragTarget.updatePosition(event.global.x - dragTarget.graphCanvas.offset.x, event.global.y - dragTarget.graphCanvas.offset.y)
+
+        // dragTarget.container.toLocal(event.global, undefined, dragTarget.container.position); 
+        // const newPosition =  dragTarget.container.position
+
+        // dragTarget.updatePosition(newPosition._x, newPosition._y);
+ 
+        // dragTarget.redraw();
+        // dragTarget.app.render();
+ 
     }
 
-    dragged(e: any, d: any) {
-        e.subject.fx = e.x;
-        e.subject.fy = e.y;
-    }
-
-    dragended(e: any, d: any) {
-        // if (!e.active) {
-        //     simulation.alphaTarget(0);
-        // }
-        e.subject.fx = null;
-        e.subject.fy = null;
+     onDragEnd(event: any) {
+        console.log("onDragEnd", event, this);
+        this.app.stage.off('pointermove', this.onDragMove.bind(this));
     }
 
     fitView() {
@@ -238,7 +308,6 @@ class Canvas {
         const nodesY = this.graphData.nodes.map((node: INode) => node.y);
 
 
-        console.log("===nodesX", nodesX, nodesY)
         // @ts-ignore
         const minX = Math.min(...nodesX);
         // @ts-ignore
@@ -254,13 +323,16 @@ class Canvas {
             minX + graphWidth / 2,
             minY + graphHeight / 2
         );
+        console.log("===graphCenter", graphCenter, graphWidth, graphHeight)
+        // const graphWorldWidth = graphWidth ;// + option.padding * 2;
+        // const graphWorldHeight = graphHeight;// + option.padding * 2;
 
-        // const worldWidth = graphWidth + option.padding * 2;
-        // const worldHeight = graphHeight + option.padding * 2;
+        // this.viewport.resize(this.displaySettings.screenWidth, 
+        //     this.displaySettings.screenHeight,
+        //     graphWorldWidth, graphWorldHeight);
 
-        // this.viewport.resize(this.displaySettings.screenWidth, this.displaySettings.screenHeight,
-        //      worldWidth, worldHeight);
 
+        this.viewport.toWorld(graphCenter);
         this.viewport.center = graphCenter;
         this.viewport.fit(true);
     }
@@ -270,4 +342,4 @@ class Canvas {
 }
 
 
-export default Canvas;
+export default GraphCanvas;

@@ -12,7 +12,7 @@ export type NodeShapes = 'circle'; // | 'square' | 'rectangle' | 'traingle';
 export type LinkShapes = 'line'; // | 'quadratic' | 'loop';
 
 
-export interface BaseCanvasData {
+export interface CanvasDataBase {
     readonly id: string
     properties?:  Properties
     type: string // label of graph data. ex: Person, Project etc
@@ -21,14 +21,14 @@ export interface BaseCanvasData {
     shapeGfx?: Container | Graphics
 }
 
-export interface INode extends BaseCanvasData{
+export interface INode extends CanvasDataBase{
     shape: NodeShapes
     x?: number,
     y?: number,
 }
 
 
-export interface ILink  extends BaseCanvasData{
+export interface ILink  extends CanvasDataBase{
     shape: LinkShapes
     source: INode | string;
     target: INode | string;
