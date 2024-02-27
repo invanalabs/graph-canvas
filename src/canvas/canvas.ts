@@ -102,8 +102,8 @@ class Canvas {
             screenHeight: divHeight,
             worldWidth: divWidth * 4,
             worldHeight: divHeight * 4,
-
-            backgroundColor: 0x1099bb, // light blue 
+            backgroundColor: 0x2a2c2e, // dark 
+            // backgroundColor: 0x1099bb, // light blue 
             // backgroundColor: 0xf2eecb, // wheat
         }
     }

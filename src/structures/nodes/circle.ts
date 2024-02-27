@@ -16,7 +16,7 @@ class Circle extends BaseShape {
         // Refer https://pixijs.com/examples/text/pixi-text
         const textStyle = new PIXI.TextStyle({
             fontSize: 12,
-            fill: "#000",
+            fill: "#fff",
             align: 'right'
             // wordWrap: true,
             // breakWords: true,
@@ -24,6 +24,9 @@ class Circle extends BaseShape {
         });
         const nodeLabel = "My Label here";
         const text = new PIXI.Text(nodeLabel, textStyle);
+        text.interactive = true;
+        text.cursor = "pointer";
+
         // text.anchor.set(0.5);
         text.resolution = 2;
         return text
@@ -68,8 +71,8 @@ class Circle extends BaseShape {
         let labelGfx = this.drawLabel(); 
         this.container.addChild(labelGfx);
         // listeners for hover effect
-        shapeGfx.on("pointerover", () => this.pointerOver(shapeGfx));
-        shapeGfx.on("pointerout", () => this.pointerOut(shapeGfx));
+        this.container.on("pointerover", () => this.pointerOver(shapeGfx));
+        this.container.on("pointerout", () => this.pointerOut(shapeGfx));
         // listeners for dragging
         // this.container.on('pointerdown', this.onDragStart, this.container);
         // this.container.on('pointerup', stopDrag);
