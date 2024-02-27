@@ -47,11 +47,22 @@ class Canvas {
             height: this.displaySettings.screenHeight,
             view: div,
             antialias: true,
+            resizeTo: window,
             // autoResize: true,
             autoDensity: false,
             resolution: window.devicePixelRatio || 2, /// 2 for retina displays
             backgroundColor: this.displaySettings.backgroundColor,
+            eventMode : 'static' //  Emit events and is hit tested. Same as interaction = true in v7
         });
+
+        // // Scale mode for all textures, will retain pixelation
+        // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
+
+
+        // The stage will handle the move events
+        this.app.stage.interactive = true;
+        this.app.stage.hitArea = this.app.screen;
 
         this.viewport = this.createViewPort(this.app.renderer.events) // create viewport 
         this.app.stage.addChild(this.viewport); // add viewport to stage
@@ -67,7 +78,7 @@ class Canvas {
     }
 
 
-     createSimulation = (nodes: INode[], edges: ILink[]) => {
+    createSimulation = (nodes: INode[], edges: ILink[]) => {
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(edges) // This force provides links between nodes
                 .id((d: ILink) => d.id) // This sets the node id accessor to the specified function.
@@ -146,25 +157,44 @@ class Canvas {
         console.log("Adding nodes and edges", nodes, links)
         let _this = this;
 
+        // clear canvas
+        // this.viewport.removeChildren();
+
+        // render nodes 
+
+        // render links 
+
+        // set canvas events
+
         // // add to graphology
         // nodes.forEach((node: INode) => {
         //     _this.graphData.addNode(node.id, node);
         // });
 
 
-
+        // add to graphData for reuse
         this.graphData = { nodes: nodes, links: links }
 
+        // render nodes
         this.graphData.nodes.map((node: INode) => {
-
-            console.log("node===", typeof node, node)
-
             if (!node.shapeGfx) {
-                const shapeContainer = new Circle()
+                const shapeContainer = new Circle(this.app)
                 node.shapeGfx = shapeContainer.draw(node)
                 _this.artBoard.addChild(node.shapeGfx);
             }
         });
+
+        // render links 
+        this.graphData.links.map((link: ILink) => {
+            if (link.shapeGfx) {
+                // const shapeContainer = new
+            }
+        })
+
+
+
+
+
 
 
         const simulation = this.createSimulation(nodes, links);
@@ -174,6 +204,30 @@ class Canvas {
 
         // _this.artBoard.
         // console.log("edges", edges)
+    }
+
+    dragstarted(e: any, d: any) {
+        // hideTooltip();
+        // if (!e.active) {
+        //   simulation
+        //   .alphaTarget(0.3)
+        //   .restart();
+        // } 
+        e.subject.fx = e.subject.x;
+        e.subject.fy = e.subject.y;
+    }
+
+    dragged(e: any, d: any) {
+        e.subject.fx = e.x;
+        e.subject.fy = e.y;
+    }
+
+    dragended(e: any, d: any) {
+        // if (!e.active) {
+        //     simulation.alphaTarget(0);
+        // }
+        e.subject.fx = null;
+        e.subject.fy = null;
     }
 
     fitView() {
