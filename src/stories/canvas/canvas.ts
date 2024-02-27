@@ -41,13 +41,41 @@ const edges: Array<ILink> = [
 ];
 
 export const createPage = () => {
+
+    const html = document.createElement("div");
+
+    // create canvas
     const canvasDiv = document.createElement('canvas');
     canvasDiv.style.width = "100vw"
     canvasDiv.style.height = "100vh"
+    canvasDiv.style.border = "10px solid red"
+
+    html.appendChild(canvasDiv)
+
+
+    // create toolbar
+    const toolbar = document.createElement('div');
+    toolbar.classList.add("toolbar");
+    toolbar.style.top = "0px";
+    toolbar.style.left = "0px";
+    toolbar.style.position = "absolute"
+
+    const zoomInButton = document.createElement('button');
+    zoomInButton.innerHTML = "zoom in";
+    toolbar.appendChild(zoomInButton);
+    
+    const zoomOutButton = document.createElement('button');
+    zoomOutButton.innerHTML = "zoom out";
+    toolbar.appendChild(zoomOutButton);
+
+    const fitViewButton = document.createElement('button');
+    fitViewButton.innerHTML = "fitView"
+    toolbar.appendChild(fitViewButton);
 
 
 
-    // canvas.fitView()
+    
+    html.appendChild(toolbar)
 
 
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -55,9 +83,13 @@ export const createPage = () => {
         console.log("=DOM is ready", event)
         const canvas = new GraphCanvas(canvasDiv);
         canvas.addData(nodes, edges)
+
+        zoomInButton.addEventListener('click', () => canvas.zoomIn());
+        zoomOutButton.addEventListener('click', () => canvas.zoomOut());
+        fitViewButton.addEventListener('click', () => canvas.fitView());
     }, false);
 
     // const section = `<section class="storybook-page"></section>`;
-    // canvasDiv.insertAdjacentHTML('beforeend', section);
-    return canvasDiv;
+    // canvasDiv.insertAdjacentElement('beforeend', toolbar);
+    return html;
 };

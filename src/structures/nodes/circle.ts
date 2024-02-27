@@ -63,36 +63,15 @@ class Circle extends BaseShape {
         shapeGfx.tint = 0xFFFFFF;
         // renderer.render(stage);
     }
-
-
-
-    // drag 
-
-     onDragStart(event: PIXI.FederatedPointerEvent)  {
-        // store a reference to the data
-        // the reason for this is because of multitouch
-        // we want to track the movement of this particular touch
-        console.log("onDragStart event", event)
-        // @ts-ignore
-        const container: PIXI.Container = this.container;
-
  
-        this.graphCanvas.app.stage.cursor = 'pointer';
-        const dragTarget = event.target;
-        // console.log("===onDragStart dragTarget", dragTarget, dragTarget.scale)
-        container.toLocal(event.global, undefined, this.graphCanvas.offset);
-
-        this.graphCanvas.offset.x *= dragTarget.scale.x;
-        this.graphCanvas.offset.y *= dragTarget.scale.y;
-
-
-
-        console.log("====onDragStart this", event, this)
-        // console.log("====onDragStart graphCanvas", graphCanvas)
-        // @ts-ignore
-        // graphCanvas.updateDragTarget(this);
-        this.graphCanvas.app.stage.on('pointermove',  this.graphCanvas.onDragMove.bind(this));
-    }
+    //  onDragStart(event: PIXI.FederatedPointerEvent)  {
+    //     // store a reference to the data
+    //     // the reason for this is because of multitouch
+    //     // we want to track the movement of this particular touch
+    //     console.log("onDragStart event", event)
+ 
+    //     this.graphCanvas.app.stage.on('pointermove',  this.graphCanvas.onDragMove.bind(this));
+    // }
 
 
     draw(node: INode) {
@@ -110,17 +89,17 @@ class Circle extends BaseShape {
         // let labelGfx = this.drawLabel(); 
         // this.container.addChild(labelGfx);
         // listeners for hover effect
-        // this.container.on("pointerover", () => this.pointerOver(shapeGfx));
-        // this.container.on("pointerout", () => this.pointerOut(shapeGfx));
+        this.container.on("pointerover", () => this.pointerOver(shapeGfx));
+        this.container.on("pointerout", () => this.pointerOut(shapeGfx));
         // listeners for dragging
         // on click
-        this.container.on('pointerdown', this.onDragStart.bind(this));
-        // this.container.on('mousedown', this.onDragStart.bind(this));
-        // on release 
-        // this.container.on('mouseup', this.graphCanvas.onDragEnd.bind(this));
-        this.container.on('pointerup', this.graphCanvas.onDragEnd.bind(this));
-        this.container.on('pointerupoutside', this.graphCanvas.onDragEnd.bind(this));
-        this.container.on('pointerout', this.graphCanvas.onDragEnd.bind(this));
+        // this.container.on('pointerdown', this.onDragStart.bind(this));
+        // // this.container.on('mousedown', this.onDragStart.bind(this));
+        // // on release 
+        // // this.container.on('mouseup', this.graphCanvas.onDragEnd.bind(this));
+        // this.container.on('pointerup', this.graphCanvas.onDragEnd.bind(this));
+        // this.container.on('pointerupoutside', this.graphCanvas.onDragEnd.bind(this));
+        // this.container.on('pointerout', this.graphCanvas.onDragEnd.bind(this));
 
         
         // this.container.on('pointerup', stopDrag);

@@ -54,20 +54,16 @@ class GraphCanvas {
             autoStart: false, // // disable automatic rendering by ticker, render manually instead, only when needed
             // autoResize: true,
             autoDensity: false,
-            resolution: window.devicePixelRatio || 2, /// 2 for retina displays
+            resolution: window.devicePixelRatio, /// 2 for retina displays
             backgroundColor: this.displaySettings.backgroundColor,
             eventMode : 'static' //  Emit events and is hit tested. Same as interaction = true in v7
         });
 
+        // this.app.renderer.view.style?..background = 'rgba(0,0,0,.1)';
+        console.log("==this.app.view", this.app.view)
+  
         this.app.stage.hitArea = this.app.screen;
-        this.app.stage.on('pointerup', this.onDragEnd.bind(this));
-        this.app.stage.on('pointerupoutside',  this.onDragEnd.bind(this));
-
-
-        // // Scale mode for all textures, will retain pixelation
-        // PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-
-
+   
 
         // The stage will handle the move events
         this.app.stage.interactive = true;
@@ -76,6 +72,28 @@ class GraphCanvas {
         this.viewport = this.createViewPort(this.app.renderer.events) // create viewport 
         this.app.stage.addChild(this.viewport); // add viewport to stage
 
+        // activate plugin
+        // this.viewport
+        // .drag()
+        // .pinch({ percent: 2 })
+        // .wheel()
+        // .decelerate()
+        // .clamp({
+        //     left: false,                // whether to clamp to the left and at what value
+        //     right: false,               // whether to clamp to the right and at what value
+        //     top: false,                 // whether to clamp to the top and at what value
+        //     bottom: false,              // whether to clamp to the bottom and at what value
+        //     direction: 'all',           // (all, x, or y) using clamps of [0, viewport.worldWidth / viewport.worldHeight]; replaces left / right / top / bottom if set
+        //     underflow: 'center',	       // where to place world if too small for screen (e.g., top - right, center, none, bottomleft)
+        // })
+        // .clampZoom({
+        //     minWidth: this.displaySettings.screenWidth,
+        //     minHeight: this.displaySettings.screenHeight
+        // })
+        console.log("===this.displaySettings", this.displaySettings)
+        this.viewport.drag().pinch().wheel().decelerate().clampZoom({ minWidth:  this.displaySettings.screenWidth/2, 
+            minHeight: this.displaySettings.screenHeight/2 });
+  
         // stage for all the canvas dr
         this.artBoard = new PIXI.Container();
         this.viewport.addChild(this.artBoard)
@@ -99,13 +117,39 @@ class GraphCanvas {
     zoomOut = () => {
         this.viewport.zoom(this.displaySettings.worldWidth / 10, true);
     };
-    resetViewport = () => {
-        this.viewport.center = new PIXI.Point(
-                                    this.displaySettings.worldWidth / 2,
-                                    this.displaySettings.worldHeight / 2
-                                 );
-        this.viewport.fitWorld(true);
-    };
+ 
+    fitView() {
+        const nodesX = this.graphData.nodes.map((node: INode) => node.x);
+        const nodesY = this.graphData.nodes.map((node: INode) => node.y);
+
+
+        // @ts-ignore
+        const minX = Math.min(...nodesX);
+        // @ts-ignore
+        const maxX = Math.max(...nodesX);
+        // @ts-ignore
+        const minY = Math.min(...nodesY);
+        // @ts-ignore
+        const maxY = Math.max(...nodesY);
+
+        const graphWidth = Math.abs(maxX - minX);
+        const graphHeight = Math.abs(maxY - minY);
+        const graphCenter = new PIXI.Point(
+            minX + graphWidth / 2,
+            minY + graphHeight / 2
+        );
+        console.log("===graphCenter", graphCenter, graphWidth, graphHeight)
+        // const graphWorldWidth = graphWidth ;// + option.padding * 2;
+        // const graphWorldHeight = graphHeight;// + option.padding * 2;
+        // this.viewport.resize(this.displaySettings.screenWidth, 
+        //     this.displaySettings.screenHeight,
+        //     this.displaySettings.graphWorldWidth, this.displaySettings.graphWorldHeight);
+
+
+        this.viewport.toWorld(graphCenter);
+        this.viewport.center = graphCenter;
+        this.viewport.fit(true);
+    }
 
 
     createSimulation = (nodes: INode[], edges: ILink[]) => {
@@ -130,8 +174,8 @@ class GraphCanvas {
         return {
             screenWidth: divWidth,
             screenHeight: divHeight,
-            worldWidth: divWidth, // * 2,
-            worldHeight: divHeight, // * 2,
+            worldWidth: divWidth * 2,
+            worldHeight: divHeight * 2,
             backgroundColor: 0x2a2c2e, // dark 
             // backgroundColor: 0x1099bb, // light blue 
             // backgroundColor: 0xf2eecb, // wheat
@@ -147,24 +191,8 @@ class GraphCanvas {
             events: events,
             // resolution: 2, //window.devicePixelRatio
         });
-        viewport.moveCenter(0, 0);
+        // viewport.moveCenter(0, 0);
         return viewport
-            .drag()
-            .pinch({ percent: 2 })
-            .wheel()
-            .decelerate()
-            .clamp({
-                left: false,                // whether to clamp to the left and at what value
-                right: false,               // whether to clamp to the right and at what value
-                top: false,                 // whether to clamp to the top and at what value
-                bottom: false,              // whether to clamp to the bottom and at what value
-                direction: 'all',           // (all, x, or y) using clamps of [0, viewport.worldWidth / viewport.worldHeight]; replaces left / right / top / bottom if set
-                underflow: 'center',	       // where to place world if too small for screen (e.g., top - right, center, none, bottomleft)
-            })
-            .clampZoom({
-                minWidth: this.displaySettings.screenWidth / 2,
-                minHeight: this.displaySettings.screenHeight / 2
-            })
     }
 
 
@@ -229,10 +257,10 @@ class GraphCanvas {
 
         const simulation = this.createSimulation(nodes, links);
         simulation.on("tick", () => this.ticked(nodes, links));
-        simulation.on('end', function() { console.log("=Simulation ended");  simulation.stop(); });
+        simulation.on('end', function() { console.log("=Simulation ended");  simulation.stop(); _this.fitView(); });
         // simulation.stop();
 
-        this.fitView()
+        
 
         // _this.artBoard.
         // console.log("edges", edges)
@@ -272,70 +300,30 @@ class GraphCanvas {
     //     return this.dragTarget;
     // }
 
-    onDragMove(event: any){
-        // const params = this;
-        console.log("onDragMove", this, event.global, event)
+    // onDragMove(event: any){
+    //     // const params = this;
+    //     console.log("onDragMove", this, event.global, event)
             
-        // @ts-ignore
-        let dragTarget: BaseShape = this;
-        console.log("===onDragMove graphCanvas.dragTarget", dragTarget)
-
-        // dragTarget.container.x = event.global.x - dragTarget.graphCanvas.offset.x;
-        // dragTarget.container.y = event.global.y - dragTarget.graphCanvas.offset.y;
-
-        dragTarget.updatePosition(event.global.x - dragTarget.graphCanvas.offset.x, event.global.y - dragTarget.graphCanvas.offset.y)
-
-        // dragTarget.container.toLocal(event.global, undefined, dragTarget.container.position); 
-        // const newPosition =  dragTarget.container.position
-
-        // dragTarget.updatePosition(newPosition._x, newPosition._y);
+    //     // @ts-ignore
+    //     let dragTarget: BaseShape = this;
+    //     console.log("===onDragMove graphCanvas.dragTarget", dragTarget)
  
-        // dragTarget.redraw();
-        // dragTarget.app.render();
+    //     dragTarget.container.toLocal(event.global, undefined, dragTarget.container.position); 
  
-    }
+ 
+    // }
 
-     onDragEnd(event: any) {
-        console.log("onDragEnd", event, this);
-        this.app.stage.off('pointermove', this.onDragMove.bind(this));
-    }
-
-    fitView() {
-
-
-
-        const nodesX = this.graphData.nodes.map((node: INode) => node.x);
-        const nodesY = this.graphData.nodes.map((node: INode) => node.y);
-
-
-        // @ts-ignore
-        const minX = Math.min(...nodesX);
-        // @ts-ignore
-        const maxX = Math.max(...nodesX);
-        // @ts-ignore
-        const minY = Math.min(...nodesY);
-        // @ts-ignore
-        const maxY = Math.max(...nodesY);
-
-        const graphWidth = Math.abs(maxX - minX);
-        const graphHeight = Math.abs(maxY - minY);
-        const graphCenter = new PIXI.Point(
-            minX + graphWidth / 2,
-            minY + graphHeight / 2
-        );
-        console.log("===graphCenter", graphCenter, graphWidth, graphHeight)
-        // const graphWorldWidth = graphWidth ;// + option.padding * 2;
-        // const graphWorldHeight = graphHeight;// + option.padding * 2;
-
-        // this.viewport.resize(this.displaySettings.screenWidth, 
-        //     this.displaySettings.screenHeight,
-        //     graphWorldWidth, graphWorldHeight);
-
-
-        this.viewport.toWorld(graphCenter);
-        this.viewport.center = graphCenter;
-        this.viewport.fit(true);
-    }
+    //  onDragEnd(event: any) {
+    //     console.log("onDragEnd", event, this);
+    //             // @ts-ignore
+    //     let dragTarget: BaseShape | GraphCanvas = this;
+    //     // if ( dragTarget instanceof GraphCanvas){
+    //     //     // canvas 
+    //     // }
+    //     if (dragTarget instanceof BaseShape) {
+    //         dragTarget.graphCanvas.app.stage.off('pointermove', dragTarget.graphCanvas.onDragMove.bind(this));
+    //     }
+    // }
 
 
 
