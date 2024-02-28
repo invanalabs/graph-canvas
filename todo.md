@@ -8,8 +8,23 @@
 - [ ] Events - ContextMenu
 - [ ] redraw 
 
-## Node 
-- [ ] Events 
+## Events/Interactions.
+- [ ] Canvas - 
+    - [ ] contextMenu
+    - [ ] zoomIn
+    - [ ] zoomOut
+    - [ ] fitView
+ 
+        
+- [ ] Node/Edge - 
+    - [ ] contextMenu
+    - [ ] select
+    - [ ] deSelect
+    - [ ] click
+    - [ ] dragStart
+    - [ ] dragEnd 
+    - [ ] dragging 
+    - [ ] hover
 
 ## Links 
 - [ ] straightLine
@@ -17,5 +32,4 @@
 - [ ] StepCurve 
 - [ ] Loop 
 
-
-
+ 

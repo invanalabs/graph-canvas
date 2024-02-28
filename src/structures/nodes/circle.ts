@@ -32,7 +32,7 @@ class Circle extends BaseShape {
         text.interactive = true;
         text.cursor = "pointer";
 
-        // text.anchor.set(0.5);
+        text.anchor.set(0.5);
         text.resolution = 2;
         return text
     }

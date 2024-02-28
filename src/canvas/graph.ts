@@ -71,36 +71,14 @@ class GraphCanvas {
 
         this.viewport = this.createViewPort(this.app.renderer.events) // create viewport 
         this.app.stage.addChild(this.viewport); // add viewport to stage
+ 
 
-        // activate plugin
-        // this.viewport
-        // .drag()
-        // .pinch({ percent: 2 })
-        // .wheel()
-        // .decelerate()
-        // .clamp({
-        //     left: false,                // whether to clamp to the left and at what value
-        //     right: false,               // whether to clamp to the right and at what value
-        //     top: false,                 // whether to clamp to the top and at what value
-        //     bottom: false,              // whether to clamp to the bottom and at what value
-        //     direction: 'all',           // (all, x, or y) using clamps of [0, viewport.worldWidth / viewport.worldHeight]; replaces left / right / top / bottom if set
-        //     underflow: 'center',	       // where to place world if too small for screen (e.g., top - right, center, none, bottomleft)
-        // })
-        // .clampZoom({
-        //     minWidth: this.displaySettings.screenWidth,
-        //     minHeight: this.displaySettings.screenHeight
-        // })
-        console.log("===this.displaySettings", this.displaySettings)
-        this.viewport.drag().pinch().wheel().decelerate().clampZoom({ minWidth:  this.displaySettings.screenWidth/2, 
-            minHeight: this.displaySettings.screenHeight/2 });
-  
         // stage for all the canvas dr
         this.artBoard = new PIXI.Container();
         this.viewport.addChild(this.artBoard)
-        this.app.ticker.start();
-        // // Start the PixiJS app
+        // this.app.ticker.start();
         this.app.start();
-        // this.viewport.fit(true);
+ 
 
     }
 
@@ -136,13 +114,8 @@ class GraphCanvas {
         const graphCenter = new PIXI.Point(
             minX + graphWidth / 2,
             minY + graphHeight / 2
-        );
-        console.log("===graphCenter", graphCenter, graphWidth, graphHeight)
-        // const graphWorldWidth = graphWidth ;// + option.padding * 2;
-        // const graphWorldHeight = graphHeight;// + option.padding * 2;
-        // this.viewport.resize(this.displaySettings.screenWidth, 
-        //     this.displaySettings.screenHeight,
-        //     this.displaySettings.graphWorldWidth, this.displaySettings.graphWorldHeight);
+        ); 
+        this.viewport.setZoom(1, true);
         this.viewport.moveCenter( graphCenter)
     }
 
@@ -184,16 +157,19 @@ class GraphCanvas {
             worldWidth: this.displaySettings.worldWidth,  
             worldHeight: this.displaySettings.worldHeight, 
             events: events,
-            // resolution: 2, //window.devicePixelRatio
         });
+
         // viewport.moveCenter(0, 0);
 
-     // _viewport.ensureVisible(0, 0, 5000, 5000, true)
+        // _viewport.ensureVisible(0, 0, 5000, 5000, true)
 
       // _viewport.clampZoom({ minScale: 0.2, maxScale: 2.5 })
       // _viewport.clampZoom({ minWidth: 1000, minHeight: 1000, maxWidth: 5000, maxHeight: 5000 })
 
       // _viewport.drag({ pressDrag: false })
+      viewport
+      .drag().pinch({ percent: 2 }).wheel().decelerate()
+      .clampZoom({ minWidth: this.displaySettings.screenWidth/2, minHeight: this.displaySettings.screenHeight/2 });
 
         return viewport
     }
