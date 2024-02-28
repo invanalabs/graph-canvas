@@ -55,10 +55,13 @@ export const createPage = () => {
     // create event list 
     const eventbar = document.createElement('div');
     eventbar.classList.add("eventbar");
-    eventbar.style.top = "50px";
-    eventbar.style.left = "0px";
-    eventbar.style.height = "100vh";
-    eventbar.style.position = "absolute"
+    eventbar.style.top = "60px";
+    eventbar.style.left = "10px";
+    eventbar.style.maxHeight = "855px";
+    eventbar.style.width = "300px";
+    // eventbar.style.background = "red";
+    eventbar.style.position = "absolute";
+    eventbar.style.overflowY = "hidden"; 
     html.appendChild(eventbar);
 
 
@@ -66,8 +69,8 @@ export const createPage = () => {
     // create toolbar
     const toolbar = document.createElement('div');
     toolbar.classList.add("toolbar");
-    toolbar.style.top = "0px";
-    toolbar.style.left = "0px";
+    toolbar.style.top = "10px";
+    toolbar.style.left = "10px";
     toolbar.style.position = "absolute"
 
     const zoomInButton = document.createElement('button');
@@ -86,6 +89,7 @@ export const createPage = () => {
 
 
     const showEvent = (eventType: string)=> {
+        // notify event 
 
         const eventDiv = document.createElement('div')
         eventDiv.innerHTML = `fired - ${eventType}`;
@@ -98,6 +102,12 @@ export const createPage = () => {
         eventDiv.style.color = "white"
 
         eventbar.prepend(eventDiv)
+
+        setTimeout(function(){
+            // auto delete the even notification 
+            eventbar.removeChild(eventDiv);
+        }, 3000);
+        
     }
 
 
