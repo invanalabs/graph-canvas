@@ -28,8 +28,8 @@ export interface CanvasDataBase {
 
 export interface INode extends CanvasDataBase{
     shape: NodeShapes
-    x?: number,
-    y?: number,
+    x: number,
+    y: number,
     vx?: number,
     vy?: number
 }

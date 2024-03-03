@@ -37,10 +37,12 @@ class GraphCanvas {
     }
 
 
-    ticked = (nodes: INode[], edges: ILink[]) => {
+    ticked = (nodes: INode[], edges: ILink[], dataCtrl: DataCtrl) => {
+        // let _this = this;
         nodes.forEach((node: INode) => {
-            let { x, y, shapeGfx } = node;
-            shapeGfx?.position.set(x, y);
+            let { x, y } = node;
+            dataCtrl.updateNodePosition(node, x, y)
+            // shapeGfx?.position.set(x, y);
         });
 
         // edges.forEach((link) => {
@@ -49,7 +51,6 @@ class GraphCanvas {
         //     artBoard.addChild(link.shapeGfx);
         // });
 
-        // visualLinksGfxs.endFill();
     }
 
     addData = (nodes: INode[], links: ILink[]) => {
@@ -79,8 +80,7 @@ class GraphCanvas {
                 const shapeContainer = new Circle(_this)
                 node.shapeGfx = shapeContainer.draw(node)
                 _this.canvasCtrl.addShape(node.shapeGfx);
-                // _this.artBoard.addChild(node.shapeGfx);
-            }
+             }
         });
 
         // render links 
@@ -91,8 +91,12 @@ class GraphCanvas {
         })
 
         const simulation = this.createSimulation(nodes, links);
-        simulation.on("tick", () => this.ticked(nodes, links));
-        simulation.on('end', function () { console.log("=Simulation ended"); simulation.stop(); _this.canvasCtrl.fitView(); });
+        simulation.on("tick", () => this.ticked(nodes, links, this.dataCtrl));
+        simulation.on('end', () => { 
+            console.log("=Simulation ended"); 
+            simulation.stop();
+            _this.canvasCtrl.fitView();
+        });
     }
 
 

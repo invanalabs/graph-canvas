@@ -30,7 +30,7 @@ export default class CanvasCtrl extends CanvasCtrlBase{
         this.fit(this.dataCtrl.nodes);
     }
 
-    fit(nodes: INode[], zoomLevel?: number){
+    getCenter(nodes: INode[]){
         // Zooms out so all or selected nodes fit on the canvas.  
         const nodesX = nodes.map((node: INode) => node.x);
         const nodesY = nodes.map((node: INode) => node.y);
@@ -46,12 +46,17 @@ export default class CanvasCtrl extends CanvasCtrlBase{
 
         const graphWidth = Math.abs(maxX - minX);
         const graphHeight = Math.abs(maxY - minY);
-        const graphCenter = new PIXI.Point(
+        return new PIXI.Point(
             minX + graphWidth / 2,
             minY + graphHeight / 2
         ); 
-        this.viewport.setZoom(1, true);
+    }
+
+    fit(nodes: INode[], zoomLevel?: number){
+
+        const graphCenter = this.getCenter(this.dataCtrl.nodes)
         this.viewport.moveCenter(graphCenter)
+        this.viewport.setZoom(1, true);
     }
 
     focusNode(node: INode, zoomLevel?: number){

@@ -2,7 +2,6 @@ import { Application } from 'pixi.js';
 import { Viewport } from 'pixi-viewport'
 import { CanvasSetting } from './types';
 import { CViewportSetting } from './types';
-import { IGraphData } from '../../canvas/types';
 import DataCtrl from '../data';
 
 
@@ -59,7 +58,7 @@ export default class CanvasCtrlBase {
             autoStart: false, // // disable automatic rendering by ticker, render manually instead, only when needed
             autoDensity: false,
             resolution: window.devicePixelRatio, /// 2 for retina displays
-            backgroundColor: this.settings.backgroundColor || 0x2a2c2e, // defaults to dark 
+            // backgroundColor: this.settings.backgroundColor || 0x2a2c2e, // defaults to dark 
             eventMode : 'static' //  Emit events and is hit tested. Same as interaction = true in v7
         });
    
@@ -75,8 +74,10 @@ export default class CanvasCtrlBase {
     createViewPort = () => {
         const screenHeight = this.app.view.height;
         const screenWidth = this.app.view.width;        
-        const worldWidth = screenWidth * 2;
-        const worldHeight =  2;
+
+        const screenScale = 1;
+        const worldWidth = screenWidth * screenScale;
+        const worldHeight =  screenHeight * screenScale;
 
         const viewport = new Viewport({
             screenWidth: screenWidth,
@@ -84,6 +85,7 @@ export default class CanvasCtrlBase {
             worldWidth: worldWidth,
             worldHeight: worldHeight,
             events: this.app.renderer.events,
+            // backgroundColor: this.settings.backgroundColor
         });
         viewport
             .drag().pinch({ percent: 2 }).wheel().decelerate()
