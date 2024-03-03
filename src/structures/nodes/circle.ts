@@ -10,7 +10,7 @@ class Circle extends BaseShape {
     // @ts-ignore
     private data: INode
     bgColor: string = '#ff00ff';
-    radius: number = 20;
+    radius: number = 24;
 
     constructor(graphCanvas: GraphCanvas){
         super(graphCanvas)

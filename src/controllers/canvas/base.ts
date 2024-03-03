@@ -11,6 +11,7 @@ export default class CanvasCtrlBase {
     protected app: Application;
     dataCtrl: DataCtrl;
     viewport: Viewport;
+    debug_mode : boolean;
 
     protected settings: CanvasSetting;
     viewportSettings: CViewportSetting;
@@ -21,7 +22,7 @@ export default class CanvasCtrlBase {
         if (!settings.containerDiv) {
             throw ("containerDiv cannot be null")
         }
-        
+        this.debug_mode = false;
         this.dataCtrl = dataCtrl;
         this.settings = settings; // overall canvas settings 
         this.viewportSettings = this.getSettingsWithDefaults() // only viewport settings
@@ -30,8 +31,12 @@ export default class CanvasCtrlBase {
         this.viewport = this.createViewPort()
         this.app.stage.addChild(this.viewport); // add viewport to stage        
         this.app.start();
-
     }
+
+    setDebug = (debug_mode: boolean) => {  this.debug_mode = debug_mode; }
+    debugOn = () => { this.debug_mode = true; }
+    debugOff = () => { this.debug_mode = false; }
+
 
     getSettingsWithDefaults() {
         // @ts-ignore
@@ -55,7 +60,7 @@ export default class CanvasCtrlBase {
             view: this.settings.containerDiv,
             antialias: true,
             resizeTo: window,
-            autoStart: false, // // disable automatic rendering by ticker, render manually instead, only when needed
+            autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
             autoDensity: false,
             resolution: window.devicePixelRatio, /// 2 for retina displays
             // backgroundColor: this.settings.backgroundColor || 0x2a2c2e, // defaults to dark 
@@ -80,16 +85,16 @@ export default class CanvasCtrlBase {
         const worldHeight =  screenHeight * screenScale;
 
         const viewport = new Viewport({
-            screenWidth: screenWidth,
-            screenHeight: screenHeight,
+            // screenWidth: screenWidth,
+            // screenHeight: screenHeight,
             worldWidth: worldWidth,
             worldHeight: worldHeight,
             events: this.app.renderer.events,
             // backgroundColor: this.settings.backgroundColor
         });
         viewport
-            .drag().pinch({ percent: 2 }).wheel().decelerate()
-            .clampZoom({ minWidth: screenWidth / 2, minHeight:  screenHeight / 2 });
+            .drag().pinch({ percent: 1 }).wheel().decelerate()
+            .clampZoom({ minWidth: worldWidth / 2, minHeight:  worldHeight / 2 });
 
         return viewport
     }
