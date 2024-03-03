@@ -1,10 +1,15 @@
 import { Application } from 'pixi.js';
-import { Viewport } from 'pixi-viewport'
 import { CanvasSetting } from './types';
-import { CViewportSetting } from './types';
 import DataCtrl from '../data';
 import Camera from './camera';
+ 
 
+export interface CanvasOption  {
+    screenWidth : number,
+    screenHeight: number,
+    worldWidth : number,
+    worldHeight: number
+}
 
 export default class CanvasCtrlBase {
     // for drawing shapes
@@ -14,7 +19,9 @@ export default class CanvasCtrlBase {
 
     // camera
     camera: Camera;
+    worldScale: number = 2;
  
+    canvasOptions: CanvasOption;
     debug_mode : boolean;
 
     protected settings: CanvasSetting;
@@ -36,18 +43,29 @@ export default class CanvasCtrlBase {
             throw (`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
         }
 
-        this.app = this.createApp( divRectangle?.width, divRectangle?.height);
-        this.camera = new Camera(this.app, divRectangle?.width, divRectangle?.height);
+        this.canvasOptions = this.getDefaultOptions(divRectangle?.width, divRectangle?.height);
+        this.app = this.createApp( this.canvasOptions.screenWidth, this.canvasOptions.screenHeight);
+        this.camera = new Camera({  events: this.app.renderer.events, ...this.canvasOptions });
+        this.camera.setUpCamera();
 
+        this.app.stage.addChild(this.camera)
         this.app.start();
     }
+
+
+    getDefaultOptions(screenWidth: number, screenHeight: number) {   
+        return {
+            screenWidth: screenWidth,
+            screenHeight: screenHeight,
+            worldWidth: screenWidth * this.worldScale,
+            worldHeight: screenHeight * this.worldScale,
+        }
+    }
+
 
     setDebug = (debug_mode: boolean) => {  this.debug_mode = debug_mode; }
     debugOn = () => { this.debug_mode = true; }
     debugOff = () => { this.debug_mode = false; }
-
-
-
 
     createApp( screenWidth: number, screenHeight: number ){
         const app = new Application({

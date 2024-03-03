@@ -1,6 +1,5 @@
 import { Viewport } from "pixi-viewport";
 import { INode } from "../../canvas/types";
-import { Application } from "pixi.js";
 
 
 interface ZoomToOptions {
@@ -9,94 +8,36 @@ interface ZoomToOptions {
     x: number,
     y: number
 }
+ 
 
-interface ScreenOptions {
-    width: number,
-    height: number
-}
+export default class Camera extends Viewport {
 
-interface CamerOptions {
-    screenWidth : number,
-    screenHeight: number,
-    worldWidth : number,
-    worldHeight: number
-}
 
-export default class Camera {
-
-    // this will control the viewport 
-
-    protected options: CamerOptions;
-    protected app: Application;
-    // overall data map size
-    protected world: ScreenOptions;
-    // screen size for viewer
-    protected screen: ScreenOptions;
-    // zoom to a specific position in the world
-    protected zoomTo: ZoomToOptions;
-
-    viewport: Viewport;
-
-    worldScale: number;
-
-    constructor(app: Application, screenWidth: number, screenHeight: number, worldScale: number = 2) {
-        // scale the world 2x
-        this.worldScale = worldScale;
-        this.app = app;
-        this.options = this.getDefaultOptions(screenWidth, screenHeight);
-
-        this.world = { width: this.options.worldWidth, height: this.options.worldHeight };
-        this.screen = { width: this.options.screenWidth, height: this.options.screenHeight};
-
-        this.zoomTo = this.getDefaultZoomTo();
-        this.viewport = this.createViewPort();
-        this.app.stage.addChild(this.viewport); // add viewport to stage        
-    }
-
-    getScreen(){
-        return this.screen
-    }
-
-    getDefaultOptions(screenWidth: number, screenHeight: number) {   
-        return {
-            screenWidth: screenWidth,
-            screenHeight: screenHeight,
-            worldWidth: screenWidth * this.worldScale,
-            worldHeight: screenHeight * this.worldScale,
-        }
-    }
+    worldScale = 2;
 
     getDefaultZoomTo = () => {
         return  { 
-            top: this.world.width / (this.worldScale * 2), 
-            left: this.world.height / (this.worldScale * 2),
-            x: this.screen.width,  y: this.screen.height 
+            top: this.worldWidth / this.worldScale , 
+            left: this.worldHeight / this.worldScale ,
+            x: this.screenWidth,  y: this.screenHeight 
         };
     }
 
-    createViewPort = () => {
-        const viewport = new Viewport({
-            screenWidth: this.screen.width,
-            screenHeight: this.screen.height,
-            worldWidth: this.world.width,
-            worldHeight: this.world.height,
-            events: this.app.renderer.events,
-            // backgroundColor: this.settings.backgroundColor
-        });
-        viewport
+ 
+    setUpCamera(){
+        this
             .drag().pinch({ percent: 1 }).wheel().decelerate()
             .clampZoom({ 
-                minWidth: this.screen.width / 4,
-                minHeight:  this.screen.height / 4,
-                maxWidth: this.world.width *2 ,
-                maxHeight: this.world.height * 2 
+                minWidth: this.screenWidth / 4,
+                minHeight:  this.screenHeight / 4,
+                maxWidth: this.worldWidth *2 ,
+                maxHeight: this.worldHeight * 2 
             });
-
-        return viewport
+ 
     }
 
     setZoomTo = (zoomToOptions : ZoomToOptions) => {
-        this.zoomTo = zoomToOptions;
+        // this.zoomTo = zoomToOptions;
     }
 
     zoomToCoordinates = (zoomToOptions: ZoomToOptions) => {
@@ -106,11 +47,11 @@ export default class Camera {
 
     zoomToScreen = (zoomToOptions: ZoomToOptions) => {
         console.debug("zoomToScreen ", zoomToOptions);
-        this.zoomTo = { 
-            top: this.world.width / (this.worldScale * 2), 
-            left: this.world.height / (this.worldScale * 2),
-            x: this.screen.width,  y: this.screen.height 
-        };
+        // this.zoomTo = { 
+        //     top: this.worldWidth / (this.worldScale * 2), 
+        //     left: this.worldHeight / (this.worldScale * 2),
+        //     x: this.screenWidth,  y: this.screenHeight 
+        // };
     }
  
     zoomToWorld = ()=>{

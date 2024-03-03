@@ -18,7 +18,7 @@ class GraphCanvas {
     }
 
     createSimulation = (nodes: INode[], edges: ILink[]) => {
-        const { width, height } = this.canvasCtrl.camera.getScreen() ;
+        const { screenWidth, screenHeight } = this.canvasCtrl.camera ;
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(edges) // This force provides links between nodes
                 .id((d: ILink) => d.id) // This sets the node id accessor to the specified function.
@@ -26,7 +26,7 @@ class GraphCanvas {
                 .distance(200)
             )
             .force("charge", d3.forceManyBody().strength(-500)) // This adds repulsion (if it's negative) between nodes.
-            .force("center", d3.forceCenter(width / 2, height / 2))
+            .force("center", d3.forceCenter(screenWidth / 2, screenHeight / 2))
             .force("collision", d3.forceCollide().radius((d: INode) => 20).iterations(2))
             .velocityDecay(0.8);
 

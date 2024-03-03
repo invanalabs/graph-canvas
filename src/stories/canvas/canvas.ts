@@ -137,25 +137,25 @@ export const createPage = () => {
 
 
 
-        graph.canvasCtrl.camera.viewport.on('clicked', () => showEvent('clicked'));
-        graph.canvasCtrl.camera.viewport.on('drag-start', () => showEvent('drag-start'));
-        graph.canvasCtrl.camera.viewport.on('drag-end', () => showEvent('drag-end'));
-        graph.canvasCtrl.camera.viewport.on('pinch-start', () => showEvent('pinch-start'));
-        graph.canvasCtrl.camera.viewport.on('pinch-end', () => showEvent('pinch-end'));
-        graph.canvasCtrl.camera.viewport.on('bounce-start-x', () => showEvent('bounce-start-x'));
-        graph.canvasCtrl.camera.viewport.on('bounce-end-x', () => showEvent('bounce-end-x'));
-        graph.canvasCtrl.camera.viewport.on('bounce-start-y', () => showEvent('bounce-start-y'));
-        graph.canvasCtrl.camera.viewport.on('bounce-end-y', () => showEvent('bounce-end-y'));
-        graph.canvasCtrl.camera.viewport.on('snap-start', () => showEvent('snap-start'));
-        graph.canvasCtrl.camera.viewport.on('snap-end', () => showEvent('snap-end'));
-        graph.canvasCtrl.camera.viewport.on('snap-zoom-start', () => showEvent('snap-zoom-start'));
-        graph.canvasCtrl.camera.viewport.on('snap-zoom-end', () => showEvent('snap-zoom-end'));
-        graph.canvasCtrl.camera.viewport.on('mouse-edges-start', () => showEvent('mouse-edges-start'));
-        graph.canvasCtrl.camera.viewport.on('mouse-edges-end', () => showEvent('mouse-edges-end'));
-        graph.canvasCtrl.camera.viewport.on('moved-end', () => showEvent('moved-end'));
-        graph.canvasCtrl.camera.viewport.on('zoomed-end', () => showEvent('zoomed-end'));
-        graph.canvasCtrl.camera.viewport.on("pointerover", () => showEvent('pointerover'));
-        graph.canvasCtrl.camera.viewport.on("pointerout", () => showEvent('pointerout'));
+        graph.canvasCtrl.camera.on('clicked', () => showEvent('clicked'));
+        graph.canvasCtrl.camera.on('drag-start', () => showEvent('drag-start'));
+        graph.canvasCtrl.camera.on('drag-end', () => showEvent('drag-end'));
+        graph.canvasCtrl.camera.on('pinch-start', () => showEvent('pinch-start'));
+        graph.canvasCtrl.camera.on('pinch-end', () => showEvent('pinch-end'));
+        graph.canvasCtrl.camera.on('bounce-start-x', () => showEvent('bounce-start-x'));
+        graph.canvasCtrl.camera.on('bounce-end-x', () => showEvent('bounce-end-x'));
+        graph.canvasCtrl.camera.on('bounce-start-y', () => showEvent('bounce-start-y'));
+        graph.canvasCtrl.camera.on('bounce-end-y', () => showEvent('bounce-end-y'));
+        graph.canvasCtrl.camera.on('snap-start', () => showEvent('snap-start'));
+        graph.canvasCtrl.camera.on('snap-end', () => showEvent('snap-end'));
+        graph.canvasCtrl.camera.on('snap-zoom-start', () => showEvent('snap-zoom-start'));
+        graph.canvasCtrl.camera.on('snap-zoom-end', () => showEvent('snap-zoom-end'));
+        graph.canvasCtrl.camera.on('mouse-edges-start', () => showEvent('mouse-edges-start'));
+        graph.canvasCtrl.camera.on('mouse-edges-end', () => showEvent('mouse-edges-end'));
+        graph.canvasCtrl.camera.on('moved-end', () => showEvent('moved-end'));
+        graph.canvasCtrl.camera.on('zoomed-end', () => showEvent('zoomed-end'));
+        graph.canvasCtrl.camera.on("pointerover", () => showEvent('pointerover'));
+        graph.canvasCtrl.camera.on("pointerout", () => showEvent('pointerout'));
 
 
     }, false);
