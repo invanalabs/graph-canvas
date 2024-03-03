@@ -14,23 +14,23 @@ export default class CanvasCtrl extends CanvasCtrlBase{
         console.log("debugBorder triggered")
         const line = new PIXI.Graphics();
         // add the label also
-        line.lineStyle(2, 0x1ab3eb).drawRect(0, 0, this.viewport.worldWidth, this.viewport.worldHeight);
+        line.lineStyle(2, 0x1ab3eb).drawRect(0, 0, this.camera.viewport.worldWidth, this.camera.viewport.worldHeight);
         // line.drawRect(0,0, 120, 20)
         // line.te
-        this.viewport.addChild(line);
+        this.camera.viewport.addChild(line);
     }
 
     addShape(shape: CanvasShape){
         // this will add the shape to the canvas
-        this.viewport.addChild(shape);
+        this.camera.viewport.addChild(shape);
     }
 
     zoomIn = () => {
-        this.viewport.zoom(-this.viewportSettings.screenWidth / 10, true);
+        this.camera.viewport.zoom(-this.camera.getScreen().width / 10, true);
     };
 
     zoomOut = () => {
-        this.viewport.zoom(this.viewportSettings.screenWidth / 10, true);
+        this.camera.viewport.zoom(this.camera.getScreen().width / 10, true);
     };
 
     zoomLevel = () => {
@@ -75,8 +75,8 @@ export default class CanvasCtrl extends CanvasCtrlBase{
     fit(nodes: INode[], zoomLevel?: number){
 
         const graphCenter = this.getCenter(this.dataCtrl.nodes)
-        this.viewport.moveCenter(graphCenter)
-        this.viewport.setZoom(1, true);
+        this.camera.viewport.moveCenter(graphCenter)
+        this.camera.viewport.setZoom(1, true);
     }
 
     focusNode(node: INode, zoomLevel?: number){

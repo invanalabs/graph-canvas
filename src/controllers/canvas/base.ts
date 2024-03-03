@@ -3,6 +3,7 @@ import { Viewport } from 'pixi-viewport'
 import { CanvasSetting } from './types';
 import { CViewportSetting } from './types';
 import DataCtrl from '../data';
+import Camera from './camera';
 
 
 export default class CanvasCtrlBase {
@@ -10,11 +11,14 @@ export default class CanvasCtrlBase {
 
     protected app: Application;
     dataCtrl: DataCtrl;
-    viewport: Viewport;
+
+    // camera
+    camera: Camera;
+ 
     debug_mode : boolean;
 
     protected settings: CanvasSetting;
-    viewportSettings: CViewportSetting;
+    // viewportSettings: CViewportSetting;
  
 
     constructor(settings: CanvasSetting, dataCtrl: DataCtrl) {
@@ -25,11 +29,16 @@ export default class CanvasCtrlBase {
         this.debug_mode = false;
         this.dataCtrl = dataCtrl;
         this.settings = settings; // overall canvas settings 
-        this.viewportSettings = this.getSettingsWithDefaults() // only viewport settings
 
-        this.app = this.createApp();
-        this.viewport = this.createViewPort()
-        this.app.stage.addChild(this.viewport); // add viewport to stage        
+        // @ts-ignore
+        const divRectangle = this.settings.containerDiv?.getBoundingClientRect();
+        if (divRectangle?.width === 0 || divRectangle?.height === 0 ){
+            throw (`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
+        }
+
+        this.app = this.createApp( divRectangle?.width, divRectangle?.height);
+        this.camera = new Camera(this.app, divRectangle?.width, divRectangle?.height);
+
         this.app.start();
     }
 
@@ -38,25 +47,12 @@ export default class CanvasCtrlBase {
     debugOff = () => { this.debug_mode = false; }
 
 
-    getSettingsWithDefaults() {
-        // @ts-ignore
-        const divRectangle = this.settings.containerDiv?.getBoundingClientRect();
-        if (divRectangle?.width === 0 || divRectangle?.height === 0 ){
-            throw (`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
-        }
-        console.log("Found containerDiv with the dimensions", divRectangle)            
-        return {
-            screenWidth: divRectangle.width,
-            screenHeight: divRectangle.height,
-            worldWidth: divRectangle.width * 2,
-            worldHeight: divRectangle.height * 2,
-        }
-    }
 
-    createApp( ){
+
+    createApp( screenWidth: number, screenHeight: number ){
         const app = new Application({
-            width: this.viewportSettings.screenWidth,
-            height: this.viewportSettings.screenHeight,
+            width: screenWidth,
+            height: screenHeight,
             view: this.settings.containerDiv,
             antialias: true,
             resizeTo: window,
@@ -71,32 +67,33 @@ export default class CanvasCtrlBase {
         app.stage.interactive = true;
         app.stage.hitArea = app.screen;
         // prevent body scrolling
-        // app.view.addEventListener('wheel', event => { event.preventDefault(); });
+        // @ts-ignore
+        app.view.addEventListener('wheel', event => { event.preventDefault(); });
 
         return app;
     }
 
-    createViewPort = () => {
-        const screenHeight = this.app.view.height;
-        const screenWidth = this.app.view.width;        
+    // createViewPort = () => {
+    //     const screenHeight = this.app.view.height;
+    //     const screenWidth = this.app.view.width;        
 
-        const screenScale = 1;
-        const worldWidth = screenWidth * screenScale;
-        const worldHeight =  screenHeight * screenScale;
+    //     const screenScale = 1;
+    //     const worldWidth = screenWidth * screenScale;
+    //     const worldHeight =  screenHeight * screenScale;
 
-        const viewport = new Viewport({
-            // screenWidth: screenWidth,
-            // screenHeight: screenHeight,
-            worldWidth: worldWidth,
-            worldHeight: worldHeight,
-            events: this.app.renderer.events,
-            // backgroundColor: this.settings.backgroundColor
-        });
-        viewport
-            .drag().pinch({ percent: 1 }).wheel().decelerate()
-            .clampZoom({ minWidth: worldWidth / 2, minHeight:  worldHeight / 2 });
+    //     const viewport = new Viewport({
+    //         // screenWidth: screenWidth,
+    //         // screenHeight: screenHeight,
+    //         worldWidth: worldWidth,
+    //         worldHeight: worldHeight,
+    //         events: this.app.renderer.events,
+    //         // backgroundColor: this.settings.backgroundColor
+    //     });
+    //     viewport
+    //         .drag().pinch({ percent: 1 }).wheel().decelerate()
+    //         .clampZoom({ minWidth: worldWidth / 2, minHeight:  worldHeight / 2 });
 
-        return viewport
-    }
+    //     return viewport
+    // }
  
 }

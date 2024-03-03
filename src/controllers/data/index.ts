@@ -14,7 +14,7 @@ export default class DataCtrl {
     addData = (nodes: INode[], links: ILink[]) => {
         // make this upsert
         this.nodes = nodes;
-        this.links = links
+        this.links = links;
     }
 
     updateNodePosition(node: INode, x: number, y: number){
