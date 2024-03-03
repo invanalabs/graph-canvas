@@ -1,7 +1,12 @@
 // import { BaseShape } from "../structures/nodes/base";
 import { Container, Graphics } from "pixi.js";
+import { CanvasSetting } from "../controllers/canvas/types";
 
 
+
+export interface GraphCanvasSetting {
+    canvas: CanvasSetting
+}
 
 
 export interface Properties {
@@ -25,6 +30,8 @@ export interface INode extends CanvasDataBase{
     shape: NodeShapes
     x?: number,
     y?: number,
+    vx?: number,
+    vy?: number
 }
 
 

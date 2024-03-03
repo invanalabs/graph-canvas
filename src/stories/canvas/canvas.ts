@@ -1,5 +1,5 @@
 import GraphCanvas from "../../canvas/graph";
-import { INode, ILink } from "../../canvas/types";
+import { INode, ILink, GraphCanvasSetting } from "../../canvas/types";
 
 
 
@@ -114,35 +114,36 @@ export const createPage = () => {
     document.addEventListener("DOMContentLoaded", function(event) {
         /* The stuff I needed to initialise */
         console.log("=DOM is ready", event)
-        const canvas = new GraphCanvas(canvasDiv);
-        canvas.addData(nodes, edges)
+        const canvasSettings: GraphCanvasSetting = {canvas: {containerDiv: canvasDiv, backgroundColor: 0x2a2c2e}};
+        const graph = new GraphCanvas(canvasSettings);
+        graph.addData(nodes, edges)
 
-        zoomInButton.addEventListener('click', () => canvas.zoomIn());
-        zoomOutButton.addEventListener('click', () => canvas.zoomOut());
-        fitViewButton.addEventListener('click', () => canvas.fitView());
+        zoomInButton.addEventListener('click', () => graph.canvasCtrl.zoomIn());
+        zoomOutButton.addEventListener('click', () => graph.canvasCtrl.zoomOut());
+        fitViewButton.addEventListener('click', () => graph.canvasCtrl.fitView());
 
 
 
 
-        canvas.viewport.on('clicked', () => showEvent('clicked'));
-        canvas.viewport.on('drag-start', () => showEvent('drag-start'));
-        canvas.viewport.on('drag-end', () => showEvent('drag-end'));
-        canvas.viewport.on('pinch-start', () => showEvent('pinch-start'));
-        canvas.viewport.on('pinch-end', () => showEvent('pinch-end'));
-        canvas.viewport.on('bounce-start-x', () => showEvent('bounce-start-x'));
-        canvas.viewport.on('bounce-end-x', () => showEvent('bounce-end-x'));
-        canvas.viewport.on('bounce-start-y', () => showEvent('bounce-start-y'));
-        canvas.viewport.on('bounce-end-y', () => showEvent('bounce-end-y'));
-        canvas.viewport.on('snap-start', () => showEvent('snap-start'));
-        canvas.viewport.on('snap-end', () => showEvent('snap-end'));
-        canvas.viewport.on('snap-zoom-start', () => showEvent('snap-zoom-start'));
-        canvas.viewport.on('snap-zoom-end', () => showEvent('snap-zoom-end'));
-        canvas.viewport.on('mouse-edges-start', () => showEvent('mouse-edges-start'));
-        canvas.viewport.on('mouse-edges-end', () => showEvent('mouse-edges-end'));
-        canvas.viewport.on('moved-end', () => showEvent('moved-end'));
-        canvas.viewport.on('zoomed-end', () => showEvent('zoomed-end'));
-        canvas.viewport.on("pointerover", () => showEvent('pointerover'));
-        canvas.viewport.on("pointerout", () => showEvent('pointerout'));
+        graph.canvasCtrl.viewport.on('clicked', () => showEvent('clicked'));
+        graph.canvasCtrl.viewport.on('drag-start', () => showEvent('drag-start'));
+        graph.canvasCtrl.viewport.on('drag-end', () => showEvent('drag-end'));
+        graph.canvasCtrl.viewport.on('pinch-start', () => showEvent('pinch-start'));
+        graph.canvasCtrl.viewport.on('pinch-end', () => showEvent('pinch-end'));
+        graph.canvasCtrl.viewport.on('bounce-start-x', () => showEvent('bounce-start-x'));
+        graph.canvasCtrl.viewport.on('bounce-end-x', () => showEvent('bounce-end-x'));
+        graph.canvasCtrl.viewport.on('bounce-start-y', () => showEvent('bounce-start-y'));
+        graph.canvasCtrl.viewport.on('bounce-end-y', () => showEvent('bounce-end-y'));
+        graph.canvasCtrl.viewport.on('snap-start', () => showEvent('snap-start'));
+        graph.canvasCtrl.viewport.on('snap-end', () => showEvent('snap-end'));
+        graph.canvasCtrl.viewport.on('snap-zoom-start', () => showEvent('snap-zoom-start'));
+        graph.canvasCtrl.viewport.on('snap-zoom-end', () => showEvent('snap-zoom-end'));
+        graph.canvasCtrl.viewport.on('mouse-edges-start', () => showEvent('mouse-edges-start'));
+        graph.canvasCtrl.viewport.on('mouse-edges-end', () => showEvent('mouse-edges-end'));
+        graph.canvasCtrl.viewport.on('moved-end', () => showEvent('moved-end'));
+        graph.canvasCtrl.viewport.on('zoomed-end', () => showEvent('zoomed-end'));
+        graph.canvasCtrl.viewport.on("pointerover", () => showEvent('pointerover'));
+        graph.canvasCtrl.viewport.on("pointerout", () => showEvent('pointerout'));
 
 
     }, false);
