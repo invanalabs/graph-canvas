@@ -69,31 +69,9 @@ export default class CanvasCtrlBase {
         // prevent body scrolling
         // @ts-ignore
         app.view.addEventListener('wheel', event => { event.preventDefault(); });
-
         return app;
     }
 
-    // createViewPort = () => {
-    //     const screenHeight = this.app.view.height;
-    //     const screenWidth = this.app.view.width;        
-
-    //     const screenScale = 1;
-    //     const worldWidth = screenWidth * screenScale;
-    //     const worldHeight =  screenHeight * screenScale;
-
-    //     const viewport = new Viewport({
-    //         // screenWidth: screenWidth,
-    //         // screenHeight: screenHeight,
-    //         worldWidth: worldWidth,
-    //         worldHeight: worldHeight,
-    //         events: this.app.renderer.events,
-    //         // backgroundColor: this.settings.backgroundColor
-    //     });
-    //     viewport
-    //         .drag().pinch({ percent: 1 }).wheel().decelerate()
-    //         .clampZoom({ minWidth: worldWidth / 2, minHeight:  worldHeight / 2 });
-
-    //     return viewport
-    // }
+   
  
 }

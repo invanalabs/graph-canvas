@@ -85,6 +85,16 @@ export const createPage = () => {
     fitViewButton.innerHTML = "fitView"
     toolbar.appendChild(fitViewButton);
 
+
+    const debugOnButton = document.createElement('button');
+    debugOnButton.innerHTML = "Debug ON"
+    toolbar.appendChild(debugOnButton);
+
+    const debugOffButton = document.createElement('button');
+    debugOffButton.innerHTML = "Debug OFF"
+    toolbar.appendChild(debugOffButton);
+
+
     html.appendChild(toolbar)
 
 
@@ -121,29 +131,31 @@ export const createPage = () => {
         zoomInButton.addEventListener('click', () => graph.canvasCtrl.zoomIn());
         zoomOutButton.addEventListener('click', () => graph.canvasCtrl.zoomOut());
         fitViewButton.addEventListener('click', () => graph.canvasCtrl.fitView());
+ 
+        debugOffButton.addEventListener('click',  () => graph.canvasCtrl.debugOff());
+        debugOnButton.addEventListener('click',  () => graph.canvasCtrl.debugOn());
 
 
 
-
-        graph.canvasCtrl.viewport.on('clicked', () => showEvent('clicked'));
-        graph.canvasCtrl.viewport.on('drag-start', () => showEvent('drag-start'));
-        graph.canvasCtrl.viewport.on('drag-end', () => showEvent('drag-end'));
-        graph.canvasCtrl.viewport.on('pinch-start', () => showEvent('pinch-start'));
-        graph.canvasCtrl.viewport.on('pinch-end', () => showEvent('pinch-end'));
-        graph.canvasCtrl.viewport.on('bounce-start-x', () => showEvent('bounce-start-x'));
-        graph.canvasCtrl.viewport.on('bounce-end-x', () => showEvent('bounce-end-x'));
-        graph.canvasCtrl.viewport.on('bounce-start-y', () => showEvent('bounce-start-y'));
-        graph.canvasCtrl.viewport.on('bounce-end-y', () => showEvent('bounce-end-y'));
-        graph.canvasCtrl.viewport.on('snap-start', () => showEvent('snap-start'));
-        graph.canvasCtrl.viewport.on('snap-end', () => showEvent('snap-end'));
-        graph.canvasCtrl.viewport.on('snap-zoom-start', () => showEvent('snap-zoom-start'));
-        graph.canvasCtrl.viewport.on('snap-zoom-end', () => showEvent('snap-zoom-end'));
-        graph.canvasCtrl.viewport.on('mouse-edges-start', () => showEvent('mouse-edges-start'));
-        graph.canvasCtrl.viewport.on('mouse-edges-end', () => showEvent('mouse-edges-end'));
-        graph.canvasCtrl.viewport.on('moved-end', () => showEvent('moved-end'));
-        graph.canvasCtrl.viewport.on('zoomed-end', () => showEvent('zoomed-end'));
-        graph.canvasCtrl.viewport.on("pointerover", () => showEvent('pointerover'));
-        graph.canvasCtrl.viewport.on("pointerout", () => showEvent('pointerout'));
+        graph.canvasCtrl.camera.viewport.on('clicked', () => showEvent('clicked'));
+        graph.canvasCtrl.camera.viewport.on('drag-start', () => showEvent('drag-start'));
+        graph.canvasCtrl.camera.viewport.on('drag-end', () => showEvent('drag-end'));
+        graph.canvasCtrl.camera.viewport.on('pinch-start', () => showEvent('pinch-start'));
+        graph.canvasCtrl.camera.viewport.on('pinch-end', () => showEvent('pinch-end'));
+        graph.canvasCtrl.camera.viewport.on('bounce-start-x', () => showEvent('bounce-start-x'));
+        graph.canvasCtrl.camera.viewport.on('bounce-end-x', () => showEvent('bounce-end-x'));
+        graph.canvasCtrl.camera.viewport.on('bounce-start-y', () => showEvent('bounce-start-y'));
+        graph.canvasCtrl.camera.viewport.on('bounce-end-y', () => showEvent('bounce-end-y'));
+        graph.canvasCtrl.camera.viewport.on('snap-start', () => showEvent('snap-start'));
+        graph.canvasCtrl.camera.viewport.on('snap-end', () => showEvent('snap-end'));
+        graph.canvasCtrl.camera.viewport.on('snap-zoom-start', () => showEvent('snap-zoom-start'));
+        graph.canvasCtrl.camera.viewport.on('snap-zoom-end', () => showEvent('snap-zoom-end'));
+        graph.canvasCtrl.camera.viewport.on('mouse-edges-start', () => showEvent('mouse-edges-start'));
+        graph.canvasCtrl.camera.viewport.on('mouse-edges-end', () => showEvent('mouse-edges-end'));
+        graph.canvasCtrl.camera.viewport.on('moved-end', () => showEvent('moved-end'));
+        graph.canvasCtrl.camera.viewport.on('zoomed-end', () => showEvent('zoomed-end'));
+        graph.canvasCtrl.camera.viewport.on("pointerover", () => showEvent('pointerover'));
+        graph.canvasCtrl.camera.viewport.on("pointerout", () => showEvent('pointerout'));
 
 
     }, false);

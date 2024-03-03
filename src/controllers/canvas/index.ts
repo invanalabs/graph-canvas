@@ -20,6 +20,11 @@ export default class CanvasCtrl extends CanvasCtrlBase{
         this.camera.viewport.addChild(line);
     }
 
+    setDebug = (debug_mode: boolean) => {  this.debug_mode = debug_mode; }
+    debugOn = () => { this.debug_mode = true; }
+    debugOff = () => { this.debug_mode = false; }
+
+
     addShape(shape: CanvasShape){
         // this will add the shape to the canvas
         this.camera.viewport.addChild(shape);
@@ -46,12 +51,15 @@ export default class CanvasCtrl extends CanvasCtrlBase{
 
     fitView() {
         console.log("==fitView", this.dataCtrl.nodes);
-        this.debugBorder()
+
+        if (this.debug_mode){
+            this.debugBorder()
+        }
         this.fit(this.dataCtrl.nodes);
     }
 
     getCenter(nodes: INode[]){
-        // Zooms out so all or selected nodes fit on the canvas.  
+        // // Zooms out so all or selected nodes fit on the canvas.  
         const nodesX = nodes.map((node: INode) => node.x);
         const nodesY = nodes.map((node: INode) => node.y);
 
@@ -70,7 +78,25 @@ export default class CanvasCtrl extends CanvasCtrlBase{
             minX + graphWidth / 2,
             minY + graphHeight / 2
         ); 
+             
     }
+
+    // moveNodesToWorldCenter(nodes: INode[]){
+    //     const {worldWidth, worldHeight} = this.camera.viewport;
+
+    //     const minNodeX = Math.min(...nodes.map(nodeData => nodeData.x));
+    //     const maxNodeX = Math.max(...nodes.map(nodeData => nodeData.x));
+    //     const minNodeY = Math.min(...nodes.map(nodeData => nodeData.y));
+    //     const maxNodeY = Math.max(...nodes.map(nodeData => nodeData.y));
+    //     const graphWidth = Math.abs(maxNodeX - minNodeX);
+    //     const graphHeight = Math.abs(maxNodeY - minNodeY);
+    //     const WORLD_WIDTH = Math.max(worldWidth * 2, graphWidth * 1.1);
+    //     const WORLD_HEIGHT = Math.max(worldHeight * 2, graphHeight * 1.1);
+    //     nodes.forEach(nodeData => {
+    //       nodeData.x = nodeData.x - minNodeX - graphWidth / 2 + WORLD_WIDTH / 2;
+    //       nodeData.y = nodeData.y - minNodeY - graphHeight / 2 + WORLD_HEIGHT / 2;
+    //     });
+    // }
 
     fit(nodes: INode[], zoomLevel?: number){
 
