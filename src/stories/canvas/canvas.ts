@@ -97,10 +97,8 @@ export const createPage = () => {
 
     html.appendChild(toolbar)
 
-
     const showEvent = (eventType: string)=> {
         // notify event 
-
         const eventDiv = document.createElement('div')
         eventDiv.innerHTML = `fired - ${eventType}`;
         eventDiv.style.borderBottom = "2px solid #999"

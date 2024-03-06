@@ -13,7 +13,7 @@ interface ZoomToOptions {
 export default class Camera extends Viewport {
 
 
-    worldScale = 2;
+    worldScale = 3;
 
     getDefaultZoomTo = () => {
         return  { 
@@ -27,12 +27,14 @@ export default class Camera extends Viewport {
     setUpCamera(){
         this
             .drag().pinch({ percent: 1 }).wheel().decelerate()
+            .clamp({direction:'all',underflow:'center'})
             .clampZoom({ 
                 minWidth: this.screenWidth / 4,
                 minHeight:  this.screenHeight / 4,
-                maxWidth: this.worldWidth *2 ,
-                maxHeight: this.worldHeight * 2 
-            });
+                maxWidth: this.worldWidth,
+                maxHeight: this.worldHeight 
+            })
+            
  
     }
 
