@@ -1,3 +1,4 @@
+// @ts-nocheck
 import GraphCanvas from "../../canvas/graph";
 import { INode, ILink, GraphCanvasSetting } from "../../canvas/types";
 

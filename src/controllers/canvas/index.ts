@@ -81,27 +81,28 @@ export default class CanvasCtrl extends CanvasCtrlBase{
              
     }
 
-    // moveNodesToWorldCenter(nodes: INode[]){
-    //     const {worldWidth, worldHeight} = this.camera.viewport;
+    moveNodesToWorldCenter(nodes: INode[]){
+        const {worldWidth, worldHeight} = this.camera;
 
-    //     const minNodeX = Math.min(...nodes.map(nodeData => nodeData.x));
-    //     const maxNodeX = Math.max(...nodes.map(nodeData => nodeData.x));
-    //     const minNodeY = Math.min(...nodes.map(nodeData => nodeData.y));
-    //     const maxNodeY = Math.max(...nodes.map(nodeData => nodeData.y));
-    //     const graphWidth = Math.abs(maxNodeX - minNodeX);
-    //     const graphHeight = Math.abs(maxNodeY - minNodeY);
-    //     const WORLD_WIDTH = Math.max(worldWidth * 2, graphWidth * 1.1);
-    //     const WORLD_HEIGHT = Math.max(worldHeight * 2, graphHeight * 1.1);
-    //     nodes.forEach(nodeData => {
-    //       nodeData.x = nodeData.x - minNodeX - graphWidth / 2 + WORLD_WIDTH / 2;
-    //       nodeData.y = nodeData.y - minNodeY - graphHeight / 2 + WORLD_HEIGHT / 2;
-    //     });
-    // }
+        const minNodeX = Math.min(...nodes.map(nodeData => nodeData.x));
+        const maxNodeX = Math.max(...nodes.map(nodeData => nodeData.x));
+        const minNodeY = Math.min(...nodes.map(nodeData => nodeData.y));
+        const maxNodeY = Math.max(...nodes.map(nodeData => nodeData.y));
+        const graphWidth = Math.abs(maxNodeX - minNodeX);
+        const graphHeight = Math.abs(maxNodeY - minNodeY);
+        const WORLD_WIDTH = Math.max(worldWidth * 2, graphWidth * 1.1);
+        const WORLD_HEIGHT = Math.max(worldHeight * 2, graphHeight * 1.1);
+        nodes.forEach(nodeData => {
+          nodeData.x = nodeData.x - minNodeX - graphWidth / 2 + WORLD_WIDTH / 2;
+          nodeData.y = nodeData.y - minNodeY - graphHeight / 2 + WORLD_HEIGHT / 2;
+        });
+    }
 
     fit(nodes: INode[], zoomLevel?: number){
 
-        const graphCenter = this.getCenter(this.dataCtrl.nodes)
-        this.camera.moveCenter(graphCenter)
+        // const graphCenter = this.getCenter(this.dataCtrl.nodes)
+        // this.camera.moveCenter(graphCenter)
+        this.moveNodesToWorldCenter(nodes);
         this.camera.setZoom(1, true);
     }
 
