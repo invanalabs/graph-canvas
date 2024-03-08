@@ -2,19 +2,19 @@ import Circle from '../structures/nodes/circle';
 import { ILink, INode, GraphCanvasSetting } from './types';
 import * as d3 from "d3";
 import CanvasCtrl from '../controllers/canvas';
-import DataCtrl from '../controllers/data';
+import StateCtrl from '../controllers/state';
 
 
 class GraphCanvas {
 
     settings: GraphCanvasSetting;
-    dataCtrl: DataCtrl;
+    stateCtrl: StateCtrl;
     canvasCtrl: CanvasCtrl; // rendering graphics 
 
     constructor(settings: GraphCanvasSetting) {
         this.settings = settings;
-        this.dataCtrl = new DataCtrl([], []);
-        this.canvasCtrl = new CanvasCtrl(settings.canvas, this.dataCtrl);
+        this.stateCtrl = new StateCtrl([], []);
+        this.canvasCtrl = new CanvasCtrl(settings.canvas, this.stateCtrl);
     }
 
     createSimulation = (nodes: INode[], edges: ILink[]) => {
@@ -37,11 +37,11 @@ class GraphCanvas {
     }
 
 
-    ticked = (nodes: INode[], edges: ILink[], dataCtrl: DataCtrl) => {
+    ticked = (nodes: INode[], edges: ILink[], StateCtrl: StateCtrl) => {
         // let _this = this;
         nodes.forEach((node: INode) => {
             let { x, y } = node;
-            dataCtrl.updateNodePosition(node, x, y)
+            StateCtrl.updateNodePosition(node, x, y)
             // shapeGfx?.position.set(x, y);
         });
 
@@ -65,7 +65,7 @@ class GraphCanvas {
         let _this = this;
 
         // add data to store 
-        this.dataCtrl.addData(nodes, links)
+        this.stateCtrl.addData(nodes, links)
 
         // clear canvas
         // this.viewport.removeChildren(); // fix this 
@@ -82,7 +82,7 @@ class GraphCanvas {
         // });
 
         // render nodes
-        this.dataCtrl.nodes.map((node: INode) => {
+        this.stateCtrl.nodes.map((node: INode) => {
             if (!node.shapeGfx) {
                 const shapeContainer = new Circle(_this)
                 node.shapeGfx = shapeContainer.draw(node)
@@ -91,14 +91,14 @@ class GraphCanvas {
         });
 
         // render links 
-        this.dataCtrl.links.map((link: ILink) => {
+        this.stateCtrl.links.map((link: ILink) => {
             if (link.shapeGfx) {
                 // const shapeContainer = new
             }
         })
 
         const simulation = this.createSimulation(nodes, links);
-        simulation.on("tick", () => this.ticked(nodes, links, this.dataCtrl));
+        simulation.on("tick", () => this.ticked(nodes, links, this.stateCtrl));
         simulation.on('end', () => { 
             console.log("=Simulation ended"); 
             simulation.stop();

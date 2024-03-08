@@ -38,11 +38,12 @@ export default class CanvasCtrl extends CanvasCtrlBase {
         console.log("screenBorderDraw triggered")
 
         const debugColor = 0x1ab3eb;
-        const { center, min, max, graphHeight, graphWidth } = this.getCenter(this.dataCtrl.nodes)
+        const { center, min, max, graphHeight, graphWidth } = this.getCenter(this.stateCtrl.nodes)
         // this.drawDebugBorder(center, graphWidth, graphHeight)
         
         this.screenBorderClear();
-        const label = new PIXI.Text('screen border!', { fontFamily: 'Courier New', fontSize: 12, fill: debugColor });
+        const label = new PIXI.Text(`allNodes boundingBox (${graphWidth}x${graphHeight}) `,
+                         { fontFamily: 'Courier New', fontSize: 12, fill: debugColor });
         // label.x = (min.x + max.x) / 2;
         // label.y = (min.x + max.y) / 2;
         label.x = min.x;
@@ -52,7 +53,8 @@ export default class CanvasCtrl extends CanvasCtrlBase {
 
         // drawing bounding box
         this.debugBorderGfx.lineStyle(2, debugColor).drawRect(
-            min.x, min.y, max.x - min.x, max.y - min.y
+            min.x, min.y, max.x - min.x, max.y - min.y,
+            // min.x, min.y, graphWidth, graphHeight
             // center.x - graphWidth/2, 
             // center.y - graphHeight/2,
             // graphWidth,
@@ -92,7 +94,7 @@ export default class CanvasCtrl extends CanvasCtrlBase {
     fitView(nodes?: INode[], zoomLevel?: number) {
         console.log("==fitView", nodes, zoomLevel);
         if (!nodes) {
-            nodes = this.dataCtrl.nodes;
+            nodes = this.stateCtrl.nodes;
         }
         const { center, } = this.getCenter(nodes)
         this.camera.moveCenter(center)
@@ -129,7 +131,7 @@ export default class CanvasCtrl extends CanvasCtrlBase {
     getCenter(nodes: INode[]) {
 
         const { min, max } = this.getNodesPOV(nodes)
-        const padding = 250;
+        const padding = 50;
 
         const graphWidth = Math.abs(max.x - min.x) + (padding * 2);
         const graphHeight = Math.abs(max.y - min.y) + (padding * 2);

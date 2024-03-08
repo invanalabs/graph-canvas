@@ -1,7 +1,7 @@
 import { ILink, INode } from "../../canvas/types";
 
 
-export default class DataCtrl {
+export default class StateCtrl {
 
     nodes: INode[];
     links: ILink[];
