@@ -1,4 +1,4 @@
-import { Application } from 'pixi.js';
+import { Application, Graphics } from 'pixi.js';
 import { CanvasSetting } from './types';
 import DataCtrl from '../data';
 import Camera from './camera';
@@ -26,7 +26,8 @@ export default class CanvasCtrlBase {
 
     protected settings: CanvasSetting;
     // viewportSettings: CViewportSetting;
- 
+    debugBorderGfx = new Graphics();
+
 
     constructor(settings: CanvasSetting, dataCtrl: DataCtrl) {
         console.log("CanvasCtrlBase settings", settings)
@@ -47,6 +48,7 @@ export default class CanvasCtrlBase {
         this.app = this.createApp( this.canvasOptions.screenWidth, this.canvasOptions.screenHeight);
         this.camera = new Camera({  events: this.app.renderer.events, ...this.canvasOptions });
         this.camera.setUpCamera();
+        this.camera.addChild(this.debugBorderGfx);
 
         this.app.stage.addChild(this.camera)
         this.app.start();
@@ -77,7 +79,7 @@ export default class CanvasCtrlBase {
             autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
             autoDensity: false,
             resolution: window.devicePixelRatio, /// 2 for retina displays
-            // backgroundColor: this.settings.backgroundColor || 0x2a2c2e, // defaults to dark 
+            backgroundColor: this.settings.backgroundColor || 0x2a2c2e, // defaults to dark 
             eventMode : 'static' //  Emit events and is hit tested. Same as interaction = true in v7
         });
    

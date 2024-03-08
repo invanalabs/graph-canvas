@@ -29,13 +29,11 @@ export default class Camera extends Viewport {
             .drag().pinch({ percent: 1 }).wheel().decelerate()
             .clamp({direction:'all',underflow:'center'})
             .clampZoom({ 
-                minWidth: this.screenWidth / 4,
-                minHeight:  this.screenHeight / 4,
+                minWidth: this.screenWidth / 2,
+                minHeight:  this.screenHeight / 2,
                 maxWidth: this.worldWidth,
                 maxHeight: this.worldHeight 
             })
-            
- 
     }
 
     setZoomTo = (zoomToOptions : ZoomToOptions) => {
