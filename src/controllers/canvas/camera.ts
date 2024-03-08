@@ -15,22 +15,22 @@ export default class Camera extends Viewport {
 
     worldScale = 3;
 
-    getDefaultZoomTo = () => {
-        return  { 
-            top: this.worldWidth / this.worldScale , 
-            left: this.worldHeight / this.worldScale ,
-            x: this.screenWidth,  y: this.screenHeight 
-        };
-    }
+    // getDefaultZoomTo = () => {
+    //     return  { 
+    //         top: this.worldWidth / this.worldScale , 
+    //         left: this.worldHeight / this.worldScale ,
+    //         x: this.screenWidth,  y: this.screenHeight 
+    //     };
+    // }
 
  
     setUpCamera(){
         this
             .drag().pinch({ percent: 1 }).wheel().decelerate()
-            .clamp({direction:'all',underflow:'center'})
+            .clamp({direction:'all',underflow:'center'})// 
             .clampZoom({ 
-                minWidth: this.screenWidth / 2,
-                minHeight:  this.screenHeight / 2,
+                minWidth: this.screenWidth/2  ,
+                minHeight:  this.screenHeight/2  ,
                 maxWidth: this.worldWidth,
                 maxHeight: this.worldHeight 
             })

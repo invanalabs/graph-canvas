@@ -28,12 +28,21 @@ export default class CanvasCtrl extends CanvasCtrlBase {
     //     // line.te
     // }
 
-    drawScreenBorder() {
-        console.log("drawScreenBorder triggered")
+    screenBorderClear(){
+        console.log("screenBorderClear")
+        this.debugBorderGfx.clear()
+        this.debugBorderGfx.removeChildren();
+    }
+
+    screenBorderDraw() {
+        console.log("screenBorderDraw triggered")
+
+        const debugColor = 0x1ab3eb;
         const { center, min, max, graphHeight, graphWidth } = this.getCenter(this.dataCtrl.nodes)
         // this.drawDebugBorder(center, graphWidth, graphHeight)
-
-        const label = new PIXI.Text('screen border!', { fontFamily: 'Courier New', fontSize: 12, fill: 0x1ab3eb });
+        
+        this.screenBorderClear();
+        const label = new PIXI.Text('screen border!', { fontFamily: 'Courier New', fontSize: 12, fill: debugColor });
         // label.x = (min.x + max.x) / 2;
         // label.y = (min.x + max.y) / 2;
         label.x = min.x;
@@ -41,9 +50,14 @@ export default class CanvasCtrl extends CanvasCtrlBase {
         label.anchor.set(0.5); // Center the anchor point
         this.debugBorderGfx.addChild(label)
 
-        this.debugBorderGfx.lineStyle(2, 0x1ab3eb).drawRect(center.x - graphWidth/2, center.y - graphHeight/2,
-             graphWidth, graphHeight)
-
+        // drawing bounding box
+        this.debugBorderGfx.lineStyle(2, debugColor).drawRect(
+            min.x, min.y, max.x - min.x, max.y - min.y
+            // center.x - graphWidth/2, 
+            // center.y - graphHeight/2,
+            // graphWidth,
+            // graphHeight
+        )
     }
 
     setDebug = (debug_mode: boolean) => { this.debug_mode = debug_mode; }
@@ -83,11 +97,15 @@ export default class CanvasCtrl extends CanvasCtrlBase {
         const { center, } = this.getCenter(nodes)
         this.camera.moveCenter(center)
         // this.moveNodesToWorldCenter(nodes);
-        // this.camera.setZoom(1, true);
-        if (this.debug_mode) {
-            this.drawScreenBorder()
-        }
+        this.camera.setZoom(1, true);
+        // if (this.debug_mode) {
+        //     this.screenBorderDraw()
+        // }else{
+        //     this.debugBorderGfx.clear()
+        // }
     }
+
+ 
 
     getNodesPOV(nodes: INode[]) {
         // // Zooms out so all or selected nodes fit on the canvas.  
@@ -102,6 +120,7 @@ export default class CanvasCtrl extends CanvasCtrlBase {
         const minY = Math.min(...nodesY);
         // @ts-ignore
         const maxY = Math.max(...nodesY);
+
         const min = new PIXI.Point(minX, minY);
         const max = new PIXI.Point(maxX, maxY)
         return { min, max }
@@ -110,15 +129,15 @@ export default class CanvasCtrl extends CanvasCtrlBase {
     getCenter(nodes: INode[]) {
 
         const { min, max } = this.getNodesPOV(nodes)
-        const padding = 50;
+        const padding = 250;
 
         const graphWidth = Math.abs(max.x - min.x) + (padding * 2);
         const graphHeight = Math.abs(max.y - min.y) + (padding * 2);
 
         // draw a debug box
         const center = new PIXI.Point(
-            min.x + graphWidth / 2,
-            min.y + graphHeight / 2
+            min.x + graphWidth/2 ,
+            min.y + graphHeight/2
         );
         // const start = min;
         return { center, max, min, graphWidth, graphHeight }

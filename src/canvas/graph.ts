@@ -50,6 +50,13 @@ class GraphCanvas {
         //     link.shapeGfx = EdgeGraphics({ source, target, app })
         //     artBoard.addChild(link.shapeGfx);
         // });
+        this.canvasCtrl.fitView();
+
+        if (this.canvasCtrl.debug_mode) {
+            this.canvasCtrl.screenBorderDraw();
+        }else{
+            this.canvasCtrl.screenBorderClear();
+        }
 
     }
 

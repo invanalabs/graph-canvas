@@ -28,7 +28,13 @@ const nodes: Array<INode> = [
     {
         id: "3",
         label: "TestNode",
-        type: "Test",
+        type: "Test 1",
+        shape: "circle"
+    },
+    {
+        id: "4",
+        label: "TestNode",
+        type: "Test 2",
         shape: "circle"
     }
 ];
