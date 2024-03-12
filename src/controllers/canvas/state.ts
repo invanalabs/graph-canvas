@@ -5,6 +5,8 @@ export default class StateCtrl {
 
     nodes: INode[];
     links: ILink[];
+    // selectedItems: INode[] | ILink[] ; 
+
 
     constructor(nodes: INode[], links: ILink[] ){
         this.links = links;
@@ -12,7 +14,7 @@ export default class StateCtrl {
     }
 
     addData = (nodes: INode[], links: ILink[]) => {
-        // make this upsert
+        //TODO -make this upsert
         this.nodes = nodes;
         this.links = links;
     }

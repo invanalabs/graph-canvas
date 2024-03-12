@@ -2,7 +2,7 @@ import Circle from '../structures/nodes/circle';
 import { ILink, INode, GraphCanvasSetting } from './types';
 import * as d3 from "d3";
 import CanvasCtrl from '../controllers/canvas';
-import StateCtrl from '../controllers/state';
+import StateCtrl from '../controllers/canvas/state';
 
 
 class GraphCanvas {

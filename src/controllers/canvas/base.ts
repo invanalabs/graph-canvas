@@ -1,6 +1,6 @@
 import { Application, Graphics } from 'pixi.js';
 import { CanvasSetting } from './types';
-import StateCtrl from '../state';
+import StateCtrl from './state';
 import Camera from './camera';
  
 
@@ -15,7 +15,7 @@ export default class CanvasCtrlBase {
     // for drawing shapes
 
     protected app: Application;
-    StateCtrl: StateCtrl;
+    stateCtrl: StateCtrl;
 
     // camera
     camera: Camera;
@@ -29,13 +29,13 @@ export default class CanvasCtrlBase {
     debugBorderGfx = new Graphics();
 
 
-    constructor(settings: CanvasSetting, StateCtrl: StateCtrl) {
+    constructor(settings: CanvasSetting, stateCtrl: StateCtrl) {
         console.log("CanvasCtrlBase settings", settings)
         if (!settings.containerDiv) {
             throw ("containerDiv cannot be null")
         }
         this.debug_mode = true;
-        this.stateCtrl = StateCtrl;
+        this.stateCtrl = stateCtrl;
         this.settings = settings; // overall canvas settings 
 
         // @ts-ignore
@@ -52,6 +52,10 @@ export default class CanvasCtrlBase {
 
         this.app.stage.addChild(this.camera)
         this.app.start();
+    }
+
+    resetState = () => {
+
     }
 
 
