@@ -3,6 +3,7 @@ import { ILink, INode, GraphCanvasSetting } from './types';
 import * as d3 from "d3";
 import CanvasCtrl from '../controllers/canvas';
 import StateCtrl from '../controllers/canvas/state';
+import ForceLayout from '../layouts/force';
 
 
 class GraphCanvas {
@@ -10,10 +11,12 @@ class GraphCanvas {
     settings: GraphCanvasSetting;
     stateCtrl: StateCtrl;
     canvasCtrl: CanvasCtrl; // rendering graphics 
+    // layout :ForceLayout;
 
     constructor(settings: GraphCanvasSetting) {
         this.settings = settings;
         this.stateCtrl = new StateCtrl([], []);
+        // this.layout = new ForceLayout()
         this.canvasCtrl = new CanvasCtrl(settings.canvas, this.stateCtrl);
     }
 
