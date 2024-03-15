@@ -1,23 +1,51 @@
 import * as d3 from "d3";
 import { INode, ILink } from "../graphCanvas/types";
+import StateCtrl from "../state/model";
+import Canvas from "../canvas/pixi";
 
 
 
 class ForceLayout {
     
-    width : number; // layout width
-    height : number; // layout height
+ 
+    canvas : Canvas;
 
-    constructor(width: number, height: number){
-        this.width = width;
-        this.height = height;
+    constructor(canvas: Canvas){
+        this.canvas = canvas
     }
 
     getCenter = () => {
-        return {centerX: this.width/2, centerY: this.height/2}
+        const {worldWidth, worldHeight} = this.canvas.canvasOptions
+        return {centerX: worldWidth/2, centerY: worldHeight/2}
     }
 
-    runLayout = (nodes: INode[], links: ILink[]) =>{
+    ticked = (stateCtrl: StateCtrl) => {
+        // let _this = this;
+        stateCtrl.nodes.forEach((node: INode) => {
+            let { x, y } = node;
+            stateCtrl.updateNodePosition(node, x, y)
+            // shapeGfx?.position.set(x, y);
+        });
+
+        // edges.forEach((link) => {
+        //     let { source, target } = link;
+        //     link.shapeGfx = EdgeGraphics({ source, target, app })
+        //     artBoard.addChild(link.shapeGfx);
+        // });
+        this.canvas.fitView();
+
+        if (this.canvas.debug_mode) {
+            this.canvas.screenBorderDraw();
+        }else{
+            this.canvas.screenBorderClear();
+        }
+    }
+
+    runLayout = () =>{
+        let _this = this;
+
+        const {nodes, links} = this.canvas.stateCtrl;
+
         const { centerX, centerY } = this.getCenter() ;
         const simulation = d3.forceSimulation(nodes)
             .force("link", d3.forceLink(links) // This force provides links between nodes
@@ -33,6 +61,13 @@ class ForceLayout {
         simulation
             .force('link')
             .links(links);
+
+        simulation.on("tick", () => this.ticked(this.canvas.stateCtrl));
+        simulation.on('end', () => { 
+            console.log("=Simulation ended"); 
+            simulation.stop();
+            _this.canvas.fitView();
+        });
         return simulation
     }
 

@@ -2,7 +2,6 @@ import { Application, Graphics } from 'pixi.js';
 import { CanvasSetting } from './types';
 import StateCtrl from '../../state/model';
 import Camera from './camera';
-import PIXIRenderer from '../../renderers/pixi';
  
 
 export interface CanvasOption  {
@@ -93,6 +92,9 @@ export default class CanvasBase {
         // The stage will handle the move events
         app.stage.interactive = true;
         app.stage.hitArea = app.screen;
+
+
+        
         // prevent body scrolling
         // @ts-ignore
         app.view.addEventListener('wheel', event => { event.preventDefault(); });

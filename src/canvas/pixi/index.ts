@@ -5,17 +5,20 @@ import StateCtrl from '../../state/model';
 import CanvasBase from './base';
 import type { CanvasSetting, CanvasShape } from './types';
 import * as PIXI from "pixi.js";
+import ForceLayout from '../../layouts/force';
 
 
 export default class Canvas extends CanvasBase {
     // for drawing shapes
 
     renderer: PIXIRenderer;
+    layout: ForceLayout;
 
 
     constructor(settings: CanvasSetting, stateCtrl: StateCtrl) {
         super(settings, stateCtrl)
         this.renderer = new PIXIRenderer(this);
+        this.layout = new ForceLayout(this);
 
     }
 
