@@ -1,6 +1,6 @@
 import { Application, Graphics } from 'pixi.js';
 import { CanvasSetting } from './types';
-import StateCtrl from './state';
+import StateCtrl from '../state/model';
 import Camera from './camera';
  
 

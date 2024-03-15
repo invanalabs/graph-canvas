@@ -1,4 +1,4 @@
-import { ILink, INode } from "../../canvas/types";
+import { ILink, INode } from "../graphCanvas/types";
 
 
 export default class StateCtrl {

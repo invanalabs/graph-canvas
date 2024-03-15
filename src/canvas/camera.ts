@@ -1,5 +1,5 @@
 import { Viewport } from "pixi-viewport";
-import { INode } from "../../canvas/types";
+import { INode } from "../graphCanvas/types";
 
 
 interface ZoomToOptions {

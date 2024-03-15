@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
-import { INode } from '../../canvas/types';
+import { INode } from '../../../../graphCanvas/types';
 import { BaseShape } from './base';
-import GraphCanvas from '../../canvas/graph';
+import GraphCanvas from '../../../../graphCanvas';
 
 
 class Circle extends BaseShape {

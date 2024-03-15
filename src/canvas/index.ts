@@ -1,5 +1,5 @@
 
-import { INode } from '../../canvas/types';
+import { INode } from '../graphCanvas/types';
 import CanvasCtrlBase from './base';
 import type { CanvasShape } from './types';
 import * as PIXI from "pixi.js";

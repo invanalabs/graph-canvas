@@ -1,5 +1,5 @@
-import GraphCanvas from "../../canvas/graph";
-import { INode, ILink } from "../../canvas/types";
+import GraphCanvas from "../../../../graphCanvas";
+import { INode, ILink } from "../../../../graphCanvas/types";
 import * as PIXI from 'pixi.js';
 
 

@@ -1,5 +1,5 @@
 import * as d3 from "d3";
-import { INode, ILink } from "../canvas/types";
+import { INode, ILink } from "../graphCanvas/types";
 
 
 

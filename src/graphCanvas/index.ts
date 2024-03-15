@@ -1,9 +1,9 @@
-import Circle from '../structures/nodes/circle';
+import Circle from '../renderers/pixi/structures/nodes/circle';
 import { ILink, INode, GraphCanvasSetting } from './types';
 import * as d3 from "d3";
-import CanvasCtrl from '../controllers/canvas';
-import StateCtrl from '../controllers/canvas/state';
-import ForceLayout from '../layouts/force';
+import CanvasCtrl from '../canvas';
+import StateCtrl from '../state/model';
+// import ForceLayout from '../layouts/force';
 
 
 class GraphCanvas {
@@ -16,7 +16,6 @@ class GraphCanvas {
     constructor(settings: GraphCanvasSetting) {
         this.settings = settings;
         this.stateCtrl = new StateCtrl([], []);
-        // this.layout = new ForceLayout()
         this.canvasCtrl = new CanvasCtrl(settings.canvas, this.stateCtrl);
     }
 
