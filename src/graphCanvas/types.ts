@@ -1,6 +1,6 @@
 // import { BaseShape } from "../structures/nodes/base";
 import { Container, Graphics } from "pixi.js";
-import { CanvasSetting } from "../canvas/types";
+import { CanvasSetting } from "../canvas/pixi/types";
 
 
 

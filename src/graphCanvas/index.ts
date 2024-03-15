@@ -1,7 +1,7 @@
 import Circle from '../renderers/pixi/structures/nodes/circle';
 import { ILink, INode, GraphCanvasSetting } from './types';
 import * as d3 from "d3";
-import CanvasCtrl from '../canvas';
+import Canvas from '../canvas/pixi';
 import StateCtrl from '../state/model';
 // import ForceLayout from '../layouts/force';
 
@@ -10,13 +10,14 @@ class GraphCanvas {
 
     settings: GraphCanvasSetting;
     stateCtrl: StateCtrl;
-    canvasCtrl: CanvasCtrl; // rendering graphics 
+    canvasCtrl: Canvas; // rendering graphics 
     // layout :ForceLayout;
 
     constructor(settings: GraphCanvasSetting) {
         this.settings = settings;
         this.stateCtrl = new StateCtrl([], []);
-        this.canvasCtrl = new CanvasCtrl(settings.canvas, this.stateCtrl);
+        this.canvasCtrl = new Canvas(settings.canvas, this.stateCtrl);
+
     }
 
     createSimulation = (nodes: INode[], edges: ILink[]) => {
@@ -39,11 +40,11 @@ class GraphCanvas {
     }
 
 
-    ticked = (nodes: INode[], edges: ILink[], StateCtrl: StateCtrl) => {
+    ticked = (nodes: INode[], edges: ILink[], stateCtrl: StateCtrl) => {
         // let _this = this;
         nodes.forEach((node: INode) => {
             let { x, y } = node;
-            StateCtrl.updateNodePosition(node, x, y)
+            stateCtrl.updateNodePosition(node, x, y)
             // shapeGfx?.position.set(x, y);
         });
 
@@ -84,20 +85,22 @@ class GraphCanvas {
         // });
 
         // render nodes
-        this.stateCtrl.nodes.map((node: INode) => {
-            if (!node.shapeGfx) {
-                const shapeContainer = new Circle(_this)
-                node.shapeGfx = shapeContainer.draw(node)
-                _this.canvasCtrl.addShape(node.shapeGfx);
-             }
-        });
+        // this.stateCtrl.nodes.map((node: INode) => {
+        //     if (!node.shapeGfx) {
+        //         const shapeContainer = new Circle(_this)
+        //         node.shapeGfx = shapeContainer.draw(node)
+        //         _this.canvasCtrl.addShape(node.shapeGfx);
+        //      }
+        // });
 
-        // render links 
-        this.stateCtrl.links.map((link: ILink) => {
-            if (link.shapeGfx) {
-                // const shapeContainer = new
-            }
-        })
+        // // render links 
+        // this.stateCtrl.links.map((link: ILink) => {
+        //     if (link.shapeGfx) {
+        //         // const shapeContainer = new
+        //     }
+        // })
+
+        this.canvasCtrl.renderer.render()
 
         const simulation = this.createSimulation(nodes, links);
         simulation.on("tick", () => this.ticked(nodes, links, this.stateCtrl));

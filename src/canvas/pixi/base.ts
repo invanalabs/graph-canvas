@@ -1,7 +1,8 @@
 import { Application, Graphics } from 'pixi.js';
 import { CanvasSetting } from './types';
-import StateCtrl from '../state/model';
+import StateCtrl from '../../state/model';
 import Camera from './camera';
+import PIXIRenderer from '../../renderers/pixi';
  
 
 export interface CanvasOption  {
@@ -11,7 +12,7 @@ export interface CanvasOption  {
     worldHeight: number
 }
 
-export default class CanvasCtrlBase {
+export default class CanvasBase {
     // for drawing shapes
 
     protected app: Application;
@@ -30,7 +31,7 @@ export default class CanvasCtrlBase {
 
 
     constructor(settings: CanvasSetting, stateCtrl: StateCtrl) {
-        console.log("CanvasCtrlBase settings", settings)
+        console.log("CanvasBase settings", settings)
         if (!settings.containerDiv) {
             throw ("containerDiv cannot be null")
         }
@@ -46,12 +47,14 @@ export default class CanvasCtrlBase {
 
         this.canvasOptions = this.getDefaultOptions(divRectangle?.width, divRectangle?.height);
         this.app = this.createApp( this.canvasOptions.screenWidth, this.canvasOptions.screenHeight);
+
         this.camera = new Camera({  events: this.app.renderer.events, ...this.canvasOptions });
         this.camera.setUpCamera();
         this.camera.addChild(this.debugBorderGfx);
 
         this.app.stage.addChild(this.camera)
         this.app.start();
+
     }
 
     resetState = () => {

@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { INode } from '../../../../graphCanvas/types';
 import { BaseShape } from './base';
-import GraphCanvas from '../../../../graphCanvas';
+import Canvas from '../../../../canvas/pixi';
 
 
 class Circle extends BaseShape {
@@ -12,9 +12,8 @@ class Circle extends BaseShape {
     bgColor: string = '#ff00ff';
     radius: number = 24;
 
-    constructor(graphCanvas: GraphCanvas){
-        super(graphCanvas)
-        console.log("======graphCanvas", graphCanvas)
+    constructor(canvas: Canvas){
+        super(canvas)
     }
 
     drawLabel() {

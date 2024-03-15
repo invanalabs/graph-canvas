@@ -1,4 +1,5 @@
-import GraphCanvas from "../../../../graphCanvas";
+import Canvas from "../../../../canvas/pixi";
+// import GraphCanvas from "../../../../graphCanvas";
 import { INode, ILink } from "../../../../graphCanvas/types";
 import * as PIXI from 'pixi.js';
 
@@ -6,12 +7,12 @@ import * as PIXI from 'pixi.js';
 
 export abstract class BaseShape {
     // app : PIXI.Application
-    graphCanvas: GraphCanvas
+    canvas: Canvas;
     // @ts-ignore
     container: PIXI.Container; // shape and label saved in this container
 
-    constructor(graphCanvas: GraphCanvas) {
-        this.graphCanvas = graphCanvas;
+    constructor(canvas: Canvas) {
+        this.canvas = canvas;
         this.container = new PIXI.Container()
     }
 

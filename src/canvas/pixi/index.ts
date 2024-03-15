@@ -1,14 +1,23 @@
 
-import { INode } from '../graphCanvas/types';
-import CanvasCtrlBase from './base';
-import type { CanvasShape } from './types';
+import { INode } from '../../graphCanvas/types';
+import PIXIRenderer from '../../renderers/pixi';
+import StateCtrl from '../../state/model';
+import CanvasBase from './base';
+import type { CanvasSetting, CanvasShape } from './types';
 import * as PIXI from "pixi.js";
 
 
-export default class CanvasCtrl extends CanvasCtrlBase {
+export default class Canvas extends CanvasBase {
     // for drawing shapes
 
+    renderer: PIXIRenderer;
 
+
+    constructor(settings: CanvasSetting, stateCtrl: StateCtrl) {
+        super(settings, stateCtrl)
+        this.renderer = new PIXIRenderer(this);
+
+    }
 
     // for debug
     // drawDebugBorder(point: PIXI.Point, width: number, height: number) {
