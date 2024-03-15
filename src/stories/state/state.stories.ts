@@ -5,20 +5,21 @@ import type { Meta, StoryObj } from '@storybook/html';
 
 export const createPage = () => {
 
-    const data = new DataBase('Hello World');
     const html = document.createElement("div");
+    html.style.background = "#222425";
+    html.style.height = "100vh"
+    html.style.padding = "20px 20px"
 
     const input = document.createElement("input");
     input.style.width = "600px";
 
-    const button = document.createElement("button")
 
 
     // create event list 
     const eventbar = document.createElement('div');
         eventbar.classList.add("eventbar");
         eventbar.style.top = "60px";
-        eventbar.style.left = "10px";
+        eventbar.style.left = "20px";
         eventbar.style.maxHeight = "855px";
         eventbar.style.width = "600px";
         // eventbar.style.background = "red";
@@ -36,7 +37,7 @@ export const createPage = () => {
         eventDiv.style.marginBottom = "5px"
         eventDiv.style.background = "#000"
         eventDiv.style.opacity = "0.5"
-        eventDiv.style.color = "white"
+        eventDiv.style.color = "#C9CDCF"
         eventbar.prepend(eventDiv)
 
         setTimeout(function(){
@@ -48,23 +49,34 @@ export const createPage = () => {
 
 
 
-    const displayValue = (v: string) => {
+    const displayInputValue = (v: string) => {
         input.value = v;
-
     }
 
     
-    displayValue(data.value);
-    data.on('update', (updatedData: DataBase, oldValue: string) => {
-        console.log("Data updated. New value: " + updatedData.value + ", Old value: " + oldValue);
-        displayValue(updatedData.value);
-        showEvent("updated", updatedData.value)
+    // displayInputValue(data.value);
 
+    const data = new DataBase('Hello World');
+
+    data.on('create', (createdData: DataBase) => {
+        console.log("Data created: " + createdData.value);
+        displayInputValue(createdData.value);
+        showEvent("created", createdData.value)
+    });
+
+    // data._create();
+
+    data.on('update', (updatedData: DataBase, oldValue: DataBase) => {
+        console.log("Data updated. New value: " + updatedData.value + ", Old value: " + oldValue);
+        displayInputValue(updatedData.value);
+        showEvent("updated", updatedData.value)
     });
 
 
- 
+    data.value = "Hello World New" // set data directly
 
+
+    const button = document.createElement("button")
     button.innerText = "Update Me!";
     button.onclick = () => { data.update(Date.now().toString())}
 

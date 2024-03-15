@@ -13,13 +13,12 @@ export abstract class BaseShape {
     constructor(graphCanvas: GraphCanvas) {
         this.graphCanvas = graphCanvas;
         this.container = new PIXI.Container()
-        console.log("======graphCanvas BaseShape", graphCanvas)
-
     }
 
     abstract draw(data: INode | ILink): PIXI.Container<PIXI.DisplayObject>;
     abstract redraw(): void;
     abstract update(data: INode | ILink): void;
+
     updatePosition(x: number, y:number){
         this.container.position.set(x, y);
         // this.redraw()
