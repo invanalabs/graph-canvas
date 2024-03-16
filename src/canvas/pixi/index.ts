@@ -50,7 +50,7 @@ export default class Canvas extends CanvasBase {
         console.log("screenBorderDraw triggered")
 
         const debugColor = 0x1ab3eb;
-        const { center, min, max, graphHeight, graphWidth } = this.getCenter(this.stateCtrl.nodes)
+        const { center, min, max, graphHeight, graphWidth } = this.getCenter(this.stateCtrl.getNodes())
         // this.drawDebugBorder(center, graphWidth, graphHeight)
         
         this.screenBorderClear();
@@ -106,7 +106,7 @@ export default class Canvas extends CanvasBase {
     fitView(nodes?: INode[], zoomLevel?: number) {
         console.log("==fitView", nodes, zoomLevel);
         if (!nodes) {
-            nodes = this.stateCtrl.nodes;
+            nodes = this.stateCtrl.getNodes();
         }
         const { center, } = this.getCenter(nodes)
         this.camera.moveCenter(center)
@@ -122,7 +122,7 @@ export default class Canvas extends CanvasBase {
  
 
     getNodesPOV(nodes: INode[]) {
-        // // Zooms out so all or selected nodes fit on the canvas.  
+        // Zooms out so all or selected nodes fit on the canvas.  
         const nodesX = nodes.map((node: INode) => node.x);
         const nodesY = nodes.map((node: INode) => node.y);
 
@@ -160,6 +160,10 @@ export default class Canvas extends CanvasBase {
 
     moveNodesToWorldCenter(nodes: INode[]) {
         // const {worldWidth, worldHeight} = this.camera;
+
+        if (nodes){
+            nodes = this.stateCtrl.getNodes();
+        }
 
         const nodesX = nodes.map((node) => node.x);
         const nodesY = nodes.map((node) => node.y);

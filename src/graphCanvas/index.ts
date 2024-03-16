@@ -12,7 +12,7 @@ class GraphCanvas {
 
     constructor(settings: GraphCanvasSetting) {
         this.settings = settings;
-        this.stateCtrl = new StateCtrl([], []);
+        this.stateCtrl = new StateCtrl();
         this.canvasCtrl = new Canvas(settings.canvas, this.stateCtrl);
     }
 

@@ -35,7 +35,8 @@ class PIXIRenderer {
                 // });
         
                 // render nodes
-                this.canvas.stateCtrl.nodes.map((node: INode) => {
+                const nodes = this.canvas.stateCtrl.getNodes();
+                nodes.map((node: INode) => {
                     if (!node.shapeGfx) {
                         const shapeContainer = new Circle(this.canvas)
                         node.shapeGfx = shapeContainer.draw(node)
@@ -44,7 +45,9 @@ class PIXIRenderer {
                 });
         
                 // render links 
-                this.canvas.stateCtrl.links.map((link: ILink) => {
+                const links = this.canvas.stateCtrl.getLinks();
+
+                links.map((link: ILink) => {
                     if (link.shapeGfx) {
                         // const shapeContainer = new
                     }
