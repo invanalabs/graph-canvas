@@ -103,12 +103,14 @@ export default class Canvas extends CanvasBase {
 
     }
 
-    fitView(nodes?: INode[], zoomLevel?: number) {
-        console.log("==fitView", nodes, zoomLevel);
-        if (!nodes) {
-            nodes = this.stateCtrl.getNodes();
+    fitView(selectedNodes?: INode[], zoomLevel?: number) {
+        console.log("==fitView", selectedNodes, zoomLevel);
+
+ 
+        if (!selectedNodes) {
+            selectedNodes = this.stateCtrl.getNodes();
         }
-        const { center, } = this.getCenter(nodes)
+        const { center, } = this.getCenter(selectedNodes)
         this.camera.moveCenter(center)
         // this.moveNodesToWorldCenter(nodes);
         this.camera.setZoom(1, true);
