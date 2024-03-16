@@ -39,13 +39,31 @@ const nodes: Array<INode> = [
     }
 ];
 
+
 const edges: Array<ILink> = [
-    // {
-    //     id: '1-2',
-    //     source: '1',
-    //     target: '2'
-    // }
+    {
+        id: '1-2',
+        source: '1',
+        target: '2'
+    }
 ];
+
+const generateDummyData = () => {
+    const nodeId = Date.now().toString();
+    const nodes: INode[] = [{
+        id: nodeId,
+        label: "TestNode",
+        type: `Test ${nodeId}`,
+        shape: "circle"
+    }];
+    const links: ILink[] = [{
+        id: `1-${nodeId}`,
+        source: '1',
+        target: nodeId
+    }]
+    return {nodes, links}
+}
+
 
 export const createPage = () => {
 
@@ -79,6 +97,15 @@ export const createPage = () => {
     toolbar.style.top = "10px";
     toolbar.style.left = "10px";
     toolbar.style.position = "absolute"
+
+
+
+    const addDataButton = document.createElement('button');
+    addDataButton.innerHTML = "Add dummy data";
+    addDataButton.style.marginRight = "30px"
+    toolbar.appendChild(addDataButton);
+    
+
 
     const zoomInButton = document.createElement('button');
     zoomInButton.innerHTML = "zoom in";
@@ -132,6 +159,12 @@ export const createPage = () => {
         const canvasSettings: GraphCanvasSetting = {canvas: {containerDiv: canvasDiv, backgroundColor: 0x2a2c2e}};
         const graph = new GraphCanvas(canvasSettings);
         graph.addData(nodes, edges)
+
+
+        addDataButton.onclick = function() {
+            const {nodes, links} = generateDummyData()
+            graph.addData(nodes, links)
+        }
 
         zoomInButton.addEventListener('click', () => graph.canvasCtrl.zoomIn());
         zoomOutButton.addEventListener('click', () => graph.canvasCtrl.zoomOut());

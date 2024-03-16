@@ -3,12 +3,14 @@ import { ILink, INode } from "../graphCanvas/types";
 
 export default class StateCtrl {
 
+    // canvas: Canvas;
     nodes: INode[];
     links: ILink[];
     // selectedItems: INode[] | ILink[] ; 
 
 
     constructor(nodes: INode[], links: ILink[] ){
+        // this.canvas = canvas
         this.links = links;
         this.nodes = nodes;
     }
@@ -17,6 +19,7 @@ export default class StateCtrl {
         //TODO -make this upsert
         this.nodes = nodes;
         this.links = links;
+
     }
 
     updateNodePosition(node: INode, x: number, y: number){
