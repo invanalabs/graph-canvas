@@ -1,6 +1,6 @@
 
 import { INode } from '../../graphCanvas/types';
-import PIXIRenderer from '../../renderers/pixi';
+import PIXIRenderer from './renderer';
 import StateCtrl from '../../state/model';
 import CanvasBase from './base';
 import type { CanvasSetting, CanvasShape } from './types';
