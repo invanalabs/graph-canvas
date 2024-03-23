@@ -25,18 +25,18 @@ const initNodes: Array<INode> = [
         // y: 0
 
     },
-    {
-        id: "3",
-        label: "TestNode",
-        type: "Test 1",
-        shape: "circle"
-    },
-    {
-        id: "4",
-        label: "TestNode",
-        type: "Test 2",
-        shape: "circle"
-    }
+    // {
+    //     id: "3",
+    //     label: "TestNode",
+    //     type: "Test 1",
+    //     shape: "circle"
+    // },
+    // {
+    //     id: "4",
+    //     label: "TestNode",
+    //     type: "Test 2",
+    //     shape: "circle"
+    // }
 ];
 
 

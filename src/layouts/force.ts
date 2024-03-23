@@ -21,6 +21,7 @@ class ForceLayout {
 
     ticked = (stateCtrl: StateCtrl) => {
         // let _this = this;
+        this.canvas.fitView()
         stateCtrl.nodes.forEach((node: INode) => {
             let { x, y } = node;
             stateCtrl.updateNodePosition(node.id, x, y)
@@ -33,6 +34,8 @@ class ForceLayout {
             // redraw the links 
             link.shapeInstance.redraw()
         });
+
+        this.canvas.screenBorderDraw();
 
     }
 
