@@ -19,23 +19,10 @@ class ForceLayout {
         return {centerX: worldWidth/2, centerY: worldHeight/2}
     }
 
-    ticked = (stateCtrl: StateCtrl) => {
+    ticked = () => {
         // let _this = this;
-        this.canvas.fitView()
-        stateCtrl.nodes.forEach((node: INode) => {
-            let { x, y } = node;
-            stateCtrl.updateNodePosition(node.id, x, y)
-            node.shapeInstance.updatePosition(x, y)
-            // shapeGfx?.position.set(x, y);
-        });
-
-        stateCtrl.links.forEach((link: ILink) => {
-            // let { source, target } = link;
-            // redraw the links 
-            link.shapeInstance.redraw()
-        });
-
-        this.canvas.screenBorderDraw();
+        // console.log
+        this.canvas.renderer.tick()
 
     }
 
@@ -63,7 +50,7 @@ class ForceLayout {
             .force('link')
             .links(linksArray);
 
-        simulation.on("tick", () => this.ticked(this.canvas.stateCtrl));
+        simulation.on("tick",this.ticked.bind(this));
         simulation.on('end', () => { 
             console.log("=Simulation ended"); 
             simulation.stop();

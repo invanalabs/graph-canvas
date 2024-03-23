@@ -19,6 +19,25 @@ class PIXIRenderer {
         this.render()
     }
 
+    tick(){
+        
+        this.canvas.fitView()
+        this.canvas.stateCtrl.nodes.forEach((node: INode) => {
+            let { x, y } = node;
+            this.canvas.stateCtrl.updateNodePosition(node.id, x, y)
+            node.shapeInstance.updatePosition(x, y)
+            // shapeGfx?.position.set(x, y);
+        });
+
+        this.canvas.stateCtrl.links.forEach((link: ILink) => {
+            // let { source, target } = link;
+            // redraw the links 
+            link.shapeInstance.redraw()
+        });
+
+        this.canvas.screenBorderDraw();
+    }
+
     render = () => {
         // clear canvas 
         // this.canvas.clear();
