@@ -106,11 +106,7 @@ class Circle extends BaseShape {
         // this.container.on('pointerup', stopDrag);
         return this.container;
     }
-    
-    redraw( ){
-        this.container.removeChildren();
-        this.draw(this.data)
-    }
+
 
     // update(node: INode) {
     //     this.container.position.set(node.x, node.y);

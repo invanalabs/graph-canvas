@@ -23,21 +23,15 @@ class PIXIRenderer {
         // clear canvas 
         // this.canvas.clear();
 
+        // NOTE - 
+
         let _this = this;
 
         // add data to store 
 
         // clear canvas
         // this.viewport.removeChildren(); // fix this 
-        // render nodes
-        const nodes = this.canvas.stateCtrl.getNodes();
-        nodes.map((node: INode) => {
-            if (!node.shapeGfx) {
-                const shapeGfx = new Circle(this.canvas)
-                node.shapeGfx = shapeGfx.draw(node)
-                _this.canvas.addShape(node.shapeGfx);
-            }
-        });
+
 
         // render links 
         const links = this.canvas.stateCtrl.getLinks();
@@ -45,11 +39,26 @@ class PIXIRenderer {
             // const shapeGfx = link.shapeGfx ? link.shapeGfx: new LinkShape(this.canvas).draw()
             if (!link.shapeGfx) {
                 // const shapeContainer = new
-                const shapeGfx = new LinkShape(this.canvas)
-                link.shapeGfx = shapeGfx.draw(link)
+                const shapeInstance = new LinkShape(this.canvas)
+                link.shapeInstance = shapeInstance
+                link.shapeGfx = shapeInstance.draw(link)
                 _this.canvas.addShape(link.shapeGfx)
             }
         })
+        
+        // render nodes
+        const nodes = this.canvas.stateCtrl.getNodes();
+        nodes.map((node: INode) => {
+            if (!node.shapeGfx) {
+                const shapeInstance = new Circle(this.canvas)
+                node.shapeInstance = shapeInstance
+                node.shapeGfx = shapeInstance.draw(node)
+                _this.canvas.addShape(node.shapeGfx);
+            }
+        });
+
+
+
 
         // set canvas events
 

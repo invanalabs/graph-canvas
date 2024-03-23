@@ -1,6 +1,8 @@
 // import { BaseShape } from "../structures/nodes/base";
 import { Container, Graphics } from "pixi.js";
 import { CanvasSetting } from "../canvas/pixi/types";
+import Circle from "../canvas/pixi/renderer/structures/nodes/circle";
+import LinkShape from "../canvas/pixi/renderer/structures/links";
 
 
 
@@ -23,6 +25,7 @@ export interface CanvasDataBase {
     type: string // label of graph data. ex: Person, Project etc
     label: string // display label 
     shape: NodeShapes | LinkShapes
+    shapeInstance: Circle | LinkShape
     shapeGfx?: Container | Graphics
 }
 

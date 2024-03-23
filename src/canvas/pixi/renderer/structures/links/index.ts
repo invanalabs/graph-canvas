@@ -20,7 +20,7 @@ class LinkShape extends BaseShape {
         const endX = this.data.target.x;
         const endY = this.data.target.y;
         // Add label text
-        const text = new PIXI.Text(`link ${this.data.source.id}-${this.data.target.id}`, { fontFamily: 'Arial', fontSize: 12, fill: 0x000000 });
+        const text = new PIXI.Text(`link ${this.data.source.id}-${this.data.target.id}`, { fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF });
         text.x = (startX + endX) / 2;
         text.y = (startY + endY) / 2;
         text.anchor.set(0.5);
@@ -104,6 +104,8 @@ class LinkShape extends BaseShape {
         // this.container.on('pointerup', stopDrag);
         return this.container;
     }
+
+
 }
 
 export default LinkShape;

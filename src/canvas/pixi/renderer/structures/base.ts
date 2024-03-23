@@ -6,6 +6,11 @@ import * as PIXI from 'pixi.js';
 
 
 export abstract class BaseShape {
+
+
+    private data: ILink| INode
+
+
     // app : PIXI.Application
     canvas: Canvas;
     // @ts-ignore
@@ -19,7 +24,15 @@ export abstract class BaseShape {
     abstract drawLabel(): void;
     abstract drawShape(): void;
     abstract draw(data: INode | ILink): PIXI.Container<PIXI.DisplayObject>;
-    abstract redraw(): void;
+    
+    redraw( ){
+        if (!this.data){
+            console.error("cannot call .redraw() method without calling .draw() first.")
+        }
+        this.container.removeChildren();
+        this.draw(this.data)
+    }
+
     abstract update(data: INode | ILink): void;
 
     updatePosition(x: number, y:number){

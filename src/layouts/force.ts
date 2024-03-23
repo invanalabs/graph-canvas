@@ -24,14 +24,15 @@ class ForceLayout {
         stateCtrl.nodes.forEach((node: INode) => {
             let { x, y } = node;
             stateCtrl.updateNodePosition(node.id, x, y)
+            node.shapeInstance.updatePosition(x, y)
             // shapeGfx?.position.set(x, y);
         });
 
-        // edges.forEach((link) => {
-        //     let { source, target } = link;
-        //     link.shapeGfx = EdgeGraphics({ source, target, app })
-        //     artBoard.addChild(link.shapeGfx);
-        // });
+        stateCtrl.links.forEach((link: ILink) => {
+            // let { source, target } = link;
+            // redraw the links 
+            link.shapeInstance.redraw()
+        });
 
     }
 
