@@ -26,7 +26,7 @@ export default class CanvasBase {
 
     protected settings: CanvasSetting;
     // viewportSettings: CViewportSetting;
-    debugBorderGfx = new Graphics();
+    debugBorderGfx :Graphics;
 
 
     constructor(settings: CanvasSetting, stateCtrl: StateCtrl) {
@@ -37,6 +37,9 @@ export default class CanvasBase {
         this.debug_mode = true;
         this.stateCtrl = stateCtrl;
         this.settings = settings; // overall canvas settings 
+
+        // for debug 
+        this.debugBorderGfx = new Graphics();
 
         // @ts-ignore
         const divRectangle = this.settings.containerDiv?.getBoundingClientRect();
@@ -49,12 +52,19 @@ export default class CanvasBase {
 
         this.camera = new Camera({  events: this.app.renderer.events, ...this.canvasOptions });
         this.camera.setUpCamera();
-        this.camera.addChild(this.debugBorderGfx);
 
         this.app.stage.addChild(this.camera)
         this.app.start();
 
+        this.clear();
     }
+
+
+    clear(){
+        this.camera.removeChildren();
+        this.camera.addChild(this.debugBorderGfx);
+    }
+    
 
     resetState = () => {
 

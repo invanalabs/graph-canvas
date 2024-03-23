@@ -6,7 +6,7 @@ import { INode, ILink, GraphCanvasSetting } from "../../graphCanvas/types";
 
 
 
-const nodes: Array<INode> = [
+const initNodes: Array<INode> = [
     {
         id : "1",
         label: "Ravi",
@@ -40,7 +40,7 @@ const nodes: Array<INode> = [
 ];
 
 
-const edges: Array<ILink> = [
+const initEdges: Array<ILink> = [
     {
         id: '1-2',
         source: '1',
@@ -48,8 +48,10 @@ const edges: Array<ILink> = [
     }
 ];
 
-const generateDummyData = () => {
-    const nodeId = Date.now().toString();
+const generateDummyData = (graph: GraphCanvas) => {
+    // const nodeId = Date.now().toString();
+    const nodeId = graph.stateCtrl.nodes.size + 1;
+    console.log("===nodeId =====", nodeId)
     const nodes: INode[] = [{
         id: nodeId,
         label: "TestNode",
@@ -106,6 +108,10 @@ export const createPage = () => {
     toolbar.appendChild(addDataButton);
     
 
+    const redrawButton = document.createElement('button');
+    redrawButton.innerHTML = "redraw";
+    toolbar.appendChild(redrawButton);
+    
 
     const zoomInButton = document.createElement('button');
     zoomInButton.innerHTML = "zoom in";
@@ -158,14 +164,15 @@ export const createPage = () => {
         console.log("=DOM is ready", event)
         const canvasSettings: GraphCanvasSetting = {canvas: {containerDiv: canvasDiv, backgroundColor: 0x2a2c2e}};
         const graph = new GraphCanvas(canvasSettings);
-        graph.addData(nodes, edges)
+        graph.addData(initNodes, initEdges)
 
 
         addDataButton.onclick = function() {
-            const {nodes, links} = generateDummyData()
+            const {nodes, links} = generateDummyData(graph)
             graph.addData(nodes, links)
         }
 
+        redrawButton.addEventListener('click', ()=> graph.canvasCtrl.renderer.rerender())
         zoomInButton.addEventListener('click', () => graph.canvasCtrl.zoomIn());
         zoomOutButton.addEventListener('click', () => graph.canvasCtrl.zoomOut());
         fitViewButton.addEventListener('click', () => graph.canvasCtrl.fitView());
@@ -173,9 +180,11 @@ export const createPage = () => {
         debugOffButton.addEventListener('click',  () => graph.canvasCtrl.debugOff());
         debugOnButton.addEventListener('click',  () => graph.canvasCtrl.debugOn());
 
-
-
-        graph.canvasCtrl.camera.on('clicked', () => showEvent('clicked'));
+        // camera interactions 
+        graph.canvasCtrl.camera.on('clicked', () => {
+            showEvent('clicked');
+            console.log("clicked - state", graph.stateCtrl.getNodes(), graph.stateCtrl.getLinks())
+        });
         graph.canvasCtrl.camera.on('drag-start', () => showEvent('drag-start'));
         graph.canvasCtrl.camera.on('drag-end', () => showEvent('drag-end'));
         graph.canvasCtrl.camera.on('pinch-start', () => showEvent('pinch-start'));

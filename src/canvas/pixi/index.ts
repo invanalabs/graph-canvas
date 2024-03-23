@@ -47,6 +47,8 @@ export default class Canvas extends CanvasBase {
     }
 
     screenBorderDraw() {
+        // clear prev 
+        this.screenBorderClear();
         console.log("screenBorderDraw triggered")
 
         const debugColor = 0x1ab3eb;
@@ -54,7 +56,7 @@ export default class Canvas extends CanvasBase {
         // this.drawDebugBorder(center, graphWidth, graphHeight)
         
         this.screenBorderClear();
-        const label = new PIXI.Text(`allNodes boundingBox (${graphWidth}x${graphHeight}) `,
+        const label = new PIXI.Text(`[${Math.round(graphWidth)},${Math.round(graphHeight)}] - allNodes boundingBox`,
                          { fontFamily: 'Courier New', fontSize: 12, fill: debugColor });
         // label.x = (min.x + max.x) / 2;
         // label.y = (min.x + max.y) / 2;
@@ -145,7 +147,7 @@ export default class Canvas extends CanvasBase {
     getCenter(nodes: INode[]) {
 
         const { min, max } = this.getNodesPOV(nodes)
-        const padding = 50;
+        const padding = 0;
 
         const graphWidth = Math.abs(max.x - min.x) + (padding * 2);
         const graphHeight = Math.abs(max.y - min.y) + (padding * 2);

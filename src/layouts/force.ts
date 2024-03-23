@@ -32,13 +32,7 @@ class ForceLayout {
         //     link.shapeGfx = EdgeGraphics({ source, target, app })
         //     artBoard.addChild(link.shapeGfx);
         // });
-        this.canvas.fitView();
 
-        if (this.canvas.debug_mode) {
-            this.canvas.screenBorderDraw();
-        }else{
-            this.canvas.screenBorderClear();
-        }
     }
 
     runLayout = () =>{

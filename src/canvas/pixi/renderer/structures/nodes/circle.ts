@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { INode } from '../../../../../graphCanvas/types';
-import { BaseShape } from './base';
+import { BaseShape } from '../base';
 import Canvas from '../../..';
 
 
@@ -9,7 +9,7 @@ class Circle extends BaseShape {
 
     // @ts-ignore
     private data: INode
-    bgColor: string = '#ff00ff';
+    color: string = '#ff00ff';
     radius: number = 24;
 
     constructor(canvas: Canvas){
@@ -26,7 +26,9 @@ class Circle extends BaseShape {
             // breakWords: true,
             // wordWrapWidth: (n.size || this.cfg.node.size) * 2
         });
-        const nodeLabel = `Node ${this.data.id} - (${this.container.position.x}, ${this.container.position.y}`;
+        const positionX = Math.round(this.container.position.x);
+        const positionY = Math.round(this.container.position.y)
+        const nodeLabel = `Node ${this.data.id} - (${positionX}, ${positionY}`;
         const text = new PIXI.Text(nodeLabel, textStyle);
         text.interactive = true;
         text.cursor = "pointer";
@@ -39,7 +41,7 @@ class Circle extends BaseShape {
     drawShape() {
         let shape = new PIXI.Graphics();
         shape.lineStyle(3, 0xFFFFFF);
-        shape.beginFill(this.bgColor)
+        shape.beginFill(this.color)
         shape.drawCircle(0, 0, this.radius);
         shape.interactive = true;
         shape.cursor = "pointer";
@@ -110,13 +112,11 @@ class Circle extends BaseShape {
         this.draw(this.data)
     }
 
-    update(node: INode) {
-        this.container.position.set(node.x, node.y);
-    }
+    // update(node: INode) {
+    //     this.container.position.set(node.x, node.y);
+    // }
 
-    destroy() {
-        this.container.destroy()
-    }
+
 }
 
 
