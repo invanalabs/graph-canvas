@@ -8,9 +8,9 @@ class Circle extends BaseShape {
 
 
     // @ts-ignore
-    private data: INode
+    private shapeData: INode
     color: string = '#ff00ff';
-    radius: number = 24;
+    size: number = 24;
 
     constructor(canvas: Canvas){
         super(canvas)
@@ -28,7 +28,7 @@ class Circle extends BaseShape {
         });
         const positionX = Math.round(this.container.position.x);
         const positionY = Math.round(this.container.position.y)
-        const nodeLabel = `Node ${this.data.id} - (${positionX}, ${positionY}`;
+        const nodeLabel = `Node ${this.shapeData.id} - (${positionX}, ${positionY}`;
         const text = new PIXI.Text(nodeLabel, textStyle);
         text.interactive = true;
         text.cursor = "pointer";
@@ -42,13 +42,13 @@ class Circle extends BaseShape {
         let shape = new PIXI.Graphics();
         shape.lineStyle(3, 0xFFFFFF);
         shape.beginFill(this.color)
-        shape.drawCircle(0, 0, this.radius);
+        shape.drawCircle(0, 0, this.size);
         shape.interactive = true;
         shape.cursor = "pointer";
         shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
         // make it a bit bigger, so it's easier to grab
         // shape.scale.set(3);
-        shape.hitArea = new PIXI.Circle(0, 0, this.radius);
+        shape.hitArea = new PIXI.Circle(0, 0, this.size);
         shape.endFill();
         return shape
     }
@@ -74,10 +74,18 @@ class Circle extends BaseShape {
     //     this.graphCanvas.app.stage.on('pointermove',  this.graphCanvas.onDragMove.bind(this));
     // }
 
+    // updateSize(size: number){
+    //     this.size = size;
+    //     this.node.width =  this.size * 2;
+    //     this.node.height =  this.size;
+    // }
+
+
 
     draw(node: INode) {
-        this.data = node;
+        this.shapeData = node;
         
+
         this.container.cursor = 'pointer';
         // this.container.position.set(node.x, node.y);
         if (node.x && node.y){

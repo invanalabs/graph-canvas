@@ -115,7 +115,7 @@ export default class Canvas extends CanvasBase {
         const { center, } = this.getCenter(selectedNodes)
         this.camera.moveCenter(center)
         // this.moveNodesToWorldCenter(nodes);
-        this.camera.setZoom(1, true);
+        // this.camera.setZoom(1, true);
         // if (this.debug_mode) {
         //     this.screenBorderDraw()
         // }else{

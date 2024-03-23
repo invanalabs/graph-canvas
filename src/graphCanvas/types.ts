@@ -34,7 +34,9 @@ export interface INode extends CanvasDataBase{
     x: number,
     y: number,
     vx?: number,
-    vy?: number
+    vy?: number,
+    width?: number,
+    height?: number
 }
 
 

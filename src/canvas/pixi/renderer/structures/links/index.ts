@@ -6,7 +6,7 @@ import Canvas from '../../..';
 
 class LinkShape extends BaseShape {
 
-    private data: ILink
+    private shapeData: ILink
     color: string = "#666666"
     width: number = 3;
 
@@ -15,12 +15,12 @@ class LinkShape extends BaseShape {
     }
 
     drawLabel() {
-        const startX = this.data.source.x;
-        const startY = this.data.source.y;
-        const endX = this.data.target.x;
-        const endY = this.data.target.y;
+        const startX = this.shapeData.source.x;
+        const startY = this.shapeData.source.y;
+        const endX = this.shapeData.target.x;
+        const endY = this.shapeData.target.y;
         // Add label text
-        const text = new PIXI.Text(`link ${this.data.source.id}-${this.data.target.id}`, { fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF });
+        const text = new PIXI.Text(`link ${this.shapeData.source.id}-${this.shapeData.target.id}`, { fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF });
         text.x = (startX + endX) / 2;
         text.y = (startY + endY) / 2;
         text.anchor.set(0.5);
@@ -34,11 +34,11 @@ class LinkShape extends BaseShape {
         // line color and thickness
         shape.lineStyle(this.width, 0xFFFFFF);
 
-        console.log("link drawShape", this.data.source, this.data.target)
-        const startX = this.data.source.x;
-        const startY = this.data.source.y;
-        const endX = this.data.target.x;
-        const endY = this.data.target.y;
+        console.log("link drawShape", this.shapeData.source, this.shapeData.target)
+        const startX = this.shapeData.source.x;
+        const startY = this.shapeData.source.y;
+        const endX = this.shapeData.target.x;
+        const endY = this.shapeData.target.y;
 
         // Draw the line
         shape.moveTo(startX, startY);
@@ -76,8 +76,9 @@ class LinkShape extends BaseShape {
         shapeGfx.tint = 0xFFFFFF;
         // renderer.render(stage);
     }
+    
     draw(link: ILink) {
-        this.data = link;
+        this.shapeData = link;
 
         this.container.cursor = 'pointer';
 

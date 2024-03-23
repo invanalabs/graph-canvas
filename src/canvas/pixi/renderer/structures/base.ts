@@ -8,7 +8,7 @@ import * as PIXI from 'pixi.js';
 export abstract class BaseShape {
 
 
-    private data: ILink| INode
+    private shapeData: ILink| INode
 
 
     // app : PIXI.Application
@@ -23,17 +23,25 @@ export abstract class BaseShape {
 
     abstract drawLabel(): void;
     abstract drawShape(): void;
-    abstract draw(data: INode | ILink): PIXI.Container<PIXI.DisplayObject>;
+    setDimensions(width: number, height: number): void{
+        /*
+         set dimensions of the Node
+
+        */
+        this.shapeData.width =  this.size * 2;
+        this.shapeData.height =  this.size * 2;
+    }
+    abstract draw(shapeData: INode | ILink): PIXI.Container<PIXI.DisplayObject>;
     
     redraw( ){
-        if (!this.data){
+        if (!this.shapeData){
             console.error("cannot call .redraw() method without calling .draw() first.")
         }
         this.container.removeChildren();
-        this.draw(this.data)
+        this.draw(this.shapeData)
     }
 
-    abstract update(data: INode | ILink): void;
+    abstract update(shapeData: INode | ILink): void;
 
     updatePosition(x: number, y:number){
         this.container.position.set(x, y);
