@@ -25,18 +25,18 @@ const initNodes: Array<INode> = [
         // y: 0
 
     },
-    // {
-    //     id: "3",
-    //     label: "TestNode",
-    //     type: "Test 1",
-    //     shape: "circle"
-    // },
-    // {
-    //     id: "4",
-    //     label: "TestNode",
-    //     type: "Test 2",
-    //     shape: "circle"
-    // }
+    {
+        id: "3",
+        label: "TestNode",
+        type: "Test 1",
+        shape: "circle"
+    },
+    {
+        id: "4",
+        label: "TestNode",
+        type: "Test 2",
+        shape: "circle"
+    }
 ];
 
 
@@ -158,6 +158,10 @@ export const createPage = () => {
     debugOffButton.innerHTML = "Debug OFF"
     toolbar.appendChild(debugOffButton);
 
+    const reDoLayoutButton = document.createElement('button');
+    reDoLayoutButton.innerHTML = "ReDoLayout"
+    toolbar.appendChild(reDoLayoutButton);
+
 
     html.appendChild(toolbar)
 
@@ -197,7 +201,7 @@ export const createPage = () => {
         }
 
         redrawButton.addEventListener('click', ()=> {
-            graph.canvasCtrl.layout.runLayout();
+            // graph.canvasCtrl.layout.reDoLayout();
             graph.canvasCtrl.fitView()
             graph.canvasCtrl.renderer.rerender()
         })
@@ -213,6 +217,11 @@ export const createPage = () => {
             graph.canvasCtrl.debugOn();
             graph.canvasCtrl.renderer.rerender();
         });
+
+        reDoLayoutButton.addEventListener('click',  () => {
+            graph.canvasCtrl.layout.reDoLayout();
+            graph.canvasCtrl.renderer.rerender()
+        })
 
         // camera interactions 
         graph.canvasCtrl.camera.on('clicked', () => {

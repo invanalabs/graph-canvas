@@ -9,9 +9,35 @@ class ForceLayout {
 
 
     canvas: Canvas;
+    simulation : d3.forceSimulation;
 
     constructor(canvas: Canvas) {
         this.canvas = canvas
+        let _this  = this;
+        const { centerX, centerY } = this.getCenter();
+        this.simulation = d3.forceSimulation([])
+            .force("link", d3.forceLink([]) // This force provides links between nodes
+                .id((link: ILink) => link.id) // This sets the node id accessor to the specified function.
+                // If not specified, will default to the index of a node.
+                .distance((link:ILink)=> 250).strength(1)
+            )
+            .force("charge", d3.forceManyBody().strength(-50)) // This adds repulsion (if it's negative) between nodes.
+            .force("center", d3.forceCenter(centerX, centerY))
+            // .force("collision", d3.forceCollide().radius((d: INode) => d.size + 20).iterations(2))
+            // .velocityDecay(0.4)
+            .tick(200);
+
+        // this.simulation
+        //     .force('link')
+        //     .links([]);
+                 
+        this.simulation.on("tick", this.ticked.bind(this));
+        this.simulation.on('end', () => {
+            console.log("=Simulation ended");
+            _this.simulation.stop();
+            _this.ticked();
+            _this.canvas.fitView();
+        });
     }
 
     getCenter = () => {
@@ -24,48 +50,38 @@ class ForceLayout {
         // console.log
         this.canvas.fitView();
         this.canvas.renderer.tick()
-
     }
 
-    runLayout = () => {
-        let _this = this;
-
-        const { nodes, links } = this.canvas.stateCtrl;
-
-        const nodesArray = Array.from(nodes.values())
-        const linksArray = Array.from(links.values())
-
-        const { centerX, centerY } = this.getCenter();
-        const simulation = d3.forceSimulation(nodesArray)
-            .force("link", d3.forceLink(linksArray) // This force provides links between nodes
-                .id((d: ILink) => d.id) // This sets the node id accessor to the specified function.
-                // If not specified, will default to the index of a node.
-                .distance(200)
-            )
-            // .force("charge", d3.forceManyBody().strength(-500)) // This adds repulsion (if it's negative) between nodes.
-            .force("center", d3.forceCenter(centerX, centerY))
-            .force("collision", d3.forceCollide().radius((d: INode) => 20).iterations(2))
-            .velocityDecay(0.8);
-
-        simulation
-            .force('link')
-            .links(linksArray);
-
-        // simulation.on('start', () => {
-        //     // Code to handle the start of the simulation
-        //     console.log("Simulation started");
-        //     // _this.canvas.fitView();
-
-        // });
-        simulation.on("tick", this.ticked.bind(this));
-        simulation.on('end', () => {
-            console.log("=Simulation ended");
-            simulation.stop();
-            this.ticked();
-            _this.canvas.fitView();
-        });
-        return simulation
+    reDoLayout = () => {
+        this.simulation.alpha(0.1).restart();
     }
+
+    add2Layout(nodes: INode[], links: ILink[]){
+     
+        // Update the simulation links with new data
+        // this.simulation.force("center", d3.forceCenter(centerX, centerY))
+        this.simulation.nodes(this.simulation.nodes().concat(nodes));
+        this.simulation.force("link").links(links);
+
+        // this.simulation.nodes().push(nodes);
+        // this.simulation.force("link").links().push(links);
+
+        this.reDoLayout(); // Experimental
+    }
+
+    // runLayout = () => {
+    //     let _this = this;
+
+    //     const { nodes, links } = this.canvas.stateCtrl;
+
+    //     const nodesArray = Array.from(nodes.values())
+    //     const linksArray = Array.from(links.values())
+        
+
+
+
+    //     return this.simulation
+    // }
 
 
 }

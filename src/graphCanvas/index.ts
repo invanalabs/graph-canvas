@@ -20,7 +20,7 @@ class GraphCanvas {
         console.log("Adding nodes and edges", nodes, links)
         // add data to store 
         this.stateCtrl.addData(nodes, links)
-        this.canvasCtrl.layout.runLayout();
+        this.canvasCtrl.layout.add2Layout(nodes, links);
         this.canvasCtrl.renderer.render()
     }
 
