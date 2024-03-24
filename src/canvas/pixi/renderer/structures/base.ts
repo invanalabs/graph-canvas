@@ -30,7 +30,7 @@ import * as PIXI from 'pixi.js';
     // draw =() => console.error("draw not implemented");
 
     clear(){
-        console.log("BaseShape.clear triggered")
+        // console.log("BaseShape.clear triggered")
         this.container.removeChildren();
     }
 

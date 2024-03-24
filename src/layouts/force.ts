@@ -13,7 +13,7 @@ class ForceLayout {
 
     constructor(canvas: Canvas) {
         this.canvas = canvas
-        this.simulation = this.createSimulation();
+        // this.simulation = this.createSimulation();
 
     }
 
@@ -28,13 +28,15 @@ class ForceLayout {
                 d3.forceLink(links) // This force provides links between nodes
                     .id((link: ILink) => link.id) // This sets the node id accessor to the specified function.
                 // If not specified, will default to the index of a node.
-                .distance((link:ILink)=> 250).strength(1)
+                .distance((link:ILink)=> 150)//.strength(-200)
             )
-            .force("charge", d3.forceManyBody().strength(-40)) // This adds repulsion (if it's negative) between nodes.
+            .force("charge", d3.forceManyBody().strength(-250)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
-            // .force("collision", d3.forceCollide().radius((d: INode) => d.size + 20).iterations(2))
+            // .force("center", d3.forceCenter())
+            .force("collision", d3.forceCollide().radius((d: INode) => d.size + 15).iterations(2))
             // .velocityDecay(0.4)
-            .tick(500)
+            .stop()
+            .tick(1200)
 
             
             // .force('link').links(links)

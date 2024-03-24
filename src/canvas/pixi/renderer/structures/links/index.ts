@@ -101,8 +101,8 @@ class LinkShape extends BaseShape {
         let shapeGfx = this.drawShape();
         this.container.addChild(shapeGfx);
         // draw label
-        let labelGfx = this.drawLabel();
-        this.container.addChild(labelGfx);
+        // let labelGfx = this.drawLabel();
+        // this.container.addChild(labelGfx);
         // listeners for hover effect
         // this.container.on("pointerover", () => this.pointerOver(shapeGfx));
         // this.container.on("pointerout", () => this.pointerOut(shapeGfx));

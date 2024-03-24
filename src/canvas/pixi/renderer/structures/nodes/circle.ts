@@ -10,7 +10,7 @@ class Circle extends BaseShape {
     // @ts-ignore
     shapeData: INode
     color: string = '#ff00ff';
-    size: number = 16;
+    size: number = 12;
 
     // constructor(canvas: Canvas, shapeData: INode){
     //     super(canvas, shapeData)
