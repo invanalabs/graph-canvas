@@ -1,6 +1,7 @@
 // @ts-nocheck
 import GraphCanvas from "../../graphCanvas";
 import { INode, ILink, GraphCanvasSetting } from "../../graphCanvas/types";
+import fetchData, {convert2CanvasData} from "../datasets/miserables";
 
 
 
@@ -49,16 +50,28 @@ const initEdges: Array<ILink> = [
 ];
 
 
-// Generate a random number between min (inclusive) and max (exclusive)
-function getRandomNumber(min, max) {
-    return Math.floor(Math.random() * (max - min) + min);
+
+const generateDummyData2 = (graph:GraphCanvas) => {
+    // Call the fetchData function
+
 }
 
 
+
+
 const generateDummyData = (graph: GraphCanvas) => {
+
+    // Generate a random number between min (inclusive) and max (exclusive)
+    function getRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+
     // const nodeId = Date.now().toString();
     const nodeId = graph.stateCtrl.nodes.size + 1;
     console.log("===nodeId =====", nodeId)
+
+
     const nodes: INode[] = [{
         id: nodeId.toString(),
         label: "TestNode",
@@ -162,6 +175,10 @@ export const createPage = () => {
     reDoLayoutButton.innerHTML = "ReDoLayout"
     toolbar.appendChild(reDoLayoutButton);
 
+    const loadDataSet1 = document.createElement('button');
+    loadDataSet1.innerHTML = "DataSet 1"
+    toolbar.appendChild(loadDataSet1);
+
 
     html.appendChild(toolbar)
 
@@ -223,6 +240,22 @@ export const createPage = () => {
             graph.canvasCtrl.renderer.rerender()
         })
 
+
+        loadDataSet1.addEventListener('click',  ()=> {
+            // graph.canvasCtrl.clear()
+            // generateDummyData2(graph)
+            fetchData().then(data => {
+                // You can access the returned data here
+                console.log('Returned data:', data);
+
+                graph.canvasCtrl.stateCtrl.clearAll();
+                const {nodes, links} = convert2CanvasData(data);
+                 console.log("convert2CanvasData", nodes, links)
+                 graph.addData(nodes, links)
+
+        
+            })
+        })
         // camera interactions 
         graph.canvasCtrl.camera.on('clicked', () => {
             showEvent('clicked');

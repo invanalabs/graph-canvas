@@ -15,6 +15,11 @@ export default class StateCtrl {
         this.nodes = new Map();
     }
 
+    clearAll() {
+        this.links = new Map();
+        this.nodes = new Map();
+    }
+
     getNodes(): INode[]{
         return Array.from(this.nodes.values())
     }

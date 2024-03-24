@@ -15,21 +15,21 @@ class ForceLayout {
         this.canvas = canvas
         let _this  = this;
         const { centerX, centerY } = this.getCenter();
-        this.simulation = d3.forceSimulation([])
-            .force("link", d3.forceLink([]) // This force provides links between nodes
+        this.simulation = d3.forceSimulation(this.canvas.stateCtrl.getNodes())
+            .force("link", d3.forceLink(this.canvas.stateCtrl.getLinks()) // This force provides links between nodes
                 .id((link: ILink) => link.id) // This sets the node id accessor to the specified function.
                 // If not specified, will default to the index of a node.
                 .distance((link:ILink)=> 250).strength(1)
             )
-            .force("charge", d3.forceManyBody().strength(-50)) // This adds repulsion (if it's negative) between nodes.
+            .force("charge", d3.forceManyBody().strength(-40)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
-            // .force("collision", d3.forceCollide().radius((d: INode) => d.size + 20).iterations(2))
+            .force("collision", d3.forceCollide().radius((d: INode) => d.size + 20).iterations(2))
             // .velocityDecay(0.4)
             .tick(200);
 
-        // this.simulation
-        //     .force('link')
-        //     .links([]);
+        this.simulation
+            .force('link')
+            .links(this.canvas.stateCtrl.getLinks());
                  
         this.simulation.on("tick", this.ticked.bind(this));
         this.simulation.on('end', () => {
@@ -59,9 +59,14 @@ class ForceLayout {
     add2Layout(nodes: INode[], links: ILink[]){
      
         // Update the simulation links with new data
-        // this.simulation.force("center", d3.forceCenter(centerX, centerY))
         this.simulation.nodes(this.simulation.nodes().concat(nodes));
         this.simulation.force("link").links(links);
+ 
+        // const selectedNodes = this.canvas.stateCtrl.getNodes();
+        
+        // const { center, } = this.canvas.getCenter(selectedNodes)
+        // this.simulation.force("center", d3.forceCenter(center.x, center.y))
+
 
         // this.simulation.nodes().push(nodes);
         // this.simulation.force("link").links().push(links);
