@@ -102,8 +102,6 @@ export default class CanvasBase {
         app.stage.interactive = true;
         app.stage.hitArea = app.screen;
 
-
-        
         // prevent body scrolling
         // @ts-ignore
         app.view.addEventListener('wheel', event => { event.preventDefault(); });

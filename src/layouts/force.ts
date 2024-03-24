@@ -32,9 +32,9 @@ class ForceLayout {
             )
             .force("charge", d3.forceManyBody().strength(-40)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
-            .force("collision", d3.forceCollide().radius((d: INode) => d.size + 20).iterations(2))
+            // .force("collision", d3.forceCollide().radius((d: INode) => d.size + 20).iterations(2))
             // .velocityDecay(0.4)
-            .tick(200)
+            .tick(500)
 
             
             // .force('link').links(links)

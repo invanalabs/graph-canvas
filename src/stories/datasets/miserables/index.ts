@@ -1,6 +1,6 @@
 // import * as fs from 'fs';
 
-import { INode } from "../../../graphCanvas/types";
+import { ILink, INode } from "../../../graphCanvas/types";
 
 async function readJSONFile(filePath: string): Promise<any> {
     try {
@@ -43,6 +43,9 @@ export  const convert2CanvasData = (data: any) => {
             node.label = node.id,
             node.type =  "Something",
             node.shape = "circle"
+        })
+        data.links.forEach((link: ILink) => {
+            link.id = `${link.source}-${link.target}`
         })
 
         return data;

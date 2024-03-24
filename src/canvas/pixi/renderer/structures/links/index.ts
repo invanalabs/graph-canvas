@@ -9,7 +9,7 @@ class LinkShape extends BaseShape {
 
     private shapeData: ILink
     color: string = "#666666"
-    width: number = 3;
+    width: number = 1;
 
     // constructor(canvas: Canvas, shapeData: ) {
     //     super(canvas)
@@ -21,7 +21,8 @@ class LinkShape extends BaseShape {
         const endX = this.shapeData.target.x;
         const endY = this.shapeData.target.y;
         // Add label text
-        const text = new PIXI.Text(`link ${this.shapeData.source.id}-${this.shapeData.target.id}`, { fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF });
+        const text = new PIXI.Text(`link ${this.shapeData.source.id}-${this.shapeData.target.id}`, 
+        { fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF });
         text.x = (startX + endX) / 2;
         text.y = (startY + endY) / 2;
         text.anchor.set(0.5);
