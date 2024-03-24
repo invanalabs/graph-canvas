@@ -42,8 +42,8 @@ export interface INode extends CanvasDataBase{
 
 export interface ILink  extends CanvasDataBase{
     shape: LinkShapes
-    source: INode | string;
-    target: INode | string;
+    source: INode | number;
+    target: INode | number;
 }
 
 

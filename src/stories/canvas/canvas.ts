@@ -48,21 +48,45 @@ const initEdges: Array<ILink> = [
     }
 ];
 
+
+// Generate a random number between min (inclusive) and max (exclusive)
+function getRandomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+
 const generateDummyData = (graph: GraphCanvas) => {
     // const nodeId = Date.now().toString();
     const nodeId = graph.stateCtrl.nodes.size + 1;
     console.log("===nodeId =====", nodeId)
     const nodes: INode[] = [{
-        id: nodeId,
+        id: nodeId.toString(),
         label: "TestNode",
         type: `Test ${nodeId}`,
         shape: "circle"
     }];
-    const links: ILink[] = [{
-        id: `1-${nodeId}`,
-        source: '1',
-        target: nodeId
-    }]
+
+    const links: ILink[] = []
+
+    if (nodeId > 4){
+        [1,2 ].forEach(()=>{
+            const randomTarget = getRandomNumber(1,  graph.stateCtrl.nodes.size )
+            links.push({
+                id: `${randomTarget}-${nodeId}`,
+                source: randomTarget.toString(), // nodes[0] ,
+                target: nodeId.toString() //graph.stateCtrl.nodes.get()
+            })
+        })
+   
+    }else{
+        links.push({
+            id: `1-${nodeId}`,
+            source: '1',
+            target: nodeId.toString()
+        })
+    }
+    console.log("==nodes, links", nodes, links)
+
     return {nodes, links}
 }
 

@@ -26,7 +26,7 @@ FontStyle - family, size, color, icon, position:<center,TL,TR,BL,BR>, shadow
 BackgroundStyle - color, icon, pattern, 
 LabelStyle - font:FontStyle, text, background: BackgroundStyle, border: BorderStyle
 NodeStyleState - color, background:BackgroundStyle, border:BorderStyle, label:LabelStyle 
-NodeStyle - label, shape, states:<default|hovered|visited|highlighted:NodeStyleState>
+NodeStyle - label, shape, states:<default|hovered|visited|highlighted|inactive:NodeStyleState>
 
 
 Property - key, value

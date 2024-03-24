@@ -23,6 +23,11 @@ export default class StateCtrl {
         return Array.from(this.links.values())
     }
 
+
+    isINode(obj: INode | string | number) {
+        return typeof obj === 'object' && obj !== null && 'id' in obj && 'type' in obj;
+    }
+
     addData = (nodes: INode[], links: ILink[]) => {
         //TODO -make this upsert
         for (const node of nodes){
@@ -37,6 +42,11 @@ export default class StateCtrl {
             if (! this.links.has(link.id)){
                 this.links.set(link.id, link);
             }
+            // if (!this.isINode(link.source)) {
+            //     // link.source does not adhere to the INode interface
+            //     // Your code here
+            //     link.source = this.nodes.get(link.source)
+            // }
         }
         // this.nodes = nodes;
         // this.links = links;
