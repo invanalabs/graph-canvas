@@ -41,7 +41,7 @@ export default class Canvas extends CanvasBase {
     // }
 
     screenBorderClear(){
-        console.log("screenBorderClear")
+        console.debug("screenBorderClear")
         this.debugBorderGfx.clear()
         this.debugBorderGfx.removeChildren();
     }
@@ -49,13 +49,12 @@ export default class Canvas extends CanvasBase {
     screenBorderDraw() {
         // clear prev 
         this.screenBorderClear();
-        console.log("screenBorderDraw triggered")
+        console.debug("screenBorderDraw triggered")
 
         const debugColor = 0x1ab3eb;
         const { center, min, max, graphHeight, graphWidth } = this.getCenter(this.stateCtrl.getNodes())
         // this.drawDebugBorder(center, graphWidth, graphHeight)
         
-        this.screenBorderClear();
         const label = new PIXI.Text(`[${Math.round(graphWidth)},${Math.round(graphHeight)}] - allNodes boundingBox`,
                          { fontFamily: 'Courier New', fontSize: 12, fill: debugColor });
         // label.x = (min.x + max.x) / 2;
@@ -98,7 +97,20 @@ export default class Canvas extends CanvasBase {
 
     }
 
+    clear(){    
+        console.log("canvas.clear triggered")
+        this.stateCtrl.nodes.forEach((node: INode) => {
+            node.shapeInstance?.clear()
+        });
 
+        this.stateCtrl.links.forEach((link: ILink) => {
+            // redraw the links 
+            link.shapeInstance?.clear()
+        });
+
+        this.screenBorderClear()
+    }
+    
     // think of the zoomTo as a camera action
 
     zoomTo = () => {
@@ -107,8 +119,6 @@ export default class Canvas extends CanvasBase {
 
     fitView(selectedNodes?: INode[], zoomLevel?: number) {
         console.log("==fitView", selectedNodes, zoomLevel);
-
- 
         if (!selectedNodes) {
             selectedNodes = this.stateCtrl.getNodes();
         }
@@ -116,11 +126,6 @@ export default class Canvas extends CanvasBase {
         this.camera.moveCenter(center)
         // this.moveNodesToWorldCenter(nodes);
         // this.camera.setZoom(1, true);
-        // if (this.debug_mode) {
-        //     this.screenBorderDraw()
-        // }else{
-        //     this.debugBorderGfx.clear()
-        // }
     }
 
  

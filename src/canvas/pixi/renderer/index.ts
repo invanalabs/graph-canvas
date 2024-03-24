@@ -21,21 +21,30 @@ class PIXIRenderer {
 
     tick(){
         
-        this.canvas.fitView()
+        // this.canvas.fitView()
         this.canvas.stateCtrl.nodes.forEach((node: INode) => {
             let { x, y } = node;
             this.canvas.stateCtrl.updateNodePosition(node.id, x, y)
-            node.shapeInstance.updatePosition(x, y)
+            node.shapeInstance?.updatePosition(x, y)
             // shapeGfx?.position.set(x, y);
         });
 
         this.canvas.stateCtrl.links.forEach((link: ILink) => {
             // let { source, target } = link;
             // redraw the links 
-            link.shapeInstance.redraw()
+            link.shapeInstance?.redraw()
         });
+        this.renderScreenBorderIfRequired();
 
-        this.canvas.screenBorderDraw();
+    }
+
+    renderScreenBorderIfRequired(){
+        
+        if (this.canvas.debug_mode) {
+            this.canvas.screenBorderDraw();
+        }else{
+            this.canvas.screenBorderClear();
+        }
     }
 
     render = () => {
@@ -49,52 +58,38 @@ class PIXIRenderer {
         // add data to store 
 
         // clear canvas
-        // this.viewport.removeChildren(); // fix this 
+
+        this.canvas.clear();
 
 
         // render links 
         const links = this.canvas.stateCtrl.getLinks();
-        links.map((link: ILink) => {
-            // const shapeGfx = link.shapeGfx ? link.shapeGfx: new LinkShape(this.canvas).draw()
-            if (!link.shapeGfx) {
-                // const shapeContainer = new
+        links.forEach((link: ILink) => {
+            if (!link.shapeInstance) {
                 const shapeInstance = new LinkShape(this.canvas)
                 link.shapeInstance = shapeInstance
-                link.shapeGfx = shapeInstance.draw(link)
-                _this.canvas.addShape(link.shapeGfx)
             }
+            const gfx = link.shapeInstance.draw(link)
+            _this.canvas.addShape(gfx)
+
         })
         
         // render nodes
         const nodes = this.canvas.stateCtrl.getNodes();
-        nodes.map((node: INode) => {
-            if (!node.shapeGfx) {
-                const shapeInstance = new Circle(this.canvas)
-                node.shapeInstance = shapeInstance
-                node.shapeGfx = shapeInstance.draw(node)
-                _this.canvas.addShape(node.shapeGfx);
+        nodes.forEach((node: INode) => {
+            if (!node.shapeInstance) {
+                const shapeInstance =  new Circle(this.canvas)
+                node.shapeInstance = shapeInstance          
             }
+            const gfx = node.shapeInstance.draw(node)
+            _this.canvas.addShape(gfx);
         });
-
-
-
-
         // set canvas events
-
-        // // add to graphology
-        // nodes.forEach((node: INode) => {
-        //     _this.graphData.addNode(node.id, node);
-        // });
-
+ 
         // draw any debug
-        this.canvas.fitView();
-
-        if (this.canvas.debug_mode) {
-            this.canvas.screenBorderDraw();
-        }else{
-            this.canvas.screenBorderClear();
-        }
+        this.renderScreenBorderIfRequired();
     }
+
 
 
 

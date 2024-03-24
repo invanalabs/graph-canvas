@@ -1,7 +1,8 @@
 import * as PIXI from 'pixi.js';
-import { BaseShape } from "../base";
+
 import { INode, ILink } from "../../../../../graphCanvas/types";
 import Canvas from '../../..';
+import BaseShape from '../base';
 
 
 class LinkShape extends BaseShape {
@@ -10,9 +11,9 @@ class LinkShape extends BaseShape {
     color: string = "#666666"
     width: number = 3;
 
-    constructor(canvas: Canvas) {
-        super(canvas)
-    }
+    // constructor(canvas: Canvas, shapeData: ) {
+    //     super(canvas)
+    // }
 
     drawLabel() {
         const startX = this.shapeData.source.x;
@@ -30,15 +31,17 @@ class LinkShape extends BaseShape {
 
     drawShape() {
         let shape = new PIXI.Graphics();
-        
+
         // line color and thickness
         shape.lineStyle(this.width, 0xFFFFFF);
 
-        console.log("link drawShape", this.shapeData.source, this.shapeData.target)
-        const startX = this.shapeData.source.x;
-        const startY = this.shapeData.source.y;
-        const endX = this.shapeData.target.x;
-        const endY = this.shapeData.target.y;
+        // console.log("link drawShape", this.shapeData, this.shapeData.source, this.shapeData.target)
+
+        const startX = this.shapeData.source?.x;
+        const startY = this.shapeData.source?.y;
+        const endX = this.shapeData.target?.x;
+        const endY = this.shapeData.target?.y;
+
 
         // Draw the line
         shape.moveTo(startX, startY);
@@ -65,22 +68,33 @@ class LinkShape extends BaseShape {
         return shape
     }
 
-    pointerOver(shapeGfx: PIXI.Graphics) {
-        // showTooltip(node);
-        shapeGfx.tint = 0x666666;
-        // renderer.render(stage);
+    // pointerOver(shapeGfx: PIXI.Graphics) {
+    //     // showTooltip(node);
+    //     shapeGfx.tint = 0x666666;
+    //     // renderer.render(stage);
+    // }
+
+    // pointerOut(shapeGfx: PIXI.Graphics) {
+    //     // hideTooltip();
+    //     shapeGfx.tint = 0xFFFFFF;
+    //     // renderer.render(stage);
+    // }
+
+    setupInteractions(shapeGfx: PIXI.Container) {
+        this.container.cursor = 'pointer';
     }
 
-    pointerOut(shapeGfx: PIXI.Graphics) {
-        // hideTooltip();
-        shapeGfx.tint = 0xFFFFFF;
-        // renderer.render(stage);
-    }
-    
-    draw(link: ILink) {
-        this.shapeData = link;
+
+    draw(shapeData: ILink) {
+        // this.clear()
+        this.shapeData = shapeData;
+        console.debug('===Drawing  link', this.shapeData?.id,  this.shapeData)
 
         this.container.cursor = 'pointer';
+
+
+
+        // if (this.shapeData.source?.id  && this.shapeData.target.id) {
 
         // draw shape
         let shapeGfx = this.drawShape();
@@ -89,8 +103,10 @@ class LinkShape extends BaseShape {
         let labelGfx = this.drawLabel();
         this.container.addChild(labelGfx);
         // listeners for hover effect
-        this.container.on("pointerover", () => this.pointerOver(shapeGfx));
-        this.container.on("pointerout", () => this.pointerOut(shapeGfx));
+        // this.container.on("pointerover", () => this.pointerOver(shapeGfx));
+        // this.container.on("pointerout", () => this.pointerOut(shapeGfx));
+
+        // }
         // listeners for dragging
         // on click
         // this.container.on('pointerdown', this.onDragStart.bind(this));
@@ -103,6 +119,7 @@ class LinkShape extends BaseShape {
 
 
         // this.container.on('pointerup', stopDrag);
+
         return this.container;
     }
 

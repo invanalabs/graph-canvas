@@ -2,6 +2,7 @@ import { Application, Graphics } from 'pixi.js';
 import { CanvasSetting } from './types';
 import StateCtrl from '../../state/model';
 import Camera from './camera';
+import { ILink, INode } from '../../graphCanvas/types';
  
 
 export interface CanvasOption  {
@@ -52,19 +53,16 @@ export default class CanvasBase {
 
         this.camera = new Camera({  events: this.app.renderer.events, ...this.canvasOptions });
         this.camera.setUpCamera();
+        this.camera.addChild(this.debugBorderGfx);
 
         this.app.stage.addChild(this.camera)
         this.app.start();
 
-        this.clear();
+   
     }
 
 
-    clear(){
-        this.camera.removeChildren();
-        this.camera.addChild(this.debugBorderGfx);
-    }
-    
+
 
     resetState = () => {
 

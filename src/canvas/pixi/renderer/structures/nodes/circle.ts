@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { INode } from '../../../../../graphCanvas/types';
-import { BaseShape } from '../base';
+import BaseShape from '../base';
 import Canvas from '../../..';
 
 
@@ -8,15 +8,17 @@ class Circle extends BaseShape {
 
 
     // @ts-ignore
-    private shapeData: INode
+    shapeData: INode
     color: string = '#ff00ff';
     size: number = 24;
 
-    constructor(canvas: Canvas){
-        super(canvas)
-    }
+    // constructor(canvas: Canvas, shapeData: INode){
+    //     super(canvas, shapeData)
+    // }
 
+    
     drawLabel() {
+        
         // Refer https://pixijs.com/examples/text/pixi-text
         const textStyle = new PIXI.TextStyle({
             fontSize: 12,
@@ -64,13 +66,13 @@ class Circle extends BaseShape {
         shapeGfx.tint = 0xFFFFFF;
         // renderer.render(stage);
     }
- 
+
     //  onDragStart(event: PIXI.FederatedPointerEvent)  {
     //     // store a reference to the data
     //     // the reason for this is because of multitouch
     //     // we want to track the movement of this particular touch
     //     console.log("onDragStart event", event)
- 
+
     //     this.graphCanvas.app.stage.on('pointermove',  this.graphCanvas.onDragMove.bind(this));
     // }
 
@@ -81,22 +83,9 @@ class Circle extends BaseShape {
     // }
 
 
-
-    draw(node: INode) {
-        this.shapeData = node;
-        
-
+    setupInteractions(shapeGfx: PIXI.Container) {
         this.container.cursor = 'pointer';
-        // this.container.position.set(node.x, node.y);
-        if (node.x && node.y){
-            this.updatePosition(node.x, node.y)
-        }
-        // draw shape
-        let shapeGfx = this.drawShape(); 
-        this.container.addChild(shapeGfx);
-        // draw label
-        let labelGfx = this.drawLabel(); 
-        this.container.addChild(labelGfx);
+
         // listeners for hover effect
         this.container.on("pointerover", () => this.pointerOver(shapeGfx));
         this.container.on("pointerout", () => this.pointerOut(shapeGfx));
@@ -110,8 +99,28 @@ class Circle extends BaseShape {
         // this.container.on('pointerupoutside', this.graphCanvas.onDragEnd.bind(this));
         // this.container.on('pointerout', this.graphCanvas.onDragEnd.bind(this));
 
-        
+
         // this.container.on('pointerup', stopDrag);
+    }
+
+    draw(shapeData: INode) {
+        this.shapeData = shapeData
+        this.clear();
+        console.debug('===Drawing  node', this.shapeData?.id,  this.shapeData)
+        this.shapeData.size = this.size;
+        // this.container.position.set(node.x, node.y);
+        if (this.shapeData.x && this.shapeData.y) {
+            this.updatePosition(this.shapeData.x, this.shapeData.y)
+        }
+        // draw shape
+        let shapeGfx = this.drawShape();
+        this.container.addChild(shapeGfx);
+        // draw label
+        let labelGfx = this.drawLabel();
+        this.container.addChild(labelGfx);
+
+      
+
         return this.container;
     }
 

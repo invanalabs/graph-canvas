@@ -172,13 +172,22 @@ export const createPage = () => {
             graph.addData(nodes, links)
         }
 
-        redrawButton.addEventListener('click', ()=> graph.canvasCtrl.renderer.rerender())
+        redrawButton.addEventListener('click', ()=> {
+            graph.canvasCtrl.fitView()
+            graph.canvasCtrl.renderer.rerender()
+        })
         zoomInButton.addEventListener('click', () => graph.canvasCtrl.zoomIn());
         zoomOutButton.addEventListener('click', () => graph.canvasCtrl.zoomOut());
         fitViewButton.addEventListener('click', () => graph.canvasCtrl.fitView());
  
-        debugOffButton.addEventListener('click',  () => graph.canvasCtrl.debugOff());
-        debugOnButton.addEventListener('click',  () => graph.canvasCtrl.debugOn());
+        debugOffButton.addEventListener('click',  () => {
+            graph.canvasCtrl.debugOff()
+            graph.canvasCtrl.renderer.rerender()
+        });
+        debugOnButton.addEventListener('click',  () => {
+            graph.canvasCtrl.debugOn();
+            graph.canvasCtrl.renderer.rerender();
+        });
 
         // camera interactions 
         graph.canvasCtrl.camera.on('clicked', () => {
