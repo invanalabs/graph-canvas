@@ -10,7 +10,7 @@ class Circle extends BaseShape {
     // @ts-ignore
     shapeData: INode
     color: string = '#ff00ff';
-    size: number = 24;
+    size: number = 16;
 
     // constructor(canvas: Canvas, shapeData: INode){
     //     super(canvas, shapeData)
@@ -19,25 +19,40 @@ class Circle extends BaseShape {
     
     drawLabel() {
         
+        const labelContainer = new PIXI.Graphics();
         // Refer https://pixijs.com/examples/text/pixi-text
         const textStyle = new PIXI.TextStyle({
             fontSize: 12,
-            fill: "#fff",
-            align: 'right'
-            // wordWrap: true,
-            // breakWords: true,
+            fill: 0xffffff, // Text color
+            // align: 'right',
+            wordWrap: true,
+            breakWords: true,
             // wordWrapWidth: (n.size || this.cfg.node.size) * 2
         });
-        const positionX = Math.round(this.container.position.x);
-        const positionY = Math.round(this.container.position.y)
-        const nodeLabel = `Node ${this.shapeData.id} - (${positionX}, ${positionY}`;
+        // const positionX = Math.round(this.container.position.x);
+        // const positionY = Math.round(this.container.position.y)
+        const nodeLabel = `${this.shapeData.label}`;// - (${positionX}, ${positionY}`;
         const text = new PIXI.Text(nodeLabel, textStyle);
-        text.interactive = true;
-        text.cursor = "pointer";
-
-        text.anchor.set(0.5);
+        // text.interactive = true;
+        // text.cursor = "pointer";
+        // text.anchor.set(0.5);
         text.resolution = 2;
-        return text
+            // Get the size of the text box
+            const textBounds = text.getBounds();
+
+            // Create a PIXI.Graphics object for the background
+            const background = new PIXI.Graphics();
+            background.beginFill(0x000000); // Background color
+            background.drawRect(0, 0, textBounds.width, textBounds.height); // Draw rectangle behind the text
+            background.endFill();
+
+        labelContainer.addChild(background)
+        labelContainer.addChild(text)
+
+        // Position text relative to background
+        text.position.set(background.x, background.y);
+
+        return labelContainer
     }
 
     drawShape() {

@@ -51,13 +51,6 @@ const initEdges: Array<ILink> = [
 
 
 
-const generateDummyData2 = (graph:GraphCanvas) => {
-    // Call the fetchData function
-
-}
-
-
-
 
 const generateDummyData = (graph: GraphCanvas) => {
 
@@ -248,7 +241,8 @@ export const createPage = () => {
                 // You can access the returned data here
                 console.log('Returned data:', data);
 
-                graph.canvasCtrl.stateCtrl.clearAll();
+                graph.canvasCtrl.clear() // clear all the graphics  
+                graph.canvasCtrl.stateCtrl.clearAll(); // clear the data
                 const {nodes, links} = convert2CanvasData(data);
                  console.log("convert2CanvasData", nodes, links)
                  graph.addData(nodes, links)

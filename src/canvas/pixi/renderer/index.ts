@@ -47,6 +47,8 @@ class PIXIRenderer {
         }
     }
 
+
+
     render = () => {
         // clear canvas 
         // this.canvas.clear();

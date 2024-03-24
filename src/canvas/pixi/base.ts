@@ -53,10 +53,10 @@ export default class CanvasBase {
 
         this.camera = new Camera({  events: this.app.renderer.events, ...this.canvasOptions });
         this.camera.setUpCamera();
-        this.camera.addChild(this.debugBorderGfx);
 
         this.app.stage.addChild(this.camera)
         this.app.start();
+        this.startNew();
 
    
     }
@@ -64,8 +64,9 @@ export default class CanvasBase {
 
 
 
-    resetState = () => {
-
+    startNew = () => {
+        this.camera.removeChildren();
+        this.camera.addChild(this.debugBorderGfx);
     }
 
 

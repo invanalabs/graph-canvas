@@ -99,16 +99,17 @@ export default class Canvas extends CanvasBase {
 
     clear(){    
         console.log("canvas.clear triggered")
-        this.stateCtrl.nodes.forEach((node: INode) => {
-            node.shapeInstance?.clear()
-        });
+        // this.stateCtrl.nodes.forEach((node: INode) => {
+        //     node.shapeInstance?.clear()
+        // });
 
-        this.stateCtrl.links.forEach((link: ILink) => {
-            // redraw the links 
-            link.shapeInstance?.clear()
-        });
+        // this.stateCtrl.links.forEach((link: ILink) => {
+        //     // redraw the links 
+        //     link.shapeInstance?.clear()
+        // });
 
-        this.screenBorderClear()
+        // this.screenBorderClear()
+        this.startNew();
     }
     
     // think of the zoomTo as a camera action

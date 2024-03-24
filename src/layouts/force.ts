@@ -9,15 +9,24 @@ class ForceLayout {
 
 
     canvas: Canvas;
-    simulation : d3.forceSimulation;
+    simulation: d3.forceSimulation;
 
     constructor(canvas: Canvas) {
         this.canvas = canvas
-        let _this  = this;
+        this.simulation = this.createSimulation();
+
+    }
+
+    createSimulation(){
+        const _this = this;
+
         const { centerX, centerY } = this.getCenter();
-        this.simulation = d3.forceSimulation(this.canvas.stateCtrl.getNodes())
-            .force("link", d3.forceLink(this.canvas.stateCtrl.getLinks()) // This force provides links between nodes
-                .id((link: ILink) => link.id) // This sets the node id accessor to the specified function.
+        const nodes = this.canvas.stateCtrl.getNodes();
+        const links = this.canvas.stateCtrl.getLinks();
+        const simulation = d3.forceSimulation(nodes)
+            .force("link",
+                d3.forceLink(links) // This force provides links between nodes
+                    .id((link: ILink) => link.id) // This sets the node id accessor to the specified function.
                 // If not specified, will default to the index of a node.
                 .distance((link:ILink)=> 250).strength(1)
             )
@@ -25,19 +34,19 @@ class ForceLayout {
             .force("center", d3.forceCenter(centerX, centerY))
             .force("collision", d3.forceCollide().radius((d: INode) => d.size + 20).iterations(2))
             // .velocityDecay(0.4)
-            .tick(200);
+            .tick(200)
 
-        this.simulation
-            .force('link')
-            .links(this.canvas.stateCtrl.getLinks());
-                 
-        this.simulation.on("tick", this.ticked.bind(this));
-        this.simulation.on('end', () => {
-            console.log("=Simulation ended");
-            _this.simulation.stop();
-            _this.ticked();
-            _this.canvas.fitView();
-        });
+            
+            // .force('link').links(links)
+
+            .on("tick", this.ticked.bind(this))
+            .on('end', () => {
+                console.log("=Simulation ended");
+                _this.simulation.stop();
+                _this.ticked();
+                _this.canvas.fitView();
+            });
+        return simulation
     }
 
     getCenter = () => {
@@ -56,14 +65,17 @@ class ForceLayout {
         this.simulation.alpha(0.1).restart();
     }
 
-    add2Layout(nodes: INode[], links: ILink[]){
-     
+    add2Layout(nodes: INode[], links: ILink[]) {
+
         // Update the simulation links with new data
-        this.simulation.nodes(this.simulation.nodes().concat(nodes));
-        this.simulation.force("link").links(links);
- 
+        // this.simulation.nodes(this.simulation.nodes().concat(nodes));
+        // this.simulation.force("link").links(links);
+
+
+        this.simulation = this.createSimulation();
+
         // const selectedNodes = this.canvas.stateCtrl.getNodes();
-        
+
         // const { center, } = this.canvas.getCenter(selectedNodes)
         // this.simulation.force("center", d3.forceCenter(center.x, center.y))
 
@@ -81,7 +93,7 @@ class ForceLayout {
 
     //     const nodesArray = Array.from(nodes.values())
     //     const linksArray = Array.from(links.values())
-        
+
 
 
 
