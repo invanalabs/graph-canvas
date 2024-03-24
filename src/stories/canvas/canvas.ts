@@ -173,6 +173,7 @@ export const createPage = () => {
         }
 
         redrawButton.addEventListener('click', ()=> {
+            graph.canvasCtrl.layout.runLayout();
             graph.canvasCtrl.fitView()
             graph.canvasCtrl.renderer.rerender()
         })

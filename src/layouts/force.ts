@@ -22,6 +22,7 @@ class ForceLayout {
     ticked = () => {
         // let _this = this;
         // console.log
+        this.canvas.fitView();
         this.canvas.renderer.tick()
 
     }
