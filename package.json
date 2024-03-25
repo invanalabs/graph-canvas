@@ -1,69 +1,47 @@
 {
-  "name": "flow-canvas",
-  "version": "0.0.0",
+  "name": "graph-canvas",
   "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.58",
-    "@types/react": "^18.2.28",
-    "@types/react-dom": "^18.2.13",
-    "dagre": "^0.8.5",
-    "node-sass": "^7.0.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.11.0",
-    "react-scripts": "5.0.1",
-    "reactflow": "^11.9.3",
-    "styled-components": "^6.1.0",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./dist/graph-canvas.umd.cjs",
+  "module": "./dist/graph-canvas.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/graph-canvas.js",
+      "require": "./dist/graph-canvas.umd.cjs"
+    }
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o docs-build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:storybook/recommended"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006 -h 0.0.0.0",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@storybook/addon-essentials": "^7.5.0",
-    "@storybook/addon-interactions": "^7.5.0",
-    "@storybook/addon-links": "^7.5.0",
-    "@storybook/addon-onboarding": "^1.0.8",
-    "@storybook/blocks": "^7.5.0",
-    "@storybook/preset-create-react-app": "^7.5.0",
-    "@storybook/react": "^7.5.0",
-    "@storybook/react-webpack5": "^7.5.0",
-    "@storybook/testing-library": "^0.2.2",
-    "@types/dagre": "^0.7.50",
-    "babel-plugin-named-exports-order": "^0.0.2",
-    "eslint-plugin-storybook": "^0.6.15",
-    "prop-types": "^15.8.1",
-    "storybook": "^7.5.0",
-    "webpack": "^5.89.0"
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/builder-vite": "^7.6.17",
+    "@storybook/html": "^7.6.17",
+    "@storybook/html-vite": "^7.6.17",
+    "@storybook/test": "^7.6.17",
+    "@types/node": "^20.11.20",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^7.6.17",
+    "typescript": "^5.2.2",
+    "vite": "^5.1.4",
+    "vite-plugin-dts": "^3.7.3"
+  },
+  "dependencies": {
+    "@types/redux": "^3.6.0",
+    "d3": "^7.8.5",
+    "graphology": "^0.25.4",
+    "pixi-viewport": "^5.0.2",
+    "pixi.js": "^7.3.3",
+    "pixi.js-legacy": "^7.3.3"
   }
 }
