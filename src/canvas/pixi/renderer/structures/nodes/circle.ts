@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { INode } from '../../../../../graphCanvas/types';
+import { ILink, INode } from '../../../../../graphCanvas/types';
 import BaseShape from '../base';
 import Canvas from '../../..';
 
@@ -182,6 +182,11 @@ class Circle extends BaseShape {
         // TODO - FIXME - next 2 lines are re-used
         this.canvas.stateCtrl.updateNodePosition(this.shapeData.id, x, y)
         this.updatePosition(x, y)
+
+        const neighborLinks = this.canvas.stateCtrl.getNeighborLinks(this.shapeData);
+
+        this.canvas.renderer.renderLinks(neighborLinks)
+
         
 
       };

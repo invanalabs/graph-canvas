@@ -39,6 +39,14 @@ class PIXIRenderer {
 
     }
 
+
+    renderLinks(links: ILink[]){
+
+        links.forEach((link: ILink)=>{
+            link.shapeInstance?.redraw()
+        })
+    }
+
     renderScreenBorderIfRequired(){
         
         if (this.canvas.debug_mode) {

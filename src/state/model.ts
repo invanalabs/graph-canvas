@@ -28,6 +28,10 @@ export default class StateCtrl {
         return Array.from(this.links.values())
     }
 
+    getNeighborLinks(node:INode){
+        return this.getLinks().filter(link => link.source.id === node.id || link.target.id  === node.id );
+
+    }
 
     isINode(obj: INode | string | number) {
         return typeof obj === 'object' && obj !== null && 'id' in obj && 'type' in obj;
