@@ -12,6 +12,7 @@ class Circle extends BaseShape {
     color: string = '#ff00ff';
     size: number = 12;
     dragging: boolean = false;
+    dragPoint : PIXI.Point ;
 
     constructor(canvas: Canvas) {
         super(canvas)
@@ -105,65 +106,84 @@ class Circle extends BaseShape {
     //     this.node.height =  this.size;
     // }
 
-    // Event handler for starting drag
-    onDragStart(event: PIXI.InteractionEvent) {
-        console.log("===onDragStart", event)
-        // disable the viewport’s panning while allowing sprite dragging.
-        // this.canvas.camera.drag({ pressDrag: false });
-        // this.data = event.data;
-        // this.dragging = true;
-        const node = event.currentTarget as PIXI.Graphics;
-        node.data = event.data;
-        node.dragging = true;
-    }
+    // // Event handler for starting drag
+    // onDragStart(event: PIXI.InteractionEvent) {
+    //     console.log("===onDragStart", event)
+    //     // disable the viewport’s panning while allowing sprite dragging.
+    //     // this.canvas.camera.drag({ pressDrag: false });
+    //     // this.data = event.data;
+    //     // this.dragging = true;
+    //     const node = event.currentTarget as PIXI.Graphics;
+    //     node.data = event.data;
+    //     node.dragging = true;
+    // }
 
-    // Event handler for ending drag
-    onDragEnd(event: PIXI.InteractionEvent) {
-        console.log("===onDragEnd", event.client.x, event)
+    // // Event handler for ending drag
+    // onDragEnd(event: PIXI.InteractionEvent) {
+    //     console.log("===onDragEnd", event.client.x, event)
 
-        //  reactivate viewport panning when drag event is completed.
-        this.canvas.camera.drag();
+    //     //  reactivate viewport panning when drag event is completed.
+    //     this.canvas.camera.drag();
 
-        const node = event.currentTarget as PIXI.Graphics;
-        if (node.dragging) {
-            // node.data = event.data;
+    //     const node = event.currentTarget as PIXI.Graphics;
+    //     if (node.dragging) {
+    //         // node.data = event.data;
 
-            const newPosition = node.data.getLocalPosition(node.parent);
-            node.x = newPosition.x;
-            node.y = newPosition.y;
-        }
+    //         const newPosition = node.data.getLocalPosition(node.parent);
+    //         node.x = newPosition.x;
+    //         node.y = newPosition.y;
+    //     }
 
-    }
+    // }
 
-    // Event handler for dragging
-    onDragMove(event: PIXI.InteractionEvent,) {
-        console.log("===onDragMove", event.client.x, event, event.parent, event.data)
-
-
-        // if (dragTarget)
-        // {
-            // this.parent.toLocal(event.global, null, dragTarget.position);
-        // }
-
-        // this.canvas.stateCtrl.updateNodePosition(this.shapeData.id, event.client.x, event.client.y)
-        // this.updatePosition( event.client.x, event.client.y)
-
-      //  reactivate viewport panning when drag event is completed.
-      this.canvas.camera.drag();
+    // // Event handler for dragging
+    // onDragMove(event: PIXI.InteractionEvent,) {
+    //     console.log("===onDragMove", event.client.x, event, event.parent, event.data)
 
 
-        if (this.dragging) {
-        const newPosition = event.data.getLocalPosition(event.parent);
-        console.log("===onDragMove newPosition",newPosition)
+    //     // if (dragTarget)
+    //     // {
+    //         // this.parent.toLocal(event.global, null, dragTarget.position);
+    //     // }
 
-        this.x = newPosition.x;
-        this.y = newPosition.y;
+    //     // this.canvas.stateCtrl.updateNodePosition(this.shapeData.id, event.client.x, event.client.y)
+    //     // this.updatePosition( event.client.x, event.client.y)
 
-        // Update the edge when dragging
-        // updateEdge();
-        }
-    }
+    //   //  reactivate viewport panning when drag event is completed.
+    //   this.canvas.camera.drag();
 
+
+    //     if (this.dragging) {
+    //     const newPosition = event.data.getLocalPosition(event.parent);
+    //     console.log("===onDragMove newPosition",newPosition)
+
+    //     this.x = newPosition.x;
+    //     this.y = newPosition.y;
+
+    //     // Update the edge when dragging
+    //     // updateEdge();
+    //     }
+    // }
+
+
+     onDragStart = (event: PIXI.InteractionEvent) => {
+        event.stopPropagation();
+        this.dragPoint = event.data.getLocalPosition(this.container.parent);
+        this.dragPoint.x -= this.container.x;
+        this.dragPoint.y -= this.container.y;
+        this.container.parent.on("pointermove", this.onDragMove);
+      };
+      
+      onDragMove = (event: PIXI.InteractionEvent) => {
+        const newPoint = event.data.getLocalPosition(this.container.parent);
+        this.container.x = newPoint.x - this.dragPoint.x;
+        this.container.y = newPoint.y - this.dragPoint.y;
+      };
+      
+      onDragEnd = (event: PIXI.InteractionEvent) => {
+        event.stopPropagation();
+        this.container.parent.off("pointermove", this.onDragMove);
+      };
 
     // Function to update the edge (line) between nodes
     updateEdges() {
@@ -199,7 +219,7 @@ class Circle extends BaseShape {
             .on('pointerdown', this.onDragStart.bind(this))
             .on('pointerup', this.onDragEnd.bind(this))
             .on('pointerupoutside', this.onDragEnd.bind(this))
-            .on('pointermove', this.onDragMove.bind(this));
+            // .on('pointermove', this.onDragMove.bind(this));
 
 
         // listeners for dragging
