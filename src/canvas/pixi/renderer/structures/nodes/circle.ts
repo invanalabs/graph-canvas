@@ -185,7 +185,7 @@ class Circle extends BaseShape {
 
         const neighborLinks = this.canvas.stateCtrl.getNeighborLinks(this.shapeData);
 
-        this.canvas.renderer.renderLinks(neighborLinks)
+        this.canvas.renderer.reRenderLinks(neighborLinks)
 
         
 
