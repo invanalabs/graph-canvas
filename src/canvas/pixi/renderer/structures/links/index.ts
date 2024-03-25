@@ -23,12 +23,12 @@ class LinkShape extends BaseShape {
         const endY = this.shapeData.target.y;
         // Add label text
         const text = new PIXI.Text(`link ${this.shapeData.source.id}-${this.shapeData.target.id}`, 
-       
-
         { fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF });
         // text.cursor = 'pointer';
         text.x = (startX + endX) / 2;
         text.y = (startY + endY) / 2;
+        text.resolution = window.devicePixelRatio * 2;
+
         text.anchor.set(0.5);
         return text;
     }
