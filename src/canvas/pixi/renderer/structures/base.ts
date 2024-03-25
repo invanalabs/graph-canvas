@@ -12,14 +12,15 @@ import * as PIXI from 'pixi.js';
     // app : PIXI.Application
     canvas: Canvas;
     // @ts-ignore
-    container: PIXI.Container; // shape and label saved in this container
+    container: PIXI.Graphics; // shape and label saved in this container
 
     constructor(canvas: Canvas) {
         // super();
         this.canvas = canvas;
-        this.container = new PIXI.Container()
+        this.container = new PIXI.Graphics()
+
         // this.shapeData = shapeData;
-        this.setupInteractions(this.container);
+        // this.setupInteractions(this.container);
 
     }
 

@@ -95,7 +95,7 @@ export default class CanvasBase {
             autoDensity: false,
             resolution: window.devicePixelRatio, /// 2 for retina displays
             backgroundColor: this.settings.backgroundColor || 0x2a2c2e, // defaults to dark 
-            eventMode : 'static' //  Emit events and is hit tested. Same as interaction = true in v7
+            eventMode : 'static', //  Emit events and is hit tested. Same as interaction = true in v7
         });
    
         // The stage will handle the move events

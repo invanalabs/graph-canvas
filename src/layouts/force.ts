@@ -36,7 +36,7 @@ class ForceLayout {
             .force("collision", d3.forceCollide().radius((d: INode) => d.size + 15).iterations(2))
             // .velocityDecay(0.4)
             .stop()
-            .tick(1200)
+            .tick(1000)
 
             
             // .force('link').links(links)

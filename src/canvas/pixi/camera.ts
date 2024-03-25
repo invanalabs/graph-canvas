@@ -22,11 +22,12 @@ export default class Camera extends Viewport {
     //         x: this.screenWidth,  y: this.screenHeight 
     //     };
     // }
-
+    // pause: boolean = false;
  
     setUpCamera(){
         this
-            .drag().pinch({ percent: 1 }).wheel().decelerate()
+            // .drag()
+            .pinch({ percent: 1 }).wheel().decelerate()
             .clamp({direction:'all',underflow:'center'})// 
             .clampZoom({ 
                 minWidth: this.screenWidth/4  ,

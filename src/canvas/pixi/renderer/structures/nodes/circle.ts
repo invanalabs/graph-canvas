@@ -11,14 +11,17 @@ class Circle extends BaseShape {
     shapeData: INode
     color: string = '#ff00ff';
     size: number = 12;
+    dragging: boolean = false;
 
-    // constructor(canvas: Canvas, shapeData: INode){
-    //     super(canvas, shapeData)
-    // }
+    constructor(canvas: Canvas) {
+        super(canvas)
+        // this.container.hitArea = new PIXI.Circle(0, 0, this.size);
 
-    
+    }
+
+
     drawLabel() {
-        
+
         const labelContainer = new PIXI.Graphics();
         // Refer https://pixijs.com/examples/text/pixi-text
         const textStyle = new PIXI.TextStyle({
@@ -37,14 +40,14 @@ class Circle extends BaseShape {
         // text.cursor = "pointer";
         // text.anchor.set(0.5);
         text.resolution = 2;
-            // Get the size of the text box
-            const textBounds = text.getBounds();
+        // Get the size of the text box
+        const textBounds = text.getBounds();
 
-            // Create a PIXI.Graphics object for the background
-            const background = new PIXI.Graphics();
-            background.beginFill(0x000000); // Background color
-            background.drawRect(0, 0, textBounds.width, textBounds.height); // Draw rectangle behind the text
-            background.endFill();
+        // Create a PIXI.Graphics object for the background
+        const background = new PIXI.Graphics();
+        background.beginFill(0x000000); // Background color
+        background.drawRect(0, 0, textBounds.width, textBounds.height); // Draw rectangle behind the text
+        background.endFill();
 
         labelContainer.addChild(background)
         labelContainer.addChild(text)
@@ -60,9 +63,12 @@ class Circle extends BaseShape {
         shape.lineStyle(3, 0xFFFFFF);
         shape.beginFill(this.color)
         shape.drawCircle(0, 0, this.size);
-        shape.interactive = true;
+        shape.interactive = true; // Enable mouse/touch events
+        // shape.buttonMode = true; // Show hand cursor on hover
+
         shape.cursor = "pointer";
         shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
+
         // make it a bit bigger, so it's easier to grab
         // shape.scale.set(3);
         shape.hitArea = new PIXI.Circle(0, 0, this.size);
@@ -70,15 +76,17 @@ class Circle extends BaseShape {
         return shape
     }
 
-    pointerOver(shapeGfx: PIXI.Graphics) {
+    pointerOver() { // shapeGfx: PIXI.Graphics
         // showTooltip(node);
-        shapeGfx.tint = 0x666666;
+        this.container.tint = 0x666666;
+        // this.container.getChildAt[0].tint = 0x666666;
+
         // renderer.render(stage);
     }
 
-    pointerOut(shapeGfx: PIXI.Graphics) {
+    pointerOut() {// shapeGfx: PIXI.Graphics
         // hideTooltip();
-        shapeGfx.tint = 0xFFFFFF;
+        this.container.tint = 0xFFFFFF;
         // renderer.render(stage);
     }
 
@@ -97,13 +105,96 @@ class Circle extends BaseShape {
     //     this.node.height =  this.size;
     // }
 
+    // Event handler for starting drag
+    onDragStart(event: PIXI.InteractionEvent) {
+        console.log("===onDragStart", event)
+        // disable the viewport’s panning while allowing sprite dragging.
+        this.canvas.camera.drag({ pressDrag: false });
+        // this.data = event.data;
+        // this.dragging = true;
+        const node = event.currentTarget as PIXI.Graphics;
+        node.data = event.data;
+        node.dragging = true;
+    }
 
-    setupInteractions(shapeGfx: PIXI.Container) {
+    // Event handler for ending drag
+    onDragEnd(event: PIXI.InteractionEvent) {
+        console.log("===onDragEnd", event.client.x, event)
+
+        //  reactivate viewport panning when drag event is completed.
+        this.canvas.camera.drag();
+
+        const node = event.currentTarget as PIXI.Graphics;
+        if (node.dragging) {
+            // node.data = event.data;
+
+            const newPosition = node.data.getLocalPosition(node.parent);
+            node.x = newPosition.x;
+            node.y = newPosition.y;
+        }
+
+    }
+
+    // Event handler for dragging
+    onDragMove(event: PIXI.InteractionEvent,) {
+        console.log("===onDragMove", event.client.x, event)
+
+
+        // this.canvas.stateCtrl.updateNodePosition(this.shapeData.id, event.client.x, event.client.y)
+        // this.updatePosition( event.client.x, event.client.y)
+
+
+
+        // if (this.dragging) {
+        // const newPosition = event.data.getLocalPosition(event.parent);
+        // console.log("===onDragMove newPosition",newPosition)
+
+        // this.x = newPosition.x;
+        // this.y = newPosition.y;
+
+        // Update the edge when dragging
+        // updateEdge();
+        // }
+    }
+
+
+    // Function to update the edge (line) between nodes
+    updateEdges() {
+        // edgeGraphics.clear();
+        // app.stage.addChild(edgeGraphics);
+
+        // // Set line style for the edge
+        // edgeGraphics.lineStyle(2, 0x000000);
+
+        // // Move to the starting point
+        // edgeGraphics.moveTo(node1.x, node1.y);
+
+        // // Draw a line to the ending point
+        // edgeGraphics.lineTo(node2.x, node2.y);
+    }
+
+    setupInteractions() {
+
+        // Remove all listeners
+        this.container.removeAllListeners();
+
+
         this.container.cursor = 'pointer';
 
         // listeners for hover effect
-        this.container.on("pointerover", () => this.pointerOver(shapeGfx));
-        this.container.on("pointerout", () => this.pointerOut(shapeGfx));
+        this.container.on("pointerover", () => this.pointerOver());
+        this.container.on("pointerout", () => this.pointerOut());
+
+
+
+
+        this.container
+            .on('pointerdown', this.onDragStart.bind(this))
+            .on('pointerup', this.onDragEnd.bind(this))
+            .on('pointerupoutside', this.onDragEnd.bind(this))
+            .on('pointermove', this.onDragMove.bind(this));
+
+
         // listeners for dragging
         // on click
         // this.container.on('pointerdown', this.onDragStart.bind(this));
@@ -121,7 +212,7 @@ class Circle extends BaseShape {
     draw(shapeData: INode) {
         this.shapeData = shapeData
         this.clear();
-        console.debug('===Drawing  node', this.shapeData?.id,  this.shapeData)
+        console.debug('===Drawing  node', this.shapeData?.id, this.shapeData)
         this.shapeData.size = this.size;
         // this.container.position.set(node.x, node.y);
         if (this.shapeData.x && this.shapeData.y) {
@@ -134,8 +225,10 @@ class Circle extends BaseShape {
         let labelGfx = this.drawLabel();
         this.container.addChild(labelGfx);
 
-      
 
+        this.setupInteractions()
+
+  
         return this.container;
     }
 
