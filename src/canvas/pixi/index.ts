@@ -208,11 +208,11 @@ export default class Canvas extends CanvasBase {
         this.moveToPosition(node.x, node.y)
     }
 
-    getViewPosition() {
+    // getViewPosition() {
 
-    }
+    // }
 
-    moveToPosition(x: number, y: number) {
-        // pass
-    }
+    // moveToPosition(x: number, y: number) {
+    //     // pass
+    // }
 }

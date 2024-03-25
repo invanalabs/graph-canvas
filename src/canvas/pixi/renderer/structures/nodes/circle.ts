@@ -176,8 +176,14 @@ class Circle extends BaseShape {
       
       onDragMove = (event: PIXI.InteractionEvent) => {
         const newPoint = event.data.getLocalPosition(this.container.parent);
-        this.container.x = newPoint.x - this.dragPoint.x;
-        this.container.y = newPoint.y - this.dragPoint.y;
+        const x = newPoint.x - this.dragPoint.x;
+        const y = newPoint.y - this.dragPoint.y;
+
+        // TODO - FIXME - next 2 lines are re-used
+        this.canvas.stateCtrl.updateNodePosition(this.shapeData.id, x, y)
+        this.updatePosition(x, y)
+        
+
       };
       
       onDragEnd = (event: PIXI.InteractionEvent) => {
@@ -204,16 +210,11 @@ class Circle extends BaseShape {
 
         // Remove all listeners
         this.container.removeAllListeners();
-
-
         this.container.cursor = 'pointer';
 
         // listeners for hover effect
         this.container.on("pointerover", () => this.pointerOver());
         this.container.on("pointerout", () => this.pointerOut());
-
-
-
 
         this.container
             .on('pointerdown', this.onDragStart.bind(this))

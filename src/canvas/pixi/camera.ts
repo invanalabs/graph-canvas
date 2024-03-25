@@ -26,7 +26,7 @@ export default class Camera extends Viewport {
  
     setUpCamera(){
         this
-            // .drag()
+            .drag()
             .pinch({ percent: 1 }).wheel().decelerate()
             .clamp({direction:'all',underflow:'center'})// 
             .clampZoom({ 

@@ -20,7 +20,7 @@ export default class CanvasBase {
 
     // camera
     camera: Camera;
-    worldScale: number = 2;
+    worldScale: number = 5;
  
     canvasOptions: CanvasOption;
     debug_mode : boolean;

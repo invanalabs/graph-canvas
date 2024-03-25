@@ -24,7 +24,7 @@ class PIXIRenderer {
         // this.canvas.fitView()
         this.canvas.stateCtrl.nodes.forEach((node: INode) => {
             let { x, y } = node;
-            // TODO - next 2 lines are re-used
+            // TODO - FIXME - next 2 lines are re-used
             this.canvas.stateCtrl.updateNodePosition(node.id, x, y)
             node.shapeInstance?.updatePosition(x, y)
             // shapeGfx?.position.set(x, y);
