@@ -40,7 +40,7 @@ class Circle extends BaseShape {
         // text.interactive = true;
         // text.cursor = "pointer";
         // text.anchor.set(0.5);
-        text.resolution = 2;
+        text.resolution = window.devicePixelRatio * 2;
         // Get the size of the text box
         const textBounds = text.getBounds();
 
@@ -185,14 +185,20 @@ class Circle extends BaseShape {
 
         const neighborLinks = this.canvas.stateCtrl.getNeighborLinks(this.shapeData);
 
-        this.canvas.renderer.renderLinks(neighborLinks)
+        this.canvas.renderer.reRenderLinks(neighborLinks)
 
         
 
       };
       
       onDragEnd = (event: PIXI.InteractionEvent) => {
-        event.stopPropagation();
+        
+        // const node = event.currentTarget;
+        event.stopPropagation()
+        
+            // Prevent context menu from showing
+        // node.addEventListener('contextmenu', event.stopPropagation());
+
         this.container.parent.off("pointermove", this.onDragMove);
       };
 

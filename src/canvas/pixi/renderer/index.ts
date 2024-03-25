@@ -22,29 +22,40 @@ class PIXIRenderer {
     tick(){
         
         // this.canvas.fitView()
-        this.canvas.stateCtrl.nodes.forEach((node: INode) => {
-            let { x, y } = node;
-            // TODO - FIXME - next 2 lines are re-used
-            this.canvas.stateCtrl.updateNodePosition(node.id, x, y)
-            node.shapeInstance?.updatePosition(x, y)
-            // shapeGfx?.position.set(x, y);
-        });
 
-        this.canvas.stateCtrl.links.forEach((link: ILink) => {
-            // let { source, target } = link;
-            // redraw the links 
-            link.shapeInstance?.redraw()
-        });
+        this.reRenderNodes(this.canvas.stateCtrl.getNodes());
+        // this.canvas.stateCtrl.links.forEach((link: ILink) => {
+        //     // let { source, target } = link;
+        //     // redraw the links 
+        //     link.shapeInstance?.redraw()
+        // });
+        this.reRenderLinks(this.canvas.stateCtrl.getLinks())
         this.renderScreenBorderIfRequired();
 
     }
 
 
-    renderLinks(links: ILink[]){
+    setNodePosition(){
+        
+    }
 
+    reRenderNodes(nodes: INode[]){
+        nodes.forEach((node: INode) => {
+            let { x, y } = node;
+            // TODO - FIXME - next 2 lines are re-used
+            this.canvas.stateCtrl.updateNodePosition(node.id, x, y)
+            node.shapeInstance?.updatePosition(x, y)
+        });
+        this.renderScreenBorderIfRequired()
+
+    }
+
+
+    reRenderLinks(links: ILink[]){
         links.forEach((link: ILink)=>{
             link.shapeInstance?.redraw()
         })
+        this.renderScreenBorderIfRequired()
     }
 
     renderScreenBorderIfRequired(){

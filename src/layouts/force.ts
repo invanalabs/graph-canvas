@@ -30,7 +30,7 @@ class ForceLayout {
                 // If not specified, will default to the index of a node.
                 .distance((link:ILink)=> 150)//.strength(-200)
             )
-            .force("charge", d3.forceManyBody().strength(-250)) // This adds repulsion (if it's negative) between nodes.
+            .force("charge", d3.forceManyBody().strength(-350)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
             // .force("center", d3.forceCenter())
             .force("collision", d3.forceCollide().radius((d: INode) => d.size + 15).iterations(2))
