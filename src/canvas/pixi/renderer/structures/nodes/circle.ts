@@ -109,7 +109,7 @@ class Circle extends BaseShape {
     onDragStart(event: PIXI.InteractionEvent) {
         console.log("===onDragStart", event)
         // disable the viewport’s panning while allowing sprite dragging.
-        this.canvas.camera.drag({ pressDrag: false });
+        // this.canvas.camera.drag({ pressDrag: false });
         // this.data = event.data;
         // this.dragging = true;
         const node = event.currentTarget as PIXI.Graphics;
@@ -137,24 +137,31 @@ class Circle extends BaseShape {
 
     // Event handler for dragging
     onDragMove(event: PIXI.InteractionEvent,) {
-        console.log("===onDragMove", event.client.x, event)
+        console.log("===onDragMove", event.client.x, event, event.parent, event.data)
 
+
+        // if (dragTarget)
+        // {
+            // this.parent.toLocal(event.global, null, dragTarget.position);
+        // }
 
         // this.canvas.stateCtrl.updateNodePosition(this.shapeData.id, event.client.x, event.client.y)
         // this.updatePosition( event.client.x, event.client.y)
 
+      //  reactivate viewport panning when drag event is completed.
+      this.canvas.camera.drag();
 
 
-        // if (this.dragging) {
-        // const newPosition = event.data.getLocalPosition(event.parent);
-        // console.log("===onDragMove newPosition",newPosition)
+        if (this.dragging) {
+        const newPosition = event.data.getLocalPosition(event.parent);
+        console.log("===onDragMove newPosition",newPosition)
 
-        // this.x = newPosition.x;
-        // this.y = newPosition.y;
+        this.x = newPosition.x;
+        this.y = newPosition.y;
 
         // Update the edge when dragging
         // updateEdge();
-        // }
+        }
     }
 
 

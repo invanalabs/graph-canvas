@@ -1,86 +1,74 @@
 // @ts-nocheck
-import * as PIXI from "pixi.js";
+// Create a Pixi Application
+import * as PIXI from 'pixi.js';
+import { Viewport } from 'pixi-viewport';
+    
 
+const draw = () => {
 
-
-const draw = ( ) => {
-    // Create a Pixi Application
-    const app = new PIXI.Application({ width: 800,  height: 600, backgroundColor: 0xFFFFFF });
+    // Create a PIXI.Application 
+    const app = new PIXI.Application({ width: 800, height: 600, antialias: true, backgroundColor: 0x555555 });
     document.body.appendChild(app.view);
+    
+    // Create a Viewport
+    const viewport = new Viewport({
+        screenWidth: 800,
+        screenHeight: 600,
+        worldWidth: 1000,
+        worldHeight: 1000,
+        events: app.renderer.events,
+    });
+    app.stage.addChild(viewport);
+    
+    // Function to create a draggable node
+    function createNode(x: number, y: number) {
+        const node = new PIXI.Graphics();
+        node.beginFill(0xff0000);
+        node.drawCircle(0, 0, 30);
+        node.endFill();
+        node.position.set(x, y);
+        node.interactive = true; // Enable mouse/touch events
+        node.buttonMode = true; // Show hand cursor on hover
+    
+        // Event listeners for dragging
+        node.on('pointerdown', onDragStart)
+            .on('pointerup', onDragEnd)
+            .on('pointerupoutside', onDragEnd)
+            .on('pointermove', onDragMove);
+    
+            // app.stage.addChild(node); // Add node to the viewport
 
-    // Create a graphics object
-    const graphics = new PIXI.Graphics();
-    app.stage.addChild(graphics);
-
-    // Draggable nodes
-    const node1 = new PIXI.Graphics();
-    node1.beginFill(0xFF0000);
-    node1.drawCircle(0, 0, 20);
-    node1.endFill();
-    node1.x = 50;
-    node1.y = 50;
-    node1.interactive = true;
-    // node1.buttonMode = true;
-
-    const node2 = new PIXI.Graphics();
-    node2.beginFill(0x00FF00);
-    node2.drawCircle(0, 0, 20);
-    node2.endFill();
-    node2.x = 150;
-    node2.y = 150;
-    node2.interactive = true;
-    // node2.buttonMode = true;
-
-    // Add nodes to the stage
-    app.stage.addChild(node1);
-    app.stage.addChild(node2);
-
-    // Make nodes draggable
-    // node1.draggable();
-    // node2.draggable();
-
-    // Draw arrow initially
-    drawArrow(node1.x, node1.y, node2.x, node2.y);
-
-    // Update arrow on drag
-    node1.on('dragmove', updateArrow);
-    node2.on('dragmove', updateArrow);
-
-    function updateArrow() {
-        drawArrow(node1.x, node1.y, node2.x, node2.y);
+            viewport.addChild(node); // Add node to the viewport
     }
-
-    // Function to draw arrow between two nodes
-    function drawArrow(startX: number, startY: number, endX: number, endY: number) {
-        // Clear previous graphics
-        graphics.clear();
-
-        // Set line style for the arrow
-        graphics.lineStyle(2, 0x000000);
-
-        // Move to starting point
-        graphics.moveTo(startX, startY);
-
-        // Draw a line to the ending point
-        graphics.lineTo(endX, endY);
-
-        // Calculate the angle of the arrow
-        const angle = Math.atan2(endY - startY, endX - startX);
-
-        // Calculate the position of the rounded end
-        const roundedEndX = endX - 15 * Math.cos(angle);
-        const roundedEndY = endY - 15 * Math.sin(angle);
-
-        // Draw a rounded end
-        graphics.arc(roundedEndX, roundedEndY, 15, 0, Math.PI * 2);
-
-        // Draw an arrowhead (triangle)
-        graphics.beginFill(0x000000);
-        graphics.moveTo(endX, endY);
-        graphics.lineTo(endX - 10 * Math.cos(angle - Math.PI / 6), endY - 10 * Math.sin(angle - Math.PI / 6));
-        graphics.lineTo(endX - 10 * Math.cos(angle + Math.PI / 6), endY - 10 * Math.sin(angle + Math.PI / 6));
-        graphics.endFill();
+    
+    // Function to handle drag start
+    function onDragStart(event: PIXI.InteractionEvent) {
+        const node = event.currentTarget as PIXI.Graphics;
+        node.data = event.data;
+        node.dragging = true;
     }
+    
+    // Function to handle drag end
+    function onDragEnd(event: PIXI.InteractionEvent) {
+        const node = event.currentTarget as PIXI.Graphics;
+        node.dragging = false;
+        node.data = null;
+    }
+    
+    // Function to handle drag move
+    function onDragMove(event: PIXI.InteractionEvent) {
+        const node = event.currentTarget as PIXI.Graphics;
+        if (node.dragging) {
+            const newPosition = node.data.getLocalPosition(node.parent);
+            node.x = newPosition.x;
+            node.y = newPosition.y;
+        }
+    }
+    
+    // Create draggable nodes
+    createNode(100, 100);
+    createNode(200, 200);
+    createNode(300, 300);
 }
 
 
