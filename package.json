@@ -17,7 +17,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006 -h 0.0.0.0",
-    "build-storybook": "storybook build && touch ./stoybook-static/.nojekyll"
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.17",
