@@ -1,5 +1,5 @@
-import Canvas from "../..";
-import { INode, ILink } from "../../../../graphCanvas/types";
+import Canvas from "../../canvas/pixi";
+import { INode, ILink } from "../../graphCanvas/types";
 // import { AbstractShape } from "./abstract";
 import * as PIXI from 'pixi.js';
 

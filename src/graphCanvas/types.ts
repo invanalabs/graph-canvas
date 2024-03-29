@@ -1,8 +1,8 @@
 // import { BaseShape } from "../structures/nodes/base";
 import { Container, Graphics } from "pixi.js";
 import { CanvasSetting } from "../canvas/pixi/types";
-import Circle from "../canvas/pixi/renderer/structures/nodes/circle";
-import LinkShape from "../canvas/pixi/renderer/structures/links";
+import Circle from "../renderer/structures/nodes/circle";
+import LinkShape from "../renderer/structures/links";
 
 
 

@@ -1,6 +1,6 @@
-import Canvas from "..";
-import { ILink, INode } from "../../../graphCanvas/types";
-import StateCtrl from "../../../state/model";
+import Canvas from "../canvas/pixi";
+import { ILink, INode } from "../graphCanvas/types";
+import StateCtrl from "../state/model";
 import LinkShape from "./structures/links";
 import Circle from "./structures/nodes/circle";
 

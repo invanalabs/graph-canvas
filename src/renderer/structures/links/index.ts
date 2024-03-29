@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 
-import { INode, ILink } from "../../../../../graphCanvas/types";
-import Canvas from '../../..';
+import { INode, ILink } from "../../../graphCanvas/types";
+import Canvas from '../../../canvas/pixi';
 import BaseShape from '../base';
 import { text } from 'stream/consumers';
 
