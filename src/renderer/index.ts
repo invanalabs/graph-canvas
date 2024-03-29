@@ -20,18 +20,10 @@ class PIXIRenderer {
     }
 
     tick(){
-        
         // this.canvas.fitView()
-
         this.reRenderNodes(this.canvas.stateCtrl.getNodes());
-        // this.canvas.stateCtrl.links.forEach((link: ILink) => {
-        //     // let { source, target } = link;
-        //     // redraw the links 
-        //     link.shapeInstance?.redraw()
-        // });
         this.reRenderLinks(this.canvas.stateCtrl.getLinks())
         this.renderScreenBorderIfRequired();
-
     }
 
 
