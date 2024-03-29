@@ -1,18 +1,17 @@
 import Canvas from "../canvas/pixi";
 import { ILink, INode } from "../graphCanvas/types";
-import StateCtrl from "../state/model";
 import LinkShape from "./structures/links";
 import Circle from "./structures/nodes/circle";
+import RendererArgs from "./types";
 
 
 
 class PIXIRenderer {
 
-
     canvas: Canvas;
 
-    constructor(canvas: Canvas) {
-        this.canvas = canvas;
+    constructor(args: RendererArgs) {
+        this.canvas = args.canvas;
     }
 
     rerender(){
@@ -26,7 +25,6 @@ class PIXIRenderer {
         this.renderScreenBorderIfRequired();
     }
 
-
     setNodePosition(){
         
     }
@@ -39,9 +37,7 @@ class PIXIRenderer {
             node.shapeInstance?.updatePosition(x, y)
         });
         this.renderScreenBorderIfRequired()
-
     }
-
 
     reRenderLinks(links: ILink[]){
         links.forEach((link: ILink)=>{
@@ -51,7 +47,6 @@ class PIXIRenderer {
     }
 
     renderScreenBorderIfRequired(){
-        
         if (this.canvas.debug_mode) {
             this.canvas.screenBorderDraw();
         }else{
@@ -59,23 +54,14 @@ class PIXIRenderer {
         }
     }
 
-
-
     render = () => {
         // clear canvas 
         // this.canvas.clear();
-
         // NOTE - 
-
         let _this = this;
-
         // add data to store 
-
         // clear canvas
-
         this.canvas.clear();
-
-
         // render links 
         const links = this.canvas.stateCtrl.getLinks();
         links.forEach((link: ILink) => {
@@ -85,7 +71,6 @@ class PIXIRenderer {
             }
             const gfx = link.shapeInstance.draw(link)
             _this.canvas.addShape(gfx)
-
         })
         
         // render nodes
@@ -99,13 +84,9 @@ class PIXIRenderer {
             _this.canvas.addShape(gfx);
         });
         // set canvas events
- 
         // draw any debug
         this.renderScreenBorderIfRequired();
     }
-
-
-
 
 }
 
