@@ -9,7 +9,7 @@ class Circle extends BaseShape {
   
     drawShape = () => {
         let shape = new PIXI.Graphics();
-        shape.circle(0, 0, this.size);
+        shape.circle(50, 50, this.size);
         shape.fill(this.color, 1);
         shape.stroke({ width: 2, color: 0xfeeb77 });
         shape.interactive = true; // Enable mouse/touch events

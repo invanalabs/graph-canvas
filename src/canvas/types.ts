@@ -15,7 +15,8 @@ export interface ScreenOptions {
 
 
 export interface CanvasOptions {
-    screen: ScreenOptions
+    viewDiv: HTMLCanvasElement | HTMLDivElement
+    // screen: ScreenOptions
     background?: string | number // use hex instead of number
     renderer?: RendererType // RendereTypes.keys()
     resolution?: number

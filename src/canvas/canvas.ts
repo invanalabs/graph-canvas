@@ -6,8 +6,7 @@ import BaseShape from "../shapes/base";
 
 export default class Canvas {
     /*
-
-        mapSize is the entire wor  
+        mapSize is the entire world  
     */
     
     readonly options : CanvasOptions
@@ -17,9 +16,9 @@ export default class Canvas {
     // canvasDiv: HTMLElement
 
     constructor(options:CanvasOptions = defaultCanvasOptions){
-        this.options = options
+        this.options = {...options, ...defaultCanvasOptions}
         console.log("Creating canvas with options: ", this.options); 
-        // this.canvasDiv = document.createElement('canvas');           
+        // this.canvasDiv = document.createElement('div').setAttribute("id", options.canvasId);           
         this.shapesIndex = new Map()
         let _this = this
 
@@ -27,21 +26,20 @@ export default class Canvas {
         this.pixiAppArgs = this.createPIXIAppArgs();
         this.pixiApp.init(this.pixiAppArgs).then(() => {
             console.log("this.pixiApp",  this.pixiApp, this.pixiApp.canvas, this.pixiAppArgs)
-            document.body.appendChild(_this.pixiApp.canvas);
+            this.options.viewDiv.appendChild(_this.pixiApp.canvas);
         })
-        // this.viewport
     }
 
     createPIXIAppArgs = () => {
+        const {width, height} = this.options.viewDiv.style
         return {
-            width: this.options.screen.width,
-            height: this.options.screen.height,
+            width: width,
+            height: height,
             antialias: true,
             autoResize: true,
             preference: this.options.renderer,
             // autoDensity: false,
-            // resizeTo: window,
-            // view: 
+            resizeTo: this.options.viewDiv,
             backgroundColor: this.options.background,
         }         
     }
@@ -60,5 +58,9 @@ export default class Canvas {
         this.shapesIndex.set(this.getGfxCount(), shape)
         this.pixiApp.stage.addChild(shape.gfxContainer)
     }
-    
+
+    clear(){
+        this.pixiApp.stage.removeChildren();
+    }
+
 }

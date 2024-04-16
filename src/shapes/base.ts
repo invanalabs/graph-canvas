@@ -10,6 +10,7 @@ import * as PIXI from 'pixi.js';
     // geometry: GeometryType
     // material: any
     gfxContainer: PIXI.Graphics; // shape and label saved in this container
+    // geometry: PIXI.
 
     constructor() {
         this.gfxContainer = new PIXI.Graphics()
@@ -39,8 +40,8 @@ import * as PIXI from 'pixi.js';
 
 }
 
-class LinkShape {
-    
+export class LinkShape extends BaseShape {
+
 } 
 
 export default BaseShape;
