@@ -17,8 +17,8 @@
 const canvasConfig = {
     data : {
         nodes: [
-            {id: 1, label: "Ravi", type: "Person", shape: "circle", "properties": {}},
-            {id: 2, label: "Graph Canvas", type: "Project", shape: "circle", "properties": {}}
+            {id: 1, label: "Ravi", group: "Person", shape: "circle", "properties": {first_name: "Ravi"}, position: (1, 3), size: 10},
+            {id: 2, label: "Graph Canvas", group: "Project", shape: "circle", "properties": {"name": "Graph Canvas"}, position: (10, 15), size: 15}
         ],
         links: [
             {id: 3, label: "authored", type: "authored_projects", shape: "straight", "properties": {} }
@@ -26,7 +26,12 @@ const canvasConfig = {
     },
     display: {
         nodes: {
-            _default: {borderColor: }
+            _default: {
+                border:{width: 2, color: "#fff" }, 
+                background: { color: "#222", imageUrl: "https://placehold.jp/150x150.png", opacity: 1},
+                size: 2, // how to generate dynamic node sizes based on adj matrix.
+
+            }
         }
     }
 }
