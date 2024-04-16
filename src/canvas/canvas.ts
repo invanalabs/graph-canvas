@@ -15,7 +15,7 @@ export default class Canvas {
     shapesIndex : Map<StringOrNumber, BaseShape>
     // canvasDiv: HTMLElement
 
-    constructor(options:CanvasOptions = defaultCanvasOptions){
+    constructor(options : CanvasOptions = defaultCanvasOptions){
         this.options = {...options, ...defaultCanvasOptions}
         console.log("Creating canvas with options: ", this.options); 
         // this.canvasDiv = document.createElement('div').setAttribute("id", options.canvasId);           
@@ -25,7 +25,6 @@ export default class Canvas {
         this.pixiApp =  new PIXI.Application();
         this.pixiAppArgs = this.createPIXIAppArgs();
         this.pixiApp.init(this.pixiAppArgs).then(() => {
-            console.log("this.pixiApp",  this.pixiApp, this.pixiApp.canvas, this.pixiAppArgs)
             this.options.viewDiv.appendChild(_this.pixiApp.canvas);
         })
     }
@@ -39,6 +38,7 @@ export default class Canvas {
             autoResize: true,
             preference: this.options.renderer,
             // autoDensity: false,
+            // resolution: this.options.resolution,
             resizeTo: this.options.viewDiv,
             backgroundColor: this.options.background,
         }         

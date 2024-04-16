@@ -9,7 +9,7 @@ export const defaultScreenOptions: ScreenOptions = {
 
 export const defaultCanvasOptions: CanvasOptions = {
     // viewDiv:
-    background: "#efefef",
+    background: "#222222",
     //@ts-ignore
     renderer: RendererTypes.WebGL,
     screen: defaultScreenOptions,

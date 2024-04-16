@@ -4,14 +4,14 @@ import BaseShape from '../base';
 
 class Circle extends BaseShape {
 
-    color: string =  '#650a5a';
-    size: number = 10
+    color: string =  '#ff00ff';
+    size: number = 20
   
     drawShape = () => {
         let shape = new PIXI.Graphics();
         shape.circle(50, 50, this.size);
         shape.fill(this.color, 1);
-        shape.stroke({ width: 2, color: 0xfeeb77 });
+        // shape.stroke({ width: 2, color: 0xfeeb77 });
         shape.interactive = true; // Enable mouse/touch events
         // shape.buttonMode = true; // Show hand cursor on hover
 

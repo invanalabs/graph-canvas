@@ -20,5 +20,4 @@ export interface CanvasOptions {
     background?: string | number // use hex instead of number
     renderer?: RendererType // RendereTypes.keys()
     resolution?: number
-    resize?: HTMLElement
 }
