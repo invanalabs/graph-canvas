@@ -6,8 +6,8 @@ import { exampleLinks, exampleNodes } from "../data";
 export const createCanvas = () => {
 
     const html = document.createElement("div");
-    html.style.height = "500px";
-    html.style.width = "800px";
+    html.style.height = "100vh";
+    html.style.width = "100vw";
     // html.style.background = "red";
 
     const canvas = new GraphCanvas({viewDiv: html});
