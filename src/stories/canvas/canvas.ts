@@ -12,14 +12,10 @@ export const createCanvas = () => {
 
     const canvas = new Canvas({viewDiv: html});
 
-    document.addEventListener("DOMContentLoaded", function (event) {
-        /* The stuff I needed to initialise */
-        console.log("DOM is ready", event)
-        canvas.clear()
-        const circleShape1 = new Circle()
-        circleShape1.draw()
-        canvas.addGfx2Canvas(circleShape1)        
-    });
+    canvas.clear()
+    const circleShape1 = new Circle()
+    circleShape1.draw()
+    canvas.addGfx2Canvas(circleShape1)        
 
     return html
 }

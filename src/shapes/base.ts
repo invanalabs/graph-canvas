@@ -40,7 +40,11 @@ import * as PIXI from 'pixi.js';
 
 }
 
-export class LinkShape extends BaseShape {
+export class NodeShapeBase extends BaseShape {
+
+} 
+
+export class LinkShapeBase extends BaseShape {
 
 } 
 
