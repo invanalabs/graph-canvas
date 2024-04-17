@@ -158,28 +158,12 @@ export class NodeShapeBase extends BaseShape {
         this.gfxContainer.removeAllListeners();
 
         // listeners for hover effect
-        // this.gfxContainer.on("pointerover", () => this.pointerOver());
-        // this.gfxContainer.on("pointerout", () => this.pointerOut());
-
         this.gfxContainer
+            .on("pointerover", this.pointerOver.bind(this))
+            .on("pointerout", this.pointerOut.bind(this))
             .on('pointerdown', this.onDragStart.bind(this))
             .on('pointerup', this.onDragEnd.bind(this))
             .on('pointerupoutside', this.onDragEnd.bind(this))
-            // .on('pointermove', this.onDragMove.bind(this));
-
-
-        // listeners for dragging
-        // on click
-        // this.gfxContainer.on('pointerdown', this.onDragStart.bind(this));
-        // this.gfxContainer.on('mousedown', this.onDragStart.bind(this));
-        // // on release 
-        // // this.gfxContainer.on('mouseup', this.graphCanvas.onDragEnd.bind(this));
-        // this.gfxContainer.on('pointerup', this.graphCanvas.onDragEnd.bind(this));
-        // this.gfxContainer.on('pointerupoutside', this.graphCanvas.onDragEnd.bind(this));
-        // this.gfxContainer.on('pointerout', this.graphCanvas.onDragEnd.bind(this));
-
-
-        // this.gfxContainer.on('pointerup', stopDrag);
     }
 } 
 
