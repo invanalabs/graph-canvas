@@ -7,7 +7,7 @@ import { CanvasLink, CanvasNode } from './types';
     /*
         this is the base shape for the Shape and the LabelShape
     */
-    
+    data: any
     gfxContainer: PIXI.Graphics; // shape and label saved in this container
     constructor(data: CanvasNode| CanvasLink) {
         this.gfxContainer = new PIXI.Graphics()
@@ -15,7 +15,37 @@ import { CanvasLink, CanvasNode } from './types';
 
     setupInteractions = () => console.error("BaseShape.setupInteractions not implemented")
     
-    draw = () => console.error("BaseShape.draw not implemented")
+    drawLabel = (): PIXI.Graphics|void =>  {console.error("BaseShape.drawLabel not implemented")}
+    drawShape = (): PIXI.Graphics =>  {
+        console.error("BaseShape.drawShape not implemented")
+        return new PIXI.Graphics()
+    }
+    
+    // draw = () => console.error("BaseShape.draw not implemented")
+    draw = () => {
+        // clear shape first
+        this.clear();
+
+        // draw shape
+        let shapeGfx = this.drawShape();
+        this.gfxContainer.addChild(shapeGfx);
+
+        // draw label
+        let labelGfx = this.drawLabel();
+        if (labelGfx){
+            this.gfxContainer.addChild(labelGfx);
+        }
+
+        // setup intractions
+        this.setupInteractions()
+
+        // update the position
+        if (this.data.x && this.data.y) {
+            this.updatePosition(this.data.x, this.data.y)
+        }
+    }
+    
+
 
     redraw = () => {
         this.clear();
@@ -35,6 +65,8 @@ import { CanvasLink, CanvasNode } from './types';
         this.gfxContainer.position.set(x, y);
     }
 }
+
+
 
 export class NodeShapeBase extends BaseShape {
     data : CanvasNode
