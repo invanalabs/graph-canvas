@@ -97,74 +97,59 @@ export class BaseShape extends Shape {
     }
 
     updatePosition = (x: number, y:number) => {
+        console.log("updatePosition", x, y)
         this.gfxContainer.position.set(x, y);
     }
 }
 
+
 export class NodeShapeBase extends BaseShape {
     data : CanvasNode
     //@ts-ignore
-    dragPoint : PIXI.Point ;
+    dragPoint : PIXI.Point
 
     constructor(data: CanvasNode){
         super(data)
         this.data = { ...{x:0, y:0}, ...data}
     }
 
-
-    pointerOver() { // shapeGfx: PIXI.Graphics
-        // showTooltip(node);
+    pointerOver() { 
         console.log("==pointerOver", )
         this.gfxContainer.tint = 0x666666;
-        // this.gfxContainer.getChildAt[0].tint = 0x666666;
-
-        // renderer.render(stage);
     }
 
-    pointerOut() {// shapeGfx: PIXI.Graphics
-        // hideTooltip();
+    pointerOut() {
         console.log("==pointerOut", )
         this.gfxContainer.tint = 0xFFFFFF;
-        // renderer.render(stage);
     }
 
-
     onDragStart = (event: PIXI.FederatedPointerEvent) => {
+        console.log("onDragStart triggered", event.data.getLocalPosition(this.gfxContainer.parent))
         event.stopPropagation();
         this.dragPoint = event.data.getLocalPosition(this.gfxContainer.parent);
+        console.log("onDragStart", this.dragPoint)
         this.dragPoint.x -= this.gfxContainer.x;
         this.dragPoint.y -= this.gfxContainer.y;
         this.gfxContainer.parent.on("pointermove", this.onDragMove);
       };
       
     onDragMove = (event: PIXI.FederatedPointerEvent) => {
+        console.log("onDragMove triggered" ,event.data.getLocalPosition(this.gfxContainer.parent))
         const newPoint = event.data.getLocalPosition(this.gfxContainer.parent);
-        if (this.dragPoint?.x && this.dragPoint?.y){
-            const x = newPoint.x - this.dragPoint.x;
-            const y = newPoint.y - this.dragPoint.y;   
-                    // TODO - FIXME - next 2 lines are re-used
-            // this.canvas.stateCtrl.updateNodePosition(this.shapeData.id, x, y)
-            this.updatePosition(x, y) 
-        }
+        console.log("onDragMove", newPoint, this.dragPoint)
+        const x = newPoint.x //- this.dragPoint.x;
+        const y = newPoint.y //- this.dragPoint.y;   
+        // TODO - FIXME - next 2 lines are re-used
+        this.updatePosition(x, y) 
 
-
-
-        // const neighborLinks = this.canvas.stateCtrl.getNeighborLinks(this.shapeData);
-
-        // this.canvas.renderer.reRenderLinks(neighborLinks)
-
+        // update node positions data 
+        // update links - rerender them
       };
       
       onDragEnd = (event: PIXI.FederatedPointerEvent) => {
-        
-        // const node = event.currentTarget;
+        console.log("onDragEnd triggered")
         event.stopPropagation()
-
-            // Prevent context menu from showing
-        // node.addEventListener('contextmenu', event.stopPropagation());
-
-        this.gfxContainer.parent.off("pointermove");
-
+        this.gfxContainer.parent.off("pointermove", this.onDragMove);
       };
     
     setupInteractions() {
@@ -178,9 +163,9 @@ export class NodeShapeBase extends BaseShape {
 
         this.gfxContainer
             .on('pointerdown', this.onDragStart.bind(this))
-            .on('pointerup', this.onDragEnd.bind(this))
-            .on('pointerupoutside', this.onDragEnd.bind(this))
-            .on('pointermove', this.onDragMove.bind(this));
+            // .on('pointerup', this.onDragEnd.bind(this))
+            // .on('pointerupoutside', this.onDragEnd.bind(this))
+            // .on('pointermove', this.onDragMove.bind(this));
 
 
         // listeners for dragging

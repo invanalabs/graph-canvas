@@ -15,7 +15,7 @@ export const createCanvas = () => {
     canvas.clear()
     const circleShape1 = new Circle()
     circleShape1.draw()
-    canvas.addGfx2Canvas(circleShape1)        
+    canvas.addGfx(circleShape1)        
 
     return html
 }

@@ -3,7 +3,6 @@ import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import GraphCanvas from "./canvas";
 
 
-
 export default class GraphData {
     
     nodes: WeakMap<IdString, CanvasNode>
@@ -21,13 +20,13 @@ export default class GraphData {
         nodes.forEach(node=> {
             const circleShape1 = new Circle(node)
             circleShape1.draw()
-            _this.canvas.addGfx2Canvas(circleShape1) 
+            _this.canvas.addGfx(circleShape1) 
         })
 
         links.forEach(link=>{
             // const circleShape1 = new Circle(node)
             // circleShape1.draw()
-            // canvas.addGfx2Canvas(circleShape1) 
+            // canvas.addGfx(circleShape1) 
         })
     }
 

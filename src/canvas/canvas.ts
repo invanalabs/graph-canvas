@@ -1,8 +1,8 @@
-import type { CanvasOptions, ScreenOptions, StringOrNumber} from "./types";
+import type { CanvasOptions} from "./types";
 import { defaultCanvasOptions } from "./defaults";
 import * as PIXI from "pixi.js";
 import GraphData from "./data";
-import { BaseShape, LinkShapeBase, NodeShapeBase } from "../graphics/base";
+import { LinkShapeBase, NodeShapeBase } from "../graphics/base";
 
 export default class GraphCanvas {
     /*
@@ -10,7 +10,6 @@ export default class GraphCanvas {
     */
     readonly options : CanvasOptions
     pixiApp: PIXI.Application
-    pixiAppArgs: any
     graph: GraphData
     
     constructor(options : CanvasOptions = defaultCanvasOptions){
@@ -18,19 +17,15 @@ export default class GraphCanvas {
         console.log("Creating canvas with options: ", this.options); 
         // this.canvasDiv = document.createElement('div').setAttribute("id", options.canvasId);           
         this.graph = new GraphData(this);
-        let _this = this;
-        this.pixiApp =  new PIXI.Application();
-        this.pixiAppArgs = this.createPIXIAppArgs();
-        this.pixiApp.init(this.pixiAppArgs).then(() => {
-            this.options.viewDiv.appendChild(_this.pixiApp.canvas);
-        })
+        this.pixiApp =  this.createPIXIApp()
     }
 
-    createPIXIAppArgs = () => {
-        const {width, height} = this.options.viewDiv.style
-        return {
-            width: width,
-            height: height,
+    createPIXIApp = () => {
+        // const {width, height} = this.options.viewDiv.style;
+        const pixiApp =  new PIXI.Application();
+        const pixiAppArgs = {
+            // width: width,
+            // height: height,
             antialias: true,
             autoResize: true,
             preference: this.options.renderer,
@@ -38,23 +33,27 @@ export default class GraphCanvas {
             // resolution: this.options.resolution,
             resizeTo: this.options.viewDiv,
             backgroundColor: this.options.background,
-        }         
+        } 
+        pixiApp.init(pixiAppArgs).then(() => {
+            this.options.viewDiv.appendChild(pixiApp.canvas);
+            pixiApp.stage.eventMode = 'static';
+            pixiApp.stage.hitArea = pixiApp.screen;
+        })
+   
+
+        return pixiApp
     }
 
-    // getGfxCount = () => {
-    //     return this.graph.size
-    // }
+    addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{
+        this.pixiApp.stage.addChild(shape.gfxContainer) // TODO: try setChildIndex
+    }
 
-
-
-    addGfx2Canvas = (shape: NodeShapeBase| LinkShapeBase) =>{
-        // TODO - track the 
-        // this.shapesIndex.set(this.getGfxCount(), shape)
-        this.pixiApp.stage.addChild(shape.gfxContainer)
+    removeGfx = (shape: NodeShapeBase | LinkShapeBase)=> {
+        this.pixiApp.stage.removeChild(shape.gfxContainer)
     }
 
     clear(){
         this.pixiApp.stage.removeChildren();
     }
-
+    
 }
