@@ -1,30 +1,16 @@
 import GraphCanvas from "../../../canvas/canvas";
-import Circle from "../../../graphics/nodes/circle";
 import { exampleLinks, exampleNodes } from "../data";
 
 
 export const createCanvas = () => {
 
     const html = document.createElement("div");
-    html.style.height = "100vh";
-    html.style.width = "100vw";
+    html.style.height = "calc(100vh - 100px)";
+    html.style.width = "calc(100vw - 100px)";
     // html.style.background = "red";
 
     const canvas = new GraphCanvas({viewDiv: html});
-    canvas.clear()
-    
-    exampleNodes.forEach(node=> {
-        const circleShape1 = new Circle(node)
-        circleShape1.draw()
-        canvas.addGfx2Canvas(circleShape1) 
-    })
-
-    exampleLinks.forEach(link=>{
-        // const circleShape1 = new Circle(node)
-        // circleShape1.draw()
-        // canvas.addGfx2Canvas(circleShape1) 
-    })
-       
-
+    canvas.graph.add(exampleNodes, exampleLinks)
+    // canvas.clear()
     return html
 }

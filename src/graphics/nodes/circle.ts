@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js';
 import { NodeShapeBase } from '../base';
-import { CanvasNode } from '../types';
 
 
 class Circle extends NodeShapeBase {
@@ -60,7 +59,7 @@ class Circle extends NodeShapeBase {
 
         // make it a bit bigger, so it's easier to grab
         // shape.scale.set(3);
-        shape.hitArea = new PIXI.Circle(0, 0, this.size);
+        // shape.hitArea = new PIXI.Circle(0, 0, this.size);
         // shape.endFill();
         return shape
     }
