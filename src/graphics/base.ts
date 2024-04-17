@@ -163,8 +163,8 @@ export class NodeShapeBase extends BaseShape {
 
         this.gfxContainer
             .on('pointerdown', this.onDragStart.bind(this))
-            // .on('pointerup', this.onDragEnd.bind(this))
-            // .on('pointerupoutside', this.onDragEnd.bind(this))
+            .on('pointerup', this.onDragEnd.bind(this))
+            .on('pointerupoutside', this.onDragEnd.bind(this))
             // .on('pointermove', this.onDragMove.bind(this));
 
 
