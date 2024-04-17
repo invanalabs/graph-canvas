@@ -9,7 +9,7 @@
 - [ ] redraw 
 
 ## Events/Interactions.
-- [ ] Canvas - 
+- [ ] GraphCanvas - 
     - [ ] contextMenu
     - [ ] zoomIn
     - [ ] zoomOut

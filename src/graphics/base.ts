@@ -1,5 +1,6 @@
 
 import * as PIXI from 'pixi.js';
+import { CanvasLink, CanvasNode } from './types';
 
 
  class BaseShape {
@@ -7,12 +8,8 @@ import * as PIXI from 'pixi.js';
         this is the base shape for the Shape and the LabelShape
     */
     
-    // geometry: GeometryType
-    // material: any
     gfxContainer: PIXI.Graphics; // shape and label saved in this container
-    // geometry: PIXI.
-
-    constructor() {
+    constructor(data: CanvasNode| CanvasLink) {
         this.gfxContainer = new PIXI.Graphics()
     }
 
@@ -37,15 +34,24 @@ import * as PIXI from 'pixi.js';
     updatePosition = (x: number, y:number) => {
         this.gfxContainer.position.set(x, y);
     }
-
 }
 
 export class NodeShapeBase extends BaseShape {
+    data : CanvasNode
 
+    constructor(data: CanvasNode){
+        super(data)
+        this.data = { ...{x:0, y:0}, ...data}
+    }
 } 
 
 export class LinkShapeBase extends BaseShape {
+    data : CanvasLink
 
+    constructor(data: CanvasLink){
+        super(data)
+        this.data = data
+    }
 } 
 
 export default BaseShape;

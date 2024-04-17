@@ -1,5 +1,5 @@
-import Canvas from "../../canvas/canvas";
-import Circle from "../../shapes/nodes/circle";
+import GraphCanvas from "../../../canvas/canvas";
+import Circle from "../../../graphics/nodes/circle";
 
 
 
@@ -10,7 +10,7 @@ export const createCanvas = () => {
     html.style.width = "800px";
     // html.style.background = "red";
 
-    const canvas = new Canvas({viewDiv: html});
+    const canvas = new GraphCanvas({viewDiv: html});
 
     canvas.clear()
     const circleShape1 = new Circle()

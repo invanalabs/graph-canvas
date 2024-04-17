@@ -1,10 +1,10 @@
 import type { CanvasOptions, ScreenOptions, StringOrNumber} from "./types";
 import { defaultCanvasOptions } from "./defaults";
 import * as PIXI from "pixi.js";
-import BaseShape from "../shapes/base";
+import BaseShape from "../graphics/base";
 
 
-export default class Canvas {
+export default class GraphCanvas {
     /*
         mapSize is the entire world  
     */

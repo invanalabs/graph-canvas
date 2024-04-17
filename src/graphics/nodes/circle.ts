@@ -1,15 +1,15 @@
 import * as PIXI from 'pixi.js';
-import BaseShape from '../base';
+import { NodeShapeBase } from '../base';
 
 
-class Circle extends BaseShape {
+class Circle extends NodeShapeBase {
 
     color: string =  '#ff00ff';
     size: number = 20
   
     drawShape = () => {
         let shape = new PIXI.Graphics();
-        shape.circle(50, 50, this.size);
+        shape.circle(this.data.x || 0, this.data.y || 0, this.size);
         shape.fill(this.color, 1);
         // shape.stroke({ width: 2, color: 0xfeeb77 });
         shape.interactive = true; // Enable mouse/touch events

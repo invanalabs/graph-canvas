@@ -4,7 +4,7 @@ import { createCanvas } from './canvas';
 
 
 const meta = {
-  title: 'Shapes/Canvas',
+  title: 'GraphCanvas/advanced usage',
   render: () => createCanvas() ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
