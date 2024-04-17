@@ -1,3 +1,4 @@
+import Line from "../graphics/links/line";
 import Circle from "../graphics/nodes/circle";
 import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import GraphCanvas from "./canvas";
@@ -5,28 +6,55 @@ import GraphCanvas from "./canvas";
 
 export default class GraphData {
     
-    nodes: WeakMap<IdString, CanvasNode>
-    links: WeakMap<IdString, CanvasLink>
+    nodes: Map<IdString, CanvasNode>
+    links: Map<IdString, CanvasLink>
     canvas: GraphCanvas
 
     constructor(canvas: GraphCanvas) {
         this.canvas =canvas
-        this.nodes = new WeakMap()
-        this.links = new WeakMap()
+        this.nodes = new Map()
+        this.links = new Map()
     }
 
     add(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
         const _this = this; 
+
+    
+
         nodes.forEach(node=> {
-            const circleShape1 = new Circle(node)
-            circleShape1.draw()
-            _this.canvas.addGfx(circleShape1) 
+      
+            _this.nodes.set(node.id, node)
+
+
+            const nodeShape = new Circle(node)
+            nodeShape.draw()
+            _this.canvas.addGfx(nodeShape) 
         })
 
+        console.log("adding links", this.nodes, this.links)
         links.forEach(link=>{
-            // const circleShape1 = new Circle(node)
-            // circleShape1.draw()
-            // canvas.addGfx(circleShape1) 
+            if (typeof link.source !== 'object'){
+                const sourceNode = this.nodes.get(link.source) 
+                if (sourceNode){
+                    link.source = sourceNode
+                }else{
+                    throw Error(`${link.source} not found in nodes: ${this.nodes} `)
+                }
+            }
+            if (typeof link.target !== 'object'){
+                const targetNode = this.nodes.get(link.target);
+                if (targetNode){
+                    link.target = targetNode
+                }else{
+                    throw Error(`${link.target} not found in node: ${this.nodes} `)
+                }
+            }
+            _this.links.set(link.id, link)
+
+
+            const linkShape = new Line(link)
+            linkShape.draw()
+            _this.canvas.addGfx(linkShape) 
         })
     }
 

@@ -171,49 +171,27 @@ export class LinkShapeBase extends BaseShape {
         this.data = data
     }
 
-    drawShape() {
-        let shape = new PIXI.Graphics();
-
-        // line color and thickness
-        shape.lineStyle(this.thickness, 0xFFFFFF);
-
-        // console.log("link drawShape", this.shapeData, this.data.source, this.data.target)
-
-        const startX = this.data.source?.x;
-        const startY = this.data.source?.y;
-        const endX = this.data.target?.x;
-        const endY = this.data.target?.y;
-
-
-        // Draw the line
-        shape.moveTo(startX, startY);
-        shape.lineTo(endX, endY);
-
-
-        // // Calculate arrowhead points
-        const angle = Math.atan2(endY - startY, endX - startX);
-        // const arrowWidth = 10; // width of the arrowhead
-        const arrowLength = 10; // length of the arrowhead
-
-        const x1 = endX - arrowLength * Math.cos(angle - Math.PI / 6);
-        const y1 = endY - arrowLength * Math.sin(angle - Math.PI / 6);
-        const x2 = endX - arrowLength * Math.cos(angle + Math.PI / 6);
-        const y2 = endY - arrowLength * Math.sin(angle + Math.PI / 6);
-
-        // Draw the arrowhead
-        shape.moveTo(endX, endY);
-        shape.lineTo(x1, y1);
-        shape.moveTo(endX, endY);
-        shape.lineTo(x2, y2);
-
-
-        return shape
+    pointerOver() {
+        console.log("==pointerOver",)
+        this.gfxContainer.tint = 0x666666;
     }
 
-
-
+    pointerOut() {
+        console.log("==pointerOut",)
+        this.gfxContainer.tint = 0xFFFFFF;
+    }
+    
     setupInteractions() {
+        console.log("===setupInteractions triggered")
+        // Remove all listeners
+        this.gfxContainer.removeAllListeners();
+
+        // listeners for hover effect
+        this.gfxContainer
+            .on("pointerover", this.pointerOver.bind(this))
+            .on("pointerout", this.pointerOut.bind(this))
     }
+ 
 }
 
 export default BaseShape;
