@@ -39,8 +39,6 @@ export default class GraphCanvas {
             pixiApp.stage.eventMode = 'static';
             pixiApp.stage.hitArea = pixiApp.screen;
         })
-   
-
         return pixiApp
     }
 
