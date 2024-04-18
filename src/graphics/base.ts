@@ -19,7 +19,7 @@ abstract class Shape {
 
     abstract clear(): void;
     // abstract destroy(): void;
-    abstract updatePosition(x: number, y: number, updateNodeInfo: boolean): void;
+    abstract setGfxPosition(x: number, y: number): void;
 }
 
 
@@ -55,8 +55,6 @@ export class BaseShape extends Shape {
         return new PIXI.Graphics()
     }
 
-    // setupInteractions = () => console.error("BaseShape.setupInteractions not implemented")
-    // draw = () => console.error("BaseShape.draw not implemented")
     draw = () => {
         // clear shape first
         this.clear();
@@ -80,7 +78,7 @@ export class BaseShape extends Shape {
         //@ts-ignore
         if (this.data?.x && this.data?.y) {
             //@ts-ignore
-            this.updatePosition(this.data.x, this.data.y, updateNodeInfo=false)
+            this.setGfxPosition(this.data.x, this.data.y)
         }
     }
 
@@ -95,16 +93,10 @@ export class BaseShape extends Shape {
         this.gfxContainer.removeChildren();
     }
 
-    updatePosition = (x: number, y: number, updateNodeInfo=false) => {
-        console.log("updatePosition", x, y)
-        // this.data.x = x;
-        // this.data.y = y
-        // this.canvas.renderer.rePositionNodes([this.data])
+    setGfxPosition = (x: number, y: number) => {
         this.gfxContainer.position.set(x, y);
-        if (updateNodeInfo === true){
-            this.canvas.graph.updateNodePosition(this.data.id, x, y)
-        }
     }
+    
 }
 
 
@@ -144,15 +136,11 @@ export class NodeShapeBase extends BaseShape {
         console.log("onDragMove", newPoint, this.dragPoint)
         const x = newPoint.x //- this.dragPoint.x;
         const y = newPoint.y //- this.dragPoint.y;   
-        // TODO - FIXME - next 2 lines are re-used
-        this.updatePosition(x, y, updateNodeInfo=true)
-
+        this.canvas.graph.updateNodePosition(this.data.id, x, y)
         // update node positions data 
         const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
         console.log("neighborLinks", neighborLinks)
         this.canvas.renderer.reRenderLinks(neighborLinks)
-
-        // update links - rerender them
     };
 
     onDragEnd = (event: PIXI.FederatedPointerEvent) => {

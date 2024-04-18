@@ -65,7 +65,7 @@ export default class GraphData {
         if (node){
             node.x = x;
             node.y = y;
-            node.gfxInstance?.gfxContainer.position.set(x, y);    
+            node.gfxInstance?.setGfxPosition(x, y);    
             // node.gfxInstance?.updatePosition(x, y)    
             this.nodes.set(nodeId, node)            
         }
