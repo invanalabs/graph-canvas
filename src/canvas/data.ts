@@ -1,5 +1,3 @@
-import Line from "../graphics/links/line";
-import Circle from "../graphics/nodes/circle";
 import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import GraphCanvas from "./canvas";
 
@@ -19,7 +17,7 @@ export default class GraphData {
     add(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
         const _this = this; 
         console.log("adding nodes and links", this.nodes, this.links)
-
+        
         nodes.forEach(node=> {
             if (_this.nodes.get(node.id)){
                 throw new Error(`${node.id} already found in the nodes`)
@@ -30,6 +28,7 @@ export default class GraphData {
         links.forEach(link=>{
             if (typeof link.source !== 'object'){
                 const sourceNode = this.nodes.get(link.source) 
+                console.log("====sourceNode", sourceNode)
                 if (sourceNode){
                     link.source = sourceNode
                 }else{
@@ -38,6 +37,7 @@ export default class GraphData {
             }
             if (typeof link.target !== 'object'){
                 const targetNode = this.nodes.get(link.target);
+                console.log("====targetNode", targetNode)
                 if (targetNode){
                     link.target = targetNode
                 }else{
@@ -47,7 +47,9 @@ export default class GraphData {
             _this.links.set(link.id, link)
         })
 
-        this.canvas.renderer.render(nodes, links)
+        const newNodes = this.getNodesByIds(nodes.map(node => node.id))
+        const newLinks = this.getLinksByIds(links.map(link => link.id))
+        this.canvas.renderer.render(newNodes, newLinks)
     }
 
 
@@ -69,7 +71,6 @@ export default class GraphData {
             // node.gfxInstance?.updatePosition(x, y)    
             this.nodes.set(nodeId, node)            
         }
-
     }
 
     getNodesByIds(nodeIds: IdString[]) {
