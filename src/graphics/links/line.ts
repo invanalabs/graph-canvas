@@ -4,11 +4,9 @@ import { LinkShapeBase } from '../base';
 
 class Line extends LinkShapeBase {
 
-    color: string =  '#ff00ff';
+    color: string =  '#ff0000';
     thickness: number = 2
 
-
-  
     drawShape = () => {
         console.log("Line.drawShape triggered", this.data)
         let shape = new PIXI.Graphics();

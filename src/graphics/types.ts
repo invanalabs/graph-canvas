@@ -36,6 +36,6 @@ export interface CanvasLink extends CanvasItemBase {
     shape: LinkShapeTypes
     source: IdString  | CanvasNode
     target:  IdString | CanvasNode
-    shapeInstance?: LinkShapeBase
+    gfxInstance?: LinkShapeBase
     // points?: Array<number> // for complext links with more turning points
 }

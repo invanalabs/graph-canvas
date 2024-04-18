@@ -3,6 +3,7 @@ import { defaultCanvasOptions } from "./defaults";
 import * as PIXI from "pixi.js";
 import GraphData from "./data";
 import { LinkShapeBase, NodeShapeBase } from "../graphics/base";
+import Renderer from "./renderer";
 
 export default class GraphCanvas {
     /*
@@ -11,11 +12,12 @@ export default class GraphCanvas {
     readonly options : CanvasOptions
     pixiApp: PIXI.Application
     graph: GraphData
+    renderer: Renderer
     
     constructor(options : CanvasOptions = defaultCanvasOptions){
         this.options = {...options, ...defaultCanvasOptions}
-        console.log("Creating canvas with options: ", this.options); 
-        // this.canvasDiv = document.createElement('div').setAttribute("id", options.canvasId);           
+        console.log(`Creating canvas with options: ${this.options}`); 
+        this.renderer = new Renderer(this);
         this.graph = new GraphData(this);
         this.pixiApp =  this.createPIXIApp()
     }

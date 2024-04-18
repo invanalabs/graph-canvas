@@ -40,8 +40,6 @@
     "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
-    "@types/redux": "^3.6.0",
-    "graphology": "^0.25.4",
     "pixi.js": "^8.0.5"
   }
 }

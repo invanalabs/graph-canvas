@@ -11,27 +11,22 @@ export default class GraphData {
     canvas: GraphCanvas
 
     constructor(canvas: GraphCanvas) {
-        this.canvas =canvas
+        this.canvas = canvas
         this.nodes = new Map()
         this.links = new Map()
     }
 
     add(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
         const _this = this; 
-
-    
+        console.log("adding nodes and links", this.nodes, this.links)
 
         nodes.forEach(node=> {
-      
+            if (_this.nodes.get(node.id)){
+                throw new Error(`${node.id} already found in the nodes`)
+            }
             _this.nodes.set(node.id, node)
-
-
-            const nodeShape = new Circle(node)
-            nodeShape.draw()
-            _this.canvas.addGfx(nodeShape) 
         })
 
-        console.log("adding links", this.nodes, this.links)
         links.forEach(link=>{
             if (typeof link.source !== 'object'){
                 const sourceNode = this.nodes.get(link.source) 
@@ -50,12 +45,20 @@ export default class GraphData {
                 }
             }
             _this.links.set(link.id, link)
-
-
-            const linkShape = new Line(link)
-            linkShape.draw()
-            _this.canvas.addGfx(linkShape) 
         })
+
+        this.canvas.renderer.render(nodes, links)
+    }
+
+    updateNodePosition(nodeId: IdString, x: number, y: number){
+        // console.log("Updating position of node ", node.id, this.nodes)     
+        let node: CanvasNode | undefined = this.nodes.get(nodeId);
+        if (node){
+            node.x = x;
+            node.y = y;
+            // node.gfxInstance?.gfxContainer.position.set(x, y);    
+            this.nodes.set(nodeId, node)
+        }
     }
 
     update(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
@@ -64,6 +67,27 @@ export default class GraphData {
 
     delete(nodes: Array<IdString>, links: Array<IdString>) {
 
+    }
+
+    getNodesByIds(nodeIds: IdString[]) {
+        return this.getNodes().filter(node => nodeIds.includes(node.id));
+    }
+
+    getLinksByIds(linkIds: IdString[]) {
+        return this.getLinks().filter(link => linkIds.includes(link.id));
+
+    }
+    
+    getNodes(): CanvasNode[]{
+        return Array.from(this.nodes.values())
+    }
+
+    getLinks(): CanvasLink[]{
+        return Array.from(this.links.values())
+    }
+
+    getNeighborLinks(node:CanvasNode){
+        return this.getLinks().filter(link => link.source.id === node.id || link.target.id  === node.id );
     }
 
 }

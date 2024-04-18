@@ -1,6 +1,7 @@
 
 import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from './types';
+import GraphCanvas from '../canvas/canvas';
 
 
 abstract class Shape {
@@ -28,11 +29,13 @@ export class BaseShape extends Shape {
     */
     data: CanvasLink | CanvasNode;
     gfxContainer: PIXI.Container;
+    canvas: GraphCanvas
 
 
-    constructor(data: CanvasLink | CanvasNode) {
+    constructor(data: CanvasLink | CanvasNode, canvas: GraphCanvas) {
         super()
         this.data = data;
+        this.canvas = canvas;
         this.gfxContainer = new PIXI.Container()
         // Make the gfxContainer interactive...
         this.gfxContainer.cursor = 'pointer';
@@ -40,7 +43,7 @@ export class BaseShape extends Shape {
     }
 
     drawLabel = (): void | PIXI.Graphics => {
-        console.error("BaseShape.drawLabel not defined")
+        console.debug("BaseShape.drawLabel not defined")
     }
 
     setupInteractions() { console.error("BaseShape.setupInteractions triggered") }
@@ -82,6 +85,7 @@ export class BaseShape extends Shape {
     }
 
     redraw = () => {
+        console.log("redraw ")
         this.clear();
         this.draw();
     }
@@ -94,6 +98,7 @@ export class BaseShape extends Shape {
     updatePosition = (x: number, y: number) => {
         console.log("updatePosition", x, y)
         this.gfxContainer.position.set(x, y);
+        this.canvas.graph.updateNodePosition(this.data.id, x, y)
     }
 }
 
@@ -103,8 +108,8 @@ export class NodeShapeBase extends BaseShape {
     //@ts-ignore
     dragPoint: PIXI.Point
 
-    constructor(data: CanvasNode) {
-        super(data)
+    constructor(data: CanvasNode, canvas: GraphCanvas) {
+        super(data, canvas)
         this.data = { ...{ x: 0, y: 0 }, ...data }
     }
 
@@ -138,6 +143,10 @@ export class NodeShapeBase extends BaseShape {
         this.updatePosition(x, y)
 
         // update node positions data 
+        const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
+        console.log("neighborLinks", neighborLinks)
+        this.canvas.renderer.reRenderLinks(neighborLinks)
+
         // update links - rerender them
     };
 
@@ -166,8 +175,8 @@ export class LinkShapeBase extends BaseShape {
     data: CanvasLink
     thickness: number = 2
 
-    constructor(data: CanvasLink) {
-        super(data)
+    constructor(data: CanvasLink, canvas: GraphCanvas) {
+        super(data, canvas)
         this.data = data
     }
 
@@ -180,7 +189,7 @@ export class LinkShapeBase extends BaseShape {
         console.log("==pointerOut",)
         this.gfxContainer.tint = 0xFFFFFF;
     }
-    
+
     setupInteractions() {
         console.log("===setupInteractions triggered")
         // Remove all listeners
