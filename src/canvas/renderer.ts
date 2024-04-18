@@ -1,6 +1,6 @@
 import Line from "../graphics/links/line";
 import Circle from "../graphics/nodes/circle";
-import { CanvasLink, CanvasNode } from "../graphics/types";
+import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import GraphCanvas from "./canvas";
 
  
@@ -26,13 +26,17 @@ class Renderer {
     //     // this.renderScreenBorderIfRequired();
     // }
 
+
+    // rePositionSingleNode(nodeId: IdString, x: number, y: number){
+    //     this.gfxContainer.position.set(x, y);
+    // }
+
     rePositionNodes(nodes: CanvasNode[]){
         nodes.forEach((node: CanvasNode) => {
             let { x, y } = node;
             // TODO - FIXME - next 2 lines are re-used
             if (x && y ){
                 this.canvas.graph.updateNodePosition(node.id, x, y)
-                node.gfxInstance?.updatePosition(x, y)    
             }
         });
         // this.renderScreenBorderIfRequired()

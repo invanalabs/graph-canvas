@@ -19,7 +19,7 @@ abstract class Shape {
 
     abstract clear(): void;
     // abstract destroy(): void;
-    abstract updatePosition(x: number, y: number): void;
+    abstract updatePosition(x: number, y: number, updateNodeInfo: boolean): void;
 }
 
 
@@ -80,7 +80,7 @@ export class BaseShape extends Shape {
         //@ts-ignore
         if (this.data?.x && this.data?.y) {
             //@ts-ignore
-            this.updatePosition(this.data.x, this.data.y)
+            this.updatePosition(this.data.x, this.data.y, updateNodeInfo=false)
         }
     }
 
@@ -95,10 +95,15 @@ export class BaseShape extends Shape {
         this.gfxContainer.removeChildren();
     }
 
-    updatePosition = (x: number, y: number) => {
+    updatePosition = (x: number, y: number, updateNodeInfo=false) => {
         console.log("updatePosition", x, y)
+        // this.data.x = x;
+        // this.data.y = y
+        // this.canvas.renderer.rePositionNodes([this.data])
         this.gfxContainer.position.set(x, y);
-        this.canvas.graph.updateNodePosition(this.data.id, x, y)
+        if (updateNodeInfo === true){
+            this.canvas.graph.updateNodePosition(this.data.id, x, y)
+        }
     }
 }
 
@@ -140,7 +145,7 @@ export class NodeShapeBase extends BaseShape {
         const x = newPoint.x //- this.dragPoint.x;
         const y = newPoint.y //- this.dragPoint.y;   
         // TODO - FIXME - next 2 lines are re-used
-        this.updatePosition(x, y)
+        this.updatePosition(x, y, updateNodeInfo=true)
 
         // update node positions data 
         const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);

@@ -50,16 +50,6 @@ export default class GraphData {
         this.canvas.renderer.render(nodes, links)
     }
 
-    updateNodePosition(nodeId: IdString, x: number, y: number){
-        // console.log("Updating position of node ", node.id, this.nodes)     
-        let node: CanvasNode | undefined = this.nodes.get(nodeId);
-        if (node){
-            node.x = x;
-            node.y = y;
-            // node.gfxInstance?.gfxContainer.position.set(x, y);    
-            this.nodes.set(nodeId, node)
-        }
-    }
 
     update(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
 
@@ -69,13 +59,25 @@ export default class GraphData {
 
     }
 
+    updateNodePosition(nodeId: IdString, x: number, y: number){
+        console.log("Updating position of node ", nodeId, x, y)     
+        let node: CanvasNode | undefined = this.nodes.get(nodeId);
+        if (node){
+            node.x = x;
+            node.y = y;
+            node.gfxInstance?.gfxContainer.position.set(x, y);    
+            // node.gfxInstance?.updatePosition(x, y)    
+            this.nodes.set(nodeId, node)            
+        }
+
+    }
+
     getNodesByIds(nodeIds: IdString[]) {
         return this.getNodes().filter(node => nodeIds.includes(node.id));
     }
 
     getLinksByIds(linkIds: IdString[]) {
         return this.getLinks().filter(link => linkIds.includes(link.id));
-
     }
     
     getNodes(): CanvasNode[]{
