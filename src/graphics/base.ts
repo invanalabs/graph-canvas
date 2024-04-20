@@ -13,7 +13,7 @@ abstract class Shape {
     abstract pointerOut(): void;
 
     abstract draw(): void;
-    abstract drawLabel(): PIXI.Graphics | void;
+    abstract drawLabel(): PIXI.Graphics;
     abstract drawShape(): PIXI.Graphics;
     abstract redraw(): void;
 
@@ -42,7 +42,7 @@ export class BaseShape extends Shape {
         this.gfxContainer.eventMode = 'static';
     }
 
-    drawLabel = (): void | PIXI.Graphics => {
+    drawLabel = (): PIXI.Graphics => {
         console.debug("BaseShape.drawLabel not defined")
     }
 
@@ -143,25 +143,18 @@ export class NodeShapeBase extends BaseShape {
     draw = () => {
         // clear shape first
         this.clear();
-
         // draw shape
         let shapeGfx = this.drawShape();
         this.gfxContainer.addChild(shapeGfx);
-
         // draw label
-        if (this.data.label) {
-            let labelGfx = this.drawLabel();
-            if (labelGfx) {
-                this.gfxContainer.addChild(labelGfx);
-            }
-        }
-
+        let labelGfx = this.drawLabel();
+        this.gfxContainer.addChild(labelGfx);
         // setup intractions
         this.setupInteractions()
         // update the position
-        //@ts-ignore        
-        this.setGfxPosition(this.data?.x, this.data?.y)
-        
+        if (this.data.x && this.data.y){
+            this.setGfxPosition(this.data?.x, this.data?.y)
+        }       
     }
 }
 
@@ -198,22 +191,14 @@ export class LinkShapeBase extends BaseShape {
     draw = () => {
         // clear shape first
         this.clear();
-
         // draw shape
         let shapeGfx = this.drawShape();
         this.gfxContainer.addChild(shapeGfx);
-
         // draw label
-        if (this.data.label) {
-            let labelGfx = this.drawLabel();
-            if (labelGfx) {
-                this.gfxContainer.addChild(labelGfx);
-            }
-        }
-
+        let labelGfx = this.drawLabel();
+        this.gfxContainer.addChild(labelGfx);
         // setup intractions
         this.setupInteractions()
- 
     }
 }
 
