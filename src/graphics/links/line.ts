@@ -28,11 +28,19 @@ class Line extends LinkShapeBase {
         const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
         text.position.y = -5; // offset 
         text.resolution = window.devicePixelRatio * 2;
-        labelGfx.angle = getAngle(this.data.source, this.data.target)
+        labelGfx.angle = this.getTextAngle()
         labelGfx.position.set(labelPosition.x, labelPosition.y);
         labelGfx.addChild(text)
         
         return labelGfx
+    }
+
+    getTextAngle =() => {
+        let angle = getAngle(this.data.source, this.data.target);
+        if (angle > 90 || angle < -90) {
+          angle = angle + 180;
+        }
+        return angle
     }
 
 
