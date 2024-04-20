@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { LinkShapeBase } from '../base';
-import { getAngle, getContactPointOnCircle, getLinkLabelPosition } from '../utils';
+import { getAngle, getContactPointOnCircle, getContactPointFromCircle, getLinkLabelPosition } from '../utils';
 import { LinkShapeTypes } from '../types';
 
 
@@ -9,7 +9,7 @@ class Line extends LinkShapeBase {
     color: string =  '#ff0000';
     thickness: number = 2
     //@ts-ignore
-    point: PIXI.Point;
+    // point: PIXI.Point;
     //@ts-ignore
     curveType: LinkShapeTypes = 'straight'
 
@@ -34,15 +34,15 @@ class Line extends LinkShapeBase {
     }
 
 
-    drawArrow = () => {
+    drawArrow = (targetContactPoint: PIXI.Point) => {
         let arrow = new PIXI.Graphics();
  
         arrow.poly([0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]);
         arrow.rotation = Math.atan2(
-            this.data.source.y - this.point.y,
-            this.data.source.x - this.point.x
+            this.data.source.y - targetContactPoint.y,
+            this.data.source.x - targetContactPoint.x
         );
-        arrow.position.set(this.point.x, this.point.y);
+        arrow.position.set(targetContactPoint.x, targetContactPoint.y);
         arrow.stroke({width: this.thickness, color: this.color});
 
         return arrow;
@@ -53,19 +53,23 @@ class Line extends LinkShapeBase {
         let shape = new PIXI.Graphics();
         // line color and thickness
         const arrowPadding = 3; 
-        this.point = getContactPointOnCircle(
+        const targetContactPoint = getContactPointOnCircle(
             this.data.source,
             this.data.target,
-            this.data.target?.gfxInstance?.size   + this.thickness + arrowPadding
-            // 30
+            arrowPadding
         );
-        console.log("this.point", this.point)
-        shape.moveTo(this.data.source.x, this.data.source.y);
-        shape.lineTo(this.point.x, this.point.y);
+        const sourceContactPoint = getContactPointFromCircle(
+            this.data.source,
+            this.data.target,
+            arrowPadding
+        );
+        console.log("targetContactPoint", targetContactPoint)
+        shape.moveTo(sourceContactPoint.x, sourceContactPoint.y);
+        shape.lineTo(targetContactPoint.x, targetContactPoint.y);
         shape.stroke({width: this.thickness, color: this.color});
 
         // shape.closePath()
-        const arrow = this.drawArrow()
+        const arrow = this.drawArrow(targetContactPoint)
         shape.addChild(arrow)
         return shape
     }

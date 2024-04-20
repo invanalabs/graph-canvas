@@ -15,7 +15,7 @@ class Circle extends NodeShapeBase {
         const textBounds = text.getBounds(); // Get the size of the text box
 
         const background = new PIXI.Graphics();
-        background.fill(0x000000, 1); // Background color
+        background.fill(0xffffff, 1); // Background color
         background.rect(0, 0, textBounds.width, textBounds.height); // Draw rectangle behind the text
         labelGfx.position.set(this.size + 5 , -this.size);
         labelGfx.addChild(background)
@@ -27,7 +27,7 @@ class Circle extends NodeShapeBase {
         console.debug("Circle.drawShape triggered")
         let shape = new PIXI.Graphics();
         shape.circle(0, 0, this.size);
-        shape.fill(this.color, 1);
+        // shape.fill(this.color, 1);
         shape.stroke({ width: 3, color: 0xfeeb77 });
 
         

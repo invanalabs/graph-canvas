@@ -6,14 +6,25 @@ import { LinkShapeTypes } from "./types";
 export const getContactPointOnCircle = (
     source: CanvasNode,
     target: CanvasNode,
-    nodeRadius : number
+    padding: number = 2
   ) => {
+
+    const nodeRadius = target?.gfxInstance?.size  +  padding
     const arrowheadLength = 0;
     const angle = Math.atan2(target.y - source.y, target.x - source.x);
     let x = target.x - Math.cos(angle) * (nodeRadius + arrowheadLength);
     let y = target.y - Math.sin(angle) * (nodeRadius + arrowheadLength);
     return new Point(x, y)
 };
+
+
+export const getContactPointFromCircle = (
+  source: CanvasNode,
+  target: CanvasNode,
+  padding: number = 2
+  ) =>{
+  return getContactPointOnCircle(target, source, padding)
+}
 
 export const getLinkLabelPosition = (source: CanvasNode, target: CanvasNode, shapeType: LinkShapeTypes) => {
 
