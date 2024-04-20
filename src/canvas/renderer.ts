@@ -51,8 +51,17 @@ class Renderer {
     }
 
     createLinkGfx(link: CanvasLink) {
-        const gfxInstance = new Line(link, this.canvas)
-        gfxInstance.draw()
+        let gfxInstance;
+        if (link.shape === "loop"){
+          
+        }
+        else if (link.shape === "quadratic"){
+
+        } 
+        else{
+            gfxInstance = new Line(link, this.canvas)
+            gfxInstance.draw() 
+        }
         return gfxInstance
     }
 
@@ -80,11 +89,13 @@ class Renderer {
         // render links 
         links.forEach((link: CanvasLink) => {
             if (!link.gfxInstance) {
-                link.gfxInstance = this.createLinkGfx(link)
+                const gfxInstance = this.createLinkGfx(link)
+                link.gfxInstance = gfxInstance
             }
             // else{
             //     link.gfxInstance.redraw()
             // }
+            if (link.gfxInstance)
             _this.canvas.addGfx(link.gfxInstance)
         })
         

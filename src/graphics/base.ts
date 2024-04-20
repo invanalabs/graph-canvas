@@ -270,6 +270,31 @@ export class LinkShapeBase extends BaseShape {
             .on("pointerout", this.pointerOut.bind(this))
     }
 
+    calcLabelPosition = (labelGfx: PIXI.Graphics) => {
+        console.error("calcLabelPosition Not Implemented")
+    }
+
+    drawLabel = () => {
+        console.log("Line.drawLabel")
+        const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
+
+        const labelGfx = new PIXI.Graphics()
+        labelGfx.label = LinkContainerChildNames.label
+        // Add label text
+        // https://pixijs.com/8.x/playground?exampleId=text.pixiText
+        const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
+        const text = new PIXI.Text({ text : labelString,  style});
+        text.label = LinkContainerChildNames.labelText
+        text.anchor.set(0.5);
+
+        text.position.y = -8; // offset 
+        text.resolution = window.devicePixelRatio * 2;
+        labelGfx.addChild(text)
+
+        // text.cursor = 'pointer';
+
+        return labelGfx
+    }
     draw = () => {
         // clear shape first
         this.clear();
@@ -278,6 +303,7 @@ export class LinkShapeBase extends BaseShape {
         this.gfxContainer.addChild(shapeGfx);
         // draw label
         let labelGfx = this.drawLabel();
+        this.calcLabelPosition(labelGfx)
         this.gfxContainer.addChild(labelGfx);
         // setup intractions
         this.setupInteractions()

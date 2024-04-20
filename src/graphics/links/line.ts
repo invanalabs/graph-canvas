@@ -15,29 +15,13 @@ class Line extends LinkShapeBase {
     //@ts-ignore
     curveType: LinkShapeTypes = 'straight'
 
-    drawLabel = () => {
-        console.log("Line.drawLabel")
-        const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
-
-        const labelGfx = new PIXI.Graphics()
-        labelGfx.label = LinkContainerChildNames.label
-        // Add label text
-        // https://pixijs.com/8.x/playground?exampleId=text.pixiText
-        const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
-        const text = new PIXI.Text({ text : labelString,  style});
-        text.label = LinkContainerChildNames.labelText
-        text.anchor.set(0.5);
-
-        // text.cursor = 'pointer';
+    calcLabelPosition = (labelGfx: PIXI.Graphics) => {
         const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
-        text.position.y = -8; // offset 
-        text.resolution = window.devicePixelRatio * 2;
         labelGfx.angle = this.getTextAngle()
         labelGfx.position.set(labelPosition.x, labelPosition.y);
-        labelGfx.addChild(text)
-        
-        return labelGfx
+
     }
+
 
     getTextAngle =() => {
         let angle = getAngle(this.data.source, this.data.target);
