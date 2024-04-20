@@ -64,7 +64,7 @@ class Circle extends NodeShapeBase {
         const shapeSelectedBorder = new PIXI.Graphics();
         shapeSelectedBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + selectedPadding);
         shapeSelectedBorder.stroke({ 
-            width: NodeStyleDefaults[':selected'].shape.border.thickness,
+            width: NodeStyleDefaults[':selected'].shape.border.thickness + 2,
             color: NodeStyleDefaults[':selected'].shape.border.color
         });
         shapeSelectedBorder.visible = false
