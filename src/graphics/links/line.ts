@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { LinkShapeBase } from '../base';
-import { getCirclePont } from '../utils';
+import { getAngle, getContactPointOnCircle, getLinkLabelPosition } from '../utils';
+import { LinkShapeTypes } from '../types';
 
 
 class Line extends LinkShapeBase {
@@ -9,12 +10,35 @@ class Line extends LinkShapeBase {
     thickness: number = 2
     //@ts-ignore
     point: PIXI.Point;
+    //@ts-ignore
+    curveType: LinkShapeTypes = 'straight'
+
+    drawLabel = () => {
+        console.log("Line.drawLabel")
+        const labelGfx = new PIXI.Graphics()
+        // Add label text
+        // https://pixijs.com/8.x/playground?exampleId=text.pixiText
+        const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
+        const text = new PIXI.Text({
+            text : this.data.label, //`link ${this.data.source.id}-${this.data.target.id}`,
+            style});
+        text.anchor.set(0.5);
+
+        // text.cursor = 'pointer';
+        const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
+        text.position.y = -5; // offset 
+        text.resolution = window.devicePixelRatio * 2;
+        labelGfx.angle = getAngle(this.data.source, this.data.target)
+        labelGfx.position.set(labelPosition.x, labelPosition.y);
+        labelGfx.addChild(text)
+        
+        return labelGfx
+    }
 
 
     drawArrow = () => {
         let arrow = new PIXI.Graphics();
  
-
         arrow.poly([0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]);
         arrow.rotation = Math.atan2(
             this.data.source.y - this.point.y,
@@ -31,7 +55,7 @@ class Line extends LinkShapeBase {
         let shape = new PIXI.Graphics();
         // line color and thickness
         const arrowPadding = 3; 
-        this.point = getCirclePont(
+        this.point = getContactPointOnCircle(
             this.data.source,
             this.data.target,
             this.data.target?.gfxInstance?.size   + this.thickness + arrowPadding
@@ -43,7 +67,8 @@ class Line extends LinkShapeBase {
         shape.stroke({width: this.thickness, color: this.color});
 
         // shape.closePath()
-        shape.addChild(this.drawArrow())
+        const arrow = this.drawArrow()
+        shape.addChild(arrow)
         return shape
     }
 
