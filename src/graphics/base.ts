@@ -75,7 +75,7 @@ export class BaseShape extends Shape {
     setGfxPosition = (x: number, y: number) => {
         this.gfxContainer.position.set(x, y);
     }
-    
+
 }
 
 
@@ -96,10 +96,10 @@ export class NodeShapeBase extends BaseShape {
         //     NodeStyleDefaults[':hovered'].shape.border.thickness + 10 
         // )
         let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
-        if (shape){
+        if (shape) {
             const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(NodeContainerChildNames.shapeHoveredBorder)
             console.log("====pointerOver", shapeHoveredBorder)
-            if (shapeHoveredBorder){
+            if (shapeHoveredBorder) {
                 // shapeHoveredBorder.tint = 0xff00ff;
                 shapeHoveredBorder.visible = true
                 // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
@@ -107,7 +107,7 @@ export class NodeShapeBase extends BaseShape {
         }
     }
 
-    
+
 
     pointerOut() {
         console.log("==pointerOut",)
@@ -116,14 +116,36 @@ export class NodeShapeBase extends BaseShape {
         //     NodeStyleDefaults.shape.border.thickness 
         // )
         let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
-        if (shape){
+        if (shape) {
             const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(NodeContainerChildNames.shapeHoveredBorder)
             console.log("====pointerOver", shapeHoveredBorder)
-            if (shapeHoveredBorder){
+            if (shapeHoveredBorder) {
                 // shapeHoveredBorder.tint = 0xffffff;
                 // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
                 shapeHoveredBorder.visible = false
 
+            }
+        }
+    }
+
+    showHighlightedRing = () => {
+        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        if (shape) {
+            const shapeHighlightedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeHighlightedBorder);
+            console.log("shapeHighlightedBorder", shapeHighlightedBorder)
+            if (shapeHighlightedBorder) {
+                shapeHighlightedBorder.visible = true
+            }
+        }
+    }
+
+    hideHighlightedRing = () => {
+        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        if (shape) {
+            const shapeHighlightedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeHighlightedBorder);
+            console.log("shapeHighlightedBorder", shapeHighlightedBorder)
+            if (shapeHighlightedBorder) {
+                shapeHighlightedBorder.visible = false
             }
         }
     }
@@ -136,6 +158,7 @@ export class NodeShapeBase extends BaseShape {
         this.dragPoint.x -= this.gfxContainer.x;
         this.dragPoint.y -= this.gfxContainer.y;
         this.gfxContainer.parent.on("pointermove", this.onDragMove);
+        this.showHighlightedRing()
     };
 
     onDragMove = (event: PIXI.FederatedPointerEvent) => {
@@ -155,6 +178,7 @@ export class NodeShapeBase extends BaseShape {
         console.log("onDragEnd triggered")
         event.stopPropagation()
         this.gfxContainer.parent.off("pointermove", this.onDragMove);
+        this.hideHighlightedRing();
     };
 
     setupInteractions() {
@@ -171,14 +195,14 @@ export class NodeShapeBase extends BaseShape {
             .on('pointerupoutside', this.onDragEnd.bind(this))
     }
 
-    setBorder = ( color: string| number, thickness: number, set:boolean = true) => {
+    setBorder = (color: string | number, thickness: number, set: boolean = true) => {
         const shape: PIXI.Graphics | null = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
-        console.log("setBorder", color, thickness, set,  shape)
+        console.log("setBorder", color, thickness, set, shape)
         // shape.tint = color;
         shape?.stroke({ //shape?.setStrokeStyle({ 
             width: thickness,
             color: color
-        });    
+        });
     }
 
     draw = () => {
@@ -198,9 +222,9 @@ export class NodeShapeBase extends BaseShape {
         // setup intractions
         this.setupInteractions()
         // update the position
-        if (this.data.x && this.data.y){
+        if (this.data.x && this.data.y) {
             this.setGfxPosition(this.data?.x, this.data?.y)
-        }       
+        }
     }
 }
 

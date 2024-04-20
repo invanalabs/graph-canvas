@@ -52,7 +52,7 @@ export const NodeStyleDefaults = {
         shape: {
             border: {
                 thickness: 3,
-                color: 0xff0000
+                color: "#F6B26B"
             }
         }
     }

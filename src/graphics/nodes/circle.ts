@@ -48,7 +48,7 @@ class Circle extends NodeShapeBase {
         });
 
         const hoveredPadding = 3;
-        const highlightedPadding = hoveredPadding + 3;
+        const highlightedPadding = hoveredPadding + 6;
         // shape hoveredBorder
         const shapeHoveredBorder = new PIXI.Graphics();
         shapeHoveredBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + hoveredPadding);
@@ -64,11 +64,11 @@ class Circle extends NodeShapeBase {
         const shapeHighlightedBorder = new PIXI.Graphics();
         shapeHighlightedBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + highlightedPadding);
         shapeHighlightedBorder.stroke({ 
-            width: NodeStyleDefaults[':hovered'].shape.border.thickness,
-            color: NodeStyleDefaults[':hovered'].shape.border.color
+            width: NodeStyleDefaults[':highlighted'].shape.border.thickness,
+            color: NodeStyleDefaults[':highlighted'].shape.border.color
         });
         shapeHighlightedBorder.visible = false
-        shapeHighlightedBorder.label = NodeContainerChildNames.shapeHoveredBorder
+        shapeHighlightedBorder.label = NodeContainerChildNames.shapeHighlightedBorder
         shape.addChild(shapeHighlightedBorder)
 
 
