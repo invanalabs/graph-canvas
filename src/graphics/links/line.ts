@@ -55,6 +55,12 @@ class Line extends LinkShapeBase {
     }
 
 
+    drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+        shapeLine.moveTo(startPoint.x, startPoint.y);
+        shapeLine.lineTo(endPoint.x, endPoint.y);
+
+    }
+
 
 }
 

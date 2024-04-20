@@ -316,6 +316,12 @@ export class LinkShapeBase extends BaseShape {
 
         return labelGfx
     }
+
+    drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+        console.error("Not implemented");
+
+    }
+
     drawShape = () => {
         console.log("Line.drawShape triggered", this.data)
 
@@ -327,11 +333,10 @@ export class LinkShapeBase extends BaseShape {
 
         let shapeLine = new PIXI.Graphics();
         shapeLine.label = LinkContainerChildNames.shapeLine
+        this.drawPath(shapeLine, startPoint, endPoint)
+        shapeLine.stroke({width: this.thickness, color: this.color});
 
         // console.log("endPoint", endPoint)
-        shapeLine.moveTo(startPoint.x, startPoint.y);
-        shapeLine.lineTo(endPoint.x, endPoint.y);
-        shapeLine.stroke({width: this.thickness, color: this.color});
         shapeLine.zIndex = 1000
         // add arrow
         const arrow = this.drawArrow(startPoint, endPoint)
@@ -340,8 +345,8 @@ export class LinkShapeBase extends BaseShape {
 
         // shape hoveredBorder
         const shapeHoveredBorder = new PIXI.Graphics();
-        shapeHoveredBorder.moveTo(startPoint.x, startPoint.y);
-        shapeHoveredBorder.lineTo(endPoint.x, endPoint.y);
+        this.drawPath(shapeHoveredBorder, startPoint, endPoint)
+
         shapeHoveredBorder.stroke({ 
             width: LinkStyleDefaults[':hovered'].shape.thickness,
             color: LinkStyleDefaults[':hovered'].shape.color
