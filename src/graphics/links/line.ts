@@ -19,9 +19,7 @@ class Line extends LinkShapeBase {
         // Add label text
         // https://pixijs.com/8.x/playground?exampleId=text.pixiText
         const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
-        const text = new PIXI.Text({
-            text : this.data.label, //`link ${this.data.source.id}-${this.data.target.id}`,
-            style});
+        const text = new PIXI.Text({ text : this.data.label,  style});
         text.anchor.set(0.5);
 
         // text.cursor = 'pointer';

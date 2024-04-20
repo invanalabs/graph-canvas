@@ -6,6 +6,22 @@ class Circle extends NodeShapeBase {
 
     color: string =  '#ff00ff';
     size: number = 20
+
+    drawLabel = () => {
+        const labelGfx = new PIXI.Graphics()
+        const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
+        const text = new PIXI.Text({ text : this.data.label,  style});
+        
+        const textBounds = text.getBounds(); // Get the size of the text box
+
+        const background = new PIXI.Graphics();
+        background.fill(0x000000, 1); // Background color
+        background.rect(0, 0, textBounds.width, textBounds.height); // Draw rectangle behind the text
+        labelGfx.position.set(this.size + 5 , -this.size);
+        labelGfx.addChild(background)
+        labelGfx.addChild(text)
+        return labelGfx
+    }
   
     drawShape = () => {
         console.debug("Circle.drawShape triggered")
