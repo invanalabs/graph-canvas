@@ -55,31 +55,8 @@ export class BaseShape extends Shape {
         return new PIXI.Graphics()
     }
 
-    draw = () => {
-        // clear shape first
-        this.clear();
-
-        // draw shape
-        let shapeGfx = this.drawShape();
-        this.gfxContainer.addChild(shapeGfx);
-
-        // draw label
-        if (this.data.label) {
-            let labelGfx = this.drawLabel();
-            if (labelGfx) {
-                this.gfxContainer.addChild(labelGfx);
-            }
-        }
-
-        // setup intractions
-        this.setupInteractions()
-
-        // update the position
-        //@ts-ignore
-        if (this.data?.x && this.data?.y) {
-            //@ts-ignore
-            this.setGfxPosition(this.data.x, this.data.y)
-        }
+    draw(): void {
+        console.error("BaseShape.draw not implemented")
     }
 
     redraw = () => {
@@ -162,6 +139,30 @@ export class NodeShapeBase extends BaseShape {
             .on('pointerup', this.onDragEnd.bind(this))
             .on('pointerupoutside', this.onDragEnd.bind(this))
     }
+
+    draw = () => {
+        // clear shape first
+        this.clear();
+
+        // draw shape
+        let shapeGfx = this.drawShape();
+        this.gfxContainer.addChild(shapeGfx);
+
+        // draw label
+        if (this.data.label) {
+            let labelGfx = this.drawLabel();
+            if (labelGfx) {
+                this.gfxContainer.addChild(labelGfx);
+            }
+        }
+
+        // setup intractions
+        this.setupInteractions()
+        // update the position
+        //@ts-ignore        
+        this.setGfxPosition(this.data?.x, this.data?.y)
+        
+    }
 }
 
 export class LinkShapeBase extends BaseShape {
@@ -193,7 +194,27 @@ export class LinkShapeBase extends BaseShape {
             .on("pointerover", this.pointerOver.bind(this))
             .on("pointerout", this.pointerOut.bind(this))
     }
+
+    draw = () => {
+        // clear shape first
+        this.clear();
+
+        // draw shape
+        let shapeGfx = this.drawShape();
+        this.gfxContainer.addChild(shapeGfx);
+
+        // draw label
+        if (this.data.label) {
+            let labelGfx = this.drawLabel();
+            if (labelGfx) {
+                this.gfxContainer.addChild(labelGfx);
+            }
+        }
+
+        // setup intractions
+        this.setupInteractions()
  
+    }
 }
 
 export default BaseShape;

@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { NodeShapeBase } from '../base';
+import { NodeContainerChildNames } from '../constants';
 
 
 class Circle extends NodeShapeBase {

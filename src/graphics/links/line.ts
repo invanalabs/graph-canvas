@@ -15,11 +15,13 @@ class Line extends LinkShapeBase {
 
     drawLabel = () => {
         console.log("Line.drawLabel")
+        const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
+
         const labelGfx = new PIXI.Graphics()
         // Add label text
         // https://pixijs.com/8.x/playground?exampleId=text.pixiText
         const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
-        const text = new PIXI.Text({ text : this.data.label,  style});
+        const text = new PIXI.Text({ text : labelString,  style});
         text.anchor.set(0.5);
 
         // text.cursor = 'pointer';
