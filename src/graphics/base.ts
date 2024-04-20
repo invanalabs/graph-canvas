@@ -3,7 +3,8 @@ import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from './types';
 import GraphCanvas from '../canvas/canvas';
 import { LinkContainerChildNames, NodeContainerChildNames } from './constants';
-import { NodeStyleDefaults } from './defaults';
+import { LinkStyleDefaults, NodeStyleDefaults } from './defaults';
+import { getContactPointFromCircle, getContactPointOnCircle } from './utils';
 
 
 abstract class Shape {
@@ -231,6 +232,7 @@ export class NodeShapeBase extends BaseShape {
 export class LinkShapeBase extends BaseShape {
     data: CanvasLink
     thickness: number = 2
+    color: string =  '#ff0000';
 
     constructor(data: CanvasLink, canvas: GraphCanvas) {
         super(data, canvas)
@@ -274,6 +276,25 @@ export class LinkShapeBase extends BaseShape {
         console.error("calcLabelPosition Not Implemented")
     }
 
+    calcLabelAngle = () => {
+        console.error("calcLabelAngle Not Implemented")
+    }
+    calcStartAndEndPoints = () => {
+        console.error("calcStartAndEndPoints not Implemented")
+    }
+
+    calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+        console.error("calcArrowAngle not implemented")
+    }
+
+    drawArrow = (startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+        let arrow = new PIXI.Graphics();
+        arrow.poly([0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]);
+        arrow.stroke({width: this.thickness, color: this.color});
+        this.calcArrowAngle(arrow, startPoint, endPoint)
+        return arrow;
+    }
+
     drawLabel = () => {
         console.log("Line.drawLabel")
         const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
@@ -294,6 +315,45 @@ export class LinkShapeBase extends BaseShape {
         // text.cursor = 'pointer';
 
         return labelGfx
+    }
+    drawShape = () => {
+        console.log("Line.drawShape triggered", this.data)
+
+        let {startPoint, endPoint} = this.calcStartAndEndPoints();
+
+        let shape = new PIXI.Graphics();
+        shape.label = LinkContainerChildNames.shape
+
+
+        let shapeLine = new PIXI.Graphics();
+        shapeLine.label = LinkContainerChildNames.shapeLine
+
+        // console.log("endPoint", endPoint)
+        shapeLine.moveTo(startPoint.x, startPoint.y);
+        shapeLine.lineTo(endPoint.x, endPoint.y);
+        shapeLine.stroke({width: this.thickness, color: this.color});
+        shapeLine.zIndex = 1000
+        // add arrow
+        const arrow = this.drawArrow(startPoint, endPoint)
+        shapeLine.addChild(arrow)
+        shape.addChild(shapeLine)
+
+        // shape hoveredBorder
+        const shapeHoveredBorder = new PIXI.Graphics();
+        shapeHoveredBorder.moveTo(startPoint.x, startPoint.y);
+        shapeHoveredBorder.lineTo(endPoint.x, endPoint.y);
+        shapeHoveredBorder.stroke({ 
+            width: LinkStyleDefaults[':hovered'].shape.thickness,
+            color: LinkStyleDefaults[':hovered'].shape.color
+        });
+        shapeHoveredBorder.alpha = LinkStyleDefaults[':hovered'].shape.opacity;
+        shapeHoveredBorder.visible = false
+        shapeHoveredBorder.label = LinkContainerChildNames.shapeHoveredBorder
+        shapeHoveredBorder.zIndex = 10
+        shape.addChild(shapeHoveredBorder)
+        // shapeLine.closePath()
+
+        return shape
     }
     draw = () => {
         // clear shape first

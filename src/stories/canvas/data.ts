@@ -29,6 +29,22 @@ export const exampleLinks: Array<CanvasLink> = [
         shape: 'line'
     },
     {
+        id: '1-2.1',
+        group: 'authored',
+        label: '1-2.1:authored',
+        source: '1',
+        target: '2',
+        shape: 'quadratic'
+    },
+    {
+        id: '1-2.2',
+        group: 'authored',
+        label: '1-2.2:authored',
+        source: '1',
+        target: '2',
+        shape: 'quadratic'
+    },
+    {
         id: '1-1',
         group: 'authored',
         label: '1-2:authored',
