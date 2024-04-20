@@ -2,6 +2,7 @@
 import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from './types';
 import GraphCanvas from '../canvas/canvas';
+import { NodeContainerChildNames } from './constants';
 
 
 abstract class Shape {
@@ -89,12 +90,16 @@ export class NodeShapeBase extends BaseShape {
 
     pointerOver() {
         console.log("==pointerOver",)
-        this.gfxContainer.tint = 0x666666;
+        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        if (shape)
+        shape.tint = 0x666666;
     }
 
     pointerOut() {
         console.log("==pointerOut",)
-        this.gfxContainer.tint = 0xFFFFFF;
+        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        if (shape)
+        shape.tint = 0xFFFFFF;
     }
 
     onDragStart = (event: PIXI.FederatedPointerEvent) => {
