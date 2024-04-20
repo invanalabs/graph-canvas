@@ -131,10 +131,10 @@ export class NodeShapeBase extends BaseShape {
     showHighlightedRing = () => {
         let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
         if (shape) {
-            const shapeHighlightedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeHighlightedBorder);
-            console.log("shapeHighlightedBorder", shapeHighlightedBorder)
-            if (shapeHighlightedBorder) {
-                shapeHighlightedBorder.visible = true
+            const shapeSelectedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeSelectedBorder);
+            console.log("shapeSelectedBorder", shapeSelectedBorder)
+            if (shapeSelectedBorder) {
+                shapeSelectedBorder.visible = true
             }
         }
     }
@@ -142,10 +142,10 @@ export class NodeShapeBase extends BaseShape {
     hideHighlightedRing = () => {
         let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
         if (shape) {
-            const shapeHighlightedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeHighlightedBorder);
-            console.log("shapeHighlightedBorder", shapeHighlightedBorder)
-            if (shapeHighlightedBorder) {
-                shapeHighlightedBorder.visible = false
+            const shapeSelectedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeSelectedBorder);
+            console.log("shapeSelectedBorder", shapeSelectedBorder)
+            if (shapeSelectedBorder) {
+                shapeSelectedBorder.visible = false
             }
         }
     }

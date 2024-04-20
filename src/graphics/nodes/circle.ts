@@ -48,7 +48,7 @@ class Circle extends NodeShapeBase {
         });
 
         const hoveredPadding = 3;
-        const highlightedPadding = hoveredPadding + 6;
+        const selectedPadding = hoveredPadding + 6;
         // shape hoveredBorder
         const shapeHoveredBorder = new PIXI.Graphics();
         shapeHoveredBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + hoveredPadding);
@@ -60,16 +60,16 @@ class Circle extends NodeShapeBase {
         shapeHoveredBorder.label = NodeContainerChildNames.shapeHoveredBorder
         shape.addChild(shapeHoveredBorder)
 
-        // shape highlightedBorder
-        const shapeHighlightedBorder = new PIXI.Graphics();
-        shapeHighlightedBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + highlightedPadding);
-        shapeHighlightedBorder.stroke({ 
-            width: NodeStyleDefaults[':highlighted'].shape.border.thickness,
-            color: NodeStyleDefaults[':highlighted'].shape.border.color
+        // shape selectedBorder
+        const shapeSelectedBorder = new PIXI.Graphics();
+        shapeSelectedBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + selectedPadding);
+        shapeSelectedBorder.stroke({ 
+            width: NodeStyleDefaults[':selected'].shape.border.thickness,
+            color: NodeStyleDefaults[':selected'].shape.border.color
         });
-        shapeHighlightedBorder.visible = false
-        shapeHighlightedBorder.label = NodeContainerChildNames.shapeHighlightedBorder
-        shape.addChild(shapeHighlightedBorder)
+        shapeSelectedBorder.visible = false
+        shapeSelectedBorder.label = NodeContainerChildNames.shapeSelectedBorder
+        shape.addChild(shapeSelectedBorder)
 
 
         shape.cursor = "pointer";

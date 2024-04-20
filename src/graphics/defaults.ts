@@ -48,7 +48,7 @@ export const NodeStyleDefaults = {
             }
         }
     },
-    ":highlighted": {
+    ":selected": {
         shape: {
             border: {
                 thickness: 3,
