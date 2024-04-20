@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from './types';
 import GraphCanvas from '../canvas/canvas';
 import { NodeContainerChildNames } from './constants';
+import { NodeStyleDefaults } from './defaults';
 
 
 abstract class Shape {
@@ -90,16 +91,41 @@ export class NodeShapeBase extends BaseShape {
 
     pointerOver() {
         console.log("==pointerOver",)
+        // this.setBorder(
+        //     NodeStyleDefaults[':hovered'].shape.border.color,
+        //     NodeStyleDefaults[':hovered'].shape.border.thickness + 10 
+        // )
         let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
-        if (shape)
-        shape.tint = 0x666666;
+        if (shape){
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(NodeContainerChildNames.shapeHoveredBorder)
+            console.log("====pointerOver", shapeHoveredBorder)
+            if (shapeHoveredBorder){
+                // shapeHoveredBorder.tint = 0xff00ff;
+                shapeHoveredBorder.visible = true
+                // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
+            }
+        }
     }
+
+    
 
     pointerOut() {
         console.log("==pointerOut",)
+        // this.setBorder(
+        //     NodeStyleDefaults.shape.border.color,
+        //     NodeStyleDefaults.shape.border.thickness 
+        // )
         let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
-        if (shape)
-        shape.tint = 0xFFFFFF;
+        if (shape){
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(NodeContainerChildNames.shapeHoveredBorder)
+            console.log("====pointerOver", shapeHoveredBorder)
+            if (shapeHoveredBorder){
+                // shapeHoveredBorder.tint = 0xffffff;
+                // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
+                shapeHoveredBorder.visible = false
+
+            }
+        }
     }
 
     onDragStart = (event: PIXI.FederatedPointerEvent) => {
@@ -145,12 +171,27 @@ export class NodeShapeBase extends BaseShape {
             .on('pointerupoutside', this.onDragEnd.bind(this))
     }
 
+    setBorder = ( color: string| number, thickness: number, set:boolean = true) => {
+        const shape: PIXI.Graphics | null = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        console.log("setBorder", color, thickness, set,  shape)
+        // shape.tint = color;
+        shape?.stroke({ //shape?.setStrokeStyle({ 
+            width: thickness,
+            color: color
+        });    
+    }
+
     draw = () => {
         // clear shape first
         this.clear();
         // draw shape
         let shapeGfx = this.drawShape();
         this.gfxContainer.addChild(shapeGfx);
+        // this.setBorder(     
+        //     NodeStyleDefaults.shape.border.color, 
+        //     NodeStyleDefaults.shape.border.thickness, 
+        //     false
+        // )
         // draw label
         let labelGfx = this.drawLabel();
         this.gfxContainer.addChild(labelGfx);

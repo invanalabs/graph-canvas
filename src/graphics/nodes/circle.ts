@@ -42,9 +42,36 @@ class Circle extends NodeShapeBase {
         shape.label = NodeContainerChildNames.shape;
         shape.circle(0, 0, this.size);
         shape.fill(NodeStyleDefaults.shape.background.color, NodeStyleDefaults.shape.background.opacity);
-        shape.stroke({ width: NodeStyleDefaults.shape.border.thickness,
-             color: NodeStyleDefaults.shape.border.color
+        shape.stroke({ 
+            width: NodeStyleDefaults.shape.border.thickness,
+            color: NodeStyleDefaults.shape.border.color
         });
+
+        const hoveredPadding = 3;
+        const highlightedPadding = hoveredPadding + 3;
+        // shape hoveredBorder
+        const shapeHoveredBorder = new PIXI.Graphics();
+        shapeHoveredBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + hoveredPadding);
+        shapeHoveredBorder.stroke({ 
+            width: NodeStyleDefaults[':hovered'].shape.border.thickness,
+            color: NodeStyleDefaults[':hovered'].shape.border.color
+        });
+        shapeHoveredBorder.visible = false
+        shapeHoveredBorder.label = NodeContainerChildNames.shapeHoveredBorder
+        shape.addChild(shapeHoveredBorder)
+
+        // shape highlightedBorder
+        const shapeHighlightedBorder = new PIXI.Graphics();
+        shapeHighlightedBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + highlightedPadding);
+        shapeHighlightedBorder.stroke({ 
+            width: NodeStyleDefaults[':hovered'].shape.border.thickness,
+            color: NodeStyleDefaults[':hovered'].shape.border.color
+        });
+        shapeHighlightedBorder.visible = false
+        shapeHighlightedBorder.label = NodeContainerChildNames.shapeHoveredBorder
+        shape.addChild(shapeHighlightedBorder)
+
+
         shape.cursor = "pointer";
         shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
         // shape.scale.set(3);
