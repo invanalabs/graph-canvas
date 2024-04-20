@@ -59,6 +59,45 @@ export const NodeStyleDefaults = {
 }
 
 
+
+
+
+export const LinkStyleDefaults = {
+    shape : {
+        opacity: 1,
+        thickness: 3,
+        color: "efefef"
+    },
+    label: {
+        background: {
+            color: "#222222",
+            opacity: 1
+        },
+        padding: 3,
+        border: {
+            thickness: 1,
+            color: "#efefef"
+        },
+        color: "#ffffff",
+        fontSize: 12,
+        fontFamily: "Arial"
+    },
+    ":hovered": {
+        shape: {
+            opacity: 1,
+            thickness: 6,
+            color: 0xfeeb77
+        }
+    },
+    // ":selected": {
+    //     shape: {
+    //         opacity: 1,
+    //         thickness: 3,
+    //         color: "#F6B26B"
+    //     }
+    // }
+}
+
 // selected : {
 //     thickness: 5,
 //     color: "#0xfeeb77"

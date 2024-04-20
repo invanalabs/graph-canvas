@@ -2,7 +2,7 @@
 import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from './types';
 import GraphCanvas from '../canvas/canvas';
-import { NodeContainerChildNames } from './constants';
+import { LinkContainerChildNames, NodeContainerChildNames } from './constants';
 import { NodeStyleDefaults } from './defaults';
 
 
@@ -239,12 +239,24 @@ export class LinkShapeBase extends BaseShape {
 
     pointerOver() {
         console.log("==pointerOver",)
-        this.gfxContainer.tint = 0x666666;
+        let shape = this.gfxContainer.getChildByLabel(LinkContainerChildNames.shape);
+        if (shape) {
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(LinkContainerChildNames.shapeHoveredBorder)
+            if (shapeHoveredBorder) {
+                shapeHoveredBorder.visible = true
+            }
+        }
     }
 
     pointerOut() {
         console.log("==pointerOut",)
-        this.gfxContainer.tint = 0xFFFFFF;
+        let shape = this.gfxContainer.getChildByLabel(LinkContainerChildNames.shape);
+        if (shape) {
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(LinkContainerChildNames.shapeHoveredBorder)
+            if (shapeHoveredBorder) {
+                shapeHoveredBorder.visible = false
+            }
+        }
     }
 
     setupInteractions() {

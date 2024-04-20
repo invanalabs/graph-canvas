@@ -2,6 +2,8 @@ import * as PIXI from 'pixi.js';
 import { LinkShapeBase } from '../base';
 import { getAngle, getContactPointOnCircle, getContactPointFromCircle, getLinkLabelPosition } from '../utils';
 import { LinkShapeTypes } from '../types';
+import { LinkContainerChildNames } from '../constants';
+import { LinkStyleDefaults } from '../defaults';
 
 
 class Line extends LinkShapeBase {
@@ -18,15 +20,17 @@ class Line extends LinkShapeBase {
         const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
 
         const labelGfx = new PIXI.Graphics()
+        labelGfx.label = LinkContainerChildNames.label
         // Add label text
         // https://pixijs.com/8.x/playground?exampleId=text.pixiText
         const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
         const text = new PIXI.Text({ text : labelString,  style});
+        text.label = LinkContainerChildNames.labelText
         text.anchor.set(0.5);
 
         // text.cursor = 'pointer';
         const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
-        text.position.y = -5; // offset 
+        text.position.y = -8; // offset 
         text.resolution = window.devicePixelRatio * 2;
         labelGfx.angle = this.getTextAngle()
         labelGfx.position.set(labelPosition.x, labelPosition.y);
@@ -60,27 +64,53 @@ class Line extends LinkShapeBase {
 
     drawShape = () => {
         console.log("Line.drawShape triggered", this.data)
-        let shape = new PIXI.Graphics();
-        // line color and thickness
-        const arrowPadding = 3; 
-        const targetContactPoint = getContactPointOnCircle(
-            this.data.source,
-            this.data.target,
-            arrowPadding
-        );
-        const sourceContactPoint = getContactPointFromCircle(
-            this.data.source,
-            this.data.target,
-            arrowPadding
-        );
-        console.log("targetContactPoint", targetContactPoint)
-        shape.moveTo(sourceContactPoint.x, sourceContactPoint.y);
-        shape.lineTo(targetContactPoint.x, targetContactPoint.y);
-        shape.stroke({width: this.thickness, color: this.color});
 
-        // shape.closePath()
+            // line color and thickness
+            const arrowPadding = 3; 
+            const targetContactPoint = getContactPointOnCircle(
+                this.data.source,
+                this.data.target,
+                arrowPadding
+            );
+            const sourceContactPoint = getContactPointFromCircle(
+                this.data.source,
+                this.data.target,
+                arrowPadding
+            );
+
+
+        let shape = new PIXI.Graphics();
+        shape.label = LinkContainerChildNames.shape
+
+
+        let shapeLine = new PIXI.Graphics();
+        shapeLine.label = LinkContainerChildNames.shapeLine
+
+        // console.log("targetContactPoint", targetContactPoint)
+        shapeLine.moveTo(sourceContactPoint.x, sourceContactPoint.y);
+        shapeLine.lineTo(targetContactPoint.x, targetContactPoint.y);
+        shapeLine.stroke({width: this.thickness, color: this.color});
+        shapeLine.zIndex = 1000
+        // add arrow
         const arrow = this.drawArrow(targetContactPoint)
-        shape.addChild(arrow)
+        shapeLine.addChild(arrow)
+        shape.addChild(shapeLine)
+
+        // shape hoveredBorder
+        const shapeHoveredBorder = new PIXI.Graphics();
+        shapeHoveredBorder.moveTo(sourceContactPoint.x, sourceContactPoint.y);
+        shapeHoveredBorder.lineTo(targetContactPoint.x, targetContactPoint.y);
+        shapeHoveredBorder.stroke({ 
+            width: LinkStyleDefaults[':hovered'].shape.thickness,
+            color: LinkStyleDefaults[':hovered'].shape.color
+        });
+        shapeHoveredBorder.alpha = LinkStyleDefaults[':hovered'].shape.opacity;
+        shapeHoveredBorder.visible = false
+        shapeHoveredBorder.label = LinkContainerChildNames.shapeHoveredBorder
+        shapeHoveredBorder.zIndex = 10
+        shape.addChild(shapeHoveredBorder)
+        // shapeLine.closePath()
+
         return shape
     }
 

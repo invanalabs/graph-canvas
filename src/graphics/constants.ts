@@ -15,5 +15,13 @@ export enum NodeContainerChildNames {
 }
 
 export enum LinkContainerChildNames {
-
+    // shape
+    shape = 'shape',
+    shapeLine = 'shapeLine',
+    shapeHoveredBorder = 'shapeHoveredBorder',
+    // shapeSelectedBorder = 'shapeSelectedBorder',
+    // label
+    label = 'label',
+    labelBackground = 'labelBackground',
+    labelText = 'labelText'
 }
