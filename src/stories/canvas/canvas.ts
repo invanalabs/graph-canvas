@@ -1,5 +1,5 @@
-import GraphCanvas from "../../../canvas/canvas";
-import { exampleLinks, exampleNodes } from "../data";
+import GraphCanvas from "../../canvas/canvas";
+import { exampleLinks, exampleNodes } from "../datasets/hello-graph-canvas";
 
 
 export const createCanvas = () => {
