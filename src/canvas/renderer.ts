@@ -1,4 +1,5 @@
 import Line from "../graphics/links/line";
+import LoopLine from "../graphics/links/loop";
 import QuadraticLine from "../graphics/links/quadratic";
 import Circle from "../graphics/nodes/circle";
 import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
@@ -54,7 +55,8 @@ class Renderer {
     createLinkGfx(link: CanvasLink) {
         let gfxInstance;
         if (link.shape === "loop"){
-          
+            gfxInstance = new LoopLine(link, this.canvas)
+            gfxInstance.draw()
         }
         else if (link.shape === "quadratic"){
             gfxInstance = new QuadraticLine(link, this.canvas)

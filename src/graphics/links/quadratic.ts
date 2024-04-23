@@ -14,7 +14,7 @@ class QuadraticLine extends LinkShapeBase {
 
     calcLabelPosition = (labelGfx: PIXI.Graphics, shapeGfx: PIXI.Graphics) => {
         const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
-        labelGfx.angle = this.calcLabelAngle()
+        labelGfx.angle = this.calcLabelAngle(labelGfx)
         labelGfx.position.set(labelPosition.x, labelPosition.y);
     }
 
