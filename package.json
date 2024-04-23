@@ -40,6 +40,8 @@
     "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
+    "@pixi/core": "^7.4.2",
+    "gl-matrix": "^3.4.3",
     "pixi.js": "^8.0.5"
   }
 }

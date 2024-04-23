@@ -39,7 +39,10 @@ export class BaseShape extends Shape {
         super()
         this.data = data;
         this.canvas = canvas;
-        this.gfxContainer = new PIXI.Container()
+        this.gfxContainer = new PIXI.Container({
+            isRenderGroup:true // this containers transform is now handled on the GPU!
+        })
+        // this.gfxContainer.
         // Make the gfxContainer interactive...
         this.gfxContainer.cursor = 'pointer';
         this.gfxContainer.eventMode = 'static';
@@ -272,26 +275,27 @@ export class LinkShapeBase extends BaseShape {
             .on("pointerout", this.pointerOut.bind(this))
     }
 
-    calcLabelPosition = (labelGfx: PIXI.Graphics) => {
+    calcLabelPosition = (labelGfx: PIXI.Graphics, shapeGfx: PIXI.Graphics) => {
         console.error("calcLabelPosition Not Implemented")
     }
 
-    calcLabelAngle = () => {
+    calcLabelAngle =(shapeGfx: PIXI.Graphics) => {
         console.error("calcLabelAngle Not Implemented")
     }
     calcStartAndEndPoints = () => {
         console.error("calcStartAndEndPoints not Implemented")
     }
 
-    calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+    calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point,  points: number[], ) => {
         console.error("calcArrowAngle not implemented")
     }
 
     drawArrow = (startPoint: PIXI.Point, endPoint: PIXI.Point) => {
         let arrow = new PIXI.Graphics();
-        arrow.poly([0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]);
+        const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
+        arrow.poly(points);
         arrow.stroke({width: this.thickness, color: this.color});
-        this.calcArrowAngle(arrow, startPoint, endPoint)
+        this.calcArrowAngle(arrow, startPoint, endPoint, points)
         return arrow;
     }
 
@@ -368,7 +372,7 @@ export class LinkShapeBase extends BaseShape {
         this.gfxContainer.addChild(shapeGfx);
         // draw label
         let labelGfx = this.drawLabel();
-        this.calcLabelPosition(labelGfx)
+        this.calcLabelPosition(labelGfx, shapeGfx)
         this.gfxContainer.addChild(labelGfx);
         // setup intractions
         this.setupInteractions()

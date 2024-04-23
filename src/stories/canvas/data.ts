@@ -34,7 +34,8 @@ export const exampleLinks: Array<CanvasLink> = [
         label: '1-2.1:authored',
         source: '1',
         target: '2',
-        shape: 'quadratic'
+        shape: 'quadratic',
+        curvature: 0.2
     },
     {
         id: '1-2.2',
@@ -42,7 +43,9 @@ export const exampleLinks: Array<CanvasLink> = [
         label: '1-2.2:authored',
         source: '1',
         target: '2',
-        shape: 'quadratic'
+        shape: 'quadratic',
+        curvature: 0.2
+
     },
     {
         id: '1-1',

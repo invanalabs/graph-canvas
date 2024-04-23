@@ -13,5 +13,5 @@ export const defaultCanvasOptions: CanvasOptions = {
     //@ts-ignore
     renderer: RendererTypes.WebGL,
     screen: defaultScreenOptions,
-    resolution: window.devicePixelRatio
+    resolution: window.devicePixelRatio | 2
 }

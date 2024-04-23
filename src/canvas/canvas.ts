@@ -31,8 +31,8 @@ export default class GraphCanvas {
             antialias: true,
             autoResize: true,
             preference: this.options.renderer,
-            // autoDensity: false,
-            // resolution: this.options.resolution,
+            autoDensity: true,
+            resolution: this.options.resolution,
             resizeTo: this.options.viewDiv,
             backgroundColor: this.options.background,
         } 

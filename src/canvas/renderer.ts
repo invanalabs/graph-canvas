@@ -1,4 +1,5 @@
 import Line from "../graphics/links/line";
+import QuadraticLine from "../graphics/links/quadratic";
 import Circle from "../graphics/nodes/circle";
 import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import GraphCanvas from "./canvas";
@@ -56,7 +57,8 @@ class Renderer {
           
         }
         else if (link.shape === "quadratic"){
-
+            gfxInstance = new QuadraticLine(link, this.canvas)
+            gfxInstance.draw()
         } 
         else{
             gfxInstance = new Line(link, this.canvas)

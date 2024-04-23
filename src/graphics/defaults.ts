@@ -5,7 +5,8 @@
 export const NodeStyleDefaults = {
     shape : {
         background: {
-            color: "#333333",
+            // color: "#333333",
+            color: "transparent",
             opacity: 1
         },
         border: {

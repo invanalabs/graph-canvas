@@ -2,8 +2,6 @@ import * as PIXI from 'pixi.js';
 import { LinkShapeBase } from '../base';
 import { getAngle, getContactPointOnCircle, getContactPointFromCircle, getLinkLabelPosition } from '../utils';
 import { LinkShapeTypes } from '../types';
-import { LinkContainerChildNames } from '../constants';
-import { LinkStyleDefaults } from '../defaults';
 
 
 class Line extends LinkShapeBase {
@@ -14,14 +12,14 @@ class Line extends LinkShapeBase {
     //@ts-ignore
     curveType: LinkShapeTypes = 'straight'
 
-    calcLabelPosition = (labelGfx: PIXI.Graphics) => {
+    calcLabelPosition = (labelGfx: PIXI.Graphics, shapeGfx: PIXI.Graphics) => {
         const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
         labelGfx.angle = this.calcLabelAngle()
         labelGfx.position.set(labelPosition.x, labelPosition.y);
 
     }
 
-    calcLabelAngle =() => {
+    calcLabelAngle =(shapeGfx: PIXI.Graphics) => {
         let angle = getAngle(this.data.source, this.data.target);
         if (angle > 90 || angle < -90) {
           angle = angle + 180;
@@ -29,7 +27,7 @@ class Line extends LinkShapeBase {
         return angle
     }
 
-    calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+    calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point,  points: number[], ) => {
         arrow.rotation = Math.atan2(
             startPoint.y - endPoint.y,
             startPoint.x - endPoint.x
