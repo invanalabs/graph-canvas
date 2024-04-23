@@ -28,6 +28,8 @@ export interface CanvasNode extends CanvasItemBase {
     // geometry?: any
     x?: number
     y?: number
+
+    size?: number
     // vx?: number
     // vy?: number
 }

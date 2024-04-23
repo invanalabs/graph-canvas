@@ -7,7 +7,6 @@ import { NodeStyleDefaults } from '../defaults';
 class Circle extends NodeShapeBase {
 
     color: string =  '#444444';
-    size: number = 20
 
     drawLabel = () => {
         const labelGfx = new PIXI.Graphics();

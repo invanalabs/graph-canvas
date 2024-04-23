@@ -87,9 +87,13 @@ export class NodeShapeBase extends BaseShape {
     data: CanvasNode
     //@ts-ignore
     dragPoint: PIXI.Point
+    size: number = 20
 
     constructor(data: CanvasNode, canvas: GraphCanvas) {
         super(data, canvas)
+        if (data.size){
+            this.size = data.size;
+        }
         this.data = { ...{ x: 0, y: 0 }, ...data }
     }
 

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from './canvas';
 import { exampleLinks, exampleNodes } from "./datasets/hello-graph-canvas";
+import exampleData from './datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
 
 
 
@@ -23,4 +24,6 @@ export default meta;
 
 export const HelloWorld: StoryObj = {};
 
-// export const HelloWorld: StoryObj = {};
+export const LargeData: StoryObj = {
+  render: () => createCanvas(exampleData.nodes, exampleData.links) ,
+};
