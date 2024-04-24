@@ -19,7 +19,13 @@ export default class GraphCanvas {
         console.log(`Creating canvas with options: ${this.options}`); 
         this.renderer = new Renderer(this);
         this.graph = new GraphData(this);
-        this.pixiApp =  this.createPIXIApp()
+        this.pixiApp =  this.createPIXIApp();
+
+        const _this = this;
+        // Destroy Pixi app when the window is being unloaded (e.g., when the page is being reloaded)
+        window.addEventListener('beforeunload', function() {
+            _this.destroyPIXIApp();
+        });
     }
 
     createPIXIApp = () => {
@@ -42,6 +48,14 @@ export default class GraphCanvas {
             pixiApp.stage.hitArea = pixiApp.screen;
         })
         return pixiApp
+    }
+
+    destroyPIXIApp = () => {
+        if (this.pixiApp) {
+            this.pixiApp.destroy(true);
+            //@ts-ignore
+            this.pixiApp = null;
+        }
     }
 
     addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{
