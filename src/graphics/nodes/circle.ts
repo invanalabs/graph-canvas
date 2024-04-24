@@ -12,11 +12,11 @@ class Circle extends NodeShapeBase {
         const labelGfx = new PIXI.Graphics();
         labelGfx.label = NodeContainerChildNames.label;
         labelGfx.position.set(this.size + 5 , -this.size);
-
+        
         const textStyle = new PIXI.TextStyle({ 
-            fontFamily: NodeStyleDefaults.label.fontFamily, 
-            fontSize: NodeStyleDefaults.label.fontSize,
-            fill: NodeStyleDefaults.label.color})
+            fontFamily: NodeStyleDefaults.label.text.font.family, 
+            fontSize: NodeStyleDefaults.label.text.font.size,
+            fill: NodeStyleDefaults.label.text.color})
         // text label
         const text = new PIXI.Text({ text : this.data.label,  style: textStyle});
         text.label = NodeContainerChildNames.labelText
@@ -52,8 +52,8 @@ class Circle extends NodeShapeBase {
         const shapeHoveredBorder = new PIXI.Graphics();
         shapeHoveredBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + hoveredPadding);
         shapeHoveredBorder.stroke({ 
-            width: NodeStyleDefaults[':hovered'].shape.border.thickness,
-            color: NodeStyleDefaults[':hovered'].shape.border.color
+            width: NodeStyleDefaults.states[':hovered'].shape.border.thickness,
+            color: NodeStyleDefaults.states[':hovered'].shape.border.color
         });
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.label = NodeContainerChildNames.shapeHoveredBorder
@@ -63,8 +63,8 @@ class Circle extends NodeShapeBase {
         const shapeSelectedBorder = new PIXI.Graphics();
         shapeSelectedBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + selectedPadding);
         shapeSelectedBorder.stroke({ 
-            width: NodeStyleDefaults[':selected'].shape.border.thickness + 2,
-            color: NodeStyleDefaults[':selected'].shape.border.color
+            width: NodeStyleDefaults.states[':selected'].shape.border.thickness + 2,
+            color: NodeStyleDefaults.states[':selected'].shape.border.color
         });
         shapeSelectedBorder.visible = false
         shapeSelectedBorder.label = NodeContainerChildNames.shapeSelectedBorder

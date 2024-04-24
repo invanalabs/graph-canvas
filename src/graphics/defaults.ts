@@ -1,8 +1,9 @@
+import { LinkStyleType, NodeStyleType } from "../canvas/types"
 
 
 
 
-export const NodeStyleDefaults = {
+export const NodeStyleDefaults: NodeStyleType = {
     shape : {
         background: {
             // color: "#333333",
@@ -11,12 +12,16 @@ export const NodeStyleDefaults = {
         },
         border: {
             thickness: 3,
-            color: "efefef"
+            color: "#efefef",
+            type: "solid"
         },
         icon: {
+            content: "&#9737;", // https://www.toptal.com/designers/htmlarrows/symbols/
             color: "#ffffff",
-            fontSize: 16,
-            // fontFamily: ""
+            font : {
+                size: 16,
+                family: "Arial"
+            }
         }
     },
     label: {
@@ -27,44 +32,50 @@ export const NodeStyleDefaults = {
         padding: 3,
         border: {
             thickness: 1,
+            type: "solid",
             color: "#efefef"
         },
-        color: "#ffffff",
-        fontSize: 12,
-        fontFamily: "Arial"
-    },
-    // ":selected": {
-    //     shape: {
-    //         border: {
-    //             thickness: 3,
-    //             color: 0xff0000
-    //         }
-    //     }
-    // },
-    ":hovered": {
-        shape: {
-            border: {
-                thickness: 3,
-                color: 0xfeeb77
+        text: {
+            color: "#ffffff",
+            font: {
+                size: 12,
+                family: "Arial"
             }
         }
+       
     },
-    ":selected": {
-        shape: {
-            border: {
-                thickness: 3,
-                color: "#F6B26B"
+    states: {
+        ":hovered": {
+            shape: {
+                border: {
+                    thickness: 3,
+                    color: 0xfeeb77
+                }
             }
-        }
+        },
+        ":selected": {
+            shape: {
+                border: {
+                    thickness: 3,
+                    color: "#F6B26B"
+                }
+            }
+        },
+        ":inactive": {
+            shape: {
+                opacity: 0.5,
+            }
+        },
+
     }
 }
 
 
-export const LinkStyleDefaults = {
+export const LinkStyleDefaults: LinkStyleType = {
     shape : {
         opacity: 1,
         thickness: 3,
-        color: "efefef"
+        color: "#efefef"
     },
     label: {
         background: {
@@ -74,27 +85,38 @@ export const LinkStyleDefaults = {
         padding: 3,
         border: {
             thickness: 1,
-            color: "#efefef"
+            color: "#efefef",
+            type: "solid"
         },
-        color: "#ffffff",
-        fontSize: 12,
-        fontFamily: "Arial"
+        text: {
+            color: "#ffffff",
+            font: {
+                size: 12,
+                family: "Arial"
+            }
+        }
+        // fontSize: 12,
+        // fontFamily: "Arial"
     },
     labelDisplay: "onHover", // | alwaysOn | onSelected"
-    ":hovered": {
-        shape: {
-            opacity: 1,
-            thickness: 6,
-            color: 0xfeeb77
-        }
-    },
-    // ":inactive": {
-    //     shape: {
-    //         opacity: 1,
-    //         thickness: 6,
-    //         color: 0xfeeb77
-    //     }
-    // },
+    states: {
+        ":hovered": {
+            shape: {
+                opacity: 1,
+                thickness: 6,
+                color: 0xfeeb77
+            }
+        },
+        ":inactive": {
+            shape: {
+                opacity: 1,
+                thickness: 6,
+                color: 0xfeeb77
+            }
+        },
+    }
+
+
     // ":selected": {
     //     shape: {
     //         opacity: 1,

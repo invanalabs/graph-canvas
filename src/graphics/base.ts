@@ -356,10 +356,10 @@ export class LinkShapeBase extends BaseShape {
         this.drawPath(shapeHoveredBorder, startPoint, endPoint)
 
         shapeHoveredBorder.stroke({ 
-            width: LinkStyleDefaults[':hovered'].shape.thickness,
-            color: LinkStyleDefaults[':hovered'].shape.color
+            width: LinkStyleDefaults.states[':hovered'].shape.thickness,
+            color: LinkStyleDefaults.states[':hovered'].shape.color
         });
-        shapeHoveredBorder.alpha = LinkStyleDefaults[':hovered'].shape.opacity;
+        shapeHoveredBorder.alpha = LinkStyleDefaults.states[':hovered'].shape.opacity;
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.label = LinkContainerChildNames.shapeHoveredBorder
         shapeHoveredBorder.zIndex = 10
