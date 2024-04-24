@@ -1,6 +1,7 @@
 // import BaseShape from "./base";
 
 // import { IdString, LinkData, NodeData } from "../data/types";
+import { LinkStyleType, NodeStyleType } from "../canvas/types";
 import { LinkShapeBase, NodeShapeBase } from "./base";
 
  
@@ -30,6 +31,7 @@ export interface CanvasNode extends CanvasItemBase {
     y?: number
 
     size?: number
+    style?: NodeStyleType
     // vx?: number
     // vy?: number
 }
@@ -40,6 +42,7 @@ export interface CanvasLink extends CanvasItemBase {
     target:  IdString | CanvasNode
     gfxInstance?: LinkShapeBase
     curvature?: number
+    style?: LinkStyleType
 
     // points?: Array<number> // for complext links with more turning points
 }

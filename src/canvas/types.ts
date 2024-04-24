@@ -66,6 +66,7 @@ export interface LinkShapeType {
 
 
 export interface NodeStyleType {
+    size: number
     shape: NodeShapeType
     label: ShapeLabelType
     states: {

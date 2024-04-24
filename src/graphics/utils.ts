@@ -1,4 +1,4 @@
-import { Graphics, Point, Polygon } from "pixi.js";
+import { Graphics, Point } from "pixi.js";
 import { CanvasNode } from "./types";
 import { LinkShapeTypes } from "./types";
 import { vec2 } from 'gl-matrix';

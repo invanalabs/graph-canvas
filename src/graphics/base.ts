@@ -4,7 +4,7 @@ import { CanvasLink, CanvasNode } from './types';
 import GraphCanvas from '../canvas/canvas';
 import { LinkContainerChildNames, NodeContainerChildNames } from './constants';
 import { LinkStyleDefaults, NodeStyleDefaults } from './defaults';
-import { getContactPointFromCircle, getContactPointOnCircle } from './utils';
+import { deepMerge } from '../utils/merge';
 
 
 abstract class Shape {
@@ -87,13 +87,11 @@ export class NodeShapeBase extends BaseShape {
     data: CanvasNode
     //@ts-ignore
     dragPoint: PIXI.Point
-    size: number = 20
 
     constructor(data: CanvasNode, canvas: GraphCanvas) {
         super(data, canvas)
-        if (data.size){
-            this.size = data.size;
-        }
+        data.style = data.style ? deepMerge(data.style, NodeStyleDefaults) : NodeStyleDefaults
+        console.log("======data", data)
         this.data = { ...{ x: 0, y: 0 }, ...data }
     }
 
@@ -243,6 +241,7 @@ export class LinkShapeBase extends BaseShape {
 
     constructor(data: CanvasLink, canvas: GraphCanvas) {
         super(data, canvas)
+        data.style = data.style ? deepMerge(data.style, LinkStyleDefaults) : LinkStyleDefaults
         this.data = data
     }
 

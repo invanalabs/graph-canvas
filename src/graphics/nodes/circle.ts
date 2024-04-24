@@ -11,12 +11,12 @@ class Circle extends NodeShapeBase {
     drawLabel = () => {
         const labelGfx = new PIXI.Graphics();
         labelGfx.label = NodeContainerChildNames.label;
-        labelGfx.position.set(this.size + 5 , -this.size);
+        labelGfx.position.set(this.data.style.size + 5 , -this.data.style.size);
         
         const textStyle = new PIXI.TextStyle({ 
-            fontFamily: NodeStyleDefaults.label.text.font.family, 
-            fontSize: NodeStyleDefaults.label.text.font.size,
-            fill: NodeStyleDefaults.label.text.color})
+            fontFamily: this.data.style?.label.text.font.family, 
+            fontSize: this.data.style?.label.text.font.size,
+            fill: this.data.style?.label.text.color})
         // text label
         const text = new PIXI.Text({ text : this.data.label,  style: textStyle});
         text.label = NodeContainerChildNames.labelText
@@ -25,8 +25,8 @@ class Circle extends NodeShapeBase {
         const textBackground = new PIXI.Graphics();
         textBackground.label = NodeContainerChildNames.labelBackground;
         textBackground.fill(
-            NodeStyleDefaults.label.background.color,
-            NodeStyleDefaults.label.background.opacity
+            this.data.style?.label.background.color,
+            this.data.style?.label.background.opacity
         ); // Background color
         textBackground.rect(0, 0, textBounds.width, textBounds.height); // Draw rectangle behind the text
 
@@ -39,21 +39,21 @@ class Circle extends NodeShapeBase {
         console.debug("Circle.drawShape triggered")
         let shape = new PIXI.Graphics();
         shape.label = NodeContainerChildNames.shape;
-        shape.circle(0, 0, this.size);
-        shape.fill(NodeStyleDefaults.shape.background.color, NodeStyleDefaults.shape.background.opacity);
+        shape.circle(0, 0, this.data.style.size);
+        shape.fill(this.data.style?.shape.background.color, this.data.style?.shape.background.opacity);
         shape.stroke({ 
-            width: NodeStyleDefaults.shape.border.thickness,
-            color: NodeStyleDefaults.shape.border.color
+            width: this.data.style?.shape.border.thickness,
+            color: this.data.style?.shape.border.color
         });
 
         const hoveredPadding = 3;
         const selectedPadding = hoveredPadding + 6;
         // shape hoveredBorder
         const shapeHoveredBorder = new PIXI.Graphics();
-        shapeHoveredBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + hoveredPadding);
+        shapeHoveredBorder.circle(0, 0, this.data.style.size + this.data.style?.shape.border.thickness + hoveredPadding);
         shapeHoveredBorder.stroke({ 
-            width: NodeStyleDefaults.states[':hovered'].shape.border.thickness,
-            color: NodeStyleDefaults.states[':hovered'].shape.border.color
+            width: this.data.style?.states[':hovered'].shape.border.thickness,
+            color: this.data.style?.states[':hovered'].shape.border.color
         });
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.label = NodeContainerChildNames.shapeHoveredBorder
@@ -61,10 +61,10 @@ class Circle extends NodeShapeBase {
 
         // shape selectedBorder
         const shapeSelectedBorder = new PIXI.Graphics();
-        shapeSelectedBorder.circle(0, 0, this.size + NodeStyleDefaults.shape.border.thickness + selectedPadding);
+        shapeSelectedBorder.circle(0, 0, this.data.style.size + this.data.style?.shape.border.thickness + selectedPadding);
         shapeSelectedBorder.stroke({ 
-            width: NodeStyleDefaults.states[':selected'].shape.border.thickness + 2,
-            color: NodeStyleDefaults.states[':selected'].shape.border.color
+            width: this.data.style?.states[':selected'].shape.border.thickness + 2,
+            color: this.data.style?.states[':selected'].shape.border.color
         });
         shapeSelectedBorder.visible = false
         shapeSelectedBorder.label = NodeContainerChildNames.shapeSelectedBorder
@@ -74,7 +74,7 @@ class Circle extends NodeShapeBase {
         shape.cursor = "pointer";
         shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
         // shape.scale.set(3);
-        // shape.hitArea = new PIXI.Circle(0, 0, this.size);
+        // shape.hitArea = new PIXI.Circle(0, 0, this.data.style.size);
         return shape
     }
 
