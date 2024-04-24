@@ -49,6 +49,7 @@ export default class GraphData {
 
         const newNodes = this.getNodesByIds(nodes.map(node => node.id))
         const newLinks = this.getLinksByIds(links.map(link => link.id))
+        // console.log("new Links", JSON.stringify(newLinks) )
         this.canvas.renderer.render(newNodes, newLinks)
     }
 

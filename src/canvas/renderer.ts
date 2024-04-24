@@ -53,6 +53,7 @@ class Renderer {
     }
 
     createLinkGfx(link: CanvasLink) {
+        // console.log("createLinkGfx triggered", JSON.stringify(link))
         let gfxInstance;
         if (link.shape === "loop"){
             gfxInstance = new LoopLine(link, this.canvas)

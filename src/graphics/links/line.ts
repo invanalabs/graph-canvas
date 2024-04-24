@@ -37,6 +37,7 @@ class Line extends LinkShapeBase {
 
     calcStartAndEndPoints = () => {
             // line color and thickness
+            // console.log("calcStartAndEndPoints", JSON.stringify(this.data))
         const arrowPadding = 3; 
         const endPoint = getContactPointOnCircle(
             this.data.source,

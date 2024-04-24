@@ -60,9 +60,6 @@ export const NodeStyleDefaults = {
 }
 
 
-
-
-
 export const LinkStyleDefaults = {
     shape : {
         opacity: 1,
@@ -83,6 +80,7 @@ export const LinkStyleDefaults = {
         fontSize: 12,
         fontFamily: "Arial"
     },
+    labelDisplay: "onHover", // | alwaysOn | onSelected"
     ":hovered": {
         shape: {
             opacity: 1,
@@ -90,6 +88,13 @@ export const LinkStyleDefaults = {
             color: 0xfeeb77
         }
     },
+    // ":inactive": {
+    //     shape: {
+    //         opacity: 1,
+    //         thickness: 6,
+    //         color: 0xfeeb77
+    //     }
+    // },
     // ":selected": {
     //     shape: {
     //         opacity: 1,

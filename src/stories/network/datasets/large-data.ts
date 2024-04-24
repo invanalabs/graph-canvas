@@ -13,7 +13,7 @@ let exampleData = {
             shape: 'circle',
             x: node.x,
             y: node.y,
-            size: 2
+            size: 10
         }
         return nodeCleaned
 

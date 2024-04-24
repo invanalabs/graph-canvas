@@ -11,7 +11,8 @@ export const getContactPointOnCircle = (
 ) => {
 
   // getCirclePont
-  const nodeRadius = target?.gfxInstance?.size + padding
+  const nodeRadius = target?.gfxInstance?.size + padding ? target?.gfxInstance?.size : 20
+  console.log("===nodeRadius", nodeRadius)
   const arrowheadLength = 0;
   const angle = Math.atan2(target.y - source.y, target.x - source.x);
   let x = target.x - Math.cos(angle) * (nodeRadius + arrowheadLength);
