@@ -25,7 +25,6 @@ abstract class Shape {
     abstract setGfxPosition(x: number, y: number): void;
 }
 
-
 export class BaseShape extends Shape {
     /*
         this is the base shape for the Shape and the LabelShape
@@ -90,8 +89,11 @@ export class NodeShapeBase extends BaseShape {
 
     constructor(data: CanvasNode, canvas: GraphCanvas) {
         super(data, canvas)
-        data.style = data.style ? deepMerge(data.style, NodeStyleDefaults) : NodeStyleDefaults
-        console.log("======data", data)
+        console.log("======data.style before", data.group, JSON.stringify(data.style), )
+        console.log("======data.NodeStyleDefaults", JSON.stringify(NodeStyleDefaults))
+        console.log("======d", deepMerge(NodeStyleDefaults, data.style),  data.style)
+        data.style = data.style ? deepMerge(NodeStyleDefaults, data.style) : NodeStyleDefaults
+        console.log("======data.style after", data.group, JSON.stringify(data.style))
         this.data = { ...{ x: 0, y: 0 }, ...data }
     }
 
@@ -236,12 +238,10 @@ export class NodeShapeBase extends BaseShape {
 
 export class LinkShapeBase extends BaseShape {
     data: CanvasLink
-    thickness: number = 2
-    color: string =  '#ff0000';
 
     constructor(data: CanvasLink, canvas: GraphCanvas) {
         super(data, canvas)
-        data.style = data.style ? deepMerge(data.style, LinkStyleDefaults) : LinkStyleDefaults
+        data.style = data.style ? deepMerge(LinkStyleDefaults, data.style) : LinkStyleDefaults
         this.data = data
     }
 
@@ -297,7 +297,7 @@ export class LinkShapeBase extends BaseShape {
         let arrow = new PIXI.Graphics();
         const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
         arrow.poly(points);
-        arrow.stroke({width: this.thickness, color: this.color});
+        arrow.stroke({width: this.data.style.shape.thickness, color: this.data.style.shape.color});
         this.calcArrowAngle(arrow, startPoint, endPoint, points)
         return arrow;
     }
@@ -341,7 +341,7 @@ export class LinkShapeBase extends BaseShape {
         let shapeLine = new PIXI.Graphics();
         shapeLine.label = LinkContainerChildNames.shapeLine
         this.drawPath(shapeLine, startPoint, endPoint)
-        shapeLine.stroke({width: this.thickness, color: this.color});
+        shapeLine.stroke({width: this.data.style.shape.thickness, color: this.data.style.shape.color});
 
         // console.log("endPoint", endPoint)
         shapeLine.zIndex = 1000
@@ -355,10 +355,10 @@ export class LinkShapeBase extends BaseShape {
         this.drawPath(shapeHoveredBorder, startPoint, endPoint)
 
         shapeHoveredBorder.stroke({ 
-            width: LinkStyleDefaults.states[':hovered'].shape.thickness,
-            color: LinkStyleDefaults.states[':hovered'].shape.color
+            width: this.data.style.states[':hovered'].shape.thickness,
+            color: this.data.style.states[':hovered'].shape.color
         });
-        shapeHoveredBorder.alpha = LinkStyleDefaults.states[':hovered'].shape.opacity;
+        shapeHoveredBorder.alpha = this.data.style.states[':hovered'].shape.opacity;
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.label = LinkContainerChildNames.shapeHoveredBorder
         shapeHoveredBorder.zIndex = 10

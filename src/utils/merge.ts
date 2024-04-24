@@ -1,23 +1,21 @@
+type Dict = { [key: string]: any };
 
-type Mergeable<T> = T extends object ? { [K in keyof T]: Mergeable<T[K]> } : T;
+export function deepMerge(target: Dict, source: Dict): Dict {
+    const merged: Dict = { ...target };
 
-function isMergeable(obj: any): obj is object {
-    return obj && typeof obj === 'object' && !Array.isArray(obj);
-}
-
-export function deepMerge<T extends object>(target: Mergeable<T>, ...sources: Mergeable<T>[]): Mergeable<T> {
-    if (!sources.length) return target;
-    const source = sources.shift();
-
-    if (isMergeable(target) && isMergeable(source)) {
-        for (const key in source) {
-            if (isMergeable(source[key])) {
-                if (!target[key]) Object.assign(target, { [key]: {} });
-                deepMerge(target[key], source[key]);
+    for (const key in source) {
+        if (typeof source[key] === 'object' && source[key] !== null) {
+            if (typeof merged[key] === 'object' && merged[key] !== null) {
+                merged[key] = deepMerge(merged[key], source[key]);
             } else {
-                Object.assign(target, { [key]: source[key] });
+                merged[key] = deepMerge({}, source[key]);
             }
+        } else {
+            merged[key] = source[key];
         }
     }
-    return deepMerge(target, ...sources);
+
+    return merged;
 }
+
+// export deepMerge

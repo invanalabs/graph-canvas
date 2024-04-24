@@ -1,4 +1,5 @@
 import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
+import { deepMerge } from "../utils/merge";
 import GraphCanvas from "./canvas";
 
 
@@ -18,10 +19,19 @@ export default class GraphData {
         const _this = this; 
         console.log("adding nodes and links", this.nodes, this.links)
         
+        const nodeStyles = _this.canvas.options?.styles?.nodes || {}
+        const linkStyles = _this.canvas.options?.styles?.links || {}
+
+        console.log("=====nodeStyles", JSON.stringify(nodeStyles))
         nodes.forEach(node=> {
             if (_this.nodes.get(node.id)){
                 throw new Error(`${node.id} already found in the nodes`)
             }
+
+            if (nodeStyles[node.group]){
+                node.style = deepMerge(nodeStyles[node.group], node?.style | {})
+            }
+            console.log("=====node=====", JSON.stringify(node))
             _this.nodes.set(node.id, node)
         })
 
@@ -43,6 +53,9 @@ export default class GraphData {
                 }else{
                     throw Error(`${link.target} not found in node: ${this.nodes} `)
                 }
+            }
+            if (linkStyles[link.group]){
+                link.style = deepMerge(linkStyles[link.group], link?.style | {})
             }
             _this.links.set(link.id, link)
         })

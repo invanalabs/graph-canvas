@@ -1,16 +1,28 @@
 import GraphCanvas from "../../canvas/canvas";
+import { CanvasOptions } from "../../canvas/types";
 import { CanvasLink, CanvasNode } from "../../graphics/types";
 
-export const createCanvas = (nodes: CanvasNode[], links: CanvasLink[]) => {
-
+export const createCanvas = (nodes: CanvasNode[], links: CanvasLink[], canvasOptions: CanvasOptions) => {
     const html = document.createElement("div");
     html.style.height = "100vh";
     html.style.width = "100vw";
-    // html.style.height = "600px";
-    // html.style.width = "800px";
-
-    const canvas = new GraphCanvas({viewDiv: html});
+    if (!canvasOptions){
+        canvasOptions = {}
+    }
+    canvasOptions.viewDiv = html
+    const canvas = new GraphCanvas(canvasOptions);
     canvas.graph.add(nodes, links)
-    // canvas.clear()
     return html
 }
+
+
+
+export const customCanvasOptions = {
+    styles: {
+        nodes: {
+            Person: {
+                size: 40
+            } 
+        }
+    }
+} 

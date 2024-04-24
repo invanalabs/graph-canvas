@@ -1,12 +1,9 @@
 import * as PIXI from 'pixi.js';
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../constants';
-import { NodeStyleDefaults } from '../defaults';
 
 
 class Circle extends NodeShapeBase {
-
-    color: string =  '#444444';
 
     drawLabel = () => {
         const labelGfx = new PIXI.Graphics();

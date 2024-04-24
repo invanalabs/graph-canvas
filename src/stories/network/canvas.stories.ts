@@ -1,13 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from './canvas';
+import { createCanvas, customCanvasOptions } from './canvas';
 import { exampleLinks, exampleNodes } from "./datasets/hello-graph-canvas";
 import exampleData from './datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
 
 
-
 const meta = {
   title: 'Network',
-  render: () => createCanvas(exampleNodes, exampleLinks) ,
+  render: () => createCanvas(exampleNodes, exampleLinks, customCanvasOptions) ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
@@ -25,5 +24,5 @@ export default meta;
 export const HelloWorld: StoryObj = {};
 
 export const LargeData: StoryObj = {
-  render: () => createCanvas(exampleData.nodes, exampleData.links) ,
+  render: () => createCanvas(exampleData.nodes, exampleData.links, {}) ,
 };

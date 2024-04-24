@@ -78,7 +78,7 @@ export interface LinkStyleType {
     shape: LinkShapeType
     label: ShapeLabelType
     states: {
-        [key in  ':hovered' | ':selected' | ':inactive'] : LinkStyleType
+        [key in  ':hovered' | ':inactive'] : LinkStyleType
     }
 }
 
@@ -98,7 +98,7 @@ export interface GraphicsStyles {
 }
 
 export interface CanvasOptions {
-    viewDiv: HTMLCanvasElement | HTMLDivElement
+    viewDiv?: HTMLCanvasElement | HTMLDivElement
     // screen: ScreenOptions
     background?: string | number // use hex instead of number
     renderer?: RendererType // RendereTypes.keys()
