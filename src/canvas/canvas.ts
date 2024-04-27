@@ -20,33 +20,42 @@ export default class GraphCanvas {
         this.renderer = new Renderer(this);
         this.graph = new GraphData(this);
         this.pixiApp =  this.createPIXIApp();
+        this.pixiApp.start();
 
-        const _this = this;
+        // const _this = this;
         // Destroy Pixi app when the window is being unloaded (e.g., when the page is being reloaded)
-        window.addEventListener('beforeunload', function() {
-            _this.destroyPIXIApp();
-        });
+        // window.addEventListener('beforeunload', function() {
+        //     _this.destroyPIXIApp();
+        // });
     }
 
     createPIXIApp = () => {
         // const {width, height} = this.options.viewDiv.style;
-        const pixiApp =  new PIXI.Application();
         const pixiAppArgs = {
+            // preference: this.options.renderer, 
             // width: width,
             // height: height,
+            // view: this.options.viewDiv,
             antialias: true,
             autoResize: true,
-            preference: this.options.renderer,
             autoDensity: true,
             resolution: this.options.resolution,
-            resizeTo: this.options.viewDiv,
+            // resizeTo: this.options.viewDiv,
+            resizeTo: window,
             backgroundColor: this.options.background,
+            eventMode : 'static', //  Emit events and is hit tested. Same as interaction = true in v7
         } 
-        pixiApp.init(pixiAppArgs).then(() => {
-            this.options.viewDiv.appendChild(pixiApp.canvas);
-            pixiApp.stage.eventMode = 'static';
-            pixiApp.stage.hitArea = pixiApp.screen;
-        })
+        const pixiApp =  new PIXI.Application(pixiAppArgs);
+        // The stage will handle the move events
+        pixiApp.stage.interactive = true;
+        pixiApp.stage.hitArea = pixiApp.screen;
+        this.options.viewDiv.appendChild(pixiApp.view);
+
+        // pixiApp.init(pixiAppArgs).then(() => {
+        //     this.options.viewDiv.appendChild(pixiApp.canvas);
+        //     pixiApp.stage.eventMode = 'static';
+        //     pixiApp.stage.hitArea = pixiApp.screen;
+        // })
         return pixiApp
     }
 
@@ -59,6 +68,7 @@ export default class GraphCanvas {
     }
 
     addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{
+        console.log("addGfx", shape)
         this.pixiApp.stage.addChild(shape.gfxContainer) // TODO: try setChildIndex
     }
 

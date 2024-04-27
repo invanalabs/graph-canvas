@@ -14,3 +14,14 @@ export const exampleNodes : Array<CanvasNode> = [
 export const exampleLinks: Array<CanvasLink> = [
  
 ];
+
+export const customCanvasOptions = {
+    styles: {
+        nodes: {
+            Person: {
+                size: 40
+            } 
+        },
+        links : {}
+    }
+} 

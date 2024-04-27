@@ -16,7 +16,7 @@ abstract class Shape {
     abstract pointerOut(): void;
 
     abstract draw(): void;
-    abstract drawLabel(): PIXI.Graphics;
+    abstract drawLabel(): PIXI.Graphics | undefined | null;
     abstract drawShape(): PIXI.Graphics;
     abstract redraw(): void;
 
@@ -38,17 +38,18 @@ export class BaseShape extends Shape {
         super()
         this.data = data;
         this.canvas = canvas;
-        this.gfxContainer = new PIXI.Container({
-            isRenderGroup:true // this containers transform is now handled on the GPU!
-        })
+        this.gfxContainer = new PIXI.Container()
+        // in v8; { isRenderGroup:true} // this containers transform is now handled on the GPU!
+        
         // this.gfxContainer.
         // Make the gfxContainer interactive...
         this.gfxContainer.cursor = 'pointer';
         this.gfxContainer.eventMode = 'static';
     }
 
-    drawLabel = (): PIXI.Graphics => {
+    drawLabel = () => {
         console.debug("BaseShape.drawLabel not defined")
+        return ;
     }
 
     setupInteractions() { console.error("BaseShape.setupInteractions triggered") }
@@ -103,9 +104,10 @@ export class NodeShapeBase extends BaseShape {
         //     NodeStyleDefaults[':hovered'].shape.border.color,
         //     NodeStyleDefaults[':hovered'].shape.border.thickness + 10 
         // )
-        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        // getChildByLabel in v8 
+        let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
-            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(NodeContainerChildNames.shapeHoveredBorder)
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
             console.log("====pointerOver", shapeHoveredBorder)
             if (shapeHoveredBorder) {
                 // shapeHoveredBorder.tint = 0xff00ff;
@@ -123,23 +125,22 @@ export class NodeShapeBase extends BaseShape {
         //     NodeStyleDefaults.shape.border.color,
         //     NodeStyleDefaults.shape.border.thickness 
         // )
-        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
-            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(NodeContainerChildNames.shapeHoveredBorder)
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
             console.log("====pointerOver", shapeHoveredBorder)
             if (shapeHoveredBorder) {
                 // shapeHoveredBorder.tint = 0xffffff;
                 // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
                 shapeHoveredBorder.visible = false
-
             }
         }
     }
 
     showHighlightedRing = () => {
-        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
-            const shapeSelectedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeSelectedBorder);
+            const shapeSelectedBorder = shape.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
             console.log("shapeSelectedBorder", shapeSelectedBorder)
             if (shapeSelectedBorder) {
                 shapeSelectedBorder.visible = true
@@ -148,9 +149,9 @@ export class NodeShapeBase extends BaseShape {
     }
 
     hideHighlightedRing = () => {
-        let shape = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
+        let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
-            const shapeSelectedBorder = shape.getChildByLabel(NodeContainerChildNames.shapeSelectedBorder);
+            const shapeSelectedBorder = shape.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
             console.log("shapeSelectedBorder", shapeSelectedBorder)
             if (shapeSelectedBorder) {
                 shapeSelectedBorder.visible = false
@@ -203,15 +204,15 @@ export class NodeShapeBase extends BaseShape {
             .on('pointerupoutside', this.onDragEnd.bind(this))
     }
 
-    setBorder = (color: string | number, thickness: number, set: boolean = true) => {
-        const shape: PIXI.Graphics | null = this.gfxContainer.getChildByLabel(NodeContainerChildNames.shape);
-        console.log("setBorder", color, thickness, set, shape)
-        // shape.tint = color;
-        shape?.stroke({ //shape?.setStrokeStyle({ 
-            width: thickness,
-            color: color
-        });
-    }
+    // setBorder = (color: string | number, thickness: number, set: boolean = true) => {
+    //     const shape: PIXI.Graphics | null = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
+    //     console.log("setBorder", color, thickness, set, shape)
+    //     // shape.tint = color;
+    //     shape?.stroke({ //shape?.setStrokeStyle({ 
+    //         width: thickness,
+    //         color: color
+    //     });
+    // }
 
     draw = () => {
         // clear shape first
@@ -226,7 +227,9 @@ export class NodeShapeBase extends BaseShape {
         // )
         // draw label
         let labelGfx = this.drawLabel();
-        this.gfxContainer.addChild(labelGfx);
+        if (labelGfx){
+            this.gfxContainer.addChild(labelGfx);
+        }
         // setup intractions
         this.setupInteractions()
         // update the position
@@ -247,9 +250,9 @@ export class LinkShapeBase extends BaseShape {
 
     pointerOver() {
         console.log("==pointerOver",)
-        let shape = this.gfxContainer.getChildByLabel(LinkContainerChildNames.shape);
+        let shape = this.gfxContainer.getChildByName(LinkContainerChildNames.shape);
         if (shape) {
-            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(LinkContainerChildNames.shapeHoveredBorder)
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
             if (shapeHoveredBorder) {
                 shapeHoveredBorder.visible = true
             }
@@ -258,9 +261,9 @@ export class LinkShapeBase extends BaseShape {
 
     pointerOut() {
         console.log("==pointerOut",)
-        let shape = this.gfxContainer.getChildByLabel(LinkContainerChildNames.shape);
+        let shape = this.gfxContainer.getChildByName(LinkContainerChildNames.shape);
         if (shape) {
-            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByLabel(LinkContainerChildNames.shapeHoveredBorder)
+            const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
             if (shapeHoveredBorder) {
                 shapeHoveredBorder.visible = false
             }
@@ -296,23 +299,23 @@ export class LinkShapeBase extends BaseShape {
     drawArrow = (startPoint: PIXI.Point, endPoint: PIXI.Point) => {
         let arrow = new PIXI.Graphics();
         const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
-        arrow.poly(points);
-        arrow.stroke({width: this.data.style.shape.thickness, color: this.data.style.shape.color});
+        arrow.drawPolygon(points);
+        arrow.lineStyle(this.data.style.shape.thickness,  this.data.style.shape.color);
         this.calcArrowAngle(arrow, startPoint, endPoint, points)
         return arrow;
     }
 
     drawLabel = () => {
         console.log("Line.drawLabel")
-        const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
+        const labelString = this.data.name ? this.data.name : `${this.data.source?.id}-->${this.data.target?.id}`
 
         const labelGfx = new PIXI.Graphics()
-        labelGfx.label = LinkContainerChildNames.label
+        labelGfx.name = LinkContainerChildNames.name
         // Add label text
         // https://pixijs.com/8.x/playground?exampleId=text.pixiText
         const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
         const text = new PIXI.Text({ text : labelString,  style});
-        text.label = LinkContainerChildNames.labelText
+        text.name = LinkContainerChildNames.nameText
         text.anchor.set(0.5);
 
         text.position.y = -8; // offset 
@@ -335,13 +338,13 @@ export class LinkShapeBase extends BaseShape {
         let {startPoint, endPoint} = this.calcStartAndEndPoints();
         // console.log("startPoint, endPoint", JSON.stringify(startPoint), JSON.stringify(endPoint))
         let shape = new PIXI.Graphics();
-        shape.label = LinkContainerChildNames.shape
+        shape.name = LinkContainerChildNames.shape
 
 
         let shapeLine = new PIXI.Graphics();
-        shapeLine.label = LinkContainerChildNames.shapeLine
+        shapeLine.name = LinkContainerChildNames.shapeLine
         this.drawPath(shapeLine, startPoint, endPoint)
-        shapeLine.stroke({width: this.data.style.shape.thickness, color: this.data.style.shape.color});
+        shapeLine.lineStyle(this.data.style.shape.thickness, this.data.style.shape.color);
 
         // console.log("endPoint", endPoint)
         shapeLine.zIndex = 1000
@@ -354,13 +357,11 @@ export class LinkShapeBase extends BaseShape {
         const shapeHoveredBorder = new PIXI.Graphics();
         this.drawPath(shapeHoveredBorder, startPoint, endPoint)
 
-        shapeHoveredBorder.stroke({ 
-            width: this.data.style.states[':hovered'].shape.thickness,
-            color: this.data.style.states[':hovered'].shape.color
-        });
+        shapeHoveredBorder.lineStyle( this.data.style.states[':hovered'].shape.thickness,
+              this.data.style.states[':hovered'].shape.color);
         shapeHoveredBorder.alpha = this.data.style.states[':hovered'].shape.opacity;
         shapeHoveredBorder.visible = false
-        shapeHoveredBorder.label = LinkContainerChildNames.shapeHoveredBorder
+        shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
         shapeHoveredBorder.zIndex = 10
         shape.addChild(shapeHoveredBorder)
         // shapeLine.closePath()

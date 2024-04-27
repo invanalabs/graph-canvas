@@ -57,8 +57,8 @@ export const NodeStyleDefaults: NodeStyleType = {
         ":selected": {
             shape: {
                 border: {
-                    thickness: 3,
-                    color: "#F6B26B"
+                    thickness: 6,
+                    color: 0xF6B26B
                 }
             }
         },

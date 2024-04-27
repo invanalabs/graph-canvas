@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../../network/canvas';
-import { exampleNodes } from './circle';
+import { exampleNodes, exampleLinks, customCanvasOptions } from './circle';
 
 
 const meta = {
   title: 'Shapes/Nodes',
-  render: () => createCanvas(exampleNodes, []) ,
+  render: () => createCanvas(exampleNodes, exampleLinks, customCanvasOptions) ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
