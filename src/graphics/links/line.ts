@@ -26,13 +26,13 @@ class Line extends LinkShapeBase {
         return angle
     }
 
-    calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point,  points: number[], ) => {
-        arrow.rotation = Math.atan2(
-            startPoint.y - endPoint.y,
-            startPoint.x - endPoint.x
-        );
-        arrow.position.set(endPoint.x, endPoint.y);
-    }
+    // calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point,  points: number[], ) => {
+    //     arrow.rotation = Math.atan2(
+    //         startPoint.y - endPoint.y,
+    //         startPoint.x - endPoint.x
+    //     );
+    //     arrow.position.set(endPoint.x, endPoint.y);
+    // }
 
     calcStartAndEndPoints = () => {
             // line color and thickness
@@ -52,11 +52,11 @@ class Line extends LinkShapeBase {
     
     }
 
-    drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
-        shapeLine.moveTo(startPoint.x, startPoint.y);
-        shapeLine.lineTo(endPoint.x, endPoint.y);
+    // drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+    //     shapeLine.moveTo(startPoint.x, startPoint.y);
+    //     shapeLine.lineTo(endPoint.x, endPoint.y);
 
-    }
+    // }
 }
 
 

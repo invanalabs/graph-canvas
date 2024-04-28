@@ -1,26 +1,27 @@
-import { Graphics } from "pixi.js"
-import { ShapeBackgroundType, ShapeBorderType } from "../canvas/types"
+import { Graphics, Point } from "pixi.js"
+import { LinkShapeType, ShapeBackgroundType, ShapeBorderType } from "../canvas/types"
 
 
-export interface DrawCirclePrimitiveType {
-    size: number
-    background: ShapeBackgroundType
-    border?: ShapeBorderType
+export interface DrawLinkPrimitiveType extends LinkShapeType {
+    // type : 
+    startPoint : Point 
+    endPoint : Point
 }
 
 
-const drawLineShape = (props: DrawCirclePrimitiveType) => {
+const drawStraightLineShape = ( props: DrawLinkPrimitiveType) => {
     console.log("drawLineShape", props);
     let shape = new Graphics();
-    if (props.border){
-        // TODO - border.type not being used yet 
-        shape.lineStyle(props.border.thickness, props.border.color);
-    }
-    if (props.background){
-        shape.beginFill(props.background.color, props.background.opacity)
-    }
-    shape.drawCircle(0, 0, props.size);
+
+    // draw the path 
+    shape.lineStyle(props.thickness, props.color);
+    shape.moveTo(props.startPoint.x, props.startPoint.y);
+    shape.lineTo(props.endPoint.x, props.endPoint.y);
+
+    // 
+
+
     return shape;
 }
 
-export default drawLineShape
+export default drawStraightLineShape

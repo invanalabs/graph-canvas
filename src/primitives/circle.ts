@@ -22,6 +22,7 @@ const drawCircleShape = (props: DrawCirclePrimitiveType) => {
     } 
     shape.drawCircle(0, 0, props.size);
     shape.hitArea = new Circle(0, 0, props.size);
+    shape.cursor = 'pointer';
 
     return shape;
 }

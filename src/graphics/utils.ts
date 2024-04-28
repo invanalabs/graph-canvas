@@ -26,6 +26,7 @@ export const getContactPointFromCircle = (
   target: CanvasNode,
   padding: number = 2
 ) => {
+  padding = padding * -1;
   return getContactPointOnCircle(target, source, padding)
 }
 

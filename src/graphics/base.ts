@@ -5,6 +5,9 @@ import GraphCanvas from '../canvas/canvas';
 import { LinkContainerChildNames, NodeContainerChildNames } from './constants';
 import { LinkStyleDefaults, NodeStyleDefaults } from './defaults';
 import { deepMerge } from '../utils/merge';
+import drawStraightLineShape from '../primitives/line';
+import drawArrowHeadShape from '../primitives/arrowHead';
+import drawLabelShape from '../primitives/label';
 
 
 abstract class Shape {
@@ -292,45 +295,27 @@ export class LinkShapeBase extends BaseShape {
         console.error("calcStartAndEndPoints not Implemented")
     }
 
-    calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point,  points: number[], ) => {
-        console.error("calcArrowAngle not implemented")
-    }
+    // calcArrowAngle = (arrow: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point,  points: number[], ) => {
+    //     console.error("calcArrowAngle not implemented")
+    // }
 
     drawArrow = (startPoint: PIXI.Point, endPoint: PIXI.Point) => {
-        let arrow = new PIXI.Graphics();
-        const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
-        arrow.drawPolygon(points);
-        arrow.lineStyle(this.data.style.shape.thickness,  this.data.style.shape.color);
-        this.calcArrowAngle(arrow, startPoint, endPoint, points)
+        const arrow = drawArrowHeadShape({startPoint, endPoint, ...this.data.style?.shape})
         return arrow;
     }
 
     drawLabel = () => {
         console.log("Line.drawLabel")
-        const labelString = this.data.name ? this.data.name : `${this.data.source?.id}-->${this.data.target?.id}`
-
-        const labelGfx = new PIXI.Graphics()
-        labelGfx.name = LinkContainerChildNames.name
-        // Add label text
-        // https://pixijs.com/8.x/playground?exampleId=text.pixiText
-        const style = new PIXI.TextStyle({ fontFamily: 'Arial', fontSize: 12, fill: 0xFFFFFF })
-        const text = new PIXI.Text({ text : labelString,  style});
-        text.name = LinkContainerChildNames.nameText
-        text.anchor.set(0.5);
-
-        text.position.y = -8; // offset 
-        text.resolution = window.devicePixelRatio * 2;
-        labelGfx.addChild(text)
-
-        // text.cursor = 'pointer';
-
+        const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
+        const labelGfx = drawLabelShape({label: labelString, ...this.data.style?.label})
+        labelGfx.name = LinkContainerChildNames.label
         return labelGfx
     }
 
-    drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
-        console.error("Not implemented");
+    // drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+    //     console.error("Not implemented");
 
-    }
+    // }
 
     drawShape = () => {
         console.log("Line.drawShape triggered", this.data)
@@ -341,25 +326,19 @@ export class LinkShapeBase extends BaseShape {
         shape.name = LinkContainerChildNames.shape
 
 
-        let shapeLine = new PIXI.Graphics();
+        // draw path
+        const shapeLine = drawStraightLineShape({startPoint, endPoint, ...this.data.style?.shape})
         shapeLine.name = LinkContainerChildNames.shapeLine
-        this.drawPath(shapeLine, startPoint, endPoint)
-        shapeLine.lineStyle(this.data.style.shape.thickness, this.data.style.shape.color);
-
-        // console.log("endPoint", endPoint)
         shapeLine.zIndex = 1000
+
         // add arrow
         const arrow = this.drawArrow(startPoint, endPoint)
         shapeLine.addChild(arrow)
         shape.addChild(shapeLine)
 
         // shape hoveredBorder
-        const shapeHoveredBorder = new PIXI.Graphics();
-        this.drawPath(shapeHoveredBorder, startPoint, endPoint)
-
-        shapeHoveredBorder.lineStyle( this.data.style.states[':hovered'].shape.thickness,
-              this.data.style.states[':hovered'].shape.color);
-        shapeHoveredBorder.alpha = this.data.style.states[':hovered'].shape.opacity;
+        // const shapeHoveredBorder = new PIXI.Graphics();
+        const shapeHoveredBorder = drawStraightLineShape({startPoint, endPoint, ...this.data.style.states[':hovered'].shape})
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
         shapeHoveredBorder.zIndex = 10
