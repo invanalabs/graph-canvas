@@ -1,3 +1,4 @@
+import { ICanvas } from "pixi.js";
 
 
 export type StringOrNumber = String | Number;
@@ -98,7 +99,7 @@ export interface GraphicsStyles {
 }
 
 export interface CanvasOptions {
-    viewDiv?: HTMLCanvasElement | HTMLDivElement
+    viewDiv: ICanvas // HTMLCanvasElement | HTMLDivElement // 
     // screen: ScreenOptions
     background?: string | number // use hex instead of number
     renderer?: RendererType // RendereTypes.keys()

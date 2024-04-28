@@ -22,7 +22,9 @@ const drawCircleShape = (props: DrawCirclePrimitiveType) => {
     } 
     shape.drawCircle(0, 0, props.size);
     shape.hitArea = new Circle(0, 0, props.size);
-    shape.cursor = 'pointer';
+    // shape.cursor = 'pointer';
+    shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
+
 
     return shape;
 }

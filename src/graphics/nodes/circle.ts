@@ -1,4 +1,3 @@
-import * as PIXI from 'pixi.js';
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../constants';
 import drawCircleShape from '../../primitives/circle';

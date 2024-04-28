@@ -13,7 +13,7 @@ import drawDottedLineShape from '../primitives/lines/dottedLine';
 
 abstract class Shape {
     abstract data: CanvasLink | CanvasNode;
-    abstract gfxContainer: PIXI.Container;
+    abstract gfxContainer: PIXI.Graphics;
 
     abstract setupInteractions(): void;
     abstract pointerOver(): void;
@@ -34,7 +34,7 @@ export class BaseShape extends Shape {
         this is the base shape for the Shape and the LabelShape
     */
     data: CanvasLink | CanvasNode;
-    gfxContainer: PIXI.Container;
+    gfxContainer: PIXI.Graphics;
     canvas: GraphCanvas
 
 
@@ -42,13 +42,13 @@ export class BaseShape extends Shape {
         super()
         this.data = data;
         this.canvas = canvas;
-        this.gfxContainer = new PIXI.Container()
+        this.gfxContainer = new PIXI.Graphics()
         // in v8; { isRenderGroup:true} // this containers transform is now handled on the GPU!
         
         // this.gfxContainer.
         // Make the gfxContainer interactive...
         this.gfxContainer.cursor = 'pointer';
-        this.gfxContainer.eventMode = 'static';
+        // this.gfxContainer.eventMode = 'static';
     }
 
     drawLabel = () => {
