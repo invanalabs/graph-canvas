@@ -1,4 +1,4 @@
-import { Graphics, Circle } from "pixi.js"
+import { Graphics } from "pixi.js"
 import { ShapeBackgroundType, ShapeBorderType } from "../canvas/types"
 
 
@@ -9,21 +9,18 @@ export interface DrawCirclePrimitiveType {
 }
 
 
-const drawCircleShape = (props: DrawCirclePrimitiveType) => {
-    console.log("drawCircle", props);
+const drawLineShape = (props: DrawCirclePrimitiveType) => {
+    console.log("drawLineShape", props);
     let shape = new Graphics();
     if (props.border){
         // TODO - border.type not being used yet 
         shape.lineStyle(props.border.thickness, props.border.color);
     }
     if (props.background){
-        const alpha = props.background.color === "transparent" ? 0: props.background.opacity
-        shape.beginFill(props.background.color, alpha );
-    } 
+        shape.beginFill(props.background.color, props.background.opacity)
+    }
     shape.drawCircle(0, 0, props.size);
-    shape.hitArea = new Circle(0, 0, props.size);
-
     return shape;
 }
 
-export default drawCircleShape
+export default drawLineShape
