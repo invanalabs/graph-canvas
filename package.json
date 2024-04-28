@@ -40,9 +40,9 @@
     "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
+    "@pixi/core": "^7.4.2",
     "gl-matrix": "^3.4.3",
-    "pixi-viewport": "^5.0.2",
-    "pixi.js": "^7.3.3",
-    "pixi.js-legacy": "^7.3.3"
+    "pixi-viewport": "github:davidfig/pixi-viewport",
+    "pixi.js": "^8.1.0"
   }
 }

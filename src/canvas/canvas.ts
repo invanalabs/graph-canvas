@@ -34,10 +34,11 @@ export default class GraphCanvas {
         }
         const canvasSizeOptions: CameraOptions = this.getCanvasSizeOptions(divRectangle?.width, divRectangle?.height);
         this.pixiApp =  this.createPIXIApp(canvasSizeOptions.screenWidth, canvasSizeOptions.worldHeight);
+        setTimeout(() => console.log("loaded"), 300)
 
-        // if (divRectangle?.width == 0 || divRectangle?.height == 0 ){
-        //     throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
-        // }
+        if (divRectangle?.width == 0 || divRectangle?.height == 0 ){
+            throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
+        }
         console.log("===canvasSizeOptions", canvasSizeOptions)
         this.camera = new Camera({
             events: this.pixiApp.renderer.events, 
@@ -53,6 +54,7 @@ export default class GraphCanvas {
         // window.addEventListener('beforeunload', function() {
         //     _this.destroyPIXIApp();
         // });
+
 
     }
 
@@ -71,25 +73,11 @@ export default class GraphCanvas {
     }
     
     createPIXIApp = (screenWidth: number = 800, screenHeight: number=600) => {
-        // const pixiAppArgs = {
-        //     // preference: this.options.renderer, 
-        //     width: screenWidth,
-        //     height: screenHeight,
-        //     view: this.options.viewDiv,
-        //     antialias: true,
-        //     // autoResize: true,
-        //     autoDensity: true,
-        //     autoStart: false, // // disable automatic rendering by ticker, render manually instead, only when needed
-        //     // resizeTo: this.options.viewDiv,
-        //     resizeTo: window,
-        //     resolution: this.options.resolution,
-        //     backgroundColor: this.options.background,
-        //     eventMode : 'static', //  Emit events and is hit tested. Same as interaction = true in v7
-        // } 
-        const pixiApp =  new PIXI.Application({
+        const pixiApp =  new PIXI.Application()
+        pixiApp.init({
             width: screenWidth,
             height: screenHeight,
-            view: this.options.viewDiv,
+            canvas: this.options.viewDiv,
             antialias: true,
             resizeTo: window,
             autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
@@ -97,10 +85,13 @@ export default class GraphCanvas {
             resolution: window.devicePixelRatio, /// 2 for retina displays
             backgroundColor: this.options.background || 0x2a2c2e, // defaults to dark 
             eventMode : 'static', //  Emit events and is hit tested. Same as interaction = true in v7
+        }).then(()=> {
+            // The stage will handle the move events
+            pixiApp.stage.interactive = true;
+            pixiApp.stage.hitArea = pixiApp.screen;
         });
-        // The stage will handle the move events
-        pixiApp.stage.interactive = true;
-        pixiApp.stage.hitArea = pixiApp.screen;
+        console.log("==pixiApp", pixiApp.canvas)
+
         return pixiApp
     }
 
