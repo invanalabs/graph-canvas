@@ -10,6 +10,7 @@ export const getContactPointOnCircle = (
   padding: number = 2
 ) => {
 
+  console.log("====target", target, padding)
   // getCirclePont
   const nodeRadius = target?.style?.size + padding ? target?.style?.size : 20
   console.log("===nodeRadius", nodeRadius)
@@ -26,8 +27,8 @@ export const getContactPointFromCircle = (
   target: CanvasNode,
   padding: number = 2
 ) => {
-  padding = padding * -1;
-  return getContactPointOnCircle(target, source, padding)
+  // padding = padding * -1;
+  return getContactPointOnCircle(target, source, padding * -1)
 }
 
 export const getLinkLabelPosition = (source: CanvasNode, target: CanvasNode, shapeType: LinkShapeTypes) => {
