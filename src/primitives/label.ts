@@ -23,15 +23,12 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
     const text = new Text( props.label, textStyle);
     const textBounds = text.getBounds(); // Get the size of the text box
 
-    // add background 
-    // TODO- move this to rectangle primitive later 
+    // add background; TODO- move this to rectangle primitive later 
     const textBackground = new Graphics();
     textBackground.beginFill(
         props?.background.color,
         props?.background.opacity
     ); // Background color
-
-    // const 
     textBackground.drawRect(0, 0, textBounds.width + props.padding , textBounds.height + props.padding ); // Draw rectangle behind the text
 
     // add background and text to gfx
