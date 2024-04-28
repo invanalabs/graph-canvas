@@ -6,18 +6,24 @@ export const createCanvas = (nodes: CanvasNode[], links: CanvasLink[], canvasOpt
     const html = document.createElement("div");
 
     const canvasDiv = document.createElement("canvas");
-    canvasDiv.style.height = 'calc("100vh" - 100px)';
-    canvasDiv.style.width = 'calc("100vw" - 100px)';
+    canvasDiv.style.height = '100vh';
+    canvasDiv.style.width = '100vw';
     html.appendChild(canvasDiv)
 
-    ///
+    document.addEventListener("DOMContentLoaded", function (event) {
+        console.log("=DOM is ready", event)
+
+        if (!canvasOptions){
+            canvasOptions = {
+                viewDiv: canvasDiv
+            }
+        }
+        canvasOptions.viewDiv = canvasDiv
+        const canvas = new GraphCanvas(canvasOptions);
+        canvas.graph.add(nodes, links)
+    
+    }, false);
         
-    if (!canvasOptions){
-        canvasOptions = {}
-    }
-    canvasOptions.viewDiv = canvasDiv
-    const canvas = new GraphCanvas(canvasOptions);
-    canvas.graph.add(nodes, links)
 
     return html
 }
