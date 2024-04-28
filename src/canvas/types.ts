@@ -50,17 +50,17 @@ export interface ShapeLabelType {
     text: TextType
 }
 
-
-
 export interface NodeShapeType {
     background: ShapeBackgroundType
     border: ShapeBorderType
     icon: IconType
 }
+
 export interface LinkShapeType {
     opacity: number
     thickness: number
     color: string | number
+    type: BorderType
 
 }
 

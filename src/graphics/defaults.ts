@@ -76,7 +76,9 @@ export const LinkStyleDefaults: LinkStyleType = {
     shape : {
         opacity: 1,
         thickness: 3,
-        color: "#efefef"
+        color: "#efefef",
+        type: "solid"
+
     },
     label: {
         background: {

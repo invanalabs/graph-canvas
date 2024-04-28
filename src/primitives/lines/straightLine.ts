@@ -1,5 +1,5 @@
 import { Graphics, Point } from "pixi.js"
-import { LinkShapeType, ShapeBackgroundType, ShapeBorderType } from "../canvas/types"
+import { LinkShapeType } from "../../canvas/types"
 
 
 export interface DrawLinkPrimitiveType extends LinkShapeType {
@@ -10,17 +10,12 @@ export interface DrawLinkPrimitiveType extends LinkShapeType {
 
 
 const drawStraightLineShape = ( props: DrawLinkPrimitiveType) => {
-    console.log("drawLineShape", props);
+    console.log("drawStraightLineShape", props);
     let shape = new Graphics();
-
     // draw the path 
     shape.lineStyle(props.thickness, props.color);
     shape.moveTo(props.startPoint.x, props.startPoint.y);
     shape.lineTo(props.endPoint.x, props.endPoint.y);
-
-    // 
-
-
     return shape;
 }
 
