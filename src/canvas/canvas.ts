@@ -4,8 +4,8 @@ import * as PIXI from "pixi.js";
 import GraphData from "./data";
 import { LinkShapeBase, NodeShapeBase } from "../graphics/base";
 import Renderer from "./renderer";
-import Camera from "./camera";
-import { CameraOptions } from "./camera/types";
+import Camera from "../camera";
+import { CameraOptions } from "../camera/types";
 
 export default class GraphCanvas {
     /*

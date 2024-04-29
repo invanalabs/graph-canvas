@@ -1,5 +1,6 @@
 import { Viewport } from "pixi-viewport";
 import { Point } from "pixi.js";
+import { CanvasNode } from "../graphics/types";
 
 
 export default class Camera extends Viewport {
@@ -28,6 +29,7 @@ export default class Camera extends Viewport {
                 maxHeight: this.worldHeight
             })
     }
+
 
 
 

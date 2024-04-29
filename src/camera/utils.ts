@@ -1,5 +1,5 @@
 import { Point } from "pixi.js";
-import { CanvasNode } from "../../graphics/types";
+import { CanvasNode } from "../graphics/types";
 
 
 export const getNodesPOV = (nodes: CanvasNode[]) => {
