@@ -1,16 +1,5 @@
 import { Viewport } from "pixi-viewport";
-import { CanvasNode } from "../../graphics/types";
-
-
-interface ZoomToOptions {
-    top: number,
-    left: number,
-    x: number,
-    y: number
-}
- 
-
-
+import { Point } from "pixi.js";
 
 
 export default class Camera extends Viewport {
@@ -26,47 +15,49 @@ export default class Camera extends Viewport {
     //     };
     // }
     // pause: boolean = false;
- 
-    setUpCamera(){
+
+    setUpCamera() {
         this
             .drag()
             .pinch({ percent: 1 }).wheel().decelerate()
-            .clamp({direction:'all',underflow:'center'})// 
-            .clampZoom({ 
-                minWidth: this.screenWidth/4  ,
-                minHeight:  this.screenHeight/4  ,
+            .clamp({ direction: 'all', underflow: 'center' })// 
+            .clampZoom({
+                minWidth: this.screenWidth / 4,
+                minHeight: this.screenHeight / 4,
                 maxWidth: this.worldWidth,
-                maxHeight: this.worldHeight 
+                maxHeight: this.worldHeight
             })
     }
 
-    setZoomTo = (zoomToOptions : ZoomToOptions) => {
-        // this.zoomTo = zoomToOptions;
-    }
 
-    zoomToCoordinates = (zoomToOptions: ZoomToOptions) => {
-        console.debug("zoomToCoordinates ", zoomToOptions);
-        // this.viewport
-    }
 
-    zoomToScreen = (zoomToOptions: ZoomToOptions) => {
-        console.debug("zoomToScreen ", zoomToOptions);
-        // this.zoomTo = { 
-        //     top: this.worldWidth / (this.worldScale * 2), 
-        //     left: this.worldHeight / (this.worldScale * 2),
-        //     x: this.screenWidth,  y: this.screenHeight 
-        // };
-    }
- 
-    zoomToWorld = ()=>{
-        console.debug("zoomToWorld ");
+    // setZoomTo = (zoomToOptions : ZoomToOptions) => {
+    //     // this.zoomTo = zoomToOptions;
+    // }
 
-        // zoomTo center
-        // this.zoomTo()
-    }
+    // zoomToCoordinates = (zoomToOptions: ZoomToOptions) => {
+    //     console.debug("zoomToCoordinates ", zoomToOptions);
+    //     // this.viewport
+    // }
 
-    fitNodesToScreen = (nodes: CanvasNode[])=> {
-        console.debug("fitNodesToScreen", nodes)
-    }
-    
+    // zoomToScreen = (zoomToOptions: ZoomToOptions) => {
+    //     console.debug("zoomToScreen ", zoomToOptions);
+    //     // this.zoomTo = { 
+    //     //     top: this.worldWidth / (this.worldScale * 2), 
+    //     //     left: this.worldHeight / (this.worldScale * 2),
+    //     //     x: this.screenWidth,  y: this.screenHeight 
+    //     // };
+    // }
+
+    // zoomToWorld = ()=>{
+    //     console.debug("zoomToWorld ");
+
+    //     // zoomTo center
+    //     // this.zoomTo()
+    // }
+
+    // fitNodesToScreen = (nodes: CanvasNode[])=> {
+    //     console.debug("fitNodesToScreen", nodes)
+    // }
+
 } 

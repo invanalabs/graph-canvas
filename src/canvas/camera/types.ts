@@ -5,3 +5,10 @@ export interface CameraOptions  {
     worldHeight: number
 }
 
+
+export interface ZoomToOptions {
+    top: number,
+    left: number,
+    x: number,
+    y: number
+}

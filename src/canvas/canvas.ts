@@ -35,9 +35,9 @@ export default class GraphCanvas {
         const canvasSizeOptions: CameraOptions = this.getCanvasSizeOptions(divRectangle?.width, divRectangle?.height);
         this.pixiApp =  this.createPIXIApp(canvasSizeOptions.screenWidth, canvasSizeOptions.worldHeight);
 
-        // if (divRectangle?.width == 0 || divRectangle?.height == 0 ){
-        //     throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
-        // }
+        if (divRectangle?.width == 0 || divRectangle?.height == 0 ){
+            throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
+        }
         console.log("===canvasSizeOptions", canvasSizeOptions)
         this.camera = new Camera({
             events: this.pixiApp.renderer.events, 
