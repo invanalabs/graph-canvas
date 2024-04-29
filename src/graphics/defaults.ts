@@ -75,7 +75,7 @@ export const NodeStyleDefaults: NodeStyleType = {
 export const LinkStyleDefaults: LinkStyleType = {
     shape : {
         opacity: 1,
-        thickness: 3,
+        thickness: 1,
         color: "#efefef",
         type: "solid"
 

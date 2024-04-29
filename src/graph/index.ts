@@ -76,7 +76,7 @@ export default class GraphData {
     }
 
     updateNodePosition(nodeId: IdString, x: number, y: number){
-        console.log("Updating position of node ", nodeId, x, y)     
+        console.debug("Updating position of node ", nodeId, x, y)     
         let node: CanvasNode | undefined = this.nodes.get(nodeId);
         if (node){
             node.x = x;

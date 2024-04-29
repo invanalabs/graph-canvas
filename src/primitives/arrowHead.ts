@@ -12,6 +12,7 @@ const drawArrowHeadShape = ( props: DrawArrowPrimitiveType) => {
     let shape = new Graphics();
     const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
     shape.lineStyle(props.thickness,  props.color, props.opacity);
+    shape.beginFill(props.color, props.opacity );
     shape.drawPolygon(points);
 
     // update angle 

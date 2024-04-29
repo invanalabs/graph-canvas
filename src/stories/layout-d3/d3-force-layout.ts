@@ -11,7 +11,7 @@ class D3ForceLayout {
 
     constructor(canvas: GraphCanvas) {
         this.canvas = canvas
-        // this.simulation = this.createSimulation();
+        this.simulation = this.createSimulation();
     }
 
     createSimulation() {
@@ -25,7 +25,7 @@ class D3ForceLayout {
                 d3.forceLink(links) // This force provides links between nodes
                     .id((link) => link.id) // This sets the node id accessor to the specified function.
                     // If not specified, will default to the index of a node.
-                    .distance((link) => 150)//.strength(-200)
+                    .distance((link) => 250)//.strength(-200)
             )
             .force("charge", d3.forceManyBody().strength(-350)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
@@ -33,12 +33,12 @@ class D3ForceLayout {
             .force("collision", d3.forceCollide().radius((d) => d.style.size + 15).iterations(2))
             // .velocityDecay(0.4)
             .stop()
-            .tick(1000)
+            .tick(2000)
 
 
             // .force('link').links(links)
 
-            .on("tick", this.ticked.bind(this))
+            // .on("tick", this.ticked.bind(this))
             .on('end', () => {
                 console.log("=Simulation ended");
                 _this.simulation.stop();
@@ -70,9 +70,6 @@ class D3ForceLayout {
         // Update the simulation links with new data
         this.simulation.nodes(this.simulation.nodes().concat(nodes));
         this.simulation.force("link").links(links);
-        // this.simulation = this.createSimulation();
-
-        // const selectedNodes = this.canvas.graph.getNodes();
 
         // const { center, } = this.canvas.getCenter(selectedNodes)
         // this.simulation.force("center", d3.forceCenter(center.x, center.y))
