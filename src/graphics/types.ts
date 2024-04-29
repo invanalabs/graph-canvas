@@ -30,7 +30,7 @@ export interface CanvasNode extends CanvasItemBase {
     x?: number
     y?: number
 
-    size?: number
+    // size?: number
     style?: NodeStyleType
     // vx?: number
     // vy?: number

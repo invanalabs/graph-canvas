@@ -1,4 +1,4 @@
-import { CanvasNode, CanvasLink } from "../../../graphics/types";
+import { CanvasNode, CanvasLink } from "../../graphics/types";
 
 export const exampleNodes : Array<CanvasNode> = [
     {

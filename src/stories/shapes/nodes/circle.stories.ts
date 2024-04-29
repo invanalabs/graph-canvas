@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from '../../network/canvas';
+import { createCanvas } from '../../canvas';
 import { exampleNodes, exampleLinks, customCanvasOptions } from './circle';
 
 

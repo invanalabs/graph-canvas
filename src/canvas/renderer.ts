@@ -21,12 +21,12 @@ class Renderer {
         this.render(nodes, links);
     }
 
-    // tick(){
-    //     // this.canvas.fitView()
-    //     this.rePositionNodes(this.canvas.graph.getNodes());
-    //     this.reRenderLinks(this.canvas.graph.getLinks())
-    //     // this.renderScreenBorderIfRequired();
-    // }
+    tick(){
+        this.canvas.camera.fitView()
+        this.rePositionNodes(this.canvas.graph.getNodes());
+        this.reRenderLinks(this.canvas.graph.getLinks())
+        // this.renderScreenBorderIfRequired();
+    }
 
 
     // rePositionSingleNode(nodeId: IdString, x: number, y: number){

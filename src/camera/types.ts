@@ -1,7 +1,10 @@
+import GraphCanvas from "../canvas/canvas"
+
 export interface CameraOptions  {
-    screenWidth : number,
-    screenHeight: number,
-    worldWidth : number,
+    canvas: GraphCanvas
+    screenWidth : number
+    screenHeight: number
+    worldWidth : number
     worldHeight: number
 }
 

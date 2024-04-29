@@ -1,12 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas, customCanvasOptions } from '../canvas';
-import { exampleLinks, exampleNodes } from "../datasets/hello-graph-canvas";
-import exampleData from '../datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
+import data from "../datasets/miserables.json";
+import D3ForceLayout from './d3-force-layout';
+
+
+
 
 
 const meta = {
-  title: 'Network',
-  render: () => createCanvas(exampleNodes, exampleLinks, customCanvasOptions) ,
+  title: 'Layout/d3-force',
+  render: () => createCanvas(data.nodes, data.links, customCanvasOptions, D3ForceLayout) ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
@@ -23,6 +26,3 @@ export default meta;
 
 export const HelloWorld: StoryObj = {};
 
-export const LargeData: StoryObj = {
-  render: () => createCanvas(exampleData.nodes, exampleData.links, {}) ,
-};

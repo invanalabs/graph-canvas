@@ -40,20 +40,19 @@ export default class GraphCanvas {
             throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
         }
         console.log("===canvasSizeOptions", canvasSizeOptions)
+
+
+        this.pixiApp.start();
         this.camera = new Camera({
-            events: this.pixiApp.renderer.events, 
+            canvas: this, 
             ...canvasSizeOptions
         });
-        this.camera.setUpCamera();
-
-        this.pixiApp.stage.addChild(this.camera)
-        this.pixiApp.start();
-        this.startNew();   
-
         // Destroy Pixi app when the window is being unloaded (e.g., when the page is being reloaded)
         window.addEventListener('beforeunload', function() {
             _this.destroyPIXIApp();
         });
+        this.startNew();   
+
 
     }
 
@@ -67,8 +66,8 @@ export default class GraphCanvas {
     }
 
     startNew = () => {
-        this.camera.removeChildren();
-        // this.camera.addChild(this.debugBorderGfx);
+        this.camera.viewport.removeChildren();
+        // this.camera.viewport.addChild(this.debugBorderGfx);
     }
     
     createPIXIApp = (screenWidth: number = 800, screenHeight: number=600) => {
@@ -115,15 +114,15 @@ export default class GraphCanvas {
 
     addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{
         console.log("addGfx", shape)
-        this.camera.addChild(shape.gfxContainer) // TODO: try setChildIndex
+        this.camera.viewport.addChild(shape.gfxContainer) // TODO: try setChildIndex
     }
 
     removeGfx = (shape: NodeShapeBase | LinkShapeBase)=> {
-        this.camera.removeChild(shape.gfxContainer)
+        this.camera.viewport.removeChild(shape.gfxContainer)
     }
 
     clear(){
-        this.camera.removeChildren();
+        this.camera.viewport.removeChildren();
     }
     
 }
