@@ -1,4 +1,4 @@
-import { Graphics, Point } from "pixi.js"
+import { Graphics, Point, Polygon} from "pixi.js"
 import { LinkShapeType } from "../../canvas/types"
 
 
@@ -16,6 +16,11 @@ const drawStraightLineShape = ( props: DrawLinkPrimitiveType) => {
     shape.lineStyle(props.thickness, props.color);
     shape.moveTo(props.startPoint.x, props.startPoint.y);
     shape.lineTo(props.endPoint.x, props.endPoint.y);
+    shape.cursor = 'pointer';
+    // TODO - FIX this hitarea 
+    shape.hitArea = new Polygon(shape.currentPath.points);
+
+
     return shape;
 }
 

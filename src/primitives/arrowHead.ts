@@ -21,6 +21,7 @@ const drawArrowHeadShape = ( props: DrawArrowPrimitiveType) => {
     );
     shape.position.set(props.endPoint.x, props.endPoint.y);
     shape.cursor = 'pointer';
+
     return shape;
 }
 

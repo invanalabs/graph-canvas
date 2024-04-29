@@ -23,6 +23,7 @@ export default class GraphCanvas {
         console.log(`Creating canvas with options: ${this.options}`); 
         this.renderer = new Renderer(this);
         this.graph = new GraphData(this);
+        const _this = this;
         // if (this.options.viewDiv){
         //     this.options.viewDiv.appendChild(this.pixiApp.view);
         // }
@@ -50,9 +51,9 @@ export default class GraphCanvas {
         this.startNew();   
 
         // Destroy Pixi app when the window is being unloaded (e.g., when the page is being reloaded)
-        // window.addEventListener('beforeunload', function() {
-        //     _this.destroyPIXIApp();
-        // });
+        window.addEventListener('beforeunload', function() {
+            _this.destroyPIXIApp();
+        });
 
     }
 

@@ -29,7 +29,12 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
         props?.background.color,
         props?.background.opacity
     ); // Background color
-    textBackground.drawRect(0, 0, textBounds.width + props.padding , textBounds.height + props.padding ); // Draw rectangle behind the text
+    textBackground.drawRect(
+        // props.padding * -1 , props.padding * -1, 
+        0, 0, 
+        textBounds.width + props.padding , 
+        textBounds.height + props.padding 
+    ); // Draw rectangle behind the text
 
     // add background and text to gfx
     labelGfx.addChild(textBackground)
