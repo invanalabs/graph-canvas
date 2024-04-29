@@ -38,6 +38,11 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
     ); // Draw rectangle behind the text
 
 
+
+    // add background and text to gfx
+    labelGfx.addChild(textBackground)
+    labelGfx.addChild(text)
+
     labelGfx.hitArea = new Rectangle(
         // props.padding * -1 , props.padding * -1, 
         0, 0, 
@@ -47,9 +52,6 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
     labelGfx.cursor = 'pointer';
 
 
-    // add background and text to gfx
-    labelGfx.addChild(textBackground)
-    labelGfx.addChild(text)
     return labelGfx
 }
 
