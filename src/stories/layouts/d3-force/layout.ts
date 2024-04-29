@@ -1,6 +1,6 @@
 import * as d3 from "d3";
-import GraphCanvas from "../../canvas/canvas";
-import { CanvasNode, CanvasLink } from "../../graphics/types";
+import GraphCanvas from "../../../canvas/canvas";
+import { CanvasNode, CanvasLink } from "../../../graphics/types";
 
 
 class D3ForceLayout {

@@ -1,7 +1,7 @@
 import GraphCanvas from "../canvas/canvas";
 import { CanvasOptions } from "../canvas/types";
 import { CanvasLink, CanvasNode } from "../graphics/types";
-import D3ForceLayout from "./layout-d3/d3-force-layout";
+import D3ForceLayout from "./layouts/d3-force/layout";
 
 export const createCanvas = (
         nodes: CanvasNode[], 
