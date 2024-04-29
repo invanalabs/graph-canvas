@@ -21,18 +21,13 @@ class D3ForceLayout {
         const nodes = this.canvas.graph.getNodes();
         const links = this.canvas.graph.getLinks();
         const simulation = d3.forceSimulation(nodes)
-            .force("link",
-                d3.forceLink(links) // This force provides links between nodes
-                    .id((link) => link.id) // This sets the node id accessor to the specified function.
-                    // If not specified, will default to the index of a node.
-                    .distance((link) => 250)//.strength(-200)
-            )
-            .force("charge", d3.forceManyBody().strength(-350)) // This adds repulsion (if it's negative) between nodes.
+            .force("link",d3.forceLink(links).id((link) => link.id)) // .distance((link)=> 250)
+            .force("charge", d3.forceManyBody()) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
             // .force("center", d3.forceCenter())
-            .force("collision", d3.forceCollide().radius((d) => d.style.size + 15).iterations(2))
+            // .force("collision", d3.forceCollide().radius((d) => d.style.size + 15)) ///.iterations(2))
             // .velocityDecay(0.4)
-            .stop()
+            // .stop()
             .tick(2000)
 
 

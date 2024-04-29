@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas, customCanvasOptions } from '../../canvas';
+import { createCanvas } from '../../canvas';
 import data from "../../datasets/miserables.json";
+import { CanvasNode } from '../../../graphics/types';
+import { group } from 'console';
 
 
 
@@ -27,6 +29,23 @@ const linksCleaned = data.links.map((link: any)=>{
     }
 })
 
+const customCanvasOptions = {
+  styles: {
+      nodes: {}
+  }
+} 
+
+const nodeGroups = data.nodes.map((node: any) => { return node.group})
+
+const nodeStyles: any = {};
+
+nodeGroups.forEach(group => {
+  nodeStyles[group] = {size: 10}
+})
+ 
+
+console.log("==nodeStyles", nodeStyles)
+customCanvasOptions.styles.nodes = nodeStyles
 
 const meta = {
   title: 'Layout/d3-force',

@@ -2,12 +2,14 @@ import GraphCanvas from "../canvas/canvas";
 import { CanvasOptions } from "../canvas/types";
 import { CanvasLink, CanvasNode } from "../graphics/types";
 import D3ForceLayout from "./layouts/d3-force/layout";
+// import D3HierarchyLayout from "./layouts/d3-hierarchy/layout";
+
 
 export const createCanvas = (
         nodes: CanvasNode[], 
         links: CanvasLink[], 
         canvasOptions: CanvasOptions,
-        layout : null | 'd3-force' = null
+        layout : null | 'd3-force' | 'd3-hierarchy' = null
     ) => {
     const html = document.createElement("div");
 
@@ -32,7 +34,13 @@ export const createCanvas = (
             const layoutInstance =  new D3ForceLayout(canvas);
             layoutInstance?.add2Layout(nodes, links);
         }
+        else if (layout === 'd3-hierarchy'){
+            const layoutInstance =  new D3HierarchyLayout(canvas);
+            layoutInstance?.add2Layout(nodes, links);
+        }
     
+        
+
     }, false);
         
 
