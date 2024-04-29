@@ -1,7 +1,7 @@
 import type { CanvasOptions} from "./types";
 import { defaultCanvasOptions } from "./defaults";
 import * as PIXI from "pixi.js";
-import GraphData from "./data";
+import GraphData from "../graph";
 import { LinkShapeBase, NodeShapeBase } from "../graphics/base";
 import Renderer from "./renderer";
 import Camera from "../camera";
