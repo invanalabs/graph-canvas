@@ -7,13 +7,13 @@ export const NodeStyleDefaults: NodeStyleType = {
     size: 20,
     shape : {
         background: {
-            // color: "#333333",
-            color: "transparent",
+            color: "#3DA5D9",
+            // color: "transparent",
             opacity: 1
         },
         border: {
             thickness: 3,
-            color: "#efefef",
+            color: "#ffffff",
             type: "solid"
         },
         icon: {
@@ -76,7 +76,7 @@ export const LinkStyleDefaults: LinkStyleType = {
     shape : {
         opacity: 1,
         thickness: 1,
-        color: "#efefef",
+        color: "#999999",
         type: "solid"
 
     },

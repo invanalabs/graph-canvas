@@ -307,10 +307,12 @@ export class LinkShapeBase extends BaseShape {
 
     drawLabel = () => {
         console.log("Line.drawLabel")
-        const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
-        const labelGfx = drawLabelShape({label: labelString, ...this.data.style?.label})
-        labelGfx.name = LinkContainerChildNames.label
-        return labelGfx
+        // const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
+        if (this.data.label){
+            const labelGfx = drawLabelShape({label: this.data.label, ...this.data.style?.label})
+            labelGfx.name = LinkContainerChildNames.label
+            return labelGfx    
+        }
     }
 
     // drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {
@@ -356,8 +358,10 @@ export class LinkShapeBase extends BaseShape {
         this.gfxContainer.addChild(shapeGfx);
         // draw label
         let labelGfx = this.drawLabel();
-        this.calcLabelPosition(labelGfx, shapeGfx)
-        this.gfxContainer.addChild(labelGfx);
+        if (labelGfx){
+            this.calcLabelPosition(labelGfx, shapeGfx)
+            this.gfxContainer.addChild(labelGfx);    
+        }
         // setup intractions
         this.setupInteractions()
     }
