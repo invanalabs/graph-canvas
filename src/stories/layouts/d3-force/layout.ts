@@ -46,7 +46,7 @@ class D3ForceLayout {
 
     getCenter = () => {
         const { worldWidth, worldHeight } = this.canvas.camera.options;
-        return { centerX: worldWidth / 2, centerY: worldHeight / 2 }
+        return { centerX: worldWidth / 4, centerY: worldHeight / 4 }
     }
 
     ticked = () => {

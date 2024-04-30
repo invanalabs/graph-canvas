@@ -6,11 +6,21 @@ export interface DrawArrowPrimitiveType extends LinkShapeType {
     endPoint : Point
 }
 
+
+const createArrowHeadPoints = () => {
+    
+    // return [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0] // original 
+
+    return [0, 0, 6, -4, 4.666666666666667, 0, 6, 4, 0, 0]
+
+}
+
 const drawArrowHeadShape = ( props: DrawArrowPrimitiveType) => {
     console.log("drawArrowHeadShape", props);
     // draw arrow 
     let shape = new Graphics();
-    const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
+    const points = createArrowHeadPoints()
+    // const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
     shape.lineStyle(props.thickness,  props.color, props.opacity);
     shape.beginFill(props.color, props.opacity );
     shape.drawPolygon(points);
