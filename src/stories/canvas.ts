@@ -2,13 +2,14 @@ import GraphCanvas from "../canvas/canvas";
 import { CanvasOptions } from "../canvas/types";
 import { CanvasLink, CanvasNode } from "../graphics/types";
 import D3ForceLayout from "./layouts/d3-force/layout";
+import DagreLayout from "./layouts/dagre/layout";
 
 
 export const createCanvas = (
         nodes: CanvasNode[], 
         links: CanvasLink[], 
         canvasOptions: CanvasOptions,
-        layout : null | 'd3-force'  = null
+        layout : null | 'd3-force' | 'dagre' = null
     ) => {
     const html = document.createElement("div");
 
@@ -31,6 +32,10 @@ export const createCanvas = (
 
         if (layout === 'd3-force'){
             const layoutInstance =  new D3ForceLayout(canvas);
+            layoutInstance?.add2Layout(nodes, links);
+        }
+        else if (layout === 'dagre'){
+            const layoutInstance =  new DagreLayout(canvas);
             layoutInstance?.add2Layout(nodes, links);
         }
       

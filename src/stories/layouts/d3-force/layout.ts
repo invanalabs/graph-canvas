@@ -11,10 +11,10 @@ class D3ForceLayout {
 
     constructor(canvas: GraphCanvas) {
         this.canvas = canvas
-        this.simulation = this.createSimulation();
+        this.simulation = this.createLayoutSimulation();
     }
 
-    createSimulation() {
+    createLayoutSimulation() {
         const _this = this;
 
         const { centerX, centerY } = this.getCenter();

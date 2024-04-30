@@ -1,11 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../../canvas';
 import data from "../../datasets/miserables.json";
-import { CanvasNode } from '../../../graphics/types';
-import { group } from 'console';
-
-
-
 
 
 const nodesCleaned = data.nodes.map((node: any) => {
