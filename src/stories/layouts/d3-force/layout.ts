@@ -22,7 +22,7 @@ class D3ForceLayout {
         const links = this.canvas.graph.getLinks();
         const simulation = d3.forceSimulation(nodes)
             .force("link",d3.forceLink(links).id((link) => link.id)) // .distance((link)=> 250)
-            .force("charge", d3.forceManyBody()) // This adds repulsion (if it's negative) between nodes.
+            .force("charge", d3.forceManyBody().strength(-200)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
             // .force("center", d3.forceCenter())
             // .force("collision", d3.forceCollide().radius((d) => d.style.size + 15)) ///.iterations(2))
