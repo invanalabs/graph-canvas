@@ -16,7 +16,7 @@ export default class GraphCanvas {
     graph: GraphData
     renderer: Renderer
     camera: Camera;
-    worldScale: number = 3;
+    worldScale: number = 10;
 
     constructor(options : CanvasOptions = defaultCanvasOptions){
         this.options = {...options, ...defaultCanvasOptions}

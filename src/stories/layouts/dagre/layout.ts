@@ -1,38 +1,33 @@
 import GraphCanvas from "../../../canvas/canvas";
 import { CanvasNode, CanvasLink } from "../../../graphics/types";
 import dagre from "@dagrejs/dagre";
+// import dagreD3 from "dagre-d3";
+
 
 
 class DagreLayout {
 
     canvas: GraphCanvas;
-    layout: dagre.graphlib.Graph;
+    // layout: dagre.graphlib.Graph;
 
     defaultNodeHeight: number = 10 
     defaultNodeWidth: number = 10 
 
     constructor(canvas: GraphCanvas) {
         this.canvas = canvas
-        this.layout = this.createLayoutSimulation();
+        // this.layout = this.createLayoutSimulation();
     }
 
     calcNodeHeight = (nodeSizeInfo: CanvasNode) => {
         // const resolution = this.canvas.options?.resolution | window.devicePixelRatio;
-        return  nodeSizeInfo?.style?.size  ||  this.defaultNodeHeight
+        return  nodeSizeInfo?.style?.size * 4  ||  this.defaultNodeHeight
     }
     
     calcNodeWidth = (nodeSizeInfo: CanvasNode) => {
-        return nodeSizeInfo?.style?.size || this.defaultNodeWidth
+        return nodeSizeInfo?.style?.size * 4 || this.defaultNodeWidth
     }
     
-    createLayoutSimulation() { 
-        const g = new dagre.graphlib.Graph();
-        // Set an object for the graph label
-        g.setGraph({});
-        // Default to assigning a new object as a label for each new edge.
-        g.setDefaultEdgeLabel(function() { return {}; });
-        return g
-    }
+ 
 
     getCenter = () => {
         const { worldWidth, worldHeight } = this.canvas.camera.options;
@@ -46,14 +41,16 @@ class DagreLayout {
 
     generateLayoutedElements = (nodes: CanvasNode[], links: CanvasLink[], direction: string ) => {
         const _this = this;
-
-
         // const isHorizontal = direction === "LR";
         // const graphOptions =  direction === "LR" ? {rankSep: 150,} : {rankSep: 100}
-    
+        const g = new dagre.graphlib.Graph();
+        // Set an object for the graph label
+        g.setGraph({});
+        // Default to assigning a new object as a label for each new edge.
+        g.setDefaultEdgeLabel(function() { return {}; });
         console.log("===direction", direction)
-        this.layout.setGraph({ 
-            rankdir: direction, 
+        g.setGraph({ 
+            // rankdir: direction, 
             // nodesep:200,
             // ranker: "tight-tree",
             // width: 2000,
@@ -63,10 +60,9 @@ class DagreLayout {
             // ...graphOptions
         });
 
-
         // set the nodes to dagre.layout
         nodes.forEach((node: CanvasNode) => {
-            _this.layout.setNode(node.id, {
+            g.setNode(node.id, {
                 width: _this.calcNodeWidth(node),
                 height: _this.calcNodeHeight(node)
             });
@@ -74,37 +70,36 @@ class DagreLayout {
     
         // set the links to dagre.layout
         links.forEach((link: CanvasLink) => {
-            _this.layout.setEdge(link.source, link.target);
+            // console.log("-=====link", link.source, link.target)
+            g.setEdge(link.source.id, link.target.id);
             // {length: 200} // TODO - customise edge length etc here ? may be 
         });
 
-        dagre.layout(this.layout);
+        dagre.layout(g);
+     
 
         nodes.forEach((node: CanvasNode) => {
-            const nodeWithPosition = _this.layout.node(node.id);
-            console.log("layout of node ", node.id, nodeWithPosition)
+            const nodeWithPosition = g.node(node.id);
+            console.log("layout of node ", node.id, nodeWithPosition, node)
             node.x = nodeWithPosition.x /// - nodeWithPosition.width / 2;
             node.y = nodeWithPosition.y // - nodeWithPosition.height / 2;
-    
             // node;
         });
   
         // this.layout.nodes().forEach(function(v) {
         //     console.log("==========Node " + v + ": " + JSON.stringify(_this.layout.node(v)));
         // });
-
         return { layoutedNodes: nodes, layoutedLinks: links };
     }
 
     add2Layout(nodes: CanvasNode[], links: CanvasLink[],  direction: string = "RL") {
         const {layoutedNodes} = this.generateLayoutedElements(nodes, links , direction)
-
         console.log("====layoutedNodes")
         this.canvas.renderer.rePositionNodes(layoutedNodes);
         this.canvas.renderer.tick();
+        this.canvas.camera.fitView();
     }
  
-
 }
 
 export default DagreLayout;
