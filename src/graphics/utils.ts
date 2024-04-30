@@ -32,14 +32,17 @@ export const getContactPointFromCircle = (
 }
 
 export const getLinkLabelPosition = (source: CanvasNode, target: CanvasNode, shapeType: LinkShapeTypes) => {
+  return getCenterBetweenTwoPoints(source, target, shapeType)
+}
 
+export const getCenterBetweenTwoPoints = (source: CanvasNode, target: CanvasNode, shapeType: LinkShapeTypes) => {
   // if (startX && startY && endX && endY){
-  const x = (source.x + target.x) / 2;
-  const y = (source.y + target.y) / 2;
-  return new Point(x, y);
-  // }else{
-  //   throw Error(`invalid ${source} and ${target}`);
-  // }
+    const x = (source.x + target.x) / 2;
+    const y = (source.y + target.y) / 2;
+    return new Point(x, y);
+    // }else{
+    //   throw Error(`invalid ${source} and ${target}`);
+    // }
 }
 
 export const getAngle = (source: CanvasNode, target: CanvasNode): number => {

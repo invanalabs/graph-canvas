@@ -6,9 +6,10 @@ import { LinkContainerChildNames, NodeContainerChildNames } from './constants';
 import { LinkStyleDefaults, NodeStyleDefaults } from './defaults';
 import { deepMerge } from '../utils/merge';
 import drawStraightLineShape from '../primitives/lines/straightLine';
+import drawBezierCurveShape from '../primitives/lines/bezierCurve';
 import drawArrowHeadShape from '../primitives/arrowHead';
 import drawLabelShape from '../primitives/label';
-import drawDottedLineShape from '../primitives/lines/dottedLine';
+// import drawDottedLineShape from '../primitives/lines/dottedLine';
 
 
 abstract class Shape {
@@ -350,6 +351,8 @@ export class LinkShapeBase extends BaseShape {
 
         return shape
     }
+
+
     draw = () => {
         // clear shape first
         this.clear();
