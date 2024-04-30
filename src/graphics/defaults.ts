@@ -50,7 +50,8 @@ export const NodeStyleDefaults: NodeStyleType = {
             shape: {
                 border: {
                     thickness: 3,
-                    color: 0xfeeb77
+                    color: 0xfeeb77,
+                    opacity: 0.6,
                 }
             }
         },
@@ -58,13 +59,19 @@ export const NodeStyleDefaults: NodeStyleType = {
             shape: {
                 border: {
                     thickness: 6,
-                    color: 0xF6B26B
+                    color: 0xF6B26B,
+                    opacity: 0.6
                 }
             }
         },
         ":inactive": {
             shape: {
                 opacity: 0.5,
+                border: {
+                    thickness: 6,
+                    color: 0x222222,
+                    opacity: 0.6
+                }
             }
         },
 

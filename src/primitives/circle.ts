@@ -13,8 +13,10 @@ const drawCircleShape = (props: DrawCirclePrimitiveType) => {
     console.log("drawCircle", props);
     let shape = new Graphics();
     if (props.border){
-        // TODO - border.type not being used yet 
-        shape.lineStyle(props.border.thickness, props.border.color);
+        const opacity = props.border?.opacity ? props.border?.opacity : 1;
+        // TODO - border.type not being used yet ;
+        console.log("=====border.opacity", opacity)
+        shape.lineStyle(props.border.thickness, props.border.color, opacity);
     }
     if (props.background){
         const alpha = props.background.color === "transparent" ? 0: props.background.opacity

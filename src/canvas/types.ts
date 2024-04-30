@@ -28,6 +28,7 @@ export interface ShapeBorderType {
     thickness: number
     color: string | number
     type: BorderType
+    opacity?: null | number
 }
 
 export interface ShapeFontType {
