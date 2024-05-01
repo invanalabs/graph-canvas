@@ -44,8 +44,8 @@ export default class Camera {
             .pinch({ percent: 1 }).wheel().decelerate()
             .clamp({ direction: 'all', underflow: 'center' })// 
             .clampZoom({
-                minWidth: this.options.screenWidth / 4,
-                minHeight: this.options.screenHeight / 4,
+                minWidth: this.options.screenWidth / 5,
+                minHeight: this.options.screenHeight / 5,
                 maxWidth: this.options.worldWidth,
                 maxHeight: this.options.worldHeight
             })

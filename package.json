@@ -40,6 +40,7 @@
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
     "storybook": "^8.0.9",
+    "string-to-color": "^2.2.2",
     "typescript": "^5.4.3",
     "vite": "^5.1.4",
     "vite-plugin-dts": "^3.7.3"

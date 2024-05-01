@@ -1,13 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../../canvas';
 import data from "../../datasets/miserables.json";
+import { stringToColor } from '../../utils';
+import stc from "string-to-color";
 
 
 const nodesCleaned = data.nodes.map((node: any) => {
     return {
         id: node.id,
         label: node.id,
-        group: node.group,
+        group: "group-" + node.group.toString(),
         properties: {}
     }
 })
@@ -30,12 +32,13 @@ const customCanvasOptions = {
   }
 } 
 
-const nodeGroups = data.nodes.map((node: any) => { return node.group})
+const nodeGroups = [...new Set(nodesCleaned.map((node: any) => { return   node.group}))]
 
+console.log("===nodeGroups", nodeGroups)
 const nodeStyles: any = {};
 
 nodeGroups.forEach(group => {
-  nodeStyles[group] = {size: 10}
+  nodeStyles[group] = {size: 10, shape: {background: {color: stc(group) }}}
 })
  
 

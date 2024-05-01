@@ -4,7 +4,7 @@ import { LinkStyleType, NodeStyleType } from "../canvas/types"
 
 
 export const NodeStyleDefaults: NodeStyleType = {
-    size: 12 * 1.5,
+    size: 10 * 1.5,
     shape : {
         background: {
             color: "#3DA5D9",
@@ -14,7 +14,8 @@ export const NodeStyleDefaults: NodeStyleType = {
         border: {
             thickness: 1,
             color: "#ffffff",
-            type: "solid"
+            type: "solid",
+            opacity: 0.9
         },
         icon: {
             content: "&#9737;", // https://www.toptal.com/designers/htmlarrows/symbols/
@@ -83,7 +84,7 @@ export const LinkStyleDefaults: LinkStyleType = {
     shape : {
         opacity: 1,
         thickness: 1,
-        color: "#999999",
+        color: "#555555",
         type: "solid"
 
     },

@@ -96,8 +96,6 @@ export class NodeShapeBase extends BaseShape {
     constructor(data: CanvasNode, canvas: GraphCanvas) {
         super(data, canvas)
         console.log("======data.style before", data.group, JSON.stringify(data.style), )
-        console.log("======data.NodeStyleDefaults", JSON.stringify(NodeStyleDefaults))
-        console.log("======d", deepMerge(NodeStyleDefaults, data.style),  data.style)
         data.style = data.style ? deepMerge(NodeStyleDefaults, data.style) : NodeStyleDefaults
         console.log("======data.style after", data.group, JSON.stringify(data.style))
         this.data = { ...{ x: 0, y: 0 }, ...data }
