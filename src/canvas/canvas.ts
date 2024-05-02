@@ -53,6 +53,10 @@ export default class GraphCanvas {
         });
         this.startNew();   
 
+        // prevent body scrolling
+        // this.pixiApp.view.addEventListener('wheel', event => { event.preventDefault(); });
+ 
+
 
     }
 

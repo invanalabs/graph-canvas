@@ -274,7 +274,7 @@ export class LinkShapeBase extends BaseShape {
     }
 
     setupInteractions() {
-        console.log("===setupInteractions triggered")
+        console.log("===setupInteractions triggered on link", this.gfxContainer)
         // Remove all listeners
         this.gfxContainer.removeAllListeners();
 
@@ -299,10 +299,10 @@ export class LinkShapeBase extends BaseShape {
     //     console.error("calcArrowAngle not implemented")
     // }
 
-    drawArrow = (startPoint: PIXI.Point, endPoint: PIXI.Point) => {
-        const arrow = drawArrowHeadShape({startPoint, endPoint, ...this.data.style?.shape})
-        return arrow;
-    }
+    // drawArrow = (startPoint: PIXI.Point, endPoint: PIXI.Point) => {
+    //     const arrow = drawArrowHeadShape({startPoint, endPoint, ...this.data.style?.shape})
+    //     return arrow;
+    // }
 
     drawLabel = () => {
         console.log("Line.drawLabel")
@@ -334,7 +334,8 @@ export class LinkShapeBase extends BaseShape {
         shapeLine.zIndex = 1000
 
         // add arrow
-        const arrow = this.drawArrow(startPoint, endPoint)
+        const arrow = drawArrowHeadShape({startPoint, endPoint, ...this.data.style?.shape})
+
         shapeLine.addChild(arrow)
         shape.addChild(shapeLine)
 
@@ -343,7 +344,11 @@ export class LinkShapeBase extends BaseShape {
         const shapeHoveredBorder = drawStraightLineShape({startPoint, endPoint, ...this.data.style.states[':hovered'].shape})
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
-        shapeHoveredBorder.zIndex = 10
+        // shapeHoveredBorder.zIndex = 10
+        const hoveredArrow =  drawArrowHeadShape({startPoint, endPoint, ...this.data.style?.states[':hovered'].shape})
+        shapeHoveredBorder.addChild(hoveredArrow)
+
+
         shape.addChild(shapeHoveredBorder)
         // shapeLine.closePath()
 

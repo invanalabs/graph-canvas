@@ -1,7 +1,11 @@
 # graph-canvas 
 
-High performance rendering engine for rendering 
+High-performance network based Graph Visualizations.
 
+## Features 
+- [ ] node-link visualisations
+- [ ] geospatial support 
+- [ ] layout 
 
 ## Dev
 ```
