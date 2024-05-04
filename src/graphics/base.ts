@@ -75,14 +75,14 @@ export class BaseShape extends Shape {
         return new PIXI.Graphics()
     }
 
-    draw(drawShape=true, drawLabel=true) {
-        console.error("BaseShape.draw not implemented", drawShape, drawLabel)
+    draw(renderShape=true, renderLabel=true) {
+        console.error("BaseShape.draw not implemented", renderShape, renderLabel)
     }
 
-    redraw = () => {
+    redraw = (renderShape=true, renderLabel=true) => {
         console.log("redraw ")
-        this.clear();
-        this.draw();
+        // this.clear();
+        this.draw(renderShape, renderLabel);
     }
 
     clear = () => {
@@ -109,9 +109,6 @@ export class NodeShapeBase extends BaseShape {
     constructor(data: CanvasNode, canvas: GraphCanvas) {
         super(data, canvas)
         this.data = this.processData(data)
-        // const gfxs = this.draw(true, true);
-        // this.labelGfx = gfxs.labelGfx; // 
-        // this.shapeGfx = gfxs.shapeGfx;
         // setup intractions
         this.setupInteractions()
     }
@@ -267,12 +264,16 @@ export class NodeShapeBase extends BaseShape {
     //         color: color
     //     });
     // }
+    // draw = (renderShape=true, renderLabel=true, renderLablPosition=true) => {
 
-    draw = (drawShape= true, drawLabel = true, move=true, setInteractions=true) => {
+    
+    draw = (renderShape=true, renderLabel=true
+        // updateShapePosition = true, updateLabelPosition=true
+        ) => {
         // clear shape first
         // this.clear();
         // draw shape
-        if (drawShape){
+        if (renderShape){
             this.shapeGfx = this.drawShape();
             this.gfxContainer.addChild(this.shapeGfx);    
         }
@@ -282,7 +283,7 @@ export class NodeShapeBase extends BaseShape {
         //     false
         // )
         // draw label
-        if (drawLabel){
+        if (renderLabel){
             this.labelGfx = this.drawLabel();
             if (this.labelGfx){
                 this.gfxContainer.addChild(this.labelGfx);
@@ -290,7 +291,7 @@ export class NodeShapeBase extends BaseShape {
         }
 
         // update the position 
-        if (move){
+        if (renderShape){
             if (this.data.x && this.data.y) {
                 this.setGfxPosition(this.data?.x, this.data?.y)
             }    
@@ -302,6 +303,15 @@ export class LinkShapeBase extends BaseShape {
 
     declare data: CanvasLink
     declare originalData: CanvasLink;
+    declare labelGfx: PIXI.Graphics;
+    declare shapeGfx: PIXI.Graphics; 
+
+    constructor(data: CanvasLink, canvas: GraphCanvas) {
+        super(data, canvas)
+        this.data = this.processData(data)
+        // setup intractions
+        this.setupInteractions()
+    }
 
     processData = (data:  CanvasLink)  =>  {
         data.style = data.style ? deepMerge(LinkStyleDefaults, data.style) : LinkStyleDefaults
@@ -425,19 +435,29 @@ export class LinkShapeBase extends BaseShape {
         return shape
     }
 
-
+    // renderShape=true, renderLabel=true
     draw = (renderShape=true, renderLabel=true) => {
         // clear shape first
-        // this.clear();
-        // draw shape
-        let shapeGfx = this.drawShape();
-        this.gfxContainer.addChild(shapeGfx);
-        // draw label
-        let labelGfx = this.drawLabel();
-        this.calcLabelPosition(labelGfx, shapeGfx)
-        this.gfxContainer.addChild(labelGfx);    
+        console.log(`draw renderShape=${renderShape}; renderLabel=${renderLabel}`)
+        
 
-        return {shapeGfx: shapeGfx, labelGfx: labelGfx}
+        // draw shape
+        if (renderShape){
+            if (this.shapeGfx){
+                this.shapeGfx.removeChildren();
+            }
+            this.shapeGfx = this.drawShape();
+            this.gfxContainer.addChild(this.shapeGfx);    
+        }
+        // draw label
+        if (renderLabel){
+            this.labelGfx = this.drawLabel();
+            this.gfxContainer.addChild(this.labelGfx);    
+        }
+
+        if (renderShape){
+            this.calcLabelPosition(this.labelGfx, this.shapeGfx)
+        }
     }
 }
 

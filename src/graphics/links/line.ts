@@ -8,19 +8,19 @@ import GraphCanvas from '../../canvas/canvas';
 class Line extends LinkShapeBase {
 
 
-    labelGfx: PIXI.Graphics; 
-    shapeGfx: PIXI.Graphics;
+    // labelGfx: PIXI.Graphics; 
+    // shapeGfx: PIXI.Graphics;
 
-    constructor(data: CanvasLink, canvas: GraphCanvas) {
-        super(data, canvas)
+    // constructor(data: CanvasLink, canvas: GraphCanvas) {
+    //     super(data, canvas)
 
-        this.data = this.processData(data)
-        const gfxs = this.draw(true, true);
-        this.labelGfx = gfxs.labelGfx; // 
-        this.shapeGfx = gfxs.shapeGfx;
-        // setup intractions
-        this.setupInteractions()
-    }
+    //     this.data = this.processData(data)
+    //     const gfxs = this.draw(true, true);
+    //     this.labelGfx = gfxs.labelGfx; // 
+    //     this.shapeGfx = gfxs.shapeGfx;
+    //     // setup intractions
+    //     this.setupInteractions()
+    // }
 
     //@ts-ignore
     // point: PIXI.Point;
@@ -53,6 +53,7 @@ class Line extends LinkShapeBase {
     calcStartAndEndPoints = () => {
             // line color and thickness
             // console.log("calcStartAndEndPoints", JSON.stringify(this.data))
+        console.log("====calcStartAndEndPoints", this.data, this)
         const arrowPadding = 3; 
         const endPoint = getContactPointOnCircle(
             this.data.source,

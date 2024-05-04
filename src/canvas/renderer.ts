@@ -47,7 +47,7 @@ class Renderer {
     reRenderLinks(links: CanvasLink[]){
         // const _this = this;
         links.forEach((link: CanvasLink)=>{
-            link.gfxInstance?.redraw();
+            link.gfxInstance?.redraw(true, false);
         })
         // this.renderScreenBorderIfRequired()
     }
