@@ -91,7 +91,7 @@ export const LinkStyleDefaults: LinkStyleType = {
     label: {
         background: {
             color: "#222222",
-            opacity: 1
+            opacity: 0.2
         },
         padding: 3,
         border: {
@@ -114,14 +114,14 @@ export const LinkStyleDefaults: LinkStyleType = {
         ":hovered": {
             shape: {
                 opacity: 1,
-                thickness: 6,
+                thickness: 2,
                 color: 0xfeeb77
             }
         },
         ":inactive": {
             shape: {
                 opacity: 1,
-                thickness: 6,
+                // thickness: ,
                 color: 0xfeeb77
             }
         },

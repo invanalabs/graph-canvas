@@ -22,7 +22,7 @@ const drawStraightLineShape = ( props: DrawLinkPrimitiveType) => {
     shape.interactive = true;
     // TODO - FIX this hitarea 
     // shape.hitArea = new Polygon(shape.currentPath.points);
-    shape.hitArea = shape.getBounds();
+    // shape.hitArea = shape.getBounds();
     // shape.hitArea = new Rectangle(props.startPoint.x, props.startPoint.y, props.endPoint.x, props.endPoint.y);
     shape.cursor = 'pointer';
 

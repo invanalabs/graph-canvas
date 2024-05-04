@@ -14,6 +14,7 @@ import drawLabelShape from '../primitives/label';
 
 abstract class Shape {
     abstract data: CanvasLink | CanvasNode;
+    // abstract state: "hovered" | "selected" | ;
     abstract gfxContainer: PIXI.Graphics;
 
     abstract setupInteractions(): void;
@@ -101,37 +102,25 @@ export class NodeShapeBase extends BaseShape {
         this.data = { ...{ x: 0, y: 0 }, ...data }
     }
 
-    pointerOver() {
-        console.log("==pointerOver",)
-        // this.setBorder(
-        //     NodeStyleDefaults[':hovered'].shape.border.color,
-        //     NodeStyleDefaults[':hovered'].shape.border.thickness + 10 
-        // )
-        // getChildByLabel in v8 
+    setHover = () => {
         let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
             const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
-            console.log("====pointerOver", shapeHoveredBorder)
+            // console.log("====pointerOver", shapeHoveredBorder)
             if (shapeHoveredBorder) {
                 // shapeHoveredBorder.tint = 0xff00ff;
                 shapeHoveredBorder.visible = true
                 // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
             }
+            // shape?.zIndex = 1000
         }
     }
 
-
-
-    pointerOut() {
-        console.log("==pointerOut",)
-        // this.setBorder(
-        //     NodeStyleDefaults.shape.border.color,
-        //     NodeStyleDefaults.shape.border.thickness 
-        // )
+    setUnHover = () => {
         let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
             const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
-            console.log("====pointerOver", shapeHoveredBorder)
+            // console.log("====pointerOver", shapeHoveredBorder)
             if (shapeHoveredBorder) {
                 // shapeHoveredBorder.tint = 0xffffff;
                 // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
@@ -140,26 +129,61 @@ export class NodeShapeBase extends BaseShape {
         }
     }
 
-    showHighlightedRing = () => {
+    setSelected = () => {
         let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
             const shapeSelectedBorder = shape.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
-            console.log("shapeSelectedBorder", shapeSelectedBorder)
+            // console.log("shapeSelectedBorder", shapeSelectedBorder)
             if (shapeSelectedBorder) {
                 shapeSelectedBorder.visible = true
             }
         }
     }
 
-    hideHighlightedRing = () => {
+    setUnSelected = () => {
         let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
         if (shape) {
             const shapeSelectedBorder = shape.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
-            console.log("shapeSelectedBorder", shapeSelectedBorder)
+            // console.log("shapeSelectedBorder", shapeSelectedBorder)
             if (shapeSelectedBorder) {
                 shapeSelectedBorder.visible = false
             }
         }
+    }
+    pointerOver() {
+        console.log("==node pointerOver", this.data.id)
+        this.setHover();
+        // this.setHoverOnNeighbors();
+    }
+
+    pointerOut() {
+        console.log("==node pointerOut", this.data.id)
+        this.setUnHover()
+        // this.setUnHoverOnNeighbors();
+    }
+
+    setHoverOnNeighbors = () => {
+        console.log("=setHoverOnNeighbors triggered")
+        const neighbors: {nodes: CanvasNode[], links: CanvasLink[]}= this.canvas.graph.getNeighbors(this.data);
+        console.log("getNeighbors", neighbors)
+        neighbors.nodes.forEach((node: CanvasNode)=>{
+            node.gfxInstance?.setHover();
+        })
+        neighbors.links.forEach((link: CanvasLink) => {
+            link.gfxInstance?.setHover();
+        });
+    }
+
+    setUnHoverOnNeighbors = () => {
+        console.log("=setUnHoverOnNeighbors triggered")
+        const neighbors: {nodes: CanvasNode[], links: CanvasLink[]}= this.canvas.graph.getNeighbors(this.data);
+        console.log("getNeighbors", neighbors)
+        neighbors.nodes.forEach((node: CanvasNode)=>{
+            node.gfxInstance?.setUnHover();
+        })
+        neighbors.links.forEach((link: CanvasLink) => {
+            link.gfxInstance?.setUnHover();
+        });
     }
 
     onDragStart = (event: PIXI.FederatedPointerEvent) => {
@@ -170,7 +194,8 @@ export class NodeShapeBase extends BaseShape {
         this.dragPoint.x -= this.gfxContainer.x;
         this.dragPoint.y -= this.gfxContainer.y;
         this.gfxContainer.parent.on("pointermove", this.onDragMove);
-        this.showHighlightedRing()
+        this.setSelected()
+        this.setHoverOnNeighbors();
     };
 
     onDragMove = (event: PIXI.FederatedPointerEvent) => {
@@ -184,14 +209,18 @@ export class NodeShapeBase extends BaseShape {
         const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
         console.log("neighborLinks", neighborLinks)
         this.canvas.renderer.reRenderLinks(neighborLinks)
+        // this.setHoverOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
+
     };
 
     onDragEnd = (event: PIXI.FederatedPointerEvent) => {
         console.log("onDragEnd triggered")
         event.stopPropagation()
         this.gfxContainer.parent.off("pointermove", this.onDragMove);
-        this.hideHighlightedRing();
+        this.setUnSelected();
+        this.setUnHoverOnNeighbors();
     };
+
 
     setupInteractions() {
         console.log("===setupInteractions triggered")
@@ -252,7 +281,18 @@ export class LinkShapeBase extends BaseShape {
     }
 
     pointerOver() {
-        console.log("==pointerOver",)
+        console.log("==link pointerOver", this.data.id)
+        this.setHover()
+    }
+
+    pointerOut() {
+        console.log("==link pointerOut", this.data.id)
+        this.setUnHover()
+    }
+
+
+    setHover = () => {
+        console.log("hover")
         let shape = this.gfxContainer.getChildByName(LinkContainerChildNames.shape);
         if (shape) {
             const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
@@ -262,8 +302,7 @@ export class LinkShapeBase extends BaseShape {
         }
     }
 
-    pointerOut() {
-        console.log("==pointerOut",)
+    setUnHover = () => {
         let shape = this.gfxContainer.getChildByName(LinkContainerChildNames.shape);
         if (shape) {
             const shapeHoveredBorder: PIXI.Graphics = shape.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
@@ -356,7 +395,7 @@ export class LinkShapeBase extends BaseShape {
     }
 
 
-    draw = () => {
+    draw = (renderShape=true, renderLabel=true) => {
         // clear shape first
         this.clear();
         // draw shape

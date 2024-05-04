@@ -103,8 +103,21 @@ export default class GraphData {
         return Array.from(this.links.values())
     }
 
-    getNeighborLinks(node:CanvasNode){
+    getNeighborLinks(node:CanvasNode): CanvasLink[] {
         return this.getLinks().filter(link => link.source.id === node.id || link.target.id  === node.id );
+    }
+
+    getNeighbors(node: CanvasNode): {nodes: CanvasNode[], links: CanvasLink[]} {
+        const links = this.getNeighborLinks(node);
+        const relatedNodes: Map<IdString, CanvasNode> = new Map();
+        links.forEach((link: CanvasLink)=> {
+            relatedNodes.set(link.source.id, link.source);
+            relatedNodes.set(link.target.id, link.target);
+        })
+        console.log("==relatedNodes", relatedNodes, relatedNodes.values())
+        const _: {nodes: CanvasNode[], links: CanvasLink[]} =  {nodes: Array.from(relatedNodes.values()), links};
+        console.log("====getNeighbors", _)
+        return _
     }
 
 }
