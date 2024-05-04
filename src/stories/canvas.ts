@@ -3,6 +3,8 @@ import { CanvasOptions } from "../canvas/types";
 import { CanvasLink, CanvasNode } from "../graphics/types";
 import D3ForceLayout from "./layouts/d3-force/layout";
 import DagreLayout from "./layouts/dagre/layout";
+// import * as PIXI from 'pixi.js';
+// import { initDevtools } from '@pixi/devtools';
 
 
 export const createCanvas = (
@@ -29,6 +31,25 @@ export const createCanvas = (
         canvasOptions.viewDiv = canvasDiv
         const canvas = new GraphCanvas(canvasOptions);
         canvas.graph.add(nodes, links)
+
+
+
+        // initDevtools({
+        //     app: canvas.pixiApp,
+        //     // If you are not using a pixi app, you can pass the renderer and stage directly
+        //     // renderer: myRenderer,
+        //     // stage: myStage,
+        // });
+
+
+        // window.__PIXI_DEVTOOLS__ = {
+        //     pixi: PIXI,
+        //     app: canvas.pixiApp,
+        //     // If you are not using a pixi app, you can pass the renderer and stage directly
+        //     // renderer: myRenderer,
+        //     // stage: myStage,
+        //   };
+
 
         if (layout === 'd3-force'){
             const layoutInstance =  new D3ForceLayout(canvas);

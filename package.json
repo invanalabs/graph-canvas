@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@dagrejs/dagre": "^1.1.2",
+    "@pixi/devtools": "^1.2.2",
     "@storybook/addon-essentials": "^8.0.9",
     "@storybook/addon-interactions": "^8.0.9",
     "@storybook/addon-links": "^8.0.9",

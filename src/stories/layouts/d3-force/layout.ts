@@ -39,6 +39,7 @@ class D3ForceLayout {
                 _this.simulation.stop();
                 _this.ticked();
                 _this.canvas.camera.fitView();
+                // _this.canvas.pixiApp.renderer.generateTexture
 
             });
         return simulation
