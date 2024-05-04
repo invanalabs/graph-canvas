@@ -6,23 +6,26 @@ import { LinkContainerChildNames, NodeContainerChildNames } from './constants';
 import { LinkStyleDefaults, NodeStyleDefaults } from './defaults';
 import { deepMerge } from '../utils/merge';
 import drawStraightLineShape from '../primitives/lines/straightLine';
-import drawBezierCurveShape from '../primitives/lines/bezierCurve';
 import drawArrowHeadShape from '../primitives/arrowHead';
 import drawLabelShape from '../primitives/label';
 // import drawDottedLineShape from '../primitives/lines/dottedLine';
 
 
 abstract class Shape {
+    abstract readonly originalData: CanvasLink | CanvasNode;
     abstract data: CanvasLink | CanvasNode;
     // abstract state: "hovered" | "selected" | ;
     abstract gfxContainer: PIXI.Graphics;
+    abstract labelGfx: PIXI.Graphics;
+    abstract shapeGfx: PIXI.Graphics; 
 
+    /* this wil  */
+    abstract processData(data: CanvasLink | CanvasNode): CanvasLink | CanvasNode; 
     abstract setupInteractions(): void;
     abstract pointerOver(): void;
     abstract pointerOut(): void;
 
-    abstract draw(): void;
-    abstract drawLabel(): PIXI.Graphics | undefined | null;
+    abstract draw(drawShape: boolean, drawLabel:boolean): void;
     abstract drawShape(): PIXI.Graphics;
     abstract redraw(): void;
 
@@ -35,40 +38,45 @@ export class BaseShape extends Shape {
     /*
         this is the base shape for the Shape and the LabelShape
     */
-    data: CanvasLink | CanvasNode;
+    originalData: CanvasLink | CanvasNode
+    declare data: CanvasLink | CanvasNode;
     gfxContainer: PIXI.Graphics;
     canvas: GraphCanvas
-
+    declare labelGfx: PIXI.Graphics;
+    declare shapeGfx: PIXI.Graphics; 
 
     constructor(data: CanvasLink | CanvasNode, canvas: GraphCanvas) {
         super()
-        this.data = data;
+        this.originalData = data
         this.canvas = canvas;
         this.gfxContainer = new PIXI.Graphics()
         // in v8; { isRenderGroup:true} // this containers transform is now handled on the GPU!
-        
-        // this.gfxContainer.
         // Make the gfxContainer interactive...
         this.gfxContainer.cursor = 'pointer';
         // this.gfxContainer.eventMode = 'static';
     }
 
-    drawLabel = () => {
-        console.debug("BaseShape.drawLabel not defined")
-        return ;
+    processData = (data: CanvasLink | CanvasNode): CanvasLink | CanvasNode => {
+         console.error("BaseShape.processData triggered but not implemented") 
+         return data;
     }
-
     setupInteractions() { console.error("BaseShape.setupInteractions triggered") }
     pointerOver() { console.error("BaseShape.pointerOver not implemented") }
     pointerOut() { console.error("BaseShape.pointerOut not implemented") }
+
+
+    drawLabel = (): PIXI.Graphics => {
+        console.debug("BaseShape.drawLabel not defined")
+        return new PIXI.Graphics()
+    }
 
     drawShape = (): PIXI.Graphics => {
         console.error("BaseShape.drawShape not implemented")
         return new PIXI.Graphics()
     }
 
-    draw(): void {
-        console.error("BaseShape.draw not implemented")
+    draw(drawShape=true, drawLabel=true) {
+        console.error("BaseShape.draw not implemented", drawShape, drawLabel)
     }
 
     redraw = () => {
@@ -90,16 +98,30 @@ export class BaseShape extends Shape {
 
 
 export class NodeShapeBase extends BaseShape {
-    data: CanvasNode
-    //@ts-ignore
-    dragPoint: PIXI.Point
+    declare originalData:  CanvasNode;
+    declare data:  CanvasNode;
+    declare dragPoint: PIXI.Point
+    declare labelGfx: PIXI.Graphics;
+    declare shapeGfx: PIXI.Graphics; 
+
+    
 
     constructor(data: CanvasNode, canvas: GraphCanvas) {
         super(data, canvas)
+        this.data = this.processData(data)
+        // const gfxs = this.draw(true, true);
+        // this.labelGfx = gfxs.labelGfx; // 
+        // this.shapeGfx = gfxs.shapeGfx;
+        // setup intractions
+        this.setupInteractions()
+    }
+
+    processData = (data:  CanvasNode)  =>  {
         console.log("======data.style before", data.group, JSON.stringify(data.style), )
         data.style = data.style ? deepMerge(NodeStyleDefaults, data.style) : NodeStyleDefaults
-        console.log("======data.style after", data.group, JSON.stringify(data.style))
-        this.data = { ...{ x: 0, y: 0 }, ...data }
+        console.log("======data.style after", data.group, JSON.stringify(data.style));
+        data = { ...{ x: 0, y: 0 }, ...data }
+        return data
     }
 
     setHover = () => {
@@ -246,38 +268,44 @@ export class NodeShapeBase extends BaseShape {
     //     });
     // }
 
-    draw = () => {
+    draw = (drawShape= true, drawLabel = true, move=true, setInteractions=true) => {
         // clear shape first
-        this.clear();
+        // this.clear();
         // draw shape
-        let shapeGfx = this.drawShape();
-        this.gfxContainer.addChild(shapeGfx);
+        if (drawShape){
+            this.shapeGfx = this.drawShape();
+            this.gfxContainer.addChild(this.shapeGfx);    
+        }
         // this.setBorder(     
         //     NodeStyleDefaults.shape.border.color, 
         //     NodeStyleDefaults.shape.border.thickness, 
         //     false
         // )
         // draw label
-        let labelGfx = this.drawLabel();
-        if (labelGfx){
-            this.gfxContainer.addChild(labelGfx);
+        if (drawLabel){
+            this.labelGfx = this.drawLabel();
+            if (this.labelGfx){
+                this.gfxContainer.addChild(this.labelGfx);
+            }    
         }
-        // setup intractions
-        this.setupInteractions()
-        // update the position
-        if (this.data.x && this.data.y) {
-            this.setGfxPosition(this.data?.x, this.data?.y)
+
+        // update the position 
+        if (move){
+            if (this.data.x && this.data.y) {
+                this.setGfxPosition(this.data?.x, this.data?.y)
+            }    
         }
     }
 }
 
 export class LinkShapeBase extends BaseShape {
-    data: CanvasLink
 
-    constructor(data: CanvasLink, canvas: GraphCanvas) {
-        super(data, canvas)
+    declare data: CanvasLink
+    declare originalData: CanvasLink;
+
+    processData = (data:  CanvasLink)  =>  {
         data.style = data.style ? deepMerge(LinkStyleDefaults, data.style) : LinkStyleDefaults
-        this.data = data
+        return data;
     }
 
     pointerOver() {
@@ -330,6 +358,7 @@ export class LinkShapeBase extends BaseShape {
     calcLabelAngle =(shapeGfx: PIXI.Graphics) => {
         console.error("calcLabelAngle Not Implemented")
     }
+
     calcStartAndEndPoints = () => {
         console.error("calcStartAndEndPoints not Implemented")
     }
@@ -350,6 +379,8 @@ export class LinkShapeBase extends BaseShape {
             const labelGfx = drawLabelShape({label: this.data.label, ...this.data.style?.label})
             labelGfx.name = LinkContainerChildNames.label
             return labelGfx    
+        }else{
+            return new PIXI.Graphics()
         }
     }
 
@@ -397,18 +428,16 @@ export class LinkShapeBase extends BaseShape {
 
     draw = (renderShape=true, renderLabel=true) => {
         // clear shape first
-        this.clear();
+        // this.clear();
         // draw shape
         let shapeGfx = this.drawShape();
         this.gfxContainer.addChild(shapeGfx);
         // draw label
         let labelGfx = this.drawLabel();
-        if (labelGfx){
-            this.calcLabelPosition(labelGfx, shapeGfx)
-            this.gfxContainer.addChild(labelGfx);    
-        }
-        // setup intractions
-        this.setupInteractions()
+        this.calcLabelPosition(labelGfx, shapeGfx)
+        this.gfxContainer.addChild(labelGfx);    
+
+        return {shapeGfx: shapeGfx, labelGfx: labelGfx}
     }
 }
 

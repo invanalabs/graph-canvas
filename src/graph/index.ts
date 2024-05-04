@@ -31,7 +31,7 @@ export default class GraphData {
             if (nodeStyles[node.group]){
                 node.style = deepMerge(nodeStyles[node.group], node?.style | {})
             }
-            console.log("=====node=====", JSON.stringify(node))
+            // console.log("=====node=====", JSON.stringify(node))
             _this.nodes.set(node.id, node)
         })
 
