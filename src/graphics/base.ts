@@ -276,8 +276,10 @@ export class NodeShapeBase extends BaseShape {
         // this.clear();
         // draw shape
         if (renderShape){
+            this.gfxContainer.x = this.data.x;
+            this.gfxContainer.y = this.data.y;
             this.shapeGfx = this.drawShape();
-            this.gfxContainer.addChild(this.shapeGfx);    
+            this.gfxContainer.addChild(this.shapeGfx);
         }
         // this.setBorder(     
         //     NodeStyleDefaults.shape.border.color, 

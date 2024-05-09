@@ -1,10 +1,11 @@
 import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import { deepMerge } from "../utils/merge";
 import GraphCanvas from "../canvas/canvas";
+import { NodeStyleDefaults } from "../graphics/defaults";
 
 
 export default class GraphData {
-    
+
     nodes: Map<IdString, CanvasNode>
     links: Map<IdString, CanvasLink>
     canvas: GraphCanvas
@@ -16,45 +17,52 @@ export default class GraphData {
     }
 
     add(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
-        const _this = this; 
+        const _this = this;
         console.log("adding nodes and links", this.nodes, this.links)
-        
+
         const nodeStyles = _this.canvas.options?.styles?.nodes || {}
         const linkStyles = _this.canvas.options?.styles?.links || {}
 
         console.log("=====nodeStyles", JSON.stringify(nodeStyles))
-        nodes.forEach(node=> {
-            if (_this.nodes.get(node.id)){
+        nodes.forEach(node => {
+            if (_this.nodes.get(node.id)) {
                 throw new Error(`${node.id} already found in the nodes`)
             }
 
-            if (nodeStyles[node.group]){
-                node.style = deepMerge(nodeStyles[node.group], node?.style | {})
+            if (nodeStyles[node.group]) {
+                const style = deepMerge(nodeStyles[node.group], node?.style | {})
+                console.log("====node.group", node.group, style)
+                node.style = deepMerge(NodeStyleDefaults, style)
+            }else{
+                node.style = deepMerge(NodeStyleDefaults, {})
             }
+
+            console.log("====node.style", node.style)
+            _this.canvas.textureManager.getOrCreateTexture({ size: node.style?.size, group: node.group, style: node.style })
             // console.log("=====node=====", JSON.stringify(node))
             _this.nodes.set(node.id, node)
         })
 
-        links.forEach(link=>{
-            if (typeof link.source !== 'object'){
-                const sourceNode = this.nodes.get(link.source) 
+        links.forEach(link => {
+            if (typeof link.source !== 'object') {
+                const sourceNode = this.nodes.get(link.source)
                 console.log("====sourceNode", sourceNode)
-                if (sourceNode){
+                if (sourceNode) {
                     link.source = sourceNode
-                }else{
+                } else {
                     throw Error(`${link.source} not found in nodes: ${this.nodes} `)
                 }
             }
-            if (typeof link.target !== 'object'){
+            if (typeof link.target !== 'object') {
                 const targetNode = this.nodes.get(link.target);
                 console.log("====targetNode", targetNode)
-                if (targetNode){
+                if (targetNode) {
                     link.target = targetNode
-                }else{
+                } else {
                     throw Error(`${link.target} not found in node: ${this.nodes} `)
                 }
             }
-            if (linkStyles[link.group]){
+            if (linkStyles[link.group]) {
                 link.style = deepMerge(linkStyles[link.group], link?.style | {})
             }
             _this.links.set(link.id, link)
@@ -75,15 +83,15 @@ export default class GraphData {
 
     }
 
-    updateNodePosition(nodeId: IdString, x: number, y: number){
-        console.debug("Updating position of node ", nodeId, x, y)     
+    updateNodePosition(nodeId: IdString, x: number, y: number) {
+        console.debug("Updating position of node ", nodeId, x, y)
         let node: CanvasNode | undefined = this.nodes.get(nodeId);
-        if (node){
+        if (node) {
             node.x = x;
             node.y = y;
-            node.gfxInstance?.setGfxPosition(x, y);    
+            node.gfxInstance?.setGfxPosition(x, y);
             // node.gfxInstance?.updatePosition(x, y)    
-            this.nodes.set(nodeId, node)            
+            this.nodes.set(nodeId, node)
         }
     }
 
@@ -94,28 +102,28 @@ export default class GraphData {
     getLinksByIds(linkIds: IdString[]) {
         return this.getLinks().filter(link => linkIds.includes(link.id));
     }
-    
-    getNodes(): CanvasNode[]{
+
+    getNodes(): CanvasNode[] {
         return Array.from(this.nodes.values())
     }
 
-    getLinks(): CanvasLink[]{
+    getLinks(): CanvasLink[] {
         return Array.from(this.links.values())
     }
 
-    getNeighborLinks(node:CanvasNode): CanvasLink[] {
-        return this.getLinks().filter(link => link.source.id === node.id || link.target.id  === node.id );
+    getNeighborLinks(node: CanvasNode): CanvasLink[] {
+        return this.getLinks().filter(link => link.source.id === node.id || link.target.id === node.id);
     }
 
-    getNeighbors(node: CanvasNode): {nodes: CanvasNode[], links: CanvasLink[]} {
+    getNeighbors(node: CanvasNode): { nodes: CanvasNode[], links: CanvasLink[] } {
         const links = this.getNeighborLinks(node);
         const relatedNodes: Map<IdString, CanvasNode> = new Map();
-        links.forEach((link: CanvasLink)=> {
+        links.forEach((link: CanvasLink) => {
             relatedNodes.set(link.source.id, link.source);
             relatedNodes.set(link.target.id, link.target);
         })
         console.log("==relatedNodes", relatedNodes, relatedNodes.values())
-        const _: {nodes: CanvasNode[], links: CanvasLink[]} =  {nodes: Array.from(relatedNodes.values()), links};
+        const _: { nodes: CanvasNode[], links: CanvasLink[] } = { nodes: Array.from(relatedNodes.values()), links };
         console.log("====getNeighbors", _)
         return _
     }

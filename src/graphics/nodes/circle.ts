@@ -2,7 +2,7 @@ import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../constants';
 import drawCircleShape from '../../primitives/circle';
 import drawLabelShape from '../../primitives/label';
-
+import { Sprite } from 'pixi.js';
 
 class Circle extends NodeShapeBase {
 
@@ -51,48 +51,72 @@ class Circle extends NodeShapeBase {
 
     drawShape = () => {
         console.debug("Circle.drawShape triggered")
-        const shapeStyle = this.data.style
+        // const shapeStyle = this.data.style
 
-        const shape = drawCircleShape({
-            size: shapeStyle.size,
-            background: shapeStyle?.shape.background,
-            border: shapeStyle?.shape.border
+
+        const circleTexture = this.canvas.textureManager.texturesMap[this.data.group]
+        console.log("====circleTexture", circleTexture, this.canvas.textureManager.texturesMap)
+        // const circle = new Sprite(circleTexture);
+        // circle.name =  NodeContainerChildNames.shape;
+        // circle.x = -circle.width / 2;
+        // circle.y = -circle.height / 2;
+
+        const {texture} = this.canvas.textureManager.getOrCreateTexture({
+            size: this.data.style?.size , 
+            group: this.data.group,
+            style: this.data.style
         })
-        shape.name = NodeContainerChildNames.shape;
 
+        console.log("===texture", texture)
+        const shape = new Sprite(texture['states'][':default']['shape'])
+        shape.name = NodeContainerChildNames.shape;
+        shape.x = -shape.width / 2;
+        shape.y = -shape.height / 2;
+        
         // let shape = new PIXI.Graphics();
 
         // shape.lineStyle( shapeStyle?.shape.border.thickness, shapeStyle?.shape.border.color);
         // shape.beginFill(shapeStyle?.shape.background.color, shapeStyle?.shape.background.opacity)
         // shape.drawCircle(0, 0, shapeStyle.size);
 
-        const hoveredPadding = 3;
-        const selectedPadding = hoveredPadding + 6;
+        // const hoveredPadding = 3;
+        // const selectedPadding = hoveredPadding + 6;
         // shape hoveredBorder
-        const hoveredStyle = shapeStyle?.states[':hovered'];
-        
-        const shapeHoveredBorder = drawCircleShape({
-            size: shapeStyle.size + shapeStyle?.shape.border.thickness + hoveredPadding,
-            background: hoveredStyle.shape.background,
-            border: hoveredStyle.shape.border
-        })
+        // const hoveredStyle = shapeStyle?.states[':hovered'];
+
+
+        // const shapeHoveredBorder = drawCircleShape({
+        //     size: shapeStyle.size + shapeStyle?.shape.border.thickness + hoveredPadding,
+        //     background: hoveredStyle.shape.background,
+        //     border: hoveredStyle.shape.border
+        // })
+        const shapeHoveredBorder = new Sprite(texture['states'][':hovered']['shape'])
         // const shapeHoveredBorder = new PIXI.Graphics();
         // shapeHoveredBorder.drawCircle(0, 0, shapeStyle.size + shapeStyle?.shape.border.thickness + hoveredPadding);
         // shapeHoveredBorder.stroke({
         //     width: shapeStyle?.states[':hovered'].shape.border.thickness,
         //     color: shapeStyle?.states[':hovered'].shape.border.color
         // });
+        console.log("====shapeHoveredBorder.width" , shapeHoveredBorder.width)
+        shapeHoveredBorder.x = -(shapeHoveredBorder.width - shape.width) / 2;
+        shapeHoveredBorder.y = -(shapeHoveredBorder.height - shape.height) / 2;
+        
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.name = NodeContainerChildNames.shapeHoveredBorder
         shape.addChild(shapeHoveredBorder)
 
         // shape selectedBorder
-        const selectedStyle = shapeStyle?.states[':selected'];
-        const shapeSelectedBorder = drawCircleShape({
-            size: shapeStyle.size + shapeStyle?.shape.border.thickness + selectedPadding,
-            background: selectedStyle.shape.background,
-            border: selectedStyle.shape.border
-        })
+        // const selectedStyle = shapeStyle?.states[':selected'];
+        // const shapeSelectedBorder = drawCircleShape({
+        //     size: shapeStyle.size + shapeStyle?.shape.border.thickness + selectedPadding,
+        //     background: selectedStyle.shape.background,
+        //     border: selectedStyle.shape.border
+        // })
+        const shapeSelectedBorder = new Sprite(texture['states'][':selected']['shape'])
+        shapeSelectedBorder.x =  -(shapeSelectedBorder.width - shape.width) / 2;
+        shapeSelectedBorder.y = -(shapeSelectedBorder.height - shape.height) / 2;
+        
+
 
         // const shapeSelectedBorder = new PIXI.Graphics();
         // shapeSelectedBorder.drawCircle(0, 0, shapeStyle.size + shapeStyle?.shape.border.thickness + selectedPadding);
@@ -104,6 +128,10 @@ class Circle extends NodeShapeBase {
         shapeSelectedBorder.name = NodeContainerChildNames.shapeSelectedBorder
         shape.addChild(shapeSelectedBorder)
 
+
+        // shape.x = -shape.width / 2;
+        // shape.y = -shape.height / 2;
+        
         shape.cursor = "pointer";
         shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
         // shape.scale.set(3);

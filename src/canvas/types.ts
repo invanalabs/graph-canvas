@@ -63,16 +63,18 @@ export interface LinkShapeType {
     thickness: number
     color: string | number
     type: BorderType
-
 }
 
+
+export type NodeStateTypesList =  ':default' | ':hovered' | ':selected' | ':inactive'; 
+export type LinkStateTypesList =  ':default' | ':hovered' | ':selected' | ':inactive';
 
 export interface NodeStyleType {
     size: number
     shape: NodeShapeType
     label: ShapeLabelType
     states: {
-        [key in  ':hovered' | ':selected' | ':inactive'] : NodeStyleType
+        [key in  NodeStateTypesList] : NodeStyleType
     }
 }
 
@@ -80,7 +82,7 @@ export interface LinkStyleType {
     shape: LinkShapeType
     label: ShapeLabelType
     states: {
-        [key in  ':hovered' | ':inactive'] : LinkStyleType
+        [key in  LinkStateTypesList] : LinkStyleType
     }
 }
 

@@ -6,17 +6,23 @@ import { LinkShapeBase, NodeShapeBase } from "../graphics/base";
 import Renderer from "./renderer";
 import Camera from "../camera";
 import { CameraOptions } from "../camera/types";
+import TextureManager from "../textures";
 
 export default class GraphCanvas {
     /*
         mapSize is the entire world  
     */
     readonly options : CanvasOptions
+
+    // 
     pixiApp: PIXI.Application
-    graph: GraphData
     renderer: Renderer
     camera: Camera;
     worldScale: number = 10;
+
+    //
+    graph: GraphData
+    textureManager: TextureManager 
 
     constructor(options : CanvasOptions = defaultCanvasOptions){
         this.options = {...options, ...defaultCanvasOptions}
@@ -27,6 +33,7 @@ export default class GraphCanvas {
         // if (this.options.viewDiv){
         //     this.options.viewDiv.appendChild(this.pixiApp.view);
         // }
+        this.textureManager = new TextureManager(this);
 
         // @ts-ignore
         const divRectangle = this.options.viewDiv?.getBoundingClientRect();
