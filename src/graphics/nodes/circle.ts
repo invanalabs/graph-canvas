@@ -54,13 +54,8 @@ class Circle extends NodeShapeBase {
         // const shapeStyle = this.data.style
 
 
-        const circleTexture = this.canvas.textureManager.texturesMap[this.data.group]
-        console.log("====circleTexture", circleTexture, this.canvas.textureManager.texturesMap)
-        // const circle = new Sprite(circleTexture);
-        // circle.name =  NodeContainerChildNames.shape;
-        // circle.x = -circle.width / 2;
-        // circle.y = -circle.height / 2;
-
+        const shapeTexture = this.canvas.textureManager.texturesMap[this.data.group]
+        console.log("====shapeTexture", shapeTexture, this.canvas.textureManager.texturesMap)
         const {texture} = this.canvas.textureManager.getOrCreateTexture({
             size: this.data.style?.size , 
             group: this.data.group,
@@ -73,65 +68,22 @@ class Circle extends NodeShapeBase {
         shape.x = -shape.width / 2;
         shape.y = -shape.height / 2;
         
-        // let shape = new PIXI.Graphics();
-
-        // shape.lineStyle( shapeStyle?.shape.border.thickness, shapeStyle?.shape.border.color);
-        // shape.beginFill(shapeStyle?.shape.background.color, shapeStyle?.shape.background.opacity)
-        // shape.drawCircle(0, 0, shapeStyle.size);
-
-        // const hoveredPadding = 3;
-        // const selectedPadding = hoveredPadding + 6;
-        // shape hoveredBorder
-        // const hoveredStyle = shapeStyle?.states[':hovered'];
-
-
-        // const shapeHoveredBorder = drawCircleShape({
-        //     size: shapeStyle.size + shapeStyle?.shape.border.thickness + hoveredPadding,
-        //     background: hoveredStyle.shape.background,
-        //     border: hoveredStyle.shape.border
-        // })
+        // draw hover graphics
         const shapeHoveredBorder = new Sprite(texture['states'][':hovered']['shape'])
-        // const shapeHoveredBorder = new PIXI.Graphics();
-        // shapeHoveredBorder.drawCircle(0, 0, shapeStyle.size + shapeStyle?.shape.border.thickness + hoveredPadding);
-        // shapeHoveredBorder.stroke({
-        //     width: shapeStyle?.states[':hovered'].shape.border.thickness,
-        //     color: shapeStyle?.states[':hovered'].shape.border.color
-        // });
-        console.log("====shapeHoveredBorder.width" , shapeHoveredBorder.width)
         shapeHoveredBorder.x = -(shapeHoveredBorder.width - shape.width) / 2;
         shapeHoveredBorder.y = -(shapeHoveredBorder.height - shape.height) / 2;
-        
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.name = NodeContainerChildNames.shapeHoveredBorder
         shape.addChild(shapeHoveredBorder)
 
-        // shape selectedBorder
-        // const selectedStyle = shapeStyle?.states[':selected'];
-        // const shapeSelectedBorder = drawCircleShape({
-        //     size: shapeStyle.size + shapeStyle?.shape.border.thickness + selectedPadding,
-        //     background: selectedStyle.shape.background,
-        //     border: selectedStyle.shape.border
-        // })
+        // draw selected graphics
         const shapeSelectedBorder = new Sprite(texture['states'][':selected']['shape'])
         shapeSelectedBorder.x =  -(shapeSelectedBorder.width - shape.width) / 2;
         shapeSelectedBorder.y = -(shapeSelectedBorder.height - shape.height) / 2;
-        
-
-
-        // const shapeSelectedBorder = new PIXI.Graphics();
-        // shapeSelectedBorder.drawCircle(0, 0, shapeStyle.size + shapeStyle?.shape.border.thickness + selectedPadding);
-        // shapeSelectedBorder.stroke({
-        //     width: selectedStyle.shape.border.thickness + 2,
-        //     color: selectedStyle.shape.border.color
-        // });
         shapeSelectedBorder.visible = false
         shapeSelectedBorder.name = NodeContainerChildNames.shapeSelectedBorder
         shape.addChild(shapeSelectedBorder)
 
-
-        // shape.x = -shape.width / 2;
-        // shape.y = -shape.height / 2;
-        
         shape.cursor = "pointer";
         shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
         // shape.scale.set(3);
