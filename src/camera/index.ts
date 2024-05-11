@@ -56,6 +56,8 @@ export default class Camera {
         const { center, graphHeight, graphWidth } = getCenter(selectedNodes)
         this.viewport.moveCenter(center)
         this.viewport.fit(true, graphWidth, graphHeight)
+        // this.zoomOut();
+
         // this.viewport.zoom(graphWidth, true)
         // this.viewport.toScreen(graphWidth, graphHeight)
         // this.viewport.toScreen(graphWidth, graphHeight)
@@ -63,10 +65,10 @@ export default class Camera {
         // this.setZoom(1, true);
     }
 
-    setZoomTo = (zoomToOptions : ZoomToOptions) => {
-        // this.zoomTo = zoomToOptions;
+    // setZoomTo = (zoomToOptions : ZoomToOptions) => {
+    //     // this.zoomTo = zoomToOptions;
 
-    }
+    // }
 
     setZoomLevel = (zoomLevel: number) =>{
         console.log("==setZoomLevel", zoomLevel)
