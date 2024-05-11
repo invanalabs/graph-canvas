@@ -62,9 +62,6 @@ export default class GraphCanvas {
 
         // prevent body scrolling
         // this.pixiApp.view.addEventListener('wheel', event => { event.preventDefault(); });
- 
-
-
     }
 
     getCanvasSizeOptions(screenWidth: number, screenHeight: number) {   

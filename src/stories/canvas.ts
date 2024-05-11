@@ -5,6 +5,7 @@ import D3ForceLayout from "./layouts/d3-force/layout";
 import DagreLayout from "./layouts/dagre/layout";
 // import * as PIXI from 'pixi.js';
 // import { initDevtools } from '@pixi/devtools';
+import ToolBar from "../plugins/toolbar";
 import * as dat from 'dat.gui';
 
 
@@ -39,22 +40,18 @@ export const createCanvas = (
 
 
  
-        // https://codepen.io/justgooddesign/pen/ngKJQx
-        const gui = new dat.GUI(); 
-
-
-        // 'webgpu' | 'webgl' 
-        const rendererOptions = { webgpu: 'webgpu', webgl: 'webgl', canvas: 'canvas' }
-        gui.add(canvas.options, 'renderer', rendererOptions).onChange((value: string) => {
-            canvas.updateRendererPreference(value);
-        })
-        gui.addColor(canvas.options, 'background').onChange( (value: string | number) => {
-            canvas.updateBackground(value);
-        });
-
-        gui.add(canvas.camera.options, 'zoomLevel', 1, 100).onChange((value: number) => {
-            canvas.camera.setZoomLevel(value);
-        })
+        // // https://codepen.io/justgooddesign/pen/ngKJQx
+        // const gui = new dat.GUI(); 
+        // const rendererOptions = { webgpu: 'webgpu', webgl: 'webgl', canvas: 'canvas' }
+        // gui.add(canvas.options, 'renderer', rendererOptions).onChange((value: string) => {
+        //     canvas.updateRendererPreference(value);
+        // })
+        // gui.addColor(canvas.options, 'background').onChange( (value: string | number) => {
+        //     canvas.updateBackground(value);
+        // });
+        // gui.add(canvas.camera.options, 'zoomLevel', 1, 100).onChange((value: number) => {
+        //     canvas.camera.setZoomLevel(value);
+        // })
 
 
         // initDevtools({
@@ -86,6 +83,10 @@ export const createCanvas = (
         canvas.camera.fitView();
         // canvas.camera.moveNodesToWorldCenter();
       
+
+        const toolbar = new ToolBar(canvas);
+        const toolBarHTMLDiv = toolbar.render()
+        html.appendChild(toolBarHTMLDiv)
     
         
 

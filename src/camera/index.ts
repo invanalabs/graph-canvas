@@ -54,9 +54,9 @@ export default class Camera {
             selectedNodes = this.canvas.graph.getNodes()
         }
         const { center, graphHeight, graphWidth } = getCenter(selectedNodes)
-        // this.viewport.moveCenter(center)
-        // this.viewport.fitWorld(true)
-        this.viewport.zoom(graphWidth, true)
+        this.viewport.moveCenter(center)
+        this.viewport.fit(true, graphWidth, graphHeight)
+        // this.viewport.zoom(graphWidth, true)
         // this.viewport.toScreen(graphWidth, graphHeight)
         // this.viewport.toScreen(graphWidth, graphHeight)
         // this.moveNodesToWorldCenter(nodes);

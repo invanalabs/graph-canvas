@@ -23,7 +23,7 @@ export const getNodesPOV = (nodes: CanvasNode[]) => {
 }
 
 
-export const getCenter = (nodes: CanvasNode[], padding: number = 100) => {
+export const getCenter = (nodes: CanvasNode[], padding: number = 20) => {
 
     const { min, max } = getNodesPOV(nodes)
 
