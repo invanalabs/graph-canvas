@@ -38,7 +38,7 @@ class Renderer {
             let { x, y } = node;
             // TODO - FIXME - next 2 lines are re-used
             if (x && y ){
-                this.canvas.graph.updateNodePosition(node.id, x, y)
+                this.canvas.graph.moveNodeTo(node.id, x, y)
             }
         });
         // this.renderScreenBorderIfRequired()

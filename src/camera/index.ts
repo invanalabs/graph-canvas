@@ -28,21 +28,14 @@ export default class Camera {
         this.setUpCamera();
 
     }
-
-    // getDefaultZoomTo = () => {
-    //     return  { 
-    //         top: this.worldWidth / this.worldScale , 
-    //         left: this.worldHeight / this.worldScale ,
-    //         x: this.screenWidth,  y: this.screenHeight 
-    //     };
-    // }
-    // pause: boolean = false;
-
+ 
     setUpCamera() {
         this.viewport
             .drag()
-            .pinch({ percent: 1 }).wheel().decelerate()
-            .clamp({ direction: 'all', underflow: 'center' })// 
+            .pinch({ percent: 1 })
+            .wheel()
+            .decelerate()
+            // .clamp({ direction: 'all', underflow: 'center' })// 
             .clampZoom({
                 minWidth: this.options.screenWidth / 5,
                 minHeight: this.options.screenHeight / 5,
@@ -51,8 +44,7 @@ export default class Camera {
             })
     }
 
-
-
+    
     fitView(selectedNodes: CanvasNode[] = [], zoomLevel?: number) {
         console.log("==fitView", selectedNodes, zoomLevel);
         if (selectedNodes.length == 0 ){
@@ -64,34 +56,9 @@ export default class Camera {
         // this.setZoom(1, true);
     }
 
-
     // setZoomTo = (zoomToOptions : ZoomToOptions) => {
     //     // this.zoomTo = zoomToOptions;
     // }
-
-    // zoomToCoordinates = (zoomToOptions: ZoomToOptions) => {
-    //     console.debug("zoomToCoordinates ", zoomToOptions);
-    //     // this.viewport
-    // }
-
-    // zoomToScreen = (zoomToOptions: ZoomToOptions) => {
-    //     console.debug("zoomToScreen ", zoomToOptions);
-    //     // this.zoomTo = { 
-    //     //     top: this.worldWidth / (this.worldScale * 2), 
-    //     //     left: this.worldHeight / (this.worldScale * 2),
-    //     //     x: this.screenWidth,  y: this.screenHeight 
-    //     // };
-    // }
-
-    // zoomToWorld = ()=>{
-    //     console.debug("zoomToWorld ");
-
-    //     // zoomTo center
-    //     // this.zoomTo()
-    // }
-
-    // fitNodesToScreen = (nodes: CanvasNode[])=> {
-    //     console.debug("fitNodesToScreen", nodes)
-    // }
-
+    
+ 
 } 

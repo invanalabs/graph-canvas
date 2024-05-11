@@ -223,7 +223,7 @@ export class NodeShapeBase extends BaseShape {
         console.log("onDragMove", newPoint, this.dragPoint)
         const x = newPoint.x //- this.dragPoint.x;
         const y = newPoint.y //- this.dragPoint.y;   
-        this.canvas.graph.updateNodePosition(this.data.id, x, y)
+        this.canvas.graph.moveNodeTo(this.data.id, x, y)
         // update node positions data 
         const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
         // console.log("neighborLinks", neighborLinks)

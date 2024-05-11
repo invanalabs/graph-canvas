@@ -1,5 +1,6 @@
 import { Point } from "pixi.js";
 import { CanvasNode } from "../graphics/types";
+import { Viewport } from "pixi-viewport";
 
 
 export const getNodesPOV = (nodes: CanvasNode[]) => {
@@ -22,10 +23,9 @@ export const getNodesPOV = (nodes: CanvasNode[]) => {
 }
 
 
-export const getCenter = (nodes: CanvasNode[]) => {
+export const getCenter = (nodes: CanvasNode[], padding: number = 50) => {
 
     const { min, max } = getNodesPOV(nodes)
-    const padding = 0;
 
     const graphWidth = Math.abs(max.x - min.x) + (padding * 2);
     const graphHeight = Math.abs(max.y - min.y) + (padding * 2);
@@ -38,3 +38,12 @@ export const getCenter = (nodes: CanvasNode[]) => {
     // const start = min;
     return { center, max, min, graphWidth, graphHeight }
 }
+
+
+// export const moveNodesToCenter = (nodes: CanvasNode[], worldWidth: number, worldHeight: number) => {
+//     console.log("moveNodesToCenter", nodes, worldWidth, worldHeight);
+//     const {graphWidth, graphHeight, center, min, max} = getCenter(nodes);
+//     const offsetX = worldWidth - graphWidth;
+//     const offsetY = worldHeight - graphHeight;
+//     return {offsetX, offsetY, center, min, max}
+// }

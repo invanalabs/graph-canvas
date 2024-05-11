@@ -59,6 +59,8 @@ export const createCanvas = (
             const layoutInstance =  new DagreLayout(canvas);
             layoutInstance?.add2Layout(nodes, links);
         }
+
+        // canvas.camera.moveNodesToWorldCenter();
       
     
         
