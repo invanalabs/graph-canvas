@@ -6,6 +6,7 @@ export interface CameraOptions  {
     screenHeight: number
     worldWidth : number
     worldHeight: number
+    zoomLevel: number
 }
 
 

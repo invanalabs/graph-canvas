@@ -25,6 +25,7 @@
     - [ ] dragEnd 
     - [ ] dragging 
     - [ ] hover
+    - [ ] multi-select nodes
 
 ## Links 
 - [x] straightLine

@@ -5,6 +5,7 @@ import D3ForceLayout from "./layouts/d3-force/layout";
 import DagreLayout from "./layouts/dagre/layout";
 // import * as PIXI from 'pixi.js';
 // import { initDevtools } from '@pixi/devtools';
+import * as dat from 'dat.gui';
 
 
 export const createCanvas = (
@@ -21,7 +22,11 @@ export const createCanvas = (
     html.appendChild(canvasDiv)
 
     document.addEventListener("DOMContentLoaded", function (event) {
-        console.log("=DOM is ready", event)
+        console.log("=DOM is ready", event, canvasOptions)
+
+
+
+
 
         if (!canvasOptions){
             canvasOptions = {
@@ -32,6 +37,24 @@ export const createCanvas = (
         const canvas = new GraphCanvas(canvasOptions);
         canvas.graph.add(nodes, links)
 
+
+ 
+        // https://codepen.io/justgooddesign/pen/ngKJQx
+        const gui = new dat.GUI(); 
+
+
+        // 'webgpu' | 'webgl' 
+        const rendererOptions = { webgpu: 'webgpu', webgl: 'webgl', canvas: 'canvas' }
+        gui.add(canvas.options, 'renderer', rendererOptions).onChange((value: string) => {
+            canvas.updateRendererPreference(value);
+        })
+        gui.addColor(canvas.options, 'background').onChange( (value: string | number) => {
+            canvas.updateBackground(value);
+        });
+
+        gui.add(canvas.camera.options, 'zoomLevel', 1, 100).onChange((value: number) => {
+            canvas.camera.setZoomLevel(value);
+        })
 
 
         // initDevtools({
@@ -60,6 +83,7 @@ export const createCanvas = (
             layoutInstance?.add2Layout(nodes, links);
         }
 
+        canvas.camera.fitView();
         // canvas.camera.moveNodesToWorldCenter();
       
     

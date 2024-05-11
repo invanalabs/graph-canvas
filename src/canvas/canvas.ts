@@ -1,4 +1,4 @@
-import type { CanvasOptions} from "./types";
+import type { CanvasOptions, RendererType} from "./types";
 import { defaultCanvasOptions } from "./defaults";
 import * as PIXI from "pixi.js";
 import GraphData from "../graph";
@@ -12,7 +12,7 @@ export default class GraphCanvas {
     /*
         mapSize is the entire world  
     */
-    readonly options : CanvasOptions
+     options : CanvasOptions
 
     // 
     pixiApp: PIXI.Application
@@ -121,6 +121,17 @@ export default class GraphCanvas {
             //@ts-ignore
             this.pixiApp = null;
         }
+    }
+
+    updateRendererPreference = (rendererType: RendererType) => {
+        this.options.renderer = rendererType;
+        alert("not implemented");
+        // this.pixiApp. = rendererType
+    }
+
+    updateBackground = (newColor: string | number) => {
+        this.options.background = newColor
+        this.pixiApp.renderer.background.color = newColor
     }
 
     addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{

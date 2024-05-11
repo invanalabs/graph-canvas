@@ -1,4 +1,5 @@
 import { ICanvas } from "pixi.js";
+import { CameraOptions } from "../camera/types";
 
 
 export type StringOrNumber = String | Number;
@@ -101,6 +102,7 @@ export interface GraphicsStyles {
     links: LinkStyleMapType
 }
 
+
 export interface CanvasOptions {
     viewDiv: ICanvas // HTMLCanvasElement | HTMLDivElement // 
     // screen: ScreenOptions
@@ -108,4 +110,5 @@ export interface CanvasOptions {
     renderer?: RendererType // RendereTypes.keys()
     resolution?: number
     styles?: GraphicsStyles
+    camera?: CameraOptions
 }
