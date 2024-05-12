@@ -3,6 +3,7 @@ import { deepMerge } from "../utils/merge";
 import GraphCanvas from "../canvas/canvas";
 import { NodeStyleDefaults } from "../graphics/defaults";
 import { NodeStyleMapType, NodeStyleType} from "../canvas/types";
+import stc from "string-to-color";
 
 
 export default class GraphData {
@@ -17,17 +18,45 @@ export default class GraphData {
         this.links = new Map()
     }
 
-    generateNodeStyle (node: CanvasNode, nodeStyles: NodeStyleMapType){
+    generateNodeStyle (node: CanvasNode, nodeStyleFromCanvasOptions: NodeStyleMapType){
         let style: NodeStyleType;
-        if (nodeStyles[node.group]) {// if node style is defined in canvasOptions
-            console.log("====node.group", node.group, style)
-            // add any node.style to the style defined in canvcasOptions
-            const _ = deepMerge(nodeStyles[node.group], node?.style | {})
-            // now add the new style on top of NodeStyleDefaults to make sure all fields are filled
-            style = deepMerge(NodeStyleDefaults, _)
+
+
+
+        // P3 - color by group
+        if (this.canvas.options.extraSettings.nodeColorBasedOn === "group"){
+            style = deepMerge(NodeStyleDefaults,  {shape: {background: {color: stc(node.group) }}})
         }else{
-            style = deepMerge(NodeStyleDefaults, node?.style || {})
+            style = NodeStyleDefaults
         }
+
+        // P2 - style defined in the nodeStyleFromCanvasOptions ie., use defined in canvasOptions 
+        style = deepMerge(style, nodeStyleFromCanvasOptions[node.group] || {})
+
+        // P1 - this has the highest priority, 
+        style = deepMerge(style, node?.style || {});
+
+
+        // const nodeSpecificStyle deepMerge(NodeStyleDefaults, nodeSpecificStyle)
+
+
+        // // const styleFromCanvasOption = 
+        
+        // const styleWithDefaultsMerged = deepMerge(NodeStyleDefaults, nodeSpecificStyle)
+
+
+        // if (nodeStyleFromCanvasOptions[node.group]) {// if node style is defined in canvasOptions
+        //     console.log("====node.group", node.group, style)
+
+        //     // add any node.style to the style defined in canvcasOptions
+        //     // const _ = deepMerge(nodeStyleFromCanvasOptions[node.group], nodeSpecificStyle)
+        //     // now add the new style on top of NodeStyleDefaults to make sure all fields are filled
+        //     style = deepMerge(NodeStyleDefaults, _)
+        // }else{
+        //     style = deepMerge(NodeStyleDefaults, nodeSpecificStyle)
+        // }
+
+
         return style
     }
 
@@ -35,15 +64,15 @@ export default class GraphData {
         const _this = this;
         console.log("adding nodes and links", this.nodes, this.links)
 
-        const nodeStyles = _this.canvas.options?.styles?.nodes || {}
+        const nodeStyleFromCanvasOptions = _this.canvas.options?.styles?.nodes || {}
         const linkStyles = _this.canvas.options?.styles?.links || {}
 
-        console.log("=====nodeStyles", JSON.stringify(nodeStyles))
+        console.log("=====nodeStyleFromCanvasOptions", JSON.stringify(nodeStyleFromCanvasOptions))
         nodes.forEach(node => {
             if (_this.nodes.get(node.id)) {
                 throw new Error(`${node.id} already found in the nodes`)
             }
-            node.style = this.generateNodeStyle(node, nodeStyles);
+            node.style = this.generateNodeStyle(node, nodeStyleFromCanvasOptions);
             console.log("====node.style", node.style)
             _this.canvas.textureManager.getOrCreateTexture({ size: node.style?.size, group: node.group, style: node.style })
             _this.nodes.set(node.id, node)
