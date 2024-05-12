@@ -31,7 +31,7 @@ export interface CanvasNode extends CanvasItemBase {
     y?: number
 
     style?: NodeStyleType
-    degree: {
+    degree?: {
         incoming: number,
         outgoing: number,
         total: number

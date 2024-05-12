@@ -102,7 +102,17 @@ export default class GraphData {
         let nodesToRender: Array<CanvasNode> = [];
         let linksToRender: Array<CanvasLink> = [];
 
-        const nodeIds = links.map(link => [link.source.id, link.target.id]).flat(2)
+
+        let nodeIds: Array<string> = []
+        if (links.length > 0){
+            nodeIds = [...new Set(links.map(link => [link.source.id, link.target.id]).flat(2))]
+        }else{
+            nodeIds =  nodes.map(node => node.id)
+        }
+
+        console.log("====113nodeIds, ", nodeIds)
+
+
         console.log("===nodeIds", nodeIds)
         nodeIds.forEach(nodeId => {
             let node = _this.nodes.get(nodeId)
