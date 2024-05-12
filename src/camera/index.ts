@@ -10,7 +10,7 @@ export default class Camera {
 
     readonly worldScale = 3;
     readonly options: CameraOptions;
-    readonly zoomPercentage = 0.1
+    readonly zoomPercentage = 0.05
 
     viewport : Viewport;
     canvas: GraphCanvas
@@ -55,14 +55,9 @@ export default class Camera {
         }
         const { center, graphHeight, graphWidth } = getCenter(selectedNodes)
         this.viewport.moveCenter(center)
-        this.viewport.fit(true, graphWidth, graphHeight)
-        // this.zoomOut();
-
-        // this.viewport.zoom(graphWidth, true)
-        // this.viewport.toScreen(graphWidth, graphHeight)
-        // this.viewport.toScreen(graphWidth, graphHeight)
-        // this.moveNodesToWorldCenter(nodes);
-        // this.setZoom(1, true);
+        const padding = 100;
+        this.viewport.fit(true, graphWidth + padding, graphHeight + padding)
+ 
     }
 
     // setZoomTo = (zoomToOptions : ZoomToOptions) => {
