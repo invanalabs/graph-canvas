@@ -13,7 +13,7 @@ export default class GraphCanvas {
         mapSize is the entire world  
     */
      options : CanvasOptions
-
+    readonly originalOptions : CanvasOptions
     // 
     pixiApp: PIXI.Application
     renderer: Renderer
@@ -25,6 +25,10 @@ export default class GraphCanvas {
     textureManager: TextureManager 
 
     constructor(options : CanvasOptions = defaultCanvasOptions){
+        this.originalOptions = options;
+
+        // resolve all the settings including styles and sizes, so that 
+        // this is done only once in the life time and easy to manage.
         this.options = {...options, ...defaultCanvasOptions}
         console.log(`Creating canvas with options: ${this.options}`); 
         this.renderer = new Renderer(this);

@@ -27,7 +27,7 @@ export const getCenter = (nodes: CanvasNode[], padding: number = 20) => {
 
     const { min, max } = getNodesPOV(nodes)
 
-    const graphWidth = Math.abs(max.x - min.x) + (padding * 2);
+    const graphWidth = Math.abs(max.x - min.x); + (padding * 2);
     const graphHeight = Math.abs(max.y - min.y) + (padding * 2);
 
     // draw a debug box

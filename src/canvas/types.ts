@@ -103,6 +103,15 @@ export interface GraphicsStyles {
 }
 
 
+export interface ExtraSettings {
+    // size
+    nodeSizeBasedOn : 'linksCount' | 'default'
+    // color
+    nodeColorBasedOn : 'group' | 'default'
+    linkColorBasedOn : 'group' | 'default'
+}
+
+
 export interface CanvasOptions {
     viewDiv: ICanvas // HTMLCanvasElement | HTMLDivElement // 
     // screen: ScreenOptions
@@ -111,4 +120,5 @@ export interface CanvasOptions {
     resolution?: number
     styles?: GraphicsStyles
     camera?: CameraOptions
+    extraSettings: ExtraSettings
 }

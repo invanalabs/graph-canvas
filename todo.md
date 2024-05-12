@@ -40,3 +40,8 @@
 - [ ] size by number of inLinks 
 - [ ] size by number of outLinks  
  
+
+ ## Links
+- [ ] color by Group
+- [ ] color by Linked Nodes (gradient)
+
