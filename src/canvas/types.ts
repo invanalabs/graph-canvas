@@ -100,6 +100,8 @@ export interface LinkStyleMapType {
 export interface GraphicsStyles {
     nodes: NodeStyleMapType
     links: LinkStyleMapType
+    defaultNodeStyle: NodeStyleType
+    defaultLinkStyle: LinkStyleType
 }
 
 
@@ -121,4 +123,5 @@ export interface CanvasOptions {
     styles?: GraphicsStyles
     camera?: CameraOptions
     extraSettings: ExtraSettings
+
 }

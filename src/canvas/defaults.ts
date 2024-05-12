@@ -1,3 +1,4 @@
+import { LinkStyleDefaults, NodeStyleDefaults } from "../graphics/defaults";
 import { RendererTypes } from "./constants";
 import { CanvasOptions, ScreenOptions } from "./types";
 
@@ -18,5 +19,9 @@ export const defaultCanvasOptions: CanvasOptions = {
         nodeSizeBasedOn: 'default',
         nodeColorBasedOn : 'group',
         linkColorBasedOn : 'group'
-    } 
+    }, 
+    styles: {
+        defaultLinkStyle: LinkStyleDefaults,
+        defaultNodeStyle: NodeStyleDefaults
+    }
 }

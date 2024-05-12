@@ -7,6 +7,7 @@ import Renderer from "./renderer";
 import Camera from "../camera";
 import { CameraOptions } from "../camera/types";
 import TextureManager from "../textures";
+import { deepMerge } from "../utils/merge";
 
 export default class GraphCanvas {
     /*
@@ -29,7 +30,11 @@ export default class GraphCanvas {
 
         // resolve all the settings including styles and sizes, so that 
         // this is done only once in the life time and easy to manage.
+
+        const styles = deepMerge(defaultCanvasOptions.styles, options.styles || {})
+        defaultCanvasOptions.styles = styles;
         this.options = {...options, ...defaultCanvasOptions}
+
         console.log(`Creating canvas with options: ${this.options}`); 
         this.renderer = new Renderer(this);
         this.graph = new GraphData(this);
