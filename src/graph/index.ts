@@ -21,8 +21,6 @@ export default class GraphData {
     generateNodeStyle (node: CanvasNode, nodeStyleFromCanvasOptions: NodeStyleMapType){
         let style: NodeStyleType;
 
-
-
         // P3 - color by group
         if (this.canvas.options.extraSettings.nodeColorBasedOn === "group"){
             style = deepMerge(NodeStyleDefaults,  {shape: {background: {color: stc(node.group) }}})
@@ -35,29 +33,28 @@ export default class GraphData {
 
         // P1 - this has the highest priority, 
         style = deepMerge(style, node?.style || {});
-
-
-        // const nodeSpecificStyle deepMerge(NodeStyleDefaults, nodeSpecificStyle)
-
-
-        // // const styleFromCanvasOption = 
         
-        // const styleWithDefaultsMerged = deepMerge(NodeStyleDefaults, nodeSpecificStyle)
-
-
-        // if (nodeStyleFromCanvasOptions[node.group]) {// if node style is defined in canvasOptions
-        //     console.log("====node.group", node.group, style)
-
-        //     // add any node.style to the style defined in canvcasOptions
-        //     // const _ = deepMerge(nodeStyleFromCanvasOptions[node.group], nodeSpecificStyle)
-        //     // now add the new style on top of NodeStyleDefaults to make sure all fields are filled
-        //     style = deepMerge(NodeStyleDefaults, _)
-        // }else{
-        //     style = deepMerge(NodeStyleDefaults, nodeSpecificStyle)
-        // }
-
+        
+        if (this.canvas.options.extraSettings.nodeSizeBasedOn === "degree"){
+            const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
+            console.log("nodeSize", nodeSize);
+            style = deepMerge(style, {size: nodeSize})
+        }
 
         return style
+    }
+
+    private getNodeSizeBasedOnDegree(node: CanvasNode, style: NodeStyleType){
+        if (node.degree.total === 1){
+            return style?.size;
+        }
+
+        const size = style?.size + (node.degree.total * 0.02)
+        // if (size > style.size * 2){
+        //     return style.size * 2
+        // }
+        return size
+
     }
 
     add(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
@@ -72,9 +69,6 @@ export default class GraphData {
             if (_this.nodes.get(node.id)) {
                 throw new Error(`${node.id} already found in the nodes`)
             }
-            node.style = this.generateNodeStyle(node, nodeStyleFromCanvasOptions);
-            console.log("====node.style", node.style)
-            _this.canvas.textureManager.getOrCreateTexture({ size: node.style?.size, group: node.group, style: node.style })
             _this.nodes.set(node.id, node)
         })
 
@@ -103,12 +97,55 @@ export default class GraphData {
             _this.links.set(link.id, link)
         })
 
-        const newNodes = this.getNodesByIds(nodes.map(node => node.id))
-        const newLinks = this.getLinksByIds(links.map(link => link.id))
+        let nodesToRender: Array<CanvasNode>= [];
+        let linksToRender: Array<CanvasLink>= [];
+
+        if (this.canvas.options.extraSettings.nodeSizeBasedOn === "degree"){
+            // recalculate the degree of nodes if  NodeSize by Degree/links counts
+
+            
+            const nodeIds = links.map(link =>  [link.source.id, link.target.id]).flat(2)
+            console.log("===nodeIds", nodeIds)
+
+        
+            nodeIds.forEach(nodeId => {
+                let node = _this.nodes.get(nodeId)
+                node.degree = _this.calcDegree(node.id)
+                node.style = this.generateNodeStyle(node, nodeStyleFromCanvasOptions);
+                console.log("====node.style", node)
+
+                // create texture 
+                _this.canvas.textureManager.getOrCreateTexture({ size: node.style?.size, group: node.group, style: node.style })
+                _this.nodes.set(node.id, node)
+                nodesToRender.push(node);
+            })
+            console.log("======nodesToRender", nodesToRender)
+
+            nodesToRender = this.getNodesByIds(nodesToRender.map(node => node.id))
+            linksToRender = this.getLinksByIds(links.map(link => link.id))
+
+        }else{
+            nodesToRender = this.getNodesByIds(nodes.map(node => node.id))
+            linksToRender = this.getLinksByIds(links.map(link => link.id))
+        }
+
         // console.log("new Links", JSON.stringify(newLinks) )
-        this.canvas.renderer.render(newNodes, newLinks)
+        this.canvas.renderer.render(nodesToRender, linksToRender)
     }
 
+    calcDegree(nodeId: IdString){
+        let incoming: number = 0;
+        let outgoing: number = 0;
+        this.links.forEach((link)=> {
+            if (link.source.id === nodeId){
+                outgoing++
+            }
+            if (link.target.id === nodeId){
+                incoming++
+            }
+        })
+        return {incoming, outgoing, total: incoming + outgoing}
+    }
 
     update(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
 

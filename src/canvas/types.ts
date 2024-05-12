@@ -105,7 +105,7 @@ export interface GraphicsStyles {
 
 export interface ExtraSettings {
     // size
-    nodeSizeBasedOn : 'linksCount' | 'default'
+    nodeSizeBasedOn : 'degree' | 'default'
     // color
     nodeColorBasedOn : 'group' | 'default'
     linkColorBasedOn : 'group' | 'default'

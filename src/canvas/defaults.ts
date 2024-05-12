@@ -13,7 +13,7 @@ export const defaultCanvasOptions: CanvasOptions = {
     //@ts-ignore
     renderer: RendererTypes.WebGL,
     screen: defaultScreenOptions,
-    resolution:  6, //window.devicePixelRatio | 2,
+    resolution:  (window.devicePixelRatio | 2) + 4,
     extraSettings: {
         nodeSizeBasedOn: 'default',
         nodeColorBasedOn : 'group',
