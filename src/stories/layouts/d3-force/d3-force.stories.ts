@@ -32,18 +32,18 @@ const customCanvasOptions = {
   }
 } 
 
-const nodeGroups = [...new Set(nodesCleaned.map((node: any) => { return   node.group}))]
+// const nodeGroups = [...new Set(nodesCleaned.map((node: any) => { return   node.group}))]
 
-console.log("===nodeGroups", nodeGroups)
-const nodeStyles: any = {};
+// console.log("===nodeGroups", nodeGroups)
+// const nodeStyles: any = {};
 
-nodeGroups.forEach(group => {
-  nodeStyles[group] = {size: 10, shape: {background: {color: stc(group) }}}
-})
+// nodeGroups.forEach(group => {
+//   nodeStyles[group] = {size: 10, shape: {background: {color: stc(group) }}}
+// })
  
 
-console.log("==nodeStyles", nodeStyles)
-customCanvasOptions.styles.nodes = nodeStyles
+// console.log("==nodeStyles", nodeStyles)
+// customCanvasOptions.styles.nodes = nodeStyles
 
 const meta = {
   title: 'Layout/d3-force',

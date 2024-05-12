@@ -2,7 +2,7 @@ import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import { deepMerge } from "../utils/merge";
 import GraphCanvas from "../canvas/canvas";
 import { NodeStyleDefaults } from "../graphics/defaults";
-import { NodeStyleMapType, NodeStyleType} from "../canvas/types";
+import { NodeStyleMapType, NodeStyleType } from "../canvas/types";
 import stc from "string-to-color";
 
 
@@ -18,13 +18,15 @@ export default class GraphData {
         this.links = new Map()
     }
 
-    generateNodeStyle (node: CanvasNode, nodeStyleFromCanvasOptions: NodeStyleMapType){
+    generateNodeStyle(node: CanvasNode, nodeStyleFromCanvasOptions: NodeStyleMapType) {
         let style: NodeStyleType;
 
+        console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings.nodeColorBasedOn)
         // P3 - color by group
-        if (this.canvas.options.extraSettings.nodeColorBasedOn === "group"){
-            style = deepMerge(NodeStyleDefaults,  {shape: {background: {color: stc(node.group) }}})
-        }else{
+        if (this.canvas.options.extraSettings.nodeColorBasedOn === "group") {
+            style = deepMerge(NodeStyleDefaults, { shape: { background: { color: stc(node.group) } } })
+            console.log("====nodeColorBasedOn", style)
+        } else {
             style = NodeStyleDefaults
         }
 
@@ -33,19 +35,19 @@ export default class GraphData {
 
         // P1 - this has the highest priority, 
         style = deepMerge(style, node?.style || {});
-        
-        
-        if (this.canvas.options.extraSettings.nodeSizeBasedOn === "degree"){
+
+
+        if (this.canvas.options.extraSettings.nodeSizeBasedOn === "degree") {
             const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
             console.log("nodeSize", nodeSize);
-            style = deepMerge(style, {size: nodeSize})
+            style = deepMerge(style, { size: nodeSize })
         }
 
         return style
     }
 
-    private getNodeSizeBasedOnDegree(node: CanvasNode, style: NodeStyleType){
-        if (node.degree.total === 1){
+    private getNodeSizeBasedOnDegree(node: CanvasNode, style: NodeStyleType) {
+        if (node.degree.total === 1) {
             return style?.size;
         }
 
@@ -97,54 +99,43 @@ export default class GraphData {
             _this.links.set(link.id, link)
         })
 
-        let nodesToRender: Array<CanvasNode>= [];
-        let linksToRender: Array<CanvasLink>= [];
+        let nodesToRender: Array<CanvasNode> = [];
+        let linksToRender: Array<CanvasLink> = [];
 
-        if (this.canvas.options.extraSettings.nodeSizeBasedOn === "degree"){
-            // recalculate the degree of nodes if  NodeSize by Degree/links counts
+        const nodeIds = links.map(link => [link.source.id, link.target.id]).flat(2)
+        console.log("===nodeIds", nodeIds)
+        nodeIds.forEach(nodeId => {
+            let node = _this.nodes.get(nodeId)
+            node.degree = _this.calcDegree(node.id)
+            node.style = this.generateNodeStyle(node, nodeStyleFromCanvasOptions);
+            console.log("====node.style", node)
 
-            
-            const nodeIds = links.map(link =>  [link.source.id, link.target.id]).flat(2)
-            console.log("===nodeIds", nodeIds)
+            // create texture 
+            _this.canvas.textureManager.getOrCreateTexture({ size: node.style?.size, group: node.group, style: node.style })
+            _this.nodes.set(node.id, node)
+            nodesToRender.push(node);
+        })
+        console.log("======nodesToRender", nodesToRender)
 
-        
-            nodeIds.forEach(nodeId => {
-                let node = _this.nodes.get(nodeId)
-                node.degree = _this.calcDegree(node.id)
-                node.style = this.generateNodeStyle(node, nodeStyleFromCanvasOptions);
-                console.log("====node.style", node)
-
-                // create texture 
-                _this.canvas.textureManager.getOrCreateTexture({ size: node.style?.size, group: node.group, style: node.style })
-                _this.nodes.set(node.id, node)
-                nodesToRender.push(node);
-            })
-            console.log("======nodesToRender", nodesToRender)
-
-            nodesToRender = this.getNodesByIds(nodesToRender.map(node => node.id))
-            linksToRender = this.getLinksByIds(links.map(link => link.id))
-
-        }else{
-            nodesToRender = this.getNodesByIds(nodes.map(node => node.id))
-            linksToRender = this.getLinksByIds(links.map(link => link.id))
-        }
-
+        nodesToRender = this.getNodesByIds(nodesToRender.map(node => node.id))
+        linksToRender = this.getLinksByIds(links.map(link => link.id))
+ 
         // console.log("new Links", JSON.stringify(newLinks) )
         this.canvas.renderer.render(nodesToRender, linksToRender)
     }
 
-    calcDegree(nodeId: IdString){
+    calcDegree(nodeId: IdString) {
         let incoming: number = 0;
         let outgoing: number = 0;
-        this.links.forEach((link)=> {
-            if (link.source.id === nodeId){
+        this.links.forEach((link) => {
+            if (link.source.id === nodeId) {
                 outgoing++
             }
-            if (link.target.id === nodeId){
+            if (link.target.id === nodeId) {
                 incoming++
             }
         })
-        return {incoming, outgoing, total: incoming + outgoing}
+        return { incoming, outgoing, total: incoming + outgoing }
     }
 
     update(nodes: Array<CanvasNode>, links: Array<CanvasLink>) {
