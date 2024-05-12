@@ -2,7 +2,7 @@ import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
 import { deepMerge } from "../utils/merge";
 import GraphCanvas from "../canvas/canvas";
 import { NodeStyleDefaults } from "../graphics/defaults";
-import { NodeStyleType } from "../canvas/types";
+import { NodeStyleMapType, NodeStyleType} from "../canvas/types";
 
 
 export default class GraphData {
@@ -11,24 +11,18 @@ export default class GraphData {
     links: Map<IdString, CanvasLink>
     canvas: GraphCanvas
 
-    nodeStyles: Object;
-    linkStyles: Object;
-
     constructor(canvas: GraphCanvas) {
         this.canvas = canvas
         this.nodes = new Map()
         this.links = new Map()
-        this.nodeStyles = this.canvas.options?.styles?.nodes || {}
-        this.linkStyles = this.canvas.options?.styles?.links || {}
-
     }
 
-    generateNodeStyle (node: CanvasNode){
+    generateNodeStyle (node: CanvasNode, nodeStyles: NodeStyleMapType){
         let style: NodeStyleType;
-        if (this.nodeStyles[node.group]) {// if node style is defined in canvasOptions
+        if (nodeStyles[node.group]) {// if node style is defined in canvasOptions
             console.log("====node.group", node.group, style)
             // add any node.style to the style defined in canvcasOptions
-            const _ = deepMerge(this.nodeStyles[node.group], node?.style | {})
+            const _ = deepMerge(nodeStyles[node.group], node?.style | {})
             // now add the new style on top of NodeStyleDefaults to make sure all fields are filled
             style = deepMerge(NodeStyleDefaults, _)
         }else{
@@ -49,7 +43,7 @@ export default class GraphData {
             if (_this.nodes.get(node.id)) {
                 throw new Error(`${node.id} already found in the nodes`)
             }
-            node.style = this.generateNodeStyle(node);
+            node.style = this.generateNodeStyle(node, nodeStyles);
             console.log("====node.style", node.style)
             _this.canvas.textureManager.getOrCreateTexture({ size: node.style?.size, group: node.group, style: node.style })
             _this.nodes.set(node.id, node)
