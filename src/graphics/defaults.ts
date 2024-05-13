@@ -28,7 +28,7 @@ export const NodeStyleDefaults: NodeStyleType = {
     },
     label: {
         background: {
-            color: "#222222",
+            color: "transparent",
             opacity: 0.3
         },
         padding: 3,
@@ -54,6 +54,12 @@ export const NodeStyleDefaults: NodeStyleType = {
                     color: 0xfeeb77,
                     opacity: 0.6,
                 }
+            },
+            label: {
+                background: {
+                    color: "#ffffff",
+                    opacity: 0.3
+                },
             }
         },
         ":selected": {
