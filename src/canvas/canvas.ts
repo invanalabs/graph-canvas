@@ -75,6 +75,7 @@ export default class GraphCanvas {
         
         this.camera = new Camera({
             canvas: this, 
+            ...canvasSizeOptions
         });
         
         // Destroy Pixi app when the window is being unloaded (e.g., when the page is being reloaded)
