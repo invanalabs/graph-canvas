@@ -3,6 +3,7 @@ import LoopLine from "../graphics/links/loop";
 import QuadraticLine from "../graphics/links/quadratic";
 import Circle from "../graphics/nodes/circle";
 import { CanvasLink, CanvasNode, IdString } from "../graphics/types";
+import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "../layers/constants";
 import GraphCanvas from "./canvas";
 
  
@@ -101,7 +102,9 @@ class Renderer {
             //     link.gfxInstance.redraw()
             // }
             if (link.gfxInstance)
-            _this.canvas.addGfx(link.gfxInstance)
+            // _this.canvas.addGfx(link.gfxInstance)
+            _this.canvas.layers.addGfxToDataLayer(link.gfxInstance.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_SHAPES)
+
         })
         
         // render nodes
@@ -112,7 +115,9 @@ class Renderer {
             // else{
             //     node.gfxInstance.redraw()       
             // }
-            _this.canvas.addGfx(node.gfxInstance);
+            // _this.canvas.addGfx(node.gfxInstance);
+            _this.canvas.layers.addGfxToDataLayer(node.gfxInstance.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.NODE_SHAPES)
+
         });
         // draw any debug
         // this.renderScreenBorderIfRequired();

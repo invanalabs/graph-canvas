@@ -19,28 +19,9 @@ export default class Camera {
         this.options = {...options, ...defaultCameraOptions};
         console.log("camera options, ", this.options)
         this.canvas = this.options.canvas;
-        this.viewport = this.options.canvas.viewport;
-
-        this.setUpCamera();
-
-    }
- 
-    setUpCamera() {
-        this.viewport
-            .drag()
-            .pinch({ percent: 1 })
-            .wheel()
-            .decelerate()
-            // .clamp({ direction: 'all', underflow: 'center' })// 
-            .clampZoom({
-                minWidth: this.options.screenWidth / 5,
-                minHeight: this.options.screenHeight / 5,
-                maxWidth: this.options.worldWidth,
-                maxHeight: this.options.worldHeight
-            })
+        this.viewport = this.canvas.viewport
     }
 
-    
     fitView(selectedNodes: CanvasNode[] = [], zoomLevel?: number) {
         console.log("==fitView", selectedNodes, zoomLevel);
         if (selectedNodes.length == 0 ){

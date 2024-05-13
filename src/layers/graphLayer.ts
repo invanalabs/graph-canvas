@@ -7,10 +7,10 @@ import CanvasLayers from ".";
 export default class GraphLayer {
 
     /*
-        This is used for data, annotations and front layers 
+        This is used for data, annotations and front canvasLayer 
     */
 
-    layers: CanvasLayers
+    canvasLayer: CanvasLayers
     baseLayer : Container
 
     nodeShapesLayer: Container
@@ -20,13 +20,12 @@ export default class GraphLayer {
     linkLabelsLayer: Container
 
 
-    constructor(layers: CanvasLayers, layerName: LayerTypes){
-        this.layers = layers;
+    constructor(canvasLayer: CanvasLayers, layerName: LayerTypes){
+        this.canvasLayer = canvasLayer;
 
         // base layer 
         this.baseLayer = new Container();
         this.baseLayer.name = layerName
-        this.layers.viewport.addChild(this.baseLayer)
 
         // for nodes
         this.nodeShapesLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.NODE_SHAPES)
@@ -35,6 +34,8 @@ export default class GraphLayer {
         // for links
         this.linkShapesLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_SHAPES)
         this.linkLabelsLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_LABELS)
+
+        this.canvasLayer.canvas.viewport.addChild(this.baseLayer)
 
     }
 

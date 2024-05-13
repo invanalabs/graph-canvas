@@ -9,7 +9,7 @@ import { Viewport } from "pixi-viewport";
 export default class CanvasLayers {
     // canvas
     canvas: GraphCanvas
-    viewport: Viewport
+    // viewport: Viewport
     // layer
     frontLayer: GraphLayer
     dataLayer: GraphLayer
@@ -17,7 +17,7 @@ export default class CanvasLayers {
 
     constructor(options: CanvasLayersOptions ) {
         this.canvas = options.canvas;
-        this.viewport = this.canvas.viewport
+        // this.viewport = this.canvas.viewport
         // setup viewport
         // this.viewport = new Viewport({
         //     events: options.canvas.pixiApp.renderer.events, 
@@ -26,7 +26,7 @@ export default class CanvasLayers {
         //     worldWidth : options.worldWidth,
         //     worldHeight: options.worldHeight
         // })
-        this.setUpCamera(options)
+        // this.setUpCamera(options)
         // this.canvas.pixiApp.stage.addChild(this.viewport)
 
         // create layers
@@ -53,7 +53,7 @@ export default class CanvasLayers {
     createLayer(LayerName: LayerTypes) {
         const layer = new Container();
         layer.name = LayerName
-        this.viewport.addChild(layer)
+        this.canvas.viewport.addChild(layer)
         return layer
     }
 
@@ -81,7 +81,8 @@ export default class CanvasLayers {
 
     addGfxToDataLayer(gfx: Graphics, gfxType: LayerGfxTypes) {
         console.log("addGfxToDataLayer triggered", gfxType,  this.dataLayer)
-        this.addGfxToLayer(gfx, gfxType, this.dataLayer)
+        // this.addGfxToLayer(gfx, gfxType, this.dataLayer)
+        this.canvas.camera.viewport.addChild(gfx)
     }
 
     // addGfxToAnnotationLayer(gfx: Graphics) {

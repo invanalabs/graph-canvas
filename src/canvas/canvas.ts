@@ -9,6 +9,8 @@ import { CameraOptions } from "../camera/types";
 import TextureManager from "../textures";
 import { deepMerge } from "../utils/merge";
 import { Viewport } from "pixi-viewport";
+import CanvasLayers from "../layers";
+import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "../layers/constants";
 
 export default class GraphCanvas {
     /*
@@ -23,6 +25,7 @@ export default class GraphCanvas {
     worldScale: number = 10;
     viewport: Viewport
 
+    layers: CanvasLayers
     //
     graph: GraphData
     textureManager: TextureManager 
@@ -67,22 +70,27 @@ export default class GraphCanvas {
             worldWidth : canvasSizeOptions.worldWidth,
             worldHeight: canvasSizeOptions.worldHeight
         })
-
+        this.setUpCamera(canvasSizeOptions)
         this.pixiApp.stage.addChild(this.viewport)
 
         // start pixi app 
-        this.pixiApp.start();
+        // this.pixiApp.start();
         
         this.camera = new Camera({
             canvas: this, 
             ...canvasSizeOptions
         });
+
+        this.layers = new CanvasLayers({
+            canvas: this,
+            ...canvasSizeOptions
+        })
         
         // Destroy Pixi app when the window is being unloaded (e.g., when the page is being reloaded)
         window.addEventListener('beforeunload', function() {
             _this.destroyPIXIApp();
         });
-        this.startNew();   
+        // this.startNew();   
 
         // prevent body scrolling
         // this.pixiApp.view.addEventListener('wheel', event => { event.preventDefault(); });
@@ -101,7 +109,21 @@ export default class GraphCanvas {
         this.camera.viewport.removeChildren();
         // this.camera.viewport.addChild(this.debugBorderGfx);
     }
-    
+
+    setUpCamera(options) {
+        this.viewport
+            .drag()
+            .pinch({ percent: 1 })
+            .wheel()
+            .decelerate()
+            // .clamp({ direction: 'all', underflow: 'center' })// 
+            .clampZoom({
+                minWidth: options.screenWidth / 5,
+                minHeight: options.screenHeight / 5,
+                maxWidth: options.worldWidth,
+                maxHeight: options.worldHeight
+            })
+    }
     createPIXIApp = (screenWidth: number = 800, screenHeight: number=600) => {
         // const pixiAppArgs = {
         //     // preference: this.options.renderer, 
@@ -155,13 +177,16 @@ export default class GraphCanvas {
         this.pixiApp.renderer.background.color = newColor
     }
 
-    addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{
-        console.log("addGfx", shape)
-        this.camera.viewport.addChild(shape.gfxContainer) // TODO: try setChildIndex
-    }
+    // addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{
+    //     console.log("addGfx", shape)
+    //     this.camera.viewport.addChild(shape.gfxContainer) // TODO: try setChildIndex
+    //     // this.layers.addGfxToDataLayer(shape.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_SHAPES)
+
+    // }
 
     removeGfx = (shape: NodeShapeBase | LinkShapeBase)=> {
         this.camera.viewport.removeChild(shape.gfxContainer)
+
     }
 
     clear(){
