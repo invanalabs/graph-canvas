@@ -22,6 +22,8 @@ export const defaultCanvasOptions: CanvasOptions = {
     }, 
     styles: {
         defaultLinkStyle: LinkStyleDefaults,
-        defaultNodeStyle: NodeStyleDefaults
+        defaultNodeStyle: NodeStyleDefaults,
+        nodes: {},
+        links: {}
     }
 }
