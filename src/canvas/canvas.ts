@@ -8,6 +8,7 @@ import Camera from "../camera";
 import { CameraOptions } from "../camera/types";
 import TextureManager from "../textures";
 import { deepMerge } from "../utils/merge";
+import { Viewport } from "pixi-viewport";
 
 export default class GraphCanvas {
     /*
@@ -20,6 +21,7 @@ export default class GraphCanvas {
     renderer: Renderer
     camera: Camera;
     worldScale: number = 10;
+    viewport: Viewport
 
     //
     graph: GraphData
@@ -57,12 +59,24 @@ export default class GraphCanvas {
         }
         console.log("===canvasSizeOptions", canvasSizeOptions)
 
+        // setup viewport
+        this.viewport = new Viewport({
+            events: this.pixiApp.renderer.events, 
+            screenWidth : canvasSizeOptions.screenWidth,
+            screenHeight: canvasSizeOptions.screenHeight,
+            worldWidth : canvasSizeOptions.worldWidth,
+            worldHeight: canvasSizeOptions.worldHeight
+        })
 
+        this.pixiApp.stage.addChild(this.viewport)
+
+        // start pixi app 
         this.pixiApp.start();
+        
         this.camera = new Camera({
             canvas: this, 
-            ...canvasSizeOptions
         });
+        
         // Destroy Pixi app when the window is being unloaded (e.g., when the page is being reloaded)
         window.addEventListener('beforeunload', function() {
             _this.destroyPIXIApp();

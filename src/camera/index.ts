@@ -19,15 +19,8 @@ export default class Camera {
         this.options = {...options, ...defaultCameraOptions};
         console.log("camera options, ", this.options)
         this.canvas = this.options.canvas;
-        this.viewport = new Viewport({
-            events: this.options.canvas.pixiApp.renderer.events, 
-            screenWidth : this.options.screenWidth,
-            screenHeight: this.options.screenHeight,
-            worldWidth : this.options.worldWidth,
-            worldHeight: this.options.worldHeight
-        })
+        this.viewport = this.options.canvas.viewport;
 
-        this.options.canvas.pixiApp.stage.addChild(this.viewport)
         this.setUpCamera();
 
     }
@@ -59,11 +52,6 @@ export default class Camera {
         this.viewport.fit(true, graphWidth + padding, graphHeight + padding)
  
     }
-
-    // setZoomTo = (zoomToOptions : ZoomToOptions) => {
-    //     // this.zoomTo = zoomToOptions;
-
-    // }
 
     setZoomLevel = (zoomLevel: number) =>{
         console.log("==setZoomLevel", zoomLevel)
