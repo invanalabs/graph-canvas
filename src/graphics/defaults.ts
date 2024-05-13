@@ -29,7 +29,7 @@ export const NodeStyleDefaults: NodeStyleType = {
     label: {
         background: {
             color: "#222222",
-            opacity: 1
+            opacity: 0.3
         },
         padding: 3,
         border: {
