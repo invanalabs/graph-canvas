@@ -2,7 +2,6 @@ import type { CanvasOptions, RendererType} from "./types";
 import { defaultCanvasOptions } from "./defaults";
 import * as PIXI from "pixi.js";
 import GraphData from "../graph";
-import { LinkShapeBase, NodeShapeBase } from "../graphics/base";
 import Renderer from "./renderer";
 import Camera from "../camera";
 import { CameraOptions } from "../camera/types";
@@ -10,7 +9,7 @@ import TextureManager from "../textures";
 import { deepMerge } from "../utils/merge";
 import { Viewport } from "pixi-viewport";
 import CanvasLayers from "../layers";
-import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "../layers/constants";
+
 
 export default class GraphCanvas {
     /*
@@ -184,13 +183,13 @@ export default class GraphCanvas {
 
     // }
 
-    removeGfx = (shape: NodeShapeBase | LinkShapeBase)=> {
-        this.camera.viewport.removeChild(shape.gfxContainer)
+    // removeGfx = (shape: NodeShapeBase | LinkShapeBase)=> {
+    //     this.camera.viewport.removeChild(shape.gfxContainer)
 
-    }
+    // }
 
-    clear(){
-        this.camera.viewport.removeChildren();
-    }
+    // clear(){
+    //     this.camera.viewport.removeChildren();
+    // }
     
 }
