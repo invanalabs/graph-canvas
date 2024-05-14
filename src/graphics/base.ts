@@ -2,13 +2,7 @@
 import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from './types';
 import GraphCanvas from '../canvas/canvas';
-import { LinkContainerChildNames, NodeContainerChildNames } from './constants';
-import { LinkStyleDefaults, NodeStyleDefaults } from './defaults';
-import { deepMerge } from '../utils/merge';
-import drawStraightLineShape from '../primitives/lines/straightLine';
-import drawArrowHeadShape from '../primitives/arrowHead';
-import drawLabelShape from '../primitives/label';
-// import drawDottedLineShape from '../primitives/lines/dottedLine';
+import { LinkStateTypesList, NodeStateTypesList } from '../canvas/types';
 
 
 abstract class Shape {
@@ -93,6 +87,30 @@ export class BaseShape extends Shape {
 
     setGfxPosition = (x: number, y: number) => {
         this.gfxContainer.position.set(x, y);
+    }
+
+    clearStates(){
+        this.setUnHover();
+        this.setUnSelected();
+        this.unSetInactive();
+    }
+
+    setState(stateName: NodeStateTypesList | LinkStateTypesList){
+        if (stateName === ":default"){
+            this.clearStates();
+        }
+        else if (stateName === ":hovered"){
+            this.clearStates();
+            this.setHover()
+        }
+        else if (stateName === ":selected"){
+            this.clearStates();
+            this.setSelected()
+        }
+        else if (stateName === ":inactive"){
+            this.clearStates();
+            this.setInactive()
+        }
     }
 
 }

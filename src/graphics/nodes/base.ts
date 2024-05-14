@@ -31,6 +31,17 @@ export class NodeShapeBase extends BaseShape {
         return data
     }
 
+
+    setInactive = () => {
+        console.log(`Inactive triggered on node - ${this.data.id}`);
+        this.gfxContainer.alpha = 0.2
+    }
+
+    unSetInactive = () => {
+        console.log(`unSetInactive triggered on node - ${this.data.id}`);
+        this.gfxContainer.alpha = 1;
+    }
+
     setHover = () => {
         console.log(`Hover triggered on node - ${this.data.id}`);
         if (this.shapeGfx) {
@@ -176,5 +187,7 @@ export class NodeShapeBase extends BaseShape {
                 this.setGfxPosition(this.data?.x, this.data?.y)
             }
         }
+
+        this.setState(this.data.state)
     }
 }

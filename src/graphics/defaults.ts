@@ -1,10 +1,9 @@
 import { LinkStyleType, NodeStyleType } from "../canvas/types"
 
 
-
-
 export const NodeStyleDefaults: NodeStyleType = {
     size: 10 * 1.5,
+    state: ":default",
     shape : {
         background: {
             color: "#3DA5D9",
@@ -85,8 +84,8 @@ export const NodeStyleDefaults: NodeStyleType = {
     }
 }
 
-
 export const LinkStyleDefaults: LinkStyleType = {
+    state: ":default",
     shape : {
         opacity: 1,
         thickness: 1,
