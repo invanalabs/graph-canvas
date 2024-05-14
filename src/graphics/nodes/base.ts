@@ -31,7 +31,6 @@ export class NodeShapeBase extends BaseShape {
         return data
     }
 
-
     setInactive = () => {
         console.log(`Inactive triggered on node - ${this.data.id}`);
         this.gfxContainer.alpha = 0.2

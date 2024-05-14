@@ -28,7 +28,7 @@ abstract class Shape {
     abstract setGfxPosition(x: number, y: number): void;
 }
 
-export class BaseShape extends Shape {
+export abstract class BaseShape extends Shape {
     /*
         this is the base shape for the Shape and the LabelShape
     */
@@ -88,6 +88,15 @@ export class BaseShape extends Shape {
     setGfxPosition = (x: number, y: number) => {
         this.gfxContainer.position.set(x, y);
     }
+
+    abstract setUnHover(): void
+    abstract setHover(): void
+
+    abstract setUnSelected(): void
+    abstract setSelected(): void
+
+    abstract unSetInactive(): void
+    abstract setInactive():void
 
     clearStates(){
         this.setUnHover();

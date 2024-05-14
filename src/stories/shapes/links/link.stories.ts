@@ -4,7 +4,7 @@ import { exampleNodes, exampleLinks } from './link';
 
 
 const meta = {
-  title: 'Shapes/Links',
+  title: 'Shapes/Links/States',
   render: () => createCanvas(exampleNodes, exampleLinks, {}) ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -20,5 +20,5 @@ const meta = {
 
 export default meta;
 
-export const Default: StoryObj = {};
+export const States: StoryObj = {};
 

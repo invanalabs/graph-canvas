@@ -33,6 +33,56 @@ export class LinkShapeBase extends BaseShape {
         return data;
     }
 
+    setInactive = () => {
+        console.log(`Inactive triggered on link - ${this.data.id}`);
+        this.gfxContainer.alpha = 0.2
+    }
+
+    unSetInactive = () => {
+        console.log(`unSetInactive triggered on link - ${this.data.id}`);
+        this.gfxContainer.alpha = 1;
+    }
+
+    setHover = () => {
+        console.log(`Hover triggered on link - ${this.data.id}`);
+        if (this.shapeGfx) {
+            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
+            if (shapeHoveredBorder) {
+                shapeHoveredBorder.visible = true
+            }
+        }
+    }
+
+    setUnHover = () => {
+        console.log(`UnHover triggered on link - ${this.data.id}`);
+        if (this.shapeGfx) {
+            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
+            if (shapeHoveredBorder) {
+                shapeHoveredBorder.visible = false
+            }
+        }
+    }
+
+
+    setSelected = () => {
+        console.log(`setSelected triggered on link - ${this.data.id}`);
+        if (this.shapeGfx) {
+            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
+            if (shapeHoveredBorder) {
+                shapeHoveredBorder.visible = true
+            }
+        }
+    }
+
+    setUnSelected = () => {
+        console.log(`setUnSelected triggered on link - ${this.data.id}`);
+        if (this.shapeGfx) {
+            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
+            if (shapeHoveredBorder) {
+                shapeHoveredBorder.visible = false
+            }
+        }
+    }
     pointerOver() {
         console.log("==link pointerOver", this.data.id)
         this.setHover()
@@ -44,26 +94,6 @@ export class LinkShapeBase extends BaseShape {
     }
 
 
-    setHover = () => {
-        console.log("hover")
-        // let shape = this.gfxContainer.getChildByName(LinkContainerChildNames.shape);
-        if (this.shapeGfx) {
-            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-            if (shapeHoveredBorder) {
-                shapeHoveredBorder.visible = true
-            }
-        }
-    }
-
-    setUnHover = () => {
-        // let shape = this.gfxContainer.getChildByName(LinkContainerChildNames.shape);
-        if (this.shapeGfx) {
-            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-            if (shapeHoveredBorder) {
-                shapeHoveredBorder.visible = false
-            }
-        }
-    }
 
     setupInteractions() {
         console.log("===setupInteractions triggered on link", this.gfxContainer)
@@ -156,7 +186,6 @@ export class LinkShapeBase extends BaseShape {
         // clear shape first
         console.log(`draw renderShape=${renderShape}; renderLabel=${renderLabel}`)
 
-
         // draw shape
         if (renderShape) {
             if (this.shapeGfx) {
@@ -174,5 +203,8 @@ export class LinkShapeBase extends BaseShape {
         if (renderShape) {
             this.calcLabelPosition(this.labelGfx, this.shapeGfx)
         }
+
+        this.setState(this.data.state)
+
     }
 }

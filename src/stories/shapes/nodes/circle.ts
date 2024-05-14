@@ -6,7 +6,7 @@ export const exampleNodes : Array<CanvasNode> = [
         group: 'TestNode',
         label: 'Default',
         shape: 'circle',
-        state: ':default',
+        // state: ':default',
         x: (window.innerWidth/2) - 100,
         y: window.innerHeight/2
     },
