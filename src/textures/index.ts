@@ -94,18 +94,18 @@ export default class TextureManager {
         
         // hovered textures 
         // hovered - shape
-        const hoveredPadding = 3;
+        const hoveredPadding = 0;
         const hoveredStyle = props.style?.states[':hovered'];
         nodeStyleTexture['states'][':hovered'] = {}
         nodeStyleTexture['states'][':hovered']['shape'] = this.createNodeShapeTexture({
-            size: props.style.size + props.style?.shape.border.thickness + hoveredPadding,
+            size: props.style.size  + hoveredPadding,
             background: hoveredStyle.shape.background,
             border: hoveredStyle.shape.border
         })
 
         // selected textures
         // selected - shape
-        const selectedPadding = hoveredPadding + 6;
+        const selectedPadding = hoveredPadding + 2;
         const selectedStyle = props.style?.states[':selected'];
         nodeStyleTexture['states'][':selected'] = {}
         nodeStyleTexture['states'][':selected']['shape'] = this.createNodeShapeTexture({

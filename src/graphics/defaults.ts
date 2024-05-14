@@ -11,7 +11,7 @@ export const NodeStyleDefaults: NodeStyleType = {
             opacity: 1
         },
         border: {
-            thickness: 1,
+            thickness: 2,
             color: "#ffffff",
             type: "solid",
             opacity: 0.9
@@ -49,8 +49,8 @@ export const NodeStyleDefaults: NodeStyleType = {
         ":hovered": {
             shape: {
                 border: {
-                    thickness: 3,
-                    color: 0xfeeb77,
+                    thickness: 2,
+                    color: 0xF6B26B,
                     opacity: 0.6,
                 }
             },
@@ -64,8 +64,8 @@ export const NodeStyleDefaults: NodeStyleType = {
         ":selected": {
             shape: {
                 border: {
-                    thickness: 6,
-                    color: 0xF6B26B,
+                    thickness: 4,
+                    color:  0xfeeb77 ,
                     opacity: 0.6
                 }
             }
@@ -109,15 +109,15 @@ export const LinkStyleDefaults: LinkStyleType = {
         ":hovered": {
             shape: {
                 opacity: 0.6,
-                thickness: 3,
-                color: 0xfeeb77
+                thickness: 2,
+                color: 0xF6B26B
             }
         },
         ":selected": {
             shape: {
                 opacity: 0.6,
-                thickness: 5,
-                color: 0xF6B26B
+                thickness: 3,
+                color: 0xfeeb77
             }
         }  
     }
