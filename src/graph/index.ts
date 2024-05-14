@@ -185,37 +185,22 @@ export default class GraphData {
     }
 
     getNeighborLinks(node: CanvasNode): CanvasLink[] {
-        // return this.getLinks().filter(link => link.source.id === node.id || link.target.id === node.id);
-        const {links} = this.getNeighbors(node);
-        return links
+        return this.getLinks().filter(link => link.source.id === node.id || link.target.id === node.id);
     }
 
     getNeighbors(node: CanvasNode): { nodes: CanvasNode[], links: CanvasLink[] } {
-
-
         let neighborLinks: CanvasLink[] = [];
-
         const relatedNodes: Map<IdString, CanvasNode> = new Map();
-        this.getLinks().forEach(link => {
+        this.getNeighborLinks(node).forEach(link => {
             if (link.source.id === node.id || link.target.id === node.id){
                 neighborLinks.push(link);
-
                 relatedNodes.set(link.source.id, link.source);
                 relatedNodes.set(link.target.id, link.target);
-            }
-            
+            }  
         });
-
-
-
-        // const links = this.getNeighborLinks(node);
-        // links.forEach((link: CanvasLink) => {
-
-        // })
-        // console.log("==relatedNodes", relatedNodes, relatedNodes.values())
-        const _: { nodes: CanvasNode[], links: CanvasLink[] } = { nodes: Array.from(relatedNodes.values()), links: neighborLinks };
-        console.log("====getNeighbors", _)
-        return _
+        const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = { nodes: Array.from(relatedNodes.values()), links: neighborLinks };
+        console.log("====getNeighbors", neighbors)
+        return neighbors
     }
 
 }
