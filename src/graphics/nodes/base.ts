@@ -132,12 +132,24 @@ export class NodeShapeBase extends BaseShape {
 
     pointerOver() {
         console.log("==node pointerOver", this.data.id)
+        // this.canvas.graph.getNodes().forEach((node: CanvasNode) => {
+        //     node.gfxInstance?.setInactive();
+        // })
+        // this.canvas.graph.getLinks().forEach((link: CanvasLink) => {
+        //     link.gfxInstance?.setInactive();
+        // })
         this.setHover();
         this.setHoveredOnNeighbors()
     }
 
     pointerOut() {
         console.log("==node pointerOut", this.data.id)
+        // this.canvas.graph.getNodes().forEach((node: CanvasNode) => {
+        //     node.gfxInstance?.unSetInactive();
+        // })
+        // this.canvas.graph.getLinks().forEach((link: CanvasLink) => {
+        //     link.gfxInstance?.unSetInactive();
+        // })
         this.setUnHover()
         this.setUnHoveredOnNeighbors()
     }
