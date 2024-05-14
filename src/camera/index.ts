@@ -41,13 +41,16 @@ export default class Camera {
     
     zoomIn = () => {
         this.viewport.zoomPercent(this.zoomPercentage, true)
-        // this.viewport.zoom(-this.viewport.worldWidth * this.zoomPercentage, true);
-      };
+    };
 
     zoomOut = () => {
         this.viewport.zoomPercent(-this.zoomPercentage, true)
-        // this.viewport.zoom(this.viewport.worldWidth * this.zoomPercentage, true);
     };
+
+    setZoom = (zoomScale: number) =>{
+        /* e.g., 1 would be 100%, 0.25 would be 25%  */
+        this.viewport.setZoom(zoomScale)
+    }
       
     resetViewport = () => {
         this.viewport.center = new Point(this.viewport.worldWidth / 2, this.viewport.worldHeight / 2);
