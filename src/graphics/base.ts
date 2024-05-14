@@ -215,12 +215,8 @@ export class NodeShapeBase extends BaseShape {
         this.canvas.graph.moveNodeTo(this.data.id, x, y)
         // update node positions data 
         const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
-        // console.log("neighborLinks", neighborLinks)
         this.canvas.renderer.reRenderLinks(neighborLinks)
         this.setHoverOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
-
-
-        // console.log("Total graphics ", this.canvas.camera.viewport.children.length)
     };
 
     onDragEnd = (event: PIXI.FederatedPointerEvent) => {
@@ -230,7 +226,6 @@ export class NodeShapeBase extends BaseShape {
         this.setUnSelected();
         this.setUnHoverOnNeighbors();
     };
-
 
     setupInteractions() {
         console.log("===setupInteractions triggered")
@@ -248,7 +243,7 @@ export class NodeShapeBase extends BaseShape {
     
     draw = (renderShape=true, renderLabel=true) => {
         // clear shape first
-        // this.clear();
+        this.clear();
         // draw shape
         if (renderShape){
             this.gfxContainer.x = this.data.x;
@@ -256,11 +251,7 @@ export class NodeShapeBase extends BaseShape {
             this.shapeGfx = this.drawShape();
             this.gfxContainer.addChild(this.shapeGfx);
         }
-        // this.setBorder(     
-        //     NodeStyleDefaults.shape.border.color, 
-        //     NodeStyleDefaults.shape.border.thickness, 
-        //     false
-        // )
+ 
         // draw label
         if (renderLabel){
             this.labelGfx = this.drawLabel();
