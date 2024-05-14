@@ -48,7 +48,7 @@ export class NodeShapeBase extends BaseShape {
             if (shapeHoveredBorder) {
                 shapeHoveredBorder.visible = true
             }
-        }
+        }        
     }
 
     setUnHover = () => {
@@ -59,6 +59,30 @@ export class NodeShapeBase extends BaseShape {
                 shapeHoveredBorder.visible = false
             }
         }
+    }
+
+    setHoveredOnNeighbors = () => {
+        console.log("=setHoveredOnNeighbors triggered")
+        const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
+        console.log("getNeighbors", neighbors)
+        neighbors.nodes.forEach((node: CanvasNode) => {
+            node.gfxInstance?.setHover();
+        })
+        neighbors.links.forEach((link: CanvasLink) => {
+            link.gfxInstance?.setHover();
+        });
+    }
+
+    setUnHoveredOnNeighbors = () => {
+        console.log("=setUnHoveredOnNeighbors triggered")
+        const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
+        console.log("getNeighbors", neighbors)
+        neighbors.nodes.forEach((node: CanvasNode) => {
+            node.gfxInstance?.setUnHover();
+        })
+        neighbors.links.forEach((link: CanvasLink) => {
+            link.gfxInstance?.setUnHover();
+        });
     }
 
     setSelected = () => {
@@ -80,16 +104,6 @@ export class NodeShapeBase extends BaseShape {
                 shapeSelectedBorder.visible = false
             }
         }
-    }
-
-    pointerOver() {
-        console.log("==node pointerOver", this.data.id)
-        this.setHover();
-    }
-
-    pointerOut() {
-        console.log("==node pointerOut", this.data.id)
-        this.setUnHover()
     }
 
     setSelectedOnNeighbors = () => {
@@ -115,6 +129,20 @@ export class NodeShapeBase extends BaseShape {
             link.gfxInstance?.setUnSelected();
         });
     }
+
+    pointerOver() {
+        console.log("==node pointerOver", this.data.id)
+        this.setHover();
+        this.setHoveredOnNeighbors()
+    }
+
+    pointerOut() {
+        console.log("==node pointerOut", this.data.id)
+        this.setUnHover()
+        this.setUnHoveredOnNeighbors()
+    }
+
+
 
     onDragStart = (event: PIXI.FederatedPointerEvent) => {
         this.dragPoint = event.data.getLocalPosition(this.gfxContainer.parent);
