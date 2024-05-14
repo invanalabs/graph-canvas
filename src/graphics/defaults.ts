@@ -69,17 +69,7 @@ export const NodeStyleDefaults: NodeStyleType = {
                     opacity: 0.6
                 }
             }
-        },
-        ":inactive": {
-            shape: {
-                opacity: 0.5,
-                border: {
-                    thickness: 6,
-                    color: 0x222222,
-                    opacity: 0.6
-                }
-            }
-        },
+        }
 
     }
 }
@@ -118,18 +108,18 @@ export const LinkStyleDefaults: LinkStyleType = {
     states: {
         ":hovered": {
             shape: {
-                opacity: 1,
-                thickness: 2,
+                opacity: 0.6,
+                thickness: 3,
                 color: 0xfeeb77
             }
         },
-        ":inactive": {
+        ":selected": {
             shape: {
-                opacity: 1,
-                // thickness: ,
-                color: 0xfeeb77
+                opacity: 0.6,
+                thickness: 5,
+                color: 0xF6B26B
             }
-        },
+        }  
     }
 
 

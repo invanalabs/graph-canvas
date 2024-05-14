@@ -67,9 +67,9 @@ export class LinkShapeBase extends BaseShape {
     setSelected = () => {
         console.log(`setSelected triggered on link - ${this.data.id}`);
         if (this.shapeGfx) {
-            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-            if (shapeHoveredBorder) {
-                shapeHoveredBorder.visible = true
+            const shapeSelectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder)
+            if (shapeSelectedBorder) {
+                shapeSelectedBorder.visible = true
             }
         }
     }
@@ -77,9 +77,9 @@ export class LinkShapeBase extends BaseShape {
     setUnSelected = () => {
         console.log(`setUnSelected triggered on link - ${this.data.id}`);
         if (this.shapeGfx) {
-            const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-            if (shapeHoveredBorder) {
-                shapeHoveredBorder.visible = false
+            const shapeSelectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder)
+            if (shapeSelectedBorder) {
+                shapeSelectedBorder.visible = false
             }
         }
     }
@@ -161,23 +161,31 @@ export class LinkShapeBase extends BaseShape {
 
         // add arrow
         const arrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.shape })
+        arrow.zIndex = 1000
 
         shapeLine.addChild(arrow)
         this.shapeGfx.addChild(shapeLine)
 
         // shape hoveredBorder
-        // const shapeHoveredBorder = new PIXI.Graphics();
         const shapeHoveredBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':hovered'].shape })
         shapeHoveredBorder.visible = false
         shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
-        // shapeHoveredBorder.zIndex = 10
+        shapeHoveredBorder.zIndex = 10
         const hoveredArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':hovered'].shape })
         shapeHoveredBorder.addChild(hoveredArrow)
-
-
         this.shapeGfx.addChild(shapeHoveredBorder)
-        // shapeLine.closePath()
 
+
+        // shape selectedBorder
+        const shapeSelectedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':selected'].shape })
+        shapeSelectedBorder.visible = false
+        shapeSelectedBorder.name = LinkContainerChildNames.shapeSelectedBorder
+        shapeSelectedBorder.zIndex = 10
+        const selectedArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':selected'].shape })
+        shapeSelectedBorder.addChild(selectedArrow)
+        this.shapeGfx.addChild(shapeSelectedBorder)
+
+        
         return this.shapeGfx
     }
 
