@@ -4,7 +4,7 @@ import { exampleNodes, exampleLinks, customCanvasOptions } from './circle';
 
 
 const meta = {
-  title: 'Shapes/Nodes',
+  title: 'Shapes/Nodes/States',
   render: () => createCanvas(exampleNodes, exampleLinks, customCanvasOptions) ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -20,5 +20,5 @@ const meta = {
 
 export default meta;
 
-export const Circle: StoryObj = {};
+export const States: StoryObj = {};
 
