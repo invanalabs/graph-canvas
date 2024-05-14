@@ -122,38 +122,29 @@ export class NodeShapeBase extends BaseShape {
     }
 
     setHover = () => {
-        // let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
-        // this.t.
+        console.log(`Hover triggered on node - ${this.data.id}`);
         if (this.shapeGfx) {
             const shapeHoveredBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
-            // console.log("====pointerOver", shapeHoveredBorder)
             if (shapeHoveredBorder) {
-                // shapeHoveredBorder.tint = 0xff00ff;
                 shapeHoveredBorder.visible = true
-                // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
             }
-            // shape?.zIndex = 1000
         }
     }
 
     setUnHover = () => {
-        // let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
+        console.log(`UnHovered triggered on node - ${this.data.id}`);
         if (this.shapeGfx) {
             const shapeHoveredBorder  = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
-            // console.log("====pointerOver", shapeHoveredBorder)
             if (shapeHoveredBorder) {
-                // shapeHoveredBorder.tint = 0xffffff;
-                // shapeHoveredBorder.setStrokeStyle({color: 0xff0000})
                 shapeHoveredBorder.visible = false
             }
         }
     }
 
     setSelected = () => {
-        // let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
+        console.log(`Select triggered on node - ${this.data.id}`);
         if (this.shapeGfx) {
             const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
-            // console.log("shapeSelectedBorder", shapeSelectedBorder)
             if (shapeSelectedBorder) {
                 shapeSelectedBorder.visible = true
             }
@@ -161,7 +152,7 @@ export class NodeShapeBase extends BaseShape {
     }
 
     setUnSelected = () => {
-        // let shape = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
+        console.log(`UnSelect triggered on node - ${this.data.id}`);
         if (this.shapeGfx) {
             const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
             // console.log("shapeSelectedBorder", shapeSelectedBorder)
@@ -173,13 +164,11 @@ export class NodeShapeBase extends BaseShape {
     pointerOver() {
         console.log("==node pointerOver", this.data.id)
         this.setHover();
-        // this.setHoverOnNeighbors();
     }
 
     pointerOut() {
         console.log("==node pointerOut", this.data.id)
         this.setUnHover()
-        // this.setUnHoverOnNeighbors();
     }
 
     setHoverOnNeighbors = () => {
@@ -256,22 +245,8 @@ export class NodeShapeBase extends BaseShape {
             .on('pointerup', this.onDragEnd.bind(this))
             .on('pointerupoutside', this.onDragEnd.bind(this))
     }
-
-    // setBorder = (color: string | number, thickness: number, set: boolean = true) => {
-    //     const shape: PIXI.Graphics | null = this.gfxContainer.getChildByName(NodeContainerChildNames.shape);
-    //     console.log("setBorder", color, thickness, set, shape)
-    //     // shape.tint = color;
-    //     shape?.stroke({ //shape?.setStrokeStyle({ 
-    //         width: thickness,
-    //         color: color
-    //     });
-    // }
-    // draw = (renderShape=true, renderLabel=true, renderLablPosition=true) => {
-
     
-    draw = (renderShape=true, renderLabel=true
-        // updateShapePosition = true, updateLabelPosition=true
-        ) => {
+    draw = (renderShape=true, renderLabel=true) => {
         // clear shape first
         // this.clear();
         // draw shape

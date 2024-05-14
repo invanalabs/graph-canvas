@@ -70,6 +70,9 @@ export interface LinkShapeType {
 export type NodeStateTypesList =  ':default' | ':hovered' | ':selected' | ':inactive'; 
 export type LinkStateTypesList =  ':default' | ':hovered' | ':selected' | ':inactive';
 
+
+// export type CanvasItemStateTypes =  ':default' | ':hovered' | ':selected' | ':inactive'; 
+
 export interface NodeStyleType {
     size: number
     shape: NodeShapeType

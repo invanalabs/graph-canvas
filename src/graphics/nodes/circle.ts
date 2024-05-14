@@ -1,8 +1,8 @@
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../constants';
-import drawCircleShape from '../../primitives/circle';
 import drawLabelShape from '../../primitives/label';
-import { Sprite } from 'pixi.js';
+import { Sprite, Circle } from 'pixi.js';
+
 
 class Circle extends NodeShapeBase {
 
@@ -16,35 +16,12 @@ class Circle extends NodeShapeBase {
             label: this.data.label,
             ...shapeStyle?.label
         }
-        console.log("==labelArgs", labelArgs)
-
- 
+        console.log("==labelArgs", labelArgs) 
         const labelGfx = drawLabelShape(labelArgs);
         if (labelGfx){
             labelGfx.name = NodeContainerChildNames.label;
             labelGfx.position.set(shapeStyle.size + 5, -shapeStyle.size);    
         }
-
-        // const textStyle = new PIXI.TextStyle({
-        //     fontFamily: shapeStyle?.name.text.font.family,
-        //     fontSize: shapeStyle?.name.text.font.size,
-        //     fill: shapeStyle?.name.text.color
-        // })
-        // // text label
-        // const text = new PIXI.Text({ text: this.data.name, style: textStyle });
-        // text.name = NodeContainerChildNames.nameText
-        // const textBounds = text.getBounds(); // Get the size of the text box
-        // // text background
-        // const textBackground = new PIXI.Graphics();
-        // textBackground.name = NodeContainerChildNames.nameBackground;
-        // textBackground.fill(
-        //     shapeStyle?.name.background.color,
-        //     shapeStyle?.name.background.opacity
-        // ); // Background color
-        // textBackground.rect(0, 0, textBounds.width, textBounds.height); // Draw rectangle behind the text
-
-        // labelGfx.addChild(textBackground)
-        // labelGfx.addChild(text)
         console.log("==labelGfx", labelGfx)
         return labelGfx
     }
@@ -86,8 +63,7 @@ class Circle extends NodeShapeBase {
 
         shape.cursor = "pointer";
         shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
-        // shape.scale.set(3);
-        // shape.hitArea = new PIXI.Circle(0, 0, shapeStyle.size);
+        // shape.hitArea = new Circle(0, 0, this.data.style?.shape.size);
         return shape
     }
 

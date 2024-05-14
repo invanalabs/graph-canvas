@@ -6,6 +6,7 @@ export const exampleNodes : Array<CanvasNode> = [
         group: 'TestNode',
         label: 'Default',
         shape: 'circle',
+        state: ':default',
         x: (window.innerWidth/2) - 100,
         y: window.innerHeight/2
     },
@@ -14,6 +15,7 @@ export const exampleNodes : Array<CanvasNode> = [
         group: 'TestNode',
         label: 'Hovered',
         shape: 'circle',
+        state: ':hovered',
         x: (window.innerWidth/2) + 100 ,
         y: window.innerHeight/2
     },
@@ -22,6 +24,7 @@ export const exampleNodes : Array<CanvasNode> = [
         group: 'TestNode',
         label: 'Selected',
         shape: 'circle',
+        state: ':selected',
         x: (window.innerWidth/2) - 100 ,
         y: (window.innerHeight/2) + 100
     },
@@ -30,6 +33,7 @@ export const exampleNodes : Array<CanvasNode> = [
         group: 'TestNode',
         label: 'Inactive',
         shape: 'circle',
+        state: ':inactive',
         x: (window.innerWidth/2) + 100 ,
         y: (window.innerHeight/2) + 100
     }
