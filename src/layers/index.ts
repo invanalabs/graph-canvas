@@ -58,17 +58,11 @@ export default class CanvasLayers {
     }
 
     private addGfxToLayer(gfx: Graphics, gfxType: LayerGfxTypes,  layer: GraphLayer){
-        if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.NODE_SHAPES){
-            layer.addNodeShapeGfx(gfx)
+        if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.NODES){
+            layer.addNodeGfx(gfx)
         }
-        else if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.NODE_LABELS){
-            layer.addNodeLabelGfx(gfx)
-        }
-        else if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_SHAPES){
-            layer.addLinkShapeGfx(gfx)
-        }
-        else if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_LABELS){
-            layer.addLinkLabelGfx(gfx)
+        else if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS){
+            layer.addLinkGfx(gfx)
         }
         else{
             console.error(`Failed to add ${gfx} because gfxType=${gfxType} is not supported`)

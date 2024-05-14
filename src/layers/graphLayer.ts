@@ -13,30 +13,20 @@ export default class GraphLayer {
     canvasLayer: CanvasLayers
     baseLayer : Container
 
-    nodeShapesLayer: Container
-    nodeLabeslLayer: Container
-
-    linkShapesLayer: Container
-    linkLabelsLayer: Container
+    nodeGfxLayer: Container
+    linkGfxLayer: Container
 
 
     constructor(canvasLayer: CanvasLayers, layerName: LayerTypes){
         this.canvasLayer = canvasLayer;
-
         // base layer 
         this.baseLayer = new Container();
         this.baseLayer.name = layerName
-
-        // for nodes
-        this.nodeShapesLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.NODE_SHAPES)
-        this.nodeLabeslLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.NODE_LABELS)
-
-        // for links
-        this.linkShapesLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_SHAPES)
-        this.linkLabelsLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_LABELS)
-
+        // for nodes and links layer
+        this.nodeGfxLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+        this.linkGfxLayer = this.createLayer(LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+        // add to viewport
         this.canvasLayer.canvas.viewport.addChild(this.baseLayer)
-
     }
 
     createLayer(LayerName: LayerGfxTypes){
@@ -47,21 +37,21 @@ export default class GraphLayer {
     }
 
 
-    addNodeShapeGfx(gfx: Graphics ) {
-        this.nodeShapesLayer.addChild(gfx)
+    addNodeGfx(gfx: Graphics ) {
+        this.nodeGfxLayer.addChild(gfx)
     }
 
-    addNodeLabelGfx(gfx: Graphics ) {
-        this.nodeLabeslLayer.addChild(gfx)
+    // addNodeLabelGfx(gfx: Graphics ) {
+    //     this.nodeLabeslLayer.addChild(gfx)
+    // }
+
+    addLinkGfx(gfx: Graphics ) {
+        this.linkGfxLayer.addChild(gfx)
     }
 
-    addLinkShapeGfx(gfx: Graphics ) {
-        this.linkShapesLayer.addChild(gfx)
-    }
-
-    addLinkLabelGfx(gfx: Graphics ) {
-        this.linkLabelsLayer.addChild(gfx)
-    }
+    // addLinkLabelGfx(gfx: Graphics ) {
+    //     this.linkLabelsLayer.addChild(gfx)
+    // }
 
     clearAll(){
         this.baseLayer.removeChildren()

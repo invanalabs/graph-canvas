@@ -103,7 +103,7 @@ class Renderer {
             // }
             if (link.gfxInstance)
             // _this.canvas.addGfx(link.gfxInstance)
-            _this.canvas.layers.addGfxToDataLayer(link.gfxInstance.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_SHAPES)
+            _this.canvas.layers.addGfxToDataLayer(link.gfxInstance.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
 
         })
         
@@ -116,7 +116,7 @@ class Renderer {
             //     node.gfxInstance.redraw()       
             // }
             // _this.canvas.addGfx(node.gfxInstance);
-            _this.canvas.layers.addGfxToDataLayer(node.gfxInstance.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.NODE_SHAPES)
+            _this.canvas.layers.addGfxToDataLayer(node.gfxInstance.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
 
         });
         // draw any debug
