@@ -1,7 +1,7 @@
-import { NodeShapeBase } from '../base';
+import { NodeShapeBase } from './base';
 import { NodeContainerChildNames } from '../constants';
 import drawLabelShape from '../../primitives/label';
-import { Sprite, Circle } from 'pixi.js';
+import { Sprite } from 'pixi.js';
 
 
 class Circle extends NodeShapeBase {

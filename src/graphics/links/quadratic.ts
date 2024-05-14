@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { LinkShapeBase } from '../base';
+import { LinkShapeBase } from './base';
 import { getAngle, getContactPointOnCircle, getContactPointFromCircle, getLinkLabelPosition, getControlPoint, getPointOnDistanceOverRadius, getGraphicsPathPoints } from '../utils';
 import { LinkShapeTypes } from '../types';
 

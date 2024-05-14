@@ -1,8 +1,7 @@
 import * as PIXI from 'pixi.js';
-import { LinkShapeBase } from '../base';
+import { LinkShapeBase } from './base';
 import { getAngle, getContactPointOnCircle, getContactPointFromCircle, getLinkLabelPosition } from '../utils';
-import { CanvasLink, LinkShapeTypes } from '../types';
-import GraphCanvas from '../../canvas/canvas';
+import { LinkShapeTypes } from '../types';
 
 
 class Line extends LinkShapeBase {
