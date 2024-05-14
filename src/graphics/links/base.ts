@@ -8,6 +8,7 @@ import BaseShape from '../base';
 import drawStraightLineShape from '../../primitives/lines/straightLine';
 import drawArrowHeadShape from '../../primitives/arrowHead';
 import drawLabelShape from '../../primitives/label';
+import { LinkContainerChildNames } from '../constants';
 
 
 export class LinkShapeBase extends BaseShape {

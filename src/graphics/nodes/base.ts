@@ -82,6 +82,7 @@ export class NodeShapeBase extends BaseShape {
             }
         }
     }
+
     pointerOver() {
         console.log("==node pointerOver", this.data.id)
         this.setHover();
@@ -92,27 +93,27 @@ export class NodeShapeBase extends BaseShape {
         this.setUnHover()
     }
 
-    setHoverOnNeighbors = () => {
-        console.log("=setHoverOnNeighbors triggered")
+    setSelectedOnNeighbors = () => {
+        console.log("=setSelectedOnNeighbors triggered")
         const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
         console.log("getNeighbors", neighbors)
         neighbors.nodes.forEach((node: CanvasNode) => {
-            node.gfxInstance?.setHover();
+            node.gfxInstance?.setSelected();
         })
         neighbors.links.forEach((link: CanvasLink) => {
-            link.gfxInstance?.setHover();
+            link.gfxInstance?.setSelected();
         });
     }
 
-    setUnHoverOnNeighbors = () => {
-        console.log("=setUnHoverOnNeighbors triggered")
+    setUnSelectedOnNeighbors = () => {
+        console.log("=setUnSelectedOnNeighbors triggered")
         const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
         console.log("getNeighbors", neighbors)
         neighbors.nodes.forEach((node: CanvasNode) => {
-            node.gfxInstance?.setUnHover();
+            node.gfxInstance?.setUnSelected();
         })
         neighbors.links.forEach((link: CanvasLink) => {
-            link.gfxInstance?.setUnHover();
+            link.gfxInstance?.setUnSelected();
         });
     }
 
@@ -124,7 +125,7 @@ export class NodeShapeBase extends BaseShape {
         // this.dragPoint.y -= this.gfxContainer.y;
         this.gfxContainer.parent.on("pointermove", this.onDragMove);
         this.setSelected()
-        this.setHoverOnNeighbors();
+        this.setSelectedOnNeighbors();
     };
 
     onDragMove = (event: PIXI.FederatedPointerEvent) => {
@@ -137,7 +138,7 @@ export class NodeShapeBase extends BaseShape {
         // update node positions data 
         const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
         this.canvas.renderer.reRenderLinks(neighborLinks)
-        this.setHoverOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
+        this.setSelectedOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
     };
 
     onDragEnd = (event: PIXI.FederatedPointerEvent) => {
@@ -145,7 +146,7 @@ export class NodeShapeBase extends BaseShape {
         event.stopPropagation()
         this.gfxContainer.parent.off("pointermove", this.onDragMove);
         this.setUnSelected();
-        this.setUnHoverOnNeighbors();
+        this.setUnSelectedOnNeighbors();
     };
 
     setupInteractions() {
