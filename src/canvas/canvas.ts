@@ -147,7 +147,7 @@ export default class GraphCanvas {
             resizeTo: window,
             autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
             autoDensity: true,
-            resolution: window.devicePixelRatio, /// 2 for retina displays
+            resolution: this.options.resolution, /// 2 for retina displays
             backgroundColor: this.options.background || 0x2a2c2e, // defaults to dark 
             eventMode : 'static', //  Emit events and is hit tested. Same as interaction = true in v7
         });
