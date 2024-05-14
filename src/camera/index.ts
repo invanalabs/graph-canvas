@@ -10,7 +10,7 @@ export default class Camera {
 
     readonly worldScale = 3;
     readonly options: CameraOptions;
-    readonly zoomPercentage = 0.05
+    readonly zoomPercentage = 0.10
 
     viewport : Viewport;
     canvas: GraphCanvas
@@ -40,11 +40,13 @@ export default class Camera {
     }
     
     zoomIn = () => {
-        this.viewport.zoom(-this.viewport.worldWidth * this.zoomPercentage, true);
+        this.viewport.zoomPercent(this.zoomPercentage, true)
+        // this.viewport.zoom(-this.viewport.worldWidth * this.zoomPercentage, true);
       };
 
     zoomOut = () => {
-        this.viewport.zoom(this.viewport.worldWidth * this.zoomPercentage, true);
+        this.viewport.zoomPercent(-this.zoomPercentage, true)
+        // this.viewport.zoom(this.viewport.worldWidth * this.zoomPercentage, true);
     };
       
     resetViewport = () => {
