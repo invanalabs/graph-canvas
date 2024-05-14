@@ -63,7 +63,7 @@ export default class GraphCanvas {
             worldWidth : canvasSizeOptions.worldWidth,
             worldHeight: canvasSizeOptions.worldHeight
         })
-        this.setUpCamera(canvasSizeOptions)
+        this.setUpViewport(canvasSizeOptions)
         this.pixiApp.stage.addChild(this.viewport)
 
 
@@ -105,7 +105,7 @@ export default class GraphCanvas {
         this.camera.viewport.removeChildren();
     }
 
-    setUpCamera(options: CameraOptions) {
+    setUpViewport(options: CameraOptions) {
         this.viewport
             .drag()
             .pinch({ percent: 1 })
@@ -117,6 +117,15 @@ export default class GraphCanvas {
                 maxWidth: options.worldWidth,
                 maxHeight: options.worldHeight
             })
+
+
+        this.viewport.on("zoomed-end", event => {
+            console.log("zoomed-end event", event)
+        })
+
+        this.viewport.on("zoomed", event => {
+            console.log("zoomed event", event)
+        })
     }
     createPIXIApp = (screenWidth: number = 800, screenHeight: number=600) => {
         const pixiApp =  new PIXI.Application({

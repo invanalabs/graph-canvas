@@ -99,9 +99,10 @@ export abstract class BaseShape extends Shape {
     abstract setInactive():void
 
     clearStates(){
-        this.setUnHover();
-        this.setUnSelected();
-        this.unSetInactive();
+        // if ()
+        // this.setUnHover();
+        // this.setUnSelected();
+        // this.unSetInactive();
     }
 
     setState(stateName: NodeStateTypesList | LinkStateTypesList){

@@ -1,7 +1,7 @@
 import { Viewport } from "pixi-viewport";
 import { CanvasNode } from "../graphics/types";
 import { getCenter } from "./utils";
-import { CameraOptions, ZoomToOptions } from "./types";
+import { CameraOptions } from "./types";
 import GraphCanvas from "../canvas/canvas";
 import { Point } from "pixi.js";
 import { defaultCameraOptions } from "./defaults";
@@ -41,15 +41,19 @@ export default class Camera {
     
     zoomIn = () => {
         this.viewport.zoomPercent(this.zoomPercentage, true)
+
+        console.log(`zoomIn now at ${this.viewport.scaled}`)
     };
 
     zoomOut = () => {
         this.viewport.zoomPercent(-this.zoomPercentage, true)
+        console.log(`zoomOut now at ${this.viewport.scaled}`)
     };
 
     setZoom = (zoomScale: number) =>{
         /* e.g., 1 would be 100%, 0.25 would be 25%  */
         this.viewport.setZoom(zoomScale)
+        // this.viewport.
     }
       
     resetViewport = () => {
