@@ -40,26 +40,20 @@ export default class GraphCanvas {
         this.options = {...options, ...defaultCanvasOptions}
 
         console.log(`Creating canvas with options: ${this.options}`); 
-        this.renderer = new Renderer(this);
-        this.graph = new GraphData(this);
-        const _this = this;
-        // if (this.options.viewDiv){
-        //     this.options.viewDiv.appendChild(this.pixiApp.view);
-        // }
+
+        // create texture
         this.textureManager = new TextureManager(this);
 
         // @ts-ignore
         const divRectangle = this.options.viewDiv?.getBoundingClientRect();
-        if (divRectangle?.width === 0 || divRectangle?.height === 0 ){
-            // throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
-        }
-        const canvasSizeOptions: CameraOptions = this.getCanvasSizeOptions(divRectangle?.width, divRectangle?.height);
-        this.pixiApp =  this.createPIXIApp(canvasSizeOptions.screenWidth, canvasSizeOptions.worldHeight);
-
         if (divRectangle?.width == 0 || divRectangle?.height == 0 ){
             throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
         }
+        const canvasSizeOptions: CameraOptions = this.getCanvasSizeOptions(divRectangle?.width, divRectangle?.height);
         console.log("===canvasSizeOptions", canvasSizeOptions)
+
+        // start pixiApp
+        this.pixiApp =  this.createPIXIApp(canvasSizeOptions.screenWidth, canvasSizeOptions.worldHeight);
 
         // setup viewport
         this.viewport = new Viewport({
@@ -72,9 +66,13 @@ export default class GraphCanvas {
         this.setUpCamera(canvasSizeOptions)
         this.pixiApp.stage.addChild(this.viewport)
 
-        // start pixi app 
-        // this.pixiApp.start();
-        
+
+
+        this.renderer = new Renderer(this);
+        this.graph = new GraphData(this);
+
+        const _this = this;
+
         this.camera = new Camera({
             canvas: this, 
             ...canvasSizeOptions
@@ -89,7 +87,6 @@ export default class GraphCanvas {
         window.addEventListener('beforeunload', function() {
             _this.destroyPIXIApp();
         });
-        // this.startNew();   
 
         // prevent body scrolling
         // this.pixiApp.view.addEventListener('wheel', event => { event.preventDefault(); });
@@ -106,16 +103,14 @@ export default class GraphCanvas {
 
     startNew = () => {
         this.camera.viewport.removeChildren();
-        // this.camera.viewport.addChild(this.debugBorderGfx);
     }
 
-    setUpCamera(options) {
+    setUpCamera(options: CameraOptions) {
         this.viewport
             .drag()
             .pinch({ percent: 1 })
             .wheel()
             .decelerate()
-            // .clamp({ direction: 'all', underflow: 'center' })// 
             .clampZoom({
                 minWidth: options.screenWidth / 5,
                 minHeight: options.screenHeight / 5,
@@ -124,21 +119,6 @@ export default class GraphCanvas {
             })
     }
     createPIXIApp = (screenWidth: number = 800, screenHeight: number=600) => {
-        // const pixiAppArgs = {
-        //     // preference: this.options.renderer, 
-        //     width: screenWidth,
-        //     height: screenHeight,
-        //     view: this.options.viewDiv,
-        //     antialias: true,
-        //     // autoResize: true,
-        //     autoDensity: true,
-        //     autoStart: false, // // disable automatic rendering by ticker, render manually instead, only when needed
-        //     // resizeTo: this.options.viewDiv,
-        //     resizeTo: window,
-        //     resolution: this.options.resolution,
-        //     backgroundColor: this.options.background,
-        //     eventMode : 'static', //  Emit events and is hit tested. Same as interaction = true in v7
-        // } 
         const pixiApp =  new PIXI.Application({
             width: screenWidth,
             height: screenHeight,
@@ -175,21 +155,5 @@ export default class GraphCanvas {
         this.options.background = newColor
         this.pixiApp.renderer.background.color = newColor
     }
-
-    // addGfx = (shape: NodeShapeBase| LinkShapeBase) =>{
-    //     console.log("addGfx", shape)
-    //     this.camera.viewport.addChild(shape.gfxContainer) // TODO: try setChildIndex
-    //     // this.layers.addGfxToDataLayer(shape.gfxContainer, LAYER_GRAPHICS_TYPES_CONSTANTS.LINK_SHAPES)
-
-    // }
-
-    // removeGfx = (shape: NodeShapeBase | LinkShapeBase)=> {
-    //     this.camera.viewport.removeChild(shape.gfxContainer)
-
-    // }
-
-    // clear(){
-    //     this.camera.viewport.removeChildren();
-    // }
-    
+        
 }
