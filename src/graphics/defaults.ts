@@ -50,7 +50,7 @@ export const NodeStyleDefaults: NodeStyleType = {
             shape: {
                 border: {
                     thickness: 2,
-                    color: 0xF6B26B,
+                    color: 0x59cd90,
                     opacity: 0.6,
                 }
             },
@@ -110,7 +110,7 @@ export const LinkStyleDefaults: LinkStyleType = {
             shape: {
                 opacity: 0.6,
                 thickness: 2,
-                color: 0xF6B26B
+                color: 0x59cd90, //0xF6B26B
             }
         },
         ":selected": {
