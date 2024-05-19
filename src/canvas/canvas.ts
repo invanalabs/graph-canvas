@@ -9,6 +9,7 @@ import TextureManager from "../textures";
 import { deepMerge } from "../utils/merge";
 import { Viewport } from "pixi-viewport";
 import CanvasLayers from "../layers";
+import { Stage } from '@pixi/layers';
 
 
 export default class GraphCanvas {
@@ -88,8 +89,11 @@ export default class GraphCanvas {
             _this.destroyPIXIApp();
         });
 
+
         // prevent body scrolling
         // this.pixiApp.view.addEventListener('wheel', event => { event.preventDefault(); });
+
+        this.pixiApp.renderer.render(this.pixiApp.stage);
     }
 
     getCanvasSizeOptions(screenWidth: number, screenHeight: number) {   
@@ -140,6 +144,9 @@ export default class GraphCanvas {
             backgroundColor: this.options.background || 0x2a2c2e, // defaults to dark 
             eventMode : 'static', //  Emit events and is hit tested. Same as interaction = true in v7
         });
+
+        pixiApp.stage = new Stage();
+
         // The stage will handle the move events
         pixiApp.stage.interactive = true;
         pixiApp.stage.hitArea = pixiApp.screen;

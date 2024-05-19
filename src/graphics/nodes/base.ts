@@ -6,6 +6,7 @@ import { NodeContainerChildNames } from '../constants';
 import { NodeStyleDefaults } from '../defaults';
 import { deepMerge } from '../../utils/merge';
 import BaseShape from '../base';
+import { LAYER_GRAPHICS_TYPES_CONSTANTS } from '../../layers/constants';
 
 
 export class NodeShapeBase extends BaseShape {
@@ -19,6 +20,7 @@ export class NodeShapeBase extends BaseShape {
     constructor(data: CanvasNode, canvas: GraphCanvas) {
         super(data, canvas)
         this.data = this.processData(data)
+        this.data.gfxInstance = this;
         // setup intractions
         this.setupInteractions()
     }
@@ -29,6 +31,14 @@ export class NodeShapeBase extends BaseShape {
         console.log("======data.style after", data.group, JSON.stringify(data.style));
         data = { ...{ x: 0, y: 0 }, ...data }
         return data
+    }
+
+    moveToDataLayer(): void {
+        this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+    }
+
+    moveToFrontLayer(): void {
+        this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
     }
 
     setInactive = () => {
@@ -48,7 +58,8 @@ export class NodeShapeBase extends BaseShape {
             if (shapeHoveredBorder) {
                 shapeHoveredBorder.visible = true
             }
-        }        
+        }
+        this.moveToFrontLayer();
     }
 
     setUnHover = () => {
@@ -59,6 +70,7 @@ export class NodeShapeBase extends BaseShape {
                 shapeHoveredBorder.visible = false
             }
         }
+        this.moveToDataLayer()
     }
 
     setHoveredOnNeighbors = () => {

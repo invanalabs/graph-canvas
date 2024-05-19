@@ -59,6 +59,9 @@ export abstract class BaseShape extends Shape {
     pointerOver() { console.error("BaseShape.pointerOver not implemented") }
     pointerOut() { console.error("BaseShape.pointerOut not implemented") }
 
+    moveToFrontLayer() { console.error("BaseShape.moveToFrontLayer not implemented") }
+    moveToDataLayer() { console.error("BaseShape.moveToDataLayer not implemented") }
+
 
     drawLabel = (): PIXI.Graphics => {
         console.debug("BaseShape.drawLabel not defined")

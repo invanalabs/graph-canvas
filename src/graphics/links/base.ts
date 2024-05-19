@@ -9,6 +9,7 @@ import drawStraightLineShape from '../../primitives/lines/straightLine';
 import drawArrowHeadShape from '../../primitives/arrowHead';
 import drawLabelShape from '../../primitives/label';
 import { LinkContainerChildNames } from '../constants';
+import { LAYER_GRAPHICS_TYPES_CONSTANTS } from '../../layers/constants';
 
 
 export class LinkShapeBase extends BaseShape {
@@ -21,6 +22,8 @@ export class LinkShapeBase extends BaseShape {
     constructor(data: CanvasLink, canvas: GraphCanvas) {
         super(data, canvas)
         this.data = this.processData(data)
+        this.data.gfxInstance = this;
+
         this.shapeGfx = new PIXI.Graphics();
         this.labelGfx = new PIXI.Graphics();
 
@@ -32,6 +35,16 @@ export class LinkShapeBase extends BaseShape {
         data.style = data.style ? deepMerge(LinkStyleDefaults, data.style) : LinkStyleDefaults
         return data;
     }
+
+
+    moveToDataLayer(): void {
+        this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+    }
+
+    moveToFrontLayer(): void {
+        this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+    }
+
 
     setInactive = () => {
         console.log(`Inactive triggered on link - ${this.data.id}`);
@@ -51,6 +64,7 @@ export class LinkShapeBase extends BaseShape {
                 shapeHoveredBorder.visible = true
             }
         }
+        this.moveToFrontLayer()
     }
 
     setUnHover = () => {
@@ -61,6 +75,7 @@ export class LinkShapeBase extends BaseShape {
                 shapeHoveredBorder.visible = false
             }
         }
+        this.moveToDataLayer();
     }
 
 
