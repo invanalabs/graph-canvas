@@ -3,7 +3,11 @@ import GraphLayer from "./graphLayer";
 import { Container, Graphics } from "pixi.js";
 import { CanvasLayersOptions, LayerGfxTypes, LayerTypes } from "./types";
 import { LAYER_TYPES_CONSTANTS, LAYER_GRAPHICS_TYPES_CONSTANTS } from "./constants";
-import { Viewport } from "pixi-viewport";
+import BaseShape from "../graphics/base";
+import { NodeShapeBase } from "../graphics/nodes/base";
+import { LinkShapeBase } from "../graphics/links/base";
+import { CanvasLink, CanvasNode } from "../graphics/types";
+
 
 
 export default class CanvasLayers {
@@ -11,85 +15,125 @@ export default class CanvasLayers {
     canvas: GraphCanvas
     // viewport: Viewport
     // layer
+    geoLayer: GraphLayer
     frontLayer: GraphLayer
     dataLayer: GraphLayer
     annotationLayer: GraphLayer
 
     constructor(options: CanvasLayersOptions ) {
         this.canvas = options.canvas;
-        // this.viewport = this.canvas.viewport
-        // setup viewport
-        // this.viewport = new Viewport({
-        //     events: options.canvas.pixiApp.renderer.events, 
-        //     screenWidth : options.screenWidth,
-        //     screenHeight: options.screenHeight,
-        //     worldWidth : options.worldWidth,
-        //     worldHeight: options.worldHeight
-        // })
-        // this.setUpCamera(options)
-        // this.canvas.pixiApp.stage.addChild(this.viewport)
-
         // create layers
-        this.frontLayer = new GraphLayer(this, LAYER_TYPES_CONSTANTS.FRONT);
-        this.dataLayer = new GraphLayer(this, LAYER_TYPES_CONSTANTS.DATA);
-        this.annotationLayer = new GraphLayer(this, LAYER_TYPES_CONSTANTS.ANNOTATIONS);
-    }
+        // z-index from 0
+        this.geoLayer = new GraphLayer(this, LAYER_TYPES_CONSTANTS.MAP, 0);
+        // z-index from 5
+        this.dataLayer = new GraphLayer(this, LAYER_TYPES_CONSTANTS.DATA, 5);
+        // z-index from 10
+        this.annotationLayer = new GraphLayer(this, LAYER_TYPES_CONSTANTS.ANNOTATIONS, 10);
+        // z-index from 15
+        this.frontLayer = new GraphLayer(this, LAYER_TYPES_CONSTANTS.FRONT, 15);
 
-    // setUpCamera(options) {
-    //     this.viewport
-    //         .drag()
-    //         .pinch({ percent: 1 })
-    //         .wheel()
-    //         .decelerate()
-    //         // .clamp({ direction: 'all', underflow: 'center' })// 
-    //         .clampZoom({
-    //             minWidth: options.screenWidth / 5,
-    //             minHeight: options.screenHeight / 5,
-    //             maxWidth: options.worldWidth,
-    //             maxHeight: options.worldHeight
-    //         })
-    // }
+    }
 
     createLayer(LayerName: LayerTypes) {
         const layer = new Container();
-        layer.name = LayerName
+        layer.name = LayerName;
         this.canvas.viewport.addChild(layer)
         return layer
     }
 
-    private addGfxToLayer(gfx: Graphics, gfxType: LayerGfxTypes,  layer: GraphLayer){
+    private addGfxToLayer(item: CanvasNode | CanvasLink, gfxType: LayerGfxTypes,  layer: GraphLayer){
         if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.NODES){
-            layer.addNodeGfx(gfx)
+            item.layer = layer.nodeGfxLayer.name
+            layer.addNodeGfx(item.gfxInstance.gfxContainer)
         }
         else if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS){
-            layer.addLinkGfx(gfx)
+            item.layer = layer.nodeGfxLayer.name
+            layer.addLinkGfx(item.gfxInstance.gfxContainer)
         }
         else{
             console.error(`Failed to add ${gfx} because gfxType=${gfxType} is not supported`)
         }
     }
 
-    addGfxToFrontLayer(gfx: Graphics, gfxType: LayerGfxTypes) {
-
+    addGfxToFrontLayer(item: CanvasNode | CanvasLink, gfxType: LayerGfxTypes) {
+        console.log("addGfxToFrontLayer triggered", gfxType,  this.dataLayer)
+        this.addGfxToLayer(item, gfxType, this.frontLayer)
+        // this.canvas.camera.viewport.addChild(gfx)
     }
 
-    addGfxToDataLayer(gfx: Graphics, gfxType: LayerGfxTypes) {
-        console.log("addGfxToDataLayer triggered", gfxType,  this.dataLayer)
-        // this.addGfxToLayer(gfx, gfxType, this.dataLayer)
-        this.canvas.camera.viewport.addChild(gfx)
+    addToDataLayer(item: CanvasNode | CanvasLink, gfxType: LayerGfxTypes) {
+        console.log("addToDataLayer triggered", gfxType,  this.dataLayer)
+        this.addGfxToLayer(item, gfxType, this.dataLayer)
+        // this.canvas.camera.viewport.addChild(gfx)
     }
+
+    private remoGfxFromLayer(item: CanvasNode | CanvasLink, gfxType: LayerGfxTypes,  layer: GraphLayer){
+        if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.NODES){
+            item.layer = null
+            layer.removeNodeGfx(gfx)
+        }
+        else if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS){
+            item.layer = null
+            layer.removeLinkGfx(gfx)
+        }
+        else{
+            console.error(`Failed to add ${gfx} because gfxType=${gfxType} is not supported`)
+        }
+    }
+
+
+    removeGfxFromFrontLayer(item: CanvasNode | CanvasLink,  gfxType: LayerGfxTypes){
+        this.remoGfxFromLayer(item, gfxType, this.frontLayer)
+    }
+
+    removeGfxFromDataLayer(gitem: CanvasNode | CanvasLink,  gfxType: LayerGfxTypes){
+        this.remoGfxFromLayer(item, gfxType, this.dataLayer)
+    }
+
+    moveGfxToFrontLayer(item: CanvasNode | CanvasLink,  gfxType: LayerGfxTypes){
+
+
+        // remove from existing layer
+        if (item.layer === LAYER_TYPES_CONSTANTS.DATA){
+            this.removeGfxFromDataLayer(item, gfxType)
+        }
+        else if (item.layer === LAYER_TYPES_CONSTANTS.FRONT){
+            console.error("Failed to move the gfx to frontLayer, its already in frontLayer");
+        }
+        // add to new layer 
+        this.addGfxToLayer(item, gfxType, this.frontLayer)
+
+
+        if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.NODES || gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS){
+            console.error(`Failed to move ${item} because gfxType=${gfxType} is not supported`)
+        }
+    }
+
+    moveGfxToDataLayer(item: CanvasNode | CanvasLink, gfxType: LayerGfxTypes,){
+        // remove from existing layer
+        if (item.layer === LAYER_TYPES_CONSTANTS.FRONT){
+            this.removeGfxFromFrontLayer(item, gfxType)
+        }
+        else if (item.layer === LAYER_TYPES_CONSTANTS.DATA){
+            console.error("Failed to move the gfx to dataLayer, its already in dataLayer");
+        }
+        // add to new layer 
+        this.addGfxToLayer(item, gfxType, this.dataLayer)
+
+
+        if (gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.NODES || gfxType === LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS){
+            console.error(`Failed to move ${item} because gfxType=${gfxType} is not supported`)
+        }
+    }
+
+    // moveGfxToAnnotationLayer(gfx: Graphics){
+        
+    // }
 
     // addGfxToAnnotationLayer(gfx: Graphics) {
 
     // }
 
-    removeGfxToFrontLayer(gfx: Graphics, gfxType: LayerGfxTypes){
-
-    }
-
-    removeGfxToDataLayer(gfx: Graphics, gfxType: LayerGfxTypes){
-
-    }
 
     // removeGfxToAnnotationLayer(gfx: Graphics){
 

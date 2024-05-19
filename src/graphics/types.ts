@@ -2,9 +2,10 @@
 
 // import { IdString, LinkData, NodeData } from "../data/types";
 import { LinkStyleType, NodeStateTypesList, LinkStateTypesList, NodeStyleType } from "../canvas/types";
-import { LinkShapeBase, NodeShapeBase } from "./base";
+import { LayerTypes } from "../layers/types";
+import { LinkShapeBase } from "./links/base";
+ import { NodeShapeBase } from "./nodes/base";
 
- 
 export type NodeShapeTypes = 'circle' | 'square' | 'rectangle' | 'traingle';
 
 export type LinkShapeTypes = 'line' | 'quadratic' | 'loop';
@@ -23,7 +24,6 @@ export type CanvasItemBase = {
     
 }
 
- 
 export interface CanvasNode extends CanvasItemBase {
     shape: NodeShapeTypes
     gfxInstance?: NodeShapeBase
@@ -34,6 +34,8 @@ export interface CanvasNode extends CanvasItemBase {
     style?: NodeStyleType
 
     state?: NodeStateTypesList
+
+    layer?: LayerTypes
 
     degree?: {
         incoming: number,
@@ -52,6 +54,9 @@ export interface CanvasLink extends CanvasItemBase {
     style?: LinkStyleType
 
     state?: LinkStateTypesList
+
+    layer?: LayerTypes
+
 
     // points?: Array<number> // for complext links with more turning points
 }
