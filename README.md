@@ -1,11 +1,11 @@
 # graph-canvas 
 
-High-performance network based Graph Visualizations.
+High-performance visualisations for Graph data
 
 ## Features 
-- [ ] node-link visualisations
+- [*] node-link visualisations
 - [ ] geospatial support 
-- [ ] layout 
+- [ ] annotations
 
 ## Dev
 ```
@@ -13,3 +13,4 @@ nvm use 20
 npm i
 nvm run storybook
 ```
+ 
