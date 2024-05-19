@@ -51,6 +51,7 @@ export interface ShapeLabelType {
     padding : number
     border: ShapeBorderType
     text: TextType
+    resolution?: number
 }
 
 export interface NodeShapeType {

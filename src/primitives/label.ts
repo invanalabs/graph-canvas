@@ -21,7 +21,7 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
         fill: props?.text.color
     })
     const text = new Text( props.label, textStyle);
-    text.resolution = 6;
+    text.resolution = props.resolution || 6 ;
     const textBounds = text.getBounds(); // Get the size of the text box
 
     // add background; TODO- move this to rectangle primitive later 
