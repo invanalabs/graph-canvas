@@ -1,1 +1,0 @@
-/// https://observablehq.com/@d3/simulation-tick?collection=@d3/d3-force

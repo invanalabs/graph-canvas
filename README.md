@@ -1,3 +1,16 @@
-# graph canvas 
+# graph-canvas 
 
-Typescript library for drawing pretty representations of data flows and stories.
+High-performance visualisations for Graph data
+
+## Features 
+- [*] node-link visualisations
+- [ ] geospatial support 
+- [ ] annotations
+
+## Dev
+```
+nvm use 20
+npm i
+nvm run storybook
+```
+ 

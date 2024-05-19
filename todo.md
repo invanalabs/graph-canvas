@@ -2,20 +2,20 @@
 
 
 ## GraphCanvas
-- [ ] fitview 
-- [ ] Zoom In 
-- [ ] Zoom Out 
+- [x] fitview 
+- [x] Zoom In 
+- [x] Zoom Out 
 - [ ] Events - ContextMenu
 - [ ] redraw 
 
 ## Events/Interactions.
-- [ ] Canvas - 
+- [ ] GraphCanvas - 
     - [ ] contextMenu
-    - [ ] zoomIn
-    - [ ] zoomOut
-    - [ ] fitView
+    - [x] zoomIn
+    - [x] zoomOut
+    - [x] fitView
  
-        
+## Nodes & Links 
 - [ ] Node/Edge - 
     - [ ] contextMenu
     - [ ] select
@@ -25,11 +25,23 @@
     - [ ] dragEnd 
     - [ ] dragging 
     - [ ] hover
+    - [ ] multi-select nodes
 
 ## Links 
-- [ ] straightLine
+- [x] straightLine
 - [ ] brazierCurve
 - [ ] StepCurve 
 - [ ] Loop 
 
+
+## Nodes 
+- [ ] color by Group 
+- [ ] size by number of links 
+- [ ] size by number of inLinks 
+- [ ] size by number of outLinks  
  
+
+ ## Links
+- [ ] color by Group
+- [ ] color by Linked Nodes (gradient)
+
