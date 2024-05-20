@@ -16,11 +16,14 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006 -h 0.0.0.0",
-    "build-storybook": "storybook build"
+    "storybook:watch": "storybook dev -p 6006 -h 0.0.0.0",
+    "storybook:build": "storybook build",
+    "docs:watch": "typedoc --out docs ./src --watch & live-server --port=8005 docs/ --entry-file=docs/index.html",
+    "docs:build": "npx typedoc src"
   },
   "devDependencies": {
     "@dagrejs/dagre": "^1.1.2",
+    "@microsoft/tsdoc": "^0.14.2",
     "@pixi/devtools": "^1.2.2",
     "@storybook/addon-essentials": "^8.0.9",
     "@storybook/addon-interactions": "^8.0.9",
@@ -40,8 +43,10 @@
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^16.6.2",
     "eslint-plugin-promise": "^6.1.1",
+    "live-server": "^1.2.2",
     "storybook": "^8.0.9",
-    "typescript": "^5.4.3",
+    "typedoc": "^0.25.13",
+    "typescript": "^5.4.5",
     "vite": "^5.1.4",
     "vite-plugin-dts": "^3.7.3"
   },

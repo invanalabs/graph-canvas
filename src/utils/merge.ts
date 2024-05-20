@@ -1,6 +1,6 @@
 type Dict = { [key: string]: any };
 
-export function deepMerge(target: Dict, source: Dict): Dict {
+const deepMerge = (target: Dict, source: Dict): Dict => {
     const merged: Dict = { ...target };
 
     for (const key in source) {
@@ -18,4 +18,5 @@ export function deepMerge(target: Dict, source: Dict): Dict {
     return merged;
 }
 
-// export deepMerge
+
+export default deepMerge;
