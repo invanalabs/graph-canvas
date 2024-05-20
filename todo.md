@@ -6,7 +6,8 @@
 - [x] Zoom In 
 - [x] Zoom Out 
 - [ ] Events - ContextMenu
-- [ ] redraw 
+- [x] redraw 
+- [x] clear
 
 ## Events/Interactions.
 - [ ] GraphCanvas - 
@@ -27,21 +28,49 @@
     - [ ] hover
     - [ ] multi-select nodes
 
-## Links 
+## Node
+- [ ] show image
+- [ ] show Icon 
+- [ ] Add Badge 
+
+## Link Types
 - [x] straightLine
+- [ ] simpleCurve
+- [ ] Loop 
 - [ ] brazierCurve
 - [ ] StepCurve 
-- [ ] Loop 
 
-
-## Nodes 
+## Nodes Syling
 - [ ] color by Group 
 - [ ] size by number of links 
 - [ ] size by number of inLinks 
 - [ ] size by number of outLinks  
  
 
- ## Links
+ ## Links Styling
 - [ ] color by Group
 - [ ] color by Linked Nodes (gradient)
+
+## Layers
+- [x] data 
+- [x] foreground
+- [ ] annotations
+- [ ] map
+
+## OnZoom
+- [ ] at 35% zoomout, hide labels
+- [ ] at 50% zoomout, hide links 
+
+
+## Toolbar 
+- [ ] load data 
+- [ ] save data 
+
+
+## Plugins 
+- [ ] Minimap
+- [ ] Legend
+- [ ] Toolbar
+
+
 
