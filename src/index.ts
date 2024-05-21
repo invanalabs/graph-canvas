@@ -1,9 +1,7 @@
-import { sayHello } from "./hello";
-
+// import GraphCanvas from "./canvas";
 
 /**
- * A simple constant here, ok, test updayted
+ * Entry point of the application.
  */
-const hello = sayHello("Helo");
-
-export default hello;
+export * from './utils/merge'
+export * from './canvas/index'

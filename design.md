@@ -1,5 +1,11 @@
 # Canvas
 
+
+
+- Canvas -> Camera -> Layers -> Graphics
+- Canvas -> Data -> StyledData -> Texture -> Graphics
+
+
 - [ ] **canvas** - state, display, interactions, camera, renderer
 - [ ] **state**
     - [ ] data (nodes, links, focusedNodes, annotatedLinks, annotatedNodes)
