@@ -2,7 +2,7 @@
  * Generate utily functions
  */
 
-type Dict = Record<string, unknown>
+type Dict = { [key: string]: any };
 
 /**
  * Merge two objects - use for overriding defaults with user input, which may
