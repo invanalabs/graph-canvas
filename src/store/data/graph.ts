@@ -1,17 +1,28 @@
-import { ICanvasLink, ICanvasNode, IdString } from "./types"
+import { ICanvasLink, ICanvasNode, IdString, ICanvasData, ICanvasDataListeners } from "./types"
 
 
 /**
- * CanvasGraph for managing nodes, links, paths etc 
+ * CanvasData for managing nodes, links, paths etc 
  */
-export default class CanvasGraph {
+export class CanvasData implements ICanvasData {
 
   nodes: Map<IdString, ICanvasNode>
   links: Map<IdString, ICanvasLink>
 
+  listeners: ICanvasDataListeners
+
   constructor() {
     this.nodes = new Map()
     this.links = new Map()
+
+    this.listeners = {
+      nodeAdded: [],
+      nodeUpdated: [],
+      nodeDeleted: [],
+      linkAdded: [],
+      linkUpdated: [],
+      linkDeleted: []
+    }
   }
 
   addNode(node: ICanvasNode) {

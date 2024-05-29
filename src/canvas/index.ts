@@ -5,7 +5,7 @@ import { defaultCanvasOptions } from "./defaults";
 import { deepMerge } from "../utils/merge";
 import { IViewElementSize } from "../artboard/types";
 import { Stage } from "@pixi/layers"
-import CanvasGraph from "../store/data/graph";
+import {CanvasData} from "../store/data/graph";
 
 /**
    * Generates clean, elegant and interactive data visualisations of connected data.
@@ -17,12 +17,14 @@ export default class GraphCanvas {
    artBoard: Artboard
    viewElementSize: IViewElementSize
    pixiApp: Application
-   data: CanvasGraph
+   data: CanvasData
 
    constructor(options: ICanvasOptions = defaultCanvasOptions) {
       console.log("GraphCanvas.options before", options, defaultCanvasOptions)
       this.originalOptions = options
       console.log("GraphCanvas.originalOptions", this.originalOptions)
+      this.data = new CanvasData()
+
       //@ts-ignore
       this.options = deepMerge(defaultCanvasOptions, options);
       this.options.viewElement = this.originalOptions.viewElement ? this.originalOptions.viewElement : defaultCanvasOptions.viewElement
@@ -32,7 +34,6 @@ export default class GraphCanvas {
       console.log("this.viewElementSize", this.viewElementSize);
       this.pixiApp = this.createPIXIApp(this.viewElementSize.width, this.viewElementSize.height)
       this.artBoard = new Artboard({ canvas: this })
-      this.data = new CanvasGraph()
    }
 
    createPIXIApp = (screenWidth: number, screenHeight: number): Application => {

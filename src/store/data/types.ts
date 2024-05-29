@@ -25,7 +25,6 @@ export interface ICanvasLink extends ICanvasItemBase {
 }
 
 export interface ICanvasNode extends ICanvasItemBase {
-
   x?: number | undefined
   y?: number | undefined
 
@@ -36,5 +35,26 @@ export interface ICanvasNode extends ICanvasItemBase {
     incoming: number
     outgoing: number
   }
+}
 
+export interface ICanvasData {
+  nodes: Map<IdString, ICanvasNode>
+  links: Map<IdString, ICanvasLink>
+}
+
+export type ICanvasDataEvents = "nodeAdded" | "nodeUpdated" | "nodeDeleted" | "linkAdded" | "linkUpdated" | "linkRemoved";
+
+export type NodeEventData = { key: string, value: any };
+export type LinkEventData = { key: string, value: any };
+
+export type NodeEventListener = (data: NodeEventData) => void;
+export type LinkEventListener = (data: LinkEventData) => void;
+
+export interface ICanvasDataListeners {
+  nodeAdded: NodeEventListener[];
+  nodeUpdated: NodeEventListener[];
+  nodeDeleted: NodeEventListener[];
+  linkAdded: LinkEventListener[];
+  linkUpdated: LinkEventListener[];
+  linkDeleted: LinkEventListener[];
 }
