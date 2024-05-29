@@ -1,15 +1,15 @@
 
 export type IdString = Number | String;
 
-export type ICanvasItemData = {
+export type ICanvasItemProperties = {
   [key: string]: any;
 }
 
 export interface ICanvasItemBase {
   readonly id: IdString
   group: String
-  label?: String
-  data?: ICanvasItemData,
+  label: String
+  data?: ICanvasItemProperties,
 }
 
 export interface ICanvasItemStates {

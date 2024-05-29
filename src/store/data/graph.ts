@@ -1,25 +1,46 @@
-import GraphCanvas from "../../canvas"
-import { ICanvasLink, ICanvasNode, IdString } from "../types"
+import { ICanvasLink, ICanvasNode, IdString } from "./types"
 
 
 /**
- * GraphData for managing nodes, links, paths etc 
+ * CanvasGraph for managing nodes, links, paths etc 
  */
-export default class GraphData {
+export default class CanvasGraph {
 
   nodes: Map<IdString, ICanvasNode>
   links: Map<IdString, ICanvasLink>
-  canvas: GraphCanvas
 
-  constructor(canvas: GraphCanvas) {
-    this.canvas = canvas
+  constructor() {
     this.nodes = new Map()
     this.links = new Map()
   }
 
-  private addNode(node: ICanvasNode) {
+  addNode(node: ICanvasNode) {
     // update the properties if node already exist
     this.nodes.set(node.id, node)
+  }
+
+  addLink(link: ICanvasLink) {
+
+    if (typeof link.source !== 'object') {
+      const sourceNode = this.nodes.get(link.source)
+      console.log("====sourceNode", sourceNode)
+      if (sourceNode) {
+        link.source = sourceNode
+      } else {
+        throw Error(`${link.source} not found in nodes: ${this.nodes} `)
+      }
+    }
+    if (typeof link.target !== 'object') {
+      const targetNode = this.nodes.get(link.target);
+      console.log("====targetNode", targetNode)
+      if (targetNode) {
+        link.target = targetNode
+      } else {
+        throw Error(`${link.target} not found in node: ${this.nodes} `)
+      }
+    }
+    this.links.set(link.id, link)
+
   }
 
   private calcDegreeOfNode(nodeId: IdString) {
@@ -63,30 +84,6 @@ export default class GraphData {
       }
 
     })
-  }
-
-  private addLink(link: ICanvasLink) {
-
-    if (typeof link.source !== 'object') {
-      const sourceNode = this.nodes.get(link.source)
-      console.log("====sourceNode", sourceNode)
-      if (sourceNode) {
-        link.source = sourceNode
-      } else {
-        throw Error(`${link.source} not found in nodes: ${this.nodes} `)
-      }
-    }
-    if (typeof link.target !== 'object') {
-      const targetNode = this.nodes.get(link.target);
-      console.log("====targetNode", targetNode)
-      if (targetNode) {
-        link.target = targetNode
-      } else {
-        throw Error(`${link.target} not found in node: ${this.nodes} `)
-      }
-    }
-    this.links.set(link.id, link)
-
   }
 
   getNodes(): ICanvasNode[] {

@@ -1,6 +1,6 @@
-import CanvasItemBase from "../base"
-import { defaultICanvasState } from "../defaults"
-import { ICanvasItemStates, ICanvasLink, ICanvasNode } from "../types"
+import CanvasItemBase from "./base"
+import { defaultICanvasState } from "./defaults"
+import { ICanvasItemStates, ICanvasLink, ICanvasNode } from "./types"
 
 
 export class CanvasNode extends CanvasItemBase implements ICanvasNode {
