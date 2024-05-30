@@ -16,4 +16,13 @@ export default class CanvasItemBase implements ICanvasItemBase {
 
   }
 
+  updateProperties(properties: ICanvasItemProperties){
+    Object.keys(properties).forEach(k=> this.setProperty(k, properties[k]))
+  }
+
+  setProperty(key: string, value: any){
+    //@ts-ignore
+    this.properties[key] = value
+  }
+
 }

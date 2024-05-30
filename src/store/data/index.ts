@@ -1,6 +1,6 @@
 export * from "./base"
 export * from "./defaults"
-export * from "./graph"
+export * from "./data"
 export * from "./links"
 export * from "./nodes"
 export * from "./types"

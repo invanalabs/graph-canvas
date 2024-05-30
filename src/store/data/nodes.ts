@@ -1,7 +1,7 @@
 import CanvasItemBase from "./base"
 import { defaultICanvasState } from "./defaults"
 import { CanvasLink } from "./links"
-import { ICanvasItemProperties, ICanvasItemStates, ICanvasNode } from "./types"
+import { ICanvasItemStates, ICanvasNode } from "./types"
 
 
 export class CanvasNode extends CanvasItemBase implements ICanvasNode {
@@ -25,15 +25,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   setLinks(links: CanvasLink[]){
     this.links = links
-  }
-
-  updateProperties(properties: ICanvasItemProperties){
-    Object.keys(properties).forEach(k=> this.setProperty(k, properties[k]))
-  }
-
-  setProperty(key: string, value: any){
-    //@ts-ignore
-    this.properties[key] = value
   }
 
 

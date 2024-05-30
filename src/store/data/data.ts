@@ -26,9 +26,10 @@ export class CanvasData implements ICanvasData {
       nodeAdded: [],
       nodeUpdated: [],
       "nodeUpdated:links": [],
+      "nodeUpdated:properties": [],
       nodeDeleted: [],
       linkAdded: [],
-      linkUpdated: [],
+      "linkUpdated:properties": [],
       linkDeleted: []
     }
   }
@@ -74,12 +75,12 @@ export class CanvasData implements ICanvasData {
     }
   }
 
-  updateNode(nodeId: IdString, properties: ICanvasItemProperties) {
-    if (this.nodes.has(nodeId)) {
-      let node = this.nodes.get(nodeId);
+  updateNodeProperties(nodeId: IdString, properties: ICanvasItemProperties) {
+    let node = this.nodes.get(nodeId);
+    if (node) {
       node?.updateProperties(properties)
-      // node.
-      this.trigger('nodeUpdated', { id: nodeId, node: node, updatedProperties: properties });
+      this.nodes.set(nodeId, node)
+      this.trigger('nodeUpdated:properties', { id: nodeId, node: node, updatedProperties: properties });
     } else {
       console.error(`Node with key "${nodeId}" does not exist.`);
     }
@@ -154,6 +155,18 @@ export class CanvasData implements ICanvasData {
     }
 
   }
+
+  updateLinkProperties(linkId: IdString, properties: ICanvasItemProperties) {
+    let link = this.links.get(linkId);
+    if (link) {
+      link?.updateProperties(properties)
+      this.links.set(linkId, link)
+      this.trigger('linkUpdated:properties', { id: linkId, link: link, updatedProperties: properties });
+    } else {
+      console.error(`Link with key "${linkId}" does not exist.`);
+    }
+  }
+
 
   deleteLink(linkId: IdString) {
     const link = this.links.get(linkId);
