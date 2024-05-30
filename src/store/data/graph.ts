@@ -68,7 +68,7 @@ export class CanvasData implements ICanvasData {
     if (!this.nodes.has(node.id)) {
       const nodeInstance = new CanvasNode(node)
       this.nodes.set(node.id, nodeInstance);
-      this.trigger('nodeAdded', { key: node.id, properties: nodeInstance });
+      this.trigger('nodeAdded', { id: node.id, node: nodeInstance });
     } else {
       console.error(`Node with id "${node.id}" already exists.`);
     }
@@ -96,7 +96,7 @@ export class CanvasData implements ICanvasData {
       })
       // delete this node 
       this.nodes.delete(nodeId);
-      this.trigger('nodeDeleted', { key: nodeId, node });
+      this.trigger('nodeDeleted', { id: nodeId, node });
     } else {
       console.error(`Node with key "${nodeId}" does not exist. can't delete`);
     }
@@ -115,7 +115,7 @@ export class CanvasData implements ICanvasData {
       node.setLinks(links);
       console.debug("====reCalcNodeLinks node.links", node.links)
       this.nodes.set(nodeId, node)
-      this.trigger('nodeUpdated:links', {key: node.id, value: node})
+      this.trigger('nodeUpdated:links', {id: node.id, node: node})
     }else{
       console.error(`${nodeId} doesnt exist in nodes, so can't reCalcNodeLinks`)
     }
@@ -146,7 +146,7 @@ export class CanvasData implements ICanvasData {
       const linkInstance = new CanvasLink(link)
       this.links.set(link.id, linkInstance);
       console.debug("====addLink", this.nodes, this.links)
-      this.trigger('linkAdded', { key: link.id, value: linkInstance });
+      this.trigger('linkAdded', { id: link.id, link: linkInstance });
       this.reCalcNodeLinks(linkInstance.source.id);
       this.reCalcNodeLinks(linkInstance.target.id);
     } else {
@@ -159,7 +159,7 @@ export class CanvasData implements ICanvasData {
     const link = this.links.get(linkId);
     if (link) {
       this.links.delete(linkId);
-      this.trigger('linkDeleted', { key: linkId, value: link });
+      this.trigger('linkDeleted', { id: linkId, link });
       // recacl nodeLinks for the nodes of the link
       this.reCalcNodeLinks(link.source.id);
       this.reCalcNodeLinks(link.target.id);
