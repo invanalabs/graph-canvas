@@ -1,4 +1,5 @@
 
+
 export type IdString = Number | String;
 
 export type ICanvasItemProperties = {
@@ -20,10 +21,10 @@ export interface ICanvasItemStates {
 export interface ICanvasLink extends ICanvasItemBase {
 
   readonly sourceId: IdString
-  source?: ICanvasNode
+  // source?: ICanvasNode
 
   readonly targetId: IdString
-  target?: ICanvasNode
+  // target?: ICanvasNode
 
   state?: ICanvasItemStates
 }
@@ -40,7 +41,7 @@ export interface ICanvasNode extends ICanvasItemBase {
   y?: number | undefined
 
   state?: ICanvasItemStates
-  links?: ICanvasLink[]
+  // links?: CanvasLink[]
 }
 
 export interface ICanvasData {

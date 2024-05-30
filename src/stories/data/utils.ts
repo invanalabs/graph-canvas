@@ -5,13 +5,19 @@ import { action } from '@storybook/addon-actions';
 const exampleNodes: Array<ICanvasNode> = [
   { id: '1', group: 'Person', label: 'Person-1' },
   { id: '2', group: 'Person', label: 'Person-2' },
+  { id: '3', group: 'Person', label: 'Person-3' },
+  { id: '4', group: 'Person', label: 'Person-4' },
 
 ];
 
 const exampleLinks: Array<ICanvasLink> = [
-  { id: '1-2', group: 'authored', label: 'default', sourceId: '1', targetId: '2' },
-
+  { id: '1-2', group: 'authored', label: 'default-1-2', sourceId: '1', targetId: '2' },
+  { id: '1-2.1', group: 'authored', label: 'default-1-2.1', sourceId: '1', targetId: '2' },
+  { id: '1-3', group: 'authored', label: 'default-1-3', sourceId: '1', targetId: '3' },
+  { id: '2-4', group: 'authored', label: 'default-2-4', sourceId: '2', targetId: '4' },
+  { id: '3-4', group: 'authored', label: 'default-3-4', sourceId: '3', targetId: '4' },
 ];
+
 export const createComponent = () => {
   const html = document.createElement("div");
   html.style.backgroundColor = "#333333"
@@ -26,26 +32,26 @@ export const createComponent = () => {
     const data = new CanvasData();
     // add nodeAdded event listener
     data.on('nodeAdded', ({ key, value }: NodeEventData) => {
-      logAction(`nodeAdded - Node added: id:${key};\t data=${JSON.stringify(value)}`);
+      logAction("nodeAdded", key, value);
     });
     // add linkAdded event listener
     data.on('linkAdded', ({ key, value }: LinkEventData) => {
-      logAction(`linkAdded - Link added: id:${key}; data=${JSON.stringify(value)}`);
+      logAction("linkAdded", key, value);
     });
 
     // add nodeDeleted event listener
     data.on('nodeDeleted', ({ key, value }: LinkEventData) => {
-      logAction(`nodeDeleted - Node deleted: id:${key}; data=${JSON.stringify(value)}`);
+      logAction("nodeDeleted", key, value);
     });
 
-    // // add linkDeleted event listener
-    // data.on('linkDeleted', ({ key, value }: LinkEventData) => {
-    //   logAction(`linkDeleted - Link deleted: id:${key}; data=${JSON.stringify(value)}`);
-    // });
+    // add linkDeleted event listener
+    data.on('linkDeleted', ({ key, value }: LinkEventData) => {
+      logAction("linkDeleted", key, value);
+    });
 
     // add linkDeleted event listener
-    data.on('nodeUpdated:links', ({ key, value }: LinkEventData) => {
-      logAction(`nodeUpdated:links - node links updated : id:${key}; data=${JSON.stringify(value)}`);
+    data.on('nodeUpdated:links', ({ key, value }: NodeEventData) => {
+      logAction("nodeUpdated:links", key, value);
     });
     
     // add data
@@ -53,7 +59,7 @@ export const createComponent = () => {
     // delete node
     data.deleteNode(exampleNodes[0].id)
     // delete link
-    data.deleteLink(exampleLinks[0].id)
+    // data.deleteLink(exampleLinks[0].id)
 
   }, false);
   return html

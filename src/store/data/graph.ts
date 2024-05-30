@@ -83,16 +83,19 @@ export class CanvasData implements ICanvasData {
   }
 
   deleteNode(nodeId: IdString) {
-    console.log("delete nNode")
+    console.log("delete Node", nodeId)
+    const _this = this;
     if (this.nodes.has(nodeId)) {
-      const value = this.nodes.get(nodeId);
+      const node = this.nodes.get(nodeId);
+      // delete the links
+      node?.links.forEach((link) => {
+        _this.deleteLink(link.id)
+      })
+      // delete this node 
       this.nodes.delete(nodeId);
-      // delete any links that are using this node 
-
-      // update all the nodes.links that belong to this links
-      this.trigger('nodeDeleted', { key: nodeId, value });
+      this.trigger('nodeDeleted', { key: nodeId, node });
     } else {
-      console.error(`Node with key "${nodeId}" does not exist.`);
+      console.error(`Node with key "${nodeId}" does not exist. can't delete`);
     }
   }
 
@@ -101,11 +104,13 @@ export class CanvasData implements ICanvasData {
   }
 
   private reCalcNodeLinks(nodeId: IdString){
-    console.debug("reCalcNodeLinks", nodeId)
-    let node: CanvasNode | undefined = this.nodes.get(nodeId)
+    console.debug("reCalcNodeLinks", nodeId, this.links)
+    let node = this.nodes.get(nodeId)
     if (node){
-      node.links = filerLinksOfNode(nodeId, this.links);
-      console.log("====node.links", node.links)
+      const links = filerLinksOfNode(nodeId, this.links)
+      console.debug("====reCalcNodeLinks links", links)
+      node.setLinks(links);
+      console.debug("====reCalcNodeLinks node.links", node.links)
       this.nodes.set(nodeId, node)
       this.trigger('nodeUpdated:links', {key: node.id, value: node})
     }else{
@@ -119,6 +124,7 @@ export class CanvasData implements ICanvasData {
       // attach sourceInstance using sourceId
       const sourceNode = this.nodes.get(link.sourceId)
       if (sourceNode) {
+        //@ts-ignore
         link.source = sourceNode
       } else {
         throw Error(`${link.sourceId} not found in nodes: ${this.nodes} `)
@@ -127,17 +133,19 @@ export class CanvasData implements ICanvasData {
       // attach targetInstance using targetId
       const targetNode = this.nodes.get(link.targetId);
       if (targetNode) {
+        //@ts-ignore
         link.target = targetNode
       } else {
         throw Error(`${link.targetId} not found in node: ${this.nodes} `)
       }
-      
+    
+      // create CanvasLink
       const linkInstance = new CanvasLink(link)
-
       this.links.set(link.id, linkInstance);
-      this.trigger('linkAdded', { key: link.id, value: link });
-      this.reCalcNodeLinks(linkInstance.sourceId);
-      this.reCalcNodeLinks(linkInstance.targetId);
+      console.debug("====addLink", this.nodes, this.links)
+      this.trigger('linkAdded', { key: link.id, value: linkInstance });
+      this.reCalcNodeLinks(linkInstance.source.id);
+      this.reCalcNodeLinks(linkInstance.target.id);
     } else {
       console.error(`Link with key "${link.id}" already exists.`);
     }
@@ -148,11 +156,10 @@ export class CanvasData implements ICanvasData {
     const link = this.links.get(linkId);
     if (link) {
       this.links.delete(linkId);
+      this.trigger('linkDeleted', { key: linkId, value: link });
       // recacl nodeLinks for the nodes of the link
       this.reCalcNodeLinks(link.source.id);
       this.reCalcNodeLinks(link.target.id);
-
-      this.trigger('linkDeleted', { key: linkId, value: link });
     } else {
       console.error(`Link with key "${linkId}" does not exist.`);
     }
@@ -180,8 +187,8 @@ export class CanvasData implements ICanvasData {
     // add links
     links.forEach(link => this.addLink(link))
 
-    // calculate links for the nodes
-    nodes.forEach(node => this.reCalcNodeLinks(node.id))
+    // // calculate links for the nodes
+    // nodes.forEach(node => this.reCalcNodeLinks(node.id))
     
   }
 
