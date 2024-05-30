@@ -13,7 +13,7 @@ const exampleNodes: Array<ICanvasNode> = [
 const exampleLinks: Array<ICanvasLink> = [
   { id: '1-2', group: 'authored', label: 'default-1-2', sourceId: '1', targetId: '2' },
   { id: '1-2.1', group: 'authored', label: 'default-1-2.1', sourceId: '1', targetId: '2' },
-  { id: '1-3', group: 'authored', label: 'default-1-3', sourceId: '1', targetId: '3' },
+  { id: '2-3', group: 'authored', label: 'default-2-3', sourceId: '2', targetId: '3' },
   { id: '2-4', group: 'authored', label: 'default-2-4', sourceId: '2', targetId: '4' },
   { id: '3-4', group: 'authored', label: 'default-3-4', sourceId: '3', targetId: '4' },
 ];
@@ -59,7 +59,7 @@ export const createComponent = () => {
     // delete node
     data.deleteNode(exampleNodes[0].id)
     // delete link
-    // data.deleteLink(exampleLinks[0].id)
+    data.deleteLink(exampleLinks[2].id)
 
   }, false);
   return html
