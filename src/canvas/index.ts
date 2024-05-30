@@ -5,7 +5,7 @@ import { defaultCanvasOptions } from "./defaults";
 import { deepMerge } from "../utils/merge";
 import { IViewElementSize } from "../artboard/types";
 import { Stage } from "@pixi/layers"
-import {CanvasData} from "../store/data/data";
+import {DataStore} from "../store/store";
 
 /**
    * Generates clean, elegant and interactive data visualisations of connected data.
@@ -17,13 +17,13 @@ export default class GraphCanvas {
    artBoard: Artboard
    viewElementSize: IViewElementSize
    pixiApp: Application
-   data: CanvasData
+   data: DataStore
 
    constructor(options: ICanvasOptions = defaultCanvasOptions) {
       console.log("GraphCanvas.options before", options, defaultCanvasOptions)
       this.originalOptions = options
       console.log("GraphCanvas.originalOptions", this.originalOptions)
-      this.data = new CanvasData()
+      this.data = new DataStore()
 
       //@ts-ignore
       this.options = deepMerge(defaultCanvasOptions, options);

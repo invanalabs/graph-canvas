@@ -1,4 +1,4 @@
-import { CanvasData, NodeEventData, LinkEventData, ICanvasNode, ICanvasLink } from "../../store";
+import { DataStore, NodeEventData, LinkEventData, ICanvasNode, ICanvasLink } from "../../store";
 import { action } from '@storybook/addon-actions';
 
 
@@ -29,7 +29,7 @@ export const createComponent = () => {
 
   document.addEventListener("DOMContentLoaded", function (_) {
 
-    const data = new CanvasData();
+    const data = new DataStore();
     // add nodeAdded event listener
     data.on('nodeAdded', ({ id, node }: NodeEventData) => {
       logAction("nodeAdded", id, node);
