@@ -12,7 +12,8 @@ export default class CanvasItemBase implements ICanvasItemBase {
     this.id = props.id
     this.group = props.group
     this.label = props.label ? props.label : "Anonymous"
-    this.properties = props.data
+    this.properties = props?.properties ? props.properties : {}
+
   }
 
 }

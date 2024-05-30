@@ -10,7 +10,7 @@ export interface ICanvasItemBase {
   readonly id: IdString
   group: String
   label: String
-  data?: ICanvasItemProperties,
+  properties?: ICanvasItemProperties,
 }
 
 export interface ICanvasItemStates {
@@ -22,11 +22,10 @@ export interface ICanvasLink extends ICanvasItemBase {
 
   readonly sourceId: IdString
   // source?: ICanvasNode
-
   readonly targetId: IdString
   // target?: ICanvasNode
-
   state?: ICanvasItemStates
+
 }
 
 // export interface ICanvasNodeLinksStats {
@@ -49,20 +48,24 @@ export interface ICanvasData {
   links: Map<IdString, ICanvasLink>
 }
 
-export type ICanvasDataEvents = "nodeAdded" | "nodeUpdated" | "nodeDeleted" | "linkAdded" | "linkUpdated" | "linkRemoved";
+export type NodeEventData = { id: IdString, node: ICanvasNode | undefined };
+export type NodeUpdateEventData = { id: IdString, node: ICanvasNode, updatedProperties: ICanvasItemProperties};
 
-export type NodeEventData = { key: IdString, value: ICanvasNode | undefined };
-export type LinkEventData = { key: IdString, value: ICanvasLink | undefined };
+export type LinkEventData = { id: IdString, link: ICanvasLink | undefined };
+export type LinkUpdateEventData = { id: IdString, link: ICanvasLink, updatedProperties: ICanvasItemProperties};
 
 export type NodeEventListener = (data: NodeEventData) => void;
+export type NodeUpdateEventListener = (data: NodeUpdateEventData) => void;
+
 export type LinkEventListener = (data: LinkEventData) => void;
+export type LinkUpdateEventListener = (data: LinkUpdateEventData) => void;
 
 export interface ICanvasDataListeners {
   nodeAdded: NodeEventListener[];
-  nodeUpdated: NodeEventListener[];
+  nodeUpdated: NodeUpdateEventListener[];
   "nodeUpdated:links": NodeEventListener[];
   nodeDeleted: NodeEventListener[];
   linkAdded: LinkEventListener[];
-  linkUpdated: LinkEventListener[];
+  linkUpdated: LinkUpdateEventListener[];
   linkDeleted: LinkEventListener[];
 }

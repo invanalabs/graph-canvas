@@ -31,27 +31,27 @@ export const createComponent = () => {
 
     const data = new CanvasData();
     // add nodeAdded event listener
-    data.on('nodeAdded', ({ key, value }: NodeEventData) => {
-      logAction("nodeAdded", key, value);
+    data.on('nodeAdded', ({ id, node }: NodeEventData) => {
+      logAction("nodeAdded", id, node);
     });
     // add linkAdded event listener
-    data.on('linkAdded', ({ key, value }: LinkEventData) => {
-      logAction("linkAdded", key, value);
+    data.on('linkAdded', ({ id, link }: LinkEventData) => {
+      logAction("linkAdded", id, link);
     });
 
     // add nodeDeleted event listener
-    data.on('nodeDeleted', ({ key, value }: LinkEventData) => {
-      logAction("nodeDeleted", key, value);
+    data.on('nodeDeleted', ({ id, node }: NodeEventData) => {
+      logAction("nodeDeleted", id, node);
     });
 
     // add linkDeleted event listener
-    data.on('linkDeleted', ({ key, value }: LinkEventData) => {
-      logAction("linkDeleted", key, value);
+    data.on('linkDeleted', ({ id, link }: LinkEventData) => {
+      logAction("linkDeleted", id, link);
     });
 
     // add linkDeleted event listener
-    data.on('nodeUpdated:links', ({ key, value }: NodeEventData) => {
-      logAction("nodeUpdated:links", key, value);
+    data.on('nodeUpdated:links', ({ id, node }: NodeEventData) => {
+      logAction("nodeUpdated:links", id, node);
     });
     
     // add data

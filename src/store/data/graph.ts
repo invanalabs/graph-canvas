@@ -3,6 +3,7 @@ import { CanvasNode } from "./nodes"
 import {
   ICanvasLink, ICanvasNode, IdString, ICanvasData,
   ICanvasDataListeners, NodeEventListener, LinkEventListener,
+  ICanvasItemProperties,
 } from "./types"
 import { filerLinksOfNode } from "./utils"
 
@@ -67,16 +68,18 @@ export class CanvasData implements ICanvasData {
     if (!this.nodes.has(node.id)) {
       const nodeInstance = new CanvasNode(node)
       this.nodes.set(node.id, nodeInstance);
-      this.trigger('nodeAdded', { key: node.id, value: nodeInstance });
+      this.trigger('nodeAdded', { key: node.id, properties: nodeInstance });
     } else {
       console.error(`Node with id "${node.id}" already exists.`);
     }
   }
 
-  updateNode(nodeId: IdString, node: CanvasNode) {
+  updateNode(nodeId: IdString, properties: ICanvasItemProperties) {
     if (this.nodes.has(nodeId)) {
-      this.nodes.set(nodeId, node);
-      this.trigger('nodeUpdated', { key: nodeId, value: node });
+      let node = this.nodes.get(nodeId);
+      node?.updateProperties(properties)
+      // node.
+      this.trigger('nodeUpdated', { id: nodeId, node: node, updatedProperties: properties });
     } else {
       console.error(`Node with key "${nodeId}" does not exist.`);
     }

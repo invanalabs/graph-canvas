@@ -19,7 +19,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
     this.sourceId = props.sourceId
     this.targetId = props.targetId
-    
+
     //@ts-ignore
     this.source = props.source 
     //@ts-ignore
