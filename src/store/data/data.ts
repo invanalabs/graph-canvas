@@ -24,7 +24,6 @@ export class CanvasData implements ICanvasData {
 
     this.listeners = {
       nodeAdded: [],
-      nodeUpdated: [],
       "nodeUpdated:links": [],
       "nodeUpdated:properties": [],
       nodeDeleted: [],

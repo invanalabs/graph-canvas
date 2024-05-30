@@ -63,7 +63,7 @@ export type LinkUpdateEventListener = (data: LinkUpdateEventData) => void;
 export interface ICanvasDataListeners {
   nodeAdded: NodeEventListener[];
   "nodeUpdated:links": NodeEventListener[];
-  "nodeUpdated:properties": LinkUpdateEventData[];
+  "nodeUpdated:properties": NodeUpdateEventListener[];
   nodeDeleted: NodeEventListener[];
   linkAdded: LinkEventListener[];
   "linkUpdated:properties": LinkUpdateEventListener[];
