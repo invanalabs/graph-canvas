@@ -18,23 +18,29 @@ export interface ICanvasItemStates {
 }
 
 export interface ICanvasLink extends ICanvasItemBase {
-  source: ICanvasNode | IdString
-  target: ICanvasNode | IdString
 
-  state: ICanvasItemStates
+  readonly sourceId: IdString
+  source?: ICanvasNode
+
+  readonly targetId: IdString
+  target?: ICanvasNode
+
+  state?: ICanvasItemStates
 }
+
+// export interface ICanvasNodeLinksStats {
+//   // 
+//   byDirection: { [key in "incoming" | "outgoing"]: ICanvasLink[] },
+//   // byGroup: ICanvasNodeLinksStats,
+//   all: ICanvasLink[]
+// }
 
 export interface ICanvasNode extends ICanvasItemBase {
   x?: number | undefined
   y?: number | undefined
 
-  state: ICanvasItemStates
-
-  links: ICanvasLink[]
-  degree?: {
-    incoming: number
-    outgoing: number
-  }
+  state?: ICanvasItemStates
+  links?: ICanvasLink[]
 }
 
 export interface ICanvasData {
@@ -44,8 +50,8 @@ export interface ICanvasData {
 
 export type ICanvasDataEvents = "nodeAdded" | "nodeUpdated" | "nodeDeleted" | "linkAdded" | "linkUpdated" | "linkRemoved";
 
-export type NodeEventData = { key: string, value: any };
-export type LinkEventData = { key: string, value: any };
+export type NodeEventData = { key: IdString, value: ICanvasNode | undefined };
+export type LinkEventData = { key: IdString, value: ICanvasLink | undefined };
 
 export type NodeEventListener = (data: NodeEventData) => void;
 export type LinkEventListener = (data: LinkEventData) => void;
@@ -53,6 +59,7 @@ export type LinkEventListener = (data: LinkEventData) => void;
 export interface ICanvasDataListeners {
   nodeAdded: NodeEventListener[];
   nodeUpdated: NodeEventListener[];
+  "nodeUpdated:links": NodeEventListener[];
   nodeDeleted: NodeEventListener[];
   linkAdded: LinkEventListener[];
   linkUpdated: LinkEventListener[];

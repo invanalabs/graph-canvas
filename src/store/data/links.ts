@@ -1,19 +1,28 @@
 import CanvasItemBase from "./base"
 import { defaultICanvasState } from "./defaults"
-import { ICanvasItemStates, ICanvasLink, ICanvasNode, IdString } from "./types"
+import { CanvasNode } from "./nodes"
+import { ICanvasItemStates, ICanvasLink, IdString } from "./types"
 
 
 export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
-  source: ICanvasNode | IdString
-  target: ICanvasNode | IdString
+  readonly sourceId: IdString
+  readonly source: CanvasNode
+
+  readonly targetId: IdString
+  readonly target: CanvasNode
   
-  state: ICanvasItemStates
+  state?: ICanvasItemStates
   
   constructor(props: ICanvasLink){
     super(props);
 
-    this.source = props.source
+    this.sourceId = props.sourceId
+    this.targetId = props.targetId
+    
+    //@ts-ignore
+    this.source = props.source 
+    //@ts-ignore
     this.target = props.target
 
     this.state = props.state ? props.state : defaultICanvasState
