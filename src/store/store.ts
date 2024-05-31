@@ -180,11 +180,11 @@ export class DataStore implements IDataStore {
     }
   }
 
-  getNodes(): ICanvasNode[] {
+  getNodes(): CanvasNode[] {
     return Array.from(this.nodes.values())
   }
 
-  getLinks(): ICanvasLink[] {
+  getLinks(): CanvasLink[] {
     return Array.from(this.links.values())
   }
 

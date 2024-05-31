@@ -1,4 +1,4 @@
-import { ICanvasOptions } from "./types";
+import { ICanvasOptions } from "./types"
 
 const defaultViewDiv: HTMLCanvasElement = document.createElement('canvas')
 defaultViewDiv.width = 800;  // Set the actual width of the canvas
@@ -8,6 +8,7 @@ defaultViewDiv.style.height = '800px'; // Set the CSS height of the canvas
 
 
 export const defaultCanvasOptions: ICanvasOptions = {
+  viewElement: defaultViewDiv,
   background: "#222222",
   resolution: {
     nodes: window.devicePixelRatio,
@@ -15,6 +16,5 @@ export const defaultCanvasOptions: ICanvasOptions = {
     canvas: window.devicePixelRatio, // WARNING - dont change this;
     labels: window.devicePixelRatio
   },
-  viewElement: defaultViewDiv,
   debugMode: true
 }

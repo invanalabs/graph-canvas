@@ -1,9 +1,7 @@
-import GraphCanvas from "../canvas";
-import { ICanvasOptions } from "../canvas/types";
+import { GraphCanvas, ICanvasOptions } from "../canvas";
 
 
-export const createCanvas = (
-) => {
+export const createCanvas = () => {
   const html = document.createElement("div");
 
   const canvasDiv = document.createElement("canvas");
@@ -27,15 +25,4 @@ export const createCanvas = (
   }, false);
   return html
 }
-
-
-
-export const customICanvasOptions = {
-  styles: {
-    nodes: {
-      Person: {
-        size: 40
-      }
-    }
-  }
-} 
+ 

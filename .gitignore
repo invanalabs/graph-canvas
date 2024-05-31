@@ -45,3 +45,4 @@ dist-ssr
 storybook-static/
 
 docs/
+__/

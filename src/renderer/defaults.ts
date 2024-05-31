@@ -1,6 +1,0 @@
-
-
-export const LAYER_GRAPHICS_TYPES_CONSTANTS = {
-  NODES: "NODES",
-  LINKS: "LINKS"
-}
