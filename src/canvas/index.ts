@@ -5,7 +5,7 @@ import { defaultCanvasOptions } from "./defaults";
 import { deepMerge } from "../utils/merge";
 import { IViewElementSize } from "../artboard/types";
 import { Stage } from "@pixi/layers"
-import {DataStore} from "../store/store";
+import {DataStore} from "../store";
 
 /**
    * Generates clean, elegant and interactive data visualisations of connected data.

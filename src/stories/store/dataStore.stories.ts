@@ -2,7 +2,7 @@
 import { createComponent } from './utils';
 
 export default {
-    title: 'Data/Graph',
+    title: 'DataStore/data',
 };
 
 export const Default = () => {
