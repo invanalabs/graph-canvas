@@ -1,3 +1,5 @@
+import { CanvasLink } from "./links";
+import { CanvasNode } from "./nodes";
 
 
 export type IdString = Number | String;
@@ -48,11 +50,11 @@ export interface IDataStore {
   links: Map<IdString, ICanvasLink>
 }
 
-export type NodeEventData = { id: IdString, node: ICanvasNode | undefined };
-export type NodeUpdateEventData = { id: IdString, node: ICanvasNode, updatedProperties: ICanvasItemProperties};
+export type NodeEventData = { id: IdString, node: CanvasNode  };
+export type NodeUpdateEventData = { id: IdString, node: CanvasNode, updatedProperties: ICanvasItemProperties};
 
-export type LinkEventData = { id: IdString, link: ICanvasLink | undefined };
-export type LinkUpdateEventData = { id: IdString, link: ICanvasLink, updatedProperties: ICanvasItemProperties};
+export type LinkEventData = { id: IdString, link: CanvasLink  };
+export type LinkUpdateEventData = { id: IdString, link: CanvasLink, updatedProperties: ICanvasItemProperties};
 
 export type NodeEventListener = (data: NodeEventData) => void;
 export type NodeUpdateEventListener = (data: NodeUpdateEventData) => void;

@@ -32,6 +32,7 @@ export class ArtBoardBase {
     }
   }
 
+  
   createPIXIApp = (): PIXI.Application => {
 
     const { screenWidth, screenHeight } = this.getCanvasSizeOptions()
