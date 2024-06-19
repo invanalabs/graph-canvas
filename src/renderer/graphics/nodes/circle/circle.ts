@@ -37,7 +37,7 @@ class Circle extends NodeShapeBase {
             style: this.data.style
         })
 
-        console.log("===texture", texture)
+        console.log("===texture", this.data.id, texture,)
         if (texture){
           const shapeName = new Sprite(texture['states'][':default']['shapeName'])
           shapeName.name = NodeContainerChildNames.shapeName;

@@ -22,10 +22,10 @@ export const createCanvas = () => {
 
 
     const exampleNodes: ICanvasNode[] = [
-      { id: '1', group: 'Person', label: 'Person-1' },
-      { id: '2', group: 'Person', label: 'Person-2' },
-      { id: '3', group: 'Person', label: 'Person-3' },
-      { id: '4', group: 'Person', label: 'Person-4' },
+      { id: '1', group: 'Person', label: 'Person-1', x: 100, y: 100 },
+      { id: '2', group: 'Person', label: 'Person-2', x: 250, y: 250 },
+      { id: '3', group: 'Person', label: 'Person-3', x: 350, y: 350 },
+      { id: '4', group: 'Person', label: 'Person-4', x: 450, y: 450 },
     
     ];
     

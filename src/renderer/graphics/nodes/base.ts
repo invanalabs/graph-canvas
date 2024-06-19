@@ -230,6 +230,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       //   // this.containerGfx.y = this.data.y;
       // }
       this.shapeGfx = this.drawShape();
+      console.log("====this.shapeGfx ", this.shapeGfx )
       this.containerGfx.addChild(this.shapeGfx);
     }
 

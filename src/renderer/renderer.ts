@@ -2,6 +2,7 @@ import { CanvasLink, CanvasNode } from "../store";
 import { ArtBoard } from "../artBoard/artBoard";
 import TextureStore from "./textureStore";
 import Circle from "./graphics/nodes/circle/circle";
+import { Graphics } from "pixi.js";
 
 
 export class Renderer {
@@ -34,8 +35,6 @@ export class Renderer {
     this.artBoard.viewport.addChild(gfxInstance.containerGfx)
 
     // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
-
-
   }
 
   renderLink(link: CanvasLink) {

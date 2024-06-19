@@ -17,6 +17,7 @@ export class ArtBoardBase {
     this.pixiApp = this.createPIXIApp();
     // setup viewport
     this.viewport = this.createViewport()
+    this.pixiApp.stage.addChild(this.viewport)
   }
 
   getCanvasSizeOptions() {
@@ -57,7 +58,7 @@ export class ArtBoardBase {
 
   createViewport(): Viewport {
     const canvasSizeOptions = this.getCanvasSizeOptions()
-
+    console.log("--canvasSizeOptions", canvasSizeOptions)
     const viewport = new Viewport({
       events: this.pixiApp.renderer.events,
       screenWidth: canvasSizeOptions.screenWidth,
