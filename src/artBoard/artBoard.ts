@@ -23,8 +23,15 @@ export class ArtBoard extends ArtBoardBase {
     this.canvas.dataStore.on('nodeAdded', ({ id, node }: NodeEventData) => {
       console.log("nodeAdded", id, node);
       this.renderer.renderNode(node)
-
     });
+
+    this.canvas.dataStore.on('nodeUpdated:position', ({ id, node }: NodeEventData) => {
+        console.log("nodeAdded", id, node);
+        if (node.x && node.y){
+          node.gfxInstance?.setPosition(node.x, node.y);
+        }
+    });
+
     // add linkAdded event listener
     this.canvas.dataStore.on('linkAdded', ({ id, link }: LinkEventData) => {
       console.log("linkAdded", id, link);

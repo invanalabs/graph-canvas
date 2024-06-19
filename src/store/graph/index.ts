@@ -1,5 +1,4 @@
 export * from "./base"
-export * from "./defaults"
 export * from "../store"
 export * from "./links"
 export * from "./nodes"

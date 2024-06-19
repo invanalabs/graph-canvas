@@ -104,7 +104,7 @@ export default class TextureStore {
       unique_key: unique_key,
       group: props.group,
       states: {
-        "default": defaultStateStyle,
+        ":default": defaultStateStyle,
         ":hovered": hoveredStateStyle,
         ":selected": selectedStateStyle,
 

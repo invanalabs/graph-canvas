@@ -1,159 +1,205 @@
 
 import * as PIXI from 'pixi.js';
-import { GraphCanvas } from '../../canvas';
 import { CanvasLink, CanvasNode } from '../../store';
 import { ILinkStateTypes, INodeStateTypes } from '../types';
+import { ArtBoard } from '../../artBoard';
 
 
-abstract class Shape {
+
+
+// abstract class ShapeStateManagerAbstract {
+
+//     // determines whether this is 
+//     abstract stateName: INodeStateTypes | ILinkStateTypes
+
+//     abstract setState(stateName: INodeStateTypes| ILinkStateTypes): void
+//     // :default
+//     abstract setDefault(): void
+//     // :hover
+//     abstract settHovered(): void
+//     // :selected
+//     abstract setSelected(): void
+//     // :inactive
+//     abstract setInactive():void
+//     // :hidden
+//     abstract setHidden():void
+
+// }
+
+abstract class ShapeAbstractBase {
 
     abstract readonly originalData: CanvasLink | CanvasNode;
     /* latest state of data */
     abstract data: CanvasLink | CanvasNode;
-
-    // determines whether this is 
-    abstract state: INodeStateTypes | ILinkStateTypes
+    abstract state : INodeStateTypes | ILinkStateTypes
 
     /* graphics */
     abstract containerGfx: PIXI.Graphics;
-    abstract labelGfx: PIXI.Graphics;
-    abstract shapeGfx: PIXI.Graphics; 
+    declare labelGfx: PIXI.Graphics | undefined
+    declare shapeGfx: PIXI.Graphics | undefined;
+  
 
     /* this will  */
     abstract processData(data: CanvasLink | CanvasNode): CanvasLink | CanvasNode; 
 
     // drawing
-    abstract drawShape(): PIXI.Graphics;
-    abstract drawLabel(): PIXI.Graphics;
+    abstract drawShape(): PIXI.Graphics  | undefined;
+    abstract drawLabel(): PIXI.Graphics  | undefined;
     abstract draw(drawShape: boolean, drawLabel:boolean): void;
     abstract redraw(): void;
 
-    // position
-    abstract setPosition(x: number, y: number): void;
 
     // delete 
     abstract clear(): void;
     abstract destroy(): void;
 
     // events and triggers
-    abstract setupInteractions(): void;
-
-    // set States
+    abstract setupInteractionTriggers(): void;
+    abstract setState(state: INodeStateTypes| ILinkStateTypes): void
     // :default
-    abstract setDefault(): void
+    abstract triggerDefault(): void
     // :hover
-    abstract setHover(): void
-    // abstract setUnHover(): void
+    abstract triggerHovered(): void
+    abstract triggerUnHovered(): void
     // :selected
-    abstract setSelected(): void
-    // abstract setUnSelected(): void
+    abstract triggerSelected(): void
+    abstract triggerUnSelected(): void
     // :inactive
-    abstract setInactive():void
-    // abstract unSetInactive(): void
+    abstract triggerInactive():void
     // :hidden
-    abstract setHidden():void
-    // abstract unSetHidden():void
+    abstract triggerHidden():void
 
-    abstract setState
+
+    // layers - front, data, map 
+    abstract moveToFrontLayer(): void
+    abstract moveToDataLayer(): void
+    abstract moveToMapLayer(): void
+
+
 }
 
 
-export abstract class BaseShape extends Shape {
-    /*
-        this is the base shapeName for the Shape and the LabelShape
-    */
-    originalData: CanvasLink | CanvasNode
-    declare data: CanvasLink | CanvasNode;
-    containerGfx: PIXI.Graphics;
-    canvas: GraphCanvas
-    declare labelGfx: PIXI.Graphics;
-    declare shapeGfx: PIXI.Graphics; 
-    declare shapeHoveredGfx : PIXI.Graphics;
 
-    constructor(data: CanvasLink | CanvasNode, canvas: GraphCanvas) {
+
+
+export abstract class ShapeAbstract extends ShapeAbstractBase {
+    
+    originalData: CanvasNode | CanvasLink
+    artBoard: ArtBoard
+    containerGfx: PIXI.Graphics;
+
+    // for state based graphics :hovered and :selected
+    declare shapeHoveredGfx : PIXI.Graphics;
+    declare shapeSelectedGfx : PIXI.Graphics;
+
+
+    constructor(data: CanvasNode | CanvasLink, artBoard: ArtBoard) {
         super()
         this.originalData = data
-        this.canvas = canvas;
+        this.artBoard = artBoard;
         this.containerGfx = new PIXI.Graphics()
         // in v8; { isRenderGroup:true} // this containers transform is now handled on the GPU!
         // Make the containerGfx interactive...
-        this.containerGfx.cursor = 'pointer';
+        // this.containerGfx.cursor = 'pointer';
         // this.containerGfx.eventMode = 'static';
     }
 
-    processData = (data: CanvasLink | CanvasNode): CanvasLink | CanvasNode => {
-         console.error("BaseShape.processData triggered but not implemented") 
-         return data;
-    }
-    setupInteractions() { console.error("BaseShape.setupInteractions triggered") }
-    pointerOver() { console.error("BaseShape.pointerOver not implemented") }
-    pointerOut() { console.error("BaseShape.pointerOut not implemented") }
-
-    moveToFrontLayer() { console.error("BaseShape.moveToFrontLayer not implemented") }
-    moveToDataLayer() { console.error("BaseShape.moveToDataLayer not implemented") }
-
-
-    drawLabel = (): PIXI.Graphics => {
-        console.debug("BaseShape.drawLabel not defined")
-        return new PIXI.Graphics()
-    }
-
-    drawShape = (): PIXI.Graphics => {
-        console.error("BaseShape.drawShape not implemented")
-        return new PIXI.Graphics()
-    }
-
-    draw(renderShape=true, renderLabel=true) {
-        console.error("BaseShape.draw not implemented", renderShape, renderLabel)
-    }
-
-    redraw = (renderShape=true, renderLabel=true) => {
-        console.log("redraw ")
-        // this.clear();
-        this.draw(renderShape, renderLabel);
-    }
-
     clear = () => {
-        console.log("BaseShape.clear triggered")
+        console.log("ShapeAbstract.clear triggered")
         this.containerGfx.removeChildren();
     }
 
-    setGfxPosition = (x: number, y: number) => {
-        this.containerGfx.position.set(x, y);
-    }
-
-
-
-    clearStates(){
-        // if ()
-        // this.setUnHover();
-        // this.setUnSelected();
-        // this.unSetInactive();
-    }
 
     setState(stateName: INodeStateTypes | ILinkStateTypes){
         if (stateName === ":default"){
-            this.clearStates();
+            this.triggerDefault();
         }
         else if (stateName === ":hovered"){
-            this.clearStates();
-            this.setHover()
+            // this.clearStates();
+            this.triggerHovered()
         }
         else if (stateName === ":selected"){
-            this.clearStates();
-            this.setSelected()
+            // this.clearStates();
+            this.triggerSelected()
         }
         else if (stateName === ":inactive"){
-            this.clearStates();
-            this.setInactive()
+            // this.clearStates();
+            this.triggerInactive()
         }
         else if (stateName === ":hidden"){
-            this.clearStates();
-            this.setInactive()
+            // this.clearStates();
+            this.triggerHidden()
         }
     }
 
 }
 
 
-export default BaseShape;
+
+
+export abstract class NodeShapeAbstract extends ShapeAbstract {
+
+    declare readonly originalData: CanvasNode;
+    /* latest state of data */
+    declare data: CanvasNode;
+
+    // determines whether this is 
+    declare state: INodeStateTypes
+
+    /* this will  */
+    abstract processData(data:  CanvasNode):  CanvasNode; 
+
+    // set position of node 
+    setPosition(x: number, y: number){
+        this.containerGfx.position.set(x, y);
+    }
+
+    abstract triggerHoveredOnNeighbors(): void
+    abstract triggerUnHoveredOnNeighbors(): void
+
+    abstract triggerSelectedOnNeighbors(): void
+    abstract triggerUnSelectedOnNeighbors(): void
+
+    abstract onDragStart(event: PIXI.FederatedPointerEvent): void
+    abstract onDragMove(event: PIXI.FederatedPointerEvent): void
+    abstract onDragEnded(event: PIXI.FederatedPointerEvent): void
+
+
+    setState(stateName: INodeStateTypes ){
+        if (stateName === ":default"){
+            this.triggerDefault();
+        }
+        else if (stateName === ":hovered"){
+            // this.clearStates();
+            this.triggerHovered()
+        }
+        else if (stateName === ":selected"){
+            // this.clearStates();
+            this.triggerSelected()
+        }
+        else if (stateName === ":inactive"){
+            // this.clearStates();
+            this.triggerInactive()
+        }
+        else if (stateName === ":hidden"){
+            // this.clearStates();
+            this.triggerHidden()
+        }
+    }
+
+}
+
+
+export abstract class LinkShapeAbstract extends ShapeAbstract {
+
+    declare readonly originalData: CanvasLink;
+    /* latest state of data */
+    declare data: CanvasLink;
+
+    // determines whether this is 
+    declare state: ILinkStateTypes
+
+    /* this will  */
+    abstract processData(data:  CanvasLink):  CanvasLink; 
+
+}

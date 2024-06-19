@@ -1,7 +1,7 @@
+import { ILinkStateTypes } from "../../renderer/types"
 import CanvasItemBase from "./base"
-import { defaultICanvasState } from "./defaults"
 import { CanvasNode } from "./nodes"
-import { ICanvasItemStates, ICanvasLink, IdString } from "./types"
+import {  ICanvasLink, IdString } from "./types"
 
 
 export class CanvasLink extends CanvasItemBase implements ICanvasLink {
@@ -12,7 +12,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
   readonly targetId: IdString
   readonly target: CanvasNode
   
-  state?: ICanvasItemStates
+  state?: ILinkStateTypes
   
   constructor(props: ICanvasLink){
     super(props);
@@ -25,7 +25,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
     //@ts-ignore
     this.target = props.target
 
-    this.state = props.state ? props.state : defaultICanvasState
+    this.state = props.state ? props.state : ":default"
   }
 
 }

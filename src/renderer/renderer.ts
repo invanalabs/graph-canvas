@@ -1,6 +1,7 @@
 import { CanvasLink, CanvasNode } from "../store";
 import { ArtBoard } from "../artBoard/artBoard";
 import TextureStore from "./textureStore";
+import Circle from "./graphics/nodes/circle/circle";
 
 
 export class Renderer {
@@ -27,6 +28,11 @@ export class Renderer {
 
   renderNode(node: CanvasNode) {
     console.debug("Renderer.renderNode triggered ", node)
+    const gfxInstance =  new Circle(node, this.artBoard)
+    gfxInstance.draw()     
+    this.artBoard.viewport.addChild(gfxInstance.containerGfx)
+
+    // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
 
 
   }

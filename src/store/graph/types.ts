@@ -1,8 +1,9 @@
+import { ILinkStateTypes, INodeStateTypes } from "../../renderer/types";
 import { CanvasLink } from "./links";
 import { CanvasNode } from "./nodes";
 
 
-export type IdString = Number | String;
+export type IdString = Number | string;
 
 export type ICanvasItemProperties = {
   [key: string]: any;
@@ -10,15 +11,15 @@ export type ICanvasItemProperties = {
 
 export interface ICanvasItemBase {
   readonly id: IdString
-  group: String
-  label: String
+  group: string
+  label: string
   properties?: ICanvasItemProperties,
 }
 
-export interface ICanvasItemStates {
-  selected: boolean
-  hovered: boolean
-}
+// export interface ICanvasItemStates {
+//   selected: boolean
+//   hovered: boolean
+// }
 
 export interface ICanvasLink extends ICanvasItemBase {
 
@@ -26,7 +27,9 @@ export interface ICanvasLink extends ICanvasItemBase {
   // source?: ICanvasNode
   readonly targetId: IdString
   // target?: ICanvasNode
-  state?: ICanvasItemStates
+  // state?: ICanvasItemStates
+  state?: ILinkStateTypes
+
 
 }
 
@@ -41,7 +44,7 @@ export interface ICanvasNode extends ICanvasItemBase {
   x?: number | undefined
   y?: number | undefined
 
-  state?: ICanvasItemStates
+  state?: INodeStateTypes
   // links?: CanvasLink[]
 }
 
@@ -66,6 +69,7 @@ export interface IDataStoreListeners {
   nodeAdded: NodeEventListener[];
   "nodeUpdated:links": NodeEventListener[];
   "nodeUpdated:properties": NodeUpdateEventListener[];
+  "nodeUpdated:position": NodeUpdateEventListener[];
   nodeDeleted: NodeEventListener[];
   linkAdded: LinkEventListener[];
   "linkUpdated:properties": LinkUpdateEventListener[];

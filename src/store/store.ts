@@ -25,6 +25,7 @@ export class DataStore implements IDataStore {
     this.listeners = {
       nodeAdded: [],
       "nodeUpdated:links": [],
+      "nodeUpdated:position": [],
       "nodeUpdated:properties": [],
       nodeDeleted: [],
       linkAdded: [],
@@ -74,6 +75,19 @@ export class DataStore implements IDataStore {
     }
   }
 
+  moveNodeTo(nodeId: IdString, x: number, y: number) {
+    console.debug("Updating position of node ", nodeId, x, y)
+    let node: CanvasNode | undefined = this.nodes.get(nodeId);
+    if (node) {
+        node.x = x;
+        node.y = y;
+        // TODO - trigger new event callled node:
+        this.nodes.set(nodeId, node)
+        // node.gfxInstance?.setPosition(x, y);
+        this.trigger('nodeUpdated:position', { id: node.id, node: node });
+    }
+}
+
   updateNodeProperties(nodeId: IdString, properties: ICanvasItemProperties) {
     let node = this.nodes.get(nodeId);
     if (node) {
@@ -106,17 +120,18 @@ export class DataStore implements IDataStore {
     return this.nodes.get(key);
   }
 
-  private reCalcNodeLinks(nodeId: IdString){
+  private reCalcNodeLinks(nodeId: IdString) {
     console.debug("reCalcNodeLinks", nodeId, this.links)
     let node = this.nodes.get(nodeId)
-    if (node){
+    if (node) {
       const links = filerLinksOfNode(nodeId, this.links)
       console.debug("====reCalcNodeLinks links", links)
       node.setLinks(links);
+      node.setNeighbors(this.getNeighbors(nodeId))
       console.debug("====reCalcNodeLinks node.links", node.links)
       this.nodes.set(nodeId, node)
-      this.trigger('nodeUpdated:links', {id: node.id, node: node})
-    }else{
+      this.trigger('nodeUpdated:links', { id: node.id, node: node })
+    } else {
       console.error(`${nodeId} doesnt exist in nodes, so can't reCalcNodeLinks`)
     }
   }
@@ -132,7 +147,7 @@ export class DataStore implements IDataStore {
       } else {
         throw Error(`${link.sourceId} not found in nodes: ${this.nodes} `)
       }
-  
+
       // attach targetInstance using targetId
       const targetNode = this.nodes.get(link.targetId);
       if (targetNode) {
@@ -141,7 +156,7 @@ export class DataStore implements IDataStore {
       } else {
         throw Error(`${link.targetId} not found in node: ${this.nodes} `)
       }
-    
+
       // create CanvasLink
       const linkInstance = new CanvasLink(link)
       this.links.set(link.id, linkInstance);
@@ -204,7 +219,34 @@ export class DataStore implements IDataStore {
 
     // // calculate links for the nodes
     // nodes.forEach(node => this.reCalcNodeLinks(node.id))
-    
+
+  }
+
+  // getNeighborLinks(nodeId: IdString): CanvasLink[] {
+  //   return this.getLinks().filter(link => link.source.id === nodeId || link.target.id === nodeId);
+  // }
+
+  /*
+  get both neighbor nodes and links for a given nodeIf
+  */
+  getNeighbors(nodeId: IdString): { nodes: CanvasNode[], links: CanvasLink[] } {
+    let neighborLinks: CanvasLink[] = [];
+    const relatedNodes: Map<IdString, CanvasNode> = new Map();
+    const _this = this;
+
+    filerLinksOfNode(nodeId, this.links).forEach(link => {
+        neighborLinks.push(link);
+        const source = _this.nodes.get(link.sourceId)
+        if (source){
+          relatedNodes.set(link.sourceId, source);
+        }
+        const target = _this.nodes.get(link.targetId)
+        if (target){
+          relatedNodes.set(link.targetId, target);
+        }
+    });
+    const neighbors = { nodes: Array.from(relatedNodes.values()), links: neighborLinks };
+    return neighbors
   }
 
 }
