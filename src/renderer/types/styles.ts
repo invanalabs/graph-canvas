@@ -1,7 +1,6 @@
 
 
-
-export type BorderType = 'solid' | 'dotted'; 
+export type BorderType = 'solid' | 'dotted';
 
 
 /* generic */

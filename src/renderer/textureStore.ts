@@ -128,7 +128,7 @@ export default class TextureStore {
     }
   }
 
-  // createLinkTexture = (linkStyle: LinkStyleType) => {
+  // createLinkTexture = (linkStyle: ILinkStyle) => {
 
   // }
 }
