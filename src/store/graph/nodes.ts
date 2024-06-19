@@ -20,8 +20,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   constructor(props: ICanvasNode){
     super(props)
     // position
-    this.x = props.x
-    this.y = props.y
+    this.x = props.x || 0
+    this.y = props.y || 0
 
     this.state = props.state ? props.state : ":default"
     this.links  =  []

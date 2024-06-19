@@ -30,6 +30,7 @@ export class Renderer {
     console.debug("Renderer.renderNode triggered ", node)
     const gfxInstance =  new Circle(node, this.artBoard)
     gfxInstance.draw()     
+    console.debug("Renderer.renderNode after .draw triggered ", node, gfxInstance)
     this.artBoard.viewport.addChild(gfxInstance.containerGfx)
 
     // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
