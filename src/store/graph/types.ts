@@ -12,7 +12,7 @@ export type ICanvasItemProperties = {
 export interface ICanvasItemBase {
   readonly id: IdString
   group: string
-  label: string
+  label: string | undefined
   properties?: ICanvasItemProperties,
 }
 
