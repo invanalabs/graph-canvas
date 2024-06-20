@@ -1,11 +1,11 @@
 import { Graphics, Circle } from "pixi.js"
-import { ShapeBackgroundType, ShapeBorderType } from "../../types"
+import { IShapeBgStyle, IShapeBorderStyle } from "../../types"
 
 
 export interface DrawCirclePrimitiveType {
     size: number
-    background: ShapeBackgroundType
-    border?: ShapeBorderType
+    background: IShapeBgStyle
+    border?: IShapeBorderStyle
 }
 
 

@@ -1,32 +1,32 @@
 
 
-export type BorderType = 'solid' | 'dotted';
+export type IBorderStyle = 'solid' | 'dotted';
 
 
 /* generic */
-export interface ShapeBackgroundType {
+export interface IShapeBgStyle {
   color: string | number
   opacity: number
 }
 
-export interface ShapeBorderType {
+export interface IShapeBorderStyle {
   thickness: number
   color: string | number
-  type: BorderType
+  type: IBorderStyle
   opacity?: null | number
 }
 
-export interface ShapeFontType {
+export interface IShapeFontStyle {
   family : string
   size: number
 }
 
-export interface TextType {
+export interface ITextStyle {
   color: string | number
-  font : ShapeFontType
+  font : IShapeFontStyle
 }
 
-export interface IconType extends TextType {
+export interface IIconStyle extends ITextStyle {
   content: string | number
 }
 
@@ -35,22 +35,22 @@ export interface ILinkShapeStyle {
   opacity: number
   thickness: number
   color: string | number
-  type: BorderType
+  type: IBorderStyle
 }
 
 /* for nodes */
 export interface IShapeLabelStyle {
-  background: ShapeBackgroundType
-  border: ShapeBorderType
-  text: TextType
+  background: IShapeBgStyle
+  border: IShapeBorderStyle
+  text: ITextStyle
   padding : number
   resolution?: number
 }
 
 export interface INodeShapeStyle {
-  background: ShapeBackgroundType
-  border: ShapeBorderType
-  icon: IconType
+  background: IShapeBgStyle
+  border: IShapeBorderStyle
+  icon: IIconStyle
 }
 
 
