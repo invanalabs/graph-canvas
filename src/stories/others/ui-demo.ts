@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 
 
 const meta = {
-  title: 'Test/Hello',
+  title: 'Other/UI Demo',
   render: () => document.createElement("div").innerHTML = "<h1>Hello World</h1>" ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout

@@ -1,8 +1,12 @@
 import { GraphCanvas, ICanvasOptions } from "../canvas";
 import { ICanvasLink, ICanvasNode } from "../store";
+import D3ForceLayout from "./layouts/d3-force/layout";
+import DagreLayout from "./layouts/dagre/layout";
 
 
-export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasOptions?: ICanvasOptions) => {
+export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasOptions?: ICanvasOptions,
+  layout: null | 'd3-force' | 'dagre' = null
+) => {
   const html = document.createElement("div");
 
   const canvasDiv = document.createElement("canvas");
@@ -13,17 +17,30 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
   document.addEventListener("DOMContentLoaded", function (event) {
     console.log("=DOM is ready", event,)
-    const options: ICanvasOptions = (canvasOptions) ? { ...canvasOptions,  viewElement: canvasDiv}  : {
+    const options: ICanvasOptions = (canvasOptions) ? { ...canvasOptions, viewElement: canvasDiv } : {
       viewElement: canvasDiv,
       debugMode: true
     }
     console.log("====options", options)
     const canvas = new GraphCanvas(options);
+
+
+
     // canvas.start_drawing()
     canvas.dataStore.add(nodes, links)
+
+
+    if (layout === 'd3-force') {
+      const layoutInstance = new D3ForceLayout(canvas);
+      layoutInstance?.add2Layout(nodes, links);
+    }
+    else if (layout === 'dagre') {
+      const layoutInstance = new DagreLayout(canvas);
+      layoutInstance?.add2Layout(nodes, links);
+    }
+
     // canvas.camera.fitView();
     // canvas.camera.moveNodesToWorldCenter();
   }, false);
   return html
 }
- 

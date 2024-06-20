@@ -2,7 +2,7 @@
 import { createComponent } from './utils';
 
 export default {
-    title: 'DataStore/data',
+    title: 'DataStore/Events',
 };
 
 export const Default = () => {

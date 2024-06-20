@@ -10,9 +10,9 @@ export type ICanvasItemProperties = {
 }
 
 export interface ICanvasItemBase {
-  readonly id: IdString
+  readonly id: IdString | string
   group: string
-  label: string | undefined
+  label?: string | undefined
   properties?: ICanvasItemProperties,
 }
 
@@ -23,10 +23,10 @@ export interface ICanvasItemBase {
 
 export interface ICanvasLink extends ICanvasItemBase {
 
-  readonly source: IdString | CanvasNode
+  readonly source: IdString | CanvasNode | string
   // source?: CanvasNode
   // readonly targetId: IdString
-  readonly target: IdString |  CanvasNode
+  readonly target: IdString |  CanvasNode | string
   // state?: ICanvasItemStates
   state?: ILinkStateTypes
 
