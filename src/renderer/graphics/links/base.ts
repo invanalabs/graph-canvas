@@ -91,16 +91,16 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   triggerHoveredOnNeighbors = () => {
     console.log("=triggerHoveredOnNeighbors triggered")
-    this.artBoard.canvas.dataStore.nodes.get(this.data.sourceId)?.gfxInstance?.triggerHovered()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.targetId)?.gfxInstance?.triggerHovered()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHovered()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHovered()
     this.data.gfxInstance?.triggerHovered()
 
   }
 
   triggerUnHoveredOnNeighbors = () => {
     console.log("=triggerUnHoveredOnNeighbors triggered")
-    this.artBoard.canvas.dataStore.nodes.get(this.data.sourceId)?.gfxInstance?.triggerUnHovered()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.targetId)?.gfxInstance?.triggerUnHovered()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHovered()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHovered()
     this.data.gfxInstance?.triggerUnHovered()
   }
 
@@ -128,15 +128,15 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   triggerSelectedOnNeighbors = () => {
     console.log("=triggerSelectedOnNeighbors triggered")
-    this.artBoard.canvas.dataStore.nodes.get(this.data.sourceId)?.gfxInstance?.triggerSelected()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.targetId)?.gfxInstance?.triggerSelected()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerSelected()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerSelected()
     this.data.gfxInstance?.triggerSelected()
   }
 
   triggerUnSelectedOnNeighbors = () => {
     console.log("=triggerUnSelectedOnNeighbors triggered")
-    this.artBoard.canvas.dataStore.nodes.get(this.data.sourceId)?.gfxInstance?.triggerUnSelected()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.targetId)?.gfxInstance?.triggerUnSelected()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnSelected()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnSelected()
     this.data.gfxInstance?.triggerUnSelected()
   }
 
@@ -253,7 +253,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       this.calcLabelPosition(this.labelGfx, this.shapeGfx)
     }
 
-    // this.setState(this.data.state)
+    this.setState(this.data.state)
   }
 
 

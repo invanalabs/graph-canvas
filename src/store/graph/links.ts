@@ -7,10 +7,10 @@ import {  ICanvasLink, IdString } from "./types"
 
 export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
-  readonly sourceId: IdString
+  // readonly sourceId: IdString
   readonly source: CanvasNode
 
-  readonly targetId: IdString
+  // readonly targetId: IdString
   readonly target: CanvasNode
   
   state?: ILinkStateTypes
@@ -20,10 +20,6 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
   
   constructor(props: ICanvasLink){
     super(props);
-
-    this.sourceId = props.sourceId
-    this.targetId = props.targetId
-
     //@ts-ignore
     this.source = props.source 
     //@ts-ignore
