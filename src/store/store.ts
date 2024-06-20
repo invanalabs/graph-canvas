@@ -139,22 +139,26 @@ export class DataStore implements IDataStore {
   addLink(link: ICanvasLink) {
 
     if (!this.links.has(link.id)) {
+
       // attach sourceInstance using sourceId
-      const sourceNode = this.nodes.get(link.sourceId)
+      const sourceId = link.source instanceof CanvasNode ? link.source.id : link.source
+      const sourceNode = this.nodes.get(sourceId);
+
       if (sourceNode) {
         //@ts-ignore
         link.source = sourceNode
       } else {
-        throw Error(`${link.sourceId} not found in nodes: ${this.nodes} `)
+        throw Error(`${sourceId} not found in nodes: ${this.nodes} `)
       }
 
       // attach targetInstance using targetId
-      const targetNode = this.nodes.get(link.targetId);
+      const targetId = link.target instanceof CanvasNode ? link.target.id : link.target
+      const targetNode = this.nodes.get(targetId);
       if (targetNode) {
         //@ts-ignore
         link.target = targetNode
       } else {
-        throw Error(`${link.targetId} not found in node: ${this.nodes} `)
+        throw Error(`${targetId} not found in node: ${this.nodes} `)
       }
 
       // create CanvasLink

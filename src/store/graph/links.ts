@@ -34,4 +34,5 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
     this.state = props.state ? props.state : ":default"
   }
 
+
 }

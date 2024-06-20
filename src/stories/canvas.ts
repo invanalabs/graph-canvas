@@ -2,7 +2,7 @@ import { GraphCanvas, ICanvasOptions } from "../canvas";
 import { ICanvasLink, ICanvasNode } from "../store";
 
 
-export const createCanvas = () => {
+export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasOptions?: ICanvasOptions) => {
   const html = document.createElement("div");
 
   const canvasDiv = document.createElement("canvas");
@@ -13,32 +13,13 @@ export const createCanvas = () => {
 
   document.addEventListener("DOMContentLoaded", function (event) {
     console.log("=DOM is ready", event,)
-    const canvasOptions: ICanvasOptions = {
+    const options: ICanvasOptions = canvasOptions ? canvasOptions : {
       viewElement: canvasDiv,
       debugMode: true
     }
-    const canvas = new GraphCanvas(canvasOptions);
-    canvas.draw()
-
-
-    const exampleNodes: ICanvasNode[] = [
-      { id: '1', group: 'Person', label: 'Person-1', x: 100, y: 100 },
-      { id: '2', group: 'Person', label: 'Person-2', x: 250, y: 250 },
-      { id: '3', group: 'Person', label: 'Person-3', x: 350, y: 350 },
-      { id: '4', group: 'Person', label: 'Person-4', x: 450, y: 450 },
-    
-    ];
-    
-    const exampleLinks: ICanvasLink[] = [
-      { id: '1-2', group: 'authored', label: 'default-1-2', sourceId: '1', targetId: '2' },
-      { id: '1-2.1', group: 'authored', label: 'default-1-2.1', sourceId: '1', targetId: '2' },
-      { id: '2-3', group: 'authored', label: 'default-2-3', sourceId: '2', targetId: '3' },
-      { id: '2-4', group: 'authored', label: 'default-2-4', sourceId: '2', targetId: '4' },
-      { id: '3-4', group: 'authored', label: 'default-3-4', sourceId: '3', targetId: '4' },
-    ];
-    
-
-    canvas.dataStore.add(exampleNodes, exampleLinks)
+    const canvas = new GraphCanvas(options);
+    // canvas.start_drawing()
+    canvas.dataStore.add(nodes, links)
     // canvas.camera.fitView();
     // canvas.camera.moveNodesToWorldCenter();
   }, false);

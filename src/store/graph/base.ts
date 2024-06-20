@@ -7,7 +7,7 @@ export default class CanvasItemBase implements ICanvasItemBase {
 
   readonly id: IdString
   group: string
-  label: string
+  label: string | undefined
   properties?: ICanvasItemProperties
 
   gfxInstance: NodeShapeBase | LinkShapeBase | null
@@ -15,7 +15,8 @@ export default class CanvasItemBase implements ICanvasItemBase {
   constructor(props: ICanvasItemBase) {
     this.id = props.id
     this.group = props.group
-    this.label = props.label ? props.label : "Anonymous"
+    // this.label = props.label ? props.label : `Anonymous - ${this.id}`
+    this.label = props.label ? props.label : undefined
     this.properties = props?.properties ? props.properties : {}
     this.gfxInstance = null
   }

@@ -1,5 +1,7 @@
 // import { ICanvas } from "pixi.js";
 
+import { GraphicsStyles } from "../renderer/types"
+
 export interface ICanvasOptions {
   viewElement: HTMLCanvasElement //HTMLDivElement // 
   background?: string | number // use hex instead of number
@@ -10,4 +12,6 @@ export interface ICanvasOptions {
     labels: number
   }
   debugMode?: boolean
+  styles?: GraphicsStyles
+
 }

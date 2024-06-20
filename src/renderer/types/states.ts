@@ -1,5 +1,5 @@
 import { ILinkShapeStyle, INodeShapeStyle, IShapeLabelStyle } from "./styles";
-
+// TODO - merge this to styles.ts, both are styles anyways except, INodeStateTypes, ILinkStateTypes
 
 export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':inactive' | ':hidden'; 
 export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':inactive' | ':hidden';
@@ -20,4 +20,29 @@ export interface ILinkStyle {
   states: {
       [key in  ILinkStateTypes] : ILinkStyle
   }
+}
+
+
+export interface NodeStyleMapType {
+  [key: string]: INodeStyle
+}
+
+export interface LinkStyleMapType {
+  [key: string]: ILinkStyle
+}
+
+export interface GraphicsStyles {
+  nodes: NodeStyleMapType
+  links: LinkStyleMapType
+  defaultNodeStyle: INodeStyle
+  defaultLinkStyle: ILinkStyle
+}
+
+
+export interface ExtraSettings {
+  // size
+  nodeSizeBasedOn : 'degree' | 'default'
+  // color
+  nodeColorBasedOn : 'group' | 'default'
+  linkColorBasedOn : 'group' | 'default'
 }

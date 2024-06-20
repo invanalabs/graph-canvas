@@ -24,8 +24,8 @@ export class GraphCanvas {
     this.artBoard = new ArtBoard(this)
   }
 
-  draw(){
+  // start_drawing(){
 
-  }
+  // }
 
 }

@@ -23,10 +23,10 @@ export interface ICanvasItemBase {
 
 export interface ICanvasLink extends ICanvasItemBase {
 
-  readonly sourceId: IdString
-  // source?: ICanvasNode
-  readonly targetId: IdString
-  // target?: ICanvasNode
+  readonly source: IdString | CanvasNode
+  // source?: CanvasNode
+  // readonly targetId: IdString
+  readonly target: IdString |  CanvasNode
   // state?: ICanvasItemStates
   state?: ILinkStateTypes
 
