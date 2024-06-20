@@ -39,31 +39,31 @@ class Circle extends NodeShapeBase {
 
         console.log("===texture", this.data.id, texture,)
         if (texture){
-          const shapeName = new Sprite(texture['states'][':default']['shapeName'])
-          shapeName.name = NodeContainerChildNames.shapeName;
-          shapeName.x = -shapeName.width / 2;
-          shapeName.y = -shapeName.height / 2;
+          const shape = new Sprite(texture['states'][':default'].shape)
+          shape.name = NodeContainerChildNames.shapeName;
+          shape.x = -shape.width / 2;
+          shape.y = -shape.height / 2;
           
           // draw hover graphics
-          const shapeHoveredBorder = new Sprite(texture['states'][':hovered']['shapeName'])
-          shapeHoveredBorder.x = -(shapeHoveredBorder.width - shapeName.width) / 2;
-          shapeHoveredBorder.y = -(shapeHoveredBorder.height - shapeName.height) / 2;
+          const shapeHoveredBorder = new Sprite(texture['states'][':hovered'].shape)
+          shapeHoveredBorder.x = -(shapeHoveredBorder.width - shape.width) / 2;
+          shapeHoveredBorder.y = -(shapeHoveredBorder.height - shape.height) / 2;
           shapeHoveredBorder.visible = false
           shapeHoveredBorder.name = NodeContainerChildNames.shapeHoveredBorder
-          shapeName.addChild(shapeHoveredBorder)
+          shape.addChild(shapeHoveredBorder)
   
           // draw selected graphics
-          const shapeSelectedBorder = new Sprite(texture['states'][':selected']['shapeName'])
-          shapeSelectedBorder.x =  -(shapeSelectedBorder.width - shapeName.width) / 2;
-          shapeSelectedBorder.y = -(shapeSelectedBorder.height - shapeName.height) / 2;
+          const shapeSelectedBorder = new Sprite(texture['states'][':selected'].shape)
+          shapeSelectedBorder.x =  -(shapeSelectedBorder.width - shape.width) / 2;
+          shapeSelectedBorder.y = -(shapeSelectedBorder.height - shape.height) / 2;
           shapeSelectedBorder.visible = false
           shapeSelectedBorder.name = NodeContainerChildNames.shapeSelectedBorder
-          shapeName.addChild(shapeSelectedBorder)
+          shape.addChild(shapeSelectedBorder)
   
-          shapeName.cursor = "pointer";
-          shapeName.eventMode = 'static';// this will allow it to respond to mouse and touch events 
-          // shapeName.hitArea = new Circle(0, 0, this.data.style?.shapeName.size);
-          return shapeName
+          shape.cursor = "pointer";
+          shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
+          // shape.hitArea = new Circle(0, 0, this.data.style?.shape.size);
+          return shape
   
         }else{
           console.error("Failed to fetch texture for the data : ", this.data)

@@ -31,7 +31,7 @@ export interface IconType extends TextType {
 }
 
 /* for links */
-export interface LinkShapeType {
+export interface ILinkShapeStyle {
   opacity: number
   thickness: number
   color: string | number
@@ -39,7 +39,7 @@ export interface LinkShapeType {
 }
 
 /* for nodes */
-export interface ShapeLabelType {
+export interface IShapeLabelStyle {
   background: ShapeBackgroundType
   border: ShapeBorderType
   text: TextType
@@ -47,7 +47,7 @@ export interface ShapeLabelType {
   resolution?: number
 }
 
-export interface NodeShapeType {
+export interface INodeShapeStyle {
   background: ShapeBackgroundType
   border: ShapeBorderType
   icon: IconType

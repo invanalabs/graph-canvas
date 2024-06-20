@@ -1,8 +1,8 @@
 import { Graphics, Point, Polygon} from "pixi.js"
-import { LinkShapeType } from "../../types";
+import { ILinkShapeStyle } from "../../types";
 
 
-export interface DrawLinkPrimitiveType extends LinkShapeType {
+export interface DrawLinkPrimitiveType extends ILinkShapeStyle {
     // type : 
     startPoint : Point 
     endPoint : Point

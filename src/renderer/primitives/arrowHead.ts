@@ -1,10 +1,10 @@
 import { Graphics, Point } from "pixi.js"
-import { LinkShapeType } from "../types/styles"
+import { ILinkShapeStyle } from "../types/styles"
 
-export interface DrawArrowPrimitiveType extends LinkShapeType {
+export interface DrawArrowPrimitiveType extends ILinkShapeStyle {
     startPoint : Point 
     endPoint : Point
-    gfx: Graphics
+    // gfx: Graphics
 }
 
 

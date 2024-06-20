@@ -7,7 +7,7 @@ import { ArtBoard } from "../artBoard";
 class INodeStateTexture {
   // default
   declare label?: Texture;
-  declare shapeName: Texture;
+  declare shape: Texture;
 }
 
 
@@ -26,7 +26,7 @@ export interface INodeStateTexturesMap {
 
 export default class TextureStore {
   /*
-      this will create textures for each node shapeName type
+      this will create textures for each node shape type
   */
   // use unique_key field of INodeStateTexturesMap as the key
   texturesMap: Map<string, INodeStateTexturesMap>  // string is `unique_key` which is `group+size`
@@ -58,12 +58,12 @@ export default class TextureStore {
   
 
     // default textures
-    // default - shapeName
+    // default - shape
     let defaultStateStyle: INodeStateTexture = {
-      shapeName: this.createNodeShapeTexture({
+      shape: this.createNodeShapeTexture({
         size: defaultStyle.size,
-        background: defaultStyle?.shapeName.background,
-        border: defaultStyle?.shapeName.border
+        background: defaultStyle?.shape.background,
+        border: defaultStyle?.shape.border
       })
     }
     // default - label
@@ -73,30 +73,30 @@ export default class TextureStore {
     // })
 
     // hovered textures 
-    // hovered - shapeName
+    // hovered - shape
     const hoveredPadding = 0;
     const hoveredStyle = props.style?.states[':hovered'];
 
     let hoveredStateStyle: INodeStateTexture = {
-      shapeName: this.createNodeShapeTexture({
+      shape: this.createNodeShapeTexture({
         size: props.style.size + hoveredPadding,
-        background: hoveredStyle.shapeName.background,
-        border: hoveredStyle.shapeName.border
+        background: hoveredStyle.shape.background,
+        border: hoveredStyle.shape.border
       })
     }
 
     // selected textures
-    // selected - shapeName
+    // selected - shape
     const selectedPadding = hoveredPadding + 2;
     const selectedStyle = props.style?.states[':selected'];
     // nodeStyleTexture['states'][':selected'] = {}
-    // nodeStyleTexture['states'][':selected'][shapeName] =
+    // nodeStyleTexture['states'][':selected'][shape] =
 
     let selectedStateStyle: INodeStateTexture = {
-      shapeName: this.createNodeShapeTexture({
-        size: props.style.size + props.style?.shapeName.border.thickness + selectedPadding,
-        background: selectedStyle.shapeName.background,
-        border: selectedStyle.shapeName.border
+      shape: this.createNodeShapeTexture({
+        size: props.style.size + props.style?.shape.border.thickness + selectedPadding,
+        background: selectedStyle.shape.background,
+        border: selectedStyle.shape.border
       })
     }
 

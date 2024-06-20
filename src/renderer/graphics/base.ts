@@ -5,8 +5,6 @@ import { ILinkStateTypes, INodeStateTypes } from '../types';
 import { ArtBoard } from '../../artBoard';
 
 
-
-
 // abstract class ShapeStateManagerAbstract {
 
 //     // determines whether this is 
@@ -23,8 +21,8 @@ import { ArtBoard } from '../../artBoard';
 //     abstract setInactive():void
 //     // :hidden
 //     abstract setHidden():void
-
 // }
+
 
 abstract class ShapeAbstractBase {
 
@@ -135,8 +133,6 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
 }
 
 
-
-
 export abstract class NodeShapeAbstract extends ShapeAbstract {
 
     declare readonly originalData: CanvasNode;
@@ -150,9 +146,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     abstract processData(data:  CanvasNode):  CanvasNode; 
 
     // set position of node 
-    setPosition(x: number, y: number){
-        this.containerGfx.position.set(x, y);
-    }
+    abstract setPosition(x: number, y: number): void;
 
     abstract triggerHoveredOnNeighbors(): void
     abstract triggerUnHoveredOnNeighbors(): void
@@ -162,7 +156,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
 
     abstract onDragStart(event: PIXI.FederatedPointerEvent): void
     abstract onDragMove(event: PIXI.FederatedPointerEvent): void
-    abstract onDragEnded(event: PIXI.FederatedPointerEvent): void
+    abstract onDragEnd(event: PIXI.FederatedPointerEvent): void
 
 
     setState(stateName: INodeStateTypes ){
@@ -201,5 +195,36 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
 
     /* this will  */
     abstract processData(data:  CanvasLink):  CanvasLink; 
+
+
+    abstract triggerHoveredOnNeighbors(): void
+    abstract triggerUnHoveredOnNeighbors(): void
+
+    abstract triggerSelectedOnNeighbors(): void
+    abstract triggerUnSelectedOnNeighbors(): void
+
+
+
+    setState(stateName: ILinkStateTypes ){
+        if (stateName === ":default"){
+            this.triggerDefault();
+        }
+        else if (stateName === ":hovered"){
+            // this.clearStates();
+            this.triggerHovered()
+        }
+        else if (stateName === ":selected"){
+            // this.clearStates();
+            this.triggerSelected()
+        }
+        else if (stateName === ":inactive"){
+            // this.clearStates();
+            this.triggerInactive()
+        }
+        else if (stateName === ":hidden"){
+            // this.clearStates();
+            this.triggerHidden()
+        }
+    }
 
 }

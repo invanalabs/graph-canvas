@@ -22,10 +22,10 @@ export class NodeShapeBase extends NodeShapeAbstract {
   constructor(data: CanvasNode, artBoard: ArtBoard) {
     super(data, artBoard)
     this.data = this.processData(data)
-    console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance )
     // setup intractions
     this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
+    console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance )
 
   }
 
@@ -39,7 +39,27 @@ export class NodeShapeBase extends NodeShapeAbstract {
     return data
   }
 
+  setPosition = (x: number, y: number) => {
+    console.log("setPosition", x, y)
+    this.containerGfx.position.set(x, y);
+  }
 
+  // layers
+  moveToDataLayer(): void {
+    // console.error("not implemented")
+    // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+  }
+
+  moveToFrontLayer(): void {
+    // console.error("not implemented")
+    // this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+  }
+
+  moveToMapLayer(): void{
+    // console.error("not implemented")
+  }
+
+ 
   triggerInactive = () => {
     console.log(`triggerInactive triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
@@ -54,20 +74,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
   triggerHidden = () => {
     this.containerGfx.visible = false;
   }
-
-  moveToDataLayer(): void {
-    // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
-  }
-
-  moveToFrontLayer(): void {
-    // this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
-  }
-
-  moveToMapLayer(): void{
-
-  }
-
-
 
   triggerHovered = () => {
     console.log(`Hover triggered on node - ${this.data.id}`);
@@ -90,7 +96,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     }
     this.moveToDataLayer()
   }
-
 
   triggerHoveredOnNeighbors = () => {
     console.log("=triggerHoveredOnNeighbors triggered")
@@ -137,7 +142,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     }
   }
 
-
   triggerSelectedOnNeighbors = () => {
     console.log("=triggerSelectedOnNeighbors triggered")
     // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
@@ -162,8 +166,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     });
   }
 
-
-
   onDragStart = (event: PIXI.FederatedPointerEvent) => {
     this.dragPoint = event.data.getLocalPosition(this.containerGfx.parent);
     console.log("onDragStart triggered", this.dragPoint)
@@ -184,20 +186,18 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // update node positions data 
     this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y)
 
-
     // const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
     // this.canvas.renderer.reRenderLinks(neighborLinks)
     // this.triggerSelectedOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
   };
 
-  onDragEnded = (event: PIXI.FederatedPointerEvent) => {
+  onDragEnd = (event: PIXI.FederatedPointerEvent) => {
     console.log("onDragEnd triggered")
     event.stopPropagation()
     this.containerGfx.parent.off("pointermove", this.onDragMove);
     this.triggerUnSelected();
     this.triggerUnSelectedOnNeighbors();
   };
-
 
   setupInteractionTriggers() {
     console.log("===setupInteractionTriggers triggered")
@@ -216,21 +216,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
         this.triggerUnHoveredOnNeighbors()
       })
       .on('pointerdown', this.onDragStart.bind(this))
-      .on('pointerup', this.onDragEnded.bind(this))
-      .on('pointerupoutside', this.onDragEnded.bind(this))
+      .on('pointerup', this.onDragEnd.bind(this))
+      .on('pointerupoutside', this.onDragEnd.bind(this))
   }
-
 
   draw = (renderShape = true, renderLabel = true) => {
     // clear shapeName first
     this.clear();
     // draw shapeName
     if (renderShape) {
-      // if (this.data.x && this.data.y){
-      //   this.setPosition(this.data.x, this.data.y)
-      //   // this.containerGfx.x = this.data.x;
-      //   // this.containerGfx.y = this.data.y;
-      // }
       this.shapeGfx = this.drawShape();
       console.log("====this.shapeGfx ", this.shapeGfx )
       this.containerGfx.addChild(this.shapeGfx);

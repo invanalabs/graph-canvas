@@ -1,4 +1,4 @@
-import { LinkShapeType, NodeShapeType, ShapeLabelType } from "./styles";
+import { ILinkShapeStyle, INodeShapeStyle, IShapeLabelStyle } from "./styles";
 
 
 export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':inactive' | ':hidden'; 
@@ -7,16 +7,16 @@ export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':inactiv
 
 export interface INodeStyle {
   size: number
-  shapeName: NodeShapeType
-  label: ShapeLabelType
+  shape: INodeShapeStyle
+  label: IShapeLabelStyle
   states: {
       [key in  INodeStateTypes] : INodeStyle
   }
 }
 
 export interface ILinkStyle {
-  shapeName: LinkShapeType
-  label: ShapeLabelType
+  shape: ILinkShapeStyle
+  label: IShapeLabelStyle
   states: {
       [key in  ILinkStateTypes] : ILinkStyle
   }

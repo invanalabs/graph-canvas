@@ -1,4 +1,3 @@
-import { NodeShapeBase } from "../../renderer/graphics/nodes"
 import { CircleStyleDefaults } from "../../renderer/graphics/nodes/circle/defaults"
 import { INodeStateTypes, INodeStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
@@ -8,8 +7,8 @@ import {  ICanvasNode } from "./types"
 
 export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
-  x?: number | undefined
-  y?: number | undefined
+  x: number = 0
+  y: number = 0
 
   links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;

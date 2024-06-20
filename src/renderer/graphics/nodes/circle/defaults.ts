@@ -4,7 +4,7 @@ import { INodeStyle } from "../../../types"
 export const CircleStyleDefaults: INodeStyle = {
     size: 10 * 1.5,
     state: ":default",
-    shapeName : {
+    shape : {
         background: {
             color: "#3DA5D9",
             // color: "transparent",
@@ -47,7 +47,7 @@ export const CircleStyleDefaults: INodeStyle = {
     },
     states: {
         ":hovered": {
-            shapeName: {
+            shape: {
                 border: {
                     thickness: 2,
                     color: 0x59cd90,
@@ -62,7 +62,7 @@ export const CircleStyleDefaults: INodeStyle = {
             }
         },
         ":selected": {
-            shapeName: {
+            shape: {
                 border: {
                     thickness: 4,
                     color:  0xfeeb77 ,

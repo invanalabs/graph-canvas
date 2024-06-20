@@ -1,4 +1,7 @@
 import { ICanvasOptions } from "./types"
+// import * as PIXI from "pixi.js" 
+
+// PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.LINEAR
 
 const defaultViewDiv: HTMLCanvasElement = document.createElement('canvas')
 defaultViewDiv.width = 800;  // Set the actual width of the canvas
@@ -14,7 +17,7 @@ export const defaultCanvasOptions: ICanvasOptions = {
     nodes: window.devicePixelRatio * 4,
     links: window.devicePixelRatio,
     canvas: window.devicePixelRatio, // WARNING - dont change this;
-    labels: window.devicePixelRatio
+    labels: window.devicePixelRatio * 2
   },
   debugMode: true
 }

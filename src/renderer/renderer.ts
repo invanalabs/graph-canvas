@@ -3,6 +3,7 @@ import { ArtBoard } from "../artBoard/artBoard";
 import TextureStore from "./textureStore";
 import Circle from "./graphics/nodes/circle/circle";
 import { Graphics } from "pixi.js";
+import StraightLink from "./graphics/links/straight/straight";
 
 
 export class Renderer {
@@ -24,7 +25,6 @@ export class Renderer {
 
   renderSelection = (nodes: CanvasNode[], links: CanvasLink[]) => {
     console.debug("Renderer.render triggered ", nodes, links)
-
   }
 
   renderNode(node: CanvasNode) {
@@ -33,12 +33,16 @@ export class Renderer {
     gfxInstance.draw()     
     console.debug("Renderer.renderNode after .draw triggered ", node, gfxInstance)
     this.artBoard.viewport.addChild(gfxInstance.containerGfx)
-
     // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
 
   renderLink(link: CanvasLink) {
     console.debug("Renderer.renderLink triggered ", link)
+    const gfxInstance =  new StraightLink(link, this.artBoard)
+    gfxInstance.draw()     
+    console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+    this.artBoard.viewport.addChild(gfxInstance.containerGfx)
+      // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
 
   clear() {

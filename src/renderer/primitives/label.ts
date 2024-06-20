@@ -1,8 +1,8 @@
 import { Graphics, TextStyle, Text, Rectangle } from "pixi.js"
-import { ShapeLabelType } from "../types";
+import { IShapeLabelStyle } from "../types";
 
 
-export interface LabelPrimitiveType extends ShapeLabelType {
+export interface LabelPrimitiveType extends IShapeLabelStyle {
     label: string
 }
 

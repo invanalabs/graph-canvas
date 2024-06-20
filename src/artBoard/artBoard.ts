@@ -2,7 +2,7 @@ import { ArtBoardBase } from "./base";
 import { Camera } from "./camera";
 import { GraphCanvas } from "../canvas";
 import { Renderer } from "../renderer/renderer";
-import { LinkEventData, NodeEventData } from "../store";
+import { CanvasLink, LinkEventData, NodeEventData } from "../store";
 
 
 export class ArtBoard extends ArtBoardBase {
@@ -26,15 +26,23 @@ export class ArtBoard extends ArtBoardBase {
     });
 
     this.canvas.dataStore.on('nodeUpdated:position', ({ id, node }: NodeEventData) => {
-        console.log("nodeUpdated:position", id, node);
+        console.log("nodeUpdated:position", id, node.x, node.y, node);
         if (node.x && node.y){
-          node.gfxInstance?.setPosition(node.x, node.y);
+          if (node.gfxInstance){
+            node.gfxInstance.setPosition(node.x, node.y);
+
+            node.links.forEach((link: CanvasLink) => {
+              link.gfxInstance?.redraw();
+            })
+
+          }
         }
     });
 
     // add linkAdded event listener
     this.canvas.dataStore.on('linkAdded', ({ id, link }: LinkEventData) => {
       console.log("linkAdded", id, link);
+      this.renderer.renderLink(link);
     });
 
     // add nodeDeleted event listener

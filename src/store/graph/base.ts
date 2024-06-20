@@ -1,3 +1,4 @@
+import { LinkShapeBase } from "../../renderer/graphics/links/base"
 import { NodeShapeBase } from "../../renderer/graphics/nodes/base"
 import { ICanvasItemBase, ICanvasItemProperties, IdString } from "./types"
 
@@ -9,7 +10,7 @@ export default class CanvasItemBase implements ICanvasItemBase {
   label: string
   properties?: ICanvasItemProperties
 
-  gfxInstance: NodeShapeBase | null
+  gfxInstance: NodeShapeBase | LinkShapeBase | null
 
   constructor(props: ICanvasItemBase) {
     this.id = props.id
@@ -17,11 +18,9 @@ export default class CanvasItemBase implements ICanvasItemBase {
     this.label = props.label ? props.label : "Anonymous"
     this.properties = props?.properties ? props.properties : {}
     this.gfxInstance = null
-
   }
 
-
-  setGfxInstance(gfxInstance: NodeShapeBase){
+  setGfxInstance(gfxInstance: NodeShapeBase | LinkShapeBase){
     this.gfxInstance = gfxInstance
   }
 
