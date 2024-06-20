@@ -240,13 +240,13 @@ export class DataStore implements IDataStore {
 
     filerLinksOfNode(nodeId, this.links).forEach(link => {
         neighborLinks.push(link);
-        const source = _this.nodes.get(link.sourceId)
+        const source = _this.nodes.get(link.source.id)
         if (source){
-          relatedNodes.set(link.sourceId, source);
+          relatedNodes.set(link.source.id, source);
         }
-        const target = _this.nodes.get(link.targetId)
+        const target = _this.nodes.get(link.target.id)
         if (target){
-          relatedNodes.set(link.targetId, target);
+          relatedNodes.set(link.target.id, target);
         }
     });
     const neighbors = { nodes: Array.from(relatedNodes.values()), links: neighborLinks };

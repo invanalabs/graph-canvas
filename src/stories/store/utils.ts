@@ -11,11 +11,11 @@ const exampleNodes: Array<ICanvasNode> = [
 ];
 
 const exampleLinks: Array<ICanvasLink> = [
-  { id: '1-2', group: 'authored', label: 'default-1-2', sourceId: '1', targetId: '2' },
-  { id: '1-2.1', group: 'authored', label: 'default-1-2.1', sourceId: '1', targetId: '2' },
-  { id: '2-3', group: 'authored', label: 'default-2-3', sourceId: '2', targetId: '3' },
-  { id: '2-4', group: 'authored', label: 'default-2-4', sourceId: '2', targetId: '4' },
-  { id: '3-4', group: 'authored', label: 'default-3-4', sourceId: '3', targetId: '4' },
+  { id: '1-2', group: 'authored', label: 'default-1-2', source: '1', target: '2' },
+  { id: '1-2.1', group: 'authored', label: 'default-1-2.1', source: '1', target: '2' },
+  { id: '2-3', group: 'authored', label: 'default-2-3', source: '2', target: '3' },
+  { id: '2-4', group: 'authored', label: 'default-2-4', source: '2', target: '4' },
+  { id: '3-4', group: 'authored', label: 'default-3-4', source: '3', target: '4' },
 ];
 
 export const createComponent = () => {

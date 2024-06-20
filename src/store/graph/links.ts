@@ -2,15 +2,13 @@ import { LinkStyleDefaults } from "../../renderer/graphics/links/straight/defaul
 import { ILinkStateTypes, ILinkStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
 import { CanvasNode } from "./nodes"
-import {  ICanvasLink, IdString } from "./types"
+import {  ICanvasLink } from "./types"
 
 
 export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
-  // readonly sourceId: IdString
   readonly source: CanvasNode
 
-  // readonly targetId: IdString
   readonly target: CanvasNode
   
   state?: ILinkStateTypes
