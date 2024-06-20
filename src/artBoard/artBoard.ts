@@ -26,7 +26,7 @@ export class ArtBoard extends ArtBoardBase {
     });
 
     this.canvas.dataStore.on('nodeUpdated:position', ({ id, node }: NodeEventData) => {
-        console.log("nodeAdded", id, node);
+        console.log("nodeUpdated:position", id, node);
         if (node.x && node.y){
           node.gfxInstance?.setPosition(node.x, node.y);
         }

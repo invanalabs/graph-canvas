@@ -22,9 +22,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
   constructor(data: CanvasNode, artBoard: ArtBoard) {
     super(data, artBoard)
     this.data = this.processData(data)
-    this.data.gfxInstance = this;
+    console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance )
     // setup intractions
     this.setupInteractionTriggers()
+    this.data.setGfxInstance(this);
+
   }
 
   processData = (data: CanvasNode) => {
@@ -33,7 +35,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     data.style = data.style ? deepMerge(CircleStyleDefaults, data.style) : CircleStyleDefaults
     console.log("======data.style after", data.group, JSON.stringify(data.style));
     //@ts-ignore
-    data = { ...{ x: 0, y: 0 }, ...data }
+    // data = { ...{ x: 0, y: 0 }, ...data }
     return data
   }
 

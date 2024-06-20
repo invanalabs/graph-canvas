@@ -1,3 +1,4 @@
+import { NodeShapeBase } from "../../renderer/graphics/nodes"
 import { CircleStyleDefaults } from "../../renderer/graphics/nodes/circle/defaults"
 import { INodeStateTypes, INodeStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
@@ -17,6 +18,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   style: INodeStyle
 
+
+
   constructor(props: ICanvasNode){
     super(props)
     // position
@@ -28,6 +31,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.neighbors = {nodes:[], links: []}
     this.style = CircleStyleDefaults 
   }
+
 
   setLinks(links: CanvasLink[]){
     this.links = links

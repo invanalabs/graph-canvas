@@ -20,6 +20,11 @@ export default class CanvasItemBase implements ICanvasItemBase {
 
   }
 
+
+  setGfxInstance(gfxInstance: NodeShapeBase){
+    this.gfxInstance = gfxInstance
+  }
+
   updateProperties(properties: ICanvasItemProperties){
     Object.keys(properties).forEach(k=> this.setProperty(k, properties[k]))
   }
