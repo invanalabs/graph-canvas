@@ -13,10 +13,11 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
   document.addEventListener("DOMContentLoaded", function (event) {
     console.log("=DOM is ready", event,)
-    const options: ICanvasOptions = canvasOptions ? canvasOptions : {
+    const options: ICanvasOptions = (canvasOptions) ? { ...canvasOptions,  viewElement: canvasDiv}  : {
       viewElement: canvasDiv,
       debugMode: true
     }
+    console.log("====options", options)
     const canvas = new GraphCanvas(options);
     // canvas.start_drawing()
     canvas.dataStore.add(nodes, links)

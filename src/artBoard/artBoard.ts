@@ -34,7 +34,6 @@ export class ArtBoard extends ArtBoardBase {
             node.links.forEach((link: CanvasLink) => {
               link.gfxInstance?.redraw();
             })
-
           }
         }
     });

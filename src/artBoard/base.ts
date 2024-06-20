@@ -23,6 +23,7 @@ export class ArtBoardBase {
   getCanvasSizeOptions() {
     const divRectangle = this.canvas.options.viewElement.getBoundingClientRect();
     if (divRectangle?.width == 0 || divRectangle?.height == 0) {
+      console.error("this.canvas.options.viewElement not good", this.canvas.options.viewElement)
       throw new Error(`cannot draw canvas in a div with dimensions ${JSON.stringify(divRectangle)}`)
     }
     return {
@@ -35,7 +36,7 @@ export class ArtBoardBase {
 
   
   createPIXIApp = (): PIXI.Application => {
-
+    console.log("createPIXIApp this.options", this.canvas.options)
     const { screenWidth, screenHeight } = this.getCanvasSizeOptions()
     const pixiApp = new PIXI.Application({
       width: screenWidth,

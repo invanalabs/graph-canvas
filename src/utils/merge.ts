@@ -15,7 +15,10 @@ export const deepMerge = (target: Dict, overrides: Dict): Dict => {
   const merged: Dict = { ...target }
 
   for (const key in overrides) {
+    console.log("===overrides[key] instanceof HTMLElement", key, overrides[key] instanceof HTMLElement)
+
     if (Object.prototype.hasOwnProperty.call(overrides, key)) {
+
       if (typeof overrides[key] === 'object' && overrides[key] !== null) {
         if (overrides[key] instanceof HTMLElement || overrides[key] instanceof HTMLCanvasElement) {
           // Directly assign the HTMLElement or HTMLCanvasElement

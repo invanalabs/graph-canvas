@@ -18,6 +18,9 @@ export class GraphCanvas {
     //@ts-ignore
     this.options = deepMerge(defaultCanvasOptions, options);
     console.log("===this.options", this.options)
+    // if (options.viewElement){
+    //   this.options.viewElement = options.viewElement
+    // }
     // data store 
     this.dataStore = new DataStore();
     // renderer  

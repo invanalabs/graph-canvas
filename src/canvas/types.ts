@@ -13,5 +13,4 @@ export interface ICanvasOptions {
   }
   debugMode?: boolean
   styles?: GraphicsStyles
-
 }
