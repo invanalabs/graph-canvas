@@ -1,7 +1,7 @@
 import { Texture } from "pixi.js"
-import { INodeStateTypes, INodeStyle } from "./types";
-import drawCircleShape, { DrawCirclePrimitiveType } from "./primitives/lines/circle";
-import { ArtBoard } from "../artBoard";
+import { INodeStateTypes, INodeStyle } from "../types";
+import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/lines/circle";
+import { ArtBoard } from "../../artBoard";
 
 
 class INodeStateTexture {

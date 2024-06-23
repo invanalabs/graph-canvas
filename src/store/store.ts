@@ -23,14 +23,15 @@ export class DataStore implements IDataStore {
     this.links = new Map()
 
     this.listeners = {
-      nodeAdded: [],
+      "nodeAdded": [],
       "nodeUpdated:links": [],
       "nodeUpdated:position": [],
       "nodeUpdated:properties": [],
-      nodeDeleted: [],
-      linkAdded: [],
+      "nodeDeleted": [],
+      
+      "linkAdded": [],
       "linkUpdated:properties": [],
-      linkDeleted: []
+      "linkDeleted": []
     }
   }
 

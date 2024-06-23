@@ -18,7 +18,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   style: INodeStyle
 
 
-
   constructor(props: ICanvasNode){
     super(props)
     // position
@@ -30,7 +29,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.neighbors = {nodes:[], links: []}
     this.style = CircleStyleDefaults 
   }
-
 
   setLinks(links: CanvasLink[]){
     this.links = links
