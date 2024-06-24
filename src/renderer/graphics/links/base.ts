@@ -154,14 +154,15 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx.removeAllListeners();
 
     // listeners for hover effect
-    // this.containerGfx
-    //   .on("pointerover", () => {
-    //     _this.setState(":hovered")
-    //   })
-    //   .on("pointerout", () => {
-    //     _this.setState(":default")
-    //   })
+    this.containerGfx
+      .on("pointerover", () => {
+        this.setState(":hovered", true)
+      })
+      .on("pointerout", () => {
+        this.setState(":default", true)
+      })
   }
+
 
   calcLabelPosition = (labelGfx: PIXI.Graphics, shapeGfx: PIXI.Graphics) => {
     console.error("calcLabelPosition Not Implemented")

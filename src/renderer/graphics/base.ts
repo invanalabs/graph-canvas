@@ -53,6 +53,8 @@ abstract class ShapeAbstractBase {
 
     // events and triggers
     abstract setupInteractionTriggers(): void;
+    abstract removeInteractionTriggers():void
+
     abstract setState(state: INodeStateTypes| ILinkStateTypes, setNeighborsToo:boolean ): void
     // :default
     abstract triggerDefault(): void
@@ -116,6 +118,11 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.containerGfx.removeChildren();
     }
 
+    removeInteractionTriggers() {
+        console.debug("===removeInteractionTriggers triggered on link", this.containerGfx)
+        // Remove all listeners
+        this.containerGfx.removeAllListeners();
+    }
 
     setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false ){
         console.log("setState",this.data.id, stateName, setNeighborsToo)

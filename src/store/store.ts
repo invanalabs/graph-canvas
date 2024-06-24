@@ -71,21 +71,23 @@ export class DataStore implements IDataStore {
     }
   }
 
-  // addToSelectedNodes(node: CanvasNode){
-  //   this.selectedNodes.set(node.id, node)
-  // }
+  addToSelectedNodes(node: CanvasNode){
+    this.selectedNodes.set(node.id, node)
+  }
 
-  // removeFromSelectedNodes(nodeId: IdString){
-  //   this.selectedNodes.delete(nodeId)
-  // }
+  removeFromSelectedNodes(node: CanvasNode){
+    this.selectedNodes.delete(node.id)
+  }
 
-  // addToSelectedLinks(link: CanvasLink){
-  //   this.selectedLinks.set(link.id, link)
-  // }
+  addToSelectedLinks(link: CanvasLink){
+    this.selectedLinks.set(link.id, link)
+  }
 
-  // removeFromSelectedLinks(linkId: IdString){
-  //   this.selectedLinks.delete(linkId)
-  // }
+  removeFromSelectedLinks(link: CanvasLink){
+    this.selectedLinks.delete(link.id)
+  }
+
+
 
   addNode(node: ICanvasNode) {
     // update the properties if node already exist
@@ -273,9 +275,9 @@ export class DataStore implements IDataStore {
 
   }
 
-  // getNeighborLinks(nodeId: IdString): CanvasLink[] {
-  //   return this.getLinks().filter(link => link.source.id === nodeId || link.target.id === nodeId);
-  // }
+  getNeighborLinks(nodeId: IdString): CanvasLink[] {
+    return this.getLinks().filter(link => link.source.id === nodeId || link.target.id === nodeId);
+  }
 
   /*
   get both neighbor nodes and links for a given nodeIf
