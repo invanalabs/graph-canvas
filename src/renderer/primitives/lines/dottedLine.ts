@@ -10,7 +10,7 @@ export interface DrawLinkPrimitiveType extends ILinkShapeStyle {
 
 
 const drawDottedLineShape = (props: DrawLinkPrimitiveType) => {
-    console.log("drawDottedLineShape", props);
+    console.debug("drawDottedLineShape", props);
     let shapeName = new Graphics();
     shapeName.lineStyle(props.thickness, props.color);
 
@@ -21,7 +21,7 @@ const drawDottedLineShape = (props: DrawLinkPrimitiveType) => {
     // Calculate the total length of the dashed line
     let totalLength = Math.hypot(props.endPoint.x - props.startPoint.y, props.endPoint.y - props.startPoint.y) //props.startPoint.distanceTo(props.endPoint);
 
-    console.log("==totalLength", totalLength)
+    // console.debug("==totalLength", totalLength)
     // Calculate the number of dashes
     let numDashes = Math.ceil(totalLength / (dashSize + gapSize));
 

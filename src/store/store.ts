@@ -77,7 +77,7 @@ export class DataStore implements IDataStore {
   }
 
   moveNodeTo(nodeId: IdString, x: number, y: number) {
-    console.debug("Updating position of node ", nodeId, x, y)
+    console.log("Updating position of node ", nodeId, x, y)
     let node: CanvasNode | undefined = this.nodes.get(nodeId);
     if (node) {
         node.x = x;

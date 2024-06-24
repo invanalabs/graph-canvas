@@ -26,16 +26,15 @@ export class ArtBoard extends ArtBoardBase {
     });
 
     this.canvas.dataStore.on('nodeUpdated:position', ({ id, node }: NodeEventData) => {
-        console.log("nodeUpdated:position", id, node.x, node.y, node);
-        if (node.x && node.y){
-          if (node.gfxInstance){
-            node.gfxInstance.setPosition(node.x, node.y);
+        console.log("nodeUpdated:position updatedto", id, node.x, node.y);
+        // if (node.gfxInstance){
+          //@ts-ignore
+          node.gfxInstance.setPosition(node.x, node.y);
 
-            node.links.forEach((link: CanvasLink) => {
-              link.gfxInstance?.redraw();
-            })
-          }
-        }
+          node.links.forEach((link: CanvasLink) => {
+            link.gfxInstance?.redraw();
+          })
+        // }
     });
 
     // add linkAdded event listener

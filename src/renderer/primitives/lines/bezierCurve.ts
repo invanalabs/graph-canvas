@@ -10,7 +10,7 @@ export interface DrawLinkPrimitiveType extends ILinkShapeStyle {
 
 
 const drawBezierCurveShape = ( props: DrawLinkPrimitiveType) => {
-    console.log("drawStraightLineShape", props);
+    console.debug("drawStraightLineShape", props);
     let shapeName = new Graphics();
     // draw the path 
     shapeName.lineStyle(props.thickness, props.color);

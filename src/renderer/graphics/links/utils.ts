@@ -10,10 +10,10 @@ export const getContactPointOnCircle = (
   padding: number = 2
 ) => {
 
-  console.log("====target", target, padding)
+  console.debug("====target", target, padding)
   // getCirclePont
   const nodeRadius = target?.style?.size + padding ? target?.style?.size : 20
-  console.log("===nodeRadius", nodeRadius)
+  console.debug("===nodeRadius", nodeRadius)
   const arrowheadLength = 0;
   const angle = Math.atan2(target.y - source.y, target.x - source.x);
   let x = target.x - Math.cos(angle) * (nodeRadius + arrowheadLength);
@@ -79,12 +79,12 @@ export const getControlPoint = (
 };
 
 export function twoPointDistance(p1: Point, p2: Point) {
-  console.log("getPointOnDistanceOverRadius twoPointDistance", p1, p2)
+  console.debug("getPointOnDistanceOverRadius twoPointDistance", p1, p2)
   return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 }
 
 export function getPointOnDistanceOverRadius(points: number[], radius: number) {
-  console.log("getPointOnDistanceOverRadius,", points, radius)
+  console.debug("getPointOnDistanceOverRadius,", points, radius)
   const result = [];
   for (let i = 0; i < points.length; i += 2) {
     const x = points[i];
@@ -94,7 +94,7 @@ export function getPointOnDistanceOverRadius(points: number[], radius: number) {
   }
   result.reverse();
   let point = result[0];
-  console.log("getPointOnDistanceOverRadius result", result)
+  console.debug("getPointOnDistanceOverRadius result", result)
   return result.find((n) => {
     return twoPointDistance(n, point) > radius;
   });
@@ -111,6 +111,6 @@ export const getGraphicsPathPoints = (graphics: Graphics) => {
   //     points.push(...command.points);
   //   }
   // });
-  console.log("===points", points)
+  console.debug("===points", points)
   return points
 }

@@ -14,7 +14,7 @@ const createArrowHeadPoints = () => {
 }
 
 const drawArrowHeadShape = ( props: DrawArrowPrimitiveType) => {
-    console.log("drawArrowHeadShape", props);
+    console.debug("drawArrowHeadShape", props);
     // draw arrow 
     const gfx = new Graphics()
    const points = createArrowHeadPoints()

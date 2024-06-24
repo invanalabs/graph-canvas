@@ -96,6 +96,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.originalData = data
         this.artBoard = artBoard;
         this.containerGfx = new PIXI.Graphics()
+        this.containerGfx.interactive = true
         // in v8; { isRenderGroup:true} // this containers transform is now handled on the GPU!
         // Make the containerGfx interactive...
         // this.containerGfx.cursor = 'pointer';
@@ -155,7 +156,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     abstract triggerUnSelectedOnNeighbors(): void
 
     abstract onDragStart(event: PIXI.FederatedPointerEvent): void
-    abstract onDragMove(event: PIXI.FederatedPointerEvent): void
+    // abstract onDragMove(event: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
     abstract onDragEnd(event: PIXI.FederatedPointerEvent): void
 
 

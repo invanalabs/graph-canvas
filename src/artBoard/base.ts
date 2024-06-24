@@ -54,6 +54,7 @@ export class ArtBoardBase {
     // The stage will handle the move events
     pixiApp.stage.interactive = true;
     pixiApp.stage.hitArea = pixiApp.screen;
+    pixiApp.stage.sortableChildren = true
     return pixiApp
   }
 

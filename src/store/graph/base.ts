@@ -12,7 +12,7 @@ export default class CanvasItemBase implements ICanvasItemBase {
 
   layer: string = "default" // cover this to use LAYER_TYPES_CONSTANTS.keys
 
-  gfxInstance: NodeShapeBase | LinkShapeBase | null
+  gfxInstance: NodeShapeBase | LinkShapeBase | undefined = undefined
 
   constructor(props: ICanvasItemBase) {
     this.id = props.id
@@ -20,7 +20,7 @@ export default class CanvasItemBase implements ICanvasItemBase {
     // this.label = props.label ? props.label : `Anonymous - ${this.id}`
     this.label = props.label ? props.label : undefined
     this.properties = props?.properties ? props.properties : {}
-    this.gfxInstance = null
+    // this.gfxInstance = null
   }
 
   setGfxInstance(gfxInstance: NodeShapeBase | LinkShapeBase){

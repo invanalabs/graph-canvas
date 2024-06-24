@@ -27,7 +27,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     // setup intractions
     this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
-    console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance)
+    console.debug("this.data.gfxInstance ", this.data, this.data.gfxInstance)
   }
 
 
@@ -90,7 +90,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   triggerHoveredOnNeighbors = () => {
-    console.log("=triggerHoveredOnNeighbors triggered")
+    console.log(`triggerHoveredOnNeighbors triggered on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHovered()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHovered()
     this.data.gfxInstance?.triggerHovered()
@@ -98,7 +98,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   triggerUnHoveredOnNeighbors = () => {
-    console.log("=triggerUnHoveredOnNeighbors triggered")
+    console.log(`triggerUnHoveredOnNeighbors triggered on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHovered()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHovered()
     this.data.gfxInstance?.triggerUnHovered()
@@ -106,7 +106,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
 
   triggerSelected = () => {
-    console.log(`triggerSelected on node - ${this.data.id}`);
+    console.log(`triggerSelected triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeSelectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder);
       if (shapeSelectedBorder) {
@@ -127,21 +127,21 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   triggerSelectedOnNeighbors = () => {
-    console.log("=triggerSelectedOnNeighbors triggered")
+    console.log(`triggerSelectedOnNeighbors on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerSelected()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerSelected()
     this.data.gfxInstance?.triggerSelected()
   }
 
   triggerUnSelectedOnNeighbors = () => {
-    console.log("=triggerUnSelectedOnNeighbors triggered")
+    console.log(`triggerUnSelectedOnNeighbors on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnSelected()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnSelected()
     this.data.gfxInstance?.triggerUnSelected()
   }
 
   setupInteractionTriggers() {
-    console.log("===setupInteractions triggered on link", this.containerGfx)
+    console.debug("===setupInteractions triggered on link", this.containerGfx)
     const _this = this;
     // Remove all listeners
     this.containerGfx.removeAllListeners();
@@ -175,7 +175,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
 
   drawLabel = () => {
-    console.log("Line.drawLabel")
+    console.debug("Line.drawLabel")
     // const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
     if (this.data.label) {
       const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.states[":default"].label })
@@ -187,7 +187,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   drawShape = () => {
-    console.log("Line.drawShape triggered", this.data)
+    console.debug("Line.drawShape triggered", this.data)
 
     let { startPoint, endPoint } = this.calcStartAndEndPoints();
     // console.log("startPoint, endPoint", JSON.stringify(startPoint), JSON.stringify(endPoint))
@@ -234,7 +234,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   // renderShape=true, renderLabel=true
   draw = (renderShape = true, renderLabel = true) => {
     // clear shapeName first
-    console.log(`draw renderShape=${renderShape}; renderLabel=${renderLabel}`)
+    console.debug(`draw renderShape=${renderShape}; renderLabel=${renderLabel}`)
 
     // draw shapeName
     if (renderShape) {
@@ -258,7 +258,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
 
   redraw = (renderShape = true, renderLabel = true) => {
-    console.log("redraw ")
+    console.debug("redraw ")
     this.draw(renderShape, renderLabel);
   }
 

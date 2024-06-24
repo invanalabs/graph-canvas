@@ -1,8 +1,8 @@
 import { Sprite } from 'pixi.js';
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../../constants';
-import { Graphics } from 'pixi.js';
 import drawLabelShape from '../../../primitives/label';
+// import { DraggableSprite } from '../../../sprites/draggable';
 
 
 class Circle extends NodeShapeBase {
@@ -12,18 +12,18 @@ class Circle extends NodeShapeBase {
             return 
         }
         const shapeStyle = this.data.style
-        console.log("this.data.label", this.data.label)
+        console.debug("this.data.label", this.data.label)
         const labelArgs = {
             label: this.data.label,
             ...shapeStyle?.label
         }
-        console.log("==labelArgs", labelArgs) 
+        console.debug("==labelArgs", labelArgs) 
         const labelGfx = drawLabelShape(labelArgs);
         if (labelGfx){
             labelGfx.name = NodeContainerChildNames.label;
             labelGfx.position.set(shapeStyle.size + 5, -shapeStyle.size);    
         }
-        console.log("==labelGfx", labelGfx)
+        console.debug("==labelGfx", labelGfx)
         return labelGfx
     }
 
@@ -62,6 +62,9 @@ class Circle extends NodeShapeBase {
   
           shape.cursor = "pointer";
           shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
+
+          shape.interactive = true;
+        //   shape.buttonMode = true;
           // shape.hitArea = new Circle(0, 0, this.data.style?.shape.size);
           return shape
   

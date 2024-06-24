@@ -1,6 +1,8 @@
 import { Container, Graphics } from "pixi.js"
+import { ArtBoard } from "../../artBoard"
+import { ILayerItemTypes } from "../store/graphics"
 
-export const LAYER_GRAPHICS_TYPES_CONSTANTS = {
+export const LAYER_GRAPHICS_TYPES_CONSTANTS: {NODES: ILayerItemTypes, LINKS: ILayerItemTypes} = {
   NODES: "NODES",
   LINKS: "LINKS"
 }
@@ -9,20 +11,23 @@ export const LAYER_GRAPHICS_TYPES_CONSTANTS = {
 export class GraphicsLayer {
 
   layerName: string
+  artBoard : ArtBoard
 
-  baseLayer: Container
-  nodeGfxLayer: Container
-  linkGfxLayer: Container
+  // baseLayer: Container
+  nodeGraphics: Container
+  linkGraphics: Container
 
 
-  constructor(layerName: string, zIndexStartsAt: number) {
+  constructor(artBoard: ArtBoard,  layerName: string, zIndexStartsAt: number) {
     this.layerName = layerName
-    this.baseLayer = this.createLayer(layerName, zIndexStartsAt) // add this to this.artBoard.viewport
+    this.artBoard = artBoard
+    // this.baseLayer = this.createLayer(layerName, zIndexStartsAt) // add this to this.artBoard.viewport
     // for nodes and links layer
-    this.linkGfxLayer = this.createLayer(this.getLinksLayerName(), zIndexStartsAt + 1)
-    this.baseLayer.addChild(this.linkGfxLayer)
-    this.nodeGfxLayer = this.createLayer(this.getNodesLayerName(), zIndexStartsAt + 2)
-    this.baseLayer.addChild(this.nodeGfxLayer)
+    this.linkGraphics = this.createLayer(this.getLinksLayerName(), zIndexStartsAt + 1)
+    this.artBoard.viewport.addChild(this.linkGraphics)
+    
+    this.nodeGraphics = this.createLayer(this.getNodesLayerName(), zIndexStartsAt + 2)
+    this.artBoard.viewport.addChild(this.nodeGraphics)
   }
 
 
@@ -43,20 +48,20 @@ export class GraphicsLayer {
   }
 
   clear() {
-    this.linkGfxLayer.removeChildren();
-    this.nodeGfxLayer.removeChildren();
+    this.linkGraphics.removeChildren();
+    this.nodeGraphics.removeChildren();
   }
 
 
   addNodeGfx(gfx: Graphics) {
 
-    // gfx.parentLayer = this.nodeGfxLayer
-    this.nodeGfxLayer.addChild(gfx)
+    // gfx.parentLayer = this.nodeGraphics
+    this.nodeGraphics.addChild(gfx)
     // this.canvasLayers.canvas.viewport.addChild(gfx)
   }
 
   removeNodeGfx(gfx: Graphics) {
-    this.nodeGfxLayer.removeChild(gfx.name)
+    this.nodeGraphics.removeChild(gfx)
   }
 
   // addNodeLabelGfx(gfx: Graphics ) {
@@ -64,14 +69,14 @@ export class GraphicsLayer {
   // }
 
   addLinkGfx(gfx: Graphics) {
-    // gfx.parentLayer = this.linkGfxLayer
-    this.linkGfxLayer.addChild(gfx)
+    // gfx.parentLayer = this.linkGraphics
+    this.linkGraphics.addChild(gfx)
     // this.canvasLayers.canvas.viewport.addChild(gfx)
   }
 
   removeLinkGfx(gfx: Graphics) {
     // if (gfx.name){
-      this.linkGfxLayer.removeChild(gfx.name)
+      this.linkGraphics.removeChild(gfx)
     // }
   }
 

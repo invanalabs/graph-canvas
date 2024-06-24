@@ -15,7 +15,7 @@ export const deepMerge = (target: Dict, overrides: Dict): Dict => {
   const merged: Dict = { ...target }
 
   for (const key in overrides) {
-    console.log("===overrides[key] instanceof HTMLElement", key, overrides[key] instanceof HTMLElement)
+    // console.debug("===overrides[key] instanceof HTMLElement", key, overrides[key] instanceof HTMLElement)
 
     if (Object.prototype.hasOwnProperty.call(overrides, key)) {
 

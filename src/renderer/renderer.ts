@@ -35,8 +35,8 @@ export class Renderer {
     const gfxInstance = new Circle(node, this.artBoard)
     gfxInstance.draw()
     console.debug("Renderer.renderNode after .draw triggered ", node, gfxInstance)
-    this.artBoard.viewport.addChild(gfxInstance.containerGfx)
-    // this.artBoard.renderer.gfxStore.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+    // this.artBoard.viewport.addChild(gfxInstance.containerGfx)
+    this.artBoard.renderer.gfxStore.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
 
     // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
@@ -46,9 +46,8 @@ export class Renderer {
     const gfxInstance = new StraightLink(link, this.artBoard)
     gfxInstance.draw()
     console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-    this.artBoard.viewport.addChild(gfxInstance.containerGfx)
-    // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
-    // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+    // this.artBoard.viewport.addChild(gfxInstance.containerGfx)
+    this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
   }
 
   tick() {

@@ -34,16 +34,16 @@ export class GraphicsStore {
     // this.geoLayer = new GraphicsLayer(this, LAYER_TYPES_CONSTANTS.MAP, 0);
 
     // z-index from 5
-    this.dataLayer = new GraphicsLayer(LAYER_TYPES_CONSTANTS.DATA, 5);
-    this.artBoard.viewport.addChild(this.dataLayer.baseLayer);
+    this.dataLayer = new GraphicsLayer(this.artBoard, LAYER_TYPES_CONSTANTS.DATA, 5);
+    // this.artBoard.viewport.addChild(this.dataLayer.baseLayer);
 
     // z-index from 10
-    this.annotationLayer = new GraphicsLayer(LAYER_TYPES_CONSTANTS.ANNOTATIONS, 10);
-    this.artBoard.viewport.addChild(this.annotationLayer.baseLayer);
+    this.annotationLayer = new GraphicsLayer(this.artBoard, LAYER_TYPES_CONSTANTS.ANNOTATIONS, 10);
+    // this.artBoard.viewport.addChild(this.annotationLayer.baseLayer);
 
     // z-index from 15
-    this.frontLayer = new GraphicsLayer(LAYER_TYPES_CONSTANTS.FRONT, 15);
-    this.artBoard.viewport.addChild(this.frontLayer.baseLayer);
+    this.frontLayer = new GraphicsLayer(this.artBoard, LAYER_TYPES_CONSTANTS.FRONT, 15);
+    // this.artBoard.viewport.addChild(this.frontLayer.baseLayer);
   }
 
  
@@ -78,13 +78,15 @@ export class GraphicsStore {
 addGfxToFrontLayer(item: CanvasNode | CanvasLink, gfxType: ILayerItemTypes) {
     console.log("addGfxToFrontLayer triggered", gfxType,  this.dataLayer)
     this.addGfxToLayer(item, gfxType, this.frontLayer)
-    // this.canvas.camera.viewport.addChild(gfx)
+    // if (item.gfxInstance)
+    // this.artBoard.viewport.addChild(item.gfxInstance?.containerGfx)
 }
 
 addToDataLayer(item: CanvasNode | CanvasLink, gfxType: ILayerItemTypes) {
     console.log("addToDataLayer triggered", gfxType,  this.dataLayer)
     this.addGfxToLayer(item, gfxType, this.dataLayer)
-    // this.canvas.camera.viewport.addChild(gfx)
+    // if(item.gfxInstance)
+    // this.artBoard.viewport.addChild(item.gfxInstance.containerGfx)
 }
 
 private remoGfxFromLayer(item: CanvasNode | CanvasLink, gfxType: ILayerItemTypes,  layer: GraphicsLayer){
