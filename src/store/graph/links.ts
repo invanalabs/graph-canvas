@@ -11,7 +11,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
   readonly target: CanvasNode
   
-  state?: ILinkStateTypes
+  state: ILinkStateTypes = ":default"
 
   style: ILinkStyle
 

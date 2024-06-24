@@ -35,6 +35,7 @@ export class GraphicsLayer {
     const layer = new Container()
     layer.name = LayerName
     layer.zIndex = zIndex
+    layer.interactive = true
     // this.baseLayer.addChild(layer)
     return layer
   }

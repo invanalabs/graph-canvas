@@ -51,6 +51,7 @@
     "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
+    "@pixi-essentials/cull": "^2.0.0",
     "@pixi/layers": "^2.1.0",
     "gl-matrix": "^3.4.3",
     "pixi-viewport": "^5.0.2",

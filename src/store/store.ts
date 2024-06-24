@@ -1,3 +1,4 @@
+import { ILinkStateTypes, INodeStateTypes } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
 import {
@@ -16,6 +17,9 @@ export class DataStore implements IDataStore {
   nodes: Map<IdString, CanvasNode>
   links: Map<IdString, CanvasLink>
 
+  selectedNodes: Map<IdString, CanvasNode> = new Map()
+  selectedLinks: Map<IdString, CanvasLink> = new Map()
+
   listeners: IDataStoreListeners
 
   constructor() {
@@ -28,9 +32,11 @@ export class DataStore implements IDataStore {
       "nodeUpdated:position": [],
       "nodeUpdated:properties": [],
       "nodeDeleted": [],
-      
+      "nodeUpdated:state": [],
+
       "linkAdded": [],
       "linkUpdated:properties": [],
+      "linkUpdated:state": [],
       "linkDeleted": []
     }
   }
@@ -65,6 +71,22 @@ export class DataStore implements IDataStore {
     }
   }
 
+  // addToSelectedNodes(node: CanvasNode){
+  //   this.selectedNodes.set(node.id, node)
+  // }
+
+  // removeFromSelectedNodes(nodeId: IdString){
+  //   this.selectedNodes.delete(nodeId)
+  // }
+
+  // addToSelectedLinks(link: CanvasLink){
+  //   this.selectedLinks.set(link.id, link)
+  // }
+
+  // removeFromSelectedLinks(linkId: IdString){
+  //   this.selectedLinks.delete(linkId)
+  // }
+
   addNode(node: ICanvasNode) {
     // update the properties if node already exist
     if (!this.nodes.has(node.id)) {
@@ -76,18 +98,41 @@ export class DataStore implements IDataStore {
     }
   }
 
+  setState(item: CanvasNode | CanvasLink, stateName: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean=false) {
+    if (item instanceof CanvasNode) {
+      // Handle CanvasNode instance
+      const node = this.nodes.get(item.id)
+      if (node) {
+        node.state = stateName
+        this.nodes.set(item.id, node)
+        this.trigger("nodeUpdated:state", {id:node.id, node: node, setNeighborsToo: setNeighborsToo})
+      }
+
+    } else if (item instanceof CanvasLink) {
+      const link = this.links.get(item.id)
+      if (link) {
+        link.state = stateName
+        this.links.set(item.id, link)
+        this.trigger("linkUpdated:state", {id:link.id, link: link, setNeighborsToo:setNeighborsToo})
+      }
+    } else {
+      // Handle other cases
+      console.error("Item is neither CanvasNode nor CanvasLink");
+    }
+  }
+
   moveNodeTo(nodeId: IdString, x: number, y: number) {
     console.log("Updating position of node ", nodeId, x, y)
     let node: CanvasNode | undefined = this.nodes.get(nodeId);
     if (node) {
-        node.x = x;
-        node.y = y;
-        // TODO - trigger new event callled node:
-        this.nodes.set(nodeId, node)
-        // node.gfxInstance?.setPosition(x, y);
-        this.trigger('nodeUpdated:position', { id: node.id, node: node });
+      node.x = x;
+      node.y = y;
+      // TODO - trigger new event callled node:
+      this.nodes.set(nodeId, node)
+      // node.gfxInstance?.setPosition(x, y);
+      this.trigger('nodeUpdated:position', { id: node.id, node: node });
     }
-}
+  }
 
   updateNodeProperties(nodeId: IdString, properties: ICanvasItemProperties) {
     let node = this.nodes.get(nodeId);
@@ -240,15 +285,15 @@ export class DataStore implements IDataStore {
     const _this = this;
 
     filerLinksOfNode(nodeId, this.links).forEach(link => {
-        neighborLinks.push(link);
-        const source = _this.nodes.get(link.source.id)
-        if (source){
-          relatedNodes.set(link.source.id, source);
-        }
-        const target = _this.nodes.get(link.target.id)
-        if (target){
-          relatedNodes.set(link.target.id, target);
-        }
+      neighborLinks.push(link);
+      const source = _this.nodes.get(link.source.id)
+      if (source) {
+        relatedNodes.set(link.source.id, source);
+      }
+      const target = _this.nodes.get(link.target.id)
+      if (target) {
+        relatedNodes.set(link.target.id, target);
+      }
     });
     const neighbors = { nodes: Array.from(relatedNodes.values()), links: neighborLinks };
     return neighbors

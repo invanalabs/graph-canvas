@@ -13,7 +13,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
 
-  state?: INodeStateTypes
+  state: INodeStateTypes = ":default"
 
   style: INodeStyle
 
@@ -32,6 +32,10 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   setLinks(links: CanvasLink[]){
     this.links = links
+  }
+
+  setState(stateName: INodeStateTypes){
+    this.state = stateName
   }
 
   setNeighbors(neighbors: {nodes: CanvasNode[], links: CanvasLink[]}){

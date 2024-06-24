@@ -11,11 +11,11 @@ export class Renderer {
 
   artBoard: ArtBoard
   textureStore: TextureStore
-  // gfxStore: GraphicsStore
+  gfxStore: GraphicsStore
 
   constructor(artBoard: ArtBoard) {
     this.artBoard = artBoard
-    // this.gfxStore = new GraphicsStore(this.artBoard)
+    this.gfxStore = new GraphicsStore(this.artBoard)
     this.textureStore = new TextureStore(this.artBoard)
   }
 

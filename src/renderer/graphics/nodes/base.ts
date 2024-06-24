@@ -7,6 +7,12 @@ import { CircleStyleDefaults } from "./circle/defaults";
 import { NodeContainerChildNames } from "../constants";
 
 
+export const ZIndexOrder = {
+  DATA_LAYER : 5,
+  FRONT_LAYER: 10, 
+  ANNOTATIONS_LAYER: 15
+}
+
 export class NodeShapeBase extends NodeShapeAbstract {
 
   declare originalData: CanvasNode;
@@ -28,7 +34,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     super(data, artBoard)
     this.data = this.processData(data)
     // setup intractions
-    this.setupInteractionTriggers()
+    // this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
     console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance )
 
@@ -59,17 +65,20 @@ export class NodeShapeBase extends NodeShapeAbstract {
   // layers
   moveToDataLayer(): void {
     // console.error("not implemented")
+    this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER;
+
     // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
 
   moveToFrontLayer(): void {
     // console.error("not implemented")
     // this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+    this.containerGfx.zIndex = ZIndexOrder.FRONT_LAYER;
   }
 
-  moveToMapLayer(): void{
-    // console.error("not implemented")
-  }
+  // moveToMapLayer(): void{
+  //   // console.error("not implemented")
+  // }
 
  
   triggerInactive = () => {
@@ -159,10 +168,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
     // console.log("getNeighbors", neighbors)
     this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-      node.gfxInstance?.triggerSelected();
+      node.gfxInstance?.setState(":selected")
     })
+    
     this.data.neighbors.links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.triggerSelected();
+      link.gfxInstance?.setState(":selected")
     });
   }
 
@@ -171,10 +181,10 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const neighbors: { nodes: ICanvasNode[], links: ICanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
     // console.log("getNeighbors", neighbors)
     this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-      node.gfxInstance?.triggerUnSelected();
+      node.gfxInstance?.setState(":default")
     })
     this.data.neighbors.links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.triggerUnSelected();
+      link.gfxInstance?.setState(":default")
     });
   }
 
@@ -186,21 +196,24 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     // this.dragPoint.x -= this.containerGfx.x;
     // this.dragPoint.y -= this.containerGfx.y;
-    this.containerGfx.parent.on("pointermove", this.onDragMove);
-    this.containerGfx.parent.on('pointerup', this.onDragEnd);
+    this.setState(":selected", true)
+    let _this = this
+
+    this.containerGfx.parent.on("pointermove", _this.onDragMove);
+    // this.containerGfx.parent.on('pointerup', this.onDragEnd);
     // this.containerGfx.parent.on('pointerupoutside', this.onDragEnd);
-
-
-    this.triggerSelected()
-    this.triggerSelectedOnNeighbors();
   };
 
   onDragMove = (event: PIXI.FederatedPointerEvent) => {
     // const newPoint = event.data.getLocalPosition(this.containerGfx.parent);
+    // event.stopPropagation();
+    const _this = this;
+    console.log("onDragMove", _this.data.id, _this.data.state)
+
+    event.stopPropagation();
+
     if (this.dragData){
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
-
-      console.log("onDragMove triggered", newPoint)
       console.log("onDragMove", newPoint, this.dragPoint)
       // const x = newPoint.x //- this.dragPoint.x;
       // const y = newPoint.y //- this.dragPoint.y;   
@@ -217,14 +230,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
   onDragEnd = (event: PIXI.FederatedPointerEvent) => {
     console.log("onDragEnd triggered")
     event.stopPropagation()
-    
+    const _this = this;
     // this.containerGfx.parent.off("pointermove", this.onDragMove);
     this.containerGfx.parent.off('pointermove', this.onDragMove);
-    this.containerGfx.parent.off('pointerup', this.onDragEnd);
+    // this.containerGfx.parent.off('pointerup', this.onDragEnd(event));
     // this.containerGfx.parent.off('pointerupoutside', this.onDragEnd);
+    // this.setState(":default", true)
 
-    this.triggerUnSelected();
-    this.triggerUnSelectedOnNeighbors();
+    
   };
 
   setupInteractionTriggers() {
@@ -235,22 +248,49 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     // listeners for hover effect
     this.containerGfx
-      .on("pointerover", () => {
-        _this.triggerHovered();
-        _this.triggerHoveredOnNeighbors()
+      .on("pointerover", (event) => {
+        console.log("pointerover", _this.data.id, _this.data.state)
+        event.stopPropagation();
+        if (_this.dragData) return 
+        // _this.triggerHovered();
+        // _this.triggerHoveredOnNeighbors()
+        _this.setState(":hovered", true)
+
       })
-      .on("pointerout", () => {
-        this.triggerUnHovered()
-        this.triggerUnHoveredOnNeighbors()
+      .on("pointerout", (event) => {
+        console.log("pointerout", _this.data.id, _this.data.state)
+        event.stopPropagation();
+        // if (_this.state !== ":selected"){
+          // this.triggerUnHovered()
+          // this.triggerUnHoveredOnNeighbors()  
+        // }
+        // if(_this.data.state !== ":selected"){
+          // if (this.dragData) return 
+          _this.setState(":default", true)
+        // }
       })
-      .on('pointerdown', this.onDragStart.bind(this))
-      // .on('pointerup', this.onDragEnd.bind(this))
-      // .on('pointerupoutside', this.onDragEnd.bind(this))
-  }
+      .on('pointerdown', (event)=> {
+        console.log("pointerdown", _this.data.id, _this.data.state)
+        event.stopPropagation();
+        // if (this.dragData) return 
+        _this.onDragStart(event)
+      })
+      .on('pointerup', (event)=>{
+        console.log("pointerup", _this.data.id, _this.data.state)
+        event.stopPropagation();
+        _this.onDragEnd(event)
+      })
+      .on('pointerupoutside', (event) => {
+        console.log("pointerupoutside", _this.data.id, _this.data.state)
+        event.stopPropagation();
+        _this.onDragEnd(event)
+      })
+    }
 
   draw = (renderShape = true, renderLabel = true) => {
     // clear shapeName first
     this.clear();
+    this.setupInteractionTriggers()
     // draw shapeName
     if (renderShape) {
       this.shapeGfx = this.drawShape();
@@ -273,13 +313,13 @@ export class NodeShapeBase extends NodeShapeAbstract {
       }
     }
 
-    if (this.data.state) {
-      this.setState(this.data.state)
-    }
+    // if (this.data.state) {
+      this.applyStateUpdate()
+    // }
   }
 
   redraw = (renderShape = true, renderLabel = true) => {
-    console.log("redraw ")
+    console.log("redraw ", this.data.id)
     this.draw(renderShape, renderLabel);
   }
 

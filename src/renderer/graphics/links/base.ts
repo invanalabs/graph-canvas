@@ -8,7 +8,9 @@ import { LinkContainerChildNames } from "../constants";
 import drawLabelShape from "../../primitives/label";
 import drawStraightLineShape from "../../primitives/lines/straightLine";
 import drawArrowHeadShape from "../../primitives/arrowHead";
+import { ZIndexOrder } from "../nodes";
 
+import { ILinkStateTypes } from "../../types";
 
 
 
@@ -25,7 +27,6 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.shapeGfx = new PIXI.Graphics();
     this.labelGfx = new PIXI.Graphics();
     // setup intractions
-    this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
     console.debug("this.data.gfxInstance ", this.data, this.data.gfxInstance)
   }
@@ -40,12 +41,15 @@ export class LinkShapeBase extends LinkShapeAbstract {
   // layers
   moveToDataLayer(): void {
     // console.error("not implemented")
+    this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER;
+
     // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
 
   moveToFrontLayer(): void {
     // console.error("not implemented")
     // this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+    this.containerGfx.zIndex = ZIndexOrder.FRONT_LAYER;
   }
 
   moveToMapLayer(): void {
@@ -75,6 +79,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         shapeHoveredBorder.visible = true
       }
     }
+    // this.setState()
     this.moveToFrontLayer();
   }
 
@@ -113,6 +118,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         shapeSelectedBorder.visible = true
       }
     }
+    this.moveToFrontLayer();
   }
 
   triggerUnSelected = () => {
@@ -124,6 +130,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         shapeSelectedBorder.visible = false
       }
     }
+    this.moveToDataLayer();
   }
 
   triggerSelectedOnNeighbors = () => {
@@ -131,6 +138,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerSelected()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerSelected()
     this.data.gfxInstance?.triggerSelected()
+
   }
 
   triggerUnSelectedOnNeighbors = () => {
@@ -149,12 +157,10 @@ export class LinkShapeBase extends LinkShapeAbstract {
     // listeners for hover effect
     this.containerGfx
       .on("pointerover", () => {
-        _this.triggerHovered()
-        _this.triggerHoveredOnNeighbors()
+        _this.setState(":hovered")
       })
       .on("pointerout", () => {
-        _this.triggerUnHovered()
-        _this.triggerUnHoveredOnNeighbors()
+        _this.setState(":default")
       })
   }
 
@@ -199,11 +205,11 @@ export class LinkShapeBase extends LinkShapeAbstract {
     // draw path
     const shapeLine = drawStraightLineShape({  startPoint, endPoint, ...this.data.style.states[":default"].shape})
     shapeLine.name = LinkContainerChildNames.shapeLine
-    shapeLine.zIndex = 1000
+    // shapeLine.zIndex = 1000
 
     // add arrow
     const arrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style.states[":default"].shape })
-    arrow.zIndex = 1000
+    // arrow.zIndex = 1000
 
     shapeLine.addChild(arrow)
     this.shapeGfx.addChild(shapeLine)
@@ -212,7 +218,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     const shapeHoveredBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':hovered'].shape })
     shapeHoveredBorder.visible = false
     shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
-    shapeHoveredBorder.zIndex = 10
+    // shapeHoveredBorder.zIndex = 10
     const hoveredArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':hovered'].shape })
     shapeHoveredBorder.addChild(hoveredArrow)
     this.shapeGfx.addChild(shapeHoveredBorder)
@@ -222,7 +228,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     const shapeSelectedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':selected'].shape })
     shapeSelectedBorder.visible = false
     shapeSelectedBorder.name = LinkContainerChildNames.shapeSelectedBorder
-    shapeSelectedBorder.zIndex = 10
+    // shapeSelectedBorder.zIndex = 10
     const selectedArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':selected'].shape })
     shapeSelectedBorder.addChild(selectedArrow)
     this.shapeGfx.addChild(shapeSelectedBorder)
@@ -234,7 +240,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
   // renderShape=true, renderLabel=true
   draw = (renderShape = true, renderLabel = true) => {
     // clear shapeName first
-    console.debug(`draw renderShape=${renderShape}; renderLabel=${renderLabel}`)
+    console.debug(`draw link renderShape=${renderShape}; renderLabel=${renderLabel}`, this.data.id, this.data.state)
+    this.setupInteractionTriggers()
 
     // draw shapeName
     if (renderShape) {
@@ -253,6 +260,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       this.calcLabelPosition(this.labelGfx, this.shapeGfx)
     }
 
+    if (this.data.state)
     this.setState(this.data.state)
   }
 
@@ -260,6 +268,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
   redraw = (renderShape = true, renderLabel = true) => {
     console.debug("redraw ")
     this.draw(renderShape, renderLabel);
+
+    
   }
 
   destroy(): void {

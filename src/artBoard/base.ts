@@ -9,7 +9,7 @@ export class ArtBoardBase {
   pixiApp: PIXI.Application
   viewport: Viewport
 
-  worldScale: number = 5
+  worldScale: number = 10
 
   constructor(canvas: GraphCanvas) {
     this.canvas = canvas
