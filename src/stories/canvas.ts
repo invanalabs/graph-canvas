@@ -1,4 +1,5 @@
 import { GraphCanvas, ICanvasOptions } from "../canvas";
+import ToolBar from "../plugins/toolbar";
 import { ICanvasLink, ICanvasNode } from "../store";
 import D3ForceLayout from "./layouts/d3-force/layout";
 import DagreLayout from "./layouts/dagre/layout";
@@ -41,6 +42,18 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
     // canvas.camera.fitView();
     // canvas.camera.moveNodesToWorldCenter();
+
+
+    canvas.artBoard.camera.fitView();
+    // canvas.camera.moveNodesToWorldCenter();
+  
+
+    const toolbar = new ToolBar(canvas.artBoard);
+    const toolBarHTMLDiv = toolbar.render()
+    html.appendChild(toolBarHTMLDiv)
+
+
+
   }, false);
   return html
 }
