@@ -100,7 +100,7 @@ export const exampleLinks: Array<ICanvasLink> = [
         source: '5',
         target: '6',
         shapeName: 'line',
-        state: ":selected"
+        state: ":highlighted"
     },       ,
     {
         id: '7-8',

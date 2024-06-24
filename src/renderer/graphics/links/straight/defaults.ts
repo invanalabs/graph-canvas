@@ -3,7 +3,7 @@ import { ILinkStyle } from "../../../types";
 export const LinkStyleDefaults: ILinkStyle = {
     state: ":default",
 
-    labelDisplay: "onHover", // | alwaysOn | onSelected"
+    labelDisplay: "onHover", // | alwaysOn | onHighlighted"
     states: {
         ":default": {
             shape: {
@@ -42,7 +42,7 @@ export const LinkStyleDefaults: ILinkStyle = {
                 color: 0x59cd90, //0xF6B26B
             }
         },
-        ":selected": {
+        ":highlighted": {
             shape: {
                 opacity: 0.6,
                 thickness: 3,
@@ -52,7 +52,7 @@ export const LinkStyleDefaults: ILinkStyle = {
     }
 
 
-    // ":selected": {
+    // ":highlighted": {
     //     shape: {
     //         opacity: 1,
     //         thickness: 3,

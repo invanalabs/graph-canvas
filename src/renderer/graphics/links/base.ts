@@ -10,8 +10,6 @@ import drawStraightLineShape from "../../primitives/lines/straightLine";
 import drawArrowHeadShape from "../../primitives/arrowHead";
 import { ZIndexOrder } from "../nodes";
 
-import { ILinkStateTypes } from "../../types";
-
 
 
 export class LinkShapeBase extends LinkShapeAbstract {
@@ -113,42 +111,42 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
 
-  triggerSelected = () => {
-    console.log(`triggerSelected triggered on node - ${this.data.id}`);
+  triggerHighlighted = () => {
+    console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
-      const shapeSelectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder);
-      if (shapeSelectedBorder) {
-        shapeSelectedBorder.visible = true
+      const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
+      if (shapeHighlightedBorder) {
+        shapeHighlightedBorder.visible = true
       }
     }
     this.moveToFrontLayer();
   }
 
-  triggerUnSelected = () => {
-    console.log(`triggerUnSelected on node - ${this.data.id}`);
+  triggerUnHighlighted = () => {
+    console.log(`triggerUnHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
-      const shapeSelectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder);
-      // console.log("shapeSelectedBorder", shapeSelectedBorder)
-      if (shapeSelectedBorder) {
-        shapeSelectedBorder.visible = false
+      const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
+      // console.log("shapeHighlightedBorder", shapeHighlightedBorder)
+      if (shapeHighlightedBorder) {
+        shapeHighlightedBorder.visible = false
       }
     }
     this.moveToDataLayer();
   }
 
-  triggerSelectedOnNeighbors = () => {
-    console.log(`triggerSelectedOnNeighbors on node - ${this.data.id}`);
-    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerSelected()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerSelected()
-    this.data.gfxInstance?.triggerSelected()
+  triggerHighlightedOnNeighbors = () => {
+    console.log(`triggerHighlightedOnNeighbors on node - ${this.data.id}`);
+    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
+    this.data.gfxInstance?.triggerHighlighted()
 
   }
 
-  triggerUnSelectedOnNeighbors = () => {
-    console.log(`triggerUnSelectedOnNeighbors on node - ${this.data.id}`);
-    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnSelected()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnSelected()
-    this.data.gfxInstance?.triggerUnSelected()
+  triggerUnHighlightedOnNeighbors = () => {
+    console.log(`triggerUnHighlightedOnNeighbors on node - ${this.data.id}`);
+    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()
+    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()
+    this.data.gfxInstance?.triggerUnHighlighted()
   }
 
   setupInteractionTriggers() {
@@ -173,8 +171,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
         // event.stopPropagation();
         // event.stopPropagation();
         // if (this.dragData) return 
-        this.artBoard.canvas.dataStore.addToSelectedLinks(this.data)
-        this.setState(":selected", true)
+        this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
+        this.setState(":highlighted", true)
       })
       .on("pointermove", (event) => {
         console.log("ignoring pointermove")
@@ -193,7 +191,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         // } else {
           // this.setState(":default", true)
         // }
-        this.artBoard.canvas.dataStore.removeFromSelectedLinks(this.data)
+        this.artBoard.canvas.dataStore.removeFromHighlightedLinks(this.data)
       })
       .on('pointerupoutside', (event) => {
         console.log("pointerupoutside", this.data.id, this.data.state)
@@ -263,13 +261,13 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
 
     // shapeName selectedBorder
-    const shapeSelectedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':selected'].shape })
-    shapeSelectedBorder.visible = false
-    shapeSelectedBorder.name = LinkContainerChildNames.shapeSelectedBorder
-    // shapeSelectedBorder.zIndex = 10
-    const selectedArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':selected'].shape })
-    shapeSelectedBorder.addChild(selectedArrow)
-    this.shapeGfx.addChild(shapeSelectedBorder)
+    const shapeHighlightedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':highlighted'].shape })
+    shapeHighlightedBorder.visible = false
+    shapeHighlightedBorder.name = LinkContainerChildNames.shapeHighlightedBorder
+    // shapeHighlightedBorder.zIndex = 10
+    const selectedArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':highlighted'].shape })
+    shapeHighlightedBorder.addChild(selectedArrow)
+    this.shapeGfx.addChild(shapeHighlightedBorder)
 
 
     return this.shapeGfx

@@ -61,7 +61,7 @@ export const CircleStyleDefaults: INodeStyle = {
                 },
             }
         },
-        ":selected": {
+        ":highlighted": {
             shape: {
                 border: {
                     thickness: 4,

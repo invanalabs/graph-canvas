@@ -6,7 +6,7 @@ export enum NodeContainerChildNames {
   shapeName = 'shapeName',
   shapeBackground = 'nodeBackground',
   shapeHoveredBorder = 'shapeHoveredBorder',
-  shapeSelectedBorder = 'shapeSelectedBorder',
+  shapeHighlightedBorder = 'shapeHighlightedBorder',
   // label
   label = 'label',
   labelBackground = 'labelBackground',
@@ -19,7 +19,7 @@ export enum LinkContainerChildNames {
   shapeName = 'shapeName',
   shapeLine = 'shapeLine',
   shapeHoveredBorder = 'shapeHoveredBorder',
-  shapeSelectedBorder = 'shapeSelectedBorder',
+  shapeHighlightedBorder = 'shapeHighlightedBorder',
   // label
   label = 'label',
   labelBackground = 'labelBackground',

@@ -88,9 +88,9 @@ export default class TextureStore {
     // selected textures
     // selected - shape
     const selectedPadding = hoveredPadding + 2;
-    const selectedStyle = props.style?.states[':selected'];
-    // nodeStyleTexture['states'][':selected'] = {}
-    // nodeStyleTexture['states'][':selected'][shape] =
+    const selectedStyle = props.style?.states[':highlighted'];
+    // nodeStyleTexture['states'][':highlighted'] = {}
+    // nodeStyleTexture['states'][':highlighted'][shape] =
 
     let selectedStateStyle: INodeStateTexture = {
       shape: this.createNodeShapeTexture({
@@ -106,7 +106,7 @@ export default class TextureStore {
       states: {
         ":default": defaultStateStyle,
         ":hovered": hoveredStateStyle,
-        ":selected": selectedStateStyle,
+        ":highlighted": selectedStateStyle,
 
         // fix :inactive and :hidden later
         ":inactive": selectedStateStyle,

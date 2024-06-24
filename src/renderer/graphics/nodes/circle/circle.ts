@@ -53,12 +53,12 @@ class Circle extends NodeShapeBase {
           shape.addChild(shapeHoveredBorder)
   
           // draw selected graphics
-          const shapeSelectedBorder = new Sprite(texture['states'][':selected'].shape)
-          shapeSelectedBorder.x =  -(shapeSelectedBorder.width - shape.width) / 2;
-          shapeSelectedBorder.y = -(shapeSelectedBorder.height - shape.height) / 2;
-          shapeSelectedBorder.visible = false
-          shapeSelectedBorder.name = NodeContainerChildNames.shapeSelectedBorder
-          shape.addChild(shapeSelectedBorder)
+          const shapeHighlightedBorder = new Sprite(texture['states'][':highlighted'].shape)
+          shapeHighlightedBorder.x =  -(shapeHighlightedBorder.width - shape.width) / 2;
+          shapeHighlightedBorder.y = -(shapeHighlightedBorder.height - shape.height) / 2;
+          shapeHighlightedBorder.visible = false
+          shapeHighlightedBorder.name = NodeContainerChildNames.shapeHighlightedBorder
+          shape.addChild(shapeHighlightedBorder)
   
           shape.cursor = "pointer";
           shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 

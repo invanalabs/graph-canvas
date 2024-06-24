@@ -142,42 +142,42 @@ export class NodeShapeBase extends NodeShapeAbstract {
     });
   }
 
-  triggerSelected = () => {
-    console.log(`triggerSelected on node - ${this.data.id}`);
+  triggerHighlighted = () => {
+    console.log(`triggerHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
-      const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
-      if (shapeSelectedBorder) {
-        shapeSelectedBorder.visible = true
+      const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
+      if (shapeHighlightedBorder) {
+        shapeHighlightedBorder.visible = true
       }
     }
   }
 
-  triggerUnSelected = () => {
-    console.log(`triggerUnSelected on node - ${this.data.id}`);
+  triggerUnHighlighted = () => {
+    console.log(`triggerUnHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
-      const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder);
-      // console.log("shapeSelectedBorder", shapeSelectedBorder)
-      if (shapeSelectedBorder) {
-        shapeSelectedBorder.visible = false
+      const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
+      // console.log("shapeHighlightedBorder", shapeHighlightedBorder)
+      if (shapeHighlightedBorder) {
+        shapeHighlightedBorder.visible = false
       }
     }
   }
 
-  triggerSelectedOnNeighbors = () => {
-    console.log("=triggerSelectedOnNeighbors triggered")
+  triggerHighlightedOnNeighbors = () => {
+    console.log("=triggerHighlightedOnNeighbors triggered")
     // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
     // console.log("getNeighbors", neighbors)
     this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-      node.gfxInstance?.setState(":selected")
+      node.gfxInstance?.setState(":highlighted")
     })
 
     this.data.neighbors.links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.setState(":selected")
+      link.gfxInstance?.setState(":highlighted")
     });
   }
 
-  triggerUnSelectedOnNeighbors = () => {
-    console.log("=triggerUnSelectedOnNeighbors triggered")
+  triggerUnHighlightedOnNeighbors = () => {
+    console.log("=triggerUnHighlightedOnNeighbors triggered")
     // const neighbors: { nodes: ICanvasNode[], links: ICanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
     // console.log("getNeighbors", neighbors)
     this.data.neighbors.nodes.forEach((node: CanvasNode) => {
@@ -232,7 +232,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       }
     })
     // this.canvas.renderer.reRenderLinks(neighborLinks)
-    // this.triggerSelectedOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
+    // this.triggerHighlightedOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
   };
 
   onDragEnd = (event: PIXI.FederatedPointerEvent) => {
@@ -276,11 +276,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
         console.log("pointerout", this.data.id, this.data.state, this.dragData)
         event.stopPropagation();
 
-        // if (_this.state !== ":selected"){
+        // if (_this.state !== ":highlighted"){
         // this.triggerUnHovered()
         // this.triggerUnHoveredOnNeighbors()  
         // }
-        // if(_this.data.state !== ":selected"){
+        // if(_this.data.state !== ":highlighted"){
         if (this.dragData) return
         this.setState(":default", true)
         // }
@@ -289,8 +289,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
         console.log("pointerdown", this.data.id, this.data.state)
         // event.stopPropagation();
         // if (this.dragData) return 
-        this.artBoard.canvas.dataStore.addToSelectedNodes(this.data)
-        this.setState(":selected", true)
+        this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
+        this.setState(":highlighted", true)
         this.onDragStart(event)
       })
       .on('pointerup', (event) => {
@@ -306,7 +306,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
           this.setState(":default", true)
         }
         this.onDragEnd(event)
-        this.artBoard.canvas.dataStore.removeFromSelectedNodes(this.data)
+        this.artBoard.canvas.dataStore.removeFromHighlightedNodes(this.data)
       })
       .on('pointerupoutside', (event) => {
         console.log("pointerupoutside", this.data.id, this.data.state)

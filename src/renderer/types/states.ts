@@ -1,8 +1,8 @@
 import { ILinkShapeStyle, INodeShapeStyle, IShapeLabelStyle } from "./styles";
 // TODO - merge this to styles.ts, both are styles anyways except, INodeStateTypes, ILinkStateTypes
 
-export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':inactive' | ':hidden'; 
-export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':inactive' | ':hidden';
+export type INodeStateTypes =  ':default' | ':hovered' | ':highlighted' | ':highlighted' | ':inactive' | ':hidden'; 
+export type ILinkStateTypes =  ':default' | ':hovered' | ':highlighted' | ':highlighted' | ':inactive' | ':hidden';
 
 
 export interface INodeStyle {

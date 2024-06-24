@@ -23,9 +23,9 @@ export const exampleNodes : Array<ICanvasNode> = [
     {
         id: '3',
         group: 'TestNode',
-        label: 'Selected',
+        label: 'Highlighted',
         shapeName: 'circle',
-        state: ':selected',
+        state: ':highlighted',
         x: (window.innerWidth/2) - 100 ,
         y: (window.innerHeight/2) + 100
     },

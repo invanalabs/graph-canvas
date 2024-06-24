@@ -15,8 +15,8 @@ import { ArtBoard } from '../../artBoard';
 //     abstract setDefault(): void
 //     // :hover
 //     abstract settHovered(): void
-//     // :selected
-//     abstract setSelected(): void
+//     // :highlighted
+//     abstract setHighlighted(): void
 //     // :inactive
 //     abstract setInactive():void
 //     // :hidden
@@ -65,12 +65,12 @@ abstract class ShapeAbstractBase {
     abstract triggerUnHovered(): void
     abstract triggerUnHoveredOnNeighbors(): void
 
-    // :selected
-    abstract triggerSelected(): void
-    abstract triggerSelectedOnNeighbors(): void
+    // :highlighted
+    abstract triggerHighlighted(): void
+    abstract triggerHighlightedOnNeighbors(): void
 
-    abstract triggerUnSelected(): void
-    abstract triggerUnSelectedOnNeighbors(): void
+    abstract triggerUnHighlighted(): void
+    abstract triggerUnHighlightedOnNeighbors(): void
 
     // :inactive
     abstract triggerInactive():void
@@ -96,9 +96,9 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     artBoard: ArtBoard
     containerGfx: PIXI.Graphics;
 
-    // for state based graphics :hovered and :selected
+    // for state based graphics :hovered and :highlighted
     declare shapeHoveredGfx : PIXI.Graphics;
-    declare shapeSelectedGfx : PIXI.Graphics;
+    declare shapeHighlightedGfx : PIXI.Graphics;
 
 
     constructor(data: CanvasNode | CanvasLink, artBoard: ArtBoard) {
@@ -138,12 +138,12 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         const stateName = this.data.state
         if (stateName === ":default"){
             this.triggerUnHovered();
-            this.triggerUnSelected();
+            this.triggerUnHighlighted();
             this.triggerDefault();
 
             if (setNeighborsToo){
                 this.triggerUnHoveredOnNeighbors()
-                this.triggerUnSelectedOnNeighbors()
+                this.triggerUnHighlightedOnNeighbors()
             }
         }
         else if (stateName === ":hovered"){
@@ -153,11 +153,11 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
                 this.triggerHoveredOnNeighbors()
             }
         }
-        else if (stateName === ":selected"){
+        else if (stateName === ":highlighted"){
             // this.clearStates();
-            this.triggerSelected()
+            this.triggerHighlighted()
             if (setNeighborsToo){
-                this.triggerSelectedOnNeighbors()
+                this.triggerHighlightedOnNeighbors()
             }
         }
         else if (stateName === ":inactive"){
@@ -191,8 +191,8 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     abstract triggerHoveredOnNeighbors(): void
     abstract triggerUnHoveredOnNeighbors(): void
 
-    abstract triggerSelectedOnNeighbors(): void
-    abstract triggerUnSelectedOnNeighbors(): void
+    abstract triggerHighlightedOnNeighbors(): void
+    abstract triggerUnHighlightedOnNeighbors(): void
 
     abstract onDragStart(event: PIXI.FederatedPointerEvent): void
     // abstract onDragMove(event: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
@@ -220,8 +220,8 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
     abstract triggerHoveredOnNeighbors(): void
     abstract triggerUnHoveredOnNeighbors(): void
 
-    abstract triggerSelectedOnNeighbors(): void
-    abstract triggerUnSelectedOnNeighbors(): void
+    abstract triggerHighlightedOnNeighbors(): void
+    abstract triggerUnHighlightedOnNeighbors(): void
 
 
 

@@ -71,19 +71,19 @@ export class DataStore implements IDataStore {
     }
   }
 
-  addToSelectedNodes(node: CanvasNode){
+  addToHighlightedNodes(node: CanvasNode){
     this.selectedNodes.set(node.id, node)
   }
 
-  removeFromSelectedNodes(node: CanvasNode){
+  removeFromHighlightedNodes(node: CanvasNode){
     this.selectedNodes.delete(node.id)
   }
 
-  addToSelectedLinks(link: CanvasLink){
+  addToHighlightedLinks(link: CanvasLink){
     this.selectedLinks.set(link.id, link)
   }
 
-  removeFromSelectedLinks(link: CanvasLink){
+  removeFromHighlightedLinks(link: CanvasLink){
     this.selectedLinks.delete(link.id)
   }
 
