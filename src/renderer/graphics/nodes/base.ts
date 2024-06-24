@@ -196,10 +196,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     // this.dragPoint.x -= this.containerGfx.x;
     // this.dragPoint.y -= this.containerGfx.y;
-    this.setState(":selected", true)
-    let _this = this
-
-    this.containerGfx.parent.on("pointermove", _this.onDragMove);
+    this.containerGfx.parent.on("pointermove", this.onDragMove);
     // this.containerGfx.parent.on('pointerup', this.onDragEnd);
     // this.containerGfx.parent.on('pointerupoutside', this.onDragEnd);
   };
@@ -230,60 +227,71 @@ export class NodeShapeBase extends NodeShapeAbstract {
   onDragEnd = (event: PIXI.FederatedPointerEvent) => {
     console.log("onDragEnd triggered")
     event.stopPropagation()
-    const _this = this;
+    // const _this = this;
+    this.dragData = null
     // this.containerGfx.parent.off("pointermove", this.onDragMove);
     this.containerGfx.parent.off('pointermove', this.onDragMove);
     // this.containerGfx.parent.off('pointerup', this.onDragEnd(event));
     // this.containerGfx.parent.off('pointerupoutside', this.onDragEnd);
-    // this.setState(":default", true)
-
-    
+    // this.setState(":default", true)    
   };
 
   setupInteractionTriggers() {
     console.log("===setupInteractionTriggers triggered")
-    const _this = this;
+    // const _this = this;
     // Remove all listeners
     this.containerGfx.removeAllListeners();
 
     // listeners for hover effect
     this.containerGfx
       .on("pointerover", (event) => {
-        console.log("pointerover", _this.data.id, _this.data.state)
+        console.log("pointerover", this.data.id, this.data.state, this.dragData)
         event.stopPropagation();
-        if (_this.dragData) return 
+        // if (_this.dragData) return 
         // _this.triggerHovered();
         // _this.triggerHoveredOnNeighbors()
-        _this.setState(":hovered", true)
+        this.setState(":hovered", true)
 
       })
       .on("pointerout", (event) => {
-        console.log("pointerout", _this.data.id, _this.data.state)
+        console.log("pointerout", this.data.id, this.data.state, this.dragData)
         event.stopPropagation();
+
         // if (_this.state !== ":selected"){
           // this.triggerUnHovered()
           // this.triggerUnHoveredOnNeighbors()  
         // }
         // if(_this.data.state !== ":selected"){
-          // if (this.dragData) return 
-          _this.setState(":default", true)
+          if (this.dragData) return 
+          this.setState(":default", true)
         // }
       })
       .on('pointerdown', (event)=> {
-        console.log("pointerdown", _this.data.id, _this.data.state)
-        event.stopPropagation();
+        console.log("pointerdown", this.data.id, this.data.state)
+        // event.stopPropagation();
         // if (this.dragData) return 
-        _this.onDragStart(event)
+        this.setState(":selected", true)
+        this.onDragStart(event)
       })
       .on('pointerup', (event)=>{
-        console.log("pointerup", _this.data.id, _this.data.state)
+        const pointerPosition = event.data.global;
+
+        console.log("pointerup", this.data.id, this.data.state, this.containerGfx.containsPoint(pointerPosition))
         event.stopPropagation();
-        _this.onDragEnd(event)
+        
+        if (this.containerGfx.containsPoint(pointerPosition)){
+          this.setState(":hovered", true)
+        }else{
+          this.setState(":default", true)
+        }
+        this.onDragEnd(event)
+
+
       })
       .on('pointerupoutside', (event) => {
-        console.log("pointerupoutside", _this.data.id, _this.data.state)
+        console.log("pointerupoutside", this.data.id, this.data.state)
         event.stopPropagation();
-        _this.onDragEnd(event)
+        this.onDragEnd(event)
       })
     }
 

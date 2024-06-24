@@ -99,6 +99,7 @@ export class DataStore implements IDataStore {
   }
 
   setState(item: CanvasNode | CanvasLink, stateName: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean=false) {
+    console.log("setState called", item.id, stateName, setNeighborsToo)
     if (item instanceof CanvasNode) {
       // Handle CanvasNode instance
       const node = this.nodes.get(item.id)

@@ -150,18 +150,17 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   setupInteractionTriggers() {
     console.debug("===setupInteractions triggered on link", this.containerGfx)
-    const _this = this;
     // Remove all listeners
     this.containerGfx.removeAllListeners();
 
     // listeners for hover effect
-    this.containerGfx
-      .on("pointerover", () => {
-        _this.setState(":hovered")
-      })
-      .on("pointerout", () => {
-        _this.setState(":default")
-      })
+    // this.containerGfx
+    //   .on("pointerover", () => {
+    //     _this.setState(":hovered")
+    //   })
+    //   .on("pointerout", () => {
+    //     _this.setState(":default")
+    //   })
   }
 
   calcLabelPosition = (labelGfx: PIXI.Graphics, shapeGfx: PIXI.Graphics) => {
@@ -261,8 +260,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
     }
 
     if (this.data.state)
-    this.setState(this.data.state)
-  }
+      this.applyStateUpdate()
+    }
 
 
   redraw = (renderShape = true, renderLabel = true) => {
