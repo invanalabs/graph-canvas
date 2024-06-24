@@ -11,9 +11,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   declare originalData: CanvasNode;
   declare data: CanvasNode;
+
   declare dragPoint: PIXI.Point
+  private dragData: PIXI.FederatedPointerEvent | null = null;
+
   declare labelGfx: PIXI.Graphics
   declare shapeGfx: PIXI.Graphics 
+
+
 
   declare drawShape 
   declare drawLabel
@@ -26,6 +31,13 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
     console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance )
+
+
+    // Bind event handlers to this instance
+    this.onDragStart = this.onDragStart.bind(this);
+    this.onDragMove = this.onDragMove.bind(this);
+    this.onDragEnd = this.onDragEnd.bind(this);
+
 
   }
 
@@ -167,24 +179,35 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   onDragStart = (event: PIXI.FederatedPointerEvent) => {
-    this.dragPoint = event.data.getLocalPosition(this.containerGfx.parent);
-    console.log("onDragStart triggered", this.dragPoint)
+    // this.dragPoint = event.data.getLocalPosition(this.containerGfx.parent);
+    this.dragData = event.data;
+    // this.dragPoint.copyFrom(this.dragData.getLocalPosition(this.containerGfx.parent));
+    // console.log("onDragStart triggered", this.dragPoint)
     event.stopPropagation();
     // this.dragPoint.x -= this.containerGfx.x;
     // this.dragPoint.y -= this.containerGfx.y;
     this.containerGfx.parent.on("pointermove", this.onDragMove);
+    this.containerGfx.parent.on('pointerup', this.onDragEnd);
+    // this.containerGfx.parent.on('pointerupoutside', this.onDragEnd);
+
+
     this.triggerSelected()
     this.triggerSelectedOnNeighbors();
   };
 
   onDragMove = (event: PIXI.FederatedPointerEvent) => {
-    const newPoint = event.data.getLocalPosition(this.containerGfx.parent);
-    console.log("onDragMove triggered", newPoint)
-    console.log("onDragMove", newPoint, this.dragPoint)
-    // const x = newPoint.x //- this.dragPoint.x;
-    // const y = newPoint.y //- this.dragPoint.y;   
-    // update node positions data 
-    this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y)
+    // const newPoint = event.data.getLocalPosition(this.containerGfx.parent);
+    if (this.dragData){
+      const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
+
+      console.log("onDragMove triggered", newPoint)
+      console.log("onDragMove", newPoint, this.dragPoint)
+      // const x = newPoint.x //- this.dragPoint.x;
+      // const y = newPoint.y //- this.dragPoint.y;   
+      // update node positions data 
+      this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y)
+  
+    }
 
     // const neighborLinks = this.canvas.graph.getNeighborLinks(this.data);
     // this.canvas.renderer.reRenderLinks(neighborLinks)
@@ -194,7 +217,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
   onDragEnd = (event: PIXI.FederatedPointerEvent) => {
     console.log("onDragEnd triggered")
     event.stopPropagation()
-    this.containerGfx.parent.off("pointermove", this.onDragMove);
+    
+    // this.containerGfx.parent.off("pointermove", this.onDragMove);
+    this.containerGfx.parent.off('pointermove', this.onDragMove);
+    this.containerGfx.parent.off('pointerup', this.onDragEnd);
+    // this.containerGfx.parent.off('pointerupoutside', this.onDragEnd);
+
     this.triggerUnSelected();
     this.triggerUnSelectedOnNeighbors();
   };
@@ -216,8 +244,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
         this.triggerUnHoveredOnNeighbors()
       })
       .on('pointerdown', this.onDragStart.bind(this))
-      .on('pointerup', this.onDragEnd.bind(this))
-      .on('pointerupoutside', this.onDragEnd.bind(this))
+      // .on('pointerup', this.onDragEnd.bind(this))
+      // .on('pointerupoutside', this.onDragEnd.bind(this))
   }
 
   draw = (renderShape = true, renderLabel = true) => {
