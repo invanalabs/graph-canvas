@@ -21,6 +21,9 @@ export class LinkShapeBase extends LinkShapeAbstract {
   declare labelGfx: PIXI.Graphics;
   declare shapeGfx: PIXI.Graphics;
 
+  private dragData: PIXI.FederatedPointerEvent | null = null;
+
+
   constructor(data: CanvasLink, artBoard: ArtBoard) {
     super(data, artBoard)
     this.data = this.processData(data)
@@ -155,11 +158,46 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     // listeners for hover effect
     this.containerGfx
-      .on("pointerover", () => {
+      .on("pointerover", (event) => {
+        event.stopPropagation();
         this.setState(":hovered", true)
       })
-      .on("pointerout", () => {
+      .on("pointerout", (event) => {
+        event.stopPropagation();
+        if (this.dragData) return 
         this.setState(":default", true)
+      })
+      .on('pointerdown', (event) => {
+        console.log("pointerdown", this.data.id, this.data.state)
+        this.dragData = event.data
+        // event.stopPropagation();
+        // event.stopPropagation();
+        // if (this.dragData) return 
+        this.artBoard.canvas.dataStore.addToSelectedLinks(this.data)
+        this.setState(":selected", true)
+      })
+      .on("pointermove", (event) => {
+        console.log("ignoring pointermove")
+        event.stopPropagation()
+      })
+
+      .on('pointerup', (event) => {
+        const pointerPosition = event.data.global;
+        console.log("pointerup", this.data.id, this.data.state, this.containerGfx.containsPoint(pointerPosition))
+        // event.stopPropagation();
+        this.dragData = null
+
+        // 
+        // if (this.containerGfx.containsPoint(pointerPosition)) {
+        //   this.setState(":hovered", true)
+        // } else {
+          // this.setState(":default", true)
+        // }
+        this.artBoard.canvas.dataStore.removeFromSelectedLinks(this.data)
+      })
+      .on('pointerupoutside', (event) => {
+        console.log("pointerupoutside", this.data.id, this.data.state)
+        // event.stopPropagation();
       })
   }
 
@@ -173,9 +211,9 @@ export class LinkShapeBase extends LinkShapeAbstract {
     console.error("calcLabelAngle Not Implemented")
   }
 
-  calcStartAndEndPoints = (): {startPoint: any, endPoint: any}  => {
+  calcStartAndEndPoints = (): { startPoint: any, endPoint: any } => {
     console.error("calcStartAndEndPoints not Implemented")
-    return {startPoint: undefined, endPoint: undefined}
+    return { startPoint: undefined, endPoint: undefined }
 
   }
 
@@ -203,7 +241,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
 
     // draw path
-    const shapeLine = drawStraightLineShape({  startPoint, endPoint, ...this.data.style.states[":default"].shape})
+    const shapeLine = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[":default"].shape })
     shapeLine.name = LinkContainerChildNames.shapeLine
     // shapeLine.zIndex = 1000
 
@@ -245,7 +283,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     // draw shapeName
     if (renderShape) {
-      this.shapeGfx.removeChildren(); 
+      this.shapeGfx.removeChildren();
       this.shapeGfx = this.drawShape();
       this.containerGfx.addChild(this.shapeGfx);
     }
@@ -260,16 +298,15 @@ export class LinkShapeBase extends LinkShapeAbstract {
       this.calcLabelPosition(this.labelGfx, this.shapeGfx)
     }
 
-    if (this.data.state)
-      this.applyStateUpdate()
-    }
+    this.applyStateUpdate()
+  }
 
 
   redraw = (renderShape = true, renderLabel = true) => {
     console.debug("redraw ")
     this.draw(renderShape, renderLabel);
 
-    
+
   }
 
   destroy(): void {
