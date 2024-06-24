@@ -108,7 +108,7 @@ export class DataStore implements IDataStore {
       if (node) {
         node.state = stateName
         this.nodes.set(item.id, node)
-        this.trigger("nodeUpdated:state", {id:node.id, node: node, setNeighborsToo: setNeighborsToo})
+        this.trigger("nodeUpdated:state", {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo})
       }
 
     } else if (item instanceof CanvasLink) {
@@ -116,7 +116,7 @@ export class DataStore implements IDataStore {
       if (link) {
         link.state = stateName
         this.links.set(item.id, link)
-        this.trigger("linkUpdated:state", {id:link.id, link: link, setNeighborsToo:setNeighborsToo})
+        this.trigger("linkUpdated:state", {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo})
       }
     } else {
       // Handle other cases

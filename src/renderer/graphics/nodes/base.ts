@@ -264,24 +264,21 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // listeners for hover effect
     this.containerGfx
       .on("pointerover", (event) => {
-        console.log("pointerover", this.data.id, this.data.state, this.dragData)
-        event.stopPropagation();
-        // if (_this.dragData) return 
-        // _this.triggerHovered();
-        // _this.triggerHoveredOnNeighbors()
-        this.setState(":hovered", true)
+        console.log("====pointerover", this.data.id,  this.data.state, this.dragData)
 
+        event.stopPropagation();
+
+        if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
+        if (this.dragData) return
+        console.log("pointerover", this.data.id, this.data.state, this.dragData)
+        this.setState(":hovered", true)
       })
       .on("pointerout", (event) => {
-        console.log("pointerout", this.data.id, this.data.state, this.dragData)
-        event.stopPropagation();
-
-        // if (_this.state !== ":highlighted"){
-        // this.triggerUnHovered()
-        // this.triggerUnHoveredOnNeighbors()  
-        // }
-        // if(_this.data.state !== ":highlighted"){
+        console.log("====pointerout", this.data.id,  this.data.state, this.dragData)
+        // event.stopPropagation();
+        // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
         if (this.dragData) return
+        console.log("pointerout", this.data.id, this.data.state, this.dragData)
         this.setState(":default", true)
         // }
       })
