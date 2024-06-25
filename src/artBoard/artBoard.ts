@@ -41,13 +41,13 @@ export class ArtBoard extends ArtBoardBase {
 
   setUpRenderOnEventListers() {
 
-    this.canvas.dataStore.on('nodeAdded', ({ id, node }: NodeEventData) => {
-      console.log("nodeAdded", id, node);
+    this.canvas.dataStore.on('node:added', ({ id, node }: NodeEventData) => {
+      console.log("node:added", id, node);
       this.renderer.renderNode(node)
     });
 
-    this.canvas.dataStore.on('nodeUpdated:position', ({ id, node }: NodeEventData) => {
-      console.log("nodeUpdated:position updatedto", id, node.x, node.y);
+    this.canvas.dataStore.on('node:position:updated', ({ id, node }: NodeEventData) => {
+      console.log("node:position:updated updatedto", id, node.x, node.y);
       //@ts-ignore
       node.gfxInstance.setPosition(node.x, node.y);
       
@@ -61,37 +61,37 @@ export class ArtBoard extends ArtBoardBase {
       })
     });
 
-    this.canvas.dataStore.on("gfx:node:stateUpdated", ({id, node, state, event, setNeighborsToo}: INodeStateUpdateEventData)=>{
-      console.log("gfx:node:stateUpdated", id, state);
+    this.canvas.dataStore.on("gfx:node:state:updated", ({id, node, state, event, setNeighborsToo}: INodeStateUpdateEventData)=>{
+      console.log("gfx:node:state:updated", id, state);
       if (node)
       node.gfxInstance?.applyStateUpdate(setNeighborsToo, event)
     })
 
-    this.canvas.dataStore.on("gfx:link:stateUpdated", ({id, link, state, event, setNeighborsToo}: ILinkStateUpdateEventData)=>{
-      console.log("gfx:link:stateUpdated", id, state);
+    this.canvas.dataStore.on("gfx:link:state:updated", ({id, link, state, event, setNeighborsToo}: ILinkStateUpdateEventData)=>{
+      console.log("gfx:link:state:updated", id, state);
       if (link)
       link.gfxInstance?.applyStateUpdate(setNeighborsToo, event)
     })
 
-    // add linkAdded event listener
-    this.canvas.dataStore.on('linkAdded', ({ id, link }: LinkEventData) => {
-      console.log("linkAdded", id, link);
+    // add link:added event listener
+    this.canvas.dataStore.on('link:added', ({ id, link }: LinkEventData) => {
+      console.log("link:added", id, link);
       this.renderer.renderLink(link);
     });
 
-    // add nodeDeleted event listener
-    this.canvas.dataStore.on('nodeDeleted', ({ id, node }: NodeEventData) => {
-      console.log("nodeDeleted", id, node);
+    // add node:deleted event listener
+    this.canvas.dataStore.on('node:deleted', ({ id, node }: NodeEventData) => {
+      console.log("node:deleted", id, node);
     });
 
-    // add linkDeleted event listener
-    this.canvas.dataStore.on('linkDeleted', ({ id, link }: LinkEventData) => {
-      console.log("linkDeleted", id, link);
+    // add "link:deleted" event listener
+    this.canvas.dataStore.on('"link:deleted"', ({ id, link }: LinkEventData) => {
+      console.log("link:deleted", id, link);
     });
 
-    // add linkDeleted event listener
-    this.canvas.dataStore.on('nodeUpdated:links', ({ id, node }: NodeEventData) => {
-      console.log("nodeUpdated:links", id, node);
+    // add "link:deleted" event listener
+    this.canvas.dataStore.on('node:links:updated', ({ id, node }: NodeEventData) => {
+      console.log("node:links:updated", id, node);
     });
 
   }

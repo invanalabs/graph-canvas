@@ -4,7 +4,7 @@ import { CanvasLink } from "./links";
 import { CanvasNode } from "./nodes";
 
 
-export type IdString = Number | string;
+export type IdString = number | string;
 
 export type ICanvasItemProperties = {
   [key: string]: any;
@@ -73,15 +73,17 @@ export type LinkUpdateEventListener = (data: LinkUpdateEventData) => void;
 export type LinkStateUpdateEventListener = (data: ILinkStateUpdateEventData) => void;
 
 export interface IDataStoreListeners {
-  nodeAdded: NodeEventListener[];
-  "nodeUpdated:links": NodeEventListener[];
-  "nodeUpdated:properties": NodeUpdateEventListener[];
-  "nodeUpdated:position": NodeUpdateEventListener[];
-  "gfx:node:stateUpdated": NodeStateUpdateEventListener[];
+  "node:added": NodeEventListener[];
+  "node:deleted": NodeEventListener[];
+  "node:properties:updated": NodeUpdateEventListener[];
+  "node:links:updated": NodeEventListener[];
+  "node:position:updated": NodeUpdateEventListener[];
+
+  "link:added": LinkEventListener[];
+  "link:deleted": LinkEventListener[];
+  "link:properties:updated": LinkUpdateEventListener[];
+
+  "gfx:node:state:updated": NodeStateUpdateEventListener[];
+  "gfx:link:state:updated": LinkStateUpdateEventListener[];
   
-  nodeDeleted: NodeEventListener[];
-  linkAdded: LinkEventListener[];
-  "linkUpdated:properties": LinkUpdateEventListener[];
-  "gfx:link:stateUpdated": LinkStateUpdateEventListener[];
-  linkDeleted: LinkEventListener[];
 }

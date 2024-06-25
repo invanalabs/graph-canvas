@@ -28,17 +28,17 @@ export class DataStore implements IDataStore {
     this.links = new Map()
 
     this.listeners = {
-      "nodeAdded": [],
-      "nodeUpdated:links": [],
-      "nodeUpdated:position": [],
-      "nodeUpdated:properties": [],
-      "nodeDeleted": [],
-      "gfx:node:stateUpdated": [],
+      "node:added": [],
+      "node:links:updated": [],
+      "node:position:updated": [],
+      "node:properties:updated": [],
+      "node:deleted": [],
+      "gfx:node:state:updated": [],
 
-      "linkAdded": [],
-      "linkUpdated:properties": [],
-      "gfx:link:stateUpdated": [],
-      "linkDeleted": []
+      "link:added": [],
+      "link:properties:updated": [],
+      "gfx:link:state:updated": [],
+      "link:deleted": []
     }
   }
 
@@ -95,7 +95,7 @@ export class DataStore implements IDataStore {
     if (!this.nodes.has(node.id)) {
       const nodeInstance = new CanvasNode(node)
       this.nodes.set(node.id, nodeInstance);
-      this.trigger('nodeAdded', { id: node.id, node: nodeInstance });
+      this.trigger('node:added', { id: node.id, node: nodeInstance });
     } else {
       console.error(`Node with id "${node.id}" already exists.`);
     }
@@ -109,7 +109,7 @@ export class DataStore implements IDataStore {
       if (node) {
         node.state = stateName
         this.nodes.set(item.id, node)
-        this.trigger("gfx:node:stateUpdated", {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo, event:event})
+        this.trigger("gfx:node:state:updated", {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo, event:event})
       }
 
     } else if (item instanceof CanvasLink) {
@@ -117,7 +117,7 @@ export class DataStore implements IDataStore {
       if (link) {
         link.state = stateName
         this.links.set(item.id, link)
-        this.trigger("gfx:link:stateUpdated", {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo, event:event})
+        this.trigger("gfx:link:state:updated", {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo, event:event})
       }
     } else {
       // Handle other cases
@@ -134,7 +134,7 @@ export class DataStore implements IDataStore {
       // TODO - trigger new event callled node:
       this.nodes.set(nodeId, node)
       // node.gfxInstance?.setPosition(x, y);
-      this.trigger('nodeUpdated:position', { id: node.id, node: node });
+      this.trigger('node:position:updated', { id: node.id, node: node });
     }
   }
 
@@ -143,7 +143,7 @@ export class DataStore implements IDataStore {
     if (node) {
       node?.updateProperties(properties)
       this.nodes.set(nodeId, node)
-      this.trigger('nodeUpdated:properties', { id: nodeId, node: node, updatedProperties: properties });
+      this.trigger('node:properties:updated', { id: nodeId, node: node, updatedProperties: properties });
     } else {
       console.error(`Node with key "${nodeId}" does not exist.`);
     }
@@ -160,7 +160,7 @@ export class DataStore implements IDataStore {
       })
       // delete this node 
       this.nodes.delete(nodeId);
-      this.trigger('nodeDeleted', { id: nodeId, node });
+      this.trigger('node:deleted', { id: nodeId, node });
     } else {
       console.error(`Node with key "${nodeId}" does not exist. can't delete`);
     }
@@ -180,7 +180,7 @@ export class DataStore implements IDataStore {
       node.setNeighbors(this.getNeighbors(nodeId))
       console.debug("====reCalcNodeLinks node.links", node.links)
       this.nodes.set(nodeId, node)
-      this.trigger('nodeUpdated:links', { id: node.id, node: node })
+      this.trigger('node:links:updated', { id: node.id, node: node })
     } else {
       console.error(`${nodeId} doesnt exist in nodes, so can't reCalcNodeLinks`)
     }
@@ -215,7 +215,7 @@ export class DataStore implements IDataStore {
       const linkInstance = new CanvasLink(link)
       this.links.set(link.id, linkInstance);
       console.debug("====addLink", this.nodes, this.links)
-      this.trigger('linkAdded', { id: link.id, link: linkInstance });
+      this.trigger('link:added', { id: link.id, link: linkInstance });
       this.reCalcNodeLinks(linkInstance.source.id);
       this.reCalcNodeLinks(linkInstance.target.id);
     } else {
@@ -229,7 +229,7 @@ export class DataStore implements IDataStore {
     if (link) {
       link?.updateProperties(properties)
       this.links.set(linkId, link)
-      this.trigger('linkUpdated:properties', { id: linkId, link: link, updatedProperties: properties });
+      this.trigger('link:properties:updated', { id: linkId, link: link, updatedProperties: properties });
     } else {
       console.error(`Link with key "${linkId}" does not exist.`);
     }
@@ -240,7 +240,7 @@ export class DataStore implements IDataStore {
     const link = this.links.get(linkId);
     if (link) {
       this.links.delete(linkId);
-      this.trigger('linkDeleted', { id: linkId, link });
+      this.trigger('"link:deleted"', { id: linkId, link });
       // recacl nodeLinks for the nodes of the link
       this.reCalcNodeLinks(link.source.id);
       this.reCalcNodeLinks(link.target.id);

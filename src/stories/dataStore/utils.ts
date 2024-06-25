@@ -30,28 +30,28 @@ export const createComponent = () => {
   document.addEventListener("DOMContentLoaded", function (_) {
 
     const data = new DataStore();
-    // add nodeAdded event listener
-    data.on('nodeAdded', ({ id, node }: NodeEventData) => {
-      logAction("nodeAdded", id, node);
+    // add node:added event listener
+    data.on('node:added', ({ id, node }: NodeEventData) => {
+      logAction("node:added", id, node);
     });
-    // add linkAdded event listener
-    data.on('linkAdded', ({ id, link }: LinkEventData) => {
-      logAction("linkAdded", id, link);
-    });
-
-    // add nodeDeleted event listener
-    data.on('nodeDeleted', ({ id, node }: NodeEventData) => {
-      logAction("nodeDeleted", id, node);
+    // add link:added event listener
+    data.on('link:added', ({ id, link }: LinkEventData) => {
+      logAction("link:added", id, link);
     });
 
-    // add linkDeleted event listener
-    data.on('linkDeleted', ({ id, link }: LinkEventData) => {
-      logAction("linkDeleted", id, link);
+    // add node:deleted event listener
+    data.on('node:deleted', ({ id, node }: NodeEventData) => {
+      logAction("node:deleted", id, node);
     });
 
-    // add linkDeleted event listener
-    data.on('nodeUpdated:links', ({ id, node }: NodeEventData) => {
-      logAction("nodeUpdated:links", id, node);
+    // add "link:deleted" event listener
+    data.on('"link:deleted"', ({ id, link }: LinkEventData) => {
+      logAction("link:deleted", id, link);
+    });
+
+    // add "link:deleted" event listener
+    data.on('node:links:updated', ({ id, node }: NodeEventData) => {
+      logAction("node:links:updated", id, node);
     });
     
     // add data
