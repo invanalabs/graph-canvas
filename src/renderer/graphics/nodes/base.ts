@@ -321,10 +321,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const pointerPosition = event.data.global;
     console.log("pointerup", this.data.id, this.data.state)
     event.stopPropagation();
-
-    const pointerPosition = event.data.getLocalPosition(this.containerGfx.parent);
-
-    if (this.containerGfx.containsPoint(pointerPosition)) {
+    if (this.isPointerInBounds(event, this.containerGfx)) {
       this.setState(":hovered", true)
     } else {
       this.setState(":default", true)
