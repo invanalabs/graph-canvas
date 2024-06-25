@@ -114,7 +114,7 @@ export class DataStore implements IDataStore {
     }
   }
 
-  setState(item: CanvasNode | CanvasLink, stateName: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean=false, event: FederatedPointerEvent) {
+  setState(item: CanvasNode | CanvasLink, stateName: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean=false, event?: FederatedPointerEvent) {
     console.log("setState called", item.id, stateName, setNeighborsToo)
     if (item instanceof CanvasNode) {
       // Handle CanvasNode instance
@@ -138,7 +138,7 @@ export class DataStore implements IDataStore {
     }
   }
 
-  moveNodeTo(nodeId: IdString, x: number, y: number) {
+  moveNodeTo(nodeId: IdString, x: number, y: number, event: FederatedPointerEvent) {
     console.log("Updating position of node ", nodeId, x, y)
     const node: CanvasNode | undefined = this.nodes.get(nodeId);
     if (node) {
@@ -147,7 +147,7 @@ export class DataStore implements IDataStore {
       // TODO - trigger new event callled node:
       this.nodes.set(nodeId, node)
       // node.gfxInstance?.setPosition(x, y);
-      this.trigger('node:gfx:onMoved', { id: node.id, node: node });
+      this.trigger('node:gfx:onMoved', { id: node.id, node: node, event:event });
     }
   }
 

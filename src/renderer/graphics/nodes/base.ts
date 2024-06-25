@@ -140,12 +140,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     });
   }
 
-
-
-
-
-
-
   triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`Selected triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
@@ -257,7 +251,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
       console.log("onDragMove", this.data.id,  newPoint, this.dragPoint)
       // update node positions data 
-      this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y)
+      this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
       // remove 
       this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
         if (link.gfxInstance)
