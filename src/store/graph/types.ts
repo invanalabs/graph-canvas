@@ -75,17 +75,17 @@ export type LinkUpdateEventListener = (data: LinkUpdateEventData) => void;
 export type LinkStateUpdateEventListener = (data: ILinkStateUpdateEventData) => void;
 
 export interface IDataStoreListeners {
-  "node:added": NodeEventListener[];
-  "node:deleted": NodeEventListener[];
-  "node:properties:updated": NodeUpdateEventListener[];
-  "node:links:updated": NodeEventListener[];
-  "node:position:updated": NodeUpdateEventListener[];
+  "node:data:onAdded": NodeEventListener[];
+  "node:data:onDeleted": NodeEventListener[];
+  "node:data:onPropertiesUpdated": NodeUpdateEventListener[];
+  "node:data:onLinksUpdated": NodeEventListener[];
+  "node:data:onPositionUpdated": NodeUpdateEventListener[];
 
-  "link:added": LinkEventListener[];
-  "link:deleted": LinkEventListener[];
-  "link:properties:updated": LinkUpdateEventListener[];
+  "link:data:onAdded": LinkEventListener[];
+  "link:data:onDeleted": LinkEventListener[];
+  "link:data:onPropertiesUpdated": LinkUpdateEventListener[];
 
-  "gfx:node:state:updated": NodeStateUpdateEventListener[];
-  "gfx:link:state:updated": LinkStateUpdateEventListener[];
+  "node:gfx:onStateUpdated": NodeStateUpdateEventListener[];
+  "link:gfx:onStateUpdated": LinkStateUpdateEventListener[];
   
 }
