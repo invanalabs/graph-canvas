@@ -31,14 +31,11 @@ export type onNodeDeletedEventListener = (event: OnNodeDeletedEventData) => void
 
 // onNodeDeleted
 export type OnNodePropertiesUpdatedEventData = { id: IdString, node: CanvasNode, updatedProperties: ICanvasItemProperties};
-export type OnNodePropertiesUpdatedEventListener =  (event: OnNodeDeletedEventData) => void;
-
+export type OnNodePropertiesUpdatedEventListener =  (event: OnNodePropertiesUpdatedEventData) => void;
 
 // onNodeLinksUpdae
 export type OnNodeLinksUpdatedEventData = { id: IdString, node: CanvasNode, links: CanvasLink[]};
 export type OnNodeLinksUpdatedEventListener =  (event: OnNodeLinksUpdatedEventData) => void;
-
-
 
 
 // node:gfx:onStateUpdated
@@ -65,11 +62,11 @@ export type OnLinkPropertiesUpdateEventListener  = (event: OnLinkPropertiesUpdat
 
 
 // gfx:interactions:
-export type OnNodeGfxEventData = { id: IdString, node: CanvasNode, event: FederatedPointerEvent };
-export type OnNodeGfxEventListener  = (eventData: OnNodeGfxEventData) => void;
+export type OnNodeGfxEventData = { id: IdString, node: CanvasNode, event?: FederatedPointerEvent };
+export type OnNodeGfxEventListener  = (event: OnNodeGfxEventData) => void;
 
-export type OnLinkGfxEventData = { id: IdString, node: CanvasNode, event: FederatedPointerEvent };
-export type OnLinkGfxEventListener  = (eventData: OnLinkGfxEventData) => void;
+export type OnLinkGfxEventData = { id: IdString, link: CanvasLink, event: FederatedPointerEvent };
+export type OnLinkGfxEventListener  = (event: OnLinkGfxEventData) => void;
 
 
 

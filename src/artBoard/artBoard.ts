@@ -3,9 +3,14 @@ import { Camera } from "./camera";
 import { GraphCanvas } from "../canvas";
 import { Renderer } from "../renderer/renderer";
 // import { Cull } from '@pixi-essentials/cull';
-import { ILinkStateUpdateEventData, INodeStateUpdateEventData, OnLinkAddedEventData,
-  OnNodeAddedEventData, OnNodeDeletedEventData, OnNodeLinksUpdatedEventData, OnNodePositionUpdatedEventData } from "../store/events/types";
+import {  OnLinkAddedEventData,
+  OnLinkGfxEventData,
+  OnLinkStateUpdateEventData,
+  OnNodeAddedEventData, OnNodeDeletedEventData, OnNodeGfxEventData, OnNodeGfxEventListener, OnNodeLinksUpdatedEventData,
+  OnNodeStateUpdateEventData, } from "../store/events/types";
 import { CanvasLink } from "../store";
+import { DefaultEventEmitter } from "../store/events/emitter";
+import { EventEmitterAbstract } from "../store/events/abstract";
 
 
 
@@ -13,6 +18,7 @@ export class ArtBoard extends ArtBoardBase {
 
   renderer: Renderer
   camera: Camera
+  events: EventEmitterAbstract
   // cull: Cull
 
   constructor(canvas: GraphCanvas) {
@@ -20,62 +26,34 @@ export class ArtBoard extends ArtBoardBase {
     this.canvas = canvas
     this.renderer = new Renderer(this)
     this.camera = new Camera(this)
+    this.events = new DefaultEventEmitter(this)
     this.setUpRenderOnEventListers()
+
   }
 
   setUpRenderOnEventListers() {
 
-    this.canvas.dataStore.on('node:data:onAdded', ({ id, node }: OnNodeAddedEventData) => {
-      console.log("node:data:onAdded", id, node);
-      this.renderer.renderNode(node)
-    });
+    this.canvas.dataStore.on('node:data:onAdded', this.events.onNodeAdded);
+    this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
 
-    this.canvas.dataStore.on('node:gfx:onMoved', ({ id, node }: OnNodePositionUpdatedEventData) => {
-      console.log("node:gfx:onMoved updatedto", id, node.x, node.y);
-      node.gfxInstance?.setPosition(node.x, node.y);
-      // redraw links too 
-      node.links.forEach((link_: CanvasLink) => {
-        const link = this.canvas.dataStore.links.get(link_.id)
-        if (link)
-        link.gfxInstance?.redraw();
-      })
-    });
+    this.canvas.dataStore.on("node:gfx:onStateUpdated", this.events.onNodeStateUpdated)
 
-    this.canvas.dataStore.on("node:gfx:onStateUpdated", ({id, node, state, event, setNeighborsToo}: INodeStateUpdateEventData)=>{
-      console.log("node:gfx:onStateUpdated", id, state);
-      if (node)
-      node.gfxInstance?.applyStateUpdate(setNeighborsToo, event)
-    })
-
-    this.canvas.dataStore.on("link:gfx:onStateUpdated", ({id, link, state, event, setNeighborsToo}: ILinkStateUpdateEventData)=>{
-      console.log("link:gfx:onStateUpdated", id, state);
-      if (link)
-      link.gfxInstance?.applyStateUpdate(setNeighborsToo, event)
-    })
+    this.canvas.dataStore.on("link:gfx:onStateUpdated", this.events.onLinkStateUpdated)
 
     // add link:data:onAdded event listener
-    this.canvas.dataStore.on('link:data:onAdded', ({ id, link }: OnLinkAddedEventData) => {
-      console.log("link:data:onAdded", id, link);
-      this.renderer.renderLink(link);
-    });
+    this.canvas.dataStore.on('link:data:onAdded',  this.events.onLinkAdded);
 
     // add node:data:onDeleted event listener
-    this.canvas.dataStore.on('node:data:onDeleted', ({ id, node }: OnNodeDeletedEventData) => {
-      console.log("node:data:onDeleted", id, node);
-    });
+    this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
 
     // add "link:data:onDeleted" event listener
-    this.canvas.dataStore.on('link:data:onDeleted', ({ id, link }: OnLinkAddedEventData) => {
-      console.log("link:data:onDeleted", id, link);
-    });
+    this.canvas.dataStore.on('link:data:onDeleted', this.events.onLinkDeleted);
 
     // add "link:data:onDeleted" event listener
-    this.canvas.dataStore.on('node:data:onLinksUpdated', ({ id, node }: OnNodeLinksUpdatedEventData) => {
-      console.log("node:data:onLinksUpdated", id, node);
-    });
+    this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
 
 
-
+    
 
 
 

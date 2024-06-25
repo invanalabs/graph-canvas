@@ -11,7 +11,7 @@ import {
 
 export abstract class EventEmitterAbstract {
 
-  abstract readonly abstract: ArtBoard;
+  abstract readonly artBoard: ArtBoard;
 
   /* this will  */
 
@@ -27,20 +27,20 @@ export abstract class EventEmitterAbstract {
   abstract onNodeStateUpdated: OnNodeStateUpdateEventListener;
   abstract onLinkStateUpdated: OnLinkStateUpdateEventListener;
 
-  abstract nodePointerIn: OnNodeGfxEventListener
-  abstract nodePointerOut: OnNodeGfxEventListener
-  abstract nodeOnClicked: OnNodeGfxEventListener
-  abstract nodeOnUnClicked: OnNodeGfxEventListener
-  abstract nodeOnContextMenu: OnNodeGfxEventListener
-  abstract nodeOnMoved: OnNodeGfxEventListener
+  abstract onNodePointerIn: OnNodeGfxEventListener
+  abstract onNodePointerOut: OnNodeGfxEventListener
+  abstract onNodeClicked: OnNodeGfxEventListener
+  abstract onNodeUnClicked: OnNodeGfxEventListener
+  abstract onNodeContextMenu: OnNodeGfxEventListener
+  abstract onNodeMoved: OnNodeGfxEventListener
 
 
-  abstract linkPointerIn: OnLinkGfxEventListener
-  abstract linkPointerOut: OnLinkGfxEventListener
-  abstract linkOnClicked: OnLinkGfxEventListener
-  abstract linkOnUnClicked: OnLinkGfxEventListener
-  abstract linkOnContextMenu: OnLinkGfxEventListener
-  abstract linkOnMoved: OnLinkGfxEventListener
+  abstract onLinkPointerIn: OnLinkGfxEventListener
+  abstract onLinkPointerOut: OnLinkGfxEventListener
+  abstract onLinkClicked: OnLinkGfxEventListener
+  abstract onLinkUnClicked: OnLinkGfxEventListener
+  abstract onLinkContextMenu: OnLinkGfxEventListener
+  abstract onLinkMoved: OnLinkGfxEventListener
 
 
 }
