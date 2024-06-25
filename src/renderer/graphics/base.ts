@@ -75,10 +75,6 @@ abstract class ShapeAbstractBase {
     abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
 
-    abstract triggerSelected(event?: PIXI.FederatedPointerEvent):void    
-    abstract triggerUnSelected(event?: PIXI.FederatedPointerEvent):void    
-
-
     // :inactive
     abstract triggerInactive(event?: PIXI.FederatedPointerEvent):void
     // :hidden
@@ -154,45 +150,6 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         // this.state = stateName
     }
 
-    applyStateUpdate( setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent){
-        const stateName = this.data.state
-        if (stateName === ":default"){
-            this.triggerUnHovered(event);
-            this.triggerUnHighlighted(event);
-            if (this.triggerUnSelected){
-                this.triggerUnSelected(event)
-            }
-            this.triggerDefault(event);
-
-            if (setNeighborsToo){
-                this.triggerUnHoveredOnNeighbors(event)
-                this.triggerUnHighlightedOnNeighbors(event)
-            }
-        }
-        else if (stateName === ":hovered"){
-            this.triggerHovered(event)
-            if (setNeighborsToo){
-                this.triggerHoveredOnNeighbors(event)
-            }
-        }
-        else if (stateName === ":selected"){
-            this.triggerSelected(event)
-        }
-
-        else if (stateName === ":highlighted"){
-            this.triggerHighlighted(event)
-            if (setNeighborsToo){
-                this.triggerHighlightedOnNeighbors(event)
-            }
-        }
-        else if (stateName === ":inactive"){
-            this.triggerInactive(event)
-        }
-        else if (stateName === ":hidden"){
-            this.triggerHidden(event)
-        }
-    }
-
 
 
 
@@ -259,6 +216,45 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
 
 
 
+    applyStateUpdate( setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent){
+        const stateName = this.data.state
+        if (stateName === ":default"){
+            this.triggerUnHovered(event);
+            this.triggerUnHighlighted(event);
+            if (this.triggerUnSelected){
+                this.triggerUnSelected(event)
+            }
+            this.triggerDefault(event);
+
+            if (setNeighborsToo){
+                this.triggerUnHoveredOnNeighbors(event)
+                this.triggerUnHighlightedOnNeighbors(event)
+            }
+        }
+        else if (stateName === ":hovered"){
+            this.triggerHovered(event)
+            if (setNeighborsToo){
+                this.triggerHoveredOnNeighbors(event)
+            }
+        }
+        else if (stateName === ":selected"){
+            this.triggerSelected(event)
+        }
+
+        else if (stateName === ":highlighted"){
+            this.triggerHighlighted(event)
+            if (setNeighborsToo){
+                this.triggerHighlightedOnNeighbors(event)
+            }
+        }
+        else if (stateName === ":inactive"){
+            this.triggerInactive(event)
+        }
+        else if (stateName === ":hidden"){
+            this.triggerHidden(event)
+        }
+    }
+
 
 
 }
@@ -281,5 +277,38 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
 
     abstract triggerHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
     abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
+
+
+    applyStateUpdate( setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent){
+        const stateName = this.data.state
+        if (stateName === ":default"){
+            this.triggerUnHovered(event);
+            this.triggerUnHighlighted(event);
+            this.triggerDefault(event);
+            if (setNeighborsToo){
+                this.triggerUnHoveredOnNeighbors(event)
+                this.triggerUnHighlightedOnNeighbors(event)
+            }
+        }
+        else if (stateName === ":hovered"){
+            this.triggerHovered(event)
+            if (setNeighborsToo){
+                this.triggerHoveredOnNeighbors(event)
+            }
+        }
+     
+        else if (stateName === ":highlighted"){
+            this.triggerHighlighted(event)
+            if (setNeighborsToo){
+                this.triggerHighlightedOnNeighbors(event)
+            }
+        }
+        else if (stateName === ":inactive"){
+            this.triggerInactive(event)
+        }
+        else if (stateName === ":hidden"){
+            this.triggerHidden(event)
+        }
+    }
 
 }
