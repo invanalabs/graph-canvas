@@ -10,8 +10,11 @@ export enum NodeContainerChildNames {
   // label
   label = 'label',
   labelBackground = 'labelBackground',
-  labelText = 'labelText'
+  labelText = 'labelText',
   // badges
+
+  // debug
+  debugBorder = 'debugBorder'
 }
 
 export enum LinkContainerChildNames {
@@ -23,5 +26,8 @@ export enum LinkContainerChildNames {
   // label
   label = 'label',
   labelBackground = 'labelBackground',
-  labelText = 'labelText'
+  labelText = 'labelText',
+
+  // debug
+  debugBorder = 'debugBorder'
 }

@@ -249,6 +249,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
         link.gfxInstance.removeInteractionTriggers()
       }
     })
+
+
     // this.canvas.renderer.reRenderLinks(neighborLinks)
     // this.triggerHighlightedOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
   };
@@ -295,12 +297,18 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.onDragStart(event)
   }
 
+  // Function to check if the pointer is within the bounds of the parent sprite
+isPointerInBounds = (event: PIXI.FederatedPointerEvent, container: PIXI.Container): boolean => {
+  const localPosition = event.data.getLocalPosition(container);
+  return localPosition.x >= 0 && localPosition.x <= container.width &&
+         localPosition.y >= 0 && localPosition.y <= container.height;
+}
+ 
   pointerout = (event: PIXI.FederatedPointerEvent) => {
         // event.stopPropagation();
         // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
-        console.log("====pointerout", this.data.id,  this.data.state, this.dragData)
-        if ([":highlighted", ":selected"].includes(this.data.state)) return
-
+        console.log("====pointerout", this.data.id,  this.data.state, this.isPointerInBounds(event, this.containerGfx), this.dragData)
+        if ([":highlighted", ":hovered", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
         console.log("pointerout", this.data.id, this.data.state, this.dragData)
         this.setState(":default", true)
   }
@@ -373,6 +381,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // if (this.data.state) {
     this.applyStateUpdate()
     this.setInteractiveRecursive(this.containerGfx)
+    this.drawDebugBorder(this.data.x, this.data.y)
     // }
   }
 

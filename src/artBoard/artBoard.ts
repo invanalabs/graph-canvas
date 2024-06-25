@@ -50,11 +50,14 @@ export class ArtBoard extends ArtBoardBase {
       console.log("nodeUpdated:position updatedto", id, node.x, node.y);
       //@ts-ignore
       node.gfxInstance.setPosition(node.x, node.y);
+      
+
       // redraw links too 
       node.links.forEach((link_: CanvasLink) => {
         const link = this.canvas.dataStore.links.get(link_.id)
         if (link)
         link.gfxInstance?.redraw();
+
       })
     });
 

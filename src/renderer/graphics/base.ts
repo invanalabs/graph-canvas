@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from '../../store';
 import { ILinkStateTypes, INodeStateTypes } from '../types';
 import { ArtBoard } from '../../artBoard';
+import { NodeContainerChildNames } from './constants';
 
 
 // abstract class ShapeStateManagerAbstract {
@@ -35,6 +36,8 @@ abstract class ShapeAbstractBase {
     abstract containerGfx: PIXI.Graphics;
     declare labelGfx: PIXI.Graphics | undefined
     declare shapeGfx: PIXI.Graphics | undefined;
+    declare borderGfx: PIXI.Graphics | undefined
+
   
 
     /* this will  */
@@ -108,7 +111,8 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.containerGfx = new PIXI.Graphics()
         this.containerGfx.interactive = true
         // Set the cursor style to 'pointer' when hovering over the sprite
-        this.containerGfx.cursor = 'pointer';
+        // this.containerGfx.cursor = 'pointer';
+        // this.containerGfx.setAn
         // in v8; { isRenderGroup:true} // this containers transform is now handled on the GPU!
         // Make the containerGfx interactive...
         // this.containerGfx.cursor = 'pointer';
@@ -179,6 +183,34 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
             // this.clearStates();
             this.triggerHidden()
         }
+    }
+
+
+
+
+    drawDebugBorder(x: number, y: number){
+        // Calculate the bounding box
+        // console.log("===drawDebugBorder", this.data.id)
+        // // const borderGfx = this.artBoard.viewport.getChildByName(NodeContainerChildNames.debugBorder)
+        // if (this.borderGfx){
+        //     // const position = this.containerGfx.getBounds();
+        //     // const position = this.containerGfx.getLocalBounds()
+        //     this.borderGfx.position.set(x,y)
+        //     // this.borderGfx.position.set(
+        //     //     this.containerGfx.position.x /2,
+        //     //     this.containerGfx.position.y /2
+        //     // )
+        // }else{
+        //     const bounds = this.containerGfx.getBounds();
+        //     // const position = event ? event.data.getLocalPosition(): {x: bounds.x, y: bounds.y}
+        //     // Draw a debug box around the bounding box
+        //     this.borderGfx = new PIXI.Graphics();
+        //     this.borderGfx.name = NodeContainerChildNames.debugBorder
+        //     this.borderGfx.lineStyle(2, 0x00ff00);
+        //     this.borderGfx.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
+        //     this.borderGfx.endFill()
+        //     this.artBoard.viewport.addChild(this.borderGfx);
+        // }
     }
 
 }
