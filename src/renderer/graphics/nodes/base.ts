@@ -24,9 +24,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
   declare labelGfx: PIXI.Graphics
   declare shapeGfx: PIXI.Graphics
 
-  // isInside: boolean = false;
-
-
   declare drawShape
   declare drawLabel
 
