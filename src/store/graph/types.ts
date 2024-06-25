@@ -57,20 +57,20 @@ export interface IDataStore {
 export type NodeEventData = { id: IdString, node: CanvasNode  };
 export type NodeUpdateEventData = { id: IdString, node: CanvasNode, updatedProperties: ICanvasItemProperties};
 
-export type NodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
-export type LinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  ILinkStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
+export type INodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
+export type ILinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  ILinkStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
 
 export type LinkEventData = { id: IdString, link: CanvasLink  };
 export type LinkUpdateEventData = { id: IdString, link: CanvasLink, updatedProperties: ICanvasItemProperties};
 
 export type NodeEventListener = (data: NodeEventData) => void;
 export type NodeUpdateEventListener = (data: NodeUpdateEventData) => void;
-export type NodeStateUpdateEventListener = (data: NodeStateUpdateEventData) => void;
+export type NodeStateUpdateEventListener = (data: INodeStateUpdateEventData) => void;
 
 
 export type LinkEventListener = (data: LinkEventData) => void;
 export type LinkUpdateEventListener = (data: LinkUpdateEventData) => void;
-export type LinkStateUpdateEventListener = (data: LinkStateUpdateEventData) => void;
+export type LinkStateUpdateEventListener = (data: ILinkStateUpdateEventData) => void;
 
 export interface IDataStoreListeners {
   nodeAdded: NodeEventListener[];
@@ -82,6 +82,6 @@ export interface IDataStoreListeners {
   nodeDeleted: NodeEventListener[];
   linkAdded: LinkEventListener[];
   "linkUpdated:properties": LinkUpdateEventListener[];
-  "linkUpdated:state": LinkStateUpdateEventListener[];
+  "gfx:link:stateUpdated": LinkStateUpdateEventListener[];
   linkDeleted: LinkEventListener[];
 }

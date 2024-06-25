@@ -57,22 +57,22 @@ export class LinkShapeBase extends LinkShapeAbstract {
     // console.error("not implemented")
   }
 
-  triggerInactive = () => {
+  triggerInactive = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerInactive triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
   }
 
-  triggerDefault = () => {
+  triggerDefault = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerDefault triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 1;
     this.containerGfx.visible = true
   }
 
-  triggerHidden = () => {
+  triggerHidden = (event?: PIXI.FederatedPointerEvent) => {
     this.containerGfx.visible = false;
   }
 
-  triggerHovered = () => {
+  triggerHovered = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`Hover triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
@@ -84,7 +84,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.moveToFrontLayer();
   }
 
-  triggerUnHovered = () => {
+  triggerUnHovered = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`UnHovered triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
@@ -95,7 +95,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.moveToDataLayer()
   }
 
-  triggerHoveredOnNeighbors = () => {
+  triggerHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerHoveredOnNeighbors triggered on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHovered()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHovered()
@@ -103,7 +103,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   }
 
-  triggerUnHoveredOnNeighbors = () => {
+  triggerUnHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerUnHoveredOnNeighbors triggered on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHovered()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHovered()
@@ -111,7 +111,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
 
-  triggerHighlighted = () => {
+  triggerHighlighted = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
@@ -122,7 +122,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.moveToFrontLayer();
   }
 
-  triggerUnHighlighted = () => {
+  triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerUnHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
@@ -134,19 +134,18 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.moveToDataLayer();
   }
 
-  triggerHighlightedOnNeighbors = () => {
+  triggerHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerHighlightedOnNeighbors on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
-    this.data.gfxInstance?.triggerHighlighted()
-
+    this.data.gfxInstance?.triggerHighlighted(event)
   }
 
-  triggerUnHighlightedOnNeighbors = () => {
+  triggerUnHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerUnHighlightedOnNeighbors on node - ${this.data.id}`);
     this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()
     this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()
-    this.data.gfxInstance?.triggerUnHighlighted()
+    this.data.gfxInstance?.triggerUnHighlighted(event)
   }
 
   setupInteractionTriggers() {
@@ -158,12 +157,12 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx
       .on("pointerover", (event) => {
         event.stopPropagation();
-        this.setState(":hovered", true)
+        this.setState(":hovered", true, event)
       })
       .on("pointerout", (event) => {
         event.stopPropagation();
         if (this.dragData) return 
-        this.setState(":default", true)
+        this.setState(":default", true, event)
       })
       .on('pointerdown', (event) => {
         console.log("pointerdown", this.data.id, this.data.state)
@@ -172,7 +171,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         // event.stopPropagation();
         // if (this.dragData) return 
         this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
-        this.setState(":highlighted", true)
+        this.setState(":highlighted", true, event)
       })
       .on("pointermove", (event) => {
         console.log("ignoring pointermove")

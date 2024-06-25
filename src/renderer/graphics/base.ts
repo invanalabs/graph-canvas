@@ -3,7 +3,6 @@ import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from '../../store';
 import { ILinkStateTypes, INodeStateTypes } from '../types';
 import { ArtBoard } from '../../artBoard';
-import { NodeContainerChildNames } from './constants';
 
 
 // abstract class ShapeStateManagerAbstract {
@@ -58,27 +57,27 @@ abstract class ShapeAbstractBase {
     abstract setupInteractionTriggers(): void;
     abstract removeInteractionTriggers():void
 
-    abstract setState(state: INodeStateTypes| ILinkStateTypes, setNeighborsToo:boolean, event: PIXI.FederatedPointerEvent ): void
+    abstract setState(state: INodeStateTypes| ILinkStateTypes, setNeighborsToo:boolean, event?: PIXI.FederatedPointerEvent ): void
     // :default
-    abstract triggerDefault(): void
+    abstract triggerDefault(event?: PIXI.FederatedPointerEvent): void
     // :hover
-    abstract triggerHovered(): void
-    abstract triggerHoveredOnNeighbors(): void
+    abstract triggerHovered(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
-    abstract triggerUnHovered(): void
-    abstract triggerUnHoveredOnNeighbors(): void
+    abstract triggerUnHovered(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerUnHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
     // :highlighted
-    abstract triggerHighlighted(): void
-    abstract triggerHighlightedOnNeighbors(): void
+    abstract triggerHighlighted(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
-    abstract triggerUnHighlighted(): void
-    abstract triggerUnHighlightedOnNeighbors(): void
+    abstract triggerUnHighlighted(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
     // :inactive
-    abstract triggerInactive():void
+    abstract triggerInactive(event?: PIXI.FederatedPointerEvent):void
     // :hidden
-    abstract triggerHidden():void
+    abstract triggerHidden(event?: PIXI.FederatedPointerEvent):void
 
 
     // layers - front, data, map 
@@ -139,7 +138,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.containerGfx.removeAllListeners();
     }
 
-    setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false, event: PIXI.FederatedPointerEvent ){
+    setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent ){
         console.log("==setState",this.data.id, stateName, setNeighborsToo)
 
         if (this.data.state === stateName)
@@ -150,39 +149,39 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         // this.state = stateName
     }
 
-    applyStateUpdate( setNeighborsToo: boolean = false){
+    applyStateUpdate( setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent){
         const stateName = this.data.state
         if (stateName === ":default"){
-            this.triggerUnHovered();
-            this.triggerUnHighlighted();
-            this.triggerDefault();
+            this.triggerUnHovered(event);
+            this.triggerUnHighlighted(event);
+            this.triggerDefault(event);
 
             if (setNeighborsToo){
-                this.triggerUnHoveredOnNeighbors()
-                this.triggerUnHighlightedOnNeighbors()
+                this.triggerUnHoveredOnNeighbors(event)
+                this.triggerUnHighlightedOnNeighbors(event)
             }
         }
         else if (stateName === ":hovered"){
             // this.clearStates();
-            this.triggerHovered()
+            this.triggerHovered(event)
             if (setNeighborsToo){
-                this.triggerHoveredOnNeighbors()
+                this.triggerHoveredOnNeighbors(event)
             }
         }
         else if (stateName === ":highlighted"){
             // this.clearStates();
-            this.triggerHighlighted()
+            this.triggerHighlighted(event)
             if (setNeighborsToo){
-                this.triggerHighlightedOnNeighbors()
+                this.triggerHighlightedOnNeighbors(event)
             }
         }
         else if (stateName === ":inactive"){
             // this.clearStates();
-            this.triggerInactive()
+            this.triggerInactive(event)
         }
         else if (stateName === ":hidden"){
             // this.clearStates();
-            this.triggerHidden()
+            this.triggerHidden(event)
         }
     }
 
@@ -232,18 +231,15 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     // set position of node 
     abstract setPosition(x: number, y: number): void;
 
-    abstract triggerHoveredOnNeighbors(): void
-    abstract triggerUnHoveredOnNeighbors(): void
+    abstract triggerHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerUnHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
-    abstract triggerHighlightedOnNeighbors(): void
-    abstract triggerUnHighlightedOnNeighbors(): void
+    abstract triggerHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
-    abstract onDragStart(event: PIXI.FederatedPointerEvent): void
-    // abstract onDragMove(event: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
-    abstract onDragEnd(event: PIXI.FederatedPointerEvent): void
-
-
-
+    abstract onDragStart(event?: PIXI.FederatedPointerEvent): void
+    // abstract onDragMove(event?: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
+    abstract onDragEnd(event?: PIXI.FederatedPointerEvent): void
 
 }
 
@@ -260,15 +256,10 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
     /* this will  */
     abstract processData(data:  CanvasLink):  CanvasLink; 
 
+    abstract triggerHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerUnHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
-    abstract triggerHoveredOnNeighbors(): void
-    abstract triggerUnHoveredOnNeighbors(): void
-
-    abstract triggerHighlightedOnNeighbors(): void
-    abstract triggerUnHighlightedOnNeighbors(): void
-
-
-
-
+    abstract triggerHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
 }

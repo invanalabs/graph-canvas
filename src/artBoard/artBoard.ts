@@ -2,7 +2,7 @@ import { ArtBoardBase } from "./base";
 import { Camera } from "./camera";
 import { GraphCanvas } from "../canvas";
 import { Renderer } from "../renderer/renderer";
-import { CanvasLink, CanvasNode, LinkEventData, LinkStateUpdateEventData, NodeEventData, NodeStateUpdateEventData, StateUpdateEventData } from "../store";
+import { CanvasLink, CanvasNode, LinkEventData, ILinkStateUpdateEventData, NodeEventData, INodeStateUpdateEventData, StateUpdateEventData } from "../store";
 import { Cull } from '@pixi-essentials/cull';
 
 
@@ -61,16 +61,16 @@ export class ArtBoard extends ArtBoardBase {
       })
     });
 
-    this.canvas.dataStore.on("gfx:node:stateUpdated", ({id, node, state, setNeighborsToo}: NodeStateUpdateEventData)=>{
+    this.canvas.dataStore.on("gfx:node:stateUpdated", ({id, node, state, event, setNeighborsToo}: INodeStateUpdateEventData)=>{
       console.log("gfx:node:stateUpdated", id, state);
       if (node)
-      node.gfxInstance?.applyStateUpdate(setNeighborsToo)
+      node.gfxInstance?.applyStateUpdate(setNeighborsToo, event)
     })
 
-    this.canvas.dataStore.on("linkUpdated:state", ({id, link, state, setNeighborsToo}: LinkStateUpdateEventData)=>{
-      console.log("linkUpdated:state", id, state);
+    this.canvas.dataStore.on("gfx:link:stateUpdated", ({id, link, state, event, setNeighborsToo}: ILinkStateUpdateEventData)=>{
+      console.log("gfx:link:stateUpdated", id, state);
       if (link)
-      link.gfxInstance?.applyStateUpdate(setNeighborsToo)
+      link.gfxInstance?.applyStateUpdate(setNeighborsToo, event)
     })
 
     // add linkAdded event listener
