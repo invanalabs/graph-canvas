@@ -1,3 +1,4 @@
+import { FederatedPointerEvent } from "pixi.js";
 import { ILinkStateTypes, INodeStateTypes } from "../../renderer/types";
 import { CanvasLink } from "./links";
 import { CanvasNode } from "./nodes";
@@ -56,8 +57,8 @@ export interface IDataStore {
 export type NodeEventData = { id: IdString, node: CanvasNode  };
 export type NodeUpdateEventData = { id: IdString, node: CanvasNode, updatedProperties: ICanvasItemProperties};
 
-export type NodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean};
-export type LinkStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean};
+export type NodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
+export type LinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  ILinkStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
 
 export type LinkEventData = { id: IdString, link: CanvasLink  };
 export type LinkUpdateEventData = { id: IdString, link: CanvasLink, updatedProperties: ICanvasItemProperties};
@@ -76,7 +77,7 @@ export interface IDataStoreListeners {
   "nodeUpdated:links": NodeEventListener[];
   "nodeUpdated:properties": NodeUpdateEventListener[];
   "nodeUpdated:position": NodeUpdateEventListener[];
-  "nodeUpdated:state": NodeStateUpdateEventListener[];
+  "gfx:node:stateUpdated": NodeStateUpdateEventListener[];
   
   nodeDeleted: NodeEventListener[];
   linkAdded: LinkEventListener[];

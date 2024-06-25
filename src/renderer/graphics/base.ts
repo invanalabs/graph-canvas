@@ -58,7 +58,7 @@ abstract class ShapeAbstractBase {
     abstract setupInteractionTriggers(): void;
     abstract removeInteractionTriggers():void
 
-    abstract setState(state: INodeStateTypes| ILinkStateTypes, setNeighborsToo:boolean ): void
+    abstract setState(state: INodeStateTypes| ILinkStateTypes, setNeighborsToo:boolean, event: PIXI.FederatedPointerEvent ): void
     // :default
     abstract triggerDefault(): void
     // :hover
@@ -139,13 +139,14 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.containerGfx.removeAllListeners();
     }
 
-    setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false ){
+    setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false, event: PIXI.FederatedPointerEvent ){
         console.log("==setState",this.data.id, stateName, setNeighborsToo)
 
         if (this.data.state === stateName)
         return
 
-        this.artBoard.canvas.dataStore.setState(this.data, stateName, setNeighborsToo)
+
+        this.artBoard.canvas.dataStore.setState(this.data, stateName, setNeighborsToo, event)
         // this.state = stateName
     }
 

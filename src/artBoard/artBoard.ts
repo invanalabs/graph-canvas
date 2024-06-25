@@ -61,8 +61,8 @@ export class ArtBoard extends ArtBoardBase {
       })
     });
 
-    this.canvas.dataStore.on("nodeUpdated:state", ({id, node, state, setNeighborsToo}: NodeStateUpdateEventData)=>{
-      console.log("nodeUpdated:state", id, state);
+    this.canvas.dataStore.on("gfx:node:stateUpdated", ({id, node, state, setNeighborsToo}: NodeStateUpdateEventData)=>{
+      console.log("gfx:node:stateUpdated", id, state);
       if (node)
       node.gfxInstance?.applyStateUpdate(setNeighborsToo)
     })

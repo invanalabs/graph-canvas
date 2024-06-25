@@ -1,3 +1,4 @@
+import { FederatedPointerEvent } from "pixi.js"
 import { ILinkStateTypes, INodeStateTypes } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
@@ -32,7 +33,7 @@ export class DataStore implements IDataStore {
       "nodeUpdated:position": [],
       "nodeUpdated:properties": [],
       "nodeDeleted": [],
-      "nodeUpdated:state": [],
+      "gfx:node:stateUpdated": [],
 
       "linkAdded": [],
       "linkUpdated:properties": [],
@@ -100,7 +101,7 @@ export class DataStore implements IDataStore {
     }
   }
 
-  setState(item: CanvasNode | CanvasLink, stateName: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean=false) {
+  setState(item: CanvasNode | CanvasLink, stateName: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean=false, event: FederatedPointerEvent) {
     console.log("setState called", item.id, stateName, setNeighborsToo)
     if (item instanceof CanvasNode) {
       // Handle CanvasNode instance
@@ -108,7 +109,7 @@ export class DataStore implements IDataStore {
       if (node) {
         node.state = stateName
         this.nodes.set(item.id, node)
-        this.trigger("nodeUpdated:state", {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo})
+        this.trigger("gfx:node:stateUpdated", {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo, event:event})
       }
 
     } else if (item instanceof CanvasLink) {
@@ -116,7 +117,7 @@ export class DataStore implements IDataStore {
       if (link) {
         link.state = stateName
         this.links.set(item.id, link)
-        this.trigger("linkUpdated:state", {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo})
+        this.trigger("linkUpdated:state", {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo, event:event})
       }
     } else {
       // Handle other cases
