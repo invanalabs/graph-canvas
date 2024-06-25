@@ -298,12 +298,16 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   // Function to check if the pointer is within the bounds of the parent sprite
-isPointerInBounds = (event: PIXI.FederatedPointerEvent, container: PIXI.Container): boolean => {
-  const localPosition = event.data.getLocalPosition(container);
-  return localPosition.x >= 0 && localPosition.x <= container.width &&
-         localPosition.y >= 0 && localPosition.y <= container.height;
-}
- 
+  isPointerInBounds = (event: PIXI.FederatedPointerEvent, container: PIXI.Container): boolean => {
+    // Get the global position of the pointer event
+    const globalPosition = event.global;
+    // Get the bounds of the container in global coordinates
+    const bounds = container.getBounds();
+    // Check if the global position is within the bounds
+    return globalPosition.x >= bounds.x && globalPosition.x <= bounds.x + bounds.width &&
+          globalPosition.y >= bounds.y && globalPosition.y <= bounds.y + bounds.height;
+  };
+
   pointerout = (event: PIXI.FederatedPointerEvent) => {
         // event.stopPropagation();
         // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
