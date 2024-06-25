@@ -96,7 +96,7 @@ export const exampleLinks: Array<ICanvasLink> = [
     {
         id: '5-6',
         group: 'authored',
-        label: 'selected',
+        label: 'highlighted',
         source: '5',
         target: '6',
         shapeName: 'line',

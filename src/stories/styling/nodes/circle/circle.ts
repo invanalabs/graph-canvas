@@ -37,6 +37,15 @@ export const exampleNodes : Array<ICanvasNode> = [
         state: ':inactive',
         x: (window.innerWidth/2) + 100 ,
         y: (window.innerHeight/2) + 100
+    },
+    {
+        id: '5',
+        group: 'TestNode',
+        label: 'Selected',
+        shapeName: 'circle',
+        state: ':selected',
+        x: (window.innerWidth/2) - 100 ,
+        y: (window.innerHeight/2) + 200
     }
 ];
 
