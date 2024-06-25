@@ -297,6 +297,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
     }
 
     this.applyStateUpdate()
+    this.setInteractiveRecursive(this.containerGfx)
+
   }
 
 

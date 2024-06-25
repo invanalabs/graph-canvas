@@ -64,7 +64,7 @@ class Circle extends NodeShapeBase {
           shape.eventMode = 'static';// this will allow it to respond to mouse and touch events 
 
           shape.interactive = true;
-        //   shape.buttonMode = true;
+          shape.cursor = "pointer";
           // shape.hitArea = new Circle(0, 0, this.data.style?.shape.size);
           return shape
   

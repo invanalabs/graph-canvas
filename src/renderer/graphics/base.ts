@@ -107,10 +107,21 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.artBoard = artBoard;
         this.containerGfx = new PIXI.Graphics()
         this.containerGfx.interactive = true
+        // Set the cursor style to 'pointer' when hovering over the sprite
+        this.containerGfx.cursor = 'pointer';
         // in v8; { isRenderGroup:true} // this containers transform is now handled on the GPU!
         // Make the containerGfx interactive...
         // this.containerGfx.cursor = 'pointer';
         // this.containerGfx.eventMode = 'static';
+    }
+
+    // Function to recursively set interactive and cursor properties on all children
+    setInteractiveRecursive(container: PIXI.Graphics) {
+        container.interactive = true;
+        container.cursor = 'pointer';
+        container.children.forEach((child ) => {
+            this.setInteractiveRecursive(child as PIXI.Graphics);
+        });
     }
 
     clear = () => {
@@ -125,7 +136,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     }
 
     setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false ){
-        console.log("setState",this.data.id, stateName, setNeighborsToo)
+        console.log("==setState",this.data.id, stateName, setNeighborsToo)
 
         if (this.data.state === stateName)
         return

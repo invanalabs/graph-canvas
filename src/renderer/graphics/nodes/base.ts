@@ -24,6 +24,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   declare labelGfx: PIXI.Graphics
   declare shapeGfx: PIXI.Graphics
 
+  isInside: boolean = false;
 
 
   declare drawShape
@@ -176,6 +177,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
     });
   }
 
+
+
   triggerUnHighlightedOnNeighbors = () => {
     console.log("=triggerUnHighlightedOnNeighbors triggered")
     // const neighbors: { nodes: ICanvasNode[], links: ICanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
@@ -197,9 +200,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     // this.dragPoint.x -= this.containerGfx.x;
     // this.dragPoint.y -= this.containerGfx.y;
+
+    // this.containerGfx.parent.off('pointerover', this.pointerover);
+    // this.containerGfx.parent.off('pointerout', this.pointerout);
+    // this.containerGfx.parent.off('pointerupoutside', this.pointerUpOutside);
+
+
+
     this.containerGfx.parent.on("pointermove", this.onDragMove);
-    // this.containerGfx.parent.on('pointerup', this.onDragEnd);
-    // this.containerGfx.parent.on('pointerupoutside', this.onDragEnd);
+    // this.containerGfx.parent.off('pointerover', this.pointerover.bind(this));
 
     // disable interactions on links 
 
@@ -212,13 +221,22 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const _this = this;
     // console.log("onDragMove", _this.data.id, _this.data.state)
 
+    const el = this.containerGfx.parent
+    const point = event.data.getLocalPosition(el);
+    if (point.x >= 0 && point.x <= el.width && point.y >= 0 && point.y <= el.height) {
+        if (!this.isInside) {
+            this.isInside = true;
+            console.log('Pointer Over');
+            this.containerGfx.off("pointerl")
+        }
+    }
+
+
     event.stopPropagation();
 
     if (this.dragData) {
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
       console.log("onDragMove", this.data.id,  newPoint, this.dragPoint)
-      // const x = newPoint.x //- this.dragPoint.x;
-      // const y = newPoint.y //- this.dragPoint.y;   
       // update node positions data 
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y)
 
@@ -241,9 +259,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const _this = this;
     this.dragData = null
     // this.containerGfx.parent.off("pointermove", this.onDragMove);
+    // this.containerGfx.parent.on('pointerout', this.pointerout);
+    // this.containerGfx.parent.on('pointerover', this.pointerover);
+    // this.containerGfx.parent.on('pointerupoutside', this.pointerUpOutside);
+
     this.containerGfx.parent.off('pointermove', this.onDragMove);
-    // this.containerGfx.parent.off('pointerup', this.onDragEnd(event));
-    // this.containerGfx.parent.off('pointerupoutside', this.onDragEnd);
+
     // this.setState(":default", true)    
 
     const neighborLinks = this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id);
@@ -255,6 +276,58 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   };
 
+  pointerover =(event: PIXI.FederatedPointerEvent)=>{
+    console.log("====pointerover", this.data.id,  this.data.state, this.dragData)
+    event.stopPropagation();
+    if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
+    if (this.dragData) return
+    console.log("pointerover", this.data.id, this.data.state, this.dragData)
+    this.setState(":hovered", true)
+  }
+
+  pointerDown = (event: PIXI.FederatedPointerEvent) => {
+    console.log("pointerdown", this.data.id, this.data.state)
+    // event.stopPropagation();
+    // if (this.dragData) return 
+    this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
+    this.setState(":highlighted", true)
+    this.onDragStart(event)
+  }
+
+  pointerout = (event: PIXI.FederatedPointerEvent) => {
+        // event.stopPropagation();
+        // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
+        console.log("====pointerout", this.data.id,  this.data.state, this.dragData)
+        if ([":highlighted", ":selected"].includes(this.data.state)) return
+
+        console.log("pointerout", this.data.id, this.data.state, this.dragData)
+        this.setState(":default", true)
+  }
+
+  pointerUp = (event: PIXI.FederatedPointerEvent) => {
+    // const pointerPosition = event.data.global;
+    console.log("pointerup", this.data.id, this.data.state)
+    event.stopPropagation();
+
+    const pointerPosition = event.data.getLocalPosition(this.containerGfx.parent);
+
+    if (this.containerGfx.containsPoint(pointerPosition)) {
+      this.setState(":hovered", true)
+    } else {
+      this.setState(":default", true)
+    }
+    this.onDragEnd(event)
+    this.artBoard.canvas.dataStore.removeFromHighlightedNodes(this.data)
+
+  }
+
+  pointerUpOutside = (event: PIXI.FederatedPointerEvent) => {
+    console.log("pointerupoutside", this.data.id, this.data.state)
+    event.stopPropagation();
+    this.onDragEnd(event)
+
+  }
+
   setupInteractionTriggers() {
     console.log("===setupInteractionTriggers triggered")
     // const _this = this;
@@ -263,53 +336,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     // listeners for hover effect
     this.containerGfx
-      .on("pointerover", (event) => {
-        console.log("====pointerover", this.data.id,  this.data.state, this.dragData)
-
-        event.stopPropagation();
-
-        if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
-        if (this.dragData) return
-        console.log("pointerover", this.data.id, this.data.state, this.dragData)
-        this.setState(":hovered", true)
-      })
-      .on("pointerout", (event) => {
-        console.log("====pointerout", this.data.id,  this.data.state, this.dragData)
-        // event.stopPropagation();
-        // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
-        if (this.dragData) return
-        console.log("pointerout", this.data.id, this.data.state, this.dragData)
-        this.setState(":default", true)
-        // }
-      })
-      .on('pointerdown', (event) => {
-        console.log("pointerdown", this.data.id, this.data.state)
-        // event.stopPropagation();
-        // if (this.dragData) return 
-        this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
-        this.setState(":highlighted", true)
-        this.onDragStart(event)
-      })
-      .on('pointerup', (event) => {
-        const pointerPosition = event.data.global;
-
-        console.log("pointerup", this.data.id, this.data.state, this.containerGfx.containsPoint(pointerPosition))
-        event.stopPropagation();
-
-        // 
-        if (this.containerGfx.containsPoint(pointerPosition)) {
-          this.setState(":hovered", true)
-        } else {
-          this.setState(":default", true)
-        }
-        this.onDragEnd(event)
-        this.artBoard.canvas.dataStore.removeFromHighlightedNodes(this.data)
-      })
-      .on('pointerupoutside', (event) => {
-        console.log("pointerupoutside", this.data.id, this.data.state)
-        event.stopPropagation();
-        this.onDragEnd(event)
-      })
+      .on("pointerover", this.pointerover)
+      .on("pointerout", this.pointerout)
+      .on('pointerdown', this.pointerDown)
+      .on('pointerup', this.pointerUp)
+      .on('pointerupoutside', this.pointerUpOutside)
   }
 
   draw = (renderShape = true, renderLabel = true) => {
@@ -340,6 +371,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     // if (this.data.state) {
     this.applyStateUpdate()
+    this.setInteractiveRecursive(this.containerGfx)
     // }
   }
 

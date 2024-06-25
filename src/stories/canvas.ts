@@ -24,12 +24,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
     }
     console.log("====options", options)
     const canvas = new GraphCanvas(options);
-
-
-
-    // canvas.start_drawing()
     canvas.dataStore.add(nodes, links)
-
 
     if (layout === 'd3-force') {
       const layoutInstance = new D3ForceLayout(canvas);
@@ -40,19 +35,12 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
       layoutInstance?.add2Layout(nodes, links);
     }
 
-    // canvas.camera.fitView();
-    // canvas.camera.moveNodesToWorldCenter();
-
-
     canvas.artBoard.camera.fitView();
     // canvas.camera.moveNodesToWorldCenter();
   
-
     const toolbar = new ToolBar(canvas.artBoard);
     const toolBarHTMLDiv = toolbar.render()
     html.appendChild(toolBarHTMLDiv)
-
-
 
   }, false);
   return html
