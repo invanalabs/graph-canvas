@@ -1,11 +1,24 @@
-import { FederatedPointerEvent, Point } from "pixi.js";
+import { FederatedPointerEvent} from "pixi.js";
 import { ILinkStateTypes, INodeStateTypes } from "../../renderer/types";
 import { CanvasLink, CanvasNode, ICanvasItemProperties, IdString } from "../graph";
 
 
 
 
-export type IUserEvents = "onPointerIn" | "onPointerOut" | "onClicked" | "onUnClicked"  | "onContextMenu" | "onNodeMoved" | "onLinkMoved" 
+export type IUserEvents =   "node:gfx:onPointerIn" |
+  "node:gfx:onPointerOut"|
+  "node:gfx:onClicked" |
+  "node:gfx:onUnClicked" |
+  "node:gfx:onContextMenu" |
+  "node:gfx:onMoved" |
+
+  "link:gfx:onPointerIn" |
+  "link:gfx:onPointerOut" |
+  "link:gfx:onClicked" |
+  "link:gfx:onUnClicked" |
+  "link:gfx:onContextMenu" |
+  "link:gfx:onMoved"
+
 
 
 // onNodeAdded
@@ -25,32 +38,39 @@ export type OnNodePropertiesUpdatedEventListener =  (event: OnNodeDeletedEventDa
 export type OnNodeLinksUpdatedEventData = { id: IdString, node: CanvasNode, links: CanvasLink[]};
 export type OnNodeLinksUpdatedEventListener =  (event: OnNodeLinksUpdatedEventData) => void;
 
-// onNodePositionUpdated
-export type OnNodePositionUpdatedEventData = { id: IdString, node: CanvasNode, newPosition: Point};
-export type OnNodePositionUpdatedEventListener =  (event: OnNodePositionUpdatedEventData) => void;
 
 
 
 // node:gfx:onStateUpdated
-export type INodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
-export type NodeStateUpdateEventListener = (event: INodeStateUpdateEventData) => void;
+export type OnNodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
+export type OnNodeStateUpdateEventListener = (event: OnNodeStateUpdateEventData) => void;
 
 // link:gfx:onStateUpdated
-export type ILinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  ILinkStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
-export type LinkStateUpdateEventListener = (event: ILinkStateUpdateEventData) => void;
+export type OnLinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  ILinkStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
+export type OnLinkStateUpdateEventListener = (event: OnLinkStateUpdateEventData) => void;
 
 
 // link:data:onAdded
 export type OnLinkAddedEventData = { id: IdString, link: CanvasLink  };
-export type OnLinkAddedEventListener = (data: OnLinkAddedEventData) => void;
+export type OnLinkAddedEventListener = (event: OnLinkAddedEventData) => void;
 
 // link:data:onDeleted
 export type OnLinkDeletedEventData = { id: IdString, link: CanvasLink  };
-export type OnLinkDeletedEventListener = (data: OnLinkDeletedEventData) => void;
+export type OnLinkDeletedEventListener = (event: OnLinkDeletedEventData) => void;
 
 // link:data:onPropertiesUpdated
 export type OnLinkPropertiesUpdateEventData = { id: IdString, link: CanvasLink, updatedProperties: ICanvasItemProperties};
-export type OnLinkPropertiesUpdateEventListener  = (data: OnLinkPropertiesUpdateEventData) => void;
+export type OnLinkPropertiesUpdateEventListener  = (event: OnLinkPropertiesUpdateEventData) => void;
+
+
+
+// gfx:interactions:
+export type OnNodeGfxEventData = { id: IdString, node: CanvasNode, event: FederatedPointerEvent };
+export type OnNodeGfxEventListener  = (eventData: OnNodeGfxEventData) => void;
+
+export type OnLinkGfxEventData = { id: IdString, node: CanvasNode, event: FederatedPointerEvent };
+export type OnLinkGfxEventListener  = (eventData: OnLinkGfxEventData) => void;
+
 
 
 export interface IDataStoreListeners {
@@ -58,12 +78,31 @@ export interface IDataStoreListeners {
   "node:data:onDeleted": onNodeDeletedEventListener[];
   "node:data:onPropertiesUpdated": OnNodePropertiesUpdatedEventListener[];
   "node:data:onLinksUpdated": OnNodeLinksUpdatedEventListener[];
-  "node:data:onPositionUpdated": OnNodePositionUpdatedEventListener[];
 
   "link:data:onAdded": OnLinkAddedEventListener[];
   "link:data:onDeleted": OnLinkDeletedEventListener[];
-  "link:data:onPropertiesUpdated": OnLinkPropertiesUpdateEventData[];
+  "link:data:onPropertiesUpdated": OnLinkPropertiesUpdateEventListener[];
 
-  "node:gfx:onStateUpdated": NodeStateUpdateEventListener[];
-  "link:gfx:onStateUpdated": LinkStateUpdateEventListener[];  
+
+  "node:gfx:onStateUpdated": OnNodeStateUpdateEventListener[];
+  "link:gfx:onStateUpdated": OnLinkStateUpdateEventListener[];  
+
+  "node:gfx:onPointerIn": OnNodeGfxEventListener[],
+  "node:gfx:onPointerOut": OnNodeGfxEventListener[],
+  "node:gfx:onClicked": OnNodeGfxEventListener[],
+  "node:gfx:onUnClicked": OnNodeGfxEventListener[],
+  "node:gfx:onContextMenu": OnNodeGfxEventListener[],
+  "node:gfx:onMoved": OnNodeGfxEventListener[],
+
+  "link:gfx:onPointerIn": OnLinkGfxEventListener[],
+  "link:gfx:onPointerOut": OnLinkGfxEventListener[],
+  "link:gfx:onClicked": OnLinkGfxEventListener[],
+  "link:gfx:onUnClicked": OnLinkGfxEventListener[],
+  "link:gfx:onContextMenu": OnLinkGfxEventListener[],
+  "link:gfx:onMoved": OnLinkGfxEventListener[],
+  
+
+
 }
+
+// export type IUserEvents = "onPointerIn" | "onPointerOut" | "onClicked" | "onUnClicked"  | "onContextMenu" | "onNodeMoved" | "onLinkMoved" 

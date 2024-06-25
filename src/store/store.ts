@@ -4,7 +4,7 @@ import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
 import { filerLinksOfNode } from "./graph/utils"
 import { ICanvasItemProperties, ICanvasLink, ICanvasNode, IDataStore, IdString } from "./graph"
-import { IDataStoreListeners, LinkEventListener, NodeEventListener } from "./events/types"
+import { IDataStoreListeners, OnLinkGfxEventListener, OnNodeGfxEventListener, } from "./events/types"
 
 
 /**
@@ -26,21 +26,38 @@ export class DataStore implements IDataStore {
 
     this.listeners = {
       "node:data:onAdded": [],
-      "node:data:onLinksUpdated": [],
-      "node:data:onPositionUpdated": [],
-      "node:data:onPropertiesUpdated": [],
       "node:data:onDeleted": [],
-      "node:gfx:onStateUpdated": [],
-
+      "node:data:onPropertiesUpdated": [],
+      "node:data:onLinksUpdated": [],
+      "node:gfx:onMoved": [],
+    
       "link:data:onAdded": [],
+      "link:data:onDeleted": [],
       "link:data:onPropertiesUpdated": [],
-      "link:gfx:onStateUpdated": [],
-      "link:data:onDeleted": []
+    
+    
+      "node:gfx:onStateUpdated": [],
+      "link:gfx:onStateUpdated": [],  
+    
+      "node:gfx:onPointerIn": [],
+      "node:gfx:onPointerOut": [],
+      "node:gfx:onClicked": [],
+      "node:gfx:onUnClicked": [],
+      "node:gfx:onContextMenu": [],
+      "node:gfx:onMoved": [],
+    
+      "link:gfx:onPointerIn": [],
+      "link:gfx:onPointerOut": [],
+      "link:gfx:onClicked": [],
+      "link:gfx:onUnClicked": [],
+      "link:gfx:onContextMenu": [],
+      "link:gfx:onMoved": [],
+
     }
   }
 
   // Register event listeners
-  on(event: keyof IDataStoreListeners, listener: NodeEventListener | LinkEventListener) {
+  on(event: keyof IDataStoreListeners, listener: OnNodeGfxEventListener | OnLinkGfxEventListener) {
     if (this.listeners[event]) {
       this.listeners[event].push(listener as any);
     } else {
@@ -49,7 +66,7 @@ export class DataStore implements IDataStore {
   }
 
   // Remove event listeners
-  off(event: keyof IDataStoreListeners, listener?: NodeEventListener | LinkEventListener | undefined) {
+  off(event: keyof IDataStoreListeners, listener?: OnNodeGfxEventListener | OnLinkGfxEventListener | undefined) {
     if (this.listeners[event]) {
       if (listener) {
         // @ts-ignore
@@ -131,7 +148,7 @@ export class DataStore implements IDataStore {
       // TODO - trigger new event callled node:
       this.nodes.set(nodeId, node)
       // node.gfxInstance?.setPosition(x, y);
-      this.trigger('node:data:onPositionUpdated', { id: node.id, node: node });
+      this.trigger('node:gfx:onMoved', { id: node.id, node: node });
     }
   }
 
@@ -236,7 +253,7 @@ export class DataStore implements IDataStore {
     const link = this.links.get(linkId);
     if (link) {
       this.links.delete(linkId);
-      this.trigger('"link:data:onDeleted"', { id: linkId, link });
+      this.trigger('link:data:onDeleted', { id: linkId, link });
       // recacl nodeLinks for the nodes of the link
       this.reCalcNodeLinks(link.source.id);
       this.reCalcNodeLinks(link.target.id);

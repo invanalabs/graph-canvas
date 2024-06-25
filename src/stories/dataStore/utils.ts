@@ -45,7 +45,7 @@ export const createComponent = () => {
     });
 
     // add "link:data:onDeleted" event listener
-    data.on('"link:data:onDeleted"', ({ id, link }: LinkEventData) => {
+    data.on('link:data:onDeleted', ({ id, link }: LinkEventData) => {
       logAction("link:data:onDeleted", id, link);
     });
 
