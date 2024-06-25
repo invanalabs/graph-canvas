@@ -24,7 +24,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   declare labelGfx: PIXI.Graphics
   declare shapeGfx: PIXI.Graphics
 
-  isInside: boolean = false;
+  // isInside: boolean = false;
 
 
   declare drawShape
@@ -174,8 +174,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     });
   }
 
-
-
   triggerUnHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
     console.log("=triggerUnHighlightedOnNeighbors triggered")
     this.data.neighbors.nodes.forEach((node: CanvasNode) => {
@@ -194,66 +192,29 @@ export class NodeShapeBase extends NodeShapeAbstract {
   };
 
   onDragMove = (event: PIXI.FederatedPointerEvent) => {
-    // const newPoint = event.data.getLocalPosition(this.containerGfx.parent);
-    // event.stopPropagation();
-    // const _this = this;
-    // console.log("onDragMove", _this.data.id, _this.data.state)
-
-    const el = this.containerGfx.parent
-    const point = event.data.getLocalPosition(el);
-    if (point.x >= 0 && point.x <= el.width && point.y >= 0 && point.y <= el.height) {
-        if (!this.isInside) {
-            this.isInside = true;
-            console.log('Pointer Over');
-            this.containerGfx.off("pointerl")
-        }
-    }
-
-
     event.stopPropagation();
-
     if (this.dragData) {
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
       console.log("onDragMove", this.data.id,  newPoint, this.dragPoint)
       // update node positions data 
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y)
-
-    }
-
-
-    const neighborLinks = this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id);
-    neighborLinks.forEach((link: CanvasLink) => {
-      if (link.gfxInstance) {
+      // remove 
+      this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
+        if (link.gfxInstance)
         link.gfxInstance.removeInteractionTriggers()
-      }
-    })
-
-
-    // this.canvas.renderer.reRenderLinks(neighborLinks)
-    // this.triggerHighlightedOnNeighbors(); // TODO - fix this performance ; use stage=hovered/selected may be instead for re-render
+      })
+    }
   };
 
   onDragEnd = (event: PIXI.FederatedPointerEvent) => {
     console.log("onDragEnd triggered")
     event.stopPropagation()
-    // const _this = this;
     this.dragData = null
-    // this.containerGfx.parent.off("pointermove", this.onDragMove);
-    // this.containerGfx.parent.on('pointerout', this.pointerout);
-    // this.containerGfx.parent.on('pointerover', this.pointerover);
-    // this.containerGfx.parent.on('pointerupoutside', this.pointerUpOutside);
-
     this.containerGfx.parent.off('pointermove', this.onDragMove);
-
-    // this.setState(":default", true)    
-
-    const neighborLinks = this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id);
-    neighborLinks.forEach((link: CanvasLink) => {
-      if (link.gfxInstance) {
-        link.gfxInstance.setupInteractionTriggers()
-      }
+    this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
+      if (link.gfxInstance)
+      link.gfxInstance.setupInteractionTriggers()
     })
-
   };
 
   pointerover =(event: PIXI.FederatedPointerEvent)=>{
