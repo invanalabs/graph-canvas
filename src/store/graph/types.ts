@@ -31,15 +31,7 @@ export interface ICanvasLink extends ICanvasItemBase {
   // state?: ICanvasItemStates
   state?: ILinkStateTypes
 
-
 }
-
-// export interface ICanvasNodeLinksStats {
-//   // 
-//   byDirection: { [key in "incoming" | "outgoing"]: ICanvasLink[] },
-//   // byGroup: ICanvasNodeLinksStats,
-//   all: ICanvasLink[]
-// }
 
 export interface ICanvasNode extends ICanvasItemBase {
   x?: number | undefined
@@ -52,40 +44,4 @@ export interface ICanvasNode extends ICanvasItemBase {
 export interface IDataStore {
   nodes: Map<IdString, ICanvasNode>
   links: Map<IdString, ICanvasLink>
-}
-
-export type NodeEventData = { id: IdString, node: CanvasNode  };
-export type NodeUpdateEventData = { id: IdString, node: CanvasNode, updatedProperties: ICanvasItemProperties};
-
-export type INodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
-export type ILinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  ILinkStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
-
-export type LinkEventData = { id: IdString, link: CanvasLink  };
-export type LinkUpdateEventData = { id: IdString, link: CanvasLink, updatedProperties: ICanvasItemProperties};
-
-
-
-export type NodeEventListener = (data: NodeEventData) => void;
-export type NodeUpdateEventListener = (data: NodeUpdateEventData) => void;
-export type NodeStateUpdateEventListener = (data: INodeStateUpdateEventData) => void;
-
-
-export type LinkEventListener = (data: LinkEventData) => void;
-export type LinkUpdateEventListener = (data: LinkUpdateEventData) => void;
-export type LinkStateUpdateEventListener = (data: ILinkStateUpdateEventData) => void;
-
-export interface IDataStoreListeners {
-  "node:data:onAdded": NodeEventListener[];
-  "node:data:onDeleted": NodeEventListener[];
-  "node:data:onPropertiesUpdated": NodeUpdateEventListener[];
-  "node:data:onLinksUpdated": NodeEventListener[];
-  "node:data:onPositionUpdated": NodeUpdateEventListener[];
-
-  "link:data:onAdded": LinkEventListener[];
-  "link:data:onDeleted": LinkEventListener[];
-  "link:data:onPropertiesUpdated": LinkUpdateEventListener[];
-
-  "node:gfx:onStateUpdated": NodeStateUpdateEventListener[];
-  "link:gfx:onStateUpdated": LinkStateUpdateEventListener[];
-  
 }

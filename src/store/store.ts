@@ -2,12 +2,9 @@ import { FederatedPointerEvent } from "pixi.js"
 import { ILinkStateTypes, INodeStateTypes } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
-import {
-  ICanvasLink, ICanvasNode, IdString, IDataStore,
-  IDataStoreListeners, NodeEventListener, LinkEventListener,
-  ICanvasItemProperties,
-} from "./graph/types"
 import { filerLinksOfNode } from "./graph/utils"
+import { ICanvasItemProperties, ICanvasLink, ICanvasNode, IDataStore, IdString } from "./graph"
+import { IDataStoreListeners, LinkEventListener, NodeEventListener } from "./events/types"
 
 
 /**
@@ -127,7 +124,7 @@ export class DataStore implements IDataStore {
 
   moveNodeTo(nodeId: IdString, x: number, y: number) {
     console.log("Updating position of node ", nodeId, x, y)
-    let node: CanvasNode | undefined = this.nodes.get(nodeId);
+    const node: CanvasNode | undefined = this.nodes.get(nodeId);
     if (node) {
       node.x = x;
       node.y = y;
@@ -139,7 +136,7 @@ export class DataStore implements IDataStore {
   }
 
   updateNodeProperties(nodeId: IdString, properties: ICanvasItemProperties) {
-    let node = this.nodes.get(nodeId);
+    const node = this.nodes.get(nodeId);
     if (node) {
       node?.updateProperties(properties)
       this.nodes.set(nodeId, node)
@@ -151,12 +148,11 @@ export class DataStore implements IDataStore {
 
   deleteNode(nodeId: IdString) {
     console.log("delete Node", nodeId)
-    const _this = this;
     if (this.nodes.has(nodeId)) {
       const node = this.nodes.get(nodeId);
       // delete the links
       node?.links.forEach((link) => {
-        _this.deleteLink(link.id)
+        this.deleteLink(link.id)
       })
       // delete this node 
       this.nodes.delete(nodeId);
@@ -172,7 +168,7 @@ export class DataStore implements IDataStore {
 
   private reCalcNodeLinks(nodeId: IdString) {
     console.debug("reCalcNodeLinks", nodeId, this.links)
-    let node = this.nodes.get(nodeId)
+    const node = this.nodes.get(nodeId)
     if (node) {
       const links = filerLinksOfNode(nodeId, this.links)
       console.debug("====reCalcNodeLinks links", links)
@@ -225,7 +221,7 @@ export class DataStore implements IDataStore {
   }
 
   updateLinkProperties(linkId: IdString, properties: ICanvasItemProperties) {
-    let link = this.links.get(linkId);
+    const link = this.links.get(linkId);
     if (link) {
       link?.updateProperties(properties)
       this.links.set(linkId, link)
@@ -284,17 +280,16 @@ export class DataStore implements IDataStore {
   get both neighbor nodes and links for a given nodeIf
   */
   getNeighbors(nodeId: IdString): { nodes: CanvasNode[], links: CanvasLink[] } {
-    let neighborLinks: CanvasLink[] = [];
+    const neighborLinks: CanvasLink[] = [];
     const relatedNodes: Map<IdString, CanvasNode> = new Map();
-    const _this = this;
 
     filerLinksOfNode(nodeId, this.links).forEach(link => {
       neighborLinks.push(link);
-      const source = _this.nodes.get(link.source.id)
+      const source = this.nodes.get(link.source.id)
       if (source) {
         relatedNodes.set(link.source.id, source);
       }
-      const target = _this.nodes.get(link.target.id)
+      const target = this.nodes.get(link.target.id)
       if (target) {
         relatedNodes.set(link.target.id, target);
       }
