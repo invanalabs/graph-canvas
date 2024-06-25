@@ -74,6 +74,11 @@ abstract class ShapeAbstractBase {
     abstract triggerUnHighlighted(event?: PIXI.FederatedPointerEvent): void
     abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
+
+    abstract triggerSelected(event?: PIXI.FederatedPointerEvent):void    
+    abstract triggerUnSelected(event?: PIXI.FederatedPointerEvent):void    
+
+
     // :inactive
     abstract triggerInactive(event?: PIXI.FederatedPointerEvent):void
     // :hidden
@@ -154,6 +159,9 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         if (stateName === ":default"){
             this.triggerUnHovered(event);
             this.triggerUnHighlighted(event);
+            if (this.triggerUnSelected){
+                this.triggerUnSelected(event)
+            }
             this.triggerDefault(event);
 
             if (setNeighborsToo){
@@ -162,25 +170,25 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
             }
         }
         else if (stateName === ":hovered"){
-            // this.clearStates();
             this.triggerHovered(event)
             if (setNeighborsToo){
                 this.triggerHoveredOnNeighbors(event)
             }
         }
+        else if (stateName === ":selected"){
+            this.triggerSelected(event)
+        }
+
         else if (stateName === ":highlighted"){
-            // this.clearStates();
             this.triggerHighlighted(event)
             if (setNeighborsToo){
                 this.triggerHighlightedOnNeighbors(event)
             }
         }
         else if (stateName === ":inactive"){
-            // this.clearStates();
             this.triggerInactive(event)
         }
         else if (stateName === ":hidden"){
-            // this.clearStates();
             this.triggerHidden(event)
         }
     }
@@ -237,9 +245,21 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     abstract triggerHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
     abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
+
+    abstract triggerSelected(event?: PIXI.FederatedPointerEvent):void    
+    abstract triggerUnSelected(event?: PIXI.FederatedPointerEvent):void
+    
+    // abstract triggerSelectedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
+    // abstract triggerUnSelectedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
+    
+
     abstract onDragStart(event?: PIXI.FederatedPointerEvent): void
     // abstract onDragMove(event?: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
     abstract onDragEnd(event?: PIXI.FederatedPointerEvent): void
+
+
+
+
 
 }
 

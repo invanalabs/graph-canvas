@@ -59,7 +59,7 @@ export default class TextureStore {
 
     // default textures
     // default - shape
-    let defaultStateStyle: INodeStateTexture = {
+    const defaultStateStyle: INodeStateTexture = {
       shape: this.createNodeShapeTexture({
         size: defaultStyle.size,
         background: defaultStyle?.shape.background,
@@ -77,7 +77,7 @@ export default class TextureStore {
     const hoveredPadding = 0;
     const hoveredStyle = props.style?.states[':hovered'];
 
-    let hoveredStateStyle: INodeStateTexture = {
+    const hoveredStateStyle: INodeStateTexture = {
       shape: this.createNodeShapeTexture({
         size: props.style.size + hoveredPadding,
         background: hoveredStyle.shape.background,
@@ -86,31 +86,41 @@ export default class TextureStore {
     }
 
     // selected textures
-    // selected - shape
-    const selectedPadding = hoveredPadding + 2;
-    const selectedStyle = props.style?.states[':highlighted'];
-    // nodeStyleTexture['states'][':highlighted'] = {}
-    // nodeStyleTexture['states'][':highlighted'][shape] =
+    // highlighted - shape
+    const highlightedPadding = hoveredPadding + 4;
+    const highlightedStyle = props.style?.states[':highlighted'];
 
-    let selectedStateStyle: INodeStateTexture = {
+    const highlightedStateStyle: INodeStateTexture = {
       shape: this.createNodeShapeTexture({
-        size: props.style.size + props.style?.shape.border.thickness + selectedPadding,
-        background: selectedStyle.shape.background,
-        border: selectedStyle.shape.border
+        size: props.style.size + props.style?.shape.border.thickness + highlightedPadding,
+        background: highlightedStyle.shape.background,
+        border: highlightedStyle.shape.border
       })
     }
 
-    let nodeStyleTexture: INodeStateTexturesMap = {
+    const selectedPadding = hoveredPadding + 12;
+    const selectedStyle = props.style?.states[':selected'];
+     // selected - shape
+     const selectedStateStyle: INodeStateTexture = {
+       shape: this.createNodeShapeTexture({
+         size: props.style.size + props.style?.shape.border.thickness + selectedPadding,
+         background: selectedStyle.shape.background,
+         border: selectedStyle.shape.border
+       })
+     }
+
+    const nodeStyleTexture: INodeStateTexturesMap = {
       unique_key: unique_key,
       group: props.group,
       states: {
         ":default": defaultStateStyle,
         ":hovered": hoveredStateStyle,
-        ":highlighted": selectedStateStyle,
+        ":highlighted": highlightedStateStyle,
+        ':selected': selectedStateStyle,
 
         // fix :inactive and :hidden later
-        ":inactive": selectedStateStyle,
-        ":hidden": selectedStateStyle
+        ":inactive": highlightedStateStyle,
+        ":hidden": highlightedStateStyle
       }
     }
 

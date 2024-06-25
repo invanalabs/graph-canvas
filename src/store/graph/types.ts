@@ -63,6 +63,8 @@ export type ILinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:
 export type LinkEventData = { id: IdString, link: CanvasLink  };
 export type LinkUpdateEventData = { id: IdString, link: CanvasLink, updatedProperties: ICanvasItemProperties};
 
+
+
 export type NodeEventListener = (data: NodeEventData) => void;
 export type NodeUpdateEventListener = (data: NodeUpdateEventData) => void;
 export type NodeStateUpdateEventListener = (data: INodeStateUpdateEventData) => void;

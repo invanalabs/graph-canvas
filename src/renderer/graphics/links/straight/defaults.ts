@@ -11,7 +11,6 @@ export const LinkStyleDefaults: ILinkStyle = {
                 thickness: 1,
                 color: "#555555",
                 type: "solid"
-
             },
             label: {
                 background: {

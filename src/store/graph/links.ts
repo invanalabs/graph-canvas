@@ -1,3 +1,4 @@
+import { LinkShapeBase } from "../../renderer/graphics/links/base"
 import { LinkStyleDefaults } from "../../renderer/graphics/links/straight/defaults"
 import { ILinkStateTypes, ILinkStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
@@ -11,6 +12,8 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
   readonly target: CanvasNode
   
+  gfxInstance: LinkShapeBase | undefined = undefined
+
   state: ILinkStateTypes = ":default"
 
   style: ILinkStyle

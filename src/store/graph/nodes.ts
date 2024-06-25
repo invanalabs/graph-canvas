@@ -1,3 +1,4 @@
+import { NodeShapeBase } from "../../renderer/graphics/nodes"
 import { CircleStyleDefaults } from "../../renderer/graphics/nodes/circle/defaults"
 import { INodeStateTypes, INodeStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
@@ -12,6 +13,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
+
+  gfxInstance: NodeShapeBase | undefined = undefined
 
   state: INodeStateTypes = ":default"
 

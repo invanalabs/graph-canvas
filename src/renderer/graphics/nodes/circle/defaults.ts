@@ -1,8 +1,9 @@
 import { INodeStyle } from "../../../types"
 
+const defaultNodeSize = 10 * 1.5
 
 export const CircleStyleDefaults: INodeStyle = {
-    size: 10 * 1.5,
+    size: defaultNodeSize,
     state: ":default",
     shape : {
         background: {
@@ -57,6 +58,19 @@ export const CircleStyleDefaults: INodeStyle = {
             label: {
                 background: {
                     color: "#ffffff",
+                    opacity: 0.3
+                },
+            }
+        },
+        ":selected": {
+            shape: {
+                // border: {
+                //     thickness: 2,
+                //     color: 0x999999,
+                //     opacity: 0.6,
+                // },
+                background: {
+                    color: "#888888",
                     opacity: 0.3
                 },
             }

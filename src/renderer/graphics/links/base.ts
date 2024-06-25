@@ -171,7 +171,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
         // event.stopPropagation();
         // if (this.dragData) return 
         this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
-        this.setState(":highlighted", true, event)
+        // this.setState(":highlighted", true, event)
+        this.setState(":hovered", true, event)
       })
       .on("pointermove", (event) => {
         console.log("ignoring pointermove")

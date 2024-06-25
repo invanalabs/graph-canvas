@@ -140,6 +140,69 @@ export class NodeShapeBase extends NodeShapeAbstract {
     });
   }
 
+
+
+
+
+
+
+  triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
+    console.log(`Selected triggered on node - ${this.data.id}`);
+    if (this.shapeGfx) {
+      const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder)
+      if (shapeSelectedBorder) {
+        shapeSelectedBorder.visible = true
+      }
+      this.triggerHighlighted()
+      this.triggerHighlightedOnNeighbors()
+    }
+    this.moveToFrontLayer();
+  }
+
+  triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
+    console.log(`UnSelected triggered on node - ${this.data.id}`);
+    if (this.shapeGfx) {
+      const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder)
+      if (shapeSelectedBorder) {
+        shapeSelectedBorder.visible = false
+      }
+      this.triggerUnHighlighted()
+      this.triggerUnHighlightedOnNeighbors()
+
+
+    }
+    this.moveToDataLayer()
+  }
+
+  // triggerSelectedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log("=triggerSelectedOnNeighbors triggered")
+  //   // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
+  //   // console.log("getNeighbors", neighbors)
+  //   this.data.neighbors.nodes.forEach((node: CanvasNode) => {
+  //     node.gfxInstance?.triggerSelected();
+  //   })
+  // }
+
+  // triggerUnSelectedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log("=triggerUnSelectedOnNeighbors triggered")
+  //   // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
+  //   // console.log("getNeighbors", neighbors)
+  //   this.data.neighbors.nodes.forEach((node: CanvasNode) => {
+  //     node.gfxInstance?.triggerUnSelected();
+  //   })
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`triggerHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
@@ -161,7 +224,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     }
   }
 
-  triggerHighlightedOnNeighbors = (event: PIXI.FederatedPointerEvent) => {
+  triggerHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
     console.log("=triggerHighlightedOnNeighbors triggered")
     this.data.neighbors.nodes.forEach((node: CanvasNode) => {
       node.gfxInstance?.setState(":highlighted", false,  event)
@@ -228,7 +291,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // event.stopPropagation();
     // if (this.dragData) return 
     this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
-    this.setState(":highlighted", true, event)
+    this.setState(":selected", true, event)
     this.onDragStart(event)
   }
 
