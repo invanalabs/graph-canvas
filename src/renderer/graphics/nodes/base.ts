@@ -252,7 +252,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       console.log("onDragMove", this.data.id,  newPoint, this.dragPoint)
       // update node positions data 
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
-      // remove 
+      // remove interactions on neighbors
       this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
         if (link.gfxInstance)
         link.gfxInstance.removeInteractionTriggers()
@@ -271,12 +271,10 @@ export class NodeShapeBase extends NodeShapeAbstract {
     })
   };
 
-  pointerover =(event: PIXI.FederatedPointerEvent)=>{
-    console.log("====pointerover", this.data.id,  this.data.state, this.dragData)
+  pointerIn =(event: PIXI.FederatedPointerEvent)=>{
+    console.log("====pointerIn", this.data.id,  this.data.state, this.dragData)
     event.stopPropagation();
-    // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
     if (this.dragData) return
-    console.log("pointerover", this.data.id, this.data.state, this.dragData)
     this.setState(":hovered", true, event)
   }
 
@@ -338,7 +336,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     // listeners for hover effect
     this.containerGfx
-      .on("pointerover", this.pointerover)
+      .on("pointerover", this.pointerIn)
       .on("pointerout", this.pointerout)
       .on('pointerdown', this.pointerDown)
       .on('pointerup', this.pointerUp)

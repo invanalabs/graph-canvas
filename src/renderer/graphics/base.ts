@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import { CanvasLink, CanvasNode } from '../../store';
 import { ILinkStateTypes, INodeStateTypes } from '../types';
 import { ArtBoard } from '../../artBoard';
+import { OnLinkGfxEventData, OnNodeGfxEventData } from '../../store/events/types';
 
 
 // abstract class ShapeStateManagerAbstract {
@@ -37,15 +38,15 @@ abstract class ShapeAbstractBase {
     declare shapeGfx: PIXI.Graphics | undefined;
     declare borderGfx: PIXI.Graphics | undefined
 
-  
+
 
     /* this will  */
-    abstract processData(data: CanvasLink | CanvasNode): CanvasLink | CanvasNode; 
+    abstract processData(data: CanvasLink | CanvasNode): CanvasLink | CanvasNode;
 
     // drawing
-    abstract drawShape(): PIXI.Graphics  | undefined;
-    abstract drawLabel(): PIXI.Graphics  | undefined;
-    abstract draw(drawShape: boolean, drawLabel:boolean): void;
+    abstract drawShape(): PIXI.Graphics | undefined;
+    abstract drawLabel(): PIXI.Graphics | undefined;
+    abstract draw(drawShape: boolean, drawLabel: boolean): void;
     abstract redraw(): void;
 
 
@@ -55,9 +56,9 @@ abstract class ShapeAbstractBase {
 
     // events and triggers
     abstract setupInteractionTriggers(): void;
-    abstract removeInteractionTriggers():void
+    abstract removeInteractionTriggers(): void
 
-    abstract setState(state: INodeStateTypes| ILinkStateTypes, setNeighborsToo:boolean, event?: PIXI.FederatedPointerEvent ): void
+    abstract setState(state: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean, event?: PIXI.FederatedPointerEvent): void
     // :default
     abstract triggerDefault(event?: PIXI.FederatedPointerEvent): void
     // :hover
@@ -76,9 +77,9 @@ abstract class ShapeAbstractBase {
 
 
     // :inactive
-    abstract triggerInactive(event?: PIXI.FederatedPointerEvent):void
+    abstract triggerInactive(event?: PIXI.FederatedPointerEvent): void
     // :hidden
-    abstract triggerHidden(event?: PIXI.FederatedPointerEvent):void
+    abstract triggerHidden(event?: PIXI.FederatedPointerEvent): void
 
 
     // layers - front, data, map 
@@ -94,14 +95,14 @@ abstract class ShapeAbstractBase {
 
 
 export abstract class ShapeAbstract extends ShapeAbstractBase {
-    
+
     originalData: CanvasNode | CanvasLink
     artBoard: ArtBoard
     containerGfx: PIXI.Graphics;
 
     // for state based graphics :hovered and :highlighted
-    declare shapeHoveredGfx : PIXI.Graphics;
-    declare shapeHighlightedGfx : PIXI.Graphics;
+    declare shapeHoveredGfx: PIXI.Graphics;
+    declare shapeHighlightedGfx: PIXI.Graphics;
 
 
     constructor(data: CanvasNode | CanvasLink, artBoard: ArtBoard) {
@@ -123,7 +124,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     setInteractiveRecursive(container: PIXI.Graphics) {
         container.interactive = true;
         container.cursor = 'pointer';
-        container.children.forEach((child ) => {
+        container.children.forEach((child) => {
             this.setInteractiveRecursive(child as PIXI.Graphics);
         });
     }
@@ -139,11 +140,11 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.containerGfx.removeAllListeners();
     }
 
-    setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent ){
-        console.log("==setState",this.data.id, stateName, setNeighborsToo)
+    setState(stateName: INodeStateTypes, setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
+        console.log("==setState", this.data.id, stateName, setNeighborsToo)
 
         if (this.data.state === stateName)
-        return
+            return
 
 
         this.artBoard.canvas.dataStore.setState(this.data, stateName, setNeighborsToo, event)
@@ -153,7 +154,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
 
 
 
-    drawDebugBorder(x: number, y: number){
+    drawDebugBorder(x: number, y: number) {
         // Calculate the bounding box
         // console.log("===drawDebugBorder", this.data.id)
         // // const borderGfx = this.artBoard.viewport.getChildByName(NodeContainerChildNames.debugBorder)
@@ -191,7 +192,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     // declare state: INodeStateTypes
 
     /* this will  */
-    abstract processData(data:  CanvasNode):  CanvasNode; 
+    abstract processData(data: CanvasNode): CanvasNode;
 
     // set position of node 
     abstract setPosition(x: number, y: number): void;
@@ -203,12 +204,20 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
 
-    abstract triggerSelected(event?: PIXI.FederatedPointerEvent):void    
-    abstract triggerUnSelected(event?: PIXI.FederatedPointerEvent):void
-    
+    abstract triggerSelected(event?: PIXI.FederatedPointerEvent): void
+    abstract triggerUnSelected(event?: PIXI.FederatedPointerEvent): void
+
     // abstract triggerSelectedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
     // abstract triggerUnSelectedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
-    
+
+
+
+    abstract onPointerIn(event : OnNodeGfxEventData): void
+    abstract onPointerOut(event : OnNodeGfxEventData): void
+    abstract onClicked(event : OnNodeGfxEventData): void
+    abstract onUnClicked(event : OnNodeGfxEventData): void
+    abstract onMoved(event : OnNodeGfxEventData): void
+
 
     abstract onDragStart(event?: PIXI.FederatedPointerEvent): void
     // abstract onDragMove(event?: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
@@ -216,41 +225,41 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
 
 
 
-    applyStateUpdate( setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent){
+    applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
         const stateName = this.data.state
-        if (stateName === ":default"){
+        if (stateName === ":default") {
             this.triggerUnHovered(event);
             this.triggerUnHighlighted(event);
-            if (this.triggerUnSelected){
+            if (this.triggerUnSelected) {
                 this.triggerUnSelected(event)
             }
             this.triggerDefault(event);
 
-            if (setNeighborsToo){
+            if (setNeighborsToo) {
                 this.triggerUnHoveredOnNeighbors(event)
                 this.triggerUnHighlightedOnNeighbors(event)
             }
         }
-        else if (stateName === ":hovered"){
+        else if (stateName === ":hovered") {
             this.triggerHovered(event)
-            if (setNeighborsToo){
+            if (setNeighborsToo) {
                 this.triggerHoveredOnNeighbors(event)
             }
         }
-        else if (stateName === ":selected"){
+        else if (stateName === ":selected") {
             this.triggerSelected(event)
         }
 
-        else if (stateName === ":highlighted"){
+        else if (stateName === ":highlighted") {
             this.triggerHighlighted(event)
-            if (setNeighborsToo){
+            if (setNeighborsToo) {
                 this.triggerHighlightedOnNeighbors(event)
             }
         }
-        else if (stateName === ":inactive"){
+        else if (stateName === ":inactive") {
             this.triggerInactive(event)
         }
-        else if (stateName === ":hidden"){
+        else if (stateName === ":hidden") {
             this.triggerHidden(event)
         }
     }
@@ -270,7 +279,7 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
     // declare state: ILinkStateTypes
 
     /* this will  */
-    abstract processData(data:  CanvasLink):  CanvasLink; 
+    abstract processData(data: CanvasLink): CanvasLink;
 
     abstract triggerHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
     abstract triggerUnHoveredOnNeighbors(event?: PIXI.FederatedPointerEvent): void
@@ -279,34 +288,43 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
     abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
 
-    applyStateUpdate( setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent){
+
+    abstract onPointerIn(event : OnLinkGfxEventData): void
+    abstract onPointerOut(event : OnLinkGfxEventData): void
+    abstract onClicked(event : OnLinkGfxEventData): void
+    abstract onUnClicked(event : OnLinkGfxEventData): void
+    abstract onMoved(event : OnLinkGfxEventData): void
+
+
+
+    applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
         const stateName = this.data.state
-        if (stateName === ":default"){
+        if (stateName === ":default") {
             this.triggerUnHovered(event);
             this.triggerUnHighlighted(event);
             this.triggerDefault(event);
-            if (setNeighborsToo){
+            if (setNeighborsToo) {
                 this.triggerUnHoveredOnNeighbors(event)
                 this.triggerUnHighlightedOnNeighbors(event)
             }
         }
-        else if (stateName === ":hovered"){
+        else if (stateName === ":hovered") {
             this.triggerHovered(event)
-            if (setNeighborsToo){
+            if (setNeighborsToo) {
                 this.triggerHoveredOnNeighbors(event)
             }
         }
-     
-        else if (stateName === ":highlighted"){
+
+        else if (stateName === ":highlighted") {
             this.triggerHighlighted(event)
-            if (setNeighborsToo){
+            if (setNeighborsToo) {
                 this.triggerHighlightedOnNeighbors(event)
             }
         }
-        else if (stateName === ":inactive"){
+        else if (stateName === ":inactive") {
             this.triggerInactive(event)
         }
-        else if (stateName === ":hidden"){
+        else if (stateName === ":hidden") {
             this.triggerHidden(event)
         }
     }
