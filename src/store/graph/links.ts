@@ -1,5 +1,5 @@
-import { LinkShapeBase } from "../../renderer/graphics/links/base"
-import { LinkStyleDefaults } from "../../renderer/graphics/links/straight/defaults"
+import { LinkShapeBase } from "../../renderer/shapes/links/base"
+import { LinkStyleDefaults } from "../../renderer/shapes/links/straight/defaults"
 import { ILinkStateTypes, ILinkStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
 import { CanvasNode } from "./nodes"

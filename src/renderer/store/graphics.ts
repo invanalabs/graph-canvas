@@ -1,5 +1,5 @@
 import { ArtBoard } from "../../artBoard"
-import { GraphicsLayer, LAYER_GRAPHICS_TYPES_CONSTANTS } from "../graphics/layer"
+import { GraphicsLayer, LAYER_GRAPHICS_TYPES_CONSTANTS } from "../shapes/layer"
 import { CanvasLink, CanvasNode } from "../../store"
 
 

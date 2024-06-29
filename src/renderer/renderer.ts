@@ -1,10 +1,10 @@
 import { CanvasLink, CanvasNode } from "../store";
 import { ArtBoard } from "../artBoard/artBoard";
 import TextureStore from "./store/texture";
-import Circle from "./graphics/nodes/circle/circle";
-import StraightLink from "./graphics/links/straight/straight";
+import Circle from "./shapes/nodes/circle/circle";
+import StraightLink from "./shapes/links/straight/straight";
 import { GraphicsStore } from "./store/graphics";
-import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "./graphics/layer";
+import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "./shapes/layer";
 
 
 export class Renderer {

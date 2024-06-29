@@ -1,5 +1,5 @@
-import { NodeShapeBase } from "../../renderer/graphics/nodes"
-import { CircleStyleDefaults } from "../../renderer/graphics/nodes/circle/defaults"
+import { NodeShapeBase } from "../../renderer/shapes/nodes"
+import { CircleStyleDefaults } from "../../renderer/shapes/nodes/circle/defaults"
 import { INodeStateTypes, INodeStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
 import { CanvasLink } from "./links"
