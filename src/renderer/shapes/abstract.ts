@@ -45,22 +45,18 @@ abstract class ShapeAbstractBase {
 
     // :highlighted
     abstract triggerHighlighted(event?: PIXI.FederatedPointerEvent, setNeighborsToo?:boolean): void
-    // abstract triggerHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent, setNeighborsToo?: boolean): void
-
     abstract triggerUnHighlighted(event?: PIXI.FederatedPointerEvent, setNeighborsToo?: boolean): void
-    // abstract triggerUnHighlightedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
 
-
+    // :selected
     abstract triggerSelected(event?: PIXI.FederatedPointerEvent): void
     abstract triggerUnSelected(event?: PIXI.FederatedPointerEvent): void
 
-    // abstract triggerSelectedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
-    // abstract triggerUnSelectedOnNeighbors(event?: PIXI.FederatedPointerEvent): void
-
     // :inactive
     abstract triggerInactive(event?: PIXI.FederatedPointerEvent): void
+
+
     // :hidden
-    abstract triggerHidden(event?: PIXI.FederatedPointerEvent): void
+    // abstract triggerHidden(event?: PIXI.FederatedPointerEvent): void
 
     // layers - front, data, map 
     abstract moveToFrontLayer(): void
@@ -228,9 +224,9 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
         else if (stateName === ":inactive") {
             this.triggerInactive(event)
         }
-        else if (stateName === ":hidden") {
-            this.triggerHidden(event)
-        }
+        // else if (stateName === ":hidden") {
+        //     this.triggerHidden(event)
+        // }
     }
 
 }
@@ -291,9 +287,9 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
         else if (stateName === ":inactive") {
             this.triggerInactive(event)
         }
-        else if (stateName === ":hidden") {
-            this.triggerHidden(event)
-        }
+        // else if (stateName === ":hidden") {
+        //     this.triggerHidden(event)
+        // }
     }
 
 }

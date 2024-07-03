@@ -64,7 +64,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
   moveToDataLayer(): void {
     // console.error("not implemented")
     this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER;
-
     // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
 
@@ -90,9 +89,9 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.containerGfx.visible = true
   }
 
-  triggerHidden = (event?: PIXI.FederatedPointerEvent) => {
-    this.containerGfx.visible = false;
-  }
+  // triggerHidden = (event?: PIXI.FederatedPointerEvent) => {
+  //   this.containerGfx.visible = false;
+  // }
 
   triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`Selected triggered on node - ${this.data.id}`);
@@ -102,7 +101,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
         shapeSelectedBorder.visible = true
       }
       this.triggerHighlighted(event, true)
-      // this.triggerHighlightedOnNeighbors()
     }
     this.moveToFrontLayer();
 
@@ -117,7 +115,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
         shapeSelectedBorder.visible = false
       }
       this.triggerUnHighlighted(event, true)
-      // this.triggerUnHighlightedOnNeighbors()
     }
     this.moveToDataLayer()
   }
@@ -145,7 +142,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     console.log(`triggerUnHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
-      // console.log("shapeHighlightedBorder", shapeHighlightedBorder)
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
       }

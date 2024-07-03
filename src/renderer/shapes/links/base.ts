@@ -68,9 +68,9 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx.visible = true
   }
 
-  triggerHidden = (event?: PIXI.FederatedPointerEvent) => {
-    this.containerGfx.visible = false;
-  }
+  // triggerHidden = (event?: PIXI.FederatedPointerEvent) => {
+  //   this.containerGfx.visible = false;
+  // }
 
   // triggerHovered = (event?: PIXI.FederatedPointerEvent) => {
   //   console.log(`Hover triggered on node - ${this.data.id}`);
