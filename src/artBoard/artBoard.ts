@@ -3,12 +3,6 @@ import { Camera } from "./camera";
 import { GraphCanvas } from "../canvas";
 import { Renderer } from "../renderer/renderer";
 // import { Cull } from '@pixi-essentials/cull';
-import {  OnLinkAddedEventData,
-  OnLinkGfxEventData,
-  OnLinkStateUpdateEventData,
-  OnNodeAddedEventData, OnNodeDeletedEventData, OnNodeGfxEventData, OnNodeGfxEventListener, OnNodeLinksUpdatedEventData,
-  OnNodeStateUpdateEventData, } from "../store/events/types";
-import { CanvasLink } from "../store";
 import { DefaultEventEmitter } from "../store/events/emitter";
 import { EventEmitterAbstract } from "../store/events/abstract";
 
@@ -36,9 +30,9 @@ export class ArtBoard extends ArtBoardBase {
     this.canvas.dataStore.on('node:data:onAdded', this.events.onNodeAdded);
     this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
 
-    this.canvas.dataStore.on("node:gfx:onStateUpdated", this.events.onNodeStateUpdated)
+    this.canvas.dataStore.on('node:gfx:onStateUpdated', this.events.onNodeStateUpdated)
 
-    this.canvas.dataStore.on("link:gfx:onStateUpdated", this.events.onLinkStateUpdated)
+    this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
 
     // add link:data:onAdded event listener
     this.canvas.dataStore.on('link:data:onAdded',  this.events.onLinkAdded);

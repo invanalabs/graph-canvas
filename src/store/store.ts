@@ -35,8 +35,8 @@ export class DataStore implements IDataStore {
       "link:data:onPropertiesUpdated": [],
     
     
-      "node:gfx:onStateUpdated": [],
-      "link:gfx:onStateUpdated": [],  
+      'node:gfx:onStateUpdated': [],
+      'link:gfx:onStateUpdated': [],  
     
       "node:gfx:onPointerIn": [],
       "node:gfx:onPointerOut": [],
@@ -122,7 +122,7 @@ export class DataStore implements IDataStore {
       if (node) {
         node.state = stateName
         this.nodes.set(item.id, node)
-        this.trigger("node:gfx:onStateUpdated", {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo, event:event})
+        this.trigger('node:gfx:onStateUpdated', {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo, event:event})
       }
 
     } else if (item instanceof CanvasLink) {
@@ -130,7 +130,7 @@ export class DataStore implements IDataStore {
       if (link) {
         link.state = stateName
         this.links.set(item.id, link)
-        this.trigger("link:gfx:onStateUpdated", {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo, event:event})
+        this.trigger('link:gfx:onStateUpdated', {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo, event:event})
       }
     } else {
       // Handle other cases

@@ -19,31 +19,31 @@ export const exampleNodes : Array<ICanvasNode> = [
         y: 200,
         style :{size: 2},
     },
-    {
-        id: '3',
-        group: 'Person',
-        // label: 'Ravi',
-        shapeName: 'circle',
-        x: 100,
-        y: 300,
-        style :{size: 2},
-    },
-    {
-        id: '4',
-        group: 'Project',
-        // label: 'Graph Canvas',
-        shapeName: 'circle',
-        x: 450,
-        y: 300,
-        style :{size: 2},
-    },
+    // {
+    //     id: '3',
+    //     group: 'Person',
+    //     // label: 'Ravi',
+    //     shapeName: 'circle',
+    //     x: 100,
+    //     y: 300,
+    //     style :{size: 2},
+    // },
+    // {
+    //     id: '4',
+    //     group: 'Project',
+    //     // label: 'Graph Canvas',
+    //     shapeName: 'circle',
+    //     x: 450,
+    //     y: 300,
+    //     style :{size: 2},
+    // },
     {
         id: '5',
         group: 'Person',
         // label: 'Ravi',
         shapeName: 'circle',
         x: 100,
-        y: 400,
+        y: 300,
         style :{size: 2},
     },
     {
@@ -52,7 +52,7 @@ export const exampleNodes : Array<ICanvasNode> = [
         // label: 'Graph Canvas',
         shapeName: 'circle',
         x: 450,
-        y: 400,
+        y: 300,
         style :{size: 2},
     },
     {
@@ -61,7 +61,7 @@ export const exampleNodes : Array<ICanvasNode> = [
         // label: 'Ravi',
         shapeName: 'circle',
         x: 100,
-        y: 500,
+        y: 400,
         style :{size: 2},
     },
     {
@@ -70,7 +70,7 @@ export const exampleNodes : Array<ICanvasNode> = [
         // label: 'Graph Canvas',
         shapeName: 'circle',
         x: 450,
-        y: 500,
+        y: 400,
         style :{size: 2},
     }
 ];
@@ -83,24 +83,24 @@ export const exampleLinks: Array<ICanvasLink> = [
         label: 'default' ,
         source: '1' ,
         target: '2' ,
-        shapeName: 'line' ,
+        shapeName: 'straightLine' ,
     },
-    {
-        id: '3-4',
-        group: 'authored',
-        label: 'hovered',
-        source: '3',
-        target: '4',
-        shapeName: 'line',
-        state: ":hovered"
-    },
+    // {
+    //     id: '3-4',
+    //     group: 'authored',
+    //     label: 'hovered',
+    //     source: '3',
+    //     target: '4',
+    //     shapeName: 'straightLine',
+    //     state: ":hovered"
+    // },
     {
         id: '5-6',
         group: 'authored',
         label: 'highlighted',
         source: '5',
         target: '6',
-        shapeName: 'line',
+        shapeName: 'straightLine',
         state: ":highlighted"
     },       ,
     {
@@ -109,7 +109,7 @@ export const exampleLinks: Array<ICanvasLink> = [
         label: 'inactive',
         source: '7',
         target: '8',
-        shapeName: 'line',
+        shapeName: 'straightLine',
         state: ":inactive"
     }  
 ];

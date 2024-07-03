@@ -94,52 +94,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.containerGfx.visible = false;
   }
 
-  // triggerHovered = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`Hover triggered on node - ${this.data.id}`);
-  //   if (this.shapeGfx) {
-  //     const shapeHoveredBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
-  //     if (shapeHoveredBorder) {
-  //       shapeHoveredBorder.visible = true
-  //     }
-  //   }
-  //   this.moveToFrontLayer();
-  // }
-
-  // triggerUnHovered = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`UnHovered triggered on node - ${this.data.id}`);
-  //   if (this.shapeGfx) {
-  //     const shapeHoveredBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHoveredBorder)
-  //     if (shapeHoveredBorder) {
-  //       shapeHoveredBorder.visible = false
-  //     }
-  //   }
-  //   this.moveToDataLayer()
-  // }
-
-  // triggerHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log("=triggerHoveredOnNeighbors triggered")
-  //   // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
-  //   // console.log("getNeighbors", neighbors)
-  //   this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-  //     node.gfxInstance?.triggerHovered();
-  //   })
-  //   this.data.neighbors.links.forEach((link: CanvasLink) => {
-  //     link.gfxInstance?.triggerHovered();
-  //   });
-  // }
-
-  // triggerUnHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log("=triggerUnHoveredOnNeighbors triggered")
-  //   // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
-  //   // console.log("getNeighbors", neighbors)
-  //   this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-  //     node.gfxInstance?.triggerUnHovered();
-  //   })
-  //   this.data.neighbors.links.forEach((link: CanvasLink) => {
-  //     link.gfxInstance?.triggerUnHovered();
-  //   });
-  // }
-
   triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
     console.log(`Selected triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
@@ -147,10 +101,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeSelectedBorder) {
         shapeSelectedBorder.visible = true
       }
-      this.triggerHighlighted()
-      this.triggerHighlightedOnNeighbors()
+      this.triggerHighlighted(event, true)
+      // this.triggerHighlightedOnNeighbors()
     }
     this.moveToFrontLayer();
+
+
   }
 
   triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
@@ -160,44 +116,13 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeSelectedBorder) {
         shapeSelectedBorder.visible = false
       }
-      this.triggerUnHighlighted()
-      this.triggerUnHighlightedOnNeighbors()
-
-
+      this.triggerUnHighlighted(event, true)
+      // this.triggerUnHighlightedOnNeighbors()
     }
     this.moveToDataLayer()
   }
 
-  // triggerSelectedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log("=triggerSelectedOnNeighbors triggered")
-  //   // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
-  //   // console.log("getNeighbors", neighbors)
-  //   this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-  //     node.gfxInstance?.triggerSelected();
-  //   })
-  // }
-
-  // triggerUnSelectedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log("=triggerUnSelectedOnNeighbors triggered")
-  //   // const neighbors: { nodes: CanvasNode[], links: CanvasLink[] } = this.canvas.graph.getNeighbors(this.data);
-  //   // console.log("getNeighbors", neighbors)
-  //   this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-  //     node.gfxInstance?.triggerUnSelected();
-  //   })
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-  triggerHighlighted = (event?: PIXI.FederatedPointerEvent) => {
+  triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
@@ -205,9 +130,18 @@ export class NodeShapeBase extends NodeShapeAbstract {
         shapeHighlightedBorder.visible = true
       }
     }
+
+    if (setNeighborsToo){
+      this.data.neighbors.nodes.forEach((node: CanvasNode) => {
+        node.gfxInstance?.setState(":highlighted", false, event)
+      })
+      this.data.neighbors.links.forEach((link: CanvasLink) => {
+        link.gfxInstance?.setState(":highlighted", false, event)
+      });  
+    }
   }
 
-  triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent) => {
+  triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerUnHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
@@ -216,27 +150,19 @@ export class NodeShapeBase extends NodeShapeAbstract {
         shapeHighlightedBorder.visible = false
       }
     }
+
+    if (setNeighborsToo){
+      
+      this.data.neighbors.nodes.forEach((node: CanvasNode) => {
+        node.gfxInstance?.setState(":default", false, event)
+      })
+      this.data.neighbors.links.forEach((link: CanvasLink) => {
+        link.gfxInstance?.setState(":default", false, event)
+      });
+    }
+
   }
 
-  triggerHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-    console.log("=triggerHighlightedOnNeighbors triggered")
-    this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-      node.gfxInstance?.setState(":highlighted", false, event)
-    })
-    this.data.neighbors.links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.setState(":highlighted", false, event)
-    });
-  }
-
-  triggerUnHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-    console.log("=triggerUnHighlightedOnNeighbors triggered")
-    this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-      node.gfxInstance?.setState(":default", false, event)
-    })
-    this.data.neighbors.links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.setState(":default", false, event)
-    });
-  }
 
   onDragStart = (event: PIXI.FederatedPointerEvent) => {
     this.dragData = event.data;

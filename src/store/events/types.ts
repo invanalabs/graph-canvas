@@ -81,8 +81,8 @@ export interface IDataStoreListeners {
   "link:data:onPropertiesUpdated": OnLinkPropertiesUpdateEventListener[];
 
 
-  "node:gfx:onStateUpdated": OnNodeStateUpdateEventListener[];
-  "link:gfx:onStateUpdated": OnLinkStateUpdateEventListener[];  
+  'node:gfx:onStateUpdated': OnNodeStateUpdateEventListener[];
+  'link:gfx:onStateUpdated': OnLinkStateUpdateEventListener[];  
 
   "node:gfx:onPointerIn": OnNodeGfxEventListener[],
   "node:gfx:onPointerOut": OnNodeGfxEventListener[],

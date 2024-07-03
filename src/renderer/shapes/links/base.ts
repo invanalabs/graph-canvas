@@ -111,7 +111,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   // }
 
 
-  triggerHighlighted = (event?: PIXI.FederatedPointerEvent) => {
+  triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
@@ -120,9 +120,14 @@ export class LinkShapeBase extends LinkShapeAbstract {
       }
     }
     this.moveToFrontLayer();
+    if (setNeighborsToo){
+      this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
+      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
+      // this.data.gfxInstance?.triggerHighlighted(event)
+    }
   }
 
-  triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent) => {
+  triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerUnHighlighted on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
@@ -132,21 +137,28 @@ export class LinkShapeBase extends LinkShapeAbstract {
       }
     }
     this.moveToDataLayer();
+
+    if (setNeighborsToo){
+      this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()
+      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()  
+      // this.data.gfxInstance?.triggerUnHighlighted(event)
+
+    }
   }
 
-  triggerHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerHighlightedOnNeighbors on node - ${this.data.id}`);
-    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
-    this.data.gfxInstance?.triggerHighlighted(event)
-  }
+  // triggerHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log(`triggerHighlightedOnNeighbors on node - ${this.data.id}`);
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
+  //   this.data.gfxInstance?.triggerHighlighted(event)
+  // }
 
-  triggerUnHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerUnHighlightedOnNeighbors on node - ${this.data.id}`);
-    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()
-    this.data.gfxInstance?.triggerUnHighlighted(event)
-  }
+  // triggerUnHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log(`triggerUnHighlightedOnNeighbors on node - ${this.data.id}`);
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()  
+  //   this.data.gfxInstance?.triggerUnHighlighted(event)
+  // }
 
   setupInteractionTriggers() {
     console.debug("===setupInteractions triggered on link", this.containerGfx)
