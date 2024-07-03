@@ -75,14 +75,15 @@ export const exampleNodes : Array<ICanvasNode> = [
     }
 ];
 
+// eslint-disable-next-line no-sparse-arrays
 export const exampleLinks: Array<ICanvasLink> = [
     {
         id: '1-2',
-        group: 'authored',
-        label: 'default',
-        source: '1',
-        target: '2',
-        shapeName: 'line',
+        group: 'authored' ,
+        label: 'default' ,
+        source: '1' ,
+        target: '2' ,
+        shapeName: 'line' ,
     },
     {
         id: '3-4',

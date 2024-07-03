@@ -54,12 +54,12 @@ class Circle extends NodeShapeBase {
             shape.addChild(shapeSelectedBorder)
 
             // draw hover graphics
-            const shapeHoveredBorder = new Sprite(texture['states'][':hovered'].shape)
-            shapeHoveredBorder.x = -(shapeHoveredBorder.width - shape.width) / 2;
-            shapeHoveredBorder.y = -(shapeHoveredBorder.height - shape.height) / 2;
-            shapeHoveredBorder.visible = false
-            shapeHoveredBorder.name = NodeContainerChildNames.shapeHoveredBorder
-            shape.addChild(shapeHoveredBorder)
+            // const shapeHoveredBorder = new Sprite(texture['states'][':hovered'].shape)
+            // shapeHoveredBorder.x = -(shapeHoveredBorder.width - shape.width) / 2;
+            // shapeHoveredBorder.y = -(shapeHoveredBorder.height - shape.height) / 2;
+            // shapeHoveredBorder.visible = false
+            // shapeHoveredBorder.name = NodeContainerChildNames.shapeHoveredBorder
+            // shape.addChild(shapeHoveredBorder)
 
             // draw selected graphics
             const shapeHighlightedBorder = new Sprite(texture['states'][':highlighted'].shape)

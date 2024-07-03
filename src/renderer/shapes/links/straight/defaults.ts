@@ -34,13 +34,13 @@ export const LinkStyleDefaults: ILinkStyle = {
                 // fontFamily: "Arial"
             },
         },
-        ":hovered": {
-            shape: {
-                opacity: 0.6,
-                thickness: 2,
-                color: 0x59cd90, //0xF6B26B
-            }
-        },
+        // ":hovered": {
+        //     shape: {
+        //         opacity: 0.6,
+        //         thickness: 2,
+        //         color: 0x59cd90, //0xF6B26B
+        //     }
+        // },
         ":highlighted": {
             shape: {
                 opacity: 0.6,

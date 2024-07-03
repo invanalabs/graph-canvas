@@ -1,8 +1,11 @@
 import { ILinkShapeStyle, INodeShapeStyle, IShapeLabelStyle } from "./styles";
 // TODO - merge this to styles.ts, both are styles anyways except, INodeStateTypes, ILinkStateTypes
 
-export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden'; 
-export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden';
+export type IShapeState =  ':default' | ':highlighted' | ':selected' | ':inactive'; // :hovered, :hidden removed 
+
+
+// export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden';
+// export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden';
 
 
 export interface INodeStyle {
@@ -10,7 +13,7 @@ export interface INodeStyle {
   shape: INodeShapeStyle
   label: IShapeLabelStyle
   states: {
-      [key in  INodeStateTypes] : INodeStyle
+      [key in  IShapeState] : INodeStyle
   }
 }
 
@@ -18,7 +21,7 @@ export interface ILinkStyle {
   shape: ILinkShapeStyle
   label: IShapeLabelStyle
   states: {
-      [key in  ILinkStateTypes] : ILinkStyle
+      [key in  IShapeState] : ILinkStyle
   }
 }
 

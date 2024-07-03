@@ -1,5 +1,5 @@
 import { Texture } from "pixi.js"
-import { INodeStateTypes, INodeStyle } from "../types";
+import { INodeStateTypes, INodeStyle, IShapeState } from "../types";
 import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/lines/circle";
 import { ArtBoard } from "../../artBoard";
 
@@ -19,7 +19,7 @@ export interface INodeStateTexturesMap {
   group: string // used for generating color profile
   unique_key: string // group+size or group+property.fieldValue
   states: {
-    [key in INodeStateTypes]: INodeStateTexture
+    [key in IShapeState]: INodeStateTexture
   }
 }
 
@@ -75,15 +75,15 @@ export default class TextureStore {
     // hovered textures 
     // hovered - shape
     const hoveredPadding = 0;
-    const hoveredStyle = props.style?.states[':hovered'];
+    // const hoveredStyle = props.style?.states[':hovered'];
 
-    const hoveredStateStyle: INodeStateTexture = {
-      shape: this.createNodeShapeTexture({
-        size: props.style.size + hoveredPadding,
-        background: hoveredStyle.shape.background,
-        border: hoveredStyle.shape.border
-      })
-    }
+    // const hoveredStateStyle: INodeStateTexture = {
+    //   shape: this.createNodeShapeTexture({
+    //     size: props.style.size + hoveredPadding,
+    //     background: hoveredStyle.shape.background,
+    //     border: hoveredStyle.shape.border
+    //   })
+    // }
 
     // selected textures
     // highlighted - shape
@@ -114,13 +114,13 @@ export default class TextureStore {
       group: props.group,
       states: {
         ":default": defaultStateStyle,
-        ":hovered": hoveredStateStyle,
+        // ":hovered": hoveredStateStyle,
         ":highlighted": highlightedStateStyle,
         ':selected': selectedStateStyle,
 
         // fix :inactive and :hidden later
         ":inactive": highlightedStateStyle,
-        ":hidden": highlightedStateStyle
+        // ":hidden": highlightedStateStyle
       }
     }
 

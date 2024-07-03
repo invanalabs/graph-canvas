@@ -47,21 +47,21 @@ export const CircleStyleDefaults: INodeStyle = {
        
     },
     states: {
-        ":hovered": {
-            shape: {
-                border: {
-                    thickness: 2,
-                    color: 0x59cd90,
-                    opacity: 0.6,
-                }
-            },
-            label: {
-                background: {
-                    color: "#ffffff",
-                    opacity: 0.3
-                },
-            }
-        },
+        // ":hovered": {
+        //     shape: {
+        //         border: {
+        //             thickness: 2,
+        //             color: 0x59cd90,
+        //             opacity: 0.6,
+        //         }
+        //     },
+        //     label: {
+        //         background: {
+        //             color: "#ffffff",
+        //             opacity: 0.3
+        //         },
+        //     }
+        // },
         ":selected": {
             shape: {
                 // border: {

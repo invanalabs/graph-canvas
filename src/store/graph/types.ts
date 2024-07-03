@@ -14,7 +14,7 @@ export interface ICanvasItemBase {
   readonly id: IdString | string
   group: string
   label?: string | undefined
-  properties?: ICanvasItemProperties,
+  properties?: ICanvasItemProperties
 }
 
 // export interface ICanvasItemStates {
@@ -29,6 +29,7 @@ export interface ICanvasLink extends ICanvasItemBase {
   // readonly targetId: IdString
   readonly target: IdString |  CanvasNode | string
   // state?: ICanvasItemStates
+  shapeName? : 'straightLine' | 'curvedLine' | 'loopLine'
   state?: ILinkStateTypes
 
 }
@@ -36,7 +37,7 @@ export interface ICanvasLink extends ICanvasItemBase {
 export interface ICanvasNode extends ICanvasItemBase {
   x?: number | undefined
   y?: number | undefined
-
+  shapeName? : 'circle'
   state?: INodeStateTypes
   // links?: CanvasLink[]
 }

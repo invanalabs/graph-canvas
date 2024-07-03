@@ -1,7 +1,7 @@
 import { ArtBoard } from "../../../artBoard";
 import { CanvasLink } from "../../../store";
 import { deepMerge } from "../../../utils/merge";
-import { LinkShapeAbstract } from "../base";
+import { LinkShapeAbstract } from "../abstract";
 import * as PIXI from 'pixi.js';
 import { LinkStyleDefaults } from "./straight/defaults";
 import { LinkContainerChildNames } from "../constants";
@@ -72,43 +72,43 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx.visible = false;
   }
 
-  triggerHovered = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`Hover triggered on node - ${this.data.id}`);
-    if (this.shapeGfx) {
-      const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-      if (shapeHoveredBorder) {
-        shapeHoveredBorder.visible = true
-      }
-    }
-    // this.setState()
-    this.moveToFrontLayer();
-  }
+  // triggerHovered = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log(`Hover triggered on node - ${this.data.id}`);
+  //   if (this.shapeGfx) {
+  //     const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
+  //     if (shapeHoveredBorder) {
+  //       shapeHoveredBorder.visible = true
+  //     }
+  //   }
+  //   // this.setState()
+  //   this.moveToFrontLayer();
+  // }
 
-  triggerUnHovered = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`UnHovered triggered on node - ${this.data.id}`);
-    if (this.shapeGfx) {
-      const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-      if (shapeHoveredBorder) {
-        shapeHoveredBorder.visible = false
-      }
-    }
-    this.moveToDataLayer()
-  }
+  // triggerUnHovered = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log(`UnHovered triggered on node - ${this.data.id}`);
+  //   if (this.shapeGfx) {
+  //     const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
+  //     if (shapeHoveredBorder) {
+  //       shapeHoveredBorder.visible = false
+  //     }
+  //   }
+  //   this.moveToDataLayer()
+  // }
 
-  triggerHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerHoveredOnNeighbors triggered on node - ${this.data.id}`);
-    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHovered()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHovered()
-    this.data.gfxInstance?.triggerHovered()
+  // triggerHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log(`triggerHoveredOnNeighbors triggered on node - ${this.data.id}`);
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHovered()
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHovered()
+  //   this.data.gfxInstance?.triggerHovered()
 
-  }
+  // }
 
-  triggerUnHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerUnHoveredOnNeighbors triggered on node - ${this.data.id}`);
-    this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHovered()
-    this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHovered()
-    this.data.gfxInstance?.triggerUnHovered()
-  }
+  // triggerUnHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
+  //   console.log(`triggerUnHoveredOnNeighbors triggered on node - ${this.data.id}`);
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHovered()
+  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHovered()
+  //   this.data.gfxInstance?.triggerUnHovered()
+  // }
 
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent) => {
@@ -157,7 +157,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx
       .on("pointerover", (event) => {
         event.stopPropagation();
-        this.setState(":hovered", true, event)
+        this.setState(":highlighted", true, event)
       })
       .on("pointerout", (event) => {
         event.stopPropagation();
@@ -172,7 +172,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         // if (this.dragData) return 
         this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
         // this.setState(":highlighted", true, event)
-        this.setState(":hovered", true, event)
+        this.setState(":highlighted", true, event)
       })
       .on("pointermove", (event) => {
         console.log("ignoring pointermove")
@@ -250,14 +250,14 @@ export class LinkShapeBase extends LinkShapeAbstract {
     shapeLine.addChild(arrow)
     this.shapeGfx.addChild(shapeLine)
 
-    // shapeName hoveredBorder
-    const shapeHoveredBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':hovered'].shape })
-    shapeHoveredBorder.visible = false
-    shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
-    // shapeHoveredBorder.zIndex = 10
-    const hoveredArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':hovered'].shape })
-    shapeHoveredBorder.addChild(hoveredArrow)
-    this.shapeGfx.addChild(shapeHoveredBorder)
+    // // shapeName hoveredBorder
+    // const shapeHoveredBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':hovered'].shape })
+    // shapeHoveredBorder.visible = false
+    // shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
+    // // shapeHoveredBorder.zIndex = 10
+    // const hoveredArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':hovered'].shape })
+    // shapeHoveredBorder.addChild(hoveredArrow)
+    // this.shapeGfx.addChild(shapeHoveredBorder)
 
 
     // shapeName selectedBorder

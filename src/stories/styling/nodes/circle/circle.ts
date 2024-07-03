@@ -11,23 +11,23 @@ export const exampleNodes : Array<ICanvasNode> = [
         x: (window.innerWidth/2) - 100,
         y: window.innerHeight/2
     },
-    {
-        id: '2',
-        group: 'TestNode',
-        label: 'Hovered',
-        shapeName: 'circle',
-        state: ':hovered',
-        x: (window.innerWidth/2) + 100 ,
-        y: window.innerHeight/2
-    },
+    // {
+    //     id: '2',
+    //     group: 'TestNode',
+    //     label: 'Hovered',
+    //     shapeName: 'circle',
+    //     state: ':hovered',
+    //     x: (window.innerWidth/2) + 100 ,
+    //     y: window.innerHeight/2
+    // },
     {
         id: '3',
         group: 'TestNode',
         label: 'Highlighted',
         shapeName: 'circle',
         state: ':highlighted',
-        x: (window.innerWidth/2) - 100 ,
-        y: (window.innerHeight/2) + 100
+            x: (window.innerWidth/2) + 100 ,
+        y: window.innerHeight/2
     },
     {
         id: '4',
@@ -35,7 +35,7 @@ export const exampleNodes : Array<ICanvasNode> = [
         label: 'Inactive',
         shapeName: 'circle',
         state: ':inactive',
-        x: (window.innerWidth/2) + 100 ,
+        x: (window.innerWidth/2) - 100 ,
         y: (window.innerHeight/2) + 100
     },
     {
@@ -44,8 +44,11 @@ export const exampleNodes : Array<ICanvasNode> = [
         label: 'Selected',
         shapeName: 'circle',
         state: ':selected',
-        x: (window.innerWidth/2) - 100 ,
-        y: (window.innerHeight/2) + 200
+        x: (window.innerWidth/2) + 100 ,
+        y: (window.innerHeight/2) + 100
+
+        // x: (window.innerWidth/2) - 100 ,
+        // y: (window.innerHeight/2) + 200
     }
 ];
 
