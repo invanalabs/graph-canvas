@@ -118,6 +118,11 @@ export class LinkShapeBase extends LinkShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
+      const textBg = this.labelGfx.getChildByName(LinkContainerChildNames.labelBackground);
+      console.log("====textBg", textBg)
+      if (textBg) {
+        textBg.visible = true
+      }
     }
     this.moveToFrontLayer();
     if (setNeighborsToo){
@@ -134,6 +139,11 @@ export class LinkShapeBase extends LinkShapeAbstract {
       // console.log("shapeHighlightedBorder", shapeHighlightedBorder)
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
+      }
+      const textBg = this.labelGfx.getChildByName(LinkContainerChildNames.labelBackground);
+      console.log("====textBg", textBg)
+      if (textBg) {
+        textBg.visible = false
       }
     }
     this.moveToDataLayer();
@@ -232,7 +242,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     console.debug("Line.drawLabel")
     // const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
     if (this.data.label) {
-      const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.states[":default"].label })
+      const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label })
       labelGfx.name = LinkContainerChildNames.label
       return labelGfx
     } else {
@@ -251,12 +261,12 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
 
     // draw path
-    const shapeLine = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[":default"].shape })
+    const shapeLine = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.shape })
     shapeLine.name = LinkContainerChildNames.shapeLine
     // shapeLine.zIndex = 1000
 
     // add arrow
-    const arrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style.states[":default"].shape })
+    const arrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style.shape })
     // arrow.zIndex = 1000
 
     shapeLine.addChild(arrow)

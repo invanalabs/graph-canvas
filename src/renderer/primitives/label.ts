@@ -8,6 +8,7 @@ export interface LabelPrimitiveType extends IShapeLabelStyle {
 }
 
 const drawLabelShape = (props: LabelPrimitiveType) => {
+    console.log("drawLabelShape props", props)
     const labelGfx = new Graphics();
 
     // if (!props.label){

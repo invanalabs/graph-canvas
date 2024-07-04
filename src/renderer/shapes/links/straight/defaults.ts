@@ -2,38 +2,36 @@ import { ILinkStyle } from "../../../types";
 
 export const LinkStyleDefaults: ILinkStyle = {
     state: ":default",
-
+    shape: {
+        opacity: 1,
+        thickness: 1,
+        color: "#555555",
+        type: "solid"
+    },
+    label: {
+        background: {
+            color: "#222222",
+            opacity: 0.5
+        },
+        padding: 3,
+        border: {
+            thickness: 1,
+            color: "#efefef",
+            type: "solid"
+        },
+        text: {
+            color: "#ffffff",
+            font: {
+                size: 12,
+                family: "Arial"
+            }
+        }
+        // fontSize: 12,
+        // fontFamily: "Arial"
+    },
     labelDisplay: "onHover", // | alwaysOn | onHighlighted"
     states: {
-        ":default": {
-            shape: {
-                opacity: 1,
-                thickness: 1,
-                color: "#555555",
-                type: "solid"
-            },
-            label: {
-                background: {
-                    color: "#222222",
-                    opacity: 0.2
-                },
-                padding: 3,
-                border: {
-                    thickness: 1,
-                    color: "#efefef",
-                    type: "solid"
-                },
-                text: {
-                    color: "#ffffff",
-                    font: {
-                        size: 12,
-                        family: "Arial"
-                    }
-                }
-                // fontSize: 12,
-                // fontFamily: "Arial"
-            },
-        },
+ 
         // ":hovered": {
         //     shape: {
         //         opacity: 0.6,
