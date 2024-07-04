@@ -18,6 +18,10 @@ export class ArtBoardBase {
     // setup viewport
     this.viewport = this.createViewport()
     this.pixiApp.stage.addChild(this.viewport)
+
+    // prevent body scrolling
+    this.canvas.options.viewElement.addEventListener('wheel', event => { event.preventDefault(); });
+
   }
 
   getCanvasSizeOptions() {
