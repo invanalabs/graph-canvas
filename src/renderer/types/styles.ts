@@ -47,10 +47,16 @@ export interface IShapeLabelStyle {
   resolution?: number
 }
 
+export interface IShapeImageStyle {
+  url : string
+  tintColor?: string | number
+}
+
 export interface INodeShapeStyle {
   background: IShapeBgStyle
   border: IShapeBorderStyle
   icon: IIconStyle
+  image: IShapeImageStyle
 }
 
 

@@ -159,7 +159,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   }
 
-
   onDragStart = (event: PIXI.FederatedPointerEvent) => {
     this.dragData = event.data;
     event.stopPropagation();

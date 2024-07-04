@@ -4,7 +4,7 @@ const defaultNodeSize = 10 * 1.5
 
 export const CircleStyleDefaults: INodeStyle = {
     size: defaultNodeSize,
-    state: ":default",
+    // state: ":default",
     shape : {
         background: {
             color: "#3DA5D9",
@@ -24,6 +24,9 @@ export const CircleStyleDefaults: INodeStyle = {
                 size: 16,
                 family: "Arial"
             }
+        },
+        image: {
+            url : "https://placehold.co/40x40/png"
         }
     },
     label: {
@@ -47,21 +50,6 @@ export const CircleStyleDefaults: INodeStyle = {
        
     },
     states: {
-        // ":hovered": {
-        //     shape: {
-        //         border: {
-        //             thickness: 2,
-        //             color: 0x59cd90,
-        //             opacity: 0.6,
-        //         }
-        //     },
-        //     label: {
-        //         background: {
-        //             color: "#ffffff",
-        //             opacity: 0.3
-        //         },
-        //     }
-        // },
         ":selected": {
             shape: {
                 // border: {
