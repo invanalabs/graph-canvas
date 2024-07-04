@@ -126,6 +126,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
+      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
+      console.log("====textBg", textBg)
+      if (textBg) {
+        textBg.visible = true
+      }
     }
 
     if (setNeighborsToo){
@@ -144,6 +149,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
+      }
+      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
+      if (textBg) {
+        textBg.visible = false
+        // textBg.fi
       }
     }
 

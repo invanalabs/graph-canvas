@@ -1,5 +1,6 @@
 import { Graphics, TextStyle, Text, Rectangle } from "pixi.js"
 import { IShapeLabelStyle } from "../types";
+import { NodeContainerChildNames } from "../shapes/constants";
 
 
 export interface LabelPrimitiveType extends IShapeLabelStyle {
@@ -23,6 +24,7 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
     })
     const text = new Text( props.label, textStyle);
     text.resolution = props.resolution || 6 ;
+    text.name = NodeContainerChildNames.labelText
     const textBounds = text.getBounds(); // Get the size of the text box
 
     if (props?.background?.color){
@@ -39,6 +41,8 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
             textBounds.width + props.padding , 
             textBounds.height // + props.padding 
         ); // Draw rectangle behind the text
+        textBackground.name = NodeContainerChildNames.labelBackground
+        textBackground.visible = false
         // add background and text to gfx
         labelGfx.addChild(textBackground)
     }

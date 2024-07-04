@@ -1,4 +1,4 @@
-import { Sprite } from 'pixi.js';
+import { Sprite, Graphics } from 'pixi.js';
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../../constants';
 import drawLabelShape from '../../../primitives/label';
@@ -47,6 +47,7 @@ class Circle extends NodeShapeBase {
             shape.name = NodeContainerChildNames.shapeName;
             shape.x = -shape.width / 2;
             shape.y = -shape.height / 2;
+            // shape.anchor.set(0.5);
 
 
             
@@ -64,6 +65,50 @@ class Circle extends NodeShapeBase {
                 icon.y = icon.height ;
                 icon.tint = this.data.style?.shape?.icon.color || "#222222";
                 shape.addChild(icon);
+            }
+
+            if (this.data.image){
+                const { imagePromise } = this.artBoard.renderer.textureStore.getOrcreateImagePromise(
+                    this.data.image
+                )
+                console.log("===imagePromise", this.data.id, imagePromise,)
+                if (imagePromise){
+                    imagePromise.then((texture) => {
+                        // Create a sprite from the loaded texture
+                        const imageSprite = new Sprite(texture);
+                        imageSprite.width = shape.width
+                        imageSprite.height = shape.height
+                        imageSprite.x = imageSprite.width/2 ;
+                        imageSprite.y = imageSprite.height/2 ;
+                        imageSprite.anchor.set(0.5);
+
+
+
+                        // Create a circular mask
+                        const mask = new Graphics();
+                        mask.beginFill(0xffffff);
+                        mask.drawCircle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
+                        mask.endFill();
+                        // mask.anchor.set(0.5)
+
+                        // Position the mask at the center of the sprite
+                        mask.x = imageSprite.x;
+                        mask.y = imageSprite.y;
+
+                        // Apply the mask to the sprite
+                        imageSprite.mask = mask;
+
+                        // Add the mask and sprite to the stage
+                        shape.addChild(mask);
+
+
+                        shape.addChild(imageSprite);
+
+                    }).catch((error) => {
+                        console.error('Error loading texture:', error);
+                    });   
+                }
+ 
             }
 
             // draw selected graphics

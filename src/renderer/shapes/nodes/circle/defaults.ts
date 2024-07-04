@@ -31,17 +31,17 @@ export const CircleStyleDefaults: INodeStyle = {
     },
     label: {
         background: {
-            color: "#cccccc",
+            color: "#555555",
             opacity: 0.9
         },
         padding: 5,
-        border: {
-            thickness: 1,
-            type: "solid",
-            color: "#efefef"
-        },
+        // border: {
+        //     thickness: 1,
+        //     type: "solid",
+        //     color: "#efefef"
+        // },
         text: {
-            color: "#333333",
+            color: "#efefef",
             font: {
                 size: 12,
                 family: "Arial"

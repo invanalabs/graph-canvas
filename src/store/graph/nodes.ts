@@ -12,6 +12,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   y: number = 0
 
   icon?: string;
+  image?: string
 
   links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
@@ -30,6 +31,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.y = props.y || 0
 
     this.icon = props.icon;
+    this.image = props.image;
 
     this.state = props.state ? props.state : ":default"
     this.links  =  []

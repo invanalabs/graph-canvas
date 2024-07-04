@@ -3,6 +3,7 @@ import {  INodeStyle, IShapeState } from "../types";
 import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/lines/circle";
 import { ArtBoard } from "../../artBoard";
 import drawIconShape, { IIconShape } from "../primitives/icon";
+import drawImageShape from "../primitives/image";
 
 
 class INodeStateTexture {
@@ -31,13 +32,30 @@ export default class TextureStore {
   */
   // use unique_key field of INodeStateshapeTexturesMap as the key
   shapeTexturesMap: Map<string, INodeStateshapeTexturesMap>  // string is `unique_key` which is `group+size`
-  iconTexturesMap: Map<string, any>
+  iconTexturesMap: Map<string, Texture>
+  imagePromiseMap: Map<string, Promise<Texture>>
+  
   artBoard: ArtBoard
 
   constructor(artBoard: ArtBoard) {
     this.artBoard = artBoard
     this.shapeTexturesMap = new Map()
     this.iconTexturesMap = new Map()
+    this.imagePromiseMap = new Map()
+  }
+
+
+  createImagePromise = (imageUrl: string) => {
+    console.log("===createImagePromise", imageUrl)
+    const imagePromise = drawImageShape(imageUrl)
+    // imagePromise.then((texture) => {
+    //     return texture
+    // }).catch((error) => {
+    //     console.error('Error loading texture:', error);
+    // });
+    // const resolution = this.artBoard.canvas.options.resolution?.images;
+    // console.log("====createImagePromise resolution", resolution)
+    return imagePromise
   }
 
 
@@ -158,6 +176,16 @@ export default class TextureStore {
       return { iconTexture: this.iconTexturesMap.get(unique_key), isCreated: false }
     } else {
       return { iconTexture: this.createIconTexture(props), isCreated: true }
+    }
+  }
+
+  getOrcreateImagePromise(imageUrl: string) {
+    console.log("====getOrcreateImagePromise", imageUrl);
+    const unique_key = imageUrl;
+    if (this.imagePromiseMap.has(unique_key)) {
+      return { imagePromise: this.imagePromiseMap.get(unique_key), isCreated: false }
+    } else {
+      return { imagePromise: this.createImagePromise(imageUrl), isCreated: true }
     }
   }
   // createLinkTexture = (linkStyle: ILinkStyle) => {
