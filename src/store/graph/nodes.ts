@@ -1,6 +1,6 @@
 import { NodeShapeBase } from "../../renderer/shapes/nodes"
 import { CircleStyleDefaults } from "../../renderer/shapes/nodes/circle/defaults"
-import { INodeStateTypes, INodeStyle } from "../../renderer/types"
+import { INodeStyle, IShapeState } from "../../renderer/types"
 import CanvasItemBase from "./base"
 import { CanvasLink } from "./links"
 import {  ICanvasNode } from "./types"
@@ -11,12 +11,14 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   x: number = 0
   y: number = 0
 
+  icon?: string;
+
   links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
 
   gfxInstance: NodeShapeBase | undefined = undefined
 
-  state: INodeStateTypes = ":default"
+  state: IShapeState = ":default"
 
   style: INodeStyle
 
@@ -26,6 +28,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     // position
     this.x = props.x || 0
     this.y = props.y || 0
+
+    this.icon = props.icon;
 
     this.state = props.state ? props.state : ":default"
     this.links  =  []
@@ -37,7 +41,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.links = links
   }
 
-  setState(stateName: INodeStateTypes){
+  setState(stateName: IShapeState){
     this.state = stateName
   }
 

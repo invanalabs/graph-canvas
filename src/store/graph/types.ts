@@ -39,6 +39,9 @@ export interface ICanvasNode extends ICanvasItemBase {
   y?: number | undefined
   shapeName? : 'circle'
   state?: INodeStateTypes
+
+  icon? : string,
+  image?: string
   // links?: CanvasLink[]
 }
 

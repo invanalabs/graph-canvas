@@ -49,6 +49,19 @@ export const exampleNodes : Array<ICanvasNode> = [
 
         // x: (window.innerWidth/2) - 100 ,
         // y: (window.innerHeight/2) + 200
+    },
+    {
+        id: '6',
+        group: 'TestNode',
+        label: 'with icon',
+        shapeName: 'circle',
+        state: ':default',
+        x: (window.innerWidth/2) - 100 ,
+        y: (window.innerHeight/2) + 200,
+        icon: '\uf007'
+
+        // x: (window.innerWidth/2) - 100 ,
+        // y: (window.innerHeight/2) + 200
     }
 ];
 

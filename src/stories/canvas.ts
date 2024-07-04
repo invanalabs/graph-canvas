@@ -24,6 +24,9 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
     }
     console.log("====options", options)
     const canvas = new GraphCanvas(options);
+
+    canvas.artBoard.loadFont('FontAwesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2');
+
     canvas.dataStore.add(nodes, links)
 
     if (layout === 'd3-force') {

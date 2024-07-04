@@ -27,7 +27,7 @@ export interface ITextStyle {
 }
 
 export interface IIconStyle extends ITextStyle {
-  content: string | number
+  // content: string
 }
 
 /* for links */

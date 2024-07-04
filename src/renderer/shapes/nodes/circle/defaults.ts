@@ -18,11 +18,11 @@ export const CircleStyleDefaults: INodeStyle = {
             opacity: 0.9
         },
         icon: {
-            content: "&#9737;", // https://www.toptal.com/designers/htmlarrows/symbols/
+            // content: "&#9737;", // https://www.toptal.com/designers/htmlarrows/symbols/
             color: "#ffffff",
             font : {
-                size: 16,
-                family: "Arial"
+                size: 12,
+                family: "FontAwesome"
             }
         },
         image: {
@@ -31,17 +31,17 @@ export const CircleStyleDefaults: INodeStyle = {
     },
     label: {
         background: {
-            color: "transparent",
-            opacity: 0
+            color: "#cccccc",
+            opacity: 0.9
         },
-        padding: 3,
+        padding: 5,
         border: {
             thickness: 1,
             type: "solid",
             color: "#efefef"
         },
         text: {
-            color: "#ffffff",
+            color: "#333333",
             font: {
                 size: 12,
                 family: "Arial"

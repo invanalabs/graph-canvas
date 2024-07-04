@@ -28,14 +28,18 @@ class Circle extends NodeShapeBase {
     }
 
     drawShape = () => {
-        console.debug("Circle.drawShape triggered")
+        console.debug("Circle.drawShape triggered", this.data.style)
         // const shapeStyle = this.data.style
 
-        const { texture } = this.artBoard.renderer.textureStore.getOrCreateTexture({
+        const { texture } = this.artBoard.renderer.textureStore.getOrCreateShapeTexture({
             size: this.data.style?.size,
             group: this.data.group,
             style: this.data.style
         })
+
+
+
+
 
         console.log("===texture", this.data.id, texture,)
         if (texture) {
@@ -45,6 +49,23 @@ class Circle extends NodeShapeBase {
             shape.y = -shape.height / 2;
 
 
+            
+
+            if (this.data.icon){
+
+                const { iconTexture } = this.artBoard.renderer.textureStore.getOrCreateIconTexture({
+                    ...this.data.style.shape.icon, content: this.data.icon
+                })
+                console.log("===iconTexture", this.data.id, iconTexture,)
+
+                const icon = new Sprite(iconTexture);
+                icon.name = NodeContainerChildNames.icon;
+                icon.x = icon.width ;
+                icon.y = icon.height ;
+                icon.tint = this.data.style?.shape?.icon.color || "#222222";
+                shape.addChild(icon);
+            }
+
             // draw selected graphics
             const shapeSelectedBorder = new Sprite(texture['states'][':selected'].shape)
             shapeSelectedBorder.x = -(shapeSelectedBorder.width - shape.width) / 2;
@@ -52,14 +73,6 @@ class Circle extends NodeShapeBase {
             shapeSelectedBorder.visible = false
             shapeSelectedBorder.name = NodeContainerChildNames.shapeSelectedBorder
             shape.addChild(shapeSelectedBorder)
-
-            // draw hover graphics
-            // const shapeHoveredBorder = new Sprite(texture['states'][':hovered'].shape)
-            // shapeHoveredBorder.x = -(shapeHoveredBorder.width - shape.width) / 2;
-            // shapeHoveredBorder.y = -(shapeHoveredBorder.height - shape.height) / 2;
-            // shapeHoveredBorder.visible = false
-            // shapeHoveredBorder.name = NodeContainerChildNames.shapeHoveredBorder
-            // shape.addChild(shapeHoveredBorder)
 
             // draw selected graphics
             const shapeHighlightedBorder = new Sprite(texture['states'][':highlighted'].shape)

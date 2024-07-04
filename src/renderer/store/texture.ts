@@ -1,7 +1,8 @@
 import { Texture } from "pixi.js"
-import { INodeStateTypes, INodeStyle, IShapeState } from "../types";
+import {  INodeStyle, IShapeState } from "../types";
 import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/lines/circle";
 import { ArtBoard } from "../../artBoard";
+import drawIconShape, { IIconShape } from "../primitives/icon";
 
 
 class INodeStateTexture {
@@ -12,7 +13,7 @@ class INodeStateTexture {
 
 
 
-export interface INodeStateTexturesMap {
+export interface INodeStateshapeTexturesMap {
   // a single group can have multiple textures, depending on 
   // the node size requirement - centrality / default
   // color by property.value or other
@@ -28,13 +29,24 @@ export default class TextureStore {
   /*
       this will create textures for each node shape type
   */
-  // use unique_key field of INodeStateTexturesMap as the key
-  texturesMap: Map<string, INodeStateTexturesMap>  // string is `unique_key` which is `group+size`
+  // use unique_key field of INodeStateshapeTexturesMap as the key
+  shapeTexturesMap: Map<string, INodeStateshapeTexturesMap>  // string is `unique_key` which is `group+size`
+  iconTexturesMap: Map<string, any>
   artBoard: ArtBoard
 
   constructor(artBoard: ArtBoard) {
     this.artBoard = artBoard
-    this.texturesMap = new Map()
+    this.shapeTexturesMap = new Map()
+    this.iconTexturesMap = new Map()
+  }
+
+
+  createIconTexture = (props: IIconShape) => {
+    console.log("===createIconTexture", props)
+    const iconText = drawIconShape(props)
+    const resolution = this.artBoard.canvas.options.resolution?.icons;
+    console.log("====resolution", resolution)
+    return this.artBoard.pixiApp.renderer.generateTexture(iconText, { resolution: resolution });
   }
 
   createNodeShapeTexture = (props: DrawCirclePrimitiveType) => {
@@ -109,7 +121,7 @@ export default class TextureStore {
        })
      }
 
-    const nodeStyleTexture: INodeStateTexturesMap = {
+    const nodeStyleTexture: INodeStateshapeTexturesMap = {
       unique_key: unique_key,
       group: props.group,
       states: {
@@ -124,20 +136,30 @@ export default class TextureStore {
       }
     }
 
-    this.texturesMap.set(unique_key, nodeStyleTexture)
+    this.shapeTexturesMap.set(unique_key, nodeStyleTexture)
     return nodeStyleTexture;
   }
 
-  getOrCreateTexture(props: { size: number, group: string, style: INodeStyle }) {
-    console.log("====getOrCreateTexture", props);
+  getOrCreateShapeTexture(props: { size: number, group: string, style: INodeStyle }) {
+    console.log("====getOrCreateShapeTexture", props);
     const unique_key = `${props.group}-${props.size}`;
-    if (this.texturesMap.has(unique_key)) {
-      return { texture: this.texturesMap.get(unique_key), isCreated: false }
+    if (this.shapeTexturesMap.has(unique_key)) {
+      return { texture: this.shapeTexturesMap.get(unique_key), isCreated: false }
     } else {
       return { texture: this.createNodeTexture(props), isCreated: true }
     }
   }
 
+
+  getOrCreateIconTexture(props:   IIconShape) {
+    console.log("====getOrCreateShapeTexture", props);
+    const unique_key = props.content;
+    if (this.iconTexturesMap.has(unique_key)) {
+      return { iconTexture: this.iconTexturesMap.get(unique_key), isCreated: false }
+    } else {
+      return { iconTexture: this.createIconTexture(props), isCreated: true }
+    }
+  }
   // createLinkTexture = (linkStyle: ILinkStyle) => {
 
   // }

@@ -14,6 +14,8 @@ export enum NodeContainerChildNames {
   labelText = 'labelText',
   // badges
 
+  icon = 'icon',
+
   // debug
   debugBorder = 'debugBorder'
 }
