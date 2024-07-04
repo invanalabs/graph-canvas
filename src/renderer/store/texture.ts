@@ -45,14 +45,14 @@ export default class TextureStore {
     console.log("===createIconTexture", props)
     const iconText = drawIconShape(props)
     const resolution = this.artBoard.canvas.options.resolution?.icons;
-    console.log("====resolution", resolution)
+    console.log("====createIconTexture resolution", resolution)
     return this.artBoard.pixiApp.renderer.generateTexture(iconText, { resolution: resolution });
   }
 
   createNodeShapeTexture = (props: DrawCirclePrimitiveType) => {
     const shapeGfx = drawCircleShape(props);
     const resolution = this.artBoard.canvas.options.resolution?.nodes;
-    console.log("====resolution", resolution)
+    console.log("====createNodeShapeTexture resolution", resolution)
     return this.artBoard.pixiApp.renderer.generateTexture(shapeGfx, { resolution: resolution });
   }
 

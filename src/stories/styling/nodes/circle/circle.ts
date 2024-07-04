@@ -58,8 +58,8 @@ export const exampleNodes : Array<ICanvasNode> = [
         state: ':default',
         x: (window.innerWidth/2) - 100 ,
         y: (window.innerHeight/2) + 200,
-        icon: '\uf007'
-
+        icon: '\uf007',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/240px-JavaScript-logo.png'
         // x: (window.innerWidth/2) - 100 ,
         // y: (window.innerHeight/2) + 200
     }
