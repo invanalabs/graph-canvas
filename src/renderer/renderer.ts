@@ -37,7 +37,8 @@ export class Renderer {
     console.debug("Renderer.renderNode after .draw triggered ", node, gfxInstance)
     this.artBoard.viewport.addChild(gfxInstance.containerGfx)
     // this.artBoard.renderer.gfxStore.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
-    this.artBoard.cull.add(gfxInstance.containerGfx)
+    // this.artBoard.cull.add(gfxInstance.containerGfx)
+    // this.artBoard.updateCull()
 
     // _this.canvas.layers.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
@@ -49,7 +50,8 @@ export class Renderer {
     console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
     this.artBoard.viewport.addChild(gfxInstance.containerGfx)
     // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
-    this.artBoard.cull.add(gfxInstance.containerGfx)
+    // this.artBoard.cull.add(gfxInstance.containerGfx)
+    // this.artBoard.updateCull()
 
   }
 

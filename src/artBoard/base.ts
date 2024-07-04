@@ -22,12 +22,14 @@ export class ArtBoardBase {
     this.pixiApp.stage.addChild(this.viewport)
 
     // prevent body scrolling
-    this.canvas.options.viewElement.addEventListener('wheel', event => { event.preventDefault(); });
+    this.canvas.options.viewElement.addEventListener('wheel', event => { 
+      event.preventDefault() 
+    }, { passive: false });
     this.cull = new Cull();
+    this.updateCull()
+  }
 
-    // cull.addAll(nodesLayer.children);
-    // cull.addAll(labelsLayer.children);
-    // cull.addAll(linksLayer.children);
+  updateCull() {
     this.cull.cull(this.pixiApp.renderer.screen);
   }
 
