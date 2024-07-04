@@ -25,9 +25,9 @@ export const CircleStyleDefaults: INodeStyle = {
                 family: "FontAwesome"
             }
         },
-        image: {
-            url : "https://placehold.co/40x40/png"
-        }
+        // image: {
+        //     url : "https://placehold.co/40x40/png"
+        // }
     },
     label: {
         background: {

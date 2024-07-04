@@ -11,7 +11,7 @@ export interface DrawCirclePrimitiveType {
 
 const drawCircleShape = (props: DrawCirclePrimitiveType) => {
     console.log("drawCircle", props);
-    let shapeName = new Graphics();
+    const shapeName = new Graphics();
     if (props.border){
         const opacity = props.border?.opacity ? props.border?.opacity : 1;
         // TODO - border.type not being used yet ;

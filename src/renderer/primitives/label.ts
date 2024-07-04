@@ -30,6 +30,8 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
     if (props?.background?.color){
         // add background; TODO- move this to rectangle primitive later 
         const textBackground = new Graphics();
+        textBackground.lineStyle(props.border.thickness, props.border.color);
+
         textBackground.beginFill(
             props?.background.color,
             props?.background.opacity
@@ -38,13 +40,17 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
         textBackground.drawRect(
             // props.padding * -1 , props.padding * -1, 
             0, 0, 
-            textBounds.width + props.padding , 
+            textBounds.width + (props.padding * 2) , 
             textBounds.height // + props.padding 
         ); // Draw rectangle behind the text
+        console.log("====props.border.", props.border)
+        textBackground.endFill()
 
         // textBackground
         textBackground.name = NodeContainerChildNames.labelBackground
         textBackground.visible = false
+        textBackground.x = text.x - props.padding 
+        textBackground.y = text.y
         // add background and text to gfx
         labelGfx.addChild(textBackground)
     }

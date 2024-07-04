@@ -90,18 +90,13 @@ class Circle extends NodeShapeBase {
                         mask.drawCircle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
                         mask.endFill();
                         // mask.anchor.set(0.5)
-
                         // Position the mask at the center of the sprite
                         mask.x = imageSprite.x;
                         mask.y = imageSprite.y;
-
                         // Apply the mask to the sprite
                         imageSprite.mask = mask;
-
                         // Add the mask and sprite to the stage
                         shape.addChild(mask);
-
-
                         shape.addChild(imageSprite);
 
                     }).catch((error) => {

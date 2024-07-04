@@ -48,7 +48,7 @@ export interface IShapeLabelStyle {
 }
 
 export interface IShapeImageStyle {
-  url : string
+  // url : string
   tintColor?: string | number
 }
 
