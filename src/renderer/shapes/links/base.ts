@@ -243,7 +243,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   drawShape = () => {
     console.debug("Line.drawShape triggered", this.data)
 
-    let { startPoint, endPoint } = this.calcStartAndEndPoints();
+    const { startPoint, endPoint } = this.calcStartAndEndPoints();
     // console.log("startPoint, endPoint", JSON.stringify(startPoint), JSON.stringify(endPoint))
     // let shapeName = new PIXI.Graphics();
     this.shapeGfx.removeChildren();
