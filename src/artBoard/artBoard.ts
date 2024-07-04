@@ -2,7 +2,6 @@ import { ArtBoardBase } from "./base";
 import { Camera } from "./camera";
 import { GraphCanvas } from "../canvas";
 import { Renderer } from "../renderer/renderer";
-// import { Cull } from '@pixi-essentials/cull';
 import { DefaultEventEmitter } from "../store/events/emitter";
 import { EventEmitterAbstract } from "../store/events/abstract";
 
@@ -12,7 +11,6 @@ export class ArtBoard extends ArtBoardBase {
   renderer: Renderer
   camera: Camera
   events: EventEmitterAbstract
-  // cull: Cull
 
   constructor(canvas: GraphCanvas) {
     super(canvas)

@@ -138,7 +138,7 @@ export class DataStore implements IDataStore {
     }
   }
 
-  moveNodeTo(nodeId: IdString, x: number, y: number, event: FederatedPointerEvent) {
+  moveNodeTo(nodeId: IdString, x: number, y: number, event?: FederatedPointerEvent) {
     console.log("Updating position of node ", nodeId, x, y)
     const node: CanvasNode | undefined = this.nodes.get(nodeId);
     if (node) {

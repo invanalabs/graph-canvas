@@ -1,6 +1,7 @@
 import * as PIXI from "pixi.js"
 import { Viewport } from "pixi-viewport";
 import { GraphCanvas } from "../canvas";
+import { Cull } from '@pixi-essentials/cull';
 
 
 export class ArtBoardBase {
@@ -8,6 +9,7 @@ export class ArtBoardBase {
   canvas: GraphCanvas
   pixiApp: PIXI.Application
   viewport: Viewport
+  cull: Cull
 
   worldScale: number = 10
 
@@ -21,7 +23,12 @@ export class ArtBoardBase {
 
     // prevent body scrolling
     this.canvas.options.viewElement.addEventListener('wheel', event => { event.preventDefault(); });
+    this.cull = new Cull();
 
+    // cull.addAll(nodesLayer.children);
+    // cull.addAll(labelsLayer.children);
+    // cull.addAll(linksLayer.children);
+    this.cull.cull(this.pixiApp.renderer.screen);
   }
 
   getCanvasSizeOptions() {
@@ -95,6 +102,7 @@ export class ArtBoardBase {
     })
     return viewport;
   }
+
 
 
 }
