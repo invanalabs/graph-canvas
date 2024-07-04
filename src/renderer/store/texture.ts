@@ -1,6 +1,6 @@
 import { Texture } from "pixi.js"
 import {  INodeStyle, IShapeState } from "../types";
-import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/lines/circle";
+import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/nodes/circle";
 import { ArtBoard } from "../../artBoard";
 import drawIconShape, { IIconShape } from "../primitives/icon";
 import drawImageShape from "../primitives/image";

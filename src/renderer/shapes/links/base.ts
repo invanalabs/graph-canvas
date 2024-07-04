@@ -6,9 +6,9 @@ import * as PIXI from 'pixi.js';
 import { LinkStyleDefaults } from "./straight/defaults";
 import { LinkContainerChildNames } from "../constants";
 import drawLabelShape from "../../primitives/label";
-import drawStraightLineShape from "../../primitives/lines/straightLine";
 import drawArrowHeadShape from "../../primitives/arrowHead";
 import { ZIndexOrder } from "../nodes";
+import drawStraightLineShape from "../../primitives/links/straightLine";
 
 
 

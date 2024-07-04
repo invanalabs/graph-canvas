@@ -35,11 +35,11 @@ export const CircleStyleDefaults: INodeStyle = {
             opacity: 0.9
         },
         padding: 5,
-        // border: {
-        //     thickness: 1,
-        //     type: "solid",
-        //     color: "#efefef"
-        // },
+        border: {
+            thickness: 1,
+            type: "solid",
+            color: "#efefef"
+        },
         text: {
             color: "#efefef",
             font: {

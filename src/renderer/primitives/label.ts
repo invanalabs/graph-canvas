@@ -41,11 +41,21 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
             textBounds.width + props.padding , 
             textBounds.height // + props.padding 
         ); // Draw rectangle behind the text
+
+        // textBackground
         textBackground.name = NodeContainerChildNames.labelBackground
         textBackground.visible = false
         // add background and text to gfx
         labelGfx.addChild(textBackground)
     }
+
+    // border: {
+    //     thickness: 1,
+    //     type: "solid",
+    //     color: "#efefef"
+    // },
+
+
     labelGfx.addChild(text)
 
     labelGfx.hitArea = new Rectangle(
