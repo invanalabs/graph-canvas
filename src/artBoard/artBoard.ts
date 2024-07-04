@@ -5,7 +5,7 @@ import { Renderer } from "../renderer/renderer";
 // import { Cull } from '@pixi-essentials/cull';
 import { DefaultEventEmitter } from "../store/events/emitter";
 import { EventEmitterAbstract } from "../store/events/abstract";
-import * as PIXI from 'pixi.js';
+
 
 export class ArtBoard extends ArtBoardBase {
 
