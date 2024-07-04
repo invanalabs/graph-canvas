@@ -125,7 +125,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       }
     }
     this.moveToFrontLayer();
-    if (setNeighborsToo){
+    if (setNeighborsToo) {
       this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
       this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
       // this.data.gfxInstance?.triggerHighlighted(event)
@@ -148,9 +148,9 @@ export class LinkShapeBase extends LinkShapeAbstract {
     }
     this.moveToDataLayer();
 
-    if (setNeighborsToo){
+    if (setNeighborsToo) {
       this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()
-      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()  
+      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()
       // this.data.gfxInstance?.triggerUnHighlighted(event)
 
     }
@@ -183,7 +183,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       })
       .on("pointerout", (event) => {
         event.stopPropagation();
-        if (this.dragData) return 
+        if (this.dragData) return
         this.setState(":default", true, event)
       })
       .on('pointerdown', (event) => {
@@ -211,14 +211,14 @@ export class LinkShapeBase extends LinkShapeAbstract {
         // if (this.containerGfx.containsPoint(pointerPosition)) {
         //   this.setState(":hovered", true)
         // } else {
-          // this.setState(":default", true)
+        // this.setState(":default", true)
         // }
         this.artBoard.canvas.dataStore.removeFromHighlightedLinks(this.data)
       })
-      .on('pointerupoutside', (event) => {
-        console.log("pointerupoutside", this.data.id, this.data.state)
-        // event.stopPropagation();
-      })
+    // .on('pointerupoutside', (event) => {
+    //   console.log("pointerupoutside", this.data.id, this.data.state)
+    //   // event.stopPropagation();
+    // })
   }
 
 

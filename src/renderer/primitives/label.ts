@@ -8,7 +8,7 @@ export interface LabelPrimitiveType extends IShapeLabelStyle {
 }
 
 const drawLabelShape = (props: LabelPrimitiveType) => {
-    console.log("drawLabelShape props", props)
+    console.log("===drawLabelShape props", props)
     const labelGfx = new Graphics();
 
     // if (!props.label){
@@ -29,6 +29,7 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
     const textBounds = text.getBounds(); // Get the size of the text box
 
     if (props?.background?.color){
+        console.log("===drawLabelShape props.background.color", props.background.color)
         // add background; TODO- move this to rectangle primitive later 
         const textBackground = new Graphics();
         textBackground.lineStyle(props.border.thickness, props.border.color);
@@ -65,13 +66,13 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
 
     labelGfx.addChild(text)
 
-    labelGfx.hitArea = new Rectangle(
-        // props.padding * -1 , props.padding * -1, 
-        0, 0, 
-        textBounds.width + props.padding , 
-        textBounds.height // + props.padding 
-    );
-    labelGfx.cursor = 'pointer';
+    // labelGfx.hitArea = new Rectangle(
+    //     // props.padding * -1 , props.padding * -1, 
+    //     0, 0, 
+    //     textBounds.width + props.padding , 
+    //     textBounds.height // + props.padding 
+    // );
+    // labelGfx.cursor = 'pointer';
 
 
     return labelGfx

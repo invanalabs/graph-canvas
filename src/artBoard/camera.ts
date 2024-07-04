@@ -7,7 +7,7 @@ import { CanvasNode } from "../store";
 export class Camera {
 
  
-    readonly zoomPercentage = 0.10
+    readonly zoomPercentage = 0.15
     viewport: Viewport
     artBoard : ArtBoard
 

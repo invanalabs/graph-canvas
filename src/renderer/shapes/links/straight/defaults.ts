@@ -10,7 +10,7 @@ export const LinkStyleDefaults: ILinkStyle = {
     },
     label: {
         background: {
-            color: "#222222",
+            color: "#555555",
             opacity: 0.5
         },
         padding: 3,
