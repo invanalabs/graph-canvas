@@ -25,25 +25,37 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
     console.log("====options", options)
     const canvas = new GraphCanvas(options);
 
-    canvas.artBoard.loadFont('FontAwesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2');
+    const fontFamilyname = 'FontAwesome';
+    const fontUrl = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2'
 
-    canvas.dataStore.add(nodes, links)
+    const font = new FontFace(fontFamilyname, 'url(' + fontUrl + ')');
+    font.load().then(function (loadedFont) {
+      console.log("font loaded ", fontFamilyname)
+      document.fonts.add(loadedFont);
 
-    if (layout === 'd3-force') {
-      const layoutInstance = new D3ForceLayout(canvas);
-      layoutInstance?.add2Layout(nodes, links);
-    }
-    else if (layout === 'dagre') {
-      const layoutInstance = new DagreLayout(canvas);
-      layoutInstance?.add2Layout(nodes, links);
-    }
 
-    canvas.artBoard.camera.fitView();
-    // canvas.camera.moveNodesToWorldCenter();
-  
-    const toolbar = new ToolBar(canvas.artBoard);
-    const toolBarHTMLDiv = toolbar.render()
-    html.appendChild(toolBarHTMLDiv)
+
+
+      canvas.dataStore.add(nodes, links)
+
+      if (layout === 'd3-force') {
+        const layoutInstance = new D3ForceLayout(canvas);
+        layoutInstance?.add2Layout(nodes, links);
+      }
+      else if (layout === 'dagre') {
+        const layoutInstance = new DagreLayout(canvas);
+        layoutInstance?.add2Layout(nodes, links);
+      }
+
+
+
+      canvas.artBoard.camera.fitView();
+      // canvas.camera.moveNodesToWorldCenter();
+
+      const toolbar = new ToolBar(canvas.artBoard);
+      const toolBarHTMLDiv = toolbar.render()
+      html.appendChild(toolBarHTMLDiv)
+    })
 
   }, false);
   return html

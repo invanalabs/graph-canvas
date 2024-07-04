@@ -47,7 +47,7 @@ export const getCenterBetweenTwoPoints = (source: CanvasNode, target: CanvasNode
 
 export const getAngle = (source: CanvasNode, target: CanvasNode): number => {
   // Get the angle between the link line and the horizontal line
-  let radian = Math.atan2(target.y - source.y, target.x - source.x);
+  const radian = Math.atan2(target.y - source.y, target.x - source.x);
   return radian * (180 / Math.PI);
 };
 

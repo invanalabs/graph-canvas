@@ -29,6 +29,7 @@ class StraightLink extends LinkShapeBase{
         const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
         labelGfx.angle = this.calcLabelAngle(shapeGfx)
         labelGfx.position.set(labelPosition.x, labelPosition.y);
+        // labelGfx.anchor.set(0.5)
 
     }
 

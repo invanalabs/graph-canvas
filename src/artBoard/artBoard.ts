@@ -109,17 +109,16 @@ export class ArtBoard extends ArtBoardBase {
 
   // };
 
-  loadFont(fontFamilyname: string, fontPath: string){
-    // https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2
-    if ( fontPath.startsWith("http") ){
-      const font = new FontFace(fontFamilyname, 'url('+fontPath+')');
-      font.load().then(function(loadedFont) {
-        // Add the font to the document
-        console.log("font loaded ", fontFamilyname )
-        document.fonts.add(loadedFont);
-      })
-    }
-  }
+  // async loadFont(fontFamilyname: string, fontPath: string){
+  //   // https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2
+  //   const font = new FontFace(fontFamilyname, 'url('+fontPath+')');
+  //   font.load().then(function(loadedFont) {
+  //     // Add the font to the document
+  //     console.log("font loaded ", fontFamilyname )
+  //     document.fonts.add(loadedFont);
+  //   })
+    
+  // }
 
   draw() {
     this.renderer.renderAll()
