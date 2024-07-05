@@ -1,10 +1,10 @@
 import {  Graphics } from 'pixi.js';
 
 
-export const createDebugPoint = (x: number, y: number) => {
+export const createDebugPoint = (color:string="#ffff00", size: number = 2, opacity: number=0.5) => {
   const gfx = new Graphics()
-  gfx.beginFill(0xFFFF00);
-  gfx.drawCircle(x, y, 5);
+  gfx.beginFill(color, opacity);
+  gfx.drawCircle(0, 0, size);
   gfx.endFill();
   return gfx
 }
