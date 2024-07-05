@@ -18,10 +18,9 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
   style: ILinkStyle
 
-  shapeName: 'straightLine' | 'curvedLine' | 'loopLine' = 'straightLine'
+  shapeName: 'straightLine' | 'curvedLine' | 'loopLine' | 'bezierCurvedLine'
 
 
-  
   constructor(props: ICanvasLink){
     super(props);
     //@ts-ignore

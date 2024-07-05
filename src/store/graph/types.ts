@@ -28,7 +28,7 @@ export interface ICanvasLink extends ICanvasItemBase {
   // readonly targetId: IdString
   readonly target: IdString |  CanvasNode | string
   // state?: ICanvasItemStates
-  shapeName? : 'straightLine' | 'curvedLine' | 'loopLine'
+  shapeName? : 'straightLine' | 'curvedLine' | 'loopLine' | 'bezierCurvedLine'
   state?: IShapeState
 
 }

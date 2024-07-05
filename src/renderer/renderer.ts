@@ -5,8 +5,10 @@ import Circle from "./shapes/nodes/circle/circle";
 import { GraphicsStore } from "./store/graphics";
 // import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "./shapes/layer";
 // import drawStraightLineShape from "./primitives/links/straightLine";
-import StraightLine from "./shapes/links/straightLine/straightLine";
-import CurvedLine from "./shapes/links/curvedLine/curvedLine";
+import StraightLine from "./shapes/links/lines/straightLine";
+import CurvedLine from "./shapes/links/lines/curvedLine";
+import BezierCurvedLine from "./shapes/links/lines/bezierCurvedLine";
+import LoopLine from "./shapes/links/lines/loopLine";
 
 
 export class Renderer {
@@ -47,6 +49,8 @@ export class Renderer {
 
   renderLink(link: CanvasLink) {
     console.debug("Renderer.renderLink triggered ", link)
+
+
     if (link.shapeName === "straightLine"){
       const gfxInstance = new StraightLine(link, this.artBoard)
       gfxInstance.draw()
@@ -57,8 +61,21 @@ export class Renderer {
       const gfxInstance = new CurvedLine(link, this.artBoard)
       gfxInstance.draw()
       console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+      this.artBoard.viewport.addChild(gfxInstance.containerGfx)     
+    }
+    else if (link.shapeName === "bezierCurvedLine"){
+        const gfxInstance = new BezierCurvedLine(link, this.artBoard)
+        gfxInstance.draw()
+        console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+        this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
+    }
+    else if (link.shapeName === "loopLine"){
+      const gfxInstance = new LoopLine(link, this.artBoard)
+      gfxInstance.draw()
+      console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
       this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
-    }else{
+  }
+    else{
       console.error(`there is no link with shapeName=${link.shapeName} to render for ${link.id}`)
     }
     // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
