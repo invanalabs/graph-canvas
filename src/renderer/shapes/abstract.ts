@@ -259,6 +259,9 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
     // abstract onMoved(event : OnLinkGfxEventData): void
 
 
+    drawPath(){
+        
+    }
 
     applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
         const stateName = this.data.state

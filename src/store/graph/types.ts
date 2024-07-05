@@ -1,13 +1,12 @@
-import { FederatedPointerEvent } from "pixi.js";
-import { ILinkStateTypes, INodeStateTypes } from "../../renderer/types";
-import { CanvasLink } from "./links";
+
+import { IShapeState } from "../../renderer/types";
 import { CanvasNode } from "./nodes";
 
 
 export type IdString = number | string;
 
 export type ICanvasItemProperties = {
-  [key: string]: any;
+  [key: string]: any 
 }
 
 export interface ICanvasItemBase {
@@ -30,7 +29,7 @@ export interface ICanvasLink extends ICanvasItemBase {
   readonly target: IdString |  CanvasNode | string
   // state?: ICanvasItemStates
   shapeName? : 'straightLine' | 'curvedLine' | 'loopLine'
-  state?: ILinkStateTypes
+  state?: IShapeState
 
 }
 
@@ -38,7 +37,7 @@ export interface ICanvasNode extends ICanvasItemBase {
   x?: number | undefined
   y?: number | undefined
   shapeName? : 'circle'
-  state?: INodeStateTypes
+  state?: IShapeState
 
   icon? : string,
   image?: string

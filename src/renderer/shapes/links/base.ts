@@ -3,13 +3,13 @@ import { CanvasLink } from "../../../store";
 import { deepMerge } from "../../../utils/merge";
 import { LinkShapeAbstract } from "../abstract";
 import * as PIXI from 'pixi.js';
-import { LinkStyleDefaults } from "./straight/defaults";
+import { LinkStyleDefaults } from "./defaults";
 import { LinkContainerChildNames } from "../constants";
 import drawLabelShape from "../../primitives/label";
-import drawArrowHeadShape from "../../primitives/arrowHead";
+import drawArrowHeadShape from "../../primitives/arrows/arrowHead";
 import { ZIndexOrder } from "../nodes";
 import drawStraightLineShape from "../../primitives/links/straightLine";
-
+import drawArrowTriangleShape from "../../primitives/arrows/arrowTriangle";
 
 
 export class LinkShapeBase extends LinkShapeAbstract {
@@ -67,49 +67,15 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx.alpha = 1;
     this.containerGfx.visible = true
   }
+ 
+  triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
+    console.log(`Selected triggered on link - ${this.data.id}`);
+  
+  }
 
-  // triggerHidden = (event?: PIXI.FederatedPointerEvent) => {
-  //   this.containerGfx.visible = false;
-  // }
-
-  // triggerHovered = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`Hover triggered on node - ${this.data.id}`);
-  //   if (this.shapeGfx) {
-  //     const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-  //     if (shapeHoveredBorder) {
-  //       shapeHoveredBorder.visible = true
-  //     }
-  //   }
-  //   // this.setState()
-  //   this.moveToFrontLayer();
-  // }
-
-  // triggerUnHovered = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`UnHovered triggered on node - ${this.data.id}`);
-  //   if (this.shapeGfx) {
-  //     const shapeHoveredBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHoveredBorder)
-  //     if (shapeHoveredBorder) {
-  //       shapeHoveredBorder.visible = false
-  //     }
-  //   }
-  //   this.moveToDataLayer()
-  // }
-
-  // triggerHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`triggerHoveredOnNeighbors triggered on node - ${this.data.id}`);
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHovered()
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHovered()
-  //   this.data.gfxInstance?.triggerHovered()
-
-  // }
-
-  // triggerUnHoveredOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`triggerUnHoveredOnNeighbors triggered on node - ${this.data.id}`);
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHovered()
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHovered()
-  //   this.data.gfxInstance?.triggerUnHovered()
-  // }
-
+  triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
+    console.log(`UnSelected triggered on link - ${this.data.id}`);
+  }
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
@@ -237,69 +203,19 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   }
 
-
   drawLabel = () => {
     console.debug("Line.drawLabel")
-    // const labelString = this.data.label ? this.data.label : `${this.data.source?.id}-->${this.data.target?.id}`
     if (this.data.label) {
       const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label })
       labelGfx.name = LinkContainerChildNames.label
-
-
-
-
-
       return labelGfx
-    } else {
-      return new PIXI.Graphics()
     }
+    //  else {
+    //   return new PIXI.Graphics()
+    // }
   }
 
-  drawShape = () => {
-    console.debug("Line.drawShape triggered", this.data)
-
-    const { startPoint, endPoint } = this.calcStartAndEndPoints();
-    // console.log("startPoint, endPoint", JSON.stringify(startPoint), JSON.stringify(endPoint))
-    // let shapeName = new PIXI.Graphics();
-    this.shapeGfx.removeChildren();
-    this.shapeGfx.name = LinkContainerChildNames.shapeName
-
-
-    // draw path
-    const shapeLine = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.shape })
-    shapeLine.name = LinkContainerChildNames.shapeLine
-    // shapeLine.zIndex = 1000
-
-    // add arrow
-    const arrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style.shape })
-    // arrow.zIndex = 1000
-
-
-    shapeLine.addChild(arrow)
-    this.shapeGfx.addChild(shapeLine)
-
-    // // shapeName hoveredBorder
-    // const shapeHoveredBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':hovered'].shape })
-    // shapeHoveredBorder.visible = false
-    // shapeHoveredBorder.name = LinkContainerChildNames.shapeHoveredBorder
-    // // shapeHoveredBorder.zIndex = 10
-    // const hoveredArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':hovered'].shape })
-    // shapeHoveredBorder.addChild(hoveredArrow)
-    // this.shapeGfx.addChild(shapeHoveredBorder)
-
-
-    // shapeName selectedBorder
-    const shapeHighlightedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':highlighted'].shape })
-    shapeHighlightedBorder.visible = false
-    shapeHighlightedBorder.name = LinkContainerChildNames.shapeHighlightedBorder
-    // shapeHighlightedBorder.zIndex = 10
-    const selectedArrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style?.states[':highlighted'].shape })
-    shapeHighlightedBorder.addChild(selectedArrow)
-    this.shapeGfx.addChild(shapeHighlightedBorder)
-
-
-    return this.shapeGfx
-  }
+  declare drawShape
 
   // renderShape=true, renderLabel=true
   draw = (renderShape = true, renderLabel = true) => {

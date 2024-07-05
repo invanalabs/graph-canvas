@@ -1,28 +1,42 @@
 import * as PIXI from 'pixi.js';
 import { LinkShapeBase } from '../base';
-import { getAngle, getCenterOfRectangle, getContactPointFromCircle, getContactPointOnCircle, getLinkLabelPosition } from '../utils';
-import { createDebugPoint } from '../../utils';
+import { getAngle, getCenterOfRectangle, getContactPointFromCircle,
+     getContactPointOnCircle, getLinkLabelPosition } from '../utils';
+import { LinkContainerChildNames } from '../../constants';
+import drawStraightLineShape from '../../../primitives/links/straightLine';
+import drawArrowTriangleShape from '../../../primitives/arrows/arrowTriangle';
+// import { createDebugPoint } from '../../utils';
 
 
-class StraightLink extends LinkShapeBase{
+class CurvedLine extends LinkShapeBase{
 
+ 
+    drawShape = () => {
+        console.debug("Line.drawShape triggered", this.data)
+    
+        const { startPoint, endPoint } = this.calcStartAndEndPoints();
+        this.shapeGfx.removeChildren();
+        this.shapeGfx.name = LinkContainerChildNames.shapeName
+    
+        // draw path
+        const shapeLine = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.shape })
+        shapeLine.name = LinkContainerChildNames.shapeLine
+    
+        drawArrowTriangleShape({ startPoint, endPoint, ...this.data.style.shape }, 10, shapeLine)
+        this.shapeGfx.addChild(shapeLine)
+    
+        // shapeName hoveredBorder
+        const shapeHighlightedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':highlighted'].shape })
+        shapeHighlightedBorder.name = LinkContainerChildNames.shapeHighlightedBorder
+        shapeHighlightedBorder.visible = false
+        drawArrowTriangleShape({ startPoint, endPoint, ...this.data.style.states[':highlighted'].shape }, 12, shapeHighlightedBorder)
+        this.shapeGfx.addChild(shapeHighlightedBorder)
+    
+    
+        return this.shapeGfx
+      }
 
-    // labelGfx: PIXI.Graphics; 
-    // shapeGfx: PIXI.Graphics;
-
-    // constructor(data: ICanvasLink, canvas: GraphCanvas) {
-    //     super(data, canvas)
-
-    //     this.data = this.processData(data)
-    //     const gfxs = this.draw(true, true);
-    //     this.labelGfx = gfxs.labelGfx; // 
-    //     this.shapeGfx = gfxs.shapeGfx;
-    //     // setup intractions
-    //     this.setupInteractions()
-    // }
-
-    //@ts-ignore
-    // point: PIXI.Point;
+      
     //@ts-ignore
     curveType: ILinkShapeStyles = 'straight'
 
@@ -92,4 +106,4 @@ class StraightLink extends LinkShapeBase{
 }
 
 
-export default StraightLink
+export default CurvedLine

@@ -2,9 +2,11 @@ import { CanvasLink, CanvasNode } from "../store";
 import { ArtBoard } from "../artBoard/artBoard";
 import TextureStore from "./store/texture";
 import Circle from "./shapes/nodes/circle/circle";
-import StraightLink from "./shapes/links/straight/straight";
 import { GraphicsStore } from "./store/graphics";
-import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "./shapes/layer";
+// import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "./shapes/layer";
+// import drawStraightLineShape from "./primitives/links/straightLine";
+import StraightLine from "./shapes/links/straightLine/straightLine";
+import CurvedLine from "./shapes/links/curvedLine/curvedLine";
 
 
 export class Renderer {
@@ -45,10 +47,20 @@ export class Renderer {
 
   renderLink(link: CanvasLink) {
     console.debug("Renderer.renderLink triggered ", link)
-    const gfxInstance = new StraightLink(link, this.artBoard)
-    gfxInstance.draw()
-    console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-    this.artBoard.viewport.addChild(gfxInstance.containerGfx)
+    if (link.shapeName === "straightLine"){
+      const gfxInstance = new StraightLine(link, this.artBoard)
+      gfxInstance.draw()
+      console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+      this.artBoard.viewport.addChild(gfxInstance.containerGfx)        
+    }
+    else if (link.shapeName === "curvedLine"){
+      const gfxInstance = new CurvedLine(link, this.artBoard)
+      gfxInstance.draw()
+      console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+      this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
+    }else{
+      console.error(`there is no link with shapeName=${link.shapeName} to render for ${link.id}`)
+    }
     // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
     // this.artBoard.cull.add(gfxInstance.containerGfx)
     // this.artBoard.updateCull()

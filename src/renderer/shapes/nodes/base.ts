@@ -103,8 +103,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
       this.triggerHighlighted(event, true)
     }
     this.moveToFrontLayer();
-
-
   }
 
   triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
@@ -126,10 +124,13 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
-      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
-      console.log("====textBg", textBg)
-      if (textBg) {
-        textBg.visible = true
+      
+      if (this.labelGfx){
+        const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
+        console.log("====textBg", textBg)
+        if (textBg) {
+          textBg.visible = true
+        }
       }
     }
 
@@ -150,11 +151,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
       }
-      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
-      if (textBg) {
-        textBg.visible = false
-        // textBg.fi
+      if (this.labelGfx){
+        const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
+        if (textBg) {
+          textBg.visible = false
+          // textBg.fi
+        }
       }
+
     }
 
     if (setNeighborsToo){

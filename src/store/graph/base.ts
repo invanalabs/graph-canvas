@@ -1,5 +1,6 @@
+
 import { LinkShapeBase } from "../../renderer/shapes/links/base"
-import { NodeShapeBase } from "../../renderer/shapes/nodes/base"
+import { NodeShapeBase } from "../../renderer/shapes/nodes"
 import { ICanvasItemBase, ICanvasItemProperties, IdString } from "./types"
 
 

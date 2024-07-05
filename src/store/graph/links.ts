@@ -1,6 +1,6 @@
 import { LinkShapeBase } from "../../renderer/shapes/links/base"
-import { LinkStyleDefaults } from "../../renderer/shapes/links/straight/defaults"
-import { ILinkStateTypes, ILinkStyle } from "../../renderer/types"
+import { LinkStyleDefaults } from "../../renderer/shapes/links/defaults"
+import { IShapeState, ILinkStyle } from "../../renderer/types"
 import CanvasItemBase from "./base"
 import { CanvasNode } from "./nodes"
 import {  ICanvasLink } from "./types"
@@ -14,9 +14,12 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
   
   gfxInstance: LinkShapeBase | undefined = undefined
 
-  state: ILinkStateTypes = ":default"
+  state: IShapeState = ":default"
 
   style: ILinkStyle
+
+  shapeName: 'straightLine' | 'curvedLine' | 'loopLine' = 'straightLine'
+
 
   
   constructor(props: ICanvasLink){
@@ -29,6 +32,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
     this.style = LinkStyleDefaults
 
     this.state = props.state ? props.state : ":default"
+    this.shapeName = props.shapeName? props.shapeName :  "straightLine"
   }
 
 

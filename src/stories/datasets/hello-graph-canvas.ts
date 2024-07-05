@@ -27,6 +27,6 @@ export const exampleLinks: Array<ICanvasLink> = [
         label: '1-2:authored',
         source: '1',
         target: '2',
-        shapeName: 'line'
+        shapeName: 'straightLine'
     }    
 ];
