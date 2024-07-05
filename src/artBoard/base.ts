@@ -88,8 +88,8 @@ export class ArtBoardBase {
       .wheel()
       .decelerate()
       .clampZoom({
-        minWidth: canvasSizeOptions.screenWidth / 10,
-        minHeight: canvasSizeOptions.screenHeight / 10,
+        minWidth: canvasSizeOptions.screenWidth / 5,
+        minHeight: canvasSizeOptions.screenHeight / 5,
         maxWidth: canvasSizeOptions.worldWidth,
         maxHeight: canvasSizeOptions.worldHeight
       })

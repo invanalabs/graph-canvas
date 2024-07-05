@@ -36,13 +36,21 @@ export const getLinkLabelPosition = (source: CanvasNode, target: CanvasNode, sha
 }
 
 export const getCenterBetweenTwoPoints = (source: CanvasNode, target: CanvasNode, shapeType: ILinkShapeStyles) => {
+  console.debug("getCenterBetweenTwoPoints", source.x, source.y, target.x, target.y)
   // if (startX && startY && endX && endY){
-    const x = (source.x + target.x) / 2;
-    const y = (source.y + target.y) / 2;
-    return new Point(x, y);
+    const centerX = (source.x + target.x) / 2;
+    const centerY = (source.y + target.y) / 2;
+    return new Point(centerX, centerY);
     // }else{
     //   throw Error(`invalid ${source} and ${target}`);
     // }
+}
+
+
+export const getCenterOfRectangle = (width: number, height: number, x: number, y:number)=> {
+  const centerX = x + width / 2;
+  const centerY = y + height / 2;
+  return new Point(centerX, centerY)
 }
 
 export const getAngle = (source: CanvasNode, target: CanvasNode): number => {

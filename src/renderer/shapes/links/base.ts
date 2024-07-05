@@ -244,6 +244,11 @@ export class LinkShapeBase extends LinkShapeAbstract {
     if (this.data.label) {
       const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label })
       labelGfx.name = LinkContainerChildNames.label
+
+
+
+
+
       return labelGfx
     } else {
       return new PIXI.Graphics()
@@ -268,6 +273,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     // add arrow
     const arrow = drawArrowHeadShape({ startPoint, endPoint, ...this.data.style.shape })
     // arrow.zIndex = 1000
+
 
     shapeLine.addChild(arrow)
     this.shapeGfx.addChild(shapeLine)
@@ -325,7 +331,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
 
   redraw = (renderShape = true, renderLabel = true) => {
-    console.debug("redraw ")
+    console.debug("redraw ", renderShape, renderLabel)
     this.draw(renderShape, renderLabel);
 
 

@@ -2,6 +2,7 @@ import { Sprite, Graphics } from 'pixi.js';
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../../constants';
 import drawLabelShape from '../../../primitives/label';
+import { createDebugPoint } from '../../utils';
 // import { DraggableSprite } from '../../../sprites/draggable';
 
 
@@ -38,18 +39,19 @@ class Circle extends NodeShapeBase {
         })
 
 
-
-
-
         console.log("===texture", this.data.id, texture,)
         if (texture) {
+
+            
             const shape = new Sprite(texture['states'][':default'].shape)
             shape.name = NodeContainerChildNames.shapeName;
-            shape.x = -shape.width / 2;
-            shape.y = -shape.height / 2;
-            // shape.anchor.set(0.5);
+            // shape.x = -shape.width / 2;
+            // shape.y = -shape.height / 2;
+
+            shape.anchor.set(0.5);
 
 
+ 
             
 
             if (this.data.icon){
@@ -61,8 +63,10 @@ class Circle extends NodeShapeBase {
 
                 const icon = new Sprite(iconTexture);
                 icon.name = NodeContainerChildNames.icon;
-                icon.x = icon.width ;
-                icon.y = icon.height ;
+                // icon.x = icon.width ;
+                // icon.y = icon.height ;
+                icon.anchor.set(0.5);
+
                 icon.tint = this.data.style?.shape?.icon.color || "#222222";
                 shape.addChild(icon);
             }
@@ -78,8 +82,8 @@ class Circle extends NodeShapeBase {
                         const imageSprite = new Sprite(texture);
                         imageSprite.width = shape.width
                         imageSprite.height = shape.height
-                        imageSprite.x = imageSprite.width/2 ;
-                        imageSprite.y = imageSprite.height/2 ;
+                        // imageSprite.x = imageSprite.width/2 ;
+                        // imageSprite.y = imageSprite.height/2 ;
                         imageSprite.anchor.set(0.5);
 
 
@@ -89,12 +93,16 @@ class Circle extends NodeShapeBase {
                         mask.beginFill(0xffffff);
                         mask.drawCircle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
                         mask.endFill();
+
                         // mask.anchor.set(0.5)
                         // Position the mask at the center of the sprite
-                        mask.x = imageSprite.x;
-                        mask.y = imageSprite.y;
+                        // mask.x = imageSprite.x;
+                        // mask.y = imageSprite.y;
+                        // mask.pivot.set(0.5);
+
                         // Apply the mask to the sprite
                         imageSprite.mask = mask;
+
                         // Add the mask and sprite to the stage
                         shape.addChild(mask);
                         shape.addChild(imageSprite);
@@ -108,18 +116,22 @@ class Circle extends NodeShapeBase {
 
             // draw selected graphics
             const shapeSelectedBorder = new Sprite(texture['states'][':selected'].shape)
-            shapeSelectedBorder.x = -(shapeSelectedBorder.width - shape.width) / 2;
-            shapeSelectedBorder.y = -(shapeSelectedBorder.height - shape.height) / 2;
+            // shapeSelectedBorder.x = -(shapeSelectedBorder.width - shape.width) / 2;
+            // shapeSelectedBorder.y = -(shapeSelectedBorder.height - shape.height) / 2;
             shapeSelectedBorder.visible = false
             shapeSelectedBorder.name = NodeContainerChildNames.shapeSelectedBorder
+            shapeSelectedBorder.anchor.set(0.5);
+
             shape.addChild(shapeSelectedBorder)
 
             // draw selected graphics
             const shapeHighlightedBorder = new Sprite(texture['states'][':highlighted'].shape)
-            shapeHighlightedBorder.x = -(shapeHighlightedBorder.width - shape.width) / 2;
-            shapeHighlightedBorder.y = -(shapeHighlightedBorder.height - shape.height) / 2;
+            // shapeHighlightedBorder.x = -(shapeHighlightedBorder.width - shape.width) / 2;
+            // shapeHighlightedBorder.y = -(shapeHighlightedBorder.height - shape.height) / 2;
             shapeHighlightedBorder.visible = false
             shapeHighlightedBorder.name = NodeContainerChildNames.shapeHighlightedBorder
+            shapeHighlightedBorder.anchor.set(0.5);
+
             shape.addChild(shapeHighlightedBorder)
 
             // shape.interactive = true;
