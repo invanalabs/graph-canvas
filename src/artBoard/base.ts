@@ -56,7 +56,7 @@ export class ArtBoardBase {
       height: screenHeight,
       view: this.canvas.options.viewElement,
       antialias: true,
-      // resizeTo: window,
+      resizeTo: window,
       autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
       autoDensity: true,
       resolution: window.devicePixelRatio, /// 2 for retina displays
