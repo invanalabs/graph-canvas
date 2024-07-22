@@ -8,9 +8,15 @@ import { NodeContainerChildNames } from "../constants";
 
 
 export const ZIndexOrder = {
-  DATA_LAYER: 5,
-  FRONT_LAYER: 10,
-  ANNOTATIONS_LAYER: 15
+  DATA_LAYER_LINKS: 4,
+  DATA_LAYER_NODES: 5,
+  
+  FRONT_LAYER_LINKS: 9,
+  FRONT_LAYER_NODES: 10,
+
+  ANNOTATIONS_LAYER_LINKS: 14,
+  ANNOTATIONS_LAYER_NODE: 15
+
 }
 
 export class NodeShapeBase extends NodeShapeAbstract {
@@ -31,6 +37,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   constructor(data: CanvasNode, artBoard: ArtBoard) {
     super(data, artBoard)
     this.data = this.processData(data)
+    this.containerGfx.name = `node-${this.data.id}`
     // setup intractions
     // this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
@@ -63,14 +70,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
   // layers
   moveToDataLayer(): void {
     // console.error("not implemented")
-    this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER;
+    this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER_NODES;
     // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
 
   moveToFrontLayer(): void {
     // console.error("not implemented")
     // this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
-    this.containerGfx.zIndex = ZIndexOrder.FRONT_LAYER;
+    this.containerGfx.zIndex = ZIndexOrder.FRONT_LAYER_NODES;
   }
 
   // moveToMapLayer(): void{
@@ -102,7 +109,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       }
       this.triggerHighlighted(event, true)
     }
-    this.moveToFrontLayer();
+    // this.moveToFrontLayer();
   }
 
   triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
@@ -114,7 +121,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       }
       this.triggerUnHighlighted(event, true)
     }
-    this.moveToDataLayer()
+    // this.moveToDataLayer()
   }
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
@@ -124,6 +131,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
+
+      this.moveToFrontLayer
       
       if (this.labelGfx){
         const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
@@ -158,6 +167,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
           // textBg.fi
         }
       }
+      this.moveToDataLayer()
 
     }
 

@@ -25,6 +25,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   constructor(data: CanvasLink, artBoard: ArtBoard) {
     super(data, artBoard)
     this.data = this.processData(data)
+    this.containerGfx.name = `link-${this.data.id}`
     this.shapeGfx = new PIXI.Graphics();
     this.labelGfx = new PIXI.Graphics();
     // setup intractions
@@ -42,7 +43,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   // layers
   moveToDataLayer(): void {
     // console.error("not implemented")
-    this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER;
+    this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER_LINKS;
 
     // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
@@ -50,7 +51,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   moveToFrontLayer(): void {
     // console.error("not implemented")
     // this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
-    this.containerGfx.zIndex = ZIndexOrder.FRONT_LAYER;
+    this.containerGfx.zIndex = ZIndexOrder.FRONT_LAYER_LINKS;
   }
 
   moveToMapLayer(): void {

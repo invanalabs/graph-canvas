@@ -85,6 +85,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.originalData = data
         this.artBoard = artBoard;
         this.containerGfx = new PIXI.Graphics()
+        this.containerGfx.sortableChildren = true
         // this.containerGfx.interactive = true
         // Set the cursor style to 'pointer' when hovering over the sprite
         // this.containerGfx.cursor = 'pointer';
