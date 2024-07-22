@@ -1,0 +1,14 @@
+
+
+button.toolbar-btn {
+  background: transparent;
+  border: 1px solid #5393e0;
+  color: #5393e0;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+button.toolbar-btn:hover{
+  border-color:  #efefef;
+  color: #efefef;
+}
