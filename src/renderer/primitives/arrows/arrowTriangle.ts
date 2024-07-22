@@ -19,12 +19,13 @@ const drawArrowTriangleShape = ( props: DrawArrowPrimitiveType, size: number = 5
     const arrowPoint2Y = props.endPoint.y - size * Math.sin(angle + Math.PI / 6);
 
     // Draw the solid arrowhead
-    gfx.beginFill(props.color); // Set the fill color for the arrowhead
+    // gfx.beginFill(props.color); // Set the fill color for the arrowhead
     gfx.moveTo(props.endPoint.x, props.endPoint.y);
     gfx.lineTo(arrowPoint1X, arrowPoint1Y);
     gfx.lineTo(arrowPoint2X, arrowPoint2Y);
     gfx.lineTo(props.endPoint.x, props.endPoint.y);
-    gfx.endFill();
+    gfx.stroke({color: props.color});
+    gfx.fill({color: props.color})
     return gfx;
 }
 
