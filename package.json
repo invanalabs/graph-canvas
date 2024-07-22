@@ -16,7 +16,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "storybook": "storybook dev -p 6006 -h 0.0.0.0",
+    "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "docs:watch": "typedoc --out docs ./src --watch & live-server --port=8005 docs/ --entry-file=docs/index.html",
     "docs:build": "npx typedoc src",

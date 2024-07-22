@@ -84,7 +84,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
-      const textBg = this.labelGfx.getChildByName(LinkContainerChildNames.labelBackground);
+      const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
       console.log("====textBg", textBg)
       if (textBg) {
         textBg.visible = true
@@ -106,7 +106,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
       }
-      const textBg = this.labelGfx.getChildByName(LinkContainerChildNames.labelBackground);
+      const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
       console.log("====textBg", textBg)
       if (textBg) {
         textBg.visible = false
@@ -225,19 +225,27 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     // draw shapeName
     if (renderShape) {
-      this.shapeGfx.removeChildren();
+      if (this.shapeGfx){
+        this.shapeGfx.removeChildren();
+      }
       this.shapeGfx = this.drawShape();
       this.containerGfx.addChild(this.shapeGfx);
     }
     // draw label
     if (renderLabel) {
-      this.labelGfx.removeChildren();
+      if (this.labelGfx){
+        this.labelGfx.removeChildren();
+      }
       this.labelGfx = this.drawLabel();
-      this.containerGfx.addChild(this.labelGfx);
+      if(this.labelGfx){
+        this.containerGfx.addChild(this.labelGfx);
+      }
     }
 
     if (renderShape) {
-      this.calcLabelPosition(this.labelGfx, this.shapeGfx)
+      if (this.labelGfx){
+        this.calcLabelPosition(this.labelGfx, this.shapeGfx)
+      }
     }
 
     this.applyStateUpdate()
