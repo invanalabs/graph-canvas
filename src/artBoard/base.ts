@@ -1,7 +1,10 @@
 import * as PIXI from "pixi.js"
 import { Viewport } from "pixi-viewport";
 import { GraphCanvas } from "../canvas";
-import { Cull } from '@pixi-essentials/cull';
+import { Camera } from "./camera";
+import { Renderer } from "../renderer/renderer";
+import { DefaultEventEmitter } from "../store/events/emitter";
+import { EventEmitterAbstract } from "../store/events/abstract";
 
 
 export class ArtBoardBase {
@@ -9,29 +12,58 @@ export class ArtBoardBase {
   canvas: GraphCanvas
   pixiApp: PIXI.Application
   viewport: Viewport
-  cull: Cull
+  renderer: Renderer
+  camera: Camera
+  events: EventEmitterAbstract
 
   worldScale: number = 10
 
   constructor(canvas: GraphCanvas) {
     this.canvas = canvas
     // setup pixi app
-    this.pixiApp = this.createPIXIApp();
-    // setup viewport
-    this.viewport = this.createViewport()
-    this.pixiApp.stage.addChild(this.viewport)
-
+    const _this = this;
+    // this.pixiApp = this.start_drawing();
+    this.pixiApp = new PIXI.Application()
+    // this.start_drawing().then(()=>{
+    //   this.renderer = new Renderer(_this)
+    //   this.camera = new Camera(_this)
+    //   this.events = new DefaultEventEmitter(_this)
+    //   this.setUpRenderOnEventListers()
+    // })
+    
     // prevent body scrolling
-    this.canvas.options.viewElement.addEventListener('wheel', event => { 
-      event.preventDefault() 
+    this.canvas.options.viewElement.addEventListener('wheel', event => {
+      event.preventDefault()
     }, { passive: false });
-    this.cull = new Cull();
-    this.updateCull()
+
+
+    // this.cull = new Cull();
+    // this.updateCull()
   }
 
-  updateCull() {
-    this.cull.cull(this.pixiApp.renderer.screen);
+
+  setUpRenderOnEventListers() {
+
+    this.canvas.dataStore.on('node:data:onAdded', this.events.onNodeAdded);
+    this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
+    this.canvas.dataStore.on('node:gfx:onStateUpdated', this.events.onNodeStateUpdated)
+    this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
+    
+    // add link:data:onAdded event listener
+    this.canvas.dataStore.on('link:data:onAdded',  this.events.onLinkAdded);
+    // add node:data:onDeleted event listener
+    this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
+    // add "link:data:onDeleted" event listener
+    this.canvas.dataStore.on('link:data:onDeleted', this.events.onLinkDeleted);
+    // add "link:data:onDeleted" event listener
+    this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
+
   }
+
+
+  // updateCull() {
+  //   this.cull.cull(this.pixiApp.renderer.screen);
+  // }
 
   getCanvasSizeOptions() {
     const divRectangle = this.canvas.options.viewElement.getBoundingClientRect();
@@ -47,11 +79,12 @@ export class ArtBoardBase {
     }
   }
 
-  
-  createPIXIApp = (): PIXI.Application => {
-    console.log("createPIXIApp this.options", this.canvas.options)
+  start_drawing = () => {
+
+    const _this = this;
+    console.log("start_drawing this.options", this.canvas.options)
     const { screenWidth, screenHeight } = this.getCanvasSizeOptions()
-    const pixiApp = new PIXI.Application({
+    const pixiAppArgs = {
       width: screenWidth,
       height: screenHeight,
       view: this.canvas.options.viewElement,
@@ -61,25 +94,49 @@ export class ArtBoardBase {
       autoDensity: true,
       resolution: window.devicePixelRatio, /// 2 for retina displays
       backgroundColor: this.canvas.options.background,
-      eventMode: 'static', //  Emit events and is hit tested. Same as interaction = true in v7
-    });
+      // eventMode: 'static', //  Emit events and is hit tested. Same as interaction = true in v7
+    }
+
+    return this.pixiApp.init(pixiAppArgs).then(() => {
+      // this.options.viewDiv.appendChild(pixiApp.canvas);
+      // pixiApp.stage.eventMode = 'static';
+      // pixiApp.stage.hitArea = pixiApp.screen;
+      this.pixiApp.stage.interactive = true;
+      this.pixiApp.stage.hitArea = _this.pixiApp.screen;
+      this.pixiApp.stage.sortableChildren = true
+      // setup viewport
+      console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
+
+    }).finally(()=>{
+
+
+
+      this.viewport = this.createViewport()
+      this.pixiApp.stage.addChild(this.viewport)
+      this.renderer = new Renderer(_this)
+      this.camera = new Camera(_this)
+      this.events = new DefaultEventEmitter(_this)
+      this.setUpRenderOnEventListers()
+
+    })
+    // return this.pixiApp
+
+
     // pixiApp.stage = new Stage();
     // The stage will handle the move events
-    pixiApp.stage.interactive = true;
-    pixiApp.stage.hitArea = pixiApp.screen;
-    pixiApp.stage.sortableChildren = true
-    return pixiApp
   }
 
   createViewport(): Viewport {
     const canvasSizeOptions = this.getCanvasSizeOptions()
     console.log("--canvasSizeOptions", canvasSizeOptions)
     const viewport = new Viewport({
-      events: this.pixiApp.renderer.events,
+      // interaction: this.pixiApp.renderer.inter,
       screenWidth: canvasSizeOptions.screenWidth,
       screenHeight: canvasSizeOptions.screenHeight,
       worldWidth: canvasSizeOptions.worldWidth,
-      worldHeight: canvasSizeOptions.worldHeight
+      worldHeight: canvasSizeOptions.worldHeight,
+      // passiveWheel: false,
+      events: this.pixiApp.renderer.events
     })
 
     viewport

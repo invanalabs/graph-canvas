@@ -1,4 +1,6 @@
 import type { Preview } from "@storybook/html";
+import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks';
+
 
 const preview: Preview = {
   parameters: {
@@ -9,6 +11,14 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+  },
+};
+
+
+export const parameters = {
+  docs: {
+    container: DocsContainer,
+    page: DocsPage,
   },
 };
 

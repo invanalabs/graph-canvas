@@ -1,47 +1,15 @@
 import { ArtBoardBase } from "./base";
-import { Camera } from "./camera";
 import { GraphCanvas } from "../canvas";
-import { Renderer } from "../renderer/renderer";
-import { DefaultEventEmitter } from "../store/events/emitter";
-import { EventEmitterAbstract } from "../store/events/abstract";
 
 
 export class ArtBoard extends ArtBoardBase {
 
-  renderer: Renderer
-  camera: Camera
-  events: EventEmitterAbstract
+
 
   constructor(canvas: GraphCanvas) {
     super(canvas)
     this.canvas = canvas
-    this.renderer = new Renderer(this)
-    this.camera = new Camera(this)
-    this.events = new DefaultEventEmitter(this)
-    this.setUpRenderOnEventListers()
 
-  }
-
-  setUpRenderOnEventListers() {
-
-    this.canvas.dataStore.on('node:data:onAdded', this.events.onNodeAdded);
-    this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
-
-    this.canvas.dataStore.on('node:gfx:onStateUpdated', this.events.onNodeStateUpdated)
-
-    this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
-
-    // add link:data:onAdded event listener
-    this.canvas.dataStore.on('link:data:onAdded',  this.events.onLinkAdded);
-
-    // add node:data:onDeleted event listener
-    this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
-
-    // add "link:data:onDeleted" event listener
-    this.canvas.dataStore.on('link:data:onDeleted', this.events.onLinkDeleted);
-
-    // add "link:data:onDeleted" event listener
-    this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
 
   }
 

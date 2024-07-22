@@ -21,18 +21,23 @@ export class GraphicsLayer {
   constructor(artBoard: ArtBoard,  layerName: string, zIndexStartsAt: number) {
     this.layerName = layerName
     this.artBoard = artBoard
+    console.log("===this.artBoard.viewport.", this.artBoard.viewport)
     // this.baseLayer = this.createLayer(layerName, zIndexStartsAt) // add this to this.artBoard.viewport
     // for nodes and links layer
     this.linkGraphics = this.createLayer(this.getLinksLayerName(), zIndexStartsAt + 1)
-    this.artBoard.viewport.addChild(this.linkGraphics)
+    // this.artBoard.viewport.addChild(this.linkGraphics)
+    this.artBoard.pixiApp.stage.addChild(this.linkGraphics)
     
     this.nodeGraphics = this.createLayer(this.getNodesLayerName(), zIndexStartsAt + 2)
-    this.artBoard.viewport.addChild(this.nodeGraphics)
+    // this.artBoard.viewport.addChild(this.nodeGraphics)
+    this.artBoard.pixiApp.stage.addChild(this.nodeGraphics)
   }
 
 
   createLayer(LayerName: string, zIndex: number) {
-    const layer = new Container()
+    const layer = new Container({
+      isRenderGroup:true // this containers transform is now handled on the GPU!
+    })
     layer.name = LayerName
     layer.zIndex = zIndex
     layer.interactive = true

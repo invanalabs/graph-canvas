@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../../canvas';
 import data from "../../datasets/miserables.json";
 import { stringToColor } from '../../utils';
-import stc from "string-to-color";
+// import stc from "string-to-color";
 import { ICanvasLink, ICanvasNode } from '../../../store';
 import { ICanvasOptions } from '../../../canvas';
 
