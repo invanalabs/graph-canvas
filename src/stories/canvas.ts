@@ -3,18 +3,18 @@ import ToolBar from "../plugins/toolbar";
 import { ICanvasLink, ICanvasNode } from "../store";
 import D3ForceLayout from "./layouts/d3-force/layout";
 import DagreLayout from "./layouts/dagre/layout";
+// import * as dat from 'dat.gui';
 
 
 export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasOptions?: ICanvasOptions,
   layout: null | 'd3-force' | 'dagre' = null
 ) => {
   const html = document.createElement("div");
-
   const canvasDiv = document.createElement("canvas");
   canvasDiv.style.height = '100vh';
   canvasDiv.style.width = '100vw';
-  // canvasDiv.style.background = "#444"
   html.appendChild(canvasDiv)
+
 
   document.addEventListener("DOMContentLoaded", function (event) {
     console.log("=DOM is ready", event,)
@@ -44,9 +44,21 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         }
         canvas.artBoard.camera.fitView();
         // canvas.camera.moveNodesToWorldCenter();
+        // draw toolbar 
         const toolbar = new ToolBar(canvas.artBoard);
         const toolBarHTMLDiv = toolbar.render()
         html.appendChild(toolBarHTMLDiv)
+
+        // Creating a GUI and a subfolder.
+        // const gui = new dat.GUI();
+        // const folder1 = gui.addFolder('Renderer');
+        // const helperUtils = { redraw: ()=> canvas.artBoard.renderer.renderAll()};
+        // gui.add(helperUtils,'redraw');
+
+
+
+
+
       })
     })
 
