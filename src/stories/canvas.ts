@@ -42,7 +42,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
           const layoutInstance = new DagreLayout(canvas);
           layoutInstance?.add2Layout(nodes, links);
         }
-        // canvas.artBoard.camera.fitView();
+        canvas.artBoard.camera.fitView();
         // canvas.camera.moveNodesToWorldCenter();
         const toolbar = new ToolBar(canvas.artBoard);
         const toolBarHTMLDiv = toolbar.render()
