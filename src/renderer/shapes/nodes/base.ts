@@ -200,9 +200,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
       // remove interactions on neighbors
       this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
-        if (link.gfxInstance)
+        if (link.gfxInstance){
           link.gfxInstance.removeInteractionTriggers()
+        }
       })
+      this.triggerHighlighted(event, true)
+
     }
   };
 
@@ -215,6 +218,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (link.gfxInstance)
         link.gfxInstance.setupInteractionTriggers()
     })
+    this.triggerUnHighlighted(event, true)
+
   };
 
   pointerIn = (event: PIXI.FederatedPointerEvent) => {
