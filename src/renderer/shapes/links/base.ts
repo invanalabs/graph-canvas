@@ -80,6 +80,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
+    this.moveToFrontLayer();
+
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
       if (shapeHighlightedBorder) {
@@ -91,7 +93,6 @@ export class LinkShapeBase extends LinkShapeAbstract {
         textBg.visible = true
       }
     }
-    this.moveToFrontLayer();
     if (setNeighborsToo) {
       this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
       this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
@@ -101,6 +102,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerUnHighlighted on node - ${this.data.id}`);
+    this.moveToDataLayer();
+
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeHighlightedBorder);
       // console.log("shapeHighlightedBorder", shapeHighlightedBorder)
@@ -113,7 +116,6 @@ export class LinkShapeBase extends LinkShapeAbstract {
         textBg.visible = false
       }
     }
-    this.moveToDataLayer();
 
     if (setNeighborsToo) {
       this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()

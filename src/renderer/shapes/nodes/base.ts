@@ -126,13 +126,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerHighlighted on node - ${this.data.id}`);
+    this.moveToFrontLayer()
     if (this.shapeGfx) {
+
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
 
-      this.moveToFrontLayer
       
       if (this.labelGfx){
         const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
@@ -155,6 +156,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.log(`triggerUnHighlighted on node - ${this.data.id}`);
+    this.moveToDataLayer()
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
       if (shapeHighlightedBorder) {
@@ -167,7 +169,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
           // textBg.fi
         }
       }
-      this.moveToDataLayer()
 
     }
 
