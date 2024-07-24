@@ -14,7 +14,7 @@ export default class ToolBar {
         const toolBar = document.createElement("div");
         toolBar.classList.add("toolBar");
         toolBar.style.top = "10px";
-        toolBar.style.left = "10px";
+        toolBar.style.right = "10px";
         toolBar.style.position = "absolute"
 
 

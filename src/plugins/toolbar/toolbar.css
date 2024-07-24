@@ -1,4 +1,8 @@
 
+.toolBar{
+  padding: 5px 10px;
+  background-color:  #222222;
+}
 
 button.toolbar-btn {
   background: transparent;

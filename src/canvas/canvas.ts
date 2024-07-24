@@ -29,7 +29,7 @@ export class GraphCanvas {
 
     // renderer  
     this.artBoard = new ArtBoard(this)
-        // data store 
+    // data store 
     this.dataStore = new DataStore(this);
   }
 

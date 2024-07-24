@@ -24,7 +24,7 @@ export class Renderer {
   }
 
   renderAll() {
-    console.debug("Renderer.renderAll triggered ")
+    console.debug("Renderer.renderAll triggered ", this.artBoard.canvas.dataStore.getNodes())
     const links = this.artBoard.canvas.dataStore.getLinks();
     const nodes = this.artBoard.canvas.dataStore.getNodes();
     this.renderSelection(nodes, links);
@@ -32,6 +32,10 @@ export class Renderer {
 
   renderSelection = (nodes: CanvasNode[], links: CanvasLink[]) => {
     console.debug("Renderer.render triggered ", nodes, links)
+
+    nodes.forEach((node: CanvasNode)=> this.renderNode(node))
+    links.forEach((link: CanvasLink)=> this.renderLink(link))
+  
   }
 
   renderNode(node: CanvasNode) {
