@@ -1,5 +1,5 @@
 import { ArtBoard } from "../../artBoard";
-import { createToolBarButton, IToolBarButton } from "./html";
+import { createToolBarButton, createToolBarToggleButton, IToolBarButton } from "./html";
 import "./toolbar.css"
 
 export default class ToolBar {
@@ -58,11 +58,33 @@ export default class ToolBar {
             //     htmlType : "seperator",
             //     label: '|'
             // },
+            // {
+            //     htmlType: "toggle",
+            //     label: "ON",
+            //     helpText: "toggle ",
+            //     onClickListener: () => this.artBoard.camera.zoomOut()
+            // },
+            // {
+            //     htmlType: "button",
+            //     label: "color by groups",
+            //     helpText: "color by groups ",
+            //     onClickListener: () => this.artBoard.camera.zoomOut()
+            // },
+            // {
+            //     htmlType: "button",
+            //     label: "unicolor",
+            //     helpText: "unicolor ",
+            //     onClickListener: () => this.artBoard.camera.zoomOut()
+            // },
     
         ]
         toolBarItems.forEach(toolBarItem=> {
             if (toolBarItem.htmlType === "button"){
                 const btn = toolBar.appendChild(createToolBarButton(toolBarItem))
+                toolBar.appendChild(btn)    
+            }
+            else if (toolBarItem.htmlType === "toggle"){
+                const btn = toolBar.appendChild(createToolBarToggleButton(toolBarItem))
                 toolBar.appendChild(btn)    
             }
             else if (toolBarItem.htmlType === "seperator"){
@@ -72,7 +94,7 @@ export default class ToolBar {
                 const btn = toolBar.appendChild(div)
                 toolBar.appendChild(btn)   
             }else{
-                console.error(`Failed to create toolBarItem - ${toolBarItem}`)
+                console.error(`Failed to create toolBarItem - ${JSON.stringify(toolBarItem)}`)
             }
         })
         

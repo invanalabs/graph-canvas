@@ -18,3 +18,21 @@ button.toolbar-btn:hover{
   margin-right: 10px;
   margin-left: 5px;
 }
+
+button.toolbar-toggle {
+  /* padding: 10px 20px; */
+  /* font-size: 16px; */
+  border: none;
+  cursor: pointer;
+}
+
+
+button.toolbar-toggle.off {
+  background-color: red !important;
+  color: white;
+}
+
+button.toolbar-toggle.on {
+  background-color: green !important;
+  color: white;
+}
