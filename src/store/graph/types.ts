@@ -16,6 +16,10 @@ export interface ICanvasItemBase {
   group: string
   label?: string | undefined
   properties?: ICanvasItemProperties
+
+  isLabelVisible: boolean
+  // isShapeVisible: boolean
+
 }
 
 // export interface ICanvasItemStates {
