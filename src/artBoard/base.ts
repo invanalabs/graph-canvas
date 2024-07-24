@@ -161,7 +161,7 @@ export class ArtBoardBase {
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
     console.log("===showLabelsBasedOnZoom", zoomScale, this.isLabelsVisible)
-    if (zoomScale < 0.75){
+    if (zoomScale < 0.50){
 
       if (this.isLabelsVisible === true){
         console.log("===showLabelsBasedOnZoom < 0.60", zoomScale, this.isLabelsVisible)
@@ -215,7 +215,8 @@ export class ArtBoardBase {
 
     viewport.on("zoomed", event => {
       console.log("zoomed event", event.viewport.scaled, event)
-      this.showLabelsBasedOnZoom(event.viewport.scaled)
+      // this.showLabelsBasedOnZoom(event.viewport.scaled)
+      this.camera.onSetZoomLevel(event.viewport.scaled)
     })
     return viewport;
   }

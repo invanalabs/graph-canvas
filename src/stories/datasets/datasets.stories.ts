@@ -35,7 +35,7 @@ export const Sample1: StoryObj = {
 };
 
 export const LargeData: StoryObj = {
-  render: () => createCanvas(exampleData.nodes, exampleData.links, ) ,
+  render: () => createCanvas(exampleData.nodes, exampleData.links) ,
 };
 
 

@@ -27,15 +27,20 @@ export class Camera {
         const padding = 100;
         this.viewport.fit(true, graphWidth + padding, graphHeight + padding)
         this.artBoard.canvas.dataStore.updateMessage("zoomed to fit all the nodes")
-
+        this.onSetZoomLevel(this.viewport.scaled)
     }
 
-    setZoomLevel = (zoomLevel: number) =>{
+
+    setZoomLevel = (zoomScale: number, center: true) =>{
+        /* e.g., 1 would be 100%, 0.25 would be 25%  */
+        this.viewport.setZoom(zoomScale, center)
+    }
+
+    onSetZoomLevel = (zoomLevel: number) =>{
         console.log("==setZoomLevel", zoomLevel)
-        this.setZoom(zoomLevel , true);
+        // this.setZoom(zoomLevel , true);
         this.artBoard.showLabelsBasedOnZoom(zoomLevel)
         this.artBoard.canvas.dataStore.updateMessage(`Zoomed to ${Math.ceil(this.viewport.scaled * 100)}%`)
-
     }
     
     zoomIn = () => {
@@ -54,11 +59,7 @@ export class Camera {
         this.artBoard.canvas.dataStore.updateMessage(`Zoomed out to ${Math.ceil(this.viewport.scaled * 100)}%`)
     };
 
-    private setZoom = (zoomScale: number, center: true) =>{
-        /* e.g., 1 would be 100%, 0.25 would be 25%  */
-        this.viewport.setZoom(zoomScale, center)
-        // this.viewport.
-    }
+
       
     resetViewport = () => {
         this.viewport.center = new Point(this.viewport.worldWidth / 2, this.viewport.worldHeight / 2);
