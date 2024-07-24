@@ -85,7 +85,7 @@ export const exampleLinks: Array<ICanvasLink> = [
 export const customICanvasOptions: ICanvasOptions = {
     styles: {
         nodes: {
-            Person: {
+            Project: {
                 size: 40
             } 
         },
