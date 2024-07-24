@@ -3,7 +3,7 @@ import { CanvasLink, CanvasNode } from "../../../store";
 import { NodeShapeAbstract } from "../abstract";
 import * as PIXI from 'pixi.js';
 import { deepMerge } from "../../../utils/merge";
-import { CircleStyleDefaults } from "./circle/defaults";
+import { NodeStyleDefaults } from "./circle/defaults";
 import { NodeContainerChildNames } from "../constants";
 
 
@@ -55,7 +55,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   processData = (data: CanvasNode) => {
     console.log("======data.style before", data.group, JSON.stringify(data.style),)
     //@ts-ignore
-    data.style = data.style ? deepMerge(CircleStyleDefaults, data.style) : CircleStyleDefaults
+    data.style = data.style ? deepMerge(NodeStyleDefaults, data.style) : NodeStyleDefaults
     console.log("======data.style after", data.group, JSON.stringify(data.style));
     //@ts-ignore
     // data = { ...{ x: 0, y: 0 }, ...data }

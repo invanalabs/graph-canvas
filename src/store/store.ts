@@ -1,10 +1,15 @@
 import { FederatedPointerEvent } from "pixi.js"
-import { ILinkStateTypes, INodeStateTypes } from "../renderer/types"
+import { GraphicsStyles, INodeStyle, IShapeState, LinkStyleMapType, NodeStyleMapType } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
 import { filerLinksOfNode } from "./graph/utils"
 import { ICanvasItemProperties, ICanvasLink, ICanvasNode, IDataStore, IdString } from "./graph"
 import { IDataStoreListeners, OnLinkGfxEventListener, OnNodeGfxEventListener, } from "./events/types"
+import { ArtBoard } from "../artBoard"
+import { GraphCanvas } from "../canvas"
+import { deepMerge } from "../utils/merge"
+import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults"
+import stc from "string-to-color";
 
 
 /**
@@ -15,14 +20,17 @@ export class DataStore implements IDataStore {
   nodes: Map<IdString, CanvasNode>
   links: Map<IdString, CanvasLink>
 
+  canvas: GraphCanvas
+
   selectedNodes: Map<IdString, CanvasNode> = new Map()
   selectedLinks: Map<IdString, CanvasLink> = new Map()
 
   listeners: IDataStoreListeners
 
-  constructor() {
+  constructor(canvas: GraphCanvas) {
     this.nodes = new Map()
     this.links = new Map()
+    this.canvas = canvas
 
     this.listeners = {
       "node:data:onAdded": [],
@@ -101,11 +109,73 @@ export class DataStore implements IDataStore {
     this.selectedLinks.delete(link.id)
   }
 
+  private getNodeSizeBasedOnDegree(node: ICanvasNode, style: INodeStyle) {
+    node.degree = {}
+    if (node.degree.total === 1) {
+        return style?.size;
+    }
+    const size = style?.size + (node.degree.total * 0.02)
+    // if (size > style.size * 2){
+    //     return style.size * 2
+    // }
+    return size
+
+}
+  generateNodeStyle(node: ICanvasNode) {
+    // const nodeStyles = this.canvas.options.styles?.nodes || {};
+
+    let style: INodeStyle;
+    const nodeStyles = this.canvas.options.styles?.nodes || {}
+
+    console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn)
+    // P3 - color by group
+    if (this.canvas.options.extraSettings?.nodeColorBasedOn === "group") {
+        style = deepMerge(NodeStyleDefaults, { shape: { background: { color: stc(node.group) } } })
+        console.log("====nodeColorBasedOn", style)
+    } else {
+        style = NodeStyleDefaults
+    }
+
+    // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
+    style = deepMerge(style, nodeStyles[node.group] || {})
+
+    // P1 - this has the highest priority, 
+    style = deepMerge(style, node?.style || {});
 
 
-  addNode(node: ICanvasNode) {
+    if (this.canvas.options.extraSettings?.nodeSizeBasedOn === "degree") {
+        const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
+        console.log("nodeSize", nodeSize);
+        style = deepMerge(style, { size: nodeSize })
+    }
+
+    return style
+  }
+
+
+  calcDegree(nodeId: IdString) {
+    let incoming: number = 0;
+    let outgoing: number = 0;
+    this.links.forEach((link) => {
+      if (link.source.id === nodeId) {
+        outgoing++
+      }
+      if (link.target.id === nodeId) {
+        incoming++
+      }
+    })
+    return { incoming, outgoing, total: incoming + outgoing }
+  }
+
+  private addNode(node: ICanvasNode) {
+
+    // const linkStyles = this.canvas.options.styles?.links || {};
+
     // update the properties if node already exist
     if (!this.nodes.has(node.id)) {
+      node.degree = this.calcDegree(node.id)
+      node.style = this.generateNodeStyle(node);
+
       const nodeInstance = new CanvasNode(node)
       this.nodes.set(node.id, nodeInstance);
       this.trigger('node:data:onAdded', { id: node.id, node: nodeInstance });
@@ -114,7 +184,7 @@ export class DataStore implements IDataStore {
     }
   }
 
-  setState(item: CanvasNode | CanvasLink, stateName: INodeStateTypes | ILinkStateTypes, setNeighborsToo: boolean=false, event?: FederatedPointerEvent) {
+  setState(item: CanvasNode | CanvasLink, stateName: IShapeState, setNeighborsToo: boolean=false, event?: FederatedPointerEvent) {
     console.log("setState called", item.id, stateName, setNeighborsToo)
     if (item instanceof CanvasNode) {
       // Handle CanvasNode instance
@@ -198,10 +268,9 @@ export class DataStore implements IDataStore {
     }
   }
 
-  addLink(link: ICanvasLink) {
+  private addLink(link: ICanvasLink) {
 
     if (!this.links.has(link.id)) {
-
       // attach sourceInstance using sourceId
       const sourceId = link.source instanceof CanvasNode ? link.source.id : link.source
       const sourceNode = this.nodes.get(sourceId);
@@ -276,6 +345,9 @@ export class DataStore implements IDataStore {
    */
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
     console.log("adding nodes and links", nodes, links)
+
+
+
     // let _this = this;
     // add nodes 
     nodes.forEach(node => this.addNode(node))

@@ -1,6 +1,6 @@
 // import { ICanvas } from "pixi.js";
 
-import { GraphicsStyles } from "../renderer/types"
+import { ExtraSettings, GraphicsStyles } from "../renderer/types"
 
 export interface ICanvasOptions {
   viewElement: HTMLCanvasElement //HTMLDivElement // 
@@ -15,4 +15,6 @@ export interface ICanvasOptions {
   }
   debugMode?: boolean
   styles?: GraphicsStyles
+  extraSettings?: ExtraSettings
+
 }

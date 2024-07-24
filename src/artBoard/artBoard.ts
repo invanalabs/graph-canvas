@@ -5,14 +5,10 @@ import { GraphCanvas } from "../canvas";
 export class ArtBoard extends ArtBoardBase {
 
 
-
   constructor(canvas: GraphCanvas) {
     super(canvas)
     this.canvas = canvas
-
-
   }
-
 
   round = (value: number) => Math.round(value * 1000) / 1000;
 

@@ -35,10 +35,10 @@ export interface LinkStyleMapType {
 }
 
 export interface GraphicsStyles {
-  nodes: NodeStyleMapType
-  links: LinkStyleMapType
-  defaultNodeStyle: INodeStyle
-  defaultLinkStyle: ILinkStyle
+  nodes?: NodeStyleMapType
+  links?: LinkStyleMapType
+  defaultNodeStyle?: INodeStyle
+  defaultLinkStyle?: ILinkStyle 
 }
 
 

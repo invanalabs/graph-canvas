@@ -2,7 +2,7 @@ import { INodeStyle } from "../../../types"
 
 const defaultNodeSize = 10 * 1.5
 
-export const CircleStyleDefaults: INodeStyle = {
+export const NodeStyleDefaults: INodeStyle = {
     size: defaultNodeSize,
     // state: ":default",
     shape : {

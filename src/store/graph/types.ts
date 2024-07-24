@@ -1,5 +1,7 @@
 
-import { IShapeState } from "../../renderer/types";
+import { ArtBoard } from "../../artBoard";
+import { GraphCanvas } from "../../canvas";
+import { ILinkStyle, INodeStyle, IShapeState } from "../../renderer/types";
 import { CanvasNode } from "./nodes";
 
 
@@ -30,6 +32,8 @@ export interface ICanvasLink extends ICanvasItemBase {
   // state?: ICanvasItemStates
   shapeName? : 'straightLine' | 'curvedLine' | 'loopLine' | 'bezierCurvedLine'
   state?: IShapeState
+  style?: ILinkStyle
+
 
 }
 
@@ -38,6 +42,13 @@ export interface ICanvasNode extends ICanvasItemBase {
   y?: number | undefined
   shapeName? : 'circle'
   state?: IShapeState
+  style?: INodeStyle
+  
+  degree?: {
+    incoming: number,
+    outgoing: number,
+    total: number
+  }
 
   icon? : string,
   image?: string
@@ -47,4 +58,6 @@ export interface ICanvasNode extends ICanvasItemBase {
 export interface IDataStore {
   nodes: Map<IdString, ICanvasNode>
   links: Map<IdString, ICanvasLink>
+
+  canvas: GraphCanvas
 }

@@ -1,4 +1,4 @@
-import { DataStore, NodeEventData, LinkEventData, ICanvasNode, ICanvasLink } from "../../store";
+import { DataStore,  ICanvasNode, ICanvasLink } from "../../store";
 import { action } from '@storybook/addon-actions';
 
 

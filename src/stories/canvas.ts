@@ -13,6 +13,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
   const canvasDiv = document.createElement("canvas");
   canvasDiv.style.height = '100vh';
   canvasDiv.style.width = '100vw';
+  canvasDiv.style.background = "#222222"
   html.appendChild(canvasDiv)
 
 

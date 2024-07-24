@@ -1,6 +1,7 @@
 import { NodeShapeBase } from "../../renderer/shapes/nodes"
-import { CircleStyleDefaults } from "../../renderer/shapes/nodes/circle/defaults"
+import { NodeStyleDefaults } from "../../renderer/shapes/nodes/circle/defaults"
 import { INodeStyle, IShapeState } from "../../renderer/types"
+import { deepMerge } from "../../utils/merge"
 import CanvasItemBase from "./base"
 import { CanvasLink } from "./links"
 import {  ICanvasNode } from "./types"
@@ -16,6 +17,13 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
+
+  degree?: {
+    incoming: number,
+    outgoing: number,
+    total: number
+  }
+
 
   gfxInstance: NodeShapeBase | undefined = undefined
 
@@ -36,7 +44,15 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.state = props.state ? props.state : ":default"
     this.links  =  []
     this.neighbors = {nodes:[], links: []}
-    this.style = CircleStyleDefaults 
+    this.degree = {
+      incoming: 0,
+      outgoing: 0,
+      total: 0,
+    }
+
+    // this.style = NodeStyleDefaults 
+    this.style = deepMerge( NodeStyleDefaults,  props?.style || {})
+
   }
 
   setLinks(links: CanvasLink[]){
@@ -49,6 +65,11 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   setNeighbors(neighbors: {nodes: CanvasNode[], links: CanvasLink[]}){
     this.neighbors = neighbors
+    this.degree = {
+      incoming: 0,
+      outgoing: 0,
+      total: this.links.length,
+    }
   }
 
 

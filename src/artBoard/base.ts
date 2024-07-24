@@ -21,7 +21,7 @@ export class ArtBoardBase {
   constructor(canvas: GraphCanvas) {
     this.canvas = canvas
     // setup pixi app
-    const _this = this;
+    // const _this = this;
     // this.pixiApp = this.start_drawing();
     this.pixiApp = new PIXI.Application()
     // this.start_drawing().then(()=>{

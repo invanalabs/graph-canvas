@@ -1,5 +1,21 @@
 # TODO items 
 
+## Nodes Syling
+- [ ] color Node 
+- [ ] set size of Node
+- [ ] color by Group 
+- [ ] size by number of links 
+- [ ] size by number of inLinks 
+- [ ] size by number of outLinks  
+ 
+ ## Links Styling
+- [ ] color by Group
+- [ ] color by Linked Nodes (gradient)
+
+## OnZoom
+- [ ] at 35% zoomout, hide labels
+- [ ] at 50% zoomout, hide links 
+
 
 ## GraphCanvas
 - [x] fitview 
@@ -8,6 +24,10 @@
 - [ ] Events - ContextMenu
 - [x] redraw 
 - [x] clear
+
+
+
+
 
 ## Events/Interactions.
 - [ ] GraphCanvas - 
@@ -21,16 +41,16 @@
     - [ ] contextMenu
     - [ ] select
     - [ ] deSelect
-    - [ ] click
-    - [ ] dragStart
-    - [ ] dragEnd 
-    - [ ] dragging 
-    - [ ] hover
+    - [x] click
+    - [x] dragStart
+    - [x] dragEnd 
+    - [x] dragging 
+    - [x] hover
     - [ ] multi-select nodes
 
 ## Node
-- [ ] show image
-- [ ] show Icon 
+- [x] show image
+- [x] show Icon 
 - [ ] Add Badge 
 
 ## Link Types
@@ -40,26 +60,11 @@
 - [ ] brazierCurve
 - [ ] StepCurve 
 
-## Nodes Syling
-- [ ] color by Group 
-- [ ] size by number of links 
-- [ ] size by number of inLinks 
-- [ ] size by number of outLinks  
- 
-
- ## Links Styling
-- [ ] color by Group
-- [ ] color by Linked Nodes (gradient)
-
 ## Layers
 - [x] data 
 - [x] foreground
 - [ ] annotations
 - [ ] map
-
-## OnZoom
-- [ ] at 35% zoomout, hide labels
-- [ ] at 50% zoomout, hide links 
 
 
 ## Toolbar 

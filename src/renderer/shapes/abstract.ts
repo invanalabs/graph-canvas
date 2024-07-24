@@ -12,7 +12,7 @@ abstract class ShapeAbstractBase {
     abstract data: CanvasLink | CanvasNode;
 
     /* graphics */
-    abstract containerGfx: PIXI.Graphics;
+    abstract containerGfx: PIXI.Container;
     abstract shapeGfx: PIXI.Graphics;
     abstract labelGfx: PIXI.Graphics | undefined
 
@@ -70,7 +70,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
 
     originalData: CanvasNode | CanvasLink
     artBoard: ArtBoard
-    containerGfx: PIXI.Graphics;
+    containerGfx: PIXI.Container;
 
     declare debugBorderGfx: PIXI.Graphics | undefined
 
@@ -84,7 +84,9 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         super()
         this.originalData = data
         this.artBoard = artBoard;
-        this.containerGfx = new PIXI.Graphics()
+        this.containerGfx = new PIXI.Container(
+            // { isRenderGroup:true}
+        )
         this.containerGfx.sortableChildren = true
         // this.containerGfx.interactive = true
         // Set the cursor style to 'pointer' when hovering over the sprite

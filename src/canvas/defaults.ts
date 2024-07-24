@@ -25,5 +25,11 @@ export const defaultCanvasOptions: ICanvasOptions = {
     icons: window.devicePixelRatio * 6,
     images: window.devicePixelRatio
   },
-  debugMode: true
+  debugMode: true,
+  styles: {},
+  extraSettings: {
+    nodeSizeBasedOn: 'default',
+    nodeColorBasedOn : 'group',
+    linkColorBasedOn : 'group'
+  }
 }
