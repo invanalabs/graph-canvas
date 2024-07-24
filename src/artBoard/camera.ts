@@ -26,7 +26,8 @@ export class Camera {
         this.viewport.moveCenter(center)
         const padding = 100;
         this.viewport.fit(true, graphWidth + padding, graphHeight + padding)
- 
+        this.artBoard.canvas.dataStore.updateMessage("zoomed to fit all the nodes")
+
     }
 
     setZoomLevel = (zoomLevel: number) =>{
@@ -37,11 +38,14 @@ export class Camera {
     zoomIn = () => {
         this.viewport.zoomPercent(this.zoomPercentage, true)
         console.log(`zoomIn now at ${this.viewport.scaled}`)
+        this.artBoard.canvas.dataStore.updateMessage(`Zoom in to ${Math.ceil(this.viewport.scaled * 100)}%`)
+
     };
 
     zoomOut = () => {
         this.viewport.zoomPercent(-this.zoomPercentage, true)
         console.log(`zoomOut now at ${this.viewport.scaled}`)
+        this.artBoard.canvas.dataStore.updateMessage(`Zoom out to ${Math.ceil(this.viewport.scaled * 100)}%`)
     };
 
     setZoom = (zoomScale: number) =>{

@@ -28,6 +28,8 @@ export class Renderer {
     const links = this.artBoard.canvas.dataStore.getLinks();
     const nodes = this.artBoard.canvas.dataStore.getNodes();
     this.renderSelection(nodes, links);
+    this.artBoard.canvas.dataStore.updateMessage("Re-rendered the graphics ")
+
   }
 
   renderSelection = (nodes: CanvasNode[], links: CanvasLink[]) => {
@@ -116,6 +118,8 @@ export class Renderer {
   clear() {
     console.debug("Renderer.clear triggered ")
     this.artBoard.viewport.removeChildren()
+    this.artBoard.canvas.dataStore.updateMessage("Cleared the graphics on canvas (data still persist). ")
+
   }
 
 } 

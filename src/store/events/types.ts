@@ -69,6 +69,10 @@ export type OnLinkGfxEventData = { id: IdString, link: CanvasLink, event: Federa
 export type OnLinkGfxEventListener  = (event: OnLinkGfxEventData) => void;
 
 
+export type OnMessageChangedEventData = { message: string };
+export type OnMessageChangedEventListener  = (event: OnMessageChangedEventData) => void;
+
+
 
 export interface IDataStoreListeners {
   "node:data:onAdded": onNodeAddedEventListener[];
@@ -98,6 +102,7 @@ export interface IDataStoreListeners {
   "link:gfx:onContextMenu": OnLinkGfxEventListener[],
   "link:gfx:onMoved": OnLinkGfxEventListener[],
   
+  "artBoard:onMessageChanged": OnMessageChangedEventListener[]
 
 
 }

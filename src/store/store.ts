@@ -22,6 +22,8 @@ export class DataStore implements IDataStore {
 
   canvas: GraphCanvas
 
+  message: string | null = null
+
   selectedNodes: Map<IdString, CanvasNode> = new Map()
   selectedLinks: Map<IdString, CanvasLink> = new Map()
 
@@ -60,11 +62,13 @@ export class DataStore implements IDataStore {
       "link:gfx:onContextMenu": [],
       "link:gfx:onMoved": [],
 
+      "artBoard:onMessageChanged": [],
+
     }
   }
 
   // Register event listeners
-  on(event: keyof IDataStoreListeners, listener: OnNodeGfxEventListener | OnLinkGfxEventListener) {
+  on(event: keyof IDataStoreListeners, listener: any) {
     if (this.listeners[event]) {
       this.listeners[event].push(listener as any);
     } else {
@@ -73,7 +77,7 @@ export class DataStore implements IDataStore {
   }
 
   // Remove event listeners
-  off(event: keyof IDataStoreListeners, listener?: OnNodeGfxEventListener | OnLinkGfxEventListener | undefined) {
+  off(event: keyof IDataStoreListeners, listener?: any) {
     if (this.listeners[event]) {
       if (listener) {
         // @ts-ignore
@@ -345,9 +349,7 @@ export class DataStore implements IDataStore {
    */
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
     console.log("adding nodes and links", nodes, links)
-
-
-
+    this.canvas.dataStore.updateMessage("Drawing new data")
     // let _this = this;
     // add nodes 
     nodes.forEach(node => this.addNode(node))
@@ -384,6 +386,11 @@ export class DataStore implements IDataStore {
     });
     const neighbors = { nodes: Array.from(relatedNodes.values()), links: neighborLinks };
     return neighbors
+  }
+
+  updateMessage = (message: string | null) => {
+    this.message = message
+    this.trigger('artBoard:onMessageChanged', { message });
   }
 
 }

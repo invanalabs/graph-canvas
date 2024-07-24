@@ -2,7 +2,7 @@ import { ArtBoard } from "../../artBoard";
 import { CanvasLink } from "../graph";
 import { EventEmitterAbstract } from "./abstract";
 import { OnLinkAddedEventData, OnLinkDeletedEventData, OnLinkGfxEventData, 
-  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData, OnNodeAddedEventData, 
+  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData, OnMessageChangedEventData, OnNodeAddedEventData, 
    OnNodeDeletedEventData, OnNodeGfxEventData, OnNodeLinksUpdatedEventData,  
    OnNodePropertiesUpdatedEventData, OnNodeStateUpdateEventData } from "./types";
 
@@ -35,7 +35,6 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
 
-
   onLinkAdded = ({ id, link }: OnLinkAddedEventData) => {
     console.log("emitter:onLinkdded", id, link);
     this.artBoard.renderer.renderLink(link)
@@ -49,8 +48,6 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     console.log("emitter:onLinkPropertiesUpdated", id, link);
   }
 
-
-
   // states
   onNodeStateUpdated = ({id, node, state, event, setNeighborsToo}: OnNodeStateUpdateEventData) => {
     if (node){
@@ -63,7 +60,6 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
       link.gfxInstance?.applyStateUpdate(setNeighborsToo, event);
     }
   }
-
 
   onNodePointerIn = ({ id, node, event }: OnNodeGfxEventData) => {
     console.error("emitter:onNodePointerIn", id, node);
@@ -123,5 +119,8 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     console.error("emitter:onLinkMoved", id, link);
   }
   
+  // onMessageChanged = ({message}: OnMessageChangedEventData)=>{
+  //   this.artBoard.canvas.dataStore.updateMessage(message)
+  // }
 
 }

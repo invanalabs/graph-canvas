@@ -1,5 +1,6 @@
 import { GraphCanvas, ICanvasOptions } from "../canvas";
 import ToolBar from "../plugins/toolbar";
+import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
 import D3ForceLayout from "./layouts/d3-force/layout";
 import DagreLayout from "./layouts/dagre/layout";
@@ -35,6 +36,16 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         console.log("font loaded ", fontFamilyname)
         document.fonts.add(loadedFont);
         canvas.dataStore.add(nodes, links)
+        const toolbar = new ToolBar(canvas.artBoard);
+        const toolBarHTMLDiv = toolbar.render()
+        html.appendChild(toolBarHTMLDiv)
+
+
+        const messageBar = new MessageBar(canvas.artBoard);
+        const messageDiv  = messageBar.render()
+        html.appendChild(messageDiv)
+
+        
         if (layout === 'd3-force') {
           const layoutInstance = new D3ForceLayout(canvas);
           layoutInstance?.add2Layout(nodes, links);
@@ -42,13 +53,11 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         else if (layout === 'dagre') {
           const layoutInstance = new DagreLayout(canvas);
           layoutInstance?.add2Layout(nodes, links);
+        }else{
+          canvas.artBoard.camera.fitView();
         }
-        canvas.artBoard.camera.fitView();
         // canvas.camera.moveNodesToWorldCenter();
         // draw toolbar 
-        const toolbar = new ToolBar(canvas.artBoard);
-        const toolBarHTMLDiv = toolbar.render()
-        html.appendChild(toolBarHTMLDiv)
 
         // Creating a GUI and a subfolder.
         // const gui = new dat.GUI();
