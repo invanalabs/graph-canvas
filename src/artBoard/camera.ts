@@ -36,7 +36,6 @@ export class Camera {
     
     zoomIn = () => {
         this.viewport.zoomPercent(this.zoomPercentage, true)
-
         console.log(`zoomIn now at ${this.viewport.scaled}`)
     };
 

@@ -48,9 +48,9 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.onDragStart = this.onDragStart.bind(this);
     this.onDragMove = this.onDragMove.bind(this);
     this.onDragEnd = this.onDragEnd.bind(this);
-
-
   }
+
+
 
   processData = (data: CanvasNode) => {
     console.log("======data.style before", data.group, JSON.stringify(data.style),)

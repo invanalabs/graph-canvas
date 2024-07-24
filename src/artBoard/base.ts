@@ -5,6 +5,7 @@ import { Camera } from "./camera";
 import { Renderer } from "../renderer/renderer";
 import { DefaultEventEmitter } from "../store/events/emitter";
 import { EventEmitterAbstract } from "../store/events/abstract";
+import { CanvasLink, CanvasNode } from "../store";
 
 
 export class ArtBoardBase {
@@ -15,11 +16,13 @@ export class ArtBoardBase {
   renderer: Renderer
   camera: Camera
   events: EventEmitterAbstract
+  isLabelsVisible : boolean = true
 
   worldScale: number = 10
 
   constructor(canvas: GraphCanvas) {
     this.canvas = canvas
+    // this.isLabelsVisible = false
     // setup pixi app
     // const _this = this;
     // this.pixiApp = this.start_drawing();
@@ -127,6 +130,55 @@ export class ArtBoardBase {
     // The stage will handle the move events
   }
 
+  hideNodeLabels = () => {
+    this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
+      node.gfxInstance?.hideLabel()
+    })
+
+
+  }
+
+  showNodeLabels = () => {
+    this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
+      node.gfxInstance?.showLabel()
+    })
+  }
+
+  hideLinkLabels = () => {
+    this.canvas.dataStore.getLinks().forEach((link: CanvasLink)=> {
+      link.gfxInstance?.hideLabel()
+    })
+  }
+
+  showLinkLabels = () => {
+    this.canvas.dataStore.getLinks().forEach((link: CanvasLink)=> {
+      link.gfxInstance?.showLabel()
+    })
+  }
+
+  showLabelsBasedOnZoom = (zoomScale: number) => {
+    console.log("===showLabelsBasedOnZoom", zoomScale, this.isLabelsVisible)
+    if (zoomScale < 0.75){
+
+      if (this.isLabelsVisible === true){
+        console.log("===showLabelsBasedOnZoom < 0.60", zoomScale, this.isLabelsVisible)
+
+        // hide label
+        this.hideNodeLabels()
+        this.hideLinkLabels()
+        this.isLabelsVisible = false
+      }
+    }else{
+      // show labels
+      if (this.isLabelsVisible === false){
+        this.showNodeLabels()
+        this.showLinkLabels()
+        this.isLabelsVisible = true
+      }
+    }
+  
+  }
+
   createViewport(): Viewport {
     const canvasSizeOptions = this.getCanvasSizeOptions()
     console.log("--canvasSizeOptions", canvasSizeOptions)
@@ -155,10 +207,12 @@ export class ArtBoardBase {
 
     viewport.on("zoomed-end", event => {
       console.log("zoomed-end event", event)
+      // this.showLabelsBasedOnZoom(event.viewport.scaled)
     })
 
     viewport.on("zoomed", event => {
-      console.log("zoomed event", event)
+      console.log("zoomed event", event.viewport.scaled, event)
+      this.showLabelsBasedOnZoom(event.viewport.scaled)
     })
     return viewport;
   }

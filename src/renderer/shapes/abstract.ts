@@ -63,6 +63,9 @@ abstract class ShapeAbstractBase {
     abstract moveToDataLayer(): void
     // abstract moveToMapLayer(): void
 
+    abstract hideLabel() : void
+    abstract showLabel(): void
+
 }
 
 
@@ -98,6 +101,18 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         // this.containerGfx.eventMode = 'static';
     }
 
+    hideLabel = () => { 
+        if (this.labelGfx){
+            this.labelGfx.visible = false
+        }
+    }
+        
+    showLabel = () => { 
+        if (this.labelGfx){
+          this.labelGfx.visible = true
+        }
+    }
+
     // Function to recursively set interactive and cursor properties on all children
     setInteractiveRecursive(container: PIXI.Graphics) {
         container.interactive = true;
@@ -129,6 +144,8 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
 
 
 
+
+ 
 
     drawDebugBorder(x: number, y: number) {
         // Calculate the bounding box
