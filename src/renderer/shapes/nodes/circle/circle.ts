@@ -90,9 +90,9 @@ class Circle extends NodeShapeBase {
 
                         // Create a circular mask
                         const mask = new Graphics();
-                        mask.beginFill(0xffffff);
-                        mask.drawCircle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
-                        mask.endFill();
+                        // mask.beginFill(0xffffff);
+                        mask.circle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
+                        mask.fill(0xffffff);
 
                         // mask.anchor.set(0.5)
                         // Position the mask at the center of the sprite

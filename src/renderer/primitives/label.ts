@@ -1,4 +1,4 @@
-import { Graphics, TextStyle, Text, Rectangle } from "pixi.js"
+import { Graphics, TextStyle, Text } from "pixi.js"
 import { IShapeLabelStyle } from "../types";
 import { NodeContainerChildNames } from "../shapes/constants";
 
@@ -56,25 +56,19 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
         // add background and text to gfx
         labelGfx.addChild(textBackground)
     }
-
-    // border: {
-    //     thickness: 1,
-    //     type: "solid",
-    //     color: "#efefef"
-    // },
-
-
-    labelGfx.addChild(text)
-
-    // labelGfx.hitArea = new Rectangle(
+    // const mask = new Graphics();
+    // mask.rect(
     //     // props.padding * -1 , props.padding * -1, 
     //     0, 0, 
-    //     textBounds.width + props.padding , 
+    //     textBounds.width + (props.padding * 2) , 
     //     textBounds.height // + props.padding 
-    // );
-    // labelGfx.cursor = 'pointer';
+    // ); // Draw rectangle behind the text
+    // // mask.fill(0xffffff);
+    // mask.fill("#222222")
+    // text.mask = mask
 
-
+    // labelGfx.addChild(mask)
+    labelGfx.addChild(text)
     return labelGfx
 }
 

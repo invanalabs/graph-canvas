@@ -212,6 +212,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label })
       labelGfx.name = LinkContainerChildNames.label
       labelGfx.visible = this.data.isLabelVisible
+      this.containerGfx.addChild(labelGfx)
       return labelGfx
     }
     //  else {
