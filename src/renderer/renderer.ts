@@ -23,21 +23,23 @@ export class Renderer {
     this.textureStore = new TextureStore(this.artBoard)
   }
 
-  renderAll() {
+  render() {
     console.debug("Renderer.renderAll triggered ", this.artBoard.canvas.dataStore.getNodes())
+    this.clear()
     const links = this.artBoard.canvas.dataStore.getLinks();
     const nodes = this.artBoard.canvas.dataStore.getNodes();
     this.renderSelection(nodes, links);
     this.artBoard.canvas.dataStore.updateMessage("Re-rendered the graphics ")
+  }
 
+  reRender(){
+    this.render()
   }
 
   renderSelection = (nodes: CanvasNode[], links: CanvasLink[]) => {
     console.debug("Renderer.render triggered ", nodes, links)
-
     nodes.forEach((node: CanvasNode)=> this.renderNode(node))
     links.forEach((link: CanvasLink)=> this.renderLink(link))
-  
   }
 
   renderNode(node: CanvasNode) {
@@ -118,8 +120,7 @@ export class Renderer {
   clear() {
     console.debug("Renderer.clear triggered ")
     this.artBoard.viewport.removeChildren()
-    this.artBoard.canvas.dataStore.updateMessage("Cleared the graphics on canvas (data still persist). ")
-
+    this.artBoard.canvas.dataStore.updateMessage("Cleared the graphics on canvas (data still persist).")
   }
 
 } 

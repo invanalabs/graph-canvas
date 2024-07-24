@@ -24,7 +24,7 @@ export default class ToolBar {
                 htmlType: "button",
                 label: "redraw",
                 helpText: "re draw the items on the canvas",
-                onClickListener: () => this.artBoard.renderer.renderAll()
+                onClickListener: () => this.artBoard.renderer.reRender()
             },
             {
                 htmlType: "button",
