@@ -32,25 +32,31 @@ export class Camera {
 
     setZoomLevel = (zoomLevel: number) =>{
         console.log("==setZoomLevel", zoomLevel)
-        this.viewport.setZoom(zoomLevel , true);
+        this.setZoom(zoomLevel , true);
+        this.artBoard.showLabelsBasedOnZoom(zoomLevel)
+        this.artBoard.canvas.dataStore.updateMessage(`Zoomed to ${Math.ceil(this.viewport.scaled * 100)}%`)
+
     }
     
     zoomIn = () => {
         this.viewport.zoomPercent(this.zoomPercentage, true)
-        console.log(`zoomIn now at ${this.viewport.scaled}`)
-        this.artBoard.canvas.dataStore.updateMessage(`Zoom in to ${Math.ceil(this.viewport.scaled * 100)}%`)
+        // console.log(`zoomIn now at ${this.viewport.scaled}`)
+        this.artBoard.showLabelsBasedOnZoom(this.viewport.scaled)
+        this.artBoard.canvas.dataStore.updateMessage(`Zoomed in to ${Math.ceil(this.viewport.scaled * 100)}%`)
 
     };
 
     zoomOut = () => {
         this.viewport.zoomPercent(-this.zoomPercentage, true)
-        console.log(`zoomOut now at ${this.viewport.scaled}`)
-        this.artBoard.canvas.dataStore.updateMessage(`Zoom out to ${Math.ceil(this.viewport.scaled * 100)}%`)
+        // console.log(`zoomOut now at ${this.viewport.scaled}`)
+        this.artBoard.showLabelsBasedOnZoom(this.viewport.scaled)
+
+        this.artBoard.canvas.dataStore.updateMessage(`Zoomed out to ${Math.ceil(this.viewport.scaled * 100)}%`)
     };
 
-    setZoom = (zoomScale: number) =>{
+    private setZoom = (zoomScale: number, center: true) =>{
         /* e.g., 1 would be 100%, 0.25 would be 25%  */
-        this.viewport.setZoom(zoomScale)
+        this.viewport.setZoom(zoomScale, center)
         // this.viewport.
     }
       

@@ -18,18 +18,24 @@ class D3ForceLayout {
     createLayoutSimulation() {
         const _this = this;
 
-        // const { centerX, centerY } = this.getCenter();
+        const { centerX, centerY } = this.getCenter();
         const nodes = this.canvas.dataStore.getNodes();
         const links = this.canvas.dataStore.getLinks();
         const simulation = d3.forceSimulation(nodes)
             .force("link",d3.forceLink(links).id((link) => link.id)) // .distance((link)=> 250)
-            .force("charge", d3.forceManyBody().strength(-700)) // This adds repulsion (if it's negative) between nodes.
-            // .force("center", d3.forceCenter(centerX, centerY))
-            // .force("center", d3.forceCenter())
-            // .force("collision", d3.forceCollide().radius((d) => d.style.size + 15)) ///.iterations(2))
+            .force("charge", d3.forceManyBody().strength(-400)) // This adds repulsion (if it's negative) between nodes.
+            .force("center", d3.forceCenter(centerX, centerY))
+            .force("collision", d3.forceCollide((d) => d.size + 15)) ///.iterations(2))
             // .velocityDecay(0.4)
             // .stop()
-            .tick(100)
+            // .alphaTarget(0.3) // stay hot
+            // .velocityDecay(0.1) // low friction
+            // .force("x", d3.forceX().strength(0.01))
+            // .force("y", d3.forceY().strength(0.01))
+            // .force("collide", d3.forceCollide().radius(d => d.size * 1.5).iterations(3))
+            // .force("charge", d3.forceManyBody().strength((d, i) => i ? 0 : -width * 2 / 3))
+
+            .tick(1000)
 
 
             // .force('link').links(links)
