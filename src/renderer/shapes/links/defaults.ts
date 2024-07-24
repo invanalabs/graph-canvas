@@ -1,4 +1,4 @@
-import { ILinkStyle } from "../../../types";
+import { ILinkStyle } from "../../types";
 
 export const LinkStyleDefaults: ILinkStyle = {
     state: ":default",
@@ -16,13 +16,13 @@ export const LinkStyleDefaults: ILinkStyle = {
         padding: 3,
         border: {
             thickness: 1,
-            color: "#efefef",
+            color: "#999999",
             type: "solid"
         },
         text: {
-            color: "#ffffff",
+            color: "#999999",
             font: {
-                size: 12,
+                size: 10,
                 family: "Arial"
             }
         }
