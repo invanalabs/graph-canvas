@@ -171,7 +171,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       })
 
       .on('pointerup', (event) => {
-        const pointerPosition = event.data.global;
+        // const pointerPosition = event.data.global;
         // console.log("pointerup", this.data.id, this.data.state, this.containerGfx.containsPoint(pointerPosition))
         // event.stopPropagation();
         this.dragData = null
