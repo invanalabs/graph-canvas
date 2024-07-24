@@ -1,21 +1,41 @@
+/**
+ * Generate utily functions
+ */
+
 type Dict = { [key: string]: any };
 
-export function deepMerge(target: Dict, source: Dict): Dict {
-    const merged: Dict = { ...target };
+/**
+ * Merge two objects - use for overriding defaults with user input, which may
+ * be partical data
+ * @param target - data object on to which overrides should be applied
+ * @param overrides - override values to be applied on target.
+ * @returns Merged data
+ */
+export const deepMerge = (target: Dict, overrides: Dict): Dict => {
+  const merged: Dict = { ...target }
 
-    for (const key in source) {
-        if (typeof source[key] === 'object' && source[key] !== null) {
-            if (typeof merged[key] === 'object' && merged[key] !== null) {
-                merged[key] = deepMerge(merged[key], source[key]);
-            } else {
-                merged[key] = deepMerge({}, source[key]);
-            }
+  for (const key in overrides) {
+    // console.debug("===overrides[key] instanceof HTMLElement", key, overrides[key] instanceof HTMLElement)
+
+    if (Object.prototype.hasOwnProperty.call(overrides, key)) {
+
+      if (typeof overrides[key] === 'object' && overrides[key] !== null) {
+        if (overrides[key] instanceof HTMLElement || overrides[key] instanceof HTMLCanvasElement) {
+          // Directly assign the HTMLElement or HTMLCanvasElement
+          merged[key] = overrides[key]
+        } else if (typeof merged[key] === 'object' && merged[key] !== null &&
+                   !(merged[key] instanceof HTMLElement) && !(merged[key] instanceof HTMLCanvasElement)) {
+          merged[key] = deepMerge(merged[key] as Dict, overrides[key] as Dict)
         } else {
-            merged[key] = source[key];
+          merged[key] = deepMerge({}, overrides[key] as Dict)
         }
+      } else {
+        merged[key] = overrides[key]
+      }
     }
+  }
 
-    return merged;
+  return merged
 }
 
-// export deepMerge
+

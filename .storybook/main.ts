@@ -5,6 +5,7 @@ const config: StorybookConfig = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
+    '@storybook/addon-docs',
     "@storybook/addon-interactions",
   ],
   framework: {
@@ -12,7 +13,7 @@ const config: StorybookConfig = {
     options: {},
   },
   docs: {
-    autodocs: "tag",
+    autodocs: "tag"
   },
 };
 export default config;

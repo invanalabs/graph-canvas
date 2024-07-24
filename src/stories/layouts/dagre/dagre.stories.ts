@@ -8,7 +8,7 @@ const nodesCleaned = data.nodes.map((node: any) => {
         id: node.id,
         label: node.id,
         group: node.group,
-        properties: {}
+        data: {}
     }
 })
 
@@ -18,13 +18,13 @@ const linksCleaned = data.links.map((link: any)=>{
         source: link.source,
         target: link.target,
         group: "relation",
-        properties: {
+        data: {
             value: link.value
         }
     }
 })
 
-const customCanvasOptions = {
+const customICanvasOptions = {
   styles: {
       nodes: {}
   }
@@ -40,11 +40,11 @@ nodeGroups.forEach(group => {
  
 
 console.log("==nodeStyles", nodeStyles)
-customCanvasOptions.styles.nodes = nodeStyles
+customICanvasOptions.styles.nodes = nodeStyles
 
 const meta = {
   title: 'Layout/dagre',
-  render: () => createCanvas(nodesCleaned, linksCleaned, customCanvasOptions, 'dagre') ,
+  render: () => createCanvas(nodesCleaned, linksCleaned, customICanvasOptions, 'dagre') ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',

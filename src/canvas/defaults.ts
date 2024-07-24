@@ -1,29 +1,35 @@
-import { LinkStyleDefaults, NodeStyleDefaults } from "../graphics/defaults";
-import { RendererTypes } from "./constants";
-import { CanvasOptions, ScreenOptions } from "./types";
+import { ICanvasOptions } from "./types"
+// import * as PIXI from "pixi.js" 
+
+// PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.LINEAR
 
 
-export const defaultScreenOptions: ScreenOptions = {
-    width: 800,
-    height: 600
+const getDefaultViewDiv  = () => {
+  const div: HTMLCanvasElement = document.createElement('canvas')
+  div.width = 800;  // Set the actual width of the canvas
+  div.height = 800; // Set the actual height of the canvas
+  div.style.width = '800px';  // Set the CSS width of the canvas
+  div.style.height = '800px'; // Set the CSS height of the canvas
+  return div  
 }
 
-export const defaultCanvasOptions: CanvasOptions = {
-    // viewDiv:
-    background: "#222222",
-    //@ts-ignore
-    renderer: RendererTypes.WebGL,
-    screen: defaultScreenOptions,
-    resolution:  (window.devicePixelRatio | 2) + 4,
-    extraSettings: {
-        nodeSizeBasedOn: 'default',
-        nodeColorBasedOn : 'group',
-        linkColorBasedOn : 'group'
-    }, 
-    styles: {
-        defaultLinkStyle: LinkStyleDefaults,
-        defaultNodeStyle: NodeStyleDefaults,
-        nodes: {},
-        links: {}
-    }
+const defaultViewDiv =  getDefaultViewDiv();
+export const defaultCanvasOptions: ICanvasOptions = {
+  viewElement: defaultViewDiv,
+  background: "#222222",
+  resolution: {
+    nodes: window.devicePixelRatio * 4,
+    links: window.devicePixelRatio,
+    canvas: window.devicePixelRatio, // WARNING - dont change this;
+    labels: window.devicePixelRatio * 2,
+    icons: window.devicePixelRatio * 6,
+    images: window.devicePixelRatio
+  },
+  debugMode: true,
+  styles: {},
+  extraSettings: {
+    nodeSizeBasedOn: 'default',
+    nodeColorBasedOn : 'group',
+    linkColorBasedOn : 'group'
+  }
 }

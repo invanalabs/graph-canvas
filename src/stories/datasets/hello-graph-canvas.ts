@@ -1,11 +1,12 @@
-import { CanvasNode, CanvasLink } from "../../graphics/types";
+import { ICanvasLink } from "../../data/links";
+import { ICanvasNode } from "../../data/nodes";
 
-export const exampleNodes : Array<CanvasNode> = [
+export const exampleNodes : Array<ICanvasNode> = [
     {
         id: '1',
         group: 'Person',
         label: 'Ravi',
-        shape: 'circle',
+        shapeName: 'circle',
         x: 100,
         y: 200,
     },
@@ -13,19 +14,19 @@ export const exampleNodes : Array<CanvasNode> = [
         id: '2',
         group: 'Project',
         label: 'Graph Canvas',
-        shape: 'circle',
+        shapeName: 'circle',
         x: 450,
         y: 200
     }
 ];
 
-export const exampleLinks: Array<CanvasLink> = [
+export const exampleLinks: Array<ICanvasLink> = [
     {
         id: '1-2',
         group: 'authored',
         label: '1-2:authored',
         source: '1',
         target: '2',
-        shape: 'line'
+        shapeName: 'straightLine'
     }    
 ];
