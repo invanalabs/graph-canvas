@@ -1,5 +1,5 @@
 import { ArtBoard } from "../../artBoard";
-import { createToolBarButton, IToolBarButton } from "../../utils/html";
+import { createToolBarButton, IToolBarButton } from "./html";
 import "./toolbar.css"
 
 export default class ToolBar {
@@ -21,37 +21,59 @@ export default class ToolBar {
         
         const toolBarItems: IToolBarButton[] = [
             {
+                htmlType: "button",
                 label: "redraw",
                 helpText: "re draw the items on the canvas",
                 onClickListener: () => this.artBoard.renderer.renderAll()
             },
             {
+                htmlType: "button",
                 label: "clear",
                 helpText: "clears the items on the canvas",
                 onClickListener: () => this.artBoard.renderer.clear()
             },
             {
-                label: "-",
+                htmlType : "seperator",
+                label: '|'
+            },
+            {
+                htmlType: "button",
+                label: "+",
                 helpText: "zoom in to the canvas",
                 onClickListener: () => this.artBoard.camera.zoomIn()
             },
             {
+                htmlType: "button",
                 label: "fitview",
                 helpText: "clears the items on the canvas",
                 onClickListener: () => this.artBoard.camera.fitView()
             },
             {
-                label: "+",
+                htmlType: "button",
+                label: "-",
                 helpText: "zoom out of the canvas",
                 onClickListener: () => this.artBoard.camera.zoomOut()
             },
-           
-            
-
+            // {
+            //     htmlType : "seperator",
+            //     label: '|'
+            // },
+    
         ]
         toolBarItems.forEach(toolBarItem=> {
-            const btn = toolBar.appendChild(createToolBarButton(toolBarItem))
-            toolBar.appendChild(btn)
+            if (toolBarItem.htmlType === "button"){
+                const btn = toolBar.appendChild(createToolBarButton(toolBarItem))
+                toolBar.appendChild(btn)    
+            }
+            else if (toolBarItem.htmlType === "seperator"){
+                const div = document.createElement("span")
+                div.classList.add('toolbar-seperator')
+                div.innerHTML = toolBarItem.label
+                const btn = toolBar.appendChild(div)
+                toolBar.appendChild(btn)   
+            }else{
+                console.error(`Failed to create toolBarItem - ${toolBarItem}`)
+            }
         })
         
  

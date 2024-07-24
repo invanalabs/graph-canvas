@@ -12,3 +12,9 @@ button.toolbar-btn:hover{
   border-color:  #efefef;
   color: #efefef;
 }
+
+.toolbar-seperator{
+  color: #5393e0;
+  margin-right: 10px;
+  margin-left: 5px;
+}

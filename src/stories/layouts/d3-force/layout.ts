@@ -18,13 +18,13 @@ class D3ForceLayout {
     createLayoutSimulation() {
         const _this = this;
 
-        const { centerX, centerY } = this.getCenter();
+        // const { centerX, centerY } = this.getCenter();
         const nodes = this.canvas.dataStore.getNodes();
         const links = this.canvas.dataStore.getLinks();
         const simulation = d3.forceSimulation(nodes)
             .force("link",d3.forceLink(links).id((link) => link.id)) // .distance((link)=> 250)
-            .force("charge", d3.forceManyBody().strength(-500)) // This adds repulsion (if it's negative) between nodes.
-            .force("center", d3.forceCenter(centerX, centerY))
+            .force("charge", d3.forceManyBody().strength(-700)) // This adds repulsion (if it's negative) between nodes.
+            // .force("center", d3.forceCenter(centerX, centerY))
             // .force("center", d3.forceCenter())
             // .force("collision", d3.forceCollide().radius((d) => d.style.size + 15)) ///.iterations(2))
             // .velocityDecay(0.4)
