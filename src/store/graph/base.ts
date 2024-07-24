@@ -13,6 +13,8 @@ export default class CanvasItemBase implements ICanvasItemBase {
 
   layer: string = "default" // cover this to use LAYER_TYPES_CONSTANTS.keys
 
+  isVisible: boolean = true
+
   gfxInstance: NodeShapeBase | LinkShapeBase | undefined = undefined
 
   constructor(props: ICanvasItemBase) {

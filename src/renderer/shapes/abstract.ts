@@ -104,12 +104,14 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     hideLabel = () => { 
         if (this.labelGfx){
             this.labelGfx.visible = false
+            this.data.isVisible = false
         }
     }
         
     showLabel = () => { 
         if (this.labelGfx){
           this.labelGfx.visible = true
+          this.data.isVisible = true
         }
     }
 
