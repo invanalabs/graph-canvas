@@ -36,7 +36,7 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
 
         textBackground.beginFill(
             props?.background.color,
-            props?.background.opacity
+            // props?.background.opacity
         ); // Background color
 
         textBackground.drawRect(
