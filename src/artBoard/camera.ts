@@ -34,6 +34,7 @@ export class Camera {
     setZoomLevel = (zoomScale: number, center: true) =>{
         /* e.g., 1 would be 100%, 0.25 would be 25%  */
         this.viewport.setZoom(zoomScale, center)
+        this.onSetZoomLevel(this.viewport.scaled)
     }
 
     onSetZoomLevel = (zoomLevel: number) =>{
