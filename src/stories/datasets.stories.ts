@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from '../canvas';
-import { exampleLinks, exampleNodes } from "./hello-graph-canvas";
-import exampleData from './large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
-import { customICanvasOptions } from '../styling/nodes/circle/circle';
-import {sample1DataSet} from "./sample1"
+import { createCanvas } from './canvas';
+import { exampleLinks, exampleNodes } from "./datasets/hello-world";
+import exampleData from './datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
+import { customICanvasOptions } from './styling/nodes/circle/circle';
+import {sample1DataSet} from "./datasets/sample1"
 
 
 const meta = {

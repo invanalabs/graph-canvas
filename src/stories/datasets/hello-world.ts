@@ -1,5 +1,5 @@
-import { ICanvasLink } from "../../data/links";
-import { ICanvasNode } from "../../data/nodes";
+import { ICanvasLink, ICanvasNode } from "../../store";
+
 
 export const exampleNodes : Array<ICanvasNode> = [
     {
