@@ -29,7 +29,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   state: IShapeState = ":default"
 
-  style: INodeStyle
+  style: INodeStyle = NodeStyleDefaults
 
 
   constructor(props: ICanvasNode){
@@ -50,8 +50,15 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
       total: 0,
     }
 
+    if (this.id === "Valjean"){
+      console.log("=====ICanvasNode node.id ", this.style, JSON.stringify(props.style))
+    }
+
     // this.style = NodeStyleDefaults 
     this.style = deepMerge( NodeStyleDefaults,  props?.style || {})
+    // this.style = props?.style
+
+
 
   }
 

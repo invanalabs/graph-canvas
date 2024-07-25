@@ -36,7 +36,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   processData = (data: CanvasLink) => {
     //@ts-ignore
-    data.style = data.style ? deepMerge(LinkStyleDefaults, data.style) : LinkStyleDefaults
+    // data.style = data.style ? deepMerge(LinkStyleDefaults, data.style) : LinkStyleDefaults
     return data;
   }
 

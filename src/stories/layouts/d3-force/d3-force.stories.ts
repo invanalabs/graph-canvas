@@ -1,10 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../../canvas';
 import data from "../../datasets/miserables.json";
-import { stringToColor } from '../../utils';
-// import stc from "string-to-color";
 import { ICanvasLink, ICanvasNode } from '../../../store';
-import { ICanvasOptions } from '../../../canvas';
+// import stc from "string-to-color";
 
 
 const nodesCleaned = data.nodes.map((node: any): ICanvasNode => {
@@ -14,7 +12,8 @@ const nodesCleaned = data.nodes.map((node: any): ICanvasNode => {
         group: "group-" + node.group.toString(),
         properties: {
           value: node.value
-        }
+        },
+        style: node.style
     }
 })
 
@@ -26,7 +25,8 @@ const linksCleaned = data.links.map((link: any): ICanvasLink => {
         target: link.target,
         properties: {
             value: link.value
-        }
+        },
+        style: link.style
     }
 })
 

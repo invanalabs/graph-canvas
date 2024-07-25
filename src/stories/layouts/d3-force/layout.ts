@@ -27,6 +27,12 @@ class D3ForceLayout {
         const { centerX, centerY } = this.getCenter();
         const { worldWidth, worldHeight } = this.canvas.artBoard.getCanvasSizeOptions()
         const nodes = this.canvas.dataStore.getNodes();
+        console.log("=====nodes", nodes)
+        nodes.forEach((node)=> {
+            // if (node.id === "Valjean"){
+                console.log(`=======node.id ${node.id} - ${node.style.size}`)
+            // }
+        })
         const links = this.canvas.dataStore.getLinks();
         const simulation = d3.forceSimulation(nodes)
             // .force("link",d3.forceLink(links).id((link) => link.id))//.distance((link)=> 250))

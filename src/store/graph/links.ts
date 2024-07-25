@@ -33,6 +33,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
     this.shapeName = props.shapeName? props.shapeName :  "straightLine"
 
         // this.style = NodeStyleDefaults 
+    // this.style = props?.style
     this.style = deepMerge( LinkStyleDefaults,  props?.style || {})
   }
 
