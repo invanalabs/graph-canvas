@@ -29,7 +29,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
     // console.log("====options", options)
     const canvas = new GraphCanvas(options,);
 
-    canvas.artBoard.start_drawing().then(() => {
+    canvas.artBoard.init().then(() => {
       console.log("====start_drawing started")
       const fontFamilyname = 'FontAwesome';
       const fontUrl = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2'
@@ -38,7 +38,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         console.log("font loaded ", fontFamilyname)
         document.fonts.add(loadedFont);
 
-
+        // canvas.artBoard.
         canvas.dataStore.add(nodes, links)
 
 

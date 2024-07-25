@@ -85,7 +85,7 @@ export class ArtBoardBase {
     }
   }
 
-  start_drawing = () => {
+  init = () => {
 
     const _this = this;
     console.log("start_drawing this.options", this.canvas.options)
@@ -96,7 +96,7 @@ export class ArtBoardBase {
       view: this.canvas.options.viewElement,
       antialias: true,
       resizeTo: window,
-      preference: "webgpu",
+      // preference: "webgpu",
       autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
       autoDensity: true,
       resolution: window.devicePixelRatio, /// 2 for retina displays
@@ -204,13 +204,13 @@ export class ArtBoardBase {
       })
 
 
-    viewport.on("zoomed-end", event => {
-      console.log("zoomed-end event", event)
-      // this.showLabelsBasedOnZoom(event.viewport.scaled)
-    })
+    // viewport.on("zoomed-end", event => {
+    //   console.log("zoomed-end event", event)
+    //   // this.showLabelsBasedOnZoom(event.viewport.scaled)
+    // })
 
     viewport.on("zoomed", event => {
-      console.log("zoomed event", event.viewport.scaled, event)
+      // console.log("zoomed event", event.viewport.scaled, event)
       // this.showLabelsBasedOnZoom(event.viewport.scaled)
       this.camera.onSetZoomLevel(event.viewport.scaled)
     })

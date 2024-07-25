@@ -38,4 +38,11 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
   }
 
 
+  setStyle(style: ILinkStyle) {
+    this.style = style
+  }
+
+  // reCalculateStyle(){
+
+  // }
 }

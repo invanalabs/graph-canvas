@@ -3,7 +3,6 @@ import { defaultCanvasOptions } from "./defaults"
 import { ICanvasOptions } from "./types"
 import { deepMerge } from "../utils/merge"
 import { ArtBoard } from "../artBoard"
-import { PluginAbstract, PluginBase } from "../plugins/base"
 
 
 export class GraphCanvas {

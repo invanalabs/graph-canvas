@@ -53,9 +53,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     // this.style = NodeStyleDefaults 
     this.style = deepMerge( NodeStyleDefaults,  props?.style || {})
     // this.style = props?.style
-
-
-
   }
 
   setLinks(links: CanvasLink[]){
@@ -75,5 +72,14 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     }
   }
 
+  setStyle(style: INodeStyle) {
+    this.style = style
+  }
 
+
+
+
+  // reCalculateStyle(){
+  //   console.error("reCalculateStyle implemented")
+  // }
 }

@@ -325,6 +325,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.draw(renderShape, renderLabel);
   }
 
+  reDrawNeighbors(){
+    this.data.neighbors.links.forEach((link: CanvasLink)=>{
+      link.gfxInstance?.redraw()
+    })
+    this.data.neighbors.nodes.forEach((node: CanvasNode)=>{
+      node.gfxInstance?.redraw()
+    })
+  }
+
   destroy(): void {
     this.containerGfx.destroy()
   }

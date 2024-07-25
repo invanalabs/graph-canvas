@@ -31,7 +31,16 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodeLinksUpdated = ({id, node, links}: OnNodeLinksUpdatedEventData) => {
-    console.debug("emitter:onNodeLinksUpdated", id, node);
+    console.log("emitter:onNodeLinksUpdated", id, node);
+    // node.setProperty
+    
+
+    // 
+    // const style = node.style
+    // style.size = (style.size  * 0.5) * node.links.length
+    // node.setStyle(style)
+    // node.gfxInstance?.redraw()
+    // node.gfxInstance?.reDrawNeighbors()
   }
 
 

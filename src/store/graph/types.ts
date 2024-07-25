@@ -1,5 +1,4 @@
 
-import { ArtBoard } from "../../artBoard";
 import { GraphCanvas } from "../../canvas";
 import { ILinkStyle, INodeStyle, IShapeState } from "../../renderer/types";
 import { CanvasNode } from "./nodes";
@@ -20,6 +19,9 @@ export interface ICanvasItemBase {
   isLabelVisible?: boolean
   // isShapeVisible: boolean
 
+  // style?: ILinkStyle | INodeStyle
+
+  // reCalculateStyle(): void
 }
 
 // export interface ICanvasItemStates {
