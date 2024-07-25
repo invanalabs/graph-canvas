@@ -61,7 +61,8 @@ export class ArtBoardBase {
     // add "link:data:onDeleted" event listener
     this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
 
-    // this.canvas.dataStore.on('artBoard:onMessageChanged', this.events.onMessageChanged);
+    this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
+
 
     
   }

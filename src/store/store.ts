@@ -39,10 +39,12 @@ export class DataStore implements IDataStore {
       "node:data:onDeleted": [],
       "node:data:onPropertiesUpdated": [],
       "node:data:onLinksUpdated": [],
+      "node:data:onStyleUpdated": [],
     
       "link:data:onAdded": [],
       "link:data:onDeleted": [],
       "link:data:onPropertiesUpdated": [],
+      "link:data:onStyleUpdated": [],
     
     
       'node:gfx:onStateUpdated': [],

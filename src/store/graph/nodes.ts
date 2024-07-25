@@ -64,7 +64,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   setNeighbors(neighbors: {nodes: CanvasNode[], links: CanvasLink[]}){
     this.neighbors = neighbors
-    this.links = neighbors.links;
+    // this.links = neighbors.links;
     this.degree = {
       incoming: 0,
       outgoing: 0,
