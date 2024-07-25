@@ -2,9 +2,10 @@ import { ArtBoard } from "../../artBoard";
 import { CanvasLink } from "../graph";
 import { EventEmitterAbstract } from "./abstract";
 import { OnLinkAddedEventData, OnLinkDeletedEventData, OnLinkGfxEventData, 
-  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData, OnMessageChangedEventData, OnNodeAddedEventData, 
+  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData,  OnNodeAddedEventData, 
    OnNodeDeletedEventData, OnNodeGfxEventData, OnNodeLinksUpdatedEventData,  
-   OnNodePropertiesUpdatedEventData, OnNodeStateUpdateEventData } from "./types";
+   OnNodePropertiesUpdatedEventData, OnNodeStateUpdateEventData, 
+   OnNodeStyleUpdatedEventData} from "./types";
 import * as d3 from "d3";
 
 
@@ -37,15 +38,27 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     
     // Create scales
     // const sizeScale = d3.scaleSqrt()
-    // .domain(d3.extent(nodes, d => d.degree))
-    // .range([5, 20]);
+    const sizeScale = d3.scaleLinear()
+    .domain(d3.extent([node,], d => d.degree.total))
+    .range([12, 30]);
 
-    // 
-    // const style = node.style
+    // // 
+    const style = node.style
+    style.size = sizeScale(node.degree?.total)
     // style.size = style.size +  ( this.artBoard.canvas.dataStore.nodes.size/(node.links.length  * 0.9) )
-    // node.setStyle(style)
+    node.setStyle(style)
+    this.artBoard.canvas.dataStore.trigger('node:data:onStyleUpdated', { id: node.id, node: node })
+ 
+  }
+
+  onNodeStyleUpdated = ({id, node}: OnNodeStyleUpdatedEventData) => {
     node.gfxInstance?.redraw()
     node.gfxInstance?.reDrawNeighbors()
+  }
+
+
+  onLinkStyleUpdated = ({id, link}: OnLinkStateUpdateEventData) => {
+    link.gfxInstance?.redraw()
   }
 
 

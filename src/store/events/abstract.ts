@@ -2,10 +2,11 @@ import { ArtBoard } from "../../artBoard";
 import {
   OnLinkAddedEventListener, OnLinkDeletedEventListener,
   OnLinkGfxEventListener, OnLinkPropertiesUpdateEventListener,
-  OnLinkStateUpdateEventListener, OnMessageChangedEventListener, onNodeAddedEventListener,
+  OnLinkStateUpdateEventListener, OnLinkStyleUpdatedEventListener, OnMessageChangedEventListener, onNodeAddedEventListener,
   onNodeDeletedEventListener, OnNodeGfxEventListener,
   OnNodeLinksUpdatedEventListener, OnNodePropertiesUpdatedEventListener,
-  OnNodeStateUpdateEventListener
+  OnNodeStateUpdateEventListener,
+  OnNodeStyleUpdatedEventListener
 } from "./types";
 
 
@@ -19,10 +20,12 @@ export abstract class EventEmitterAbstract {
   abstract onNodeDeleted: onNodeDeletedEventListener;
   abstract onNodePropertiesUpdated: OnNodePropertiesUpdatedEventListener;
   abstract onNodeLinksUpdated: OnNodeLinksUpdatedEventListener;
+  abstract onNodeStyleUpdated: OnNodeStyleUpdatedEventListener;
 
   abstract onLinkAdded: OnLinkAddedEventListener;
   abstract onLinkDeleted: OnLinkDeletedEventListener;
-  abstract onLinkPropertiesUpdated: OnLinkPropertiesUpdateEventListener
+  abstract onLinkPropertiesUpdated: OnLinkPropertiesUpdateEventListener;
+  abstract onLinkStyleUpdated: OnLinkStyleUpdatedEventListener;
 
   abstract onNodeStateUpdated: OnNodeStateUpdateEventListener;
   abstract onLinkStateUpdated: OnLinkStateUpdateEventListener;
