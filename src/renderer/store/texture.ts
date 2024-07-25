@@ -46,32 +46,20 @@ export default class TextureStore {
 
 
   createImagePromise = (imageUrl: string) => {
-    console.log("===createImagePromise", imageUrl)
-    const imagePromise = drawImageShape(imageUrl)
-    // imagePromise.then((texture) => {
-    //     return texture
-    // }).catch((error) => {
-    //     console.error('Error loading texture:', error);
-    // });
-    // const resolution = this.artBoard.canvas.options.resolution?.images;
-    // console.log("====createImagePromise resolution", resolution)
-    return imagePromise
+    return drawImageShape(imageUrl)
   }
 
 
   createIconTexture = (props: IIconShape) => {
-    console.log("===createIconTexture", props)
     const iconText = drawIconShape(props)
     const resolution = this.artBoard.canvas.options.resolution?.icons;
-    console.log("====createIconTexture resolution", resolution)
-    return this.artBoard.pixiApp.renderer.generateTexture(iconText, { resolution: resolution });
+    return this.artBoard.pixiApp.renderer.generateTexture({ target:iconText, resolution: resolution });
   }
 
   createNodeShapeTexture = (props: DrawCirclePrimitiveType) => {
     const shapeGfx = drawCircleShape(props);
     const resolution = this.artBoard.canvas.options.resolution?.nodes;
-    console.log("====createNodeShapeTexture resolution", resolution)
-    return this.artBoard.pixiApp.renderer.generateTexture(shapeGfx, { resolution: resolution });
+    return this.artBoard.pixiApp.renderer.generateTexture({ target: shapeGfx, resolution: resolution });
   }
 
   // createLabelTexture = (props : LabelPrimitiveType) => {
@@ -80,13 +68,8 @@ export default class TextureStore {
   // }
 
   createNodeTexture = (props: { size: number, group: string, style: INodeStyle }) => {
-    console.log("====createNodeTexture", props);
-
     const unique_key = `${props.group}-${props.size}`
     const defaultStyle = props.style;
-    console.log("====defaultStyle", defaultStyle)
-  
-
     // default textures
     // default - shape
     const defaultStateStyle: INodeStateTexture = {
@@ -159,7 +142,6 @@ export default class TextureStore {
   }
 
   getOrCreateShapeTexture(props: { size: number, group: string, style: INodeStyle }) {
-    console.log("====getOrCreateShapeTexture", props);
     const unique_key = `${props.group}-${props.size}`;
     if (this.shapeTexturesMap.has(unique_key)) {
       return { texture: this.shapeTexturesMap.get(unique_key), isCreated: false }
@@ -170,7 +152,6 @@ export default class TextureStore {
 
 
   getOrCreateIconTexture(props:   IIconShape) {
-    console.log("====getOrCreateShapeTexture", props);
     const unique_key = props.content;
     if (this.iconTexturesMap.has(unique_key)) {
       return { iconTexture: this.iconTexturesMap.get(unique_key), isCreated: false }
@@ -179,8 +160,8 @@ export default class TextureStore {
     }
   }
 
+
   getOrcreateImagePromise(imageUrl: string) {
-    console.log("====getOrcreateImagePromise", imageUrl);
     const unique_key = imageUrl;
     if (this.imagePromiseMap.has(unique_key)) {
       return { imagePromise: this.imagePromiseMap.get(unique_key), isCreated: false }

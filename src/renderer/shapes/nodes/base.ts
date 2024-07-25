@@ -53,12 +53,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
 
   processData = (data: CanvasNode) => {
-    console.log("======data.style before", data.group, JSON.stringify(data.style),)
     //@ts-ignore
     data.style = data.style ? deepMerge(NodeStyleDefaults, data.style) : NodeStyleDefaults
-    console.log("======data.style after", data.group, JSON.stringify(data.style));
-    //@ts-ignore
-    // data = { ...{ x: 0, y: 0 }, ...data }
     return data
   }
 
