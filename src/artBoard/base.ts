@@ -115,14 +115,11 @@ export class ArtBoardBase {
       console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
 
     }).finally(()=>{
-
-
-
       this.viewport = this.createViewport()
       this.pixiApp.stage.addChild(this.viewport)
-      this.renderer = new Renderer(_this)
-      this.camera = new Camera(_this)
-      this.events = new DefaultEventEmitter(_this)
+      this.renderer = new Renderer(this)
+      this.camera = new Camera(this)
+      this.events = new DefaultEventEmitter(this)
       this.setUpRenderOnEventListers()
 
     })

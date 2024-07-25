@@ -24,8 +24,10 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
       viewElement: canvasDiv,
       debugMode: true
     }
-    console.log("====options", options)
-    const canvas = new GraphCanvas(options);
+
+    // options.plugins = [ToolBar, MessageBar]
+    // console.log("====options", options)
+    const canvas = new GraphCanvas(options,);
 
     canvas.artBoard.start_drawing().then(() => {
       console.log("====start_drawing started")
@@ -35,7 +37,11 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
       font.load().then(function (loadedFont) {
         console.log("font loaded ", fontFamilyname)
         document.fonts.add(loadedFont);
+
+
         canvas.dataStore.add(nodes, links)
+
+
         const toolbar = new ToolBar(canvas.artBoard);
         const toolBarHTMLDiv = toolbar.render()
         html.appendChild(toolBarHTMLDiv)

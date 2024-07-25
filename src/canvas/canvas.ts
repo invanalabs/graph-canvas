@@ -3,6 +3,7 @@ import { defaultCanvasOptions } from "./defaults"
 import { ICanvasOptions } from "./types"
 import { deepMerge } from "../utils/merge"
 import { ArtBoard } from "../artBoard"
+import { PluginAbstract, PluginBase } from "../plugins/base"
 
 
 export class GraphCanvas {
@@ -31,6 +32,11 @@ export class GraphCanvas {
     this.artBoard = new ArtBoard(this)
     // data store 
     this.dataStore = new DataStore(this);
+
+    // this.options.plugins.forEach((PluginCls: PluginBase )=> {
+    //   const div = new PluginCls(this.artBoard);
+    //   this.options.viewElement.appendChild(div.render())
+    // })
   }
 
   // start_drawing(){

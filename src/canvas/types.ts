@@ -1,5 +1,6 @@
 // import { ICanvas } from "pixi.js";
 
+import { PluginBase } from "../plugins/base"
 import { ExtraSettings, GraphicsStyles } from "../renderer/types"
 
 export interface ICanvasOptions {
@@ -16,5 +17,6 @@ export interface ICanvasOptions {
   debugMode?: boolean
   styles?: GraphicsStyles
   extraSettings?: ExtraSettings
+  plugins: PluginBase[]
 
 }
