@@ -49,7 +49,7 @@ export class GraphicsStore {
  
 
   clear() {
-    console.log("Cleaning data from CanvasLayers")
+    // console.log("Cleaning data from CanvasLayers")
     this.dataLayer.clear();
     this.frontLayer.clear()
     this.annotationLayer.clear();
@@ -76,14 +76,14 @@ export class GraphicsStore {
 }
 
 addGfxToFrontLayer(item: CanvasNode | CanvasLink, gfxType: ILayerItemTypes) {
-    console.log("addGfxToFrontLayer triggered", gfxType,  this.dataLayer)
+    // console.log("addGfxToFrontLayer triggered", gfxType,  this.dataLayer)
     this.addGfxToLayer(item, gfxType, this.frontLayer)
     // if (item.gfxInstance)
     // this.artBoard.viewport.addChild(item.gfxInstance?.containerGfx)
 }
 
 addToDataLayer(item: CanvasNode | CanvasLink, gfxType: ILayerItemTypes) {
-    console.log("addToDataLayer triggered", gfxType,  this.dataLayer)
+    // console.log("addToDataLayer triggered", gfxType,  this.dataLayer)
     this.addGfxToLayer(item, gfxType, this.dataLayer)
     // if(item.gfxInstance)
     // this.artBoard.viewport.addChild(item.gfxInstance.containerGfx)

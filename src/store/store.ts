@@ -131,11 +131,11 @@ export class DataStore implements IDataStore {
     let style: INodeStyle;
     const nodeStyles = this.canvas.options.styles?.nodes || {}
 
-    console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
+    // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
     // P3 - color by group
     if (this.canvas.options.extraSettings?.nodeColorBasedOn === "group") {
         style = deepMerge(NodeStyleDefaults, { shape: { background: { color: stc(node.group) } } })
-        console.log("====nodeColorBasedOn", style)
+        // console.log("====nodeColorBasedOn", style)
     } else {
         style = NodeStyleDefaults
     }
@@ -149,7 +149,7 @@ export class DataStore implements IDataStore {
 
     if (this.canvas.options.extraSettings?.nodeSizeBasedOn === "degree") {
         const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
-        console.log("nodeSize", nodeSize);
+        // console.log("nodeSize", nodeSize);
         style = deepMerge(style, { size: nodeSize })
     }
 
@@ -189,7 +189,7 @@ export class DataStore implements IDataStore {
   }
 
   setState(item: CanvasNode | CanvasLink, stateName: IShapeState, setNeighborsToo: boolean=false, event?: FederatedPointerEvent) {
-    console.log("setState called", item.id, stateName, setNeighborsToo)
+    // console.log("setState called", item.id, stateName, setNeighborsToo)
     if (item instanceof CanvasNode) {
       // Handle CanvasNode instance
       const node = this.nodes.get(item.id)
@@ -213,7 +213,7 @@ export class DataStore implements IDataStore {
   }
 
   moveNodeTo(nodeId: IdString, x: number, y: number, event?: FederatedPointerEvent) {
-    console.log("Updating position of node ", nodeId, x, y)
+    // console.log("Updating position of node ", nodeId, x, y)
     const node: CanvasNode | undefined = this.nodes.get(nodeId);
     if (node) {
       node.x = x;
@@ -237,7 +237,7 @@ export class DataStore implements IDataStore {
   }
 
   deleteNode(nodeId: IdString) {
-    console.log("delete Node", nodeId)
+    // console.log("delete Node", nodeId)
     if (this.nodes.has(nodeId)) {
       const node = this.nodes.get(nodeId);
       // delete the links
@@ -348,7 +348,7 @@ export class DataStore implements IDataStore {
    * @param links 
    */
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
-    console.log("adding nodes and links", nodes, links)
+    // console.log("adding nodes and links", nodes, links)
     this.canvas.dataStore.updateMessage("Drawing new data")
     // let _this = this;
     // add nodes 

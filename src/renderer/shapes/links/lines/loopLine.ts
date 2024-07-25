@@ -38,7 +38,7 @@ class LoopLine extends LinkShapeBase{
     curveType: ILinkShapeStyles = 'straight'
 
     calcLabelPosition = (labelGfx: PIXI.Graphics, shapeGfx: PIXI.Graphics) => {
-        console.log("calcLabelPosition===", this.data.source.x, this.data.source.y, this.data.target.x, this.data.target.y)
+        // console.log("calcLabelPosition===", this.data.source.x, this.data.source.y, this.data.target.x, this.data.target.y)
         const labelPosition = getLinkLabelPosition(this.data.source, this.data.target, this.curveType)
         const box = labelGfx.getBounds()
         // labelGfx.position.set(labelPosition.x , labelPosition.y );

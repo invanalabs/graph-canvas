@@ -52,7 +52,7 @@ import { IdString } from "./types";
 // }
 
 export const filerLinksOfNode = (nodeId: IdString, links:  Map<IdString, CanvasLink>): CanvasLink[] => {
-  console.log("filerLinksOfNode", nodeId, links)
+  // console.log("filerLinksOfNode", nodeId, links)
   //@ts-ignore
   return [...links.values()].filter((link) =>  link.source.id === nodeId || link.target.id === nodeId )
 }

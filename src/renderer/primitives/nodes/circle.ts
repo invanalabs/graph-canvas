@@ -9,7 +9,7 @@ export interface DrawCirclePrimitiveType {
 }
 
 const drawCircleShape = (props: DrawCirclePrimitiveType) => {
-    console.log("drawCircle", props);
+    console.debug("drawCircle", props);
     const shapeName = new Graphics();
 
 

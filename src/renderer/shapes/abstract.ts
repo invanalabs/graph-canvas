@@ -125,18 +125,18 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     }
 
     clear = () => {
-        console.log("ShapeAbstract.clear triggered")
+        // console.log("ShapeAbstract.clear triggered")
         this.containerGfx.removeChildren();
     }
 
     removeInteractionTriggers() {
-        console.debug("===removeInteractionTriggers triggered on link", this.containerGfx)
+        // console.debug("===removeInteractionTriggers triggered on link", this.containerGfx)
         // Remove all listeners
         this.containerGfx.removeAllListeners();
     }
 
     setState(stateName: IShapeState, setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
-        console.log("==setState", this.data.id, stateName, setNeighborsToo)
+        // console.log("==setState", this.data.id, stateName, setNeighborsToo)
         if (this.data.state === stateName)
             return
 
@@ -151,7 +151,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
 
     drawDebugBorder(x: number, y: number) {
         // Calculate the bounding box
-        console.log("===drawDebugBorder", this.data.id, x, y)
+        // console.log("===drawDebugBorder", this.data.id, x, y)
         // // const borderGfx = this.artBoard.viewport.getChildByName(NodeContainerChildNames.debugBorder)
         // if (this.borderGfx){
         //     // const position = this.containerGfx.getBounds();

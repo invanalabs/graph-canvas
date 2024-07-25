@@ -17,35 +17,35 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodeAdded = ({ id, node }: OnNodeAddedEventData) => {
-    console.log("emitter:onNodeAdded", id, node);
+    // console.log("emitter:onNodeAdded", id, node);
     this.artBoard.renderer.renderNode(node)
   }
 
   onNodeDeleted = ({ id, node }: OnNodeDeletedEventData) => {
-    console.log("emitter:onNodeDeleted", id, node);
+    console.debug("emitter:onNodeDeleted", id, node);
   }
   
 
   onNodePropertiesUpdated = ({id, node}: OnNodePropertiesUpdatedEventData) => {
-    console.log("emitter:onNodePropertiesUpdated", id, node);
+    console.debug("emitter:onNodePropertiesUpdated", id, node);
   }
 
   onNodeLinksUpdated = ({id, node, links}: OnNodeLinksUpdatedEventData) => {
-    console.log("emitter:onNodeLinksUpdated", id, node);
+    console.debug("emitter:onNodeLinksUpdated", id, node);
   }
 
 
   onLinkAdded = ({ id, link }: OnLinkAddedEventData) => {
-    console.log("emitter:onLinkdded", id, link);
+    // console.log("emitter:onLinkdded", id, link);
     this.artBoard.renderer.renderLink(link)
   }
 
   onLinkDeleted = ({ id, link }: OnLinkDeletedEventData) => {
-    console.log("emitter:onLinkDeleted", id, link);
+    console.debug("emitter:onLinkDeleted", id, link);
   }
 
   onLinkPropertiesUpdated = ({ id, link }: OnLinkPropertiesUpdateEventData) => {
-    console.log("emitter:onLinkPropertiesUpdated", id, link);
+    console.debug("emitter:onLinkPropertiesUpdated", id, link);
   }
 
   // states
@@ -62,7 +62,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodePointerIn = ({ id, node, event }: OnNodeGfxEventData) => {
-    console.error("emitter:onNodePointerIn", id, node);
+    console.debug("emitter:onNodePointerIn", id, node);
     if (node && event){
       node.gfxInstance?.pointerIn(event);
     }
@@ -85,7 +85,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodeMoved = ({ id, node }: OnNodeGfxEventData) => {
-    console.log("node:gfx:onMoved updatedto", id, node.x, node.y);
+    // console.log("node:gfx:onMoved updatedto", id, node.x, node.y);
     node.gfxInstance?.setPosition(node.x, node.y);
     // redraw links too 
     node.links.forEach((link_: CanvasLink) => {

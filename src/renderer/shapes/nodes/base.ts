@@ -41,7 +41,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // setup intractions
     // this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
-    console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance)
+    // console.log("this.data.gfxInstance ", this.data, this.data.gfxInstance)
 
 
     // Bind event handlers to this instance
@@ -59,7 +59,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   setPosition = (x: number, y: number) => {
-    console.log("setPosition", x, y)
+    // console.log("setPosition", x, y)
     this.containerGfx.position.set(x, y);
   }
 
@@ -82,12 +82,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
 
   triggerInactive = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerInactive triggered on node - ${this.data.id}`);
+    // console.debug(`triggerInactive triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
   }
 
   triggerDefault = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerDefault triggered on node - ${this.data.id}`);
+    // console.debug(`triggerDefault triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 1;
     this.containerGfx.visible = true
   }
@@ -97,7 +97,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   // }
 
   triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`Selected triggered on node - ${this.data.id}`);
+    // console.debug(`Selected triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder)
       if (shapeSelectedBorder) {
@@ -109,7 +109,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`UnSelected triggered on node - ${this.data.id}`);
+    // console.debug(`UnSelected triggered on node - ${this.data.id}`);
     if (this.shapeGfx) {
       const shapeSelectedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeSelectedBorder)
       if (shapeSelectedBorder) {
@@ -121,19 +121,16 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
-    console.log(`triggerHighlighted on node - ${this.data.id}`);
+    // console.debug(`triggerHighlighted on node - ${this.data.id}`);
     this.moveToFrontLayer()
     if (this.shapeGfx) {
-
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
 
-      
       if (this.labelGfx){
         const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
-        console.log("====textBg", textBg)
         if (textBg) {
           textBg.visible = true
         }
@@ -151,7 +148,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
-    console.log(`triggerUnHighlighted on node - ${this.data.id}`);
+    // console.debug(`triggerUnHighlighted on node - ${this.data.id}`);
     this.moveToDataLayer()
     if (this.shapeGfx) {
       const shapeHighlightedBorder = this.shapeGfx.getChildByName(NodeContainerChildNames.shapeHighlightedBorder);
@@ -191,7 +188,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     if (this.dragData) {
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
-      console.log("onDragMove", this.data.id, newPoint, this.dragPoint)
+      // console.log("onDragMove", this.data.id, newPoint, this.dragPoint)
       // update node positions data 
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
       // remove interactions on neighbors
@@ -206,7 +203,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   };
 
   onDragEnd = (event: PIXI.FederatedPointerEvent) => {
-    console.log("onDragEnd triggered")
+    // console.log("onDragEnd triggered")
     event.stopPropagation()
     this.dragData = null
     this.containerGfx.parent.off('pointermove', this.onDragMove);
@@ -219,14 +216,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
   };
 
   pointerIn = (event: PIXI.FederatedPointerEvent) => {
-    console.log("====pointerIn", this.data.id, this.data.state, this.dragData)
+    // console.log("====pointerIn", this.data.id, this.data.state, this.dragData)
     event.stopPropagation();
     if (this.dragData) return
     this.setState(":highlighted", true, event)
   }
 
   pointerDown = (event: PIXI.FederatedPointerEvent) => {
-    console.log("pointerdown", this.data.id, this.data.state)
+    // console.log("pointerdown", this.data.id, this.data.state)
     // event.stopPropagation();
     // if (this.dragData) return 
     this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
@@ -248,15 +245,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerout = (event: PIXI.FederatedPointerEvent) => {
     // event.stopPropagation();
     // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
-    console.log("====pointerout", this.data.id, this.data.state, this.isPointerInBounds(event, this.containerGfx), this.dragData)
+    // console.log("====pointerout", this.data.id, this.data.state, this.isPointerInBounds(event, this.containerGfx), this.dragData)
     if ([":highlighted", ":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
-    console.log("pointerout", this.data.id, this.data.state, this.dragData)
+    // console.log("pointerout", this.data.id, this.data.state, this.dragData)
     this.setState(":default", true, event)
   }
 
   pointerUp = (event: PIXI.FederatedPointerEvent) => {
     // const pointerPosition = event.data.global;
-    console.log("pointerup", this.data.id, this.data.state)
+    // console.log("pointerup", this.data.id, this.data.state)
     event.stopPropagation();
     if (this.isPointerInBounds(event, this.containerGfx)) {
       this.setState(":highlighted", true, event)
@@ -269,14 +266,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   pointerUpOutside = (event: PIXI.FederatedPointerEvent) => {
-    console.log("pointerupoutside", this.data.id, this.data.state)
+    // console.log("pointerupoutside", this.data.id, this.data.state)
     event.stopPropagation();
     this.onDragEnd(event)
 
   }
 
   setupInteractionTriggers() {
-    console.log("===setupInteractionTriggers triggered")
+    // console.log("===setupInteractionTriggers triggered")
     // const _this = this;
     // Remove all listeners
     this.containerGfx.removeAllListeners();
@@ -297,7 +294,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // draw shapeName
     if (renderShape) {
       this.shapeGfx = this.drawShape();
-      console.log("====this.shapeGfx ", this.shapeGfx)
+      // console.log("====this.shapeGfx ", this.shapeGfx)
       this.containerGfx.addChild(this.shapeGfx);
     }
 
@@ -324,7 +321,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   redraw = (renderShape = true, renderLabel = true) => {
-    console.log("redraw ", this.data.id)
+    // console.log("redraw ", this.data.id)
     this.draw(renderShape, renderLabel);
   }
 

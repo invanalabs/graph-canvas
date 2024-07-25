@@ -27,12 +27,12 @@ class D3ForceLayout {
         const { centerX, centerY } = this.getCenter();
         const { worldWidth, worldHeight } = this.canvas.artBoard.getCanvasSizeOptions()
         const nodes = this.canvas.dataStore.getNodes();
-        console.log("=====nodes", nodes)
-        nodes.forEach((node)=> {
-            // if (node.id === "Valjean"){
-                console.log(`=======node.id ${node.id} - ${node.style.size}`)
-            // }
-        })
+        // console.log("=====nodes", nodes)
+        // nodes.forEach((node)=> {
+        //     // if (node.id === "Valjean"){
+        //         console.log(`=======node.id ${node.id} - ${node.style.size}`)
+        //     // }
+        // })
         const links = this.canvas.dataStore.getLinks();
         const simulation = d3.forceSimulation(nodes)
             // .force("link",d3.forceLink(links).id((link) => link.id))//.distance((link)=> 250))
@@ -45,7 +45,7 @@ class D3ForceLayout {
             .force("charge", d3.forceManyBody().strength(-100)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
             .force("collide", d3.forceCollide().radius((d) => {
-                console.log("===collide d", d)
+                // console.log("===collide d", d)
                 return d.style.size * 2
             }))//.iterations(1))//
             // .force("x", d3.forceX(worldWidth/2))//.strength(0.1))

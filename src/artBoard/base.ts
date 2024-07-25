@@ -160,11 +160,10 @@ export class ArtBoardBase {
   }
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
-    console.log("===showLabelsBasedOnZoom", zoomScale, this.isLabelsVisible)
+    console.debug("===showLabelsBasedOnZoom", zoomScale, this.isLabelsVisible)
     if (zoomScale < 0.40){
 
       if (this.isLabelsVisible === true){
-        console.log("===showLabelsBasedOnZoom < 0.40", zoomScale, this.isLabelsVisible)
 
         // hide label
         this.hideNodeLabels()
