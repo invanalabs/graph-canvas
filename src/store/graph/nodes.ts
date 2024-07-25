@@ -15,7 +15,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   icon?: string;
   image?: string
 
-  links: CanvasLink[] = [];
+  // links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
 
   degree?: {
@@ -42,7 +42,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.image = props.image;
 
     this.state = props.state ? props.state : ":default"
-    this.links  =  []
     this.neighbors = {nodes:[], links: []}
     this.degree = {
       incoming: 0,
@@ -55,9 +54,9 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     // this.style = props?.style
   }
 
-  setLinks(links: CanvasLink[]){
-    this.links = links
-  }
+  // setLinks(links: CanvasLink[]){
+  //   this.links = links
+  // }
 
   setState(stateName: IShapeState){
     this.state = stateName
@@ -65,10 +64,11 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   setNeighbors(neighbors: {nodes: CanvasNode[], links: CanvasLink[]}){
     this.neighbors = neighbors
+    this.links = neighbors.links;
     this.degree = {
       incoming: 0,
       outgoing: 0,
-      total: this.links.length,
+      total: neighbors.links.length,
     }
   }
 

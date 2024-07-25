@@ -6,6 +6,10 @@ import { ICanvasLink, ICanvasNode } from '../../../store';
 
 
 const nodesCleaned = data.nodes.map((node: any): ICanvasNode => {
+
+    if (node.group === 5){
+      node.style = {size: 30}
+    }
     return {
         id: node.id,
         label: node.id,

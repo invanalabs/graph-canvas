@@ -2,7 +2,7 @@ import { FederatedPointerEvent } from "pixi.js"
 import { GraphicsStyles, INodeStyle, IShapeState, LinkStyleMapType, NodeStyleMapType } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
-import { filerLinksOfNode } from "./graph/utils"
+import { filterLinksOfNode } from "./graph/utils"
 import { ICanvasItemProperties, ICanvasLink, ICanvasNode, IDataStore, IdString } from "./graph"
 import { IDataStoreListeners, OnLinkGfxEventListener, OnNodeGfxEventListener, } from "./events/types"
 import { ArtBoard } from "../artBoard"
@@ -260,11 +260,9 @@ export class DataStore implements IDataStore {
     console.debug("reCalcNodeLinks", nodeId, this.links)
     const node = this.nodes.get(nodeId)
     if (node) {
-      const links = filerLinksOfNode(nodeId, this.links)
-      console.debug("====reCalcNodeLinks links", links)
-      node.setLinks(links);
-      node.setNeighbors(this.getNeighbors(nodeId))
-      console.debug("====reCalcNodeLinks node.links", node.links)
+      // const links = filterLinksOfNode(nodeId, this.links)
+      const neighbors = this.getNeighbors(nodeId)
+      node.setNeighbors(neighbors)
       this.nodes.set(nodeId, node)
       this.trigger('node:data:onLinksUpdated', { id: node.id, node: node })
     } else {
@@ -300,9 +298,10 @@ export class DataStore implements IDataStore {
       const linkInstance = new CanvasLink(link)
       this.links.set(link.id, linkInstance);
       console.debug("====addLink", this.nodes, this.links)
-      this.trigger('link:data:onAdded', { id: link.id, link: linkInstance });
       this.reCalcNodeLinks(linkInstance.source.id);
       this.reCalcNodeLinks(linkInstance.target.id);
+      this.trigger('link:data:onAdded', { id: link.id, link: linkInstance });
+
     } else {
       console.error(`Link with key "${link.id}" already exists.`);
     }
@@ -373,7 +372,7 @@ export class DataStore implements IDataStore {
     const neighborLinks: CanvasLink[] = [];
     const relatedNodes: Map<IdString, CanvasNode> = new Map();
 
-    filerLinksOfNode(nodeId, this.links).forEach(link => {
+    filterLinksOfNode(nodeId, this.links).forEach(link => {
       neighborLinks.push(link);
       const source = this.nodes.get(link.source.id)
       if (source) {

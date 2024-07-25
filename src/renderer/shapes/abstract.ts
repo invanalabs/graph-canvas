@@ -116,7 +116,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     }
 
     // Function to recursively set interactive and cursor properties on all children
-    setInteractiveRecursive(container: PIXI.Graphics) {
+    setInteractiveRecursive(container: PIXI.Container) {
         container.interactive = true;
         container.cursor = 'pointer';
         container.children.forEach((child) => {

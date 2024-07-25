@@ -5,6 +5,7 @@ import { OnLinkAddedEventData, OnLinkDeletedEventData, OnLinkGfxEventData,
   OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData, OnMessageChangedEventData, OnNodeAddedEventData, 
    OnNodeDeletedEventData, OnNodeGfxEventData, OnNodeLinksUpdatedEventData,  
    OnNodePropertiesUpdatedEventData, OnNodeStateUpdateEventData } from "./types";
+import * as d3 from "d3";
 
 
 export class DefaultEventEmitter extends EventEmitterAbstract {
@@ -34,13 +35,17 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     console.log("emitter:onNodeLinksUpdated", id, node);
     // node.setProperty
     
+    // Create scales
+    // const sizeScale = d3.scaleSqrt()
+    // .domain(d3.extent(nodes, d => d.degree))
+    // .range([5, 20]);
 
     // 
     // const style = node.style
-    // style.size = (style.size  * 0.5) * node.links.length
+    // style.size = style.size +  ( this.artBoard.canvas.dataStore.nodes.size/(node.links.length  * 0.9) )
     // node.setStyle(style)
-    // node.gfxInstance?.redraw()
-    // node.gfxInstance?.reDrawNeighbors()
+    node.gfxInstance?.redraw()
+    node.gfxInstance?.reDrawNeighbors()
   }
 
 
@@ -97,7 +102,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     // console.log("node:gfx:onMoved updatedto", id, node.x, node.y);
     node.gfxInstance?.setPosition(node.x, node.y);
     // redraw links too 
-    node.links.forEach((link_: CanvasLink) => {
+    node.neighbors.links.forEach((link_: CanvasLink) => {
       const link = this.artBoard.canvas.dataStore.links.get(link_.id)
       if (link)
         link.gfxInstance?.redraw();
