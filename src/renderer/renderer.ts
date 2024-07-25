@@ -93,9 +93,9 @@ export class Renderer {
   }
 
   tick() {
-    this.artBoard.camera.fitView()
     this.rePositionNodes(this.artBoard.canvas.dataStore.getNodes());
     this.reRenderLinks(this.artBoard.canvas.dataStore.getLinks())
+    this.artBoard.camera.fitView()
     // this.renderScreenBorderIfRequired();
   }
 
