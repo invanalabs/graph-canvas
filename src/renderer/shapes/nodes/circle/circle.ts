@@ -14,6 +14,9 @@ class Circle extends NodeShapeBase {
         }
         const shapeStyle = this.data.style
         console.debug("this.data.label", this.data.label)
+        console.debug("shapeStyle?.label",shapeStyle?.label)
+
+        shapeStyle.label.text.font.size = this.data.style.size
         const labelArgs = {
             label: this.data.label,
             ...shapeStyle?.label

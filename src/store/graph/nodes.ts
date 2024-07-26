@@ -9,6 +9,10 @@ import {  ICanvasNode } from "./types"
 
 export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
+
+  // _x: number = 0
+  // _y: number = 0
+
   x: number = 0
   y: number = 0
 
@@ -76,9 +80,21 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.style = style
   }
 
+  // get x() {
+  //   return this._x;
+  // }
 
+  // set x(n: number) {
+  //   this._x = n;
+  // }
 
+  // get y() {
+  //   return this._y;
+  // }
 
+  // set y(n: number) {
+  //   this._y = n;
+  // }
   // reCalculateStyle(){
   //   console.error("reCalculateStyle implemented")
   // }

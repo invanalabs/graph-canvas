@@ -5,7 +5,7 @@ export const LinkStyleDefaults: ILinkStyle = {
     shape: {
         opacity: 1,
         thickness: 1,
-        color: "#454545",
+        color: "#555555",
         type: "solid"
     },
     label: {

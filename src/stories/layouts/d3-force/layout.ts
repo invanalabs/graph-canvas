@@ -20,7 +20,7 @@ class D3ForceLayout {
 
         // Set min and max link lengths
         const minLinkLength = 100;
-        const maxLinkLength = 350;
+        const maxLinkLength = 450;
 
 
 
@@ -36,11 +36,11 @@ class D3ForceLayout {
                     return Math.max(minLinkLength, Math.min(maxLinkLength, desiredLength))
                 }))
             // .force("link", d3.forceLink(links))
-            .force("charge", d3.forceManyBody().strength(-280)) // This adds repulsion (if it's negative) between nodes.
+            .force("charge", d3.forceManyBody().strength(-580)) // This adds repulsion (if it's negative) between nodes.
             .force("center", d3.forceCenter(centerX, centerY))
             .force("collide", d3.forceCollide().radius((d) => {
                 // console.log("===collide d", d)
-                return d.style.size * 2
+                return d.style.size * 3
             }))//.iterations(1))//
             // .force("x", d3.forceX(worldWidth/2))//.strength(0.1))
             // .force("y", d3.forceY(worldHeight/2))//.strength(0.1))
@@ -54,9 +54,11 @@ class D3ForceLayout {
 
             // .force("charge", d3.forceManyBody().strength((d, i) => i ? 0 : -width * 2 / 3))
             // .force("collision", d3.forceCollide().radius((node)=> node.size ))
-            .tick(100)
+            .tick(500)
             .on("tick", () => {
                 this.canvas.dataStore.updateMessage("Updating layout ...")
+                // this.canvas.artBoard.renderer.tick()
+
             })
             .on('end', this.onSimulationEnded.bind(this))
         return simulation
@@ -69,8 +71,14 @@ class D3ForceLayout {
 
     onSimulationEnded = () => {
         console.log("=Simulation ended");
-        this.simulation.stop();
+        // this.simulation.stop();
+
+        this.canvas.dataStore.updateMessage("Updating layout finished.")
+
         this.canvas.artBoard.renderer.tick()
+        this.canvas.artBoard.camera.fitView()
+        // this.simulation.alpha(0.1).restart();
+
     }
 
     reDoLayout = () => {
