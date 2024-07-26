@@ -16,7 +16,7 @@ export class ArtBoardBase {
   renderer: Renderer
   camera: Camera
   events: EventEmitterAbstract
-  isLabelsVisible : boolean = true
+  isLabelsVisible: boolean = true
 
   worldScale: number = 15
 
@@ -33,7 +33,7 @@ export class ArtBoardBase {
     //   this.events = new DefaultEventEmitter(_this)
     //   this.setUpRenderOnEventListers()
     // })
-    
+
     // prevent body scrolling
     this.canvas.options.viewElement.addEventListener('wheel', event => {
       event.preventDefault()
@@ -51,9 +51,9 @@ export class ArtBoardBase {
     this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
     this.canvas.dataStore.on('node:gfx:onStateUpdated', this.events.onNodeStateUpdated)
     this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
-    
+
     // add link:data:onAdded event listener
-    this.canvas.dataStore.on('link:data:onAdded',  this.events.onLinkAdded);
+    this.canvas.dataStore.on('link:data:onAdded', this.events.onLinkAdded);
     // add node:data:onDeleted event listener
     this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
     // add "link:data:onDeleted" event listener
@@ -64,7 +64,7 @@ export class ArtBoardBase {
     this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
 
 
-    
+
   }
 
 
@@ -115,7 +115,7 @@ export class ArtBoardBase {
       // setup viewport
       console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
 
-    }).finally(()=>{
+    }).finally(() => {
       this.viewport = this.createViewport()
       this.pixiApp.stage.addChild(this.viewport)
       this.renderer = new Renderer(this)
@@ -132,7 +132,7 @@ export class ArtBoardBase {
   }
 
   hideNodeLabels = () => {
-    this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
+    this.canvas.dataStore.getNodes().forEach((node: CanvasNode) => {
       node.gfxInstance?.hideLabel()
     })
 
@@ -140,43 +140,47 @@ export class ArtBoardBase {
   }
 
   showNodeLabels = () => {
-    this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
+    this.canvas.dataStore.getNodes().forEach((node: CanvasNode) => {
       node.gfxInstance?.showLabel()
     })
   }
 
   hideLinkLabels = () => {
-    this.canvas.dataStore.getLinks().forEach((link: CanvasLink)=> {
+    this.canvas.dataStore.getLinks().forEach((link: CanvasLink) => {
       link.gfxInstance?.hideLabel()
     })
   }
 
   showLinkLabels = () => {
-    this.canvas.dataStore.getLinks().forEach((link: CanvasLink)=> {
+    this.canvas.dataStore.getLinks().forEach((link: CanvasLink) => {
       link.gfxInstance?.showLabel()
     })
   }
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
-    console.debug("===showLabelsBasedOnZoom", zoomScale, this.isLabelsVisible)
-    if (zoomScale < 0.40){
+    const labelVisiblitythreshold = this.canvas.options.extraSettings?.labelVisibilityZoomThreshold
+    console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible)
 
-      if (this.isLabelsVisible === true){
+    if (labelVisiblitythreshold) {
+      if (zoomScale < labelVisiblitythreshold) {
 
-        // hide label
-        this.hideNodeLabels()
-        this.hideLinkLabels()
-        this.isLabelsVisible = false
-      }
-    }else{
-      // show labels
-      if (this.isLabelsVisible === false){
-        this.showNodeLabels()
-        this.showLinkLabels()
-        this.isLabelsVisible = true
+        if (this.isLabelsVisible === true) {
+
+          // hide label
+          this.hideNodeLabels()
+          this.hideLinkLabels()
+          this.isLabelsVisible = false
+        }
+      } else {
+        // show labels
+        if (this.isLabelsVisible === false) {
+          this.showNodeLabels()
+          this.showLinkLabels()
+          this.isLabelsVisible = true
+        }
       }
     }
-  
+
   }
 
   createViewport(): Viewport {

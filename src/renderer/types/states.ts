@@ -48,4 +48,6 @@ export interface ExtraSettings {
   // color
   nodeColorBasedOn? : 'group' | 'default'
   linkColorBasedOn? : 'group' | 'default'
+  // labels
+  labelVisibilityZoomThreshold? : number
 }

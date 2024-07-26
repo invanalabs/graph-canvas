@@ -1,26 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from '../../canvas';
-import { miserablesData } from '../../datasets/miserables';
+import { createCanvas } from '../canvas';
+import { miserablesData } from '../datasets/miserables';
+import { ICanvasOptions } from '../../canvas';
 
  
 
-const customICanvasOptions = {
-  styles: {
-      nodes: {}
+const customICanvasOptions: ICanvasOptions = {
+  // styles: {
+  //     nodes: {}
+  // }
+  extraSettings: {
+    nodeSizeBasedOn: "degree"
   }
 } 
 
-const nodeGroups = data.nodes.map((node: any) => { return node.group})
+// const nodeGroups = data.nodes.map((node: any) => { return node.group})
 
-const nodeStyles: any = {};
+// const nodeStyles: any = {};
 
-nodeGroups.forEach(group => {
-  nodeStyles[group] = {size: 10}
-})
+// nodeGroups.forEach(group => {
+//   nodeStyles[group] = {size: 10}
+// })
  
 
-console.log("==nodeStyles", nodeStyles)
-customICanvasOptions.styles.nodes = nodeStyles
+// console.log("==nodeStyles", nodeStyles)
+// customICanvasOptions.styles.nodes = nodeStyles
 
 const meta = {
   title: 'Layout/dagre',
