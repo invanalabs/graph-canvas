@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../canvas';
-import { miserablesData } from '../datasets/miserables';
+import { miserablesData } from '../datasets/miserables-no-positions';
 import { ICanvasOptions } from '../../canvas';
 
 

@@ -37,7 +37,18 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
     this.style = deepMerge( LinkStyleDefaults,  props?.style || {})
   }
 
-
+  toJson(): ICanvasLink{
+    return {
+      id: this.id,
+      group: this.group,
+      label: this.label,
+      properties: this.properties,
+      shapeName: this.shapeName,
+      source: this.source.id,
+      target: this.target.id
+      
+    }
+  }
   setStyle(style: ILinkStyle) {
     this.style = style
   }

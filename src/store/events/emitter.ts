@@ -42,7 +42,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
       const sizeScale = d3.scaleSqrt()
       // const sizeScale = d3.scaleLinear()
       .domain(d3.extent(this.artBoard.canvas.dataStore.getNodes(), d => d.degree?.total))
-      .range([12, 40]);
+      .range([12, 50]);
   
       console.log("=====sizeScale", sizeScale)
   

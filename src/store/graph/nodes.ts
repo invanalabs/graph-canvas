@@ -19,6 +19,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   icon?: string;
   image?: string
 
+  shapeName?: 'circle'; 
+
   // links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
 
@@ -45,6 +47,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.icon = props.icon;
     this.image = props.image;
 
+    this.shapeName = props.shapeName? props.shapeName :  "circle"
+
     this.state = props.state ? props.state : ":default"
     this.neighbors = {nodes:[], links: []}
     this.degree = {
@@ -56,6 +60,18 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     // this.style = NodeStyleDefaults 
     this.style = deepMerge( NodeStyleDefaults,  props?.style || {})
     // this.style = props?.style
+  }
+
+  toJson(): ICanvasNode{
+    return {
+      id: this.id,
+      group: this.group,
+      label: this.label,
+      properties: this.properties,
+      shapeName: this.shapeName,
+      x: this.x,
+      y: this.y
+    }
   }
 
   // setLinks(links: CanvasLink[]){

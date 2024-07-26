@@ -1,4 +1,5 @@
 import { ArtBoard } from "../../artBoard";
+import { CanvasNode, ICanvasLink, ICanvasNode } from "../../store";
 import { PluginAbstract } from "../base";
 import { createToolBarButton, createToolBarToggleButton, IToolBarButton } from "./html";
 import "./toolbar.css"
@@ -55,10 +56,45 @@ export default class ToolBar implements PluginAbstract{
                 helpText: "zoom out of the canvas",
                 onClickListener: () => this.artBoard.camera.zoomOut()
             },
-            // {
-            //     htmlType : "seperator",
-            //     label: '|'
-            // },
+            {
+                htmlType : "seperator",
+                label: '|'
+            },
+            {
+                htmlType: "button",
+                label: "export",
+                helpText: "Export data along with positions",
+                onClickListener: () => {
+                    const data: {nodes: ICanvasNode[], links: ICanvasLink[]} = {"nodes":[], "links":[]}
+                    data.nodes = this.artBoard.canvas.dataStore.getNodes().map(node => node.toJson())
+                    data.links = this.artBoard.canvas.dataStore.getLinks().map(link => link.toJson())
+                    
+                    console.log("======exported data", data)
+                               // Convert JSON data to string
+                    const jsonString = JSON.stringify(data, null, 2);
+
+                    // Create a Blob from the JSON string
+                    const blob = new Blob([jsonString], { type: "application/json" });
+
+                    // Create a link element
+                    const link = document.createElement('a');
+
+                    // Set the download attribute with a filename
+                    link.download = 'data.json';
+
+                    // Create a URL for the Blob and set it as the href attribute
+                    link.href = window.URL.createObjectURL(blob);
+
+                    // Append the link to the body
+                    document.body.appendChild(link);
+
+                    // Programmatically click the link to trigger the download
+                    link.click();
+
+                    // Remove the link from the document
+                    document.body.removeChild(link);
+                }
+            },
             // {
             //     htmlType: "toggle",
             //     label: "ON",

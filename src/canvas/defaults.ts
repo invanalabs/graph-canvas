@@ -31,6 +31,6 @@ export const defaultCanvasOptions: ICanvasOptions = {
     nodeSizeBasedOn: 'default',
     nodeColorBasedOn : 'group',
     linkColorBasedOn : 'group',
-    labelVisibilityZoomThreshold: 0.40
+    labelVisibilityZoomThreshold: 0.30
   }
 }

@@ -4,7 +4,7 @@ import { exampleLinks, exampleNodes } from "./datasets/hello-world";
 import largeData from './datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
 import { customICanvasOptions } from './styling/nodes/circle/circle';
 import {sample1DataSet} from "./datasets/sample1"
-
+import miserablesData from './datasets/miserables/miserables.json';
 
 const meta = {
   title: 'Examples',
@@ -17,7 +17,11 @@ const meta = {
 
 export default meta;
 
-export const Basic: StoryObj = {};
+export const Miserables: StoryObj = {
+  render: () => createCanvas(miserablesData.nodes, miserablesData.links, {
+    extraSettings: {nodeSizeBasedOn: "degree",}
+  } ) ,
+};
 
 export const Sample: StoryObj = {
   render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, ) ,
