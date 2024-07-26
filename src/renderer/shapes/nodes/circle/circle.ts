@@ -14,6 +14,9 @@ class Circle extends NodeShapeBase {
         }
         const shapeStyle = this.data.style
         console.debug("this.data.label", this.data.label)
+        console.debug("shapeStyle?.label",shapeStyle?.label)
+
+        shapeStyle.label.text.font.size = this.data.style.size
         const labelArgs = {
             label: this.data.label,
             ...shapeStyle?.label
@@ -39,7 +42,7 @@ class Circle extends NodeShapeBase {
         })
 
 
-        console.log("===texture", this.data.id, texture,)
+        // console.log("===texture", this.data.id, texture,)
         if (texture) {
 
             
@@ -59,7 +62,7 @@ class Circle extends NodeShapeBase {
                 const { iconTexture } = this.artBoard.renderer.textureStore.getOrCreateIconTexture({
                     ...this.data.style.shape.icon, content: this.data.icon
                 })
-                console.log("===iconTexture", this.data.id, iconTexture,)
+                // console.log("===iconTexture", this.data.id, iconTexture,)
 
                 const icon = new Sprite(iconTexture);
                 icon.name = NodeContainerChildNames.icon;
@@ -75,7 +78,7 @@ class Circle extends NodeShapeBase {
                 const { imagePromise } = this.artBoard.renderer.textureStore.getOrcreateImagePromise(
                     this.data.image
                 )
-                console.log("===imagePromise", this.data.id, imagePromise,)
+                // console.log("===imagePromise", this.data.id, imagePromise,)
                 if (imagePromise){
                     imagePromise.then((texture) => {
                         // Create a sprite from the loaded texture

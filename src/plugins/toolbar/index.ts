@@ -1,8 +1,9 @@
 import { ArtBoard } from "../../artBoard";
+import { PluginAbstract } from "../base";
 import { createToolBarButton, createToolBarToggleButton, IToolBarButton } from "./html";
 import "./toolbar.css"
 
-export default class ToolBar {
+export default class ToolBar implements PluginAbstract{
 
     artBoard: ArtBoard;
 

@@ -18,7 +18,7 @@ export class Camera {
     }
 
     fitView(selectedNodes: CanvasNode[] = [], zoomLevel?: number) {
-        console.log("==fitView", selectedNodes, zoomLevel);
+        // console.log("==fitView", selectedNodes, zoomLevel);
         if (selectedNodes.length == 0 ){
             selectedNodes = this.artBoard.canvas.dataStore.getNodes()
         }
@@ -38,7 +38,7 @@ export class Camera {
     }
 
     onSetZoomLevel = (zoomLevel: number) =>{
-        console.log("==setZoomLevel", zoomLevel)
+        // console.log("==setZoomLevel", zoomLevel)
         // this.setZoom(zoomLevel , true);
         this.artBoard.showLabelsBasedOnZoom(zoomLevel)
         this.artBoard.canvas.dataStore.updateMessage(`Zoomed to ${Math.ceil(this.viewport.scaled * 100)}%`)

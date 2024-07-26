@@ -30,7 +30,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.labelGfx = new PIXI.Graphics();
     // setup intractions
     this.data.setGfxInstance(this);
-    console.debug("this.data.gfxInstance ", this.data, this.data.gfxInstance)
+    // console.debug("this.data.gfxInstance ", this.data, this.data.gfxInstance)
   }
 
 
@@ -59,27 +59,27 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   triggerInactive = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerInactive triggered on node - ${this.data.id}`);
+    // console.log(`triggerInactive triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
   }
 
   triggerDefault = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`triggerDefault triggered on node - ${this.data.id}`);
+    // console.log(`triggerDefault triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 1;
     this.containerGfx.visible = true
   }
  
   triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`Selected triggered on link - ${this.data.id}`);
+    // console.log(`Selected triggered on link - ${this.data.id}`);
   
   }
 
   triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
-    console.log(`UnSelected triggered on link - ${this.data.id}`);
+    // console.log(`UnSelected triggered on link - ${this.data.id}`);
   }
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
-    console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
+    // console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
     this.moveToFrontLayer();
 
     if (this.shapeGfx) {
@@ -88,7 +88,6 @@ export class LinkShapeBase extends LinkShapeAbstract {
         shapeHighlightedBorder.visible = true
       }
       const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
-      console.log("====textBg", textBg)
       if (textBg) {
         textBg.visible = true
       }
@@ -101,7 +100,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
-    console.log(`triggerUnHighlighted on node - ${this.data.id}`);
+    // console.log(`triggerUnHighlighted on node - ${this.data.id}`);
     this.moveToDataLayer();
 
     if (this.shapeGfx) {
@@ -111,7 +110,6 @@ export class LinkShapeBase extends LinkShapeAbstract {
         shapeHighlightedBorder.visible = false
       }
       const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
-      console.log("====textBg", textBg)
       if (textBg) {
         textBg.visible = false
       }
@@ -140,7 +138,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   // }
 
   setupInteractionTriggers() {
-    console.debug("===setupInteractions triggered on link", this.containerGfx)
+    // console.debug("===setupInteractions triggered on link", this.containerGfx)
     // Remove all listeners
     this.containerGfx.removeAllListeners();
 
@@ -156,7 +154,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         this.setState(":default", true, event)
       })
       .on('pointerdown', (event) => {
-        console.log("pointerdown", this.data.id, this.data.state)
+        // console.log("pointerdown", this.data.id, this.data.state)
         this.dragData = event.data
         // event.stopPropagation();
         // event.stopPropagation();
@@ -166,7 +164,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
         this.setState(":highlighted", true, event)
       })
       .on("pointermove", (event) => {
-        console.log("ignoring pointermove")
+        // console.log("ignoring pointermove")
         event.stopPropagation()
       })
 

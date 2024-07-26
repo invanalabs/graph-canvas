@@ -40,4 +40,8 @@ export default class CanvasItemBase implements ICanvasItemBase {
     this.properties[key] = value
   }
 
+  // reCalculateStyle(){
+  //   console.error("reCalculateStyle implemented")
+  // }
+
 }

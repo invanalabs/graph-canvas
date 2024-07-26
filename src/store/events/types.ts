@@ -65,9 +65,18 @@ export type OnLinkPropertiesUpdateEventListener  = (event: OnLinkPropertiesUpdat
 export type OnNodeGfxEventData = { id: IdString, node: CanvasNode, event?: FederatedPointerEvent };
 export type OnNodeGfxEventListener  = (event: OnNodeGfxEventData) => void;
 
+
+export type OnNodeStyleUpdatedEventData = { id: IdString, node: CanvasNode};
+export type OnNodeStyleUpdatedEventListener  = (event: OnNodeStyleUpdatedEventData) => void;
+
+
+
 export type OnLinkGfxEventData = { id: IdString, link: CanvasLink, event: FederatedPointerEvent };
 export type OnLinkGfxEventListener  = (event: OnLinkGfxEventData) => void;
 
+
+export type OnLinkStyleUpdatedEventData = { id: IdString, link: CanvasLink};
+export type OnLinkStyleUpdatedEventListener  = (event: OnLinkStyleUpdatedEventData) => void;
 
 export type OnMessageChangedEventData = { message: string };
 export type OnMessageChangedEventListener  = (event: OnMessageChangedEventData) => void;
@@ -79,10 +88,12 @@ export interface IDataStoreListeners {
   "node:data:onDeleted": onNodeDeletedEventListener[];
   "node:data:onPropertiesUpdated": OnNodePropertiesUpdatedEventListener[];
   "node:data:onLinksUpdated": OnNodeLinksUpdatedEventListener[];
+  "node:data:onStyleUpdated": OnNodeStyleUpdatedEventListener[];
 
   "link:data:onAdded": OnLinkAddedEventListener[];
   "link:data:onDeleted": OnLinkDeletedEventListener[];
   "link:data:onPropertiesUpdated": OnLinkPropertiesUpdateEventListener[];
+  "link:data:onStyleUpdated": OnLinkStyleUpdatedEventListener[]
 
 
   'node:gfx:onStateUpdated': OnNodeStateUpdateEventListener[];

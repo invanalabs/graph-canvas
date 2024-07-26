@@ -1,9 +1,10 @@
 import { ArtBoard } from "../../artBoard";
 import { OnMessageChangedEventData } from "../../store/events/types";
+import { PluginAbstract } from "../base";
 import "./index.css"
 
 
-export default class MessageBar {
+export default class MessageBar implements PluginAbstract {
 
     artBoard: ArtBoard;
 

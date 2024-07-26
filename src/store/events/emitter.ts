@@ -2,9 +2,11 @@ import { ArtBoard } from "../../artBoard";
 import { CanvasLink } from "../graph";
 import { EventEmitterAbstract } from "./abstract";
 import { OnLinkAddedEventData, OnLinkDeletedEventData, OnLinkGfxEventData, 
-  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData, OnMessageChangedEventData, OnNodeAddedEventData, 
+  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData,  OnLinkStyleUpdatedEventData,  OnNodeAddedEventData, 
    OnNodeDeletedEventData, OnNodeGfxEventData, OnNodeLinksUpdatedEventData,  
-   OnNodePropertiesUpdatedEventData, OnNodeStateUpdateEventData } from "./types";
+   OnNodePropertiesUpdatedEventData, OnNodeStateUpdateEventData, 
+   OnNodeStyleUpdatedEventData} from "./types";
+import * as d3 from "d3";
 
 
 export class DefaultEventEmitter extends EventEmitterAbstract {
@@ -17,35 +19,66 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodeAdded = ({ id, node }: OnNodeAddedEventData) => {
-    console.log("emitter:onNodeAdded", id, node);
+    // console.log("emitter:onNodeAdded", id, node);
     this.artBoard.renderer.renderNode(node)
   }
 
   onNodeDeleted = ({ id, node }: OnNodeDeletedEventData) => {
-    console.log("emitter:onNodeDeleted", id, node);
+    console.debug("emitter:onNodeDeleted", id, node);
   }
   
 
   onNodePropertiesUpdated = ({id, node}: OnNodePropertiesUpdatedEventData) => {
-    console.log("emitter:onNodePropertiesUpdated", id, node);
+    console.debug("emitter:onNodePropertiesUpdated", id, node);
   }
 
   onNodeLinksUpdated = ({id, node, links}: OnNodeLinksUpdatedEventData) => {
     console.log("emitter:onNodeLinksUpdated", id, node);
+    // node.setProperty
+    
+    // Create scales
+    const sizeScale = d3.scaleSqrt()
+    // const sizeScale = d3.scaleLinear()
+    .domain(d3.extent(this.artBoard.canvas.dataStore.getNodes(), d => d.degree?.total))
+    .range([12, 40]);
+
+    console.log("=====sizeScale", sizeScale)
+
+    // // 
+    const style = node.style
+    style.size = sizeScale(node.degree?.total)
+    // style.size = style.size +  ( this.artBoard.canvas.dataStore.nodes.size/(node.links.length  * 0.9) )
+    node.setStyle(style)
+    // node.gfxInstance.data = node;
+    // this.artBoard.canvas.dataStore.trigger('node:data:onStyleUpdated', { id: node.id, node: node })
+    node.gfxInstance?.redraw()
+    node.gfxInstance?.reDrawNeighbors()
+ 
+  }
+
+  onNodeStyleUpdated = ({id, node}: OnNodeStyleUpdatedEventData) => {
+    console.log("onNodeStyleUpdated", id)
+    node.gfxInstance?.redraw()
+    node.gfxInstance?.reDrawNeighbors()
+  }
+
+
+  onLinkStyleUpdated = ({id, link}: OnLinkStyleUpdatedEventData) => {
+    link.gfxInstance?.redraw()
   }
 
 
   onLinkAdded = ({ id, link }: OnLinkAddedEventData) => {
-    console.log("emitter:onLinkdded", id, link);
+    // console.log("emitter:onLinkdded", id, link);
     this.artBoard.renderer.renderLink(link)
   }
 
   onLinkDeleted = ({ id, link }: OnLinkDeletedEventData) => {
-    console.log("emitter:onLinkDeleted", id, link);
+    console.debug("emitter:onLinkDeleted", id, link);
   }
 
   onLinkPropertiesUpdated = ({ id, link }: OnLinkPropertiesUpdateEventData) => {
-    console.log("emitter:onLinkPropertiesUpdated", id, link);
+    console.debug("emitter:onLinkPropertiesUpdated", id, link);
   }
 
   // states
@@ -62,7 +95,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodePointerIn = ({ id, node, event }: OnNodeGfxEventData) => {
-    console.error("emitter:onNodePointerIn", id, node);
+    console.debug("emitter:onNodePointerIn", id, node);
     if (node && event){
       node.gfxInstance?.pointerIn(event);
     }
@@ -85,10 +118,10 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodeMoved = ({ id, node }: OnNodeGfxEventData) => {
-    console.log("node:gfx:onMoved updatedto", id, node.x, node.y);
+    // console.log("node:gfx:onMoved updatedto", id, node.x, node.y);
     node.gfxInstance?.setPosition(node.x, node.y);
     // redraw links too 
-    node.links.forEach((link_: CanvasLink) => {
+    node.neighbors.links.forEach((link_: CanvasLink) => {
       const link = this.artBoard.canvas.dataStore.links.get(link_.id)
       if (link)
         link.gfxInstance?.redraw();

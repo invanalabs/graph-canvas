@@ -61,7 +61,8 @@ export class ArtBoardBase {
     // add "link:data:onDeleted" event listener
     this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
 
-    // this.canvas.dataStore.on('artBoard:onMessageChanged', this.events.onMessageChanged);
+    this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
+
 
     
   }
@@ -85,7 +86,7 @@ export class ArtBoardBase {
     }
   }
 
-  start_drawing = () => {
+  init = () => {
 
     const _this = this;
     console.log("start_drawing this.options", this.canvas.options)
@@ -96,7 +97,7 @@ export class ArtBoardBase {
       view: this.canvas.options.viewElement,
       antialias: true,
       resizeTo: window,
-      preference: "webgpu",
+      // preference: "webgpu",
       autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
       autoDensity: true,
       resolution: window.devicePixelRatio, /// 2 for retina displays
@@ -115,14 +116,11 @@ export class ArtBoardBase {
       console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
 
     }).finally(()=>{
-
-
-
       this.viewport = this.createViewport()
       this.pixiApp.stage.addChild(this.viewport)
-      this.renderer = new Renderer(_this)
-      this.camera = new Camera(_this)
-      this.events = new DefaultEventEmitter(_this)
+      this.renderer = new Renderer(this)
+      this.camera = new Camera(this)
+      this.events = new DefaultEventEmitter(this)
       this.setUpRenderOnEventListers()
 
     })
@@ -160,11 +158,10 @@ export class ArtBoardBase {
   }
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
-    console.log("===showLabelsBasedOnZoom", zoomScale, this.isLabelsVisible)
+    console.debug("===showLabelsBasedOnZoom", zoomScale, this.isLabelsVisible)
     if (zoomScale < 0.40){
 
       if (this.isLabelsVisible === true){
-        console.log("===showLabelsBasedOnZoom < 0.40", zoomScale, this.isLabelsVisible)
 
         // hide label
         this.hideNodeLabels()
@@ -208,13 +205,13 @@ export class ArtBoardBase {
       })
 
 
-    viewport.on("zoomed-end", event => {
-      console.log("zoomed-end event", event)
-      // this.showLabelsBasedOnZoom(event.viewport.scaled)
-    })
+    // viewport.on("zoomed-end", event => {
+    //   console.log("zoomed-end event", event)
+    //   // this.showLabelsBasedOnZoom(event.viewport.scaled)
+    // })
 
     viewport.on("zoomed", event => {
-      console.log("zoomed event", event.viewport.scaled, event)
+      // console.log("zoomed event", event.viewport.scaled, event)
       // this.showLabelsBasedOnZoom(event.viewport.scaled)
       this.camera.onSetZoomLevel(event.viewport.scaled)
     })

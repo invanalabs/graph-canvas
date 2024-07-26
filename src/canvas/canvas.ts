@@ -31,6 +31,11 @@ export class GraphCanvas {
     this.artBoard = new ArtBoard(this)
     // data store 
     this.dataStore = new DataStore(this);
+
+    // this.options.plugins.forEach((PluginCls: PluginBase )=> {
+    //   const div = new PluginCls(this.artBoard);
+    //   this.options.viewElement.appendChild(div.render())
+    // })
   }
 
   // start_drawing(){

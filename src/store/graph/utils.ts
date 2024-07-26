@@ -51,8 +51,8 @@ import { IdString } from "./types";
 //   return stats
 // }
 
-export const filerLinksOfNode = (nodeId: IdString, links:  Map<IdString, CanvasLink>): CanvasLink[] => {
-  console.log("filerLinksOfNode", nodeId, links)
+export const filterLinksOfNode = (nodeId: IdString, links:  Map<IdString, CanvasLink>): CanvasLink[] => {
+  // console.log("filterLinksOfNode", nodeId, links)
   //@ts-ignore
   return [...links.values()].filter((link) =>  link.source.id === nodeId || link.target.id === nodeId )
 }
