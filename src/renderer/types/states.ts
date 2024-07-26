@@ -44,8 +44,8 @@ export interface GraphicsStyles {
 
 export interface ExtraSettings {
   // size
-  nodeSizeBasedOn : 'degree' | 'default'
+  nodeSizeBasedOn? : 'degree' | 'default'
   // color
-  nodeColorBasedOn : 'group' | 'default'
-  linkColorBasedOn : 'group' | 'default'
+  nodeColorBasedOn? : 'group' | 'default'
+  linkColorBasedOn? : 'group' | 'default'
 }

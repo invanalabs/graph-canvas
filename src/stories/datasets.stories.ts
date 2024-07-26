@@ -1,41 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from './canvas';
 import { exampleLinks, exampleNodes } from "./datasets/hello-world";
-import exampleData from './datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
+import largeData from './datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
 import { customICanvasOptions } from './styling/nodes/circle/circle';
 import {sample1DataSet} from "./datasets/sample1"
 
 
 const meta = {
-  title: 'Datasets/Examples',
+  title: 'Examples',
   render: () => createCanvas(exampleNodes, exampleLinks, customICanvasOptions) ,
   parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
     layout: 'fullscreen',
-    docs: {
-      source: {
-        type: 'code',
-      },
-    },
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  // tags: ['autodocs'],
-    // More on argTypes: https://storybook.js.org/docs/api/argtypes
-  // argTypes: {
-  //   // backgroundColor: { control: 'color' },
-  // },
+
 } satisfies Meta;
 
 export default meta;
 
-export const HelloWorld: StoryObj = {};
+export const Basic: StoryObj = {};
 
-export const Sample1: StoryObj = {
+export const Sample: StoryObj = {
   render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, ) ,
 };
 
 export const LargeData: StoryObj = {
-  render: () => createCanvas(exampleData.nodes, exampleData.links, {}, 'd3-force') ,
+  render: () => createCanvas(largeData.nodes, largeData.links, {}, 'd3-force') ,
 };
 
 

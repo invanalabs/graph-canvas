@@ -2,8 +2,8 @@ import { GraphCanvas, ICanvasOptions } from "../canvas";
 import ToolBar from "../plugins/toolbar";
 import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
-import D3ForceLayout from "./layouts/d3-force/layout";
-import DagreLayout from "./layouts/dagre/layout";
+import D3ForceLayout from "../layouts/d3-force";
+import DagreLayout from "../layouts/dagre";
 // import * as dat from 'dat.gui';
 
 

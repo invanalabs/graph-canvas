@@ -1,6 +1,6 @@
 import dagre from "@dagrejs/dagre";
-import { GraphCanvas } from "../../../canvas";
-import {  CanvasNode, ICanvasLink,  ICanvasNode } from "../../../store";
+import { GraphCanvas } from "../canvas";
+import {  CanvasNode, ICanvasLink,  ICanvasNode } from "../store";
 
 
 
@@ -15,6 +15,7 @@ class DagreLayout {
     constructor(canvas: GraphCanvas) {
         this.canvas = canvas
         // this.layout = this.createLayoutSimulation();
+        console.debug("Make sure 'npm install @dagrejs/dagre' is installed")
     }
 
     calcNodeHeight = (nodeSizeInfo: CanvasNode) => {
@@ -91,7 +92,7 @@ class DagreLayout {
         return { layoutedNodes: nodes, layoutedLinks: links };
     }
 
-    add2Layout(nodes: ICanvasNode[], links: ICanvasLink[],  direction: string = "RL") {
+    add2Layout(nodes: ICanvasNode[], links: ICanvasLink[],  direction: string = "LR") {
         const {layoutedNodes} = this.generateLayoutedElements(nodes, links , direction)
         console.log("====layoutedNodes", layoutedNodes)
         this.canvas.artBoard.renderer.rePositionNodes(layoutedNodes);

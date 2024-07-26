@@ -37,18 +37,22 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     // node.setProperty
     
     // Create scales
-    const sizeScale = d3.scaleSqrt()
-    // const sizeScale = d3.scaleLinear()
-    .domain(d3.extent(this.artBoard.canvas.dataStore.getNodes(), d => d.degree?.total))
-    .range([12, 40]);
 
-    console.log("=====sizeScale", sizeScale)
+    if (this.artBoard.canvas.options.extraSettings?.nodeSizeBasedOn === "degree"){
+      const sizeScale = d3.scaleSqrt()
+      // const sizeScale = d3.scaleLinear()
+      .domain(d3.extent(this.artBoard.canvas.dataStore.getNodes(), d => d.degree?.total))
+      .range([12, 40]);
+  
+      console.log("=====sizeScale", sizeScale)
+  
+      // // 
+      const style = node.style
+      style.size = sizeScale(node.degree?.total)
+      // style.size = style.size +  ( this.artBoard.canvas.dataStore.nodes.size/(node.links.length  * 0.9) )
+      node.setStyle(style)
+    }
 
-    // // 
-    const style = node.style
-    style.size = sizeScale(node.degree?.total)
-    // style.size = style.size +  ( this.artBoard.canvas.dataStore.nodes.size/(node.links.length  * 0.9) )
-    node.setStyle(style)
     // node.gfxInstance.data = node;
     // this.artBoard.canvas.dataStore.trigger('node:data:onStyleUpdated', { id: node.id, node: node })
     node.gfxInstance?.redraw()
