@@ -135,8 +135,6 @@ export class ArtBoardBase {
     this.canvas.dataStore.getNodes().forEach((node: CanvasNode) => {
       node.gfxInstance?.hideLabel()
     })
-
-
   }
 
   showNodeLabels = () => {
@@ -159,13 +157,10 @@ export class ArtBoardBase {
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
     const labelVisiblitythreshold = this.canvas.options.extraSettings?.labelVisibilityZoomThreshold
-    console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible)
-
+    // console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible)
     if (labelVisiblitythreshold) {
       if (zoomScale < labelVisiblitythreshold) {
-
         if (this.isLabelsVisible === true) {
-
           // hide label
           this.hideNodeLabels()
           this.hideLinkLabels()
@@ -180,25 +175,22 @@ export class ArtBoardBase {
         }
       }
     }
-
   }
 
   createViewport(): Viewport {
     const canvasSizeOptions = this.getCanvasSizeOptions()
-    console.log("--canvasSizeOptions", canvasSizeOptions)
     const viewport = new Viewport({
-      // interaction: this.pixiApp.renderer.inter,
       screenWidth: canvasSizeOptions.screenWidth,
       screenHeight: canvasSizeOptions.screenHeight,
       worldWidth: canvasSizeOptions.worldWidth,
       worldHeight: canvasSizeOptions.worldHeight,
-      // passiveWheel: false,
+      passiveWheel: true,
       events: this.pixiApp.renderer.events
     })
 
     viewport
       .drag()
-      .pinch({ percent: 1 })
+      .pinch({ percent: 0.5 })
       .wheel()
       .decelerate()
       .clampZoom({
@@ -207,7 +199,6 @@ export class ArtBoardBase {
         maxWidth: canvasSizeOptions.worldWidth,
         maxHeight: canvasSizeOptions.worldHeight
       })
-
 
     // viewport.on("zoomed-end", event => {
     //   console.log("zoomed-end event", event)
