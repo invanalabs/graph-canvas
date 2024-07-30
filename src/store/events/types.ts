@@ -1,11 +1,11 @@
 import { FederatedPointerEvent} from "pixi.js";
-import { ILinkStateTypes, INodeStateTypes } from "../../renderer/types";
 import { CanvasLink, CanvasNode, ICanvasItemProperties, IdString } from "../graph";
+import { IShapeState } from "../../renderer/types";
 
 
 
 
-export type IUserEvents =   "node:gfx:onPointerIn" |
+export type ICanvasEvents =   "node:gfx:onPointerIn" |
   "node:gfx:onPointerOut"|
   "node:gfx:onClicked" |
   "node:gfx:onUnClicked" |
@@ -22,7 +22,7 @@ export type IUserEvents =   "node:gfx:onPointerIn" |
 
 
 // onNodeAdded
-export type OnNodeAddedEventData = { id: IdString, node: CanvasNode  };
+export type OnNodeAddedEventData = { id: IdString, node: CanvasNode, };
 export type onNodeAddedEventListener = (event: OnNodeAddedEventData) => void;
 
 // onNodeDeleted
@@ -39,11 +39,11 @@ export type OnNodeLinksUpdatedEventListener =  (event: OnNodeLinksUpdatedEventDa
 
 
 // node:gfx:onStateUpdated
-export type OnNodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: INodeStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
+export type OnNodeStateUpdateEventData = { id: IdString, node: CanvasNode, state: IShapeState, setNeighborsToo: boolean, event: FederatedPointerEvent};
 export type OnNodeStateUpdateEventListener = (event: OnNodeStateUpdateEventData) => void;
 
 // link:gfx:onStateUpdated
-export type OnLinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  ILinkStateTypes, setNeighborsToo: boolean, event: FederatedPointerEvent};
+export type OnLinkStateUpdateEventData = { id: IdString, link: CanvasLink, state:  IShapeState, setNeighborsToo: boolean, event: FederatedPointerEvent};
 export type OnLinkStateUpdateEventListener = (event: OnLinkStateUpdateEventData) => void;
 
 
@@ -118,4 +118,4 @@ export interface IDataStoreListeners {
 
 }
 
-// export type IUserEvents = "onPointerIn" | "onPointerOut" | "onClicked" | "onUnClicked"  | "onContextMenu" | "onNodeMoved" | "onLinkMoved" 
+// export type ICanvasEvents = "onPointerIn" | "onPointerOut" | "onClicked" | "onUnClicked"  | "onContextMenu" | "onNodeMoved" | "onLinkMoved" 

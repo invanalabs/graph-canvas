@@ -48,23 +48,17 @@ export class ArtBoardBase {
   setUpRenderOnEventListers() {
 
     this.canvas.dataStore.on('node:data:onAdded', this.events.onNodeAdded);
+    this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
+    this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
+    this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
+
     this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
     this.canvas.dataStore.on('node:gfx:onStateUpdated', this.events.onNodeStateUpdated)
-    this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
 
     // add link:data:onAdded event listener
     this.canvas.dataStore.on('link:data:onAdded', this.events.onLinkAdded);
-    // add node:data:onDeleted event listener
-    this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
-    // add "link:data:onDeleted" event listener
     this.canvas.dataStore.on('link:data:onDeleted', this.events.onLinkDeleted);
-    // add "link:data:onDeleted" event listener
-    this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
-
-    this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
-
-
-
+    this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
   }
 
 
@@ -89,7 +83,7 @@ export class ArtBoardBase {
   init = () => {
 
     const _this = this;
-    console.log("start_drawing this.options", this.canvas.options)
+    // console.log("start_drawing this.options", this.canvas.options)
     const { screenWidth, screenHeight } = this.getCanvasSizeOptions()
     const pixiAppArgs = {
       width: screenWidth,
@@ -113,7 +107,7 @@ export class ArtBoardBase {
       this.pixiApp.stage.hitArea = _this.pixiApp.screen;
       this.pixiApp.stage.sortableChildren = true
       // setup viewport
-      console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
+      // console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
 
     }).finally(() => {
       this.viewport = this.createViewport()

@@ -3,8 +3,8 @@ import { GraphCanvas } from "../canvas";
 import {  CanvasNode, ICanvasLink,  ICanvasNode } from "../store";
 
 
-
-class DagreLayout {
+// TODO - implement LayoutComputerAbstract
+class DagreLayoutComputer {
 
     canvas: GraphCanvas;
     // layout: dagre.graphlib.Graph;
@@ -27,8 +27,6 @@ class DagreLayout {
         return nodeSizeInfo?.style?.size * 4 || this.defaultNodeWidth
     }
     
- 
-
     getCenter = () => {
         const { worldWidth, worldHeight } = this.canvas.artBoard.getCanvasSizeOptions();
         return { centerX: worldWidth / 4, centerY: worldHeight / 4 }
@@ -37,7 +35,6 @@ class DagreLayout {
     ticked = () => {
         // this.canvas.renderer.tick()
     }
-
 
     generateLayoutedElements = (nodes: ICanvasNode[], links: ICanvasLink[], direction: string ) => {
         const _this = this;
@@ -102,4 +99,4 @@ class DagreLayout {
  
 }
 
-export default DagreLayout;
+export default DagreLayoutComputer;

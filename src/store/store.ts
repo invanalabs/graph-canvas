@@ -1,11 +1,10 @@
 import { FederatedPointerEvent } from "pixi.js"
-import { GraphicsStyles, INodeStyle, IShapeState, LinkStyleMapType, NodeStyleMapType } from "../renderer/types"
+import { INodeStyle, IShapeState } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
 import { filterLinksOfNode } from "./graph/utils"
 import { ICanvasItemProperties, ICanvasLink, ICanvasNode, IDataStore, IdString } from "./graph"
-import { IDataStoreListeners, OnLinkGfxEventListener, OnNodeGfxEventListener, } from "./events/types"
-import { ArtBoard } from "../artBoard"
+import { IDataStoreListeners } from "./events/types"
 import { GraphCanvas } from "../canvas"
 import { deepMerge } from "../utils/merge"
 import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults"
@@ -40,23 +39,23 @@ export class DataStore implements IDataStore {
       "node:data:onPropertiesUpdated": [],
       "node:data:onLinksUpdated": [],
       "node:data:onStyleUpdated": [],
-    
+
       "link:data:onAdded": [],
       "link:data:onDeleted": [],
       "link:data:onPropertiesUpdated": [],
       "link:data:onStyleUpdated": [],
-    
-    
+
+
       'node:gfx:onStateUpdated': [],
-      'link:gfx:onStateUpdated': [],  
-    
+      'link:gfx:onStateUpdated': [],
+
       "node:gfx:onPointerIn": [],
       "node:gfx:onPointerOut": [],
       "node:gfx:onClicked": [],
       "node:gfx:onUnClicked": [],
       "node:gfx:onContextMenu": [],
       "node:gfx:onMoved": [],
-    
+
       "link:gfx:onPointerIn": [],
       "link:gfx:onPointerOut": [],
       "link:gfx:onClicked": [],
@@ -99,34 +98,34 @@ export class DataStore implements IDataStore {
     }
   }
 
-  addToHighlightedNodes(node: CanvasNode){
+  addToHighlightedNodes(node: CanvasNode) {
     this.selectedNodes.set(node.id, node)
   }
 
-  removeFromHighlightedNodes(node: CanvasNode){
+  removeFromHighlightedNodes(node: CanvasNode) {
     this.selectedNodes.delete(node.id)
   }
 
-  addToHighlightedLinks(link: CanvasLink){
+  addToHighlightedLinks(link: CanvasLink) {
     this.selectedLinks.set(link.id, link)
   }
 
-  removeFromHighlightedLinks(link: CanvasLink){
+  removeFromHighlightedLinks(link: CanvasLink) {
     this.selectedLinks.delete(link.id)
   }
 
-  private getNodeSizeBasedOnDegree(node: ICanvasNode, style: INodeStyle) {
-    node.degree = {}
-    if (node.degree.total === 1) {
-        return style?.size;
+  private getNodeSizeBasedOnDegree(node: CanvasNode, style: INodeStyle) {
+    if (node.degree?.total && node.degree.total <= 1) {
+      return style?.size;
     }
     const size = style?.size + (node.degree.total * 0.02)
     // if (size > style.size * 2){
     //     return style.size * 2
     // }
-    return size
+    return 12
+    // return size
 
-}
+  }
   generateNodeStyle(node: ICanvasNode) {
     // const nodeStyles = this.canvas.options.styles?.nodes || {};
 
@@ -136,10 +135,10 @@ export class DataStore implements IDataStore {
     // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
     // P3 - color by group
     if (this.canvas.options.extraSettings?.nodeColorBasedOn === "group") {
-        style = deepMerge(NodeStyleDefaults, { shape: { background: { color: stc(node.group) } } })
-        // console.log("====nodeColorBasedOn", style)
+      style = deepMerge(NodeStyleDefaults, { shape: { background: { color: stc(node.group) } } })
+      // console.log("====nodeColorBasedOn", style)
     } else {
-        style = NodeStyleDefaults
+      style = NodeStyleDefaults
     }
 
     // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
@@ -150,9 +149,9 @@ export class DataStore implements IDataStore {
 
 
     if (this.canvas.options.extraSettings?.nodeSizeBasedOn === "degree") {
-        const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
-        // console.log("nodeSize", nodeSize);
-        style = deepMerge(style, { size: nodeSize })
+      const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
+      // console.log("nodeSize", nodeSize);
+      style = deepMerge(style, { size: nodeSize })
     }
 
     return style
@@ -181,7 +180,6 @@ export class DataStore implements IDataStore {
     if (!this.nodes.has(node.id)) {
       node.degree = this.calcDegree(node.id)
       node.style = this.generateNodeStyle(node);
-
       const nodeInstance = new CanvasNode(node)
       this.nodes.set(node.id, nodeInstance);
       this.trigger('node:data:onAdded', { id: node.id, node: nodeInstance });
@@ -190,7 +188,7 @@ export class DataStore implements IDataStore {
     }
   }
 
-  setState(item: CanvasNode | CanvasLink, stateName: IShapeState, setNeighborsToo: boolean=false, event?: FederatedPointerEvent) {
+  setState(item: CanvasNode | CanvasLink, stateName: IShapeState, setNeighborsToo: boolean = false, event?: FederatedPointerEvent) {
     // console.log("setState called", item.id, stateName, setNeighborsToo)
     if (item instanceof CanvasNode) {
       // Handle CanvasNode instance
@@ -198,7 +196,7 @@ export class DataStore implements IDataStore {
       if (node) {
         node.state = stateName
         this.nodes.set(item.id, node)
-        this.trigger('node:gfx:onStateUpdated', {id:node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo, event:event})
+        this.trigger('node:gfx:onStateUpdated', { id: node.id, node: node, state: stateName, setNeighborsToo: setNeighborsToo, event: event })
       }
 
     } else if (item instanceof CanvasLink) {
@@ -206,7 +204,7 @@ export class DataStore implements IDataStore {
       if (link) {
         link.state = stateName
         this.links.set(item.id, link)
-        this.trigger('link:gfx:onStateUpdated', {id:link.id, link: link, state: stateName, setNeighborsToo:setNeighborsToo, event:event})
+        this.trigger('link:gfx:onStateUpdated', { id: link.id, link: link, state: stateName, setNeighborsToo: setNeighborsToo, event: event })
       }
     } else {
       // Handle other cases
@@ -223,7 +221,7 @@ export class DataStore implements IDataStore {
       // TODO - trigger new event callled node:
       this.nodes.set(nodeId, node)
       // node.gfxInstance?.setPosition(x, y);
-      this.trigger('node:gfx:onMoved', { id: node.id, node: node, event:event });
+      this.trigger('node:gfx:onMoved', { id: node.id, node: node, event: event });
     }
   }
 
@@ -262,7 +260,6 @@ export class DataStore implements IDataStore {
     console.debug("reCalcNodeLinks", nodeId, this.links)
     const node = this.nodes.get(nodeId)
     if (node) {
-      // const links = filterLinksOfNode(nodeId, this.links)
       const neighbors = this.getNeighbors(nodeId)
       node.setNeighbors(neighbors)
       this.nodes.set(nodeId, node)
@@ -299,10 +296,9 @@ export class DataStore implements IDataStore {
       // create CanvasLink
       const linkInstance = new CanvasLink(link)
       this.links.set(link.id, linkInstance);
-      console.debug("====addLink", this.nodes, this.links)
+      this.trigger('link:data:onAdded', { id: link.id, link: linkInstance });
       this.reCalcNodeLinks(linkInstance.source.id);
       this.reCalcNodeLinks(linkInstance.target.id);
-      this.trigger('link:data:onAdded', { id: link.id, link: linkInstance });
 
     } else {
       console.error(`Link with key "${link.id}" already exists.`);
@@ -354,10 +350,8 @@ export class DataStore implements IDataStore {
     // let _this = this;
     // add nodes 
     nodes.forEach(node => this.addNode(node))
-
     // add links
     links.forEach(link => this.addLink(link))
-
     // // calculate links for the nodes
     // nodes.forEach(node => this.reCalcNodeLinks(node.id))
 
@@ -377,11 +371,11 @@ export class DataStore implements IDataStore {
     filterLinksOfNode(nodeId, this.links).forEach(link => {
       neighborLinks.push(link);
       const source = this.nodes.get(link.source.id)
-      if (source) {
+      if (source && source.id !== nodeId) {
         relatedNodes.set(link.source.id, source);
       }
       const target = this.nodes.get(link.target.id)
-      if (target) {
+      if (target && target.id !== nodeId) {
         relatedNodes.set(link.target.id, target);
       }
     });

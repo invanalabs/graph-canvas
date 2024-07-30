@@ -44,5 +44,5 @@ const meta = {
 
 export default meta;
 
-export const Miserables: StoryObj = {};
+export const LesMiserables: StoryObj = {};
 

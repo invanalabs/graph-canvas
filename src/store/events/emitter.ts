@@ -2,11 +2,10 @@ import { ArtBoard } from "../../artBoard";
 import { CanvasLink } from "../graph";
 import { EventEmitterAbstract } from "./abstract";
 import { OnLinkAddedEventData, OnLinkDeletedEventData, OnLinkGfxEventData, 
-  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData,  OnLinkStyleUpdatedEventData,  OnNodeAddedEventData, 
+  OnLinkPropertiesUpdateEventData, OnLinkStateUpdateEventData,  OnLinkStyleUpdatedEventData,  OnMessageChangedEventData,  OnNodeAddedEventData, 
    OnNodeDeletedEventData, OnNodeGfxEventData, OnNodeLinksUpdatedEventData,  
    OnNodePropertiesUpdatedEventData, OnNodeStateUpdateEventData, 
    OnNodeStyleUpdatedEventData} from "./types";
-import * as d3 from "d3";
 
 
 export class DefaultEventEmitter extends EventEmitterAbstract {
@@ -19,110 +18,110 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onNodeAdded = ({ id, node }: OnNodeAddedEventData) => {
-    // console.log("emitter:onNodeAdded", id, node);
+    console.log("emitter:onNodeAdded", id, node);
     this.artBoard.renderer.renderNode(node)
   }
 
   onNodeDeleted = ({ id, node }: OnNodeDeletedEventData) => {
-    console.debug("emitter:onNodeDeleted", id, node);
+    console.log("emitter:onNodeDeleted", id, node);
   }
   
-
   onNodePropertiesUpdated = ({id, node}: OnNodePropertiesUpdatedEventData) => {
-    console.debug("emitter:onNodePropertiesUpdated", id, node);
+    console.log("emitter:onNodePropertiesUpdated", id, node);
   }
 
   onNodeLinksUpdated = ({id, node, links}: OnNodeLinksUpdatedEventData) => {
     console.log("emitter:onNodeLinksUpdated", id, node);
     // node.setProperty
+    // TODO - update style
     
     // Create scales
 
-    if (this.artBoard.canvas.options.extraSettings?.nodeSizeBasedOn === "degree"){
-      const sizeScale = d3.scaleSqrt()
-      // const sizeScale = d3.scaleLinear()
-      .domain(d3.extent(this.artBoard.canvas.dataStore.getNodes(), d => d.degree?.total))
-      .range([12, 50]);
+    // if (this.artBoard.canvas.options.extraSettings?.nodeSizeBasedOn === "degree"){
+    //   const sizeScale = d3.scaleSqrt()
+    //   // const sizeScale = d3.scaleLinear()
+    //   .domain(d3.extent(this.artBoard.canvas.dataStore.getNodes(), d => d.degree?.total))
+    //   .range([12, 50]);
   
-      console.log("=====sizeScale", sizeScale)
+    //   console.log("=====sizeScale", sizeScale)
   
-      // // 
-      const style = node.style
-      style.size = sizeScale(node.degree?.total)
-      // style.size = style.size +  ( this.artBoard.canvas.dataStore.nodes.size/(node.links.length  * 0.9) )
-      node.setStyle(style)
-    }
+    //   // // 
+    //   const style = node.style
+    //   style.size = sizeScale(node.degree?.total)
+    //   // style.size = style.size +  ( this.artBoard.canvas.dataStore.nodes.size/(node.links.length  * 0.9) )
+    //   node.setStyle(style)
+    // }
 
     // node.gfxInstance.data = node;
     // this.artBoard.canvas.dataStore.trigger('node:data:onStyleUpdated', { id: node.id, node: node })
-    node.gfxInstance?.redraw()
-    node.gfxInstance?.reDrawNeighbors()
- 
+    // node.gfxInstance?.redraw()
+    // node.gfxInstance?.reDrawNeighbors() 
   }
 
   onNodeStyleUpdated = ({id, node}: OnNodeStyleUpdatedEventData) => {
-    console.log("onNodeStyleUpdated", id)
+    console.log("emitter:onNodeStyleUpdated", id)
     node.gfxInstance?.redraw()
     node.gfxInstance?.reDrawNeighbors()
   }
 
-
   onLinkStyleUpdated = ({id, link}: OnLinkStyleUpdatedEventData) => {
+    console.log("emitter:onLinkStyleUpdated", id)
     link.gfxInstance?.redraw()
   }
 
-
   onLinkAdded = ({ id, link }: OnLinkAddedEventData) => {
-    // console.log("emitter:onLinkdded", id, link);
+    console.log("emitter:onLinkdded", id, link);
     this.artBoard.renderer.renderLink(link)
   }
 
   onLinkDeleted = ({ id, link }: OnLinkDeletedEventData) => {
-    console.debug("emitter:onLinkDeleted", id, link);
+    console.log("emitter:onLinkDeleted", id, link);
   }
 
   onLinkPropertiesUpdated = ({ id, link }: OnLinkPropertiesUpdateEventData) => {
-    console.debug("emitter:onLinkPropertiesUpdated", id, link);
+    console.log("emitter:onLinkPropertiesUpdated", id, link);
   }
 
   // states
   onNodeStateUpdated = ({id, node, state, event, setNeighborsToo}: OnNodeStateUpdateEventData) => {
+    console.log("emitter:onNodeStateUpdated", id, state, node);
     if (node){
       node.gfxInstance?.applyStateUpdate(setNeighborsToo, event);
     }
   }
 
   onLinkStateUpdated = ({id, link, state, event, setNeighborsToo}: OnLinkStateUpdateEventData) => {
+    console.log("emitter:onLinkStateUpdated", id, state, link);
     if (link){
       link.gfxInstance?.applyStateUpdate(setNeighborsToo, event);
     }
   }
 
   onNodePointerIn = ({ id, node, event }: OnNodeGfxEventData) => {
-    console.debug("emitter:onNodePointerIn", id, node);
+    console.log("emitter:onNodePointerIn", id, node);
     if (node && event){
       node.gfxInstance?.pointerIn(event);
     }
   }
 
   onNodePointerOut = ({ id, node }: OnNodeGfxEventData) => {
-    console.error("emitter:onNodePointerOut", id, node);
+    console.log("emitter:onNodePointerOut", id, node);
   }
 
   onNodeClicked = ({ id, node }: OnNodeGfxEventData) => {
-    console.error("emitter:onNodeClicked", id, node);
+    console.log("emitter:onNodeClicked", id, node);
   }
 
   onNodeUnClicked = ({ id, node }: OnNodeGfxEventData) => {
-    console.error("emitter:onNodeUnClicked", id, node);
+    console.log("emitter:onNodeUnClicked", id, node);
   }
 
   onNodeContextMenu = ({ id, node }: OnNodeGfxEventData) => {
-    console.error("emitter:onNodeContextMenu", id, node);
+    console.log("emitter:onNodeContextMenu", id, node);
   }
 
   onNodeMoved = ({ id, node }: OnNodeGfxEventData) => {
-    // console.log("node:gfx:onMoved updatedto", id, node.x, node.y);
+    console.log("emitter:onNodeMoved", id, node.x, node.y);
     node.gfxInstance?.setPosition(node.x, node.y);
     // redraw links too 
     node.neighbors.links.forEach((link_: CanvasLink) => {
@@ -133,31 +132,31 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   }
 
   onLinkPointerIn = ({ id, link }: OnLinkGfxEventData) => {
-    console.error("emitter:onLinkPointerIn", id, link);
+    console.log("emitter:onLinkPointerIn", id, link);
   }
 
   onLinkPointerOut = ({ id, link }: OnLinkGfxEventData) => {
-    console.error("emitter:onLinkPointerOut", id, link);
+    console.log("emitter:onLinkPointerOut", id, link);
   }
 
   onLinkClicked = ({ id, link }: OnLinkGfxEventData) => {
-    console.error("emitter:onLinkClicked", id, link);
+    console.log("emitter:onLinkClicked", id, link);
   }
 
   onLinkUnClicked = ({ id, link }: OnLinkGfxEventData) => {
-    console.error("emitter:onLinkUnClicked", id, link);
+    console.log("emitter:onLinkUnClicked", id, link);
   }
 
   onLinkContextMenu = ({ id, link }: OnLinkGfxEventData) => {
-    console.error("emitter:onLinkContextMenu", id, link);
+    console.log("emitter:onLinkContextMenu", id, link);
   }
 
   onLinkMoved = ({ id, link }: OnLinkGfxEventData) => {
-    console.error("emitter:onLinkMoved", id, link);
+    console.log("emitter:onLinkMoved", id, link);
   }
   
-  // onMessageChanged = ({message}: OnMessageChangedEventData)=>{
-  //   this.artBoard.canvas.dataStore.updateMessage(message)
-  // }
+  onMessageChanged = ({message}: OnMessageChangedEventData)=>{
+    this.artBoard.canvas.dataStore.updateMessage(message)
+  }
 
 }

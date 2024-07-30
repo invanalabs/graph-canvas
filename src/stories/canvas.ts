@@ -2,8 +2,8 @@ import { GraphCanvas, ICanvasOptions } from "../canvas";
 import ToolBar from "../plugins/toolbar";
 import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
-import D3ForceLayout from "../layouts/d3-force";
-import DagreLayout from "../layouts/dagre";
+import D3ForceLayoutComputer from "../layouts/d3-force";
+import DagreLayoutComputer from "../layouts/dagre";
 // import * as dat from 'dat.gui';
 
 
@@ -19,7 +19,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
 
   document.addEventListener("DOMContentLoaded", function (event) {
-    console.log("=DOM is ready", event,)
+    // console.log("=DOM is ready", event,)
     const options: ICanvasOptions = (canvasOptions) ? { ...canvasOptions, viewElement: canvasDiv } : {
       viewElement: canvasDiv,
       debugMode: true
@@ -30,12 +30,12 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
     const canvas = new GraphCanvas(options,);
 
     canvas.artBoard.init().then(() => {
-      console.log("====start_drawing started")
+      // console.log("====start_drawing started")
       const fontFamilyname = 'FontAwesome';
       const fontUrl = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2'
       const font = new FontFace(fontFamilyname, 'url(' + fontUrl + ')');
       font.load().then(function (loadedFont) {
-        console.log("font loaded ", fontFamilyname)
+        // console.log("font loaded ", fontFamilyname)
         document.fonts.add(loadedFont);
 
         // canvas.artBoard.
@@ -53,11 +53,11 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
         
         if (layout === 'd3-force') {
-          const layoutInstance = new D3ForceLayout(canvas);
+          const layoutInstance = new D3ForceLayoutComputer(canvas);
           layoutInstance?.add2Layout(nodes, links);
         }
         else if (layout === 'dagre') {
-          const layoutInstance = new DagreLayout(canvas);
+          const layoutInstance = new DagreLayoutComputer(canvas);
           layoutInstance?.add2Layout(nodes, links);
         }else{
           canvas.artBoard.camera.fitView();

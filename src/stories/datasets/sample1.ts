@@ -5,7 +5,7 @@ const exampleNodes: ICanvasNode[] = [
   { id: '2', group: 'Person', label: 'Person-2', x: 450, y: 100 },
   { id: '3', group: 'Person', label: 'Person-3', x: 100, y: 450 },
   { id: '4', group: 'Person', label: 'Person-4', x: 450, y: 450 },
-  { id: '5', group: 'Project', label: 'Project', x: (100+450)/2, y: (100+450)/2 },
+  { id: '5', group: 'Project', label: 'Project', x: (100+450)/2, y: (100+450)/2, style: {size: 30} },
   { id: '6', group: 'Person', label: 'Person-6', x: 750, y: 450 },
 
 ];

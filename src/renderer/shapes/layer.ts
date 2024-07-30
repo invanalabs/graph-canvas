@@ -21,7 +21,7 @@ export class GraphicsLayer {
   constructor(artBoard: ArtBoard,  layerName: string, zIndexStartsAt: number) {
     this.layerName = layerName
     this.artBoard = artBoard
-    console.log("===this.artBoard.viewport.", this.artBoard.viewport)
+    // console.log("===this.artBoard.viewport.", this.artBoard.viewport)
     // this.baseLayer = this.createLayer(layerName, zIndexStartsAt) // add this to this.artBoard.viewport
     // for nodes and links layer
     this.linkGraphics = this.createLayer(this.getLinksLayerName(), zIndexStartsAt + 1)
