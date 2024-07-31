@@ -27,10 +27,10 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
                 const desiredLength = 250;
                 return Math.max(minLinkLength, Math.min(maxLinkLength, desiredLength));
             }))
-        .force("charge", d3.forceManyBody().strength(-580))
+        .force("charge", d3.forceManyBody().strength(-300))
         .force("center", d3.forceCenter(centerX, centerY))
         .force("collide", d3.forceCollide().radius((d: CanvasNode) => d.style.size * 3))
-        .tick(500)
+        .tick(200)
         .on("tick", this.onTick.bind(this))
         .on("end", this.onLayoutComputationEnded.bind(this));
 
@@ -77,6 +77,7 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
         //     this.canvas.dataStore.moveNodeTo(node.id, node.x, node.y)
         // })
         // this.canvas.artBoard.renderer.tick()
+        // this.canvas.artBoard.camera.fitView()    
 
         // this.onTick()
     }
@@ -85,8 +86,11 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
         console.log("=Simulation ended");
         this.simulation.stop();
         this.canvas.dataStore.updateMessage("Updating layout finished.")
-        this.canvas.artBoard.renderer.tick()
-        this.canvas.artBoard.camera.fitView()
+        console.log("===this.canvas.artBoard.renderer", this.canvas.artBoard.renderer)
+        if (this.canvas.artBoard.renderer){
+            this.canvas.artBoard.renderer.tick()
+            this.canvas.artBoard.camera.fitView()    
+        }
     }
 
     reComputeLayout = () => {

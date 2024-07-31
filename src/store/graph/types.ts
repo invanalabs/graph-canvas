@@ -16,6 +16,7 @@ export interface ICanvasItemBase {
   label?: string | undefined
   properties?: ICanvasItemProperties
 
+  // visible: boolean // should the item be visible on the canvas
   isLabelVisible?: boolean
   // isShapeVisible: boolean
 
