@@ -80,8 +80,9 @@ class DagreLayoutComputer {
         nodes.forEach((node: ICanvasNode) => {
             const nodeWithPosition = g.node(node.id);
             console.log("layout of node ", node.id, nodeWithPosition, node)
-            node.x = nodeWithPosition.x /// - nodeWithPosition.width / 2;
-            node.y = nodeWithPosition.y // - nodeWithPosition.height / 2;
+            _this.canvas.dataStore.moveNodeTo(node.id, nodeWithPosition.x, nodeWithPosition.y)
+            // node.x = nodeWithPosition.x /// - nodeWithPosition.width / 2;
+            // node.y = nodeWithPosition.y // - nodeWithPosition.height / 2;
             // node;
         });
   
