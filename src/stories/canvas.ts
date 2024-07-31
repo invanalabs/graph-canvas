@@ -4,7 +4,9 @@ import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
 import DagreLayoutComputer from "../layout/dagre";
 import LayoutsToolBar from "../plugins/layouts";
-import DagreOptionsToolBar from "../plugins/dagreOptions";
+import DagreOptionsToolBar from "../plugins/dagreToolBar";
+import D3ForceLayoutComputer from "../layout/d3-force";
+import D3ForceOptionsToolBar from "../plugins/d3ForceToolBar";
 // import * as dat from 'dat.gui';
 
 
@@ -49,22 +51,30 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
 
         const messageBar = new MessageBar(canvas.artBoard);
-        const messageDiv  = messageBar.render()
+        const messageDiv = messageBar.render()
         html.appendChild(messageDiv)
 
-        // if (layout == "d3-force"){
-        //     const layoutToolBar = new DagreOptionsToolBar(canvas.artBoard);
-        //     const layoutToolBarDiv  = layoutToolBar.render()
-        //     html.appendChild(layoutToolBarDiv)
-        // }else 
-        if (layout === "dagre"){
+        if (layout == "d3-force") {
+          const layoutToolBar = new D3ForceOptionsToolBar(canvas.artBoard);
+          const layoutToolBarDiv = layoutToolBar.render()
+          html.appendChild(layoutToolBarDiv)
+
+          // start treee layout
+          const d3LayoutInstance = new D3ForceLayoutComputer(canvas.artBoard.canvas);
+          d3LayoutInstance?.computeLayout(
+            canvas.artBoard.canvas.dataStore.getNodes(),
+            canvas.artBoard.canvas.dataStore.getLinks()
+          );
+
+
+        } else if (layout === "dagre") {
           const layoutToolBar = new DagreOptionsToolBar(canvas.artBoard);
-          const layoutToolBarDiv  = layoutToolBar.render()
+          const layoutToolBarDiv = layoutToolBar.render()
           html.appendChild(layoutToolBarDiv)
 
           // start treee layout
           const dagreLayoutInstance = new DagreLayoutComputer(canvas.artBoard.canvas);
- 
+
           dagreLayoutInstance?.computeLayout(
             canvas.artBoard.canvas.dataStore.getNodes(),
             canvas.artBoard.canvas.dataStore.getLinks()
@@ -76,7 +86,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         // const layoutToolBar = new LayoutsToolBar(canvas.artBoard);
         // const layoutToolBarDiv  = layoutToolBar.render()
         // html.appendChild(layoutToolBarDiv)
- 
+
         canvas.artBoard.camera.fitView();
 
         // Creating a GUI and a subfolder.
