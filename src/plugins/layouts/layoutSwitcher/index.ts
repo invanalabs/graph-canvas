@@ -1,11 +1,11 @@
-import { ArtBoard } from "../../artBoard";
-import D3ForceLayoutComputer from "../../layout/d3-force";
-import DagreLayoutComputer from "../../layout/dagre";
-import { PluginAbstract } from "../base";
-import { createToolBarButton, createToolBarToggleButton, IToolBarButton } from "../toolbar/html";
+import { ArtBoard } from "../../../artBoard";
+import D3ForceLayoutComputer from "../../../layout/d3-force";
+import DagreLayoutComputer from "../../../layout/dagre";
+import { PluginAbstract } from "../../base";
+import { createToolBarButton, createToolBarToggleButton, IToolBarButton } from "../../toolbar/html";
 import "../toolbar/toolbar.css"
 
-export default class LayoutsToolBar implements PluginAbstract {
+export default class LayoutSwitcherToolBar implements PluginAbstract {
 
     artBoard: ArtBoard;
 

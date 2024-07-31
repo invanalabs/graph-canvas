@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { exampleNodes, exampleLinks } from './link';
-import { createCanvas } from '../../../canvas';
+import { createCanvas } from '../../../utils/canvas';
 
 
 const meta = {

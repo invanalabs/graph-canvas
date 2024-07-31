@@ -1,14 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from './canvas';
+import { createCanvas } from './utils/canvas';
 import {  helloWorldDataSet } from "./datasets/hello-world";
-import largeData from './datasets/large-data'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
+import largeData from './datasets/large-data/largeData.json'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
 import { customICanvasOptions } from './styling/nodes/circle/circle';
 import { sample1DataSet } from "./datasets/sample1"
 import miserablesData from './datasets/les-miserables/miserables.json';
-import {treeData} from "./datasets/treeData"
  
 const meta = {
-  title: 'Examples',
+  title: 'Showcase',
   render: () => createCanvas(helloWorldDataSet.nodes, helloWorldDataSet.links, customICanvasOptions),
   parameters: {
     layout: 'fullscreen',
@@ -35,13 +34,15 @@ export const SampleOne: StoryObj = {
   render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, {},  ) ,
 };
 
-// export const LargeData: StoryObj = {
-//   render: () => createCanvas(largeData.nodes, largeData.links, {
-//     extraSettings: { nodeSizeBasedOn: "default" },
-//     styles: { nodes: { TestNode: { size: 5 } } },
-//   },
-//     "d3-force"
-//   ),
-// };
+
+console.log("====largeData", largeData)
+export const LargeData: StoryObj = {
+  render: () => createCanvas(largeData.nodes, largeData.links, {
+    extraSettings: { nodeSizeBasedOn: "default" },
+    // styles: { nodes: { TestNode: { size: 5 } } },
+  },
+    // "d3-force"
+  ),
+};
 
 

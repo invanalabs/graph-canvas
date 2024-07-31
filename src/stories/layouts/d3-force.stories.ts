@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from '../canvas';
-import { miserablesData } from '../datasets/miserables-no-positions';
+import { createCanvas } from '../utils/canvas';
 import { ICanvasOptions } from '../../canvas';
+import { miserablesData } from '../datasets/miserables-no-positions';
 
 
 const canvasOptions: ICanvasOptions = {
@@ -11,7 +11,7 @@ const canvasOptions: ICanvasOptions = {
 } 
  
 const meta = {
-  title: 'Layout/d3-force',
+  title: 'Layout Computers/d3-force',
   render: () => createCanvas(miserablesData.nodes, miserablesData.links, canvasOptions, 'd3-force') ,
   parameters: {
     layout: 'fullscreen',
@@ -20,5 +20,10 @@ const meta = {
 
 export default meta;
 
-export const LesMiserables: StoryObj = {};
+
+export const LesMiserables: StoryObj = {
+  name : "LesMiserables",
+  render: () => createCanvas(miserablesData.nodes, miserablesData.links, canvasOptions, 'd3-force') ,
+};
+
 

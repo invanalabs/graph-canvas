@@ -4,7 +4,7 @@ import { PluginAbstract } from "../base";
 import "./index.css"
 
 
-export default class MessageBar implements PluginAbstract {
+export default class ArtBoardStatusBar implements PluginAbstract {
 
     artBoard: ArtBoard;
 

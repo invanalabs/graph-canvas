@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from '../canvas';
+import { createCanvas } from '../utils/canvas';
 import { ICanvasOptions } from '../../canvas';
 import { treeData } from '../datasets/treeData';
 
@@ -12,7 +12,7 @@ const customICanvasOptions: ICanvasOptions = {
 
 
 const meta = {
-  title: 'Layout/dagre',
+  title: 'Layout Computers/dagre',
   render: () => createCanvas(treeData.nodes, treeData.links, 
     customICanvasOptions, 'dagre') ,
   parameters: {

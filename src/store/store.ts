@@ -276,6 +276,7 @@ export class DataStore implements IDataStore {
 
     if (!this.links.has(link.id)) {
       // attach sourceInstance using sourceId
+      console.log("Adding link", link)
       const sourceId = link.source instanceof CanvasNode ? link.source.id : link.source
       const sourceNode = this.nodes.get(sourceId);
 
@@ -349,7 +350,7 @@ export class DataStore implements IDataStore {
    * @param links 
    */
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
-    // console.log("adding nodes and links", nodes, links)
+    console.log("adding nodes and links", nodes, links)
     this.canvas.dataStore.updateMessage("Drawing new data")
 
     nodes.map(node=> this.addNode(node))

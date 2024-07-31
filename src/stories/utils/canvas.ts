@@ -1,12 +1,12 @@
-import { GraphCanvas, ICanvasOptions } from "../canvas";
-import ToolBar from "../plugins/toolbar";
-import MessageBar from "../plugins/messageBar";
-import { ICanvasLink, ICanvasNode } from "../store";
-import DagreLayoutComputer from "../layout/dagre";
-import LayoutsToolBar from "../plugins/layouts";
-import DagreOptionsToolBar from "../plugins/dagreToolBar";
-import D3ForceLayoutComputer from "../layout/d3-force";
-import D3ForceOptionsToolBar from "../plugins/d3ForceToolBar";
+import { GraphCanvas, ICanvasOptions } from "../../canvas";
+import ArtBoardToolBar from "../../plugins/toolbar";
+import ArtBoardStatusBar from "../../plugins/statusBar";
+import { ICanvasLink, ICanvasNode } from "../../store";
+import DagreLayoutComputer from "../../layout/dagre";
+import LayoutSwitcherToolBar from "../../plugins/layouts/layoutSwitcher";
+import DagreOptionsToolBar from "../../plugins/dagreToolBar";
+import D3ForceLayoutComputer from "../../layout/d3-force";
+import D3ForceOptionsToolBar from "../../plugins/d3ForceToolBar";
 // import * as dat from 'dat.gui';
 
 
@@ -28,7 +28,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
       debugMode: true
     }
 
-    // options.plugins = [ToolBar, MessageBar]
+    // options.plugins = [ArtBoardToolBar, ArtBoardStatusBar]
     // console.log("====options", options)
     const canvas = new GraphCanvas(options,);
 
@@ -45,13 +45,13 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         canvas.dataStore.add(nodes, links)
 
 
-        const toolbar = new ToolBar(canvas.artBoard);
+        const toolbar = new ArtBoardToolBar(canvas.artBoard);
         const toolBarHTMLDiv = toolbar.render()
         html.appendChild(toolBarHTMLDiv)
 
 
-        const messageBar = new MessageBar(canvas.artBoard);
-        const messageDiv = messageBar.render()
+        const artBoardStatusBar = new ArtBoardStatusBar(canvas.artBoard);
+        const messageDiv = artBoardStatusBar.render()
         html.appendChild(messageDiv)
 
         if (layout == "d3-force") {
@@ -83,7 +83,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
         }
 
-        // const layoutToolBar = new LayoutsToolBar(canvas.artBoard);
+        // const layoutToolBar = new LayoutSwitcherToolBar(canvas.artBoard);
         // const layoutToolBarDiv  = layoutToolBar.render()
         // html.appendChild(layoutToolBarDiv)
 
