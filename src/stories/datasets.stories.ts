@@ -20,7 +20,7 @@ export default meta;
 
 
 export const HelloWorld: StoryObj = {
-  render: () => createCanvas(helloWorldDataSet.nodes, helloWorldDataSet.links, {}, "d3-force") ,
+  render: () => createCanvas(helloWorldDataSet.nodes, helloWorldDataSet.links, {}, ) ,
 };
 
 export const LesMiserables: StoryObj = {
@@ -28,18 +28,11 @@ export const LesMiserables: StoryObj = {
     extraSettings: { nodeSizeBasedOn: "degree", }
   }),
 };
-
-
-export const Treedata: StoryObj = {
-  render: () => createCanvas(treeData.nodes, treeData.links, {
-    extraSettings: { nodeSizeBasedOn: "degree", }
-  }),
-};
-
+ 
 
 
 export const SampleOne: StoryObj = {
-  render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, ) ,
+  render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, {},  ) ,
 };
 
 // export const LargeData: StoryObj = {
