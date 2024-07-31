@@ -1,10 +1,11 @@
 import dagre from "@dagrejs/dagre";
 import { GraphCanvas } from "../canvas";
 import {  CanvasNode, ICanvasLink,  ICanvasNode } from "../store";
+import { LayoutComputerAbstract } from "./base";
 
 
 // TODO - implement LayoutComputerAbstract
-class DagreLayoutComputer {
+class DagreLayoutComputer implements LayoutComputerAbstract{
 
     canvas: GraphCanvas;
     // layout: dagre.graphlib.Graph;
@@ -32,8 +33,9 @@ class DagreLayoutComputer {
         return { centerX: worldWidth / 2, centerY: worldHeight / 2 }
     }
 
-    ticked = () => {
-        // this.canvas.renderer.tick()
+    onTick = () => {
+        this.canvas.artBoard.renderer.tick();
+        this.canvas.artBoard.camera.fitView();
     }
 
     generateLayoutedElements = (nodes: ICanvasNode[], links: ICanvasLink[], direction: string ) => {
@@ -92,12 +94,21 @@ class DagreLayoutComputer {
         return { layoutedNodes: nodes, layoutedLinks: links };
     }
 
+
+    reComputeLayout(){
+        this.onLayoutComputationEnded()
+    }
+
+    onLayoutComputationEnded(){
+        this.canvas.artBoard.renderer.tick();
+        this.canvas.artBoard.camera.fitView();
+    }
+
     computeLayout(nodes: ICanvasNode[], links: ICanvasLink[],  direction: string = "LR") {
         const {layoutedNodes} = this.generateLayoutedElements(nodes, links , direction)
         console.log("====layoutedNodes", layoutedNodes)
         // this.canvas.artBoard.renderer.rePositionNodes(layoutedNodes);
-        this.canvas.artBoard.renderer.tick();
-        this.canvas.artBoard.camera.fitView();
+        this.onLayoutComputationEnded()
     }
  
 }

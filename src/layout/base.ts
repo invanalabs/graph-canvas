@@ -13,7 +13,7 @@ export abstract class LayoutComputerAbstract {
   abstract onLayoutComputationEnded(): void
   abstract computeLayout(nodes: ICanvasNode[], links: ICanvasLink[]): void
   abstract reComputeLayout(): void
-  abstract moveNode(): void
+  // abstract moveNode(): void
   abstract onTick(): void
 }
 
