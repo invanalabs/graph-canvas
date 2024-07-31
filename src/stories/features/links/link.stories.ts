@@ -5,7 +5,7 @@ import { linkStateData } from './data/linkStates';
 
 
 const meta = {
-  title: 'Styling Options/Links',
+  title: 'Features/Links',
   render: () => createCanvas(linkTypesData.nodes, linkTypesData.links) ,
   parameters: {
     layout: 'fullscreen',
