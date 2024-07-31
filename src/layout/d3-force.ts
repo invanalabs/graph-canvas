@@ -76,7 +76,7 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
 
     onTick = () => {
         this.canvas.dataStore.updateMessage("Updating layout ...");
-        // this.canvas.artBoard.renderer.tick()
+        this.canvas.artBoard.renderer.tick()
         // this.onTick()
     }
 

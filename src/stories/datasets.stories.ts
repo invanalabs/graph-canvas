@@ -19,7 +19,7 @@ export default meta;
 
 
 export const HelloWorld: StoryObj = {
-  render: () => createCanvas(helloWorldDataSet.nodes, helloWorldDataSet.links) ,
+  render: () => createCanvas(helloWorldDataSet.nodes, helloWorldDataSet.links, {}, "d3-force") ,
 };
 
 

@@ -56,8 +56,8 @@ export class Renderer {
     const gfxInstance = new Circle(node, this.artBoard)
     gfxInstance.draw()
     console.debug("Renderer.renderNode after .draw triggered ", node, gfxInstance)
-    // this.artBoard.viewport.addChild(gfxInstance.containerGfx)
-    this.artBoard.renderer.gfxStore.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+    this.artBoard.viewport.addChild(gfxInstance.containerGfx)
+    // this.artBoard.renderer.gfxStore.addToDataLayer(node, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
     // this.artBoard.cull.add(gfxInstance.containerGfx)
     // this.artBoard.updateCull()
 
@@ -72,32 +72,32 @@ export class Renderer {
       const gfxInstance = new StraightLine(link, this.artBoard)
       gfxInstance.draw()
       console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-      // this.artBoard.viewport.addChild(gfxInstance.containerGfx)       
-      this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+      this.artBoard.viewport.addChild(gfxInstance.containerGfx)       
+      // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
  
     }
     else if (link.shapeName === "curvedLine"){
       const gfxInstance = new CurvedLine(link, this.artBoard)
       gfxInstance.draw()
       console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-      // this.artBoard.viewport.addChild(gfxInstance.containerGfx)     
-      this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+      this.artBoard.viewport.addChild(gfxInstance.containerGfx)     
+      // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
 
     }
     else if (link.shapeName === "bezierCurvedLine"){
         const gfxInstance = new BezierCurvedLine(link, this.artBoard)
         gfxInstance.draw()
         console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-        // this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
-        this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+        this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
+        // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
 
     }
     else if (link.shapeName === "loopLine"){
       const gfxInstance = new LoopLine(link, this.artBoard)
       gfxInstance.draw()
       console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-      // this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
-      this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+      this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
+      // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
 
   }
     else{
