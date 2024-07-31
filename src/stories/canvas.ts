@@ -2,8 +2,8 @@ import { GraphCanvas, ICanvasOptions } from "../canvas";
 import ToolBar from "../plugins/toolbar";
 import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
-import D3ForceLayoutComputer from "../layouts/d3-force";
-import DagreLayoutComputer from "../layouts/dagre";
+import D3ForceLayoutComputer from "../layout/d3-force";
+import DagreLayoutComputer from "../layout/dagre";
 // import * as dat from 'dat.gui';
 
 
@@ -54,11 +54,11 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         
         if (layout === 'd3-force') {
           const layoutInstance = new D3ForceLayoutComputer(canvas);
-          layoutInstance?.add2Layout(nodes, links);
+          layoutInstance?.computeLayout(nodes, links);
         }
         else if (layout === 'dagre') {
           const layoutInstance = new DagreLayoutComputer(canvas);
-          layoutInstance?.add2Layout(nodes, links);
+          layoutInstance?.computeLayout(nodes, links);
         }else{
           canvas.artBoard.camera.fitView();
         }

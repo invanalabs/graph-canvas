@@ -93,6 +93,8 @@ export class Renderer {
   }
 
   tick() {
+    // TODO - render the pending renderNode/renderLink requests
+
     this.rePositionNodes(this.artBoard.canvas.dataStore.getNodes());
     this.reRenderLinks(this.artBoard.canvas.dataStore.getLinks())
     // this.artBoard.camera.fitView()

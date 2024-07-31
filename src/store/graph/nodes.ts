@@ -37,7 +37,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   style: INodeStyle = NodeStyleDefaults
 
-
   constructor(props: ICanvasNode){
     super(props)
     // position
