@@ -4,7 +4,7 @@ import { exampleNodes, exampleLinks, customICanvasOptions } from './circle';
 
 
 const meta = {
-  title: 'Features/Nodes',
+  title: 'Styling Options/Nodes',
   render: () => createCanvas(exampleNodes, exampleLinks, customICanvasOptions) ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
