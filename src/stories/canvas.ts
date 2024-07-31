@@ -56,16 +56,16 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         html.appendChild(layoutToolBarDiv)
 
         
-        if (layout === 'd3-force') {
-          // const layoutInstance = new D3ForceLayoutComputer(canvas);
-          // layoutInstance?.computeLayout(nodes, links);
-        }
-        else if (layout === 'dagre') {
-          const layoutInstance = new DagreLayoutComputer(canvas);
-          layoutInstance?.computeLayout(nodes, links);
-        }else{
-          canvas.artBoard.camera.fitView();
-        }
+        // if (layout === 'd3-force') {
+        //   // const layoutInstance = new D3ForceLayoutComputer(canvas);
+        //   // layoutInstance?.computeLayout(nodes, links);
+        // }
+        // else if (layout === 'dagre') {
+        //   const layoutInstance = new DagreLayoutComputer(canvas);
+        //   layoutInstance?.computeLayout(nodes, links);
+        // }else{
+        //   canvas.artBoard.camera.fitView();
+        // }
         // canvas.camera.moveNodesToWorldCenter();
         // draw toolbar 
 

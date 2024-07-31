@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import { GraphCanvas } from "../canvas";
-import { CanvasLink, CanvasNode, ICanvasLink, ICanvasNode } from "../store";
+import { CanvasLink, CanvasNode} from "../store";
 import { LayoutComputerAbstract } from "./base";
 
 
@@ -30,7 +30,7 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
         .force("charge", d3.forceManyBody().strength(-300))
         .force("center", d3.forceCenter(centerX, centerY))
         .force("collide", d3.forceCollide().radius((d: CanvasNode) => d.style.size * 3))
-        .tick(200)
+        .tick(500)
         .on("tick", this.onTick.bind(this))
         .on("end", this.onLayoutComputationEnded.bind(this));
 
@@ -72,13 +72,11 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
 
     onTick = () => {
         this.canvas.dataStore.updateMessage("Updating layout ...");
-
         // this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
         //     this.canvas.dataStore.moveNodeTo(node.id, node.x, node.y)
         // })
         // this.canvas.artBoard.renderer.tick()
         // this.canvas.artBoard.camera.fitView()    
-
         // this.onTick()
     }
 
@@ -87,21 +85,21 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
         this.simulation.stop();
         this.canvas.dataStore.updateMessage("Updating layout finished.")
         console.log("===this.canvas.artBoard.renderer", this.canvas.artBoard.renderer)
-        if (this.canvas.artBoard.renderer){
+        // if (this.canvas.artBoard.renderer){
             this.canvas.artBoard.renderer.tick()
             this.canvas.artBoard.camera.fitView()    
-        }
+        // }
     }
 
     reComputeLayout = () => {
-        this.simulation.alpha(0.1).restart();
+        this.simulation.alpha(0.3).restart();
     }
 
     computeLayout(nodes: CanvasNode[], links: CanvasLink[]) {
         // Update the simulation links with new data
         this.simulation.nodes(nodes);
-        // this.simulation.nodes().push(nodes);
         this.simulation.force("link").links(links);
+        // this.simulation.nodes().push(nodes);
         // this.simulation.force("link").links().push(links);
         this.reComputeLayout(); // Experimental
     }
