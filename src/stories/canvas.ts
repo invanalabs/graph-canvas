@@ -2,8 +2,8 @@ import { GraphCanvas, ICanvasOptions } from "../canvas";
 import ToolBar from "../plugins/toolbar";
 import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
-import D3ForceLayoutComputer from "../layout/d3-force";
 import DagreLayoutComputer from "../layout/dagre";
+import LayoutsToolBar from "../plugins/layouts";
 // import * as dat from 'dat.gui';
 
 
@@ -50,6 +50,10 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         const messageBar = new MessageBar(canvas.artBoard);
         const messageDiv  = messageBar.render()
         html.appendChild(messageDiv)
+
+        const layoutToolBar = new LayoutsToolBar(canvas.artBoard);
+        const layoutToolBarDiv  = layoutToolBar.render()
+        html.appendChild(layoutToolBarDiv)
 
         
         if (layout === 'd3-force') {
