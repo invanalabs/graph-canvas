@@ -114,6 +114,7 @@ export class ArtBoardBase {
       this.pixiApp.stage.addChild(this.viewport)
       this.renderer = new Renderer(this)
       this.camera = new Camera(this)
+      // this.camera.fitView()
       this.events = new DefaultEventEmitter(this)
       this.setUpRenderOnEventListers()
 

@@ -342,7 +342,7 @@ export class DataStore implements IDataStore {
   getLinks(): CanvasLink[] {
     return Array.from(this.links.values())
   }
-
+ 
   /**
    * Adds data to the graph 
    * @param nodes 
@@ -351,6 +351,7 @@ export class DataStore implements IDataStore {
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
     // console.log("adding nodes and links", nodes, links)
     this.canvas.dataStore.updateMessage("Drawing new data")
+
     nodes.map(node=> this.addNode(node))
     links.map(link=> this.addLink(link))
     const newNodes = nodes.map(node=> this.nodes.get(node.id)).filter(node => node !== undefined)

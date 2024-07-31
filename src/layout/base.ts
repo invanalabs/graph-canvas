@@ -18,3 +18,23 @@ export abstract class LayoutComputerAbstract {
 }
 
 
+
+// export default class LayoutComputerBase implements LayoutComputerAbstract {
+
+//   canvas: GraphCanvas;
+
+//   constructor(canvas: GraphCanvas) {
+//     this.canvas = canvas
+//   }
+
+
+
+//   onLayoutComputationEnded = () => {
+//     console.log("=Simulation ended");
+//     this.simulation.stop();
+//     this.canvas.dataStore.updateMessage("Updating layout finished.")
+//     this.canvas.artBoard.renderer.tick()
+//     this.canvas.artBoard.camera.fitView()
+// }
+
+// }
