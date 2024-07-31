@@ -20,16 +20,16 @@ class DagreLayoutComputer {
 
     calcNodeHeight = (nodeSizeInfo: CanvasNode) => {
         // const resolution = this.canvas.options?.resolution | window.devicePixelRatio;
-        return  nodeSizeInfo?.style?.size * 4  ||  this.defaultNodeHeight
+        return  nodeSizeInfo?.style?.size * 1.5  ||  this.defaultNodeHeight
     }
     
     calcNodeWidth = (nodeSizeInfo: CanvasNode) => {
-        return nodeSizeInfo?.style?.size * 4 || this.defaultNodeWidth
+        return nodeSizeInfo?.style?.size * 1.5 || this.defaultNodeWidth
     }
     
     getCenter = () => {
         const { worldWidth, worldHeight } = this.canvas.artBoard.getCanvasSizeOptions();
-        return { centerX: worldWidth / 4, centerY: worldHeight / 4 }
+        return { centerX: worldWidth / 2, centerY: worldHeight / 2 }
     }
 
     ticked = () => {
@@ -47,13 +47,14 @@ class DagreLayoutComputer {
         g.setDefaultEdgeLabel(function() { return {}; });
         console.log("===direction", direction)
         g.setGraph({ 
-            // rankdir: direction, 
-            // nodesep:200,
+            rankdir: direction, 
+            nodesep: 50,   // Horizontal space between nodes
+            ranksep: 100,   // Vertical space between nodes
             // ranker: "tight-tree",
             // width: 2000,
             // height: 1000,
-            marginx: 100,
-            marginy: 100,
+            // marginx: 200,
+            // marginy: 200,
             // ...graphOptions
         });
 

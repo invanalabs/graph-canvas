@@ -5,6 +5,7 @@ import largeData from './datasets/large-data'; //https://observablehq.com/@alexi
 import { customICanvasOptions } from './styling/nodes/circle/circle';
 import { sample1DataSet } from "./datasets/sample1"
 import miserablesData from './datasets/les-miserables/miserables.json';
+import {treeData} from "./datasets/treeData"
  
 const meta = {
   title: 'Examples',
@@ -22,12 +23,20 @@ export const HelloWorld: StoryObj = {
   render: () => createCanvas(helloWorldDataSet.nodes, helloWorldDataSet.links, {}, "d3-force") ,
 };
 
-
 export const LesMiserables: StoryObj = {
   render: () => createCanvas(miserablesData.nodes, miserablesData.links, {
     extraSettings: { nodeSizeBasedOn: "degree", }
   }),
 };
+
+
+export const Treedata: StoryObj = {
+  render: () => createCanvas(treeData.nodes, treeData.links, {
+    extraSettings: { nodeSizeBasedOn: "degree", }
+  }),
+};
+
+
 
 export const SampleOne: StoryObj = {
   render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, ) ,
