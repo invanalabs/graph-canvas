@@ -54,20 +54,8 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         const layoutToolBar = new LayoutsToolBar(canvas.artBoard);
         const layoutToolBarDiv  = layoutToolBar.render()
         html.appendChild(layoutToolBarDiv)
-
-        
-        // if (layout === 'd3-force') {
-        //   // const layoutInstance = new D3ForceLayoutComputer(canvas);
-        //   // layoutInstance?.computeLayout(nodes, links);
-        // }
-        // else if (layout === 'dagre') {
-        //   const layoutInstance = new DagreLayoutComputer(canvas);
-        //   layoutInstance?.computeLayout(nodes, links);
-        // }else{
-        //   canvas.artBoard.camera.fitView();
-        // }
-        // canvas.camera.moveNodesToWorldCenter();
-        // draw toolbar 
+ 
+        canvas.artBoard.camera.fitView();
 
         // Creating a GUI and a subfolder.
         // const gui = new dat.GUI();

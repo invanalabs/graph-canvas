@@ -356,7 +356,7 @@ export class DataStore implements IDataStore {
     links.map(link=> this.addLink(link))
     const newNodes = nodes.map(node=> this.nodes.get(node.id)).filter(node => node !== undefined)
     const newLinks = links.map(link=> this.links.get(link.id)).filter(link => link !== undefined)
-    this.canvas.layout.computeLayout(newNodes, newLinks)
+    // this.canvas.layout.computeLayout(newNodes, newLinks)
     this.canvas.artBoard.renderer.renderSelection(newNodes, newLinks)
   }
 

@@ -3,8 +3,6 @@ import { defaultCanvasOptions } from "./defaults"
 import { ICanvasOptions } from "./types"
 import { deepMerge } from "../utils/merge"
 import { ArtBoard } from "../artBoard"
-import { NoLayoutComputer } from "../layout/no-layout"
-import D3ForceLayoutComputer from "../layout/d3-force"
 
 
 export class GraphCanvas {
@@ -13,7 +11,7 @@ export class GraphCanvas {
   options: ICanvasOptions
   dataStore: DataStore
   artBoard: ArtBoard
-  layout: D3ForceLayoutComputer
+  // layout: D3ForceLayoutComputer
 
   constructor(options: ICanvasOptions) {
     console.log("GraphCanvas.options before", options, defaultCanvasOptions)
@@ -35,7 +33,7 @@ export class GraphCanvas {
     // data store 
     this.dataStore = new DataStore(this);
 
-    this.layout = new D3ForceLayoutComputer(this)
+    // this.layout = new D3ForceLayoutComputer(this)
 
     // this.options.plugins.forEach((PluginCls: PluginBase )=> {
     //   const div = new PluginCls(this.artBoard);

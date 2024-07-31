@@ -19,7 +19,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
 
   onNodeAdded = ({ id, node }: OnNodeAddedEventData) => {
     console.log("emitter:onNodeAdded", id, node)
-    this.artBoard.canvas.layout.computeLayout([node,],[])
+    // this.artBoard.canvas.layout.computeLayout([node,],[])
   }
 
   onNodeDeleted = ({ id, node }: OnNodeDeletedEventData) => {
@@ -72,7 +72,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   onLinkAdded = ({ id, link }: OnLinkAddedEventData) => {
     console.log("emitter:onLinkAdded", id, link);
     // this.artBoard.renderer.renderLink(link)
-    this.artBoard.canvas.layout.computeLayout([],[link])
+    // this.artBoard.canvas.layout.computeLayout([],[link])
 
   }
 
