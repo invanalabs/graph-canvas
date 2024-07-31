@@ -4,6 +4,7 @@ import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
 import DagreLayoutComputer from "../layout/dagre";
 import LayoutsToolBar from "../plugins/layouts";
+import DagreOptionsToolBar from "../plugins/dagreOptions";
 // import * as dat from 'dat.gui';
 
 
@@ -51,9 +52,30 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         const messageDiv  = messageBar.render()
         html.appendChild(messageDiv)
 
-        const layoutToolBar = new LayoutsToolBar(canvas.artBoard);
-        const layoutToolBarDiv  = layoutToolBar.render()
-        html.appendChild(layoutToolBarDiv)
+        // if (layout == "d3-force"){
+        //     const layoutToolBar = new DagreOptionsToolBar(canvas.artBoard);
+        //     const layoutToolBarDiv  = layoutToolBar.render()
+        //     html.appendChild(layoutToolBarDiv)
+        // }else 
+        if (layout === "dagre"){
+          const layoutToolBar = new DagreOptionsToolBar(canvas.artBoard);
+          const layoutToolBarDiv  = layoutToolBar.render()
+          html.appendChild(layoutToolBarDiv)
+
+          // start treee layout
+          const dagreLayoutInstance = new DagreLayoutComputer(canvas.artBoard.canvas);
+ 
+          dagreLayoutInstance?.computeLayout(
+            canvas.artBoard.canvas.dataStore.getNodes(),
+            canvas.artBoard.canvas.dataStore.getLinks()
+          );
+
+
+        }
+
+        // const layoutToolBar = new LayoutsToolBar(canvas.artBoard);
+        // const layoutToolBarDiv  = layoutToolBar.render()
+        // html.appendChild(layoutToolBarDiv)
  
         canvas.artBoard.camera.fitView();
 

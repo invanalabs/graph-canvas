@@ -37,6 +37,7 @@ class DagreLayoutComputer {
     }
 
     generateLayoutedElements = (nodes: ICanvasNode[], links: ICanvasLink[], direction: string ) => {
+        console.log("=====generateLayoutedElements", direction)
         const _this = this;
         // const isHorizontal = direction === "LR";
         // const graphOptions =  direction === "LR" ? {rankSep: 150,} : {rankSep: 100}
@@ -48,8 +49,8 @@ class DagreLayoutComputer {
         console.log("===direction", direction)
         g.setGraph({ 
             rankdir: direction, 
-            nodesep: 50,   // Horizontal space between nodes
-            ranksep: 100,   // Vertical space between nodes
+            nodesep: 100,   // Horizontal space between nodes
+            ranksep: 150,   // Vertical space between nodes
             // ranker: "tight-tree",
             // width: 2000,
             // height: 1000,
