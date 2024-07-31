@@ -53,8 +53,8 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
         
         if (layout === 'd3-force') {
-          const layoutInstance = new D3ForceLayoutComputer(canvas);
-          layoutInstance?.computeLayout(nodes, links);
+          // const layoutInstance = new D3ForceLayoutComputer(canvas);
+          // layoutInstance?.computeLayout(nodes, links);
         }
         else if (layout === 'dagre') {
           const layoutInstance = new DagreLayoutComputer(canvas);

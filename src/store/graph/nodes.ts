@@ -100,9 +100,9 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   }
 
   updateNodePosition( x: number, y: number) {
-    console.log("==updateNodePosition", x,y, this.x, this.y) 
+    // console.log("==updateNodePosition", x,y, this.x, this.y) 
       if (this.previousX !== x && this.previousY !== y){
-        console.log("######updateNodePosition", x, y)
+        // console.log("######updateNodePosition", x, y)
         this.previousX = this.x;
         this.previousY = this.y;
         this.x = x;

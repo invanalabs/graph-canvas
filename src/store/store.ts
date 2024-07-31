@@ -184,6 +184,7 @@ export class DataStore implements IDataStore {
       const nodeInstance = new CanvasNode(node)
       this.nodes.set(node.id, nodeInstance);
       this.trigger('node:data:onAdded', { id: node.id, node: nodeInstance });
+      return nodeInstance
     } else {
       console.error(`Node with id "${node.id}" already exists.`);
     }
@@ -301,6 +302,7 @@ export class DataStore implements IDataStore {
       this.trigger('link:data:onAdded', { id: link.id, link: linkInstance });
       this.reCalcNodeLinks(linkInstance.source.id);
       this.reCalcNodeLinks(linkInstance.target.id);
+      return linkInstance
 
     } else {
       console.error(`Link with key "${link.id}" already exists.`);
@@ -349,14 +351,12 @@ export class DataStore implements IDataStore {
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
     // console.log("adding nodes and links", nodes, links)
     this.canvas.dataStore.updateMessage("Drawing new data")
-    // let _this = this;
-    // add nodes 
-    nodes.forEach(node => this.addNode(node))
-    // add links
-    links.forEach(link => this.addLink(link))
-    // // calculate links for the nodes
-    // nodes.forEach(node => this.reCalcNodeLinks(node.id))
-
+    nodes.map(node=> this.addNode(node))
+    links.map(link=> this.addLink(link))
+    const newNodes = nodes.map(node=> this.nodes.get(node.id)).filter(node => node !== undefined)
+    const newLinks = links.map(link=> this.links.get(link.id)).filter(link => link !== undefined)
+    this.canvas.layout.computeLayout(newNodes, newLinks)
+    this.canvas.artBoard.renderer.renderSelection(newNodes, newLinks)
   }
 
   getNeighborLinks(nodeId: IdString): CanvasLink[] {

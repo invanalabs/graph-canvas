@@ -1,6 +1,6 @@
 import * as d3 from "d3";
 import { GraphCanvas } from "../canvas";
-import { CanvasNode, ICanvasLink, ICanvasNode } from "../store";
+import { CanvasLink, CanvasNode, ICanvasLink, ICanvasNode } from "../store";
 import { LayoutComputerAbstract } from "./base";
 
 
@@ -73,10 +73,10 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
     onTick = () => {
         this.canvas.dataStore.updateMessage("Updating layout ...");
 
-        this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
-            this.canvas.dataStore.moveNodeTo(node.id, node.x, node.y)
-        })
-        this.canvas.artBoard.renderer.tick()
+        // this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
+        //     this.canvas.dataStore.moveNodeTo(node.id, node.x, node.y)
+        // })
+        // this.canvas.artBoard.renderer.tick()
 
         // this.onTick()
     }
@@ -93,13 +93,11 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
         this.simulation.alpha(0.1).restart();
     }
 
-    computeLayout(nodes: ICanvasNode[], links: ICanvasLink[]) {
+    computeLayout(nodes: CanvasNode[], links: CanvasLink[]) {
         // Update the simulation links with new data
-        this.simulation.nodes(this.simulation.nodes().concat(nodes));
-        this.simulation.force("link").links(links);
-        // const { center, } = this.canvas.getCenter(selectedNodes)
-        // this.simulation.force("center", d3.forceCenter(center.x, center.y))
+        this.simulation.nodes(nodes);
         // this.simulation.nodes().push(nodes);
+        this.simulation.force("link").links(links);
         // this.simulation.force("link").links().push(links);
         this.reComputeLayout(); // Experimental
     }

@@ -19,12 +19,13 @@ export class NoLayoutComputer implements LayoutComputerAbstract {
     console.log("Ignoring reComputeLayout because this is NoLayoutComputer")
     nodes.forEach((node: CanvasNode) => {
       this.canvas.artBoard.renderer.renderNode(node)
-      this.onLayoutComputationEnded()
     })
     links.forEach((link: CanvasLink) => {
       this.canvas.artBoard.renderer.renderLink(link)
-      this.onLayoutComputationEnded()
+      // this.onLayoutComputationEnded()
     })
+    this.onLayoutComputationEnded()
+
   }
 
   reComputeLayout(){

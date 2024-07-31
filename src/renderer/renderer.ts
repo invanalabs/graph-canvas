@@ -37,13 +37,13 @@ export class Renderer {
     this.render()
   }
 
-  hideAll(){
-    // this.artBoard.pixiApp.stage.hi
-  }
+  // hideAll(){
+  //   // this.artBoard.pixiApp.stage.hi
+  // }
 
-  showAll(){
+  // showAll(){
     
-  }
+  // }
 
   renderSelection = (nodes: CanvasNode[], links: CanvasLink[]) => {
     console.debug("Renderer.render triggered ", nodes, links)
