@@ -25,12 +25,12 @@ export class GraphicsLayer {
     // this.baseLayer = this.createLayer(layerName, zIndexStartsAt) // add this to this.artBoard.viewport
     // for nodes and links layer
     this.linkGraphics = this.createLayer(this.getLinksLayerName(), zIndexStartsAt + 1)
-    // this.artBoard.viewport.addChild(this.linkGraphics)
-    this.artBoard.pixiApp.stage.addChild(this.linkGraphics)
+    this.artBoard.viewport.addChild(this.linkGraphics)
+    // this.artBoard.pixiApp.stage.addChild(this.linkGraphics)
     
     this.nodeGraphics = this.createLayer(this.getNodesLayerName(), zIndexStartsAt + 2)
-    // this.artBoard.viewport.addChild(this.nodeGraphics)
-    this.artBoard.pixiApp.stage.addChild(this.nodeGraphics)
+    this.artBoard.viewport.addChild(this.nodeGraphics)
+    // this.artBoard.pixiApp.stage.addChild(this.nodeGraphics)
   }
 
 

@@ -181,7 +181,7 @@ export class ArtBoardBase {
       passiveWheel: true,
       events: this.pixiApp.renderer.events
     })
-
+    viewport.name = "viewport"
     viewport
       .drag()
       .pinch({ percent: 0.5 })
