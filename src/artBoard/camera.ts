@@ -21,6 +21,7 @@ export class Camera {
         // console.log("==fitView", selectedNodes, zoomLevel);
         if (selectedNodes.length == 0 ){
             selectedNodes = this.artBoard.canvas.dataStore.getNodes()
+         
         }
         const { center, graphHeight, graphWidth } = getCenter(selectedNodes)
         this.viewport.moveCenter(center)

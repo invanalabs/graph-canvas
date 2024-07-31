@@ -16,6 +16,10 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   x: number = 0
   y: number = 0
 
+  // used to detect the change in the position
+  previousX: number = 0
+  previousY: number = 0
+
   icon?: string;
   image?: string
 
@@ -36,7 +40,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   state: IShapeState = ":default"
 
   style: INodeStyle = NodeStyleDefaults
-
 
   constructor(props: ICanvasNode){
     super(props)
@@ -95,6 +98,27 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   setStyle(style: INodeStyle) {
     this.style = style
   }
+
+  updateNodePosition( x: number, y: number) {
+    // console.log("==updateNodePosition", x,y, this.x, this.y) 
+      if (this.previousX !== x && this.previousY !== y){
+        // console.log("######updateNodePosition", x, y)
+        this.previousX = this.x;
+        this.previousY = this.y;
+        this.x = x;
+        this.y = y;
+        
+        this.gfxInstance?.setPosition(x, y)
+      }
+  }
+
+  // redrawNeighbors(){
+  //   this.neighbors.links.forEach((link_: CanvasLink) => {
+  //     const link = this.artBoard.canvas.dataStore.links.get(link_.id)
+  //     if (link)
+  //       link.gfxInstance?.redraw();
+  //   })
+  // }
 
   // get x() {
   //   return this._x;

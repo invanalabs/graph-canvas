@@ -19,6 +19,7 @@ export abstract class EventEmitterAbstract {
   abstract onNodeAdded: onNodeAddedEventListener;
   abstract onNodeDeleted: onNodeDeletedEventListener;
   abstract onNodePropertiesUpdated: OnNodePropertiesUpdatedEventListener;
+  abstract onNodePositionUpdated: OnNodePropertiesUpdatedEventListener;
   abstract onNodeLinksUpdated: OnNodeLinksUpdatedEventListener;
   abstract onNodeStyleUpdated: OnNodeStyleUpdatedEventListener;
 
@@ -35,7 +36,7 @@ export abstract class EventEmitterAbstract {
   abstract onNodeClicked: OnNodeGfxEventListener
   abstract onNodeUnClicked: OnNodeGfxEventListener
   abstract onNodeContextMenu: OnNodeGfxEventListener
-  abstract onNodeMoved: OnNodeGfxEventListener
+  // abstract onNodeMoved: OnNodeGfxEventListener
 
 
   abstract onLinkPointerIn: OnLinkGfxEventListener

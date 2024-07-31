@@ -146,9 +146,9 @@ export default class ToolBar implements PluginAbstract{
         // debugOffButton.innerHTML = "Debug OFF"
         // toolBar.appendChild(debugOffButton);
 
-        // const reDoLayoutButton = document.createElement('button');
-        // reDoLayoutButton.innerHTML = "ReDoLayout"
-        // toolBar.appendChild(reDoLayoutButton);
+        // const reComputeLayoutButton = document.createElement('button');
+        // reComputeLayoutButton.innerHTML = "reComputeLayout"
+        // toolBar.appendChild(reComputeLayoutButton);
 
         return toolBar
     }

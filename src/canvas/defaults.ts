@@ -1,3 +1,5 @@
+import { LayoutComputerAbstract } from "../layout/base";
+import { NoLayoutComputer } from "../layout/no-layout";
 import { ICanvasOptions } from "./types"
 // import * as PIXI from "pixi.js" 
 
@@ -15,6 +17,7 @@ const getDefaultViewDiv  = () => {
 
 const defaultViewDiv =  getDefaultViewDiv();
 export const defaultCanvasOptions: ICanvasOptions = {
+  // layout: NoLayoutComputer,
   viewElement: defaultViewDiv,
   background: "#222222",
   resolution: {
@@ -22,7 +25,7 @@ export const defaultCanvasOptions: ICanvasOptions = {
     links: window.devicePixelRatio,
     canvas: window.devicePixelRatio, // WARNING - dont change this;
     labels: window.devicePixelRatio * 2,
-    icons: window.devicePixelRatio * 6,
+    icons: window.devicePixelRatio * 4,
     images: window.devicePixelRatio
   },
   debugMode: true,

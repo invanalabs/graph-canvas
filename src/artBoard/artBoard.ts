@@ -84,9 +84,9 @@ export class ArtBoard extends ArtBoardBase {
     
   // }
 
-  draw() {
-    this.renderer.render()
-  }
+  // draw() {
+  //   this.renderer.render()
+  // }
 
   clear() {
     this.renderer.clear()

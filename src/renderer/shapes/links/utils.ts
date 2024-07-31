@@ -4,16 +4,17 @@ import type { Polygon } from "pixi.js";
 import { ILinkShapeStyles } from "../types";
 import { CanvasNode } from "../../../store";
 
+
 export const getContactPointOnCircle = (
   source: CanvasNode,
   target: CanvasNode,
   padding: number = 2
 ) => {
 
-  console.debug("====target", target, padding)
+  // console.debug("====target", target, padding)
   // getCirclePont
   const nodeRadius = target?.style?.size + padding ? target?.style?.size : 20
-  console.debug("===nodeRadius", nodeRadius)
+  // console.debug("===nodeRadius", nodeRadius)
   const arrowheadLength = 0;
   const angle = Math.atan2(target.y - source.y, target.x - source.x);
   let x = target.x - Math.cos(angle) * (nodeRadius + arrowheadLength);

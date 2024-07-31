@@ -48,23 +48,17 @@ export class ArtBoardBase {
   setUpRenderOnEventListers() {
 
     this.canvas.dataStore.on('node:data:onAdded', this.events.onNodeAdded);
-    this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
+    this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
+    this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
+    this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
+
+    this.canvas.dataStore.on('node:data:onPositionUpdated', this.events.onNodePositionUpdated);
     this.canvas.dataStore.on('node:gfx:onStateUpdated', this.events.onNodeStateUpdated)
-    this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
 
     // add link:data:onAdded event listener
     this.canvas.dataStore.on('link:data:onAdded', this.events.onLinkAdded);
-    // add node:data:onDeleted event listener
-    this.canvas.dataStore.on('node:data:onDeleted', this.events.onNodeDeleted);
-    // add "link:data:onDeleted" event listener
     this.canvas.dataStore.on('link:data:onDeleted', this.events.onLinkDeleted);
-    // add "link:data:onDeleted" event listener
-    this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
-
-    this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
-
-
-
+    this.canvas.dataStore.on('link:gfx:onStateUpdated', this.events.onLinkStateUpdated)
   }
 
 
@@ -89,7 +83,7 @@ export class ArtBoardBase {
   init = () => {
 
     const _this = this;
-    console.log("start_drawing this.options", this.canvas.options)
+    // console.log("start_drawing this.options", this.canvas.options)
     const { screenWidth, screenHeight } = this.getCanvasSizeOptions()
     const pixiAppArgs = {
       width: screenWidth,
@@ -113,13 +107,14 @@ export class ArtBoardBase {
       this.pixiApp.stage.hitArea = _this.pixiApp.screen;
       this.pixiApp.stage.sortableChildren = true
       // setup viewport
-      console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
+      // console.log("===_this.pixiApp.stage", _this.pixiApp.stage, this, this.viewport)
 
     }).finally(() => {
       this.viewport = this.createViewport()
       this.pixiApp.stage.addChild(this.viewport)
       this.renderer = new Renderer(this)
       this.camera = new Camera(this)
+      // this.camera.fitView()
       this.events = new DefaultEventEmitter(this)
       this.setUpRenderOnEventListers()
 
@@ -135,8 +130,6 @@ export class ArtBoardBase {
     this.canvas.dataStore.getNodes().forEach((node: CanvasNode) => {
       node.gfxInstance?.hideLabel()
     })
-
-
   }
 
   showNodeLabels = () => {
@@ -159,13 +152,10 @@ export class ArtBoardBase {
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
     const labelVisiblitythreshold = this.canvas.options.extraSettings?.labelVisibilityZoomThreshold
-    console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible)
-
+    // console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible)
     if (labelVisiblitythreshold) {
       if (zoomScale < labelVisiblitythreshold) {
-
         if (this.isLabelsVisible === true) {
-
           // hide label
           this.hideNodeLabels()
           this.hideLinkLabels()
@@ -180,25 +170,22 @@ export class ArtBoardBase {
         }
       }
     }
-
   }
 
   createViewport(): Viewport {
     const canvasSizeOptions = this.getCanvasSizeOptions()
-    console.log("--canvasSizeOptions", canvasSizeOptions)
     const viewport = new Viewport({
-      // interaction: this.pixiApp.renderer.inter,
       screenWidth: canvasSizeOptions.screenWidth,
       screenHeight: canvasSizeOptions.screenHeight,
       worldWidth: canvasSizeOptions.worldWidth,
       worldHeight: canvasSizeOptions.worldHeight,
-      // passiveWheel: false,
+      passiveWheel: true,
       events: this.pixiApp.renderer.events
     })
-
+    viewport.name = "viewport"
     viewport
       .drag()
-      .pinch({ percent: 1 })
+      .pinch({ percent: 0.5 })
       .wheel()
       .decelerate()
       .clampZoom({
@@ -207,7 +194,6 @@ export class ArtBoardBase {
         maxWidth: canvasSizeOptions.worldWidth,
         maxHeight: canvasSizeOptions.worldHeight
       })
-
 
     // viewport.on("zoomed-end", event => {
     //   console.log("zoomed-end event", event)

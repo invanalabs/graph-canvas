@@ -2,8 +2,11 @@ import { GraphCanvas, ICanvasOptions } from "../canvas";
 import ToolBar from "../plugins/toolbar";
 import MessageBar from "../plugins/messageBar";
 import { ICanvasLink, ICanvasNode } from "../store";
-import D3ForceLayout from "../layouts/d3-force";
-import DagreLayout from "../layouts/dagre";
+import DagreLayoutComputer from "../layout/dagre";
+import LayoutsToolBar from "../plugins/layouts";
+import DagreOptionsToolBar from "../plugins/dagreToolBar";
+import D3ForceLayoutComputer from "../layout/d3-force";
+import D3ForceOptionsToolBar from "../plugins/d3ForceToolBar";
 // import * as dat from 'dat.gui';
 
 
@@ -19,7 +22,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
 
   document.addEventListener("DOMContentLoaded", function (event) {
-    console.log("=DOM is ready", event,)
+    // console.log("=DOM is ready", event,)
     const options: ICanvasOptions = (canvasOptions) ? { ...canvasOptions, viewElement: canvasDiv } : {
       viewElement: canvasDiv,
       debugMode: true
@@ -30,12 +33,12 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
     const canvas = new GraphCanvas(options,);
 
     canvas.artBoard.init().then(() => {
-      console.log("====start_drawing started")
+      // console.log("====start_drawing started")
       const fontFamilyname = 'FontAwesome';
       const fontUrl = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2'
       const font = new FontFace(fontFamilyname, 'url(' + fontUrl + ')');
       font.load().then(function (loadedFont) {
-        console.log("font loaded ", fontFamilyname)
+        // console.log("font loaded ", fontFamilyname)
         document.fonts.add(loadedFont);
 
         // canvas.artBoard.
@@ -48,22 +51,43 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
 
 
         const messageBar = new MessageBar(canvas.artBoard);
-        const messageDiv  = messageBar.render()
+        const messageDiv = messageBar.render()
         html.appendChild(messageDiv)
 
-        
-        if (layout === 'd3-force') {
-          const layoutInstance = new D3ForceLayout(canvas);
-          layoutInstance?.add2Layout(nodes, links);
+        if (layout == "d3-force") {
+          const layoutToolBar = new D3ForceOptionsToolBar(canvas.artBoard);
+          const layoutToolBarDiv = layoutToolBar.render()
+          html.appendChild(layoutToolBarDiv)
+
+          // start treee layout
+          const d3LayoutInstance = new D3ForceLayoutComputer(canvas.artBoard.canvas);
+          d3LayoutInstance?.computeLayout(
+            canvas.artBoard.canvas.dataStore.getNodes(),
+            canvas.artBoard.canvas.dataStore.getLinks()
+          );
+
+
+        } else if (layout === "dagre") {
+          const layoutToolBar = new DagreOptionsToolBar(canvas.artBoard);
+          const layoutToolBarDiv = layoutToolBar.render()
+          html.appendChild(layoutToolBarDiv)
+
+          // start treee layout
+          const dagreLayoutInstance = new DagreLayoutComputer(canvas.artBoard.canvas);
+
+          dagreLayoutInstance?.computeLayout(
+            canvas.artBoard.canvas.dataStore.getNodes(),
+            canvas.artBoard.canvas.dataStore.getLinks()
+          );
+
+
         }
-        else if (layout === 'dagre') {
-          const layoutInstance = new DagreLayout(canvas);
-          layoutInstance?.add2Layout(nodes, links);
-        }else{
-          canvas.artBoard.camera.fitView();
-        }
-        // canvas.camera.moveNodesToWorldCenter();
-        // draw toolbar 
+
+        // const layoutToolBar = new LayoutsToolBar(canvas.artBoard);
+        // const layoutToolBarDiv  = layoutToolBar.render()
+        // html.appendChild(layoutToolBarDiv)
+
+        canvas.artBoard.camera.fitView();
 
         // Creating a GUI and a subfolder.
         // const gui = new dat.GUI();

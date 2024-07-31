@@ -3,8 +3,8 @@ import { GraphCanvas } from "../canvas";
 import {  CanvasNode, ICanvasLink,  ICanvasNode } from "../store";
 
 
-
-class DagreLayout {
+// TODO - implement LayoutComputerAbstract
+class DagreLayoutComputer {
 
     canvas: GraphCanvas;
     // layout: dagre.graphlib.Graph;
@@ -20,26 +20,24 @@ class DagreLayout {
 
     calcNodeHeight = (nodeSizeInfo: CanvasNode) => {
         // const resolution = this.canvas.options?.resolution | window.devicePixelRatio;
-        return  nodeSizeInfo?.style?.size * 4  ||  this.defaultNodeHeight
+        return  nodeSizeInfo?.style?.size * 1.5  ||  this.defaultNodeHeight
     }
     
     calcNodeWidth = (nodeSizeInfo: CanvasNode) => {
-        return nodeSizeInfo?.style?.size * 4 || this.defaultNodeWidth
+        return nodeSizeInfo?.style?.size * 1.5 || this.defaultNodeWidth
     }
     
- 
-
     getCenter = () => {
         const { worldWidth, worldHeight } = this.canvas.artBoard.getCanvasSizeOptions();
-        return { centerX: worldWidth / 4, centerY: worldHeight / 4 }
+        return { centerX: worldWidth / 2, centerY: worldHeight / 2 }
     }
 
     ticked = () => {
         // this.canvas.renderer.tick()
     }
 
-
     generateLayoutedElements = (nodes: ICanvasNode[], links: ICanvasLink[], direction: string ) => {
+        console.log("=====generateLayoutedElements", direction)
         const _this = this;
         // const isHorizontal = direction === "LR";
         // const graphOptions =  direction === "LR" ? {rankSep: 150,} : {rankSep: 100}
@@ -50,13 +48,14 @@ class DagreLayout {
         g.setDefaultEdgeLabel(function() { return {}; });
         console.log("===direction", direction)
         g.setGraph({ 
-            // rankdir: direction, 
-            // nodesep:200,
+            rankdir: direction, 
+            nodesep: 100,   // Horizontal space between nodes
+            ranksep: 150,   // Vertical space between nodes
             // ranker: "tight-tree",
             // width: 2000,
             // height: 1000,
-            marginx: 100,
-            marginy: 100,
+            // marginx: 200,
+            // marginy: 200,
             // ...graphOptions
         });
 
@@ -92,14 +91,14 @@ class DagreLayout {
         return { layoutedNodes: nodes, layoutedLinks: links };
     }
 
-    add2Layout(nodes: ICanvasNode[], links: ICanvasLink[],  direction: string = "LR") {
+    computeLayout(nodes: ICanvasNode[], links: ICanvasLink[],  direction: string = "LR") {
         const {layoutedNodes} = this.generateLayoutedElements(nodes, links , direction)
         console.log("====layoutedNodes", layoutedNodes)
-        this.canvas.artBoard.renderer.rePositionNodes(layoutedNodes);
+        // this.canvas.artBoard.renderer.rePositionNodes(layoutedNodes);
         this.canvas.artBoard.renderer.tick();
         this.canvas.artBoard.camera.fitView();
     }
  
 }
 
-export default DagreLayout;
+export default DagreLayoutComputer;

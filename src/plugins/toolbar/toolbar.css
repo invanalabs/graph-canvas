@@ -6,19 +6,19 @@
 
 button.toolbar-btn {
   background: transparent;
-  border: 1px solid #5393e0;
-  color: #5393e0;
+  border: 1px solid  #8f8f8f;
+  color: #8f8f8f;
   margin-right: 5px;
   cursor: pointer;
 }
 
 button.toolbar-btn:hover{
-  border-color:  #efefef;
-  color: #efefef;
+  border-color: #70b0ff;
+  color: #70b0ff;
 }
 
 .toolbar-seperator{
-  color: #5393e0;
+  color: #8f8f8f;
   margin-right: 10px;
   margin-left: 5px;
 }
