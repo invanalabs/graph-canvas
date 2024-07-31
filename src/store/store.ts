@@ -38,6 +38,7 @@ export class DataStore implements IDataStore {
       "node:data:onDeleted": [],
       "node:data:onPropertiesUpdated": [],
       "node:data:onLinksUpdated": [],
+      "node:data:onPositionUpdated": [],
       "node:data:onStyleUpdated": [],
 
       "link:data:onAdded": [],
@@ -54,7 +55,7 @@ export class DataStore implements IDataStore {
       "node:gfx:onClicked": [],
       "node:gfx:onUnClicked": [],
       "node:gfx:onContextMenu": [],
-      "node:gfx:onMoved": [],
+      // "node:gfx:onMoved": [],
 
       "link:gfx:onPointerIn": [],
       "link:gfx:onPointerOut": [],
@@ -216,12 +217,13 @@ export class DataStore implements IDataStore {
     // console.log("Updating position of node ", nodeId, x, y)
     const node: CanvasNode | undefined = this.nodes.get(nodeId);
     if (node) {
-      node.x = x;
-      node.y = y;
-      // TODO - trigger new event callled node:
+      node.updateNodePosition(x, y)
+      // node.x = x;
+      // node.y = y;
+      // // TODO - trigger new event callled node:
       this.nodes.set(nodeId, node)
       // node.gfxInstance?.setPosition(x, y);
-      this.trigger('node:gfx:onMoved', { id: node.id, node: node, event: event });
+      this.trigger('node:data:onPositionUpdated', { id: node.id, node: node, event: event });
     }
   }
 

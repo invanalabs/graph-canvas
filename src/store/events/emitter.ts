@@ -122,9 +122,10 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     console.log("emitter:onNodeContextMenu", id, node);
   }
 
-  onNodeMoved = ({ id, node }: OnNodeGfxEventData) => {
-    console.log("emitter:onNodeMoved", id, node.x, node.y);
-    node.gfxInstance?.setPosition(node.x, node.y);
+  onNodePositionUpdated = ({ id, node }: OnNodeGfxEventData) => {
+    console.log("emitter:onNodePositionUpdated", id, node.x, node.y);
+    // node.gfxInstance?.setPosition(node.x, node.y);
+    node.updateNodePosition(node.x, node.y)
     // redraw links too 
     node.neighbors.links.forEach((link_: CanvasLink) => {
       const link = this.artBoard.canvas.dataStore.links.get(link_.id)

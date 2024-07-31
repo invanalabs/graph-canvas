@@ -52,7 +52,7 @@ export class ArtBoardBase {
     this.canvas.dataStore.on('node:data:onLinksUpdated', this.events.onNodeLinksUpdated);
     this.canvas.dataStore.on('node:data:onStyleUpdated', this.events.onNodeStyleUpdated);
 
-    this.canvas.dataStore.on('node:gfx:onMoved', this.events.onNodeMoved);
+    this.canvas.dataStore.on('node:data:onPositionUpdated', this.events.onNodePositionUpdated);
     this.canvas.dataStore.on('node:gfx:onStateUpdated', this.events.onNodeStateUpdated)
 
     // add link:data:onAdded event listener

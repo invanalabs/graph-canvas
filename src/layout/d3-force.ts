@@ -20,13 +20,9 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
         // Set min and max link lengths
         const minLinkLength = 100;
         const maxLinkLength = 450;
-        const { centerX, centerY } = this.getCenter();
-        // const { worldWidth, worldHeight } = this.canvas.artBoard.getCanvasSizeOptions()
-        const nodes = this.canvas.dataStore.getNodes();
-        const links = this.canvas.dataStore.getLinks();
-       
-        const simulation = d3.forceSimulation(nodes)
-        .force("link", d3.forceLink(links).id((d) => d.id)
+        const { centerX, centerY } = this.getCenter();       
+        const simulation = d3.forceSimulation(this.canvas.dataStore.getNodes())
+        .force("link", d3.forceLink(this.canvas.dataStore.getLinks()).id((d) => d.id)
             .distance(() => {
                 const desiredLength = 250;
                 return Math.max(minLinkLength, Math.min(maxLinkLength, desiredLength));
@@ -76,7 +72,12 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
 
     onTick = () => {
         this.canvas.dataStore.updateMessage("Updating layout ...");
+
+        this.canvas.dataStore.getNodes().forEach((node: CanvasNode)=> {
+            this.canvas.dataStore.moveNodeTo(node.id, node.x, node.y)
+        })
         this.canvas.artBoard.renderer.tick()
+
         // this.onTick()
     }
 
