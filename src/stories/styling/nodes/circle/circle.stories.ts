@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../../../utils/canvas';
 import { exampleNodes, exampleLinks, customICanvasOptions } from './circle';
+import { notImplementedPage } from '../../../utils/notImplementedPage';
 
 
 const meta = {
@@ -23,7 +24,7 @@ export default meta;
 export const States: StoryObj = {};
 
 export const WithImageAndIcon: StoryObj = {
-  title: "With Images and Icons",
-  render: () => createCanvas(exampleNodes, exampleLinks, customICanvasOptions) ,
+  name: "With Images and Icons",
+  render: () => notImplementedPage("WithImageAndIcon") ,
 };
 

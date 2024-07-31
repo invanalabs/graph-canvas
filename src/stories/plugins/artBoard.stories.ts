@@ -5,6 +5,7 @@ import { customICanvasOptions } from '../styling/nodes/circle/circle';
 import { sample1DataSet } from "../datasets/sample1"
 import miserablesData from '../datasets/les-miserables/miserables.json';
 import { createCanvas } from '../utils/canvas';
+import { notImplementedPage } from '../utils/notImplementedPage';
  
 const meta = {
   title: 'Plugins/ArtBoard',
@@ -22,16 +23,13 @@ export default meta;
 
 export const ArtBoardToolBar: StoryObj = {
   name: "ArtBoardToolBar",
-  render: () => createCanvas(miserablesData.nodes, miserablesData.links, {
-    extraSettings: { nodeSizeBasedOn: "degree", }
-  }),
+  render: () => notImplementedPage("ArtBoardToolBar")
+
 };
  
 export const ArtBoardStatusBar: StoryObj = {
   name: "ArtBoardStatusBar",
-  render: () => createCanvas(miserablesData.nodes, miserablesData.links, {
-    extraSettings: { nodeSizeBasedOn: "degree", }
-  }),
+  render: () => notImplementedPage("ArtBoardStatusBar")
 };
 
  

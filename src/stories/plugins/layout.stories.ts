@@ -5,6 +5,7 @@ import { customICanvasOptions } from '../styling/nodes/circle/circle';
 import { sample1DataSet } from "../datasets/sample1"
 import miserablesData from '../datasets/les-miserables/miserables.json';
 import { createCanvas } from '../utils/canvas';
+import { notImplementedPage } from '../utils/notImplementedPage';
  
 const meta = {
   title: 'Plugins/Layout',
@@ -22,17 +23,17 @@ export default meta;
  
 export const D3ForceLayoutToolBar: StoryObj = {
   name:  "D3ForceLayoutToolBar",
-  render: () => createCanvas(helloWorldDataSet.nodes, helloWorldDataSet.links, {}, ) ,
+  render: () => notImplementedPage("D3ForceLayoutToolBar") ,
 };
 
 export const DagreLayoutToolBar: StoryObj = {
   name:  "DagreLayoutToolBar",
-  render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, {},  ) ,
+  render: () => notImplementedPage("DagreLayoutToolBar") ,
 };
 
 export const LayoutSwitcherToolBar: StoryObj = {
-  name:  "Layout/LayoutSwitcherToolBar",
-  render: () => createCanvas(sample1DataSet.nodes, sample1DataSet.links, {},  ) ,
+  name:  "LayoutSwitcherToolBar",
+  render: () => notImplementedPage("LayoutSwitcherToolBar") ,
 };
  
 
