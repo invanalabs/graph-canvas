@@ -49,16 +49,27 @@ class DagreLayoutComputer implements LayoutComputerAbstract{
         // Default to assigning a new object as a label for each new edge.
         g.setDefaultEdgeLabel(function() { return {}; });
         console.log("===direction", direction)
+
+        const graphOptions = {
+            nodesep: 100,   // Horizontal space between nodes
+            ranksep: 40,   // Vertical space between nodes
+        }
+
+        if (direction == "LR" || direction == "RL" ){
+            graphOptions.nodesep = 40
+            graphOptions.ranksep = 100
+        }
+
         g.setGraph({ 
             rankdir: direction, 
-            nodesep: 100,   // Horizontal space between nodes
-            ranksep: 150,   // Vertical space between nodes
+            // nodesep: 100,   // Horizontal space between nodes
+            // ranksep: 40,   // Vertical space between nodes
             // ranker: "tight-tree",
             // width: 2000,
             // height: 1000,
-            // marginx: 200,
-            // marginy: 200,
-            // ...graphOptions
+            // marginx: 100,
+            // marginy: 50,
+            ...graphOptions
         });
 
         // set the nodes to dagre.layout

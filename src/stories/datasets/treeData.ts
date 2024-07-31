@@ -33,7 +33,7 @@ function generateTreeDataWithLinks(x: number): { nodes: ICanvasNode[], links: IC
 
   // Initialize tree with the root node
   const rootId = addNode("Root");
-  createTree(rootId, 3); // Specify the depth of the tree
+  createTree(rootId, 2); // Specify the depth of the tree
 
   // Return the generated data
   return { nodes, links };
