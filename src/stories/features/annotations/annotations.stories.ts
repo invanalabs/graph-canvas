@@ -5,7 +5,7 @@ import { nodeStatesData, nodeStatesDataICanvasOptions } from '../nodes/data/node
 
 
 const meta = {
-  title: 'Features/Clustering',
+  title: 'Features/Annotation',
   render: () => createCanvas(nodeStatesData.nodes, nodeStatesData.links, nodeStatesDataICanvasOptions) ,
   parameters: {
     // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
@@ -22,21 +22,9 @@ const meta = {
 export default meta;
 
 
-export const ClusterStyling: StoryObj = {
+export const AnnotationStyling: StoryObj = {
   name : "styling",
-  render: () => notImplementedPage('ClusterStyling') ,
+  render: () => notImplementedPage('AnnotationStyling') ,
 };
 
-
-export const GroupNodeIntoCluster: StoryObj = {
-  name: "groups nodes into Cluster",
-  render: () => notImplementedPage("GroupNodeIntoCluster") ,
-};
-
-export const CollapseCluster: StoryObj = {
-  name: "collapse or expand Cluster",
-  render: () => notImplementedPage("CollapseCluster") ,
-};
-
-
-
+ 

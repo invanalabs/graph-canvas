@@ -21,10 +21,10 @@ export const defaultCanvasOptions: ICanvasOptions = {
   viewElement: defaultViewDiv,
   background: "#222222",
   resolution: {
-    nodes: window.devicePixelRatio * 4,
+    nodes: window.devicePixelRatio * 6,
     links: window.devicePixelRatio,
     canvas: window.devicePixelRatio, // WARNING - dont change this;
-    labels: window.devicePixelRatio * 4,
+    labels: window.devicePixelRatio * 6,
     icons: window.devicePixelRatio * 4,
     images: window.devicePixelRatio
   },

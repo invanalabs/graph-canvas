@@ -36,7 +36,7 @@ export const SampleOne: StoryObj = {
 
 
 console.log("====largeData", largeData)
-export const LargeData: StoryObj = {
+export const Performance: StoryObj = {
   render: () => createCanvas(largeData.nodes, largeData.links, {
     extraSettings: { nodeSizeBasedOn: "default" },
     // styles: { nodes: { TestNode: { size: 5 } } },
