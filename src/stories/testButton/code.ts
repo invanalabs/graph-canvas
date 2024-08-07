@@ -1,7 +1,5 @@
 
 import { GraphCanvas} from "../../canvas";
-// import ArtBoardToolBar from "../../plugins/toolbar";
-// import ArtBoardStatusBar from "../../plugins/statusBar";
 import { ICanvasLink, ICanvasNode } from "../../store";
 
 export default () => {
@@ -26,7 +24,7 @@ export default () => {
   canvas.artBoard.init().then(() => {
     canvas.dataStore.add(nodes, links)
     canvas.artBoard.camera.fitView();
-  });
+  })
 
 
 }
