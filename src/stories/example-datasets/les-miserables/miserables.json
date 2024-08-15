@@ -1,0 +1,3239 @@
+{
+  "nodes": [
+    {
+      "id": "Myriel",
+      "group": "group-1",
+      "label": "Myriel",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19047.66879951981,
+      "y": 5893.739426630748
+    },
+    {
+      "id": "Napoleon",
+      "group": "group-1",
+      "label": "Napoleon",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19363.339205246186,
+      "y": 5781.568424456303
+    },
+    {
+      "id": "Mlle.Baptistine",
+      "group": "group-1",
+      "label": "Mlle.Baptistine",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18699.03769187485,
+      "y": 5933.665489945709
+    },
+    {
+      "id": "Mme.Magloire",
+      "group": "group-1",
+      "label": "Mme.Magloire",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18762.494688704628,
+      "y": 6100.66675179025
+    },
+    {
+      "id": "CountessdeLo",
+      "group": "group-1",
+      "label": "CountessdeLo",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19168.926593745135,
+      "y": 5718.138514067236
+    },
+    {
+      "id": "Geborand",
+      "group": "group-1",
+      "label": "Geborand",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19300.93244816431,
+      "y": 6079.425188441167
+    },
+    {
+      "id": "Champtercier",
+      "group": "group-1",
+      "label": "Champtercier",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19108.986979385783,
+      "y": 5571.8673166121425
+    },
+    {
+      "id": "Cravatte",
+      "group": "group-1",
+      "label": "Cravatte",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19255.394108516837,
+      "y": 5938.279532910051
+    },
+    {
+      "id": "Count",
+      "group": "group-1",
+      "label": "Count",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19279.560959334467,
+      "y": 5613.5308469253
+    },
+    {
+      "id": "OldMan",
+      "group": "group-1",
+      "label": "OldMan",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 19388.62413223397,
+      "y": 5965.544999393589
+    },
+    {
+      "id": "Labarre",
+      "group": "group-2",
+      "label": "Labarre",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18535.459719769675,
+      "y": 6085.89256017141
+    },
+    {
+      "id": "Valjean",
+      "group": "group-2",
+      "label": "Valjean",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18294.66674108597,
+      "y": 6157.145575348419
+    },
+    {
+      "id": "Marguerite",
+      "group": "group-3",
+      "label": "Marguerite",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18142.821656888562,
+      "y": 6588.481900109459
+    },
+    {
+      "id": "Mme.deR",
+      "group": "group-2",
+      "label": "Mme.deR",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18424.302618740156,
+      "y": 5917.6178197344225
+    },
+    {
+      "id": "Isabeau",
+      "group": "group-2",
+      "label": "Isabeau",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18597.210967228475,
+      "y": 6196.312249454967
+    },
+    {
+      "id": "Gervais",
+      "group": "group-2",
+      "label": "Gervais",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18542.195581521766,
+      "y": 5959.544320197207
+    },
+    {
+      "id": "Tholomyes",
+      "group": "group-3",
+      "label": "Tholomyes",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17557.896078119902,
+      "y": 6879.782985291927
+    },
+    {
+      "id": "Listolier",
+      "group": "group-3",
+      "label": "Listolier",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17584.96666385527,
+      "y": 7246.630769831358
+    },
+    {
+      "id": "Fameuil",
+      "group": "group-3",
+      "label": "Fameuil",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17796.20201011105,
+      "y": 7223.041740111245
+    },
+    {
+      "id": "Blacheville",
+      "group": "group-3",
+      "label": "Blacheville",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17458.91446568254,
+      "y": 7075.523361376541
+    },
+    {
+      "id": "Favourite",
+      "group": "group-3",
+      "label": "Favourite",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17499.796639970435,
+      "y": 7441.379854251107
+    },
+    {
+      "id": "Dahlia",
+      "group": "group-3",
+      "label": "Dahlia",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17373.72192836284,
+      "y": 7270.253523078573
+    },
+    {
+      "id": "Zephine",
+      "group": "group-3",
+      "label": "Zephine",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17711.033319527887,
+      "y": 7417.786058589374
+    },
+    {
+      "id": "Fantine",
+      "group": "group-3",
+      "label": "Fantine",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17824.690308956655,
+      "y": 6865.467691121569
+    },
+    {
+      "id": "Mme.Thenardier",
+      "group": "group-4",
+      "label": "Mme.Thenardier",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17939.133232272143,
+      "y": 6299.330719878478
+    },
+    {
+      "id": "Thenardier",
+      "group": "group-4",
+      "label": "Thenardier",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17759.735219530205,
+      "y": 6038.7782745103605
+    },
+    {
+      "id": "Cosette",
+      "group": "group-5",
+      "label": "Cosette",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17771.413007713374,
+      "y": 6331.238555555526
+    },
+    {
+      "id": "Javert",
+      "group": "group-4",
+      "label": "Javert",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18083.416537493835,
+      "y": 6194.54349957983
+    },
+    {
+      "id": "Fauchelevent",
+      "group": "group-0",
+      "label": "Fauchelevent",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18399.956680319985,
+      "y": 6460.917511946245
+    },
+    {
+      "id": "Bamatabois",
+      "group": "group-2",
+      "label": "Bamatabois",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18342.779803666028,
+      "y": 6619.579649448352
+    },
+    {
+      "id": "Perpetue",
+      "group": "group-3",
+      "label": "Perpetue",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18062.68507909871,
+      "y": 6909.581754367867
+    },
+    {
+      "id": "Simplice",
+      "group": "group-2",
+      "label": "Simplice",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17993.938662171,
+      "y": 6560.088785037103
+    },
+    {
+      "id": "Scaufflaire",
+      "group": "group-2",
+      "label": "Scaufflaire",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18519.28271352104,
+      "y": 6287.003598434576
+    },
+    {
+      "id": "Woman1",
+      "group": "group-2",
+      "label": "Woman1",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18276.613825281787,
+      "y": 6409.608958076572
+    },
+    {
+      "id": "Judge",
+      "group": "group-2",
+      "label": "Judge",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18544.13821498791,
+      "y": 6421.592512589814
+    },
+    {
+      "id": "Champmathieu",
+      "group": "group-2",
+      "label": "Champmathieu",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18719.080716303277,
+      "y": 6679.086519347905
+    },
+    {
+      "id": "Brevet",
+      "group": "group-2",
+      "label": "Brevet",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18661.256849839403,
+      "y": 6530.190370595906
+    },
+    {
+      "id": "Chenildieu",
+      "group": "group-2",
+      "label": "Chenildieu",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18761.068027717756,
+      "y": 6405.47852977109
+    },
+    {
+      "id": "Cochepaille",
+      "group": "group-2",
+      "label": "Cochepaille",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18522.798244939924,
+      "y": 6608.373017912426
+    },
+    {
+      "id": "Pontmercy",
+      "group": "group-4",
+      "label": "Pontmercy",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17418.761815688475,
+      "y": 5949.055708576067
+    },
+    {
+      "id": "Boulatruelle",
+      "group": "group-6",
+      "label": "Boulatruelle",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18031.95995838892,
+      "y": 6055.73551043335
+    },
+    {
+      "id": "Eponine",
+      "group": "group-4",
+      "label": "Eponine",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17859.381818692877,
+      "y": 5725.296535504612
+    },
+    {
+      "id": "Anzelma",
+      "group": "group-4",
+      "label": "Anzelma",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17936.71989936654,
+      "y": 6128.536597830403
+    },
+    {
+      "id": "Woman2",
+      "group": "group-5",
+      "label": "Woman2",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18026.979525111437,
+      "y": 6420.245105697518
+    },
+    {
+      "id": "MotherInnocent",
+      "group": "group-0",
+      "label": "MotherInnocent",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18633.472000986316,
+      "y": 6313.648823696137
+    },
+    {
+      "id": "Gribier",
+      "group": "group-0",
+      "label": "Gribier",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18590.669696528796,
+      "y": 6721.241228028488
+    },
+    {
+      "id": "Jondrette",
+      "group": "group-7",
+      "label": "Jondrette",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18243.059086260157,
+      "y": 4850.978424565539
+    },
+    {
+      "id": "Mme.Burgon",
+      "group": "group-7",
+      "label": "Mme.Burgon",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18127.355987787774,
+      "y": 5133.36923648913
+    },
+    {
+      "id": "Gavroche",
+      "group": "group-8",
+      "label": "Gavroche",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17936.542974932338,
+      "y": 5456.623321411397
+    },
+    {
+      "id": "Gillenormand",
+      "group": "group-5",
+      "label": "Gillenormand",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17809.539874579827,
+      "y": 5877.009766662532
+    },
+    {
+      "id": "Magnon",
+      "group": "group-5",
+      "label": "Magnon",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17769.18489813871,
+      "y": 6189.312517240924
+    },
+    {
+      "id": "Mlle.Gillenormand",
+      "group": "group-5",
+      "label": "Mlle.Gillenormand",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17921.034960726098,
+      "y": 5985.079605876754
+    },
+    {
+      "id": "Mme.Pontmercy",
+      "group": "group-5",
+      "label": "Mme.Pontmercy",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17556.066151706444,
+      "y": 6148.76967409578
+    },
+    {
+      "id": "Mlle.Vaubois",
+      "group": "group-5",
+      "label": "Mlle.Vaubois",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17666.390249063217,
+      "y": 6148.2043991057535
+    },
+    {
+      "id": "Lt.Gillenormand",
+      "group": "group-5",
+      "label": "Lt.Gillenormand",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17579.60183283741,
+      "y": 6024.780360958986
+    },
+    {
+      "id": "Marius",
+      "group": "group-8",
+      "label": "Marius",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17603.342684659478,
+      "y": 5732.345448445796
+    },
+    {
+      "id": "BaronessT",
+      "group": "group-5",
+      "label": "BaronessT",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17778.666903041812,
+      "y": 5610.353087297669
+    },
+    {
+      "id": "Mabeuf",
+      "group": "group-8",
+      "label": "Mabeuf",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17531.07685003829,
+      "y": 5425.54899854959
+    },
+    {
+      "id": "Enjolras",
+      "group": "group-8",
+      "label": "Enjolras",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17754.773000940735,
+      "y": 5470.0622265111415
+    },
+    {
+      "id": "Combeferre",
+      "group": "group-8",
+      "label": "Combeferre",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17463.806698380915,
+      "y": 5132.635261570169
+    },
+    {
+      "id": "Prouvaire",
+      "group": "group-8",
+      "label": "Prouvaire",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17620.079704048505,
+      "y": 4966.701116172229
+    },
+    {
+      "id": "Feuilly",
+      "group": "group-8",
+      "label": "Feuilly",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17398.962168909187,
+      "y": 5292.040129213999
+    },
+    {
+      "id": "Courfeyrac",
+      "group": "group-8",
+      "label": "Courfeyrac",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17709.837030853094,
+      "y": 5312.327526497584
+    },
+    {
+      "id": "Bahorel",
+      "group": "group-8",
+      "label": "Bahorel",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17627.07063144834,
+      "y": 5125.181746241481
+    },
+    {
+      "id": "Bossuet",
+      "group": "group-8",
+      "label": "Bossuet",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17868.131283516464,
+      "y": 5292.543103360627
+    },
+    {
+      "id": "Joly",
+      "group": "group-8",
+      "label": "Joly",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17560.058254110365,
+      "y": 5264.719065604498
+    },
+    {
+      "id": "Grantaire",
+      "group": "group-8",
+      "label": "Grantaire",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17766.077793549273,
+      "y": 5014.401643632424
+    },
+    {
+      "id": "MotherPlutarch",
+      "group": "group-9",
+      "label": "MotherPlutarch",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17740.69587703234,
+      "y": 5185.1613345626
+    },
+    {
+      "id": "Gueulemer",
+      "group": "group-4",
+      "label": "Gueulemer",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18242.713042171723,
+      "y": 5866.7397125633715
+    },
+    {
+      "id": "Babet",
+      "group": "group-4",
+      "label": "Babet",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18100.20857669747,
+      "y": 5940.679588601023
+    },
+    {
+      "id": "Claquesous",
+      "group": "group-4",
+      "label": "Claquesous",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17977.457860404982,
+      "y": 5837.2050111169065
+    },
+    {
+      "id": "Montparnasse",
+      "group": "group-4",
+      "label": "Montparnasse",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18119.502197682756,
+      "y": 5767.39719054313
+    },
+    {
+      "id": "Toussaint",
+      "group": "group-5",
+      "label": "Toussaint",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18153.137727236353,
+      "y": 6426.038788308891
+    },
+    {
+      "id": "Child1",
+      "group": "group-10",
+      "label": "Child1",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18012.18286366118,
+      "y": 5142.790036334298
+    },
+    {
+      "id": "Child2",
+      "group": "group-10",
+      "label": "Child2",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18205.09579547926,
+      "y": 5267.895732558441
+    },
+    {
+      "id": "Brujon",
+      "group": "group-4",
+      "label": "Brujon",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 18093.76637022024,
+      "y": 5618.565388267678
+    },
+    {
+      "id": "Mme.Hucheloup",
+      "group": "group-8",
+      "label": "Mme.Hucheloup",
+      "properties": {},
+      "shapeName": "circle",
+      "x": 17890.41573478863,
+      "y": 5089.2643916709
+    }
+  ],
+  "links": [
+    {
+      "id": "Napoleon-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Napoleon",
+      "target": "Myriel"
+    },
+    {
+      "id": "Mlle.Baptistine-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 8
+      },
+      "shapeName": "straightLine",
+      "source": "Mlle.Baptistine",
+      "target": "Myriel"
+    },
+    {
+      "id": "Mme.Magloire-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 10
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Magloire",
+      "target": "Myriel"
+    },
+    {
+      "id": "Mme.Magloire-Mlle.Baptistine",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Magloire",
+      "target": "Mlle.Baptistine"
+    },
+    {
+      "id": "CountessdeLo-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "CountessdeLo",
+      "target": "Myriel"
+    },
+    {
+      "id": "Geborand-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Geborand",
+      "target": "Myriel"
+    },
+    {
+      "id": "Champtercier-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Champtercier",
+      "target": "Myriel"
+    },
+    {
+      "id": "Cravatte-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Cravatte",
+      "target": "Myriel"
+    },
+    {
+      "id": "Count-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Count",
+      "target": "Myriel"
+    },
+    {
+      "id": "OldMan-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "OldMan",
+      "target": "Myriel"
+    },
+    {
+      "id": "Valjean-Labarre",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Valjean",
+      "target": "Labarre"
+    },
+    {
+      "id": "Valjean-Mme.Magloire",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Valjean",
+      "target": "Mme.Magloire"
+    },
+    {
+      "id": "Valjean-Mlle.Baptistine",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Valjean",
+      "target": "Mlle.Baptistine"
+    },
+    {
+      "id": "Valjean-Myriel",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Valjean",
+      "target": "Myriel"
+    },
+    {
+      "id": "Marguerite-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Marguerite",
+      "target": "Valjean"
+    },
+    {
+      "id": "Mme.deR-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.deR",
+      "target": "Valjean"
+    },
+    {
+      "id": "Isabeau-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Isabeau",
+      "target": "Valjean"
+    },
+    {
+      "id": "Gervais-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gervais",
+      "target": "Valjean"
+    },
+    {
+      "id": "Listolier-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Listolier",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Fameuil-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Fameuil",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Fameuil-Listolier",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Fameuil",
+      "target": "Listolier"
+    },
+    {
+      "id": "Blacheville-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Blacheville",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Blacheville-Listolier",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Blacheville",
+      "target": "Listolier"
+    },
+    {
+      "id": "Blacheville-Fameuil",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Blacheville",
+      "target": "Fameuil"
+    },
+    {
+      "id": "Favourite-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Favourite",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Favourite-Listolier",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Favourite",
+      "target": "Listolier"
+    },
+    {
+      "id": "Favourite-Fameuil",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Favourite",
+      "target": "Fameuil"
+    },
+    {
+      "id": "Favourite-Blacheville",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Favourite",
+      "target": "Blacheville"
+    },
+    {
+      "id": "Dahlia-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Dahlia",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Dahlia-Listolier",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Dahlia",
+      "target": "Listolier"
+    },
+    {
+      "id": "Dahlia-Fameuil",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Dahlia",
+      "target": "Fameuil"
+    },
+    {
+      "id": "Dahlia-Blacheville",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Dahlia",
+      "target": "Blacheville"
+    },
+    {
+      "id": "Dahlia-Favourite",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Dahlia",
+      "target": "Favourite"
+    },
+    {
+      "id": "Zephine-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Zephine",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Zephine-Listolier",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Zephine",
+      "target": "Listolier"
+    },
+    {
+      "id": "Zephine-Fameuil",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Zephine",
+      "target": "Fameuil"
+    },
+    {
+      "id": "Zephine-Blacheville",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Zephine",
+      "target": "Blacheville"
+    },
+    {
+      "id": "Zephine-Favourite",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Zephine",
+      "target": "Favourite"
+    },
+    {
+      "id": "Zephine-Dahlia",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Zephine",
+      "target": "Dahlia"
+    },
+    {
+      "id": "Fantine-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Fantine-Listolier",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Listolier"
+    },
+    {
+      "id": "Fantine-Fameuil",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Fameuil"
+    },
+    {
+      "id": "Fantine-Blacheville",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Blacheville"
+    },
+    {
+      "id": "Fantine-Favourite",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Favourite"
+    },
+    {
+      "id": "Fantine-Dahlia",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Dahlia"
+    },
+    {
+      "id": "Fantine-Zephine",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Zephine"
+    },
+    {
+      "id": "Fantine-Marguerite",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Marguerite"
+    },
+    {
+      "id": "Fantine-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 9
+      },
+      "shapeName": "straightLine",
+      "source": "Fantine",
+      "target": "Valjean"
+    },
+    {
+      "id": "Mme.Thenardier-Fantine",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Thenardier",
+      "target": "Fantine"
+    },
+    {
+      "id": "Mme.Thenardier-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 7
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Thenardier",
+      "target": "Valjean"
+    },
+    {
+      "id": "Thenardier-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 13
+      },
+      "shapeName": "straightLine",
+      "source": "Thenardier",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Thenardier-Fantine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Thenardier",
+      "target": "Fantine"
+    },
+    {
+      "id": "Thenardier-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 12
+      },
+      "shapeName": "straightLine",
+      "source": "Thenardier",
+      "target": "Valjean"
+    },
+    {
+      "id": "Cosette-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Cosette",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Cosette-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 31
+      },
+      "shapeName": "straightLine",
+      "source": "Cosette",
+      "target": "Valjean"
+    },
+    {
+      "id": "Cosette-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Cosette",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Cosette-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Cosette",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Javert-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 17
+      },
+      "shapeName": "straightLine",
+      "source": "Javert",
+      "target": "Valjean"
+    },
+    {
+      "id": "Javert-Fantine",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Javert",
+      "target": "Fantine"
+    },
+    {
+      "id": "Javert-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Javert",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Javert-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Javert",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Javert-Cosette",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Javert",
+      "target": "Cosette"
+    },
+    {
+      "id": "Fauchelevent-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 8
+      },
+      "shapeName": "straightLine",
+      "source": "Fauchelevent",
+      "target": "Valjean"
+    },
+    {
+      "id": "Fauchelevent-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Fauchelevent",
+      "target": "Javert"
+    },
+    {
+      "id": "Bamatabois-Fantine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Bamatabois",
+      "target": "Fantine"
+    },
+    {
+      "id": "Bamatabois-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Bamatabois",
+      "target": "Javert"
+    },
+    {
+      "id": "Bamatabois-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Bamatabois",
+      "target": "Valjean"
+    },
+    {
+      "id": "Perpetue-Fantine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Perpetue",
+      "target": "Fantine"
+    },
+    {
+      "id": "Simplice-Perpetue",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Simplice",
+      "target": "Perpetue"
+    },
+    {
+      "id": "Simplice-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Simplice",
+      "target": "Valjean"
+    },
+    {
+      "id": "Simplice-Fantine",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Simplice",
+      "target": "Fantine"
+    },
+    {
+      "id": "Simplice-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Simplice",
+      "target": "Javert"
+    },
+    {
+      "id": "Scaufflaire-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Scaufflaire",
+      "target": "Valjean"
+    },
+    {
+      "id": "Woman1-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Woman1",
+      "target": "Valjean"
+    },
+    {
+      "id": "Woman1-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Woman1",
+      "target": "Javert"
+    },
+    {
+      "id": "Judge-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Judge",
+      "target": "Valjean"
+    },
+    {
+      "id": "Judge-Bamatabois",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Judge",
+      "target": "Bamatabois"
+    },
+    {
+      "id": "Champmathieu-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Champmathieu",
+      "target": "Valjean"
+    },
+    {
+      "id": "Champmathieu-Judge",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Champmathieu",
+      "target": "Judge"
+    },
+    {
+      "id": "Champmathieu-Bamatabois",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Champmathieu",
+      "target": "Bamatabois"
+    },
+    {
+      "id": "Brevet-Judge",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Brevet",
+      "target": "Judge"
+    },
+    {
+      "id": "Brevet-Champmathieu",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Brevet",
+      "target": "Champmathieu"
+    },
+    {
+      "id": "Brevet-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Brevet",
+      "target": "Valjean"
+    },
+    {
+      "id": "Brevet-Bamatabois",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Brevet",
+      "target": "Bamatabois"
+    },
+    {
+      "id": "Chenildieu-Judge",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Chenildieu",
+      "target": "Judge"
+    },
+    {
+      "id": "Chenildieu-Champmathieu",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Chenildieu",
+      "target": "Champmathieu"
+    },
+    {
+      "id": "Chenildieu-Brevet",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Chenildieu",
+      "target": "Brevet"
+    },
+    {
+      "id": "Chenildieu-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Chenildieu",
+      "target": "Valjean"
+    },
+    {
+      "id": "Chenildieu-Bamatabois",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Chenildieu",
+      "target": "Bamatabois"
+    },
+    {
+      "id": "Cochepaille-Judge",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Cochepaille",
+      "target": "Judge"
+    },
+    {
+      "id": "Cochepaille-Champmathieu",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Cochepaille",
+      "target": "Champmathieu"
+    },
+    {
+      "id": "Cochepaille-Brevet",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Cochepaille",
+      "target": "Brevet"
+    },
+    {
+      "id": "Cochepaille-Chenildieu",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Cochepaille",
+      "target": "Chenildieu"
+    },
+    {
+      "id": "Cochepaille-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Cochepaille",
+      "target": "Valjean"
+    },
+    {
+      "id": "Cochepaille-Bamatabois",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Cochepaille",
+      "target": "Bamatabois"
+    },
+    {
+      "id": "Pontmercy-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Pontmercy",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Boulatruelle-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Boulatruelle",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Eponine-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Eponine",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Eponine-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Eponine",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Anzelma-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Anzelma",
+      "target": "Eponine"
+    },
+    {
+      "id": "Anzelma-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Anzelma",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Anzelma-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Anzelma",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Woman2-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Woman2",
+      "target": "Valjean"
+    },
+    {
+      "id": "Woman2-Cosette",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Woman2",
+      "target": "Cosette"
+    },
+    {
+      "id": "Woman2-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Woman2",
+      "target": "Javert"
+    },
+    {
+      "id": "MotherInnocent-Fauchelevent",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "MotherInnocent",
+      "target": "Fauchelevent"
+    },
+    {
+      "id": "MotherInnocent-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "MotherInnocent",
+      "target": "Valjean"
+    },
+    {
+      "id": "Gribier-Fauchelevent",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Gribier",
+      "target": "Fauchelevent"
+    },
+    {
+      "id": "Mme.Burgon-Jondrette",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Burgon",
+      "target": "Jondrette"
+    },
+    {
+      "id": "Gavroche-Mme.Burgon",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Gavroche",
+      "target": "Mme.Burgon"
+    },
+    {
+      "id": "Gavroche-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gavroche",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Gavroche-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gavroche",
+      "target": "Javert"
+    },
+    {
+      "id": "Gavroche-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gavroche",
+      "target": "Valjean"
+    },
+    {
+      "id": "Gillenormand-Cosette",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Gillenormand",
+      "target": "Cosette"
+    },
+    {
+      "id": "Gillenormand-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Gillenormand",
+      "target": "Valjean"
+    },
+    {
+      "id": "Magnon-Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Magnon",
+      "target": "Gillenormand"
+    },
+    {
+      "id": "Magnon-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Magnon",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Mlle.Gillenormand-Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 9
+      },
+      "shapeName": "straightLine",
+      "source": "Mlle.Gillenormand",
+      "target": "Gillenormand"
+    },
+    {
+      "id": "Mlle.Gillenormand-Cosette",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Mlle.Gillenormand",
+      "target": "Cosette"
+    },
+    {
+      "id": "Mlle.Gillenormand-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Mlle.Gillenormand",
+      "target": "Valjean"
+    },
+    {
+      "id": "Mme.Pontmercy-Mlle.Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Pontmercy",
+      "target": "Mlle.Gillenormand"
+    },
+    {
+      "id": "Mme.Pontmercy-Pontmercy",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Pontmercy",
+      "target": "Pontmercy"
+    },
+    {
+      "id": "Mlle.Vaubois-Mlle.Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mlle.Vaubois",
+      "target": "Mlle.Gillenormand"
+    },
+    {
+      "id": "Lt.Gillenormand-Mlle.Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Lt.Gillenormand",
+      "target": "Mlle.Gillenormand"
+    },
+    {
+      "id": "Lt.Gillenormand-Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Lt.Gillenormand",
+      "target": "Gillenormand"
+    },
+    {
+      "id": "Lt.Gillenormand-Cosette",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Lt.Gillenormand",
+      "target": "Cosette"
+    },
+    {
+      "id": "Marius-Mlle.Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Mlle.Gillenormand"
+    },
+    {
+      "id": "Marius-Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 12
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Gillenormand"
+    },
+    {
+      "id": "Marius-Pontmercy",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Pontmercy"
+    },
+    {
+      "id": "Marius-Lt.Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Lt.Gillenormand"
+    },
+    {
+      "id": "Marius-Cosette",
+      "group": "relation",
+      "properties": {
+        "value": 21
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Cosette"
+    },
+    {
+      "id": "Marius-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 19
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Valjean"
+    },
+    {
+      "id": "Marius-Tholomyes",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Tholomyes"
+    },
+    {
+      "id": "Marius-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Marius-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Eponine"
+    },
+    {
+      "id": "Marius-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Marius",
+      "target": "Gavroche"
+    },
+    {
+      "id": "BaronessT-Gillenormand",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "BaronessT",
+      "target": "Gillenormand"
+    },
+    {
+      "id": "BaronessT-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "BaronessT",
+      "target": "Marius"
+    },
+    {
+      "id": "Mabeuf-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mabeuf",
+      "target": "Marius"
+    },
+    {
+      "id": "Mabeuf-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mabeuf",
+      "target": "Eponine"
+    },
+    {
+      "id": "Mabeuf-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mabeuf",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Enjolras-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 7
+      },
+      "shapeName": "straightLine",
+      "source": "Enjolras",
+      "target": "Marius"
+    },
+    {
+      "id": "Enjolras-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 7
+      },
+      "shapeName": "straightLine",
+      "source": "Enjolras",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Enjolras-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Enjolras",
+      "target": "Javert"
+    },
+    {
+      "id": "Enjolras-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Enjolras",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Enjolras-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Enjolras",
+      "target": "Valjean"
+    },
+    {
+      "id": "Combeferre-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 15
+      },
+      "shapeName": "straightLine",
+      "source": "Combeferre",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Combeferre-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Combeferre",
+      "target": "Marius"
+    },
+    {
+      "id": "Combeferre-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Combeferre",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Combeferre-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Combeferre",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Prouvaire-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Prouvaire",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Prouvaire-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Prouvaire",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Prouvaire-Combeferre",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Prouvaire",
+      "target": "Combeferre"
+    },
+    {
+      "id": "Feuilly-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Feuilly",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Feuilly-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Feuilly",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Feuilly-Prouvaire",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Feuilly",
+      "target": "Prouvaire"
+    },
+    {
+      "id": "Feuilly-Combeferre",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Feuilly",
+      "target": "Combeferre"
+    },
+    {
+      "id": "Feuilly-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Feuilly",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Feuilly-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Feuilly",
+      "target": "Marius"
+    },
+    {
+      "id": "Courfeyrac-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 9
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Marius"
+    },
+    {
+      "id": "Courfeyrac-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 17
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Courfeyrac-Combeferre",
+      "group": "relation",
+      "properties": {
+        "value": 13
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Combeferre"
+    },
+    {
+      "id": "Courfeyrac-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 7
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Courfeyrac-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Courfeyrac-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Eponine"
+    },
+    {
+      "id": "Courfeyrac-Feuilly",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Feuilly"
+    },
+    {
+      "id": "Courfeyrac-Prouvaire",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Courfeyrac",
+      "target": "Prouvaire"
+    },
+    {
+      "id": "Bahorel-Combeferre",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Combeferre"
+    },
+    {
+      "id": "Bahorel-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Bahorel-Courfeyrac",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Courfeyrac"
+    },
+    {
+      "id": "Bahorel-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Bahorel-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Bahorel-Feuilly",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Feuilly"
+    },
+    {
+      "id": "Bahorel-Prouvaire",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Prouvaire"
+    },
+    {
+      "id": "Bahorel-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Bahorel",
+      "target": "Marius"
+    },
+    {
+      "id": "Bossuet-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Marius"
+    },
+    {
+      "id": "Bossuet-Courfeyrac",
+      "group": "relation",
+      "properties": {
+        "value": 12
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Courfeyrac"
+    },
+    {
+      "id": "Bossuet-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Bossuet-Bahorel",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Bahorel"
+    },
+    {
+      "id": "Bossuet-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 10
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Bossuet-Feuilly",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Feuilly"
+    },
+    {
+      "id": "Bossuet-Prouvaire",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Prouvaire"
+    },
+    {
+      "id": "Bossuet-Combeferre",
+      "group": "relation",
+      "properties": {
+        "value": 9
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Combeferre"
+    },
+    {
+      "id": "Bossuet-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Bossuet-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Bossuet",
+      "target": "Valjean"
+    },
+    {
+      "id": "Joly-Bahorel",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Bahorel"
+    },
+    {
+      "id": "Joly-Bossuet",
+      "group": "relation",
+      "properties": {
+        "value": 7
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Bossuet"
+    },
+    {
+      "id": "Joly-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Joly-Courfeyrac",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Courfeyrac"
+    },
+    {
+      "id": "Joly-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Joly-Feuilly",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Feuilly"
+    },
+    {
+      "id": "Joly-Prouvaire",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Prouvaire"
+    },
+    {
+      "id": "Joly-Combeferre",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Combeferre"
+    },
+    {
+      "id": "Joly-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Joly-Marius",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Joly",
+      "target": "Marius"
+    },
+    {
+      "id": "Grantaire-Bossuet",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Bossuet"
+    },
+    {
+      "id": "Grantaire-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Grantaire-Combeferre",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Combeferre"
+    },
+    {
+      "id": "Grantaire-Courfeyrac",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Courfeyrac"
+    },
+    {
+      "id": "Grantaire-Joly",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Joly"
+    },
+    {
+      "id": "Grantaire-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Grantaire-Bahorel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Bahorel"
+    },
+    {
+      "id": "Grantaire-Feuilly",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Feuilly"
+    },
+    {
+      "id": "Grantaire-Prouvaire",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Grantaire",
+      "target": "Prouvaire"
+    },
+    {
+      "id": "MotherPlutarch-Mabeuf",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "MotherPlutarch",
+      "target": "Mabeuf"
+    },
+    {
+      "id": "Gueulemer-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 5
+      },
+      "shapeName": "straightLine",
+      "source": "Gueulemer",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Gueulemer-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gueulemer",
+      "target": "Valjean"
+    },
+    {
+      "id": "Gueulemer-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gueulemer",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Gueulemer-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gueulemer",
+      "target": "Javert"
+    },
+    {
+      "id": "Gueulemer-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gueulemer",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Gueulemer-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Gueulemer",
+      "target": "Eponine"
+    },
+    {
+      "id": "Babet-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Babet",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Babet-Gueulemer",
+      "group": "relation",
+      "properties": {
+        "value": 6
+      },
+      "shapeName": "straightLine",
+      "source": "Babet",
+      "target": "Gueulemer"
+    },
+    {
+      "id": "Babet-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Babet",
+      "target": "Valjean"
+    },
+    {
+      "id": "Babet-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Babet",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Babet-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Babet",
+      "target": "Javert"
+    },
+    {
+      "id": "Babet-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Babet",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Babet-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Babet",
+      "target": "Eponine"
+    },
+    {
+      "id": "Claquesous-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Claquesous-Babet",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Babet"
+    },
+    {
+      "id": "Claquesous-Gueulemer",
+      "group": "relation",
+      "properties": {
+        "value": 4
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Gueulemer"
+    },
+    {
+      "id": "Claquesous-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Valjean"
+    },
+    {
+      "id": "Claquesous-Mme.Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Mme.Thenardier"
+    },
+    {
+      "id": "Claquesous-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Javert"
+    },
+    {
+      "id": "Claquesous-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Eponine"
+    },
+    {
+      "id": "Claquesous-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Claquesous",
+      "target": "Enjolras"
+    },
+    {
+      "id": "Montparnasse-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Javert"
+    },
+    {
+      "id": "Montparnasse-Babet",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Babet"
+    },
+    {
+      "id": "Montparnasse-Gueulemer",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Gueulemer"
+    },
+    {
+      "id": "Montparnasse-Claquesous",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Claquesous"
+    },
+    {
+      "id": "Montparnasse-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Valjean"
+    },
+    {
+      "id": "Montparnasse-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Montparnasse-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Eponine"
+    },
+    {
+      "id": "Montparnasse-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Montparnasse",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Toussaint-Cosette",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Toussaint",
+      "target": "Cosette"
+    },
+    {
+      "id": "Toussaint-Javert",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Toussaint",
+      "target": "Javert"
+    },
+    {
+      "id": "Toussaint-Valjean",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Toussaint",
+      "target": "Valjean"
+    },
+    {
+      "id": "Child1-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Child1",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Child2-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 2
+      },
+      "shapeName": "straightLine",
+      "source": "Child2",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Child2-Child1",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Child2",
+      "target": "Child1"
+    },
+    {
+      "id": "Brujon-Babet",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Brujon",
+      "target": "Babet"
+    },
+    {
+      "id": "Brujon-Gueulemer",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Brujon",
+      "target": "Gueulemer"
+    },
+    {
+      "id": "Brujon-Thenardier",
+      "group": "relation",
+      "properties": {
+        "value": 3
+      },
+      "shapeName": "straightLine",
+      "source": "Brujon",
+      "target": "Thenardier"
+    },
+    {
+      "id": "Brujon-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Brujon",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Brujon-Eponine",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Brujon",
+      "target": "Eponine"
+    },
+    {
+      "id": "Brujon-Claquesous",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Brujon",
+      "target": "Claquesous"
+    },
+    {
+      "id": "Brujon-Montparnasse",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Brujon",
+      "target": "Montparnasse"
+    },
+    {
+      "id": "Mme.Hucheloup-Bossuet",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Hucheloup",
+      "target": "Bossuet"
+    },
+    {
+      "id": "Mme.Hucheloup-Joly",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Hucheloup",
+      "target": "Joly"
+    },
+    {
+      "id": "Mme.Hucheloup-Grantaire",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Hucheloup",
+      "target": "Grantaire"
+    },
+    {
+      "id": "Mme.Hucheloup-Bahorel",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Hucheloup",
+      "target": "Bahorel"
+    },
+    {
+      "id": "Mme.Hucheloup-Courfeyrac",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Hucheloup",
+      "target": "Courfeyrac"
+    },
+    {
+      "id": "Mme.Hucheloup-Gavroche",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Hucheloup",
+      "target": "Gavroche"
+    },
+    {
+      "id": "Mme.Hucheloup-Enjolras",
+      "group": "relation",
+      "properties": {
+        "value": 1
+      },
+      "shapeName": "straightLine",
+      "source": "Mme.Hucheloup",
+      "target": "Enjolras"
+    }
+  ]
+}

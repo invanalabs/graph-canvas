@@ -23,7 +23,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   icon?: string;
   image?: string
 
-  shapeName?: 'circle'; 
+  shapeName?: 'circle' 
 
   // links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
