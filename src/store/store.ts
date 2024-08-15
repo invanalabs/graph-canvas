@@ -1,5 +1,5 @@
 import { FederatedPointerEvent } from "pixi.js"
-import { INodeStyle, IShapeState } from "../renderer/types"
+import { ILinkStyle, INodeStyle, IShapeState } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
 import { filterLinksOfNode } from "./graph/utils"
@@ -9,6 +9,7 @@ import { GraphCanvas } from "../canvas"
 import { deepMerge } from "../utils/merge"
 import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults"
 import stc from "string-to-color";
+import { LinkStyleDefaults } from "../renderer/shapes/links/defaults"
 
 
 /**
@@ -272,6 +273,29 @@ export class DataStore implements IDataStore {
     }
   }
 
+  generateLinkStyle(link: ICanvasLink){
+
+    let style: ILinkStyle;
+    const linkStyles = this.canvas.options.styles?.links || {}
+
+    // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
+    // P3 - color by group
+    if (this.canvas.options.extraSettings?.linkColorBasedOn === "group") {
+      style = deepMerge(LinkStyleDefaults, { shape: { color: stc(link.group) } })
+      // console.log("====nodeColorBasedOn", style)
+    } else {
+      style = LinkStyleDefaults
+    }
+
+    // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
+    style = deepMerge(style, linkStyles[link.group] || {})
+
+    // P1 - this has the highest priority, 
+    style = deepMerge(style, link?.style || {});
+
+    return style
+  }
+
   private addLink(link: ICanvasLink) {
 
     if (!this.links.has(link.id)) {
@@ -296,6 +320,8 @@ export class DataStore implements IDataStore {
       } else {
         throw Error(`${targetId} not found in node: ${this.nodes} `)
       }
+
+      link.style = this.generateLinkStyle(link);
 
       // create CanvasLink
       const linkInstance = new CanvasLink(link)

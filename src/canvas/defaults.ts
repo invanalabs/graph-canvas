@@ -1,5 +1,5 @@
-import { LayoutComputerAbstract } from "../layout/base";
-import { NoLayoutComputer } from "../layout/no-layout";
+// import { LayoutComputerAbstract } from "../layout/base";
+// import { NoLayoutComputer } from "../layout/no-layout";
 import { ICanvasOptions } from "./types"
 // import * as PIXI from "pixi.js" 
 
@@ -32,8 +32,8 @@ export const defaultCanvasOptions: ICanvasOptions = {
   styles: {},
   extraSettings: {
     nodeSizeBasedOn: 'default',
-    nodeColorBasedOn : 'group',
-    linkColorBasedOn : 'group',
+    nodeColorBasedOn : 'default',
+    linkColorBasedOn : 'default',
     labelVisibilityZoomThreshold: 0.30
   }
 }

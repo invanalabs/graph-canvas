@@ -3,7 +3,7 @@ import ArtBoardToolBar from "../../plugins/toolbar";
 import ArtBoardStatusBar from "../../plugins/statusBar";
 import { ICanvasLink, ICanvasNode } from "../../store";
 import DagreLayoutComputer from "../../layout/dagre";
-import LayoutSwitcherToolBar from "../../plugins/layouts/layoutSwitcher";
+// import LayoutSwitcherToolBar from "../../plugins/layouts/layoutSwitcher";
 import DagreOptionsToolBar from "../../plugins/dagreToolBar";
 import D3ForceLayoutComputer from "../../layout/d3-force";
 import D3ForceOptionsToolBar from "../../plugins/d3ForceToolBar";
