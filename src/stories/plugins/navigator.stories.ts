@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import {  helloWorldDataSet } from "../datasets/hello-world";
+import {  helloWorldDataSet } from "../example-datasets/hello-world";
 import { createCanvas } from '../utils/canvas';
 import { notImplementedPage } from '../utils/notImplementedPage';
  

@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from './utils/canvas';
-import {  helloWorldDataSet } from "./datasets/hello-world";
-import largeData from './datasets/large-data/largeData.json'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
+import {  helloWorldDataSet } from "./example-datasets/hello-world";
+import largeData from './example-datasets/large-data/largeData.json'; //https://observablehq.com/@alexigd/as-connections-with-pixi-js/2
 import { nodeStatesDataICanvasOptions } from './features/nodes/data/nodeStatesData';
-import { sample1DataSet } from "./datasets/sample1"
-import miserablesData from './datasets/les-miserables/miserables.json';
+import { sample1DataSet } from "./example-datasets/sample1"
+import miserablesData from './example-datasets/les-miserables/miserables.json';
  
 const meta = {
   title: 'Showcase',

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../utils/canvas';
 import { ICanvasOptions } from '../../canvas';
-import { miserablesData } from '../datasets/miserables-no-positions';
+import { miserablesData } from '../example-datasets/miserables-no-positions';
 
 
 const canvasOptions: ICanvasOptions = {
