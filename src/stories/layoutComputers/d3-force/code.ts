@@ -1,8 +1,8 @@
-import { GraphCanvas } from "../../../../canvas";
-import DagreLayoutComputer from "../../../../layout/dagre";
-import DagreOptionsToolBar from "../../../../plugins/dagreToolBar";
-import ArtBoardStatusBar from "../../../../plugins/statusBar";
-import { treeData } from "../../../example-datasets/treeData";
+import { GraphCanvas } from "../../../canvas";
+import D3ForceLayoutComputer from "../../../layout/d3-force";
+import D3ForceOptionsToolBar from "../../../plugins/d3ForceToolBar";
+import ArtBoardStatusBar from "../../../plugins/statusBar";
+import { miserablesData } from "../../example-datasets/les-miserables-no-positions";
  
 
 export default () => {
@@ -14,7 +14,7 @@ export default () => {
     debugMode: true
   });
 
-  const toolbar = new DagreOptionsToolBar(canvas.artBoard);
+  const toolbar = new D3ForceOptionsToolBar(canvas.artBoard);
   const toolBarHTMLDiv = toolbar.render()
   canvasDiv.parentNode?.appendChild(toolBarHTMLDiv)
 
@@ -25,9 +25,9 @@ export default () => {
 
  
   canvas.artBoard.init().then(() => {
-    canvas.dataStore.add(treeData.nodes, treeData.links)
+    canvas.dataStore.add(miserablesData.nodes, miserablesData.links)
 
-    const d3LayoutInstance = new DagreLayoutComputer(canvas.artBoard.canvas);
+    const d3LayoutInstance = new D3ForceLayoutComputer(canvas.artBoard.canvas);
     d3LayoutInstance?.computeLayout(
       canvas.artBoard.canvas.dataStore.getNodes(),
       canvas.artBoard.canvas.dataStore.getLinks()

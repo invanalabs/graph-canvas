@@ -1,8 +1,8 @@
-import { GraphCanvas } from "../../../../canvas";
-import DagreLayoutComputer from "../../../../layout/dagre";
-import DagreOptionsToolBar from "../../../../plugins/dagreToolBar";
-import ArtBoardStatusBar from "../../../../plugins/statusBar";
-import { treeData } from "../../../example-datasets/treeData";
+import { GraphCanvas } from "../../../canvas";
+import DagreLayoutComputer from "../../../layout/dagre";
+import DagreOptionsToolBar from "../../../plugins/dagreToolBar";
+import ArtBoardStatusBar from "../../../plugins/statusBar";
+import { treeData } from "../../example-datasets/treeData";
  
 
 export default () => {
