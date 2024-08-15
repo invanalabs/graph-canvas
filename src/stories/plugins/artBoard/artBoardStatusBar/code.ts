@@ -1,4 +1,5 @@
 import { GraphCanvas } from "../../../../canvas";
+import D3ForceLayoutComputer from "../../../../layout/d3-force";
 import ArtBoardStatusBar from "../../../../plugins/statusBar";
 import { ICanvasLink, ICanvasNode } from "../../../../store";
  
@@ -32,6 +33,8 @@ export default () => {
 
   canvas.artBoard.init().then(() => {
     canvas.dataStore.add(nodes, links)
+
+
     canvas.artBoard.camera.fitView();
   })
 
