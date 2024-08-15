@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { createCanvas } from '../../utils/canvas';
-import { notImplementedPage } from '../../utils/notImplementedPage';
+// import { notImplementedPage } from '../../utils/notImplementedPage';
 import { nodeStatesData, nodeStatesDataICanvasOptions } from '../nodes/data/nodeStatesData';
 import renderTemplate from '../../utils/render';
 
@@ -23,7 +23,7 @@ const meta = {
   // tags: ['autodocs'],
   //   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   // argTypes: {
-  //   // backgroundColor: { control: 'color' },
+  //   // customiseStyling: { control: 'color' },
   // },
 } satisfies Meta;
 
@@ -59,16 +59,12 @@ export const linkColorBasedOn: StoryObj = {
   }
 };
 
-export const labelVisibilityZoomThreshold: StoryObj = {
-  name : "label visibility on zoom",
-  render: () => notImplementedPage('labelVisibilityZoomThreshold') ,
-};
+// export const labelVisibilityZoomThreshold: StoryObj = {
+//   name : "label visibility on zoom",
+//   render: () => notImplementedPage('labelVisibilityZoomThreshold') ,
+// };
 
 
-export const ArtBoardBackground: StoryObj = {
-  name : "change background",
-  render: () => notImplementedPage('ArtBoardBackground') ,
-};
 
 
 

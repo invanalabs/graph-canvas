@@ -3,6 +3,7 @@ import DagreLayoutComputer from "../../../layout/dagre";
 import DagreOptionsToolBar from "../../../plugins/dagreToolBar";
 import ArtBoardStatusBar from "../../../plugins/statusBar";
 import { treeData } from "../../example-datasets/treeData";
+import { onStoryDown } from "../../utils/storyDown";
  
 
 export default () => {
@@ -36,4 +37,7 @@ export default () => {
     canvas.artBoard.camera.fitView();
   })
 
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
 }

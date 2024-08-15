@@ -7,9 +7,7 @@ import { ICanvasItemProperties, ICanvasLink, ICanvasNode, IDataStore, IdString }
 import { IDataStoreListeners } from "./events/types"
 import { GraphCanvas } from "../canvas"
 import { deepMerge } from "../utils/merge"
-import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults"
 import stc from "string-to-color";
-import { LinkStyleDefaults } from "../renderer/shapes/links/defaults"
 
 
 /**
@@ -137,10 +135,10 @@ export class DataStore implements IDataStore {
     // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
     // P3 - color by group
     if (this.canvas.options.extraSettings?.nodeColorBasedOn === "group") {
-      style = deepMerge(NodeStyleDefaults, { shape: { background: { color: stc(node.group) } } })
+      style = deepMerge(this.canvas.options.styles?.defaultNodeStyle || {}, { shape: { background: { color: stc(node.group) } } })
       // console.log("====nodeColorBasedOn", style)
     } else {
-      style = NodeStyleDefaults
+      style = this.canvas.options.styles?.defaultNodeStyle
     }
 
     // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
@@ -281,10 +279,10 @@ export class DataStore implements IDataStore {
     // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
     // P3 - color by group
     if (this.canvas.options.extraSettings?.linkColorBasedOn === "group") {
-      style = deepMerge(LinkStyleDefaults, { shape: { color: stc(link.group) } })
+      style = deepMerge(this.canvas.options.styles?.defaultLinkStyle || {}, { shape: { color: stc(link.group) } })
       // console.log("====nodeColorBasedOn", style)
     } else {
-      style = LinkStyleDefaults
+      style = this.canvas.options.styles?.defaultLinkStyle
     }
 
     // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
@@ -416,6 +414,11 @@ export class DataStore implements IDataStore {
   updateMessage = (message: string | null) => {
     this.message = message
     this.trigger('artBoard:onMessageChanged', { message });
+  }
+
+  destroy(){
+    this.nodes.clear()
+    this.links.clear()
   }
 
 }

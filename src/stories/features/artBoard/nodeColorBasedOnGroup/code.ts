@@ -1,5 +1,6 @@
 import { GraphCanvas, ICanvasOptions } from "../../../../canvas";
 import miserablesData from "../../../example-datasets/les-miserables/miserables.json";
+import { onStoryDown } from "../../../utils/storyDown";
  
 
 export default () => {
@@ -30,4 +31,7 @@ export default () => {
     canvas.artBoard.camera.fitView();
   })
 
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
 }

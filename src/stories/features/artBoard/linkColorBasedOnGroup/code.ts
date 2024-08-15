@@ -1,6 +1,7 @@
 import { GraphCanvas, ICanvasOptions } from "../../../../canvas";
 import ArtBoardToolBar from "../../../../plugins/toolbar";
 import { sample1DataSet } from "../../../example-datasets/sample1";
+import { onStoryDown } from "../../../utils/storyDown";
  
 
 export default () => {
@@ -35,4 +36,7 @@ export default () => {
     canvas.artBoard.camera.fitView();
   })
 
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
 }

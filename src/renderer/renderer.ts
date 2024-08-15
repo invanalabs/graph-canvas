@@ -141,4 +141,9 @@ export class Renderer {
     this.artBoard.canvas.dataStore.updateMessage("Cleared the graphics on canvas (data still persist).")
   }
 
+  destroy(){
+    this.clear()
+    this.artBoard.canvas.dataStore.destroy()
+    this.artBoard.destroy()
+  }
 } 

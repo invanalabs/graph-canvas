@@ -88,8 +88,8 @@ export class ArtBoard extends ArtBoardBase {
   //   this.renderer.render()
   // }
 
-  clear() {
-    this.renderer.clear()
+  destroy() {
+    this.pixiApp.destroy()
   }
 
 }

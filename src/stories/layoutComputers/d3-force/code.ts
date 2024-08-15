@@ -3,6 +3,7 @@ import D3ForceLayoutComputer from "../../../layout/d3-force";
 import D3ForceOptionsToolBar from "../../../plugins/d3ForceToolBar";
 import ArtBoardStatusBar from "../../../plugins/statusBar";
 import { miserablesData } from "../../example-datasets/les-miserables-no-positions";
+import { onStoryDown } from "../../utils/storyDown";
  
 
 export default () => {
@@ -36,4 +37,7 @@ export default () => {
     canvas.artBoard.camera.fitView();
   })
 
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
 }

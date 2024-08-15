@@ -1,5 +1,7 @@
 // import { LayoutComputerAbstract } from "../layout/base";
 // import { NoLayoutComputer } from "../layout/no-layout";
+import { LinkStyleDefaults } from "../renderer/shapes/links/defaults";
+import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults";
 import { ICanvasOptions } from "./types"
 // import * as PIXI from "pixi.js" 
 
@@ -29,7 +31,10 @@ export const defaultCanvasOptions: ICanvasOptions = {
     images: window.devicePixelRatio
   },
   debugMode: true,
-  styles: {},
+  styles: {
+    defaultNodeStyle: NodeStyleDefaults,
+    defaultLinkStyle: LinkStyleDefaults
+  },
   extraSettings: {
     nodeSizeBasedOn: 'default',
     nodeColorBasedOn : 'default',
