@@ -3,8 +3,8 @@ import renderTemplate from '../utils/render';
 import helloWorldPlay from "./hello-world/code";
 import helloWorldSource from "./hello-world/code?raw";
 
-import performancExamplePlay from "./performance/code";
-import performanceExampleSource from "./performance/code?raw";
+import LargeDatasetExamplePlay from "./largeDataset/code";
+import LargeDataseteExampleSource from "./largeDataset/code?raw";
 
 
 import lesMiserablesPlay from "./les-miserables/code";
@@ -45,13 +45,13 @@ export const LesMiserablesStory: Story = {
 };
 
 
-export const performanceExampleStory: Story = {
-  name: "Performance Example",
+export const LargeDatasetStory: Story = {
+  name: "LargeDataset",
   render: () => renderTemplate(),
-  play: performancExamplePlay,
+  play: LargeDatasetExamplePlay,
   parameters: {
     storySource: {
-      source: performanceExampleSource,
+      source: LargeDataseteExampleSource,
     },
   },
 };
