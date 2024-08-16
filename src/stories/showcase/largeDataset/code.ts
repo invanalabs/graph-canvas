@@ -1,5 +1,6 @@
 import { GraphCanvas } from "../../../canvas";
 import largeData from "../../example-datasets/large-data/largeData.json";
+import { onStoryDown } from "../../utils/storyDown";
 
 
 export default () => {
@@ -16,5 +17,9 @@ export default () => {
     canvas.dataStore.add(largeData.nodes, largeData.links)
     canvas.artBoard.camera.fitView();
   })
+
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
 
 }

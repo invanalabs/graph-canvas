@@ -1,5 +1,6 @@
 import { GraphCanvas } from "../../../canvas";
 import { ICanvasLink, ICanvasNode } from "../../../store";
+import { onStoryDown } from "../../utils/storyDown";
 
 
 export default () => {
@@ -25,5 +26,10 @@ export default () => {
     canvas.dataStore.add(nodes, links)
     canvas.artBoard.camera.fitView();
   })
+
+
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
 
 }
