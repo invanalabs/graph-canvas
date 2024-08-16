@@ -1,6 +1,7 @@
 import { GraphCanvas, ICanvasOptions } from "../../../canvas";
 import ArtBoardToolBar from "../../../plugins/toolbar";
 import { LinkStyleDefaults } from "../../../renderer/shapes/links/defaults";
+import { NodeStyleDefaults } from "../../../renderer/shapes/nodes/circle/defaults";
 import { deepMerge } from "../../../utils/merge";
 import { sample1DataSet } from "../../example-datasets/sample1";
 import { onStoryDown } from "../../utils/storyDown";
@@ -15,13 +16,42 @@ export default () => {
     viewElement: canvasDiv,
     styles: {
       defaultLinkStyle: deepMerge(LinkStyleDefaults, {
-        shape: { color: "#ffffff" }, label: {
-          text: { color: "#ffffff" }, background: {
-            color: "#333333",
+        shape: { color: "#ffffff" },
+        label: {
+          background: {
+            color: "#6a849d",
             opacity: 0.5
+          },
+          text: {
+            color: "#3c5369"
           }
         },
-      })
+      }),
+      defaultNodeStyle: deepMerge(NodeStyleDefaults, {
+        shape: {
+          background: { 
+            color: "#6a849d" 
+          },
+          border: {
+            color: "#3c5369",
+            thickness: 3    
+          },
+        },
+        label: {
+          background: {
+            color: "#6a849d",
+            opacity: 0.5
+          },
+          text: {
+            color: "#ffffff"
+          }
+        },
+      }),
+      nodes: {
+        Project: {
+          size: 30
+        }
+      }
     },
     debugMode: true,
     extraSettings: {

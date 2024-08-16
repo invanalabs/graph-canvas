@@ -14,7 +14,7 @@ class Circle extends NodeShapeBase {
         }
         const shapeStyle = this.data.style
         console.debug("this.data.label", this.data.label)
-        console.debug("shapeStyle?.label",shapeStyle?.label)
+        console.debug("shapeStyle?.label", shapeStyle?.label)
 
         shapeStyle.label.text.font.size = this.data.style.size
         const labelArgs = {
@@ -45,7 +45,7 @@ class Circle extends NodeShapeBase {
         // console.log("===texture", this.data.id, texture,)
         if (texture) {
 
-            
+
             const shape = new Sprite(texture['states'][':default'].shape)
             shape.name = NodeContainerChildNames.shapeName;
             // shape.x = -shape.width / 2;
@@ -54,10 +54,10 @@ class Circle extends NodeShapeBase {
             shape.anchor.set(0.5);
 
 
- 
-            
 
-            if (this.data.icon){
+
+
+            if (this.data.icon) {
 
                 const { iconTexture } = this.artBoard.renderer.textureStore.getOrCreateIconTexture({
                     ...this.data.style.shape.icon, content: this.data.icon
@@ -74,47 +74,54 @@ class Circle extends NodeShapeBase {
                 shape.addChild(icon);
             }
 
-            if (this.data.image){
+            if (this.data.image) {
                 const { imagePromise } = this.artBoard.renderer.textureStore.getOrcreateImagePromise(
                     this.data.image
                 )
                 // console.log("===imagePromise", this.data.id, imagePromise,)
-                if (imagePromise){
+                if (imagePromise) {
                     imagePromise.then((texture) => {
-                        // Create a sprite from the loaded texture
-                        const imageSprite = new Sprite(texture);
-                        imageSprite.width = shape.width
-                        imageSprite.height = shape.height
-                        // imageSprite.x = imageSprite.width/2 ;
-                        // imageSprite.y = imageSprite.height/2 ;
-                        imageSprite.anchor.set(0.5);
+
+                        console.log("imagePromise", this.data.image, texture)
+                        // let imageGfx;
 
 
 
-                        // Create a circular mask
-                        const mask = new Graphics();
-                        // mask.beginFill(0xffffff);
-                        mask.circle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
-                        mask.fill(0xffffff);
+                        // if (this.data.image?.endsWith(".svg")) {
+                        //     const imageGfx = new Graphics(texture);
+                        //     imageGfx.width = shape.width
+                        //     imageGfx.height = shape.height
+                        //     // imageSprite.x = imageSprite.width/2 ;
+                        //     // imageSprite.y = imageSprite.height/2 ;
+                        //     imageGfx.pivot.set(0.5);
+                        // } else {
+                            // Create a sprite from the loaded texture
+                            const imageGfx = new Sprite(texture);
+                            imageGfx.width = shape.width 
+                            imageGfx.height = shape.height 
+                            // imageSprite.x = imageSprite.width/2 ;
+                            // imageSprite.y = imageSprite.height/2 ;
+                            imageGfx.anchor.set(0.5);
+                            // Create a circular mask
+                            const mask = new Graphics();
+                            // mask.beginFill(0xffffff);
+                            mask.circle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
+                            mask.fill(0xffffff);
+                            // Apply the mask to the sprite
+                            imageGfx.mask = mask;
+                            // Add the mask and sprite to the stage
+                            shape.addChild(mask);
+                            shape.addChild(imageGfx);
+                        // }
 
-                        // mask.anchor.set(0.5)
-                        // Position the mask at the center of the sprite
-                        // mask.x = imageSprite.x;
-                        // mask.y = imageSprite.y;
-                        // mask.pivot.set(0.5);
 
-                        // Apply the mask to the sprite
-                        imageSprite.mask = mask;
 
-                        // Add the mask and sprite to the stage
-                        shape.addChild(mask);
-                        shape.addChild(imageSprite);
 
                     }).catch((error) => {
-                        console.error('Error loading texture:', error);
-                    });   
+                        console.error(`Error loading image ${this.data.image}:`, error);
+                    });
                 }
- 
+
             }
 
             // draw selected graphics

@@ -1,15 +1,10 @@
 import { ArtBoard } from "../../../artBoard";
 import { CanvasLink } from "../../../store";
-import { deepMerge } from "../../../utils/merge";
 import { LinkShapeAbstract } from "../abstract";
 import * as PIXI from 'pixi.js';
-import { LinkStyleDefaults } from "./defaults";
 import { LinkContainerChildNames } from "../constants";
 import drawLabelShape from "../../primitives/label";
-import drawArrowHeadShape from "../../primitives/arrows/arrowHead";
 import { ZIndexOrder } from "../nodes";
-import drawStraightLineShape from "../../primitives/links/straightLine";
-import drawArrowTriangleShape from "../../primitives/arrows/arrowTriangle";
 
 
 export class LinkShapeBase extends LinkShapeAbstract {
@@ -36,21 +31,17 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   processData = (data: CanvasLink) => {
     //@ts-ignore
-    // data.style = data.style ? deepMerge(LinkStyleDefaults, data.style) : LinkStyleDefaults
     return data;
   }
 
   // layers
   moveToDataLayer(): void {
-    // console.error("not implemented")
+    console.debug(`moveToDataLayer triggered on link - ${this.data.id}`);
     this.containerGfx.zIndex = ZIndexOrder.DATA_LAYER_LINKS;
-
-    // this.canvas.layers.moveGfxToDataLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
   }
 
   moveToFrontLayer(): void {
-    // console.error("not implemented")
-    // this.canvas.layers.moveGfxToFrontLayer(this.data, LAYER_GRAPHICS_TYPES_CONSTANTS.NODES)
+    console.debug(`moveToFrontLayer triggered on link - ${this.data.id}`);
     this.containerGfx.zIndex = ZIndexOrder.FRONT_LAYER_LINKS;
   }
 
@@ -59,19 +50,18 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   triggerInactive = (event?: PIXI.FederatedPointerEvent) => {
-    // console.log(`triggerInactive triggered on node - ${this.data.id}`);
+    console.debug(`triggerInactive triggered on link - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
   }
 
   triggerDefault = (event?: PIXI.FederatedPointerEvent) => {
-    // console.log(`triggerDefault triggered on node - ${this.data.id}`);
+    console.debug(`triggerDefault triggered on link - ${this.data.id}`);
     this.containerGfx.alpha = 1;
     this.containerGfx.visible = true
   }
  
   triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
     // console.log(`Selected triggered on link - ${this.data.id}`);
-  
   }
 
   triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
@@ -79,7 +69,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   }
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
-    // console.log(`triggerHighlighted triggered on node - ${this.data.id}`);
+    console.debug(`triggerHighlighted triggered on link - ${this.data.id}`);
     this.moveToFrontLayer();
 
     if (this.shapeGfx) {
@@ -87,20 +77,20 @@ export class LinkShapeBase extends LinkShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
-      const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
-      if (textBg) {
-        textBg.visible = true
-      }
+      // const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
+      // if (textBg) {
+      //   // textBg.visible = true
+      //   textBg.tint = "yellow"
+      // }
     }
     if (setNeighborsToo) {
       this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
       this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
-      // this.data.gfxInstance?.triggerHighlighted(event)
     }
   }
 
   triggerUnHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
-    // console.log(`triggerUnHighlighted on node - ${this.data.id}`);
+    console.debug(`triggerUnHighlighted on link - ${this.data.id}`);
     this.moveToDataLayer();
 
     if (this.shapeGfx) {
@@ -109,10 +99,10 @@ export class LinkShapeBase extends LinkShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
       }
-      const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
-      if (textBg) {
-        textBg.visible = false
-      }
+      // const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
+      // if (textBg) {
+      //   textBg.tint = null
+      // }
     }
 
     if (setNeighborsToo) {
@@ -122,27 +112,10 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     }
   }
-
-  // triggerHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`triggerHighlightedOnNeighbors on node - ${this.data.id}`);
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerHighlighted()
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerHighlighted()
-  //   this.data.gfxInstance?.triggerHighlighted(event)
-  // }
-
-  // triggerUnHighlightedOnNeighbors = (event?: PIXI.FederatedPointerEvent) => {
-  //   console.log(`triggerUnHighlightedOnNeighbors on node - ${this.data.id}`);
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnHighlighted()
-  //   this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnHighlighted()  
-  //   this.data.gfxInstance?.triggerUnHighlighted(event)
-  // }
-
   setupInteractionTriggers() {
-    // console.debug("===setupInteractions triggered on link", this.containerGfx)
+    console.debug("===setupInteractions triggered on link", this.containerGfx)
     // Remove all listeners
     this.containerGfx.removeAllListeners();
-
-    // listeners for hover effect
     this.containerGfx
       .on("pointerover", (event) => {
         event.stopPropagation();
@@ -154,38 +127,17 @@ export class LinkShapeBase extends LinkShapeAbstract {
         this.setState(":default", true, event)
       })
       .on('pointerdown', (event) => {
-        // console.log("pointerdown", this.data.id, this.data.state)
         this.dragData = event.data
-        // event.stopPropagation();
-        // event.stopPropagation();
-        // if (this.dragData) return 
         this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
-        // this.setState(":highlighted", true, event)
         this.setState(":highlighted", true, event)
       })
       .on("pointermove", (event) => {
-        // console.log("ignoring pointermove")
         event.stopPropagation()
       })
-
       .on('pointerup', (event) => {
-        // const pointerPosition = event.data.global;
-        // console.log("pointerup", this.data.id, this.data.state, this.containerGfx.containsPoint(pointerPosition))
-        // event.stopPropagation();
         this.dragData = null
-
-        // 
-        // if (this.containerGfx.containsPoint(pointerPosition)) {
-        //   this.setState(":hovered", true)
-        // } else {
-        // this.setState(":default", true)
-        // }
         this.artBoard.canvas.dataStore.removeFromHighlightedLinks(this.data)
       })
-    // .on('pointerupoutside', (event) => {
-    //   console.log("pointerupoutside", this.data.id, this.data.state)
-    //   // event.stopPropagation();
-    // })
   }
 
 
@@ -210,7 +162,10 @@ export class LinkShapeBase extends LinkShapeAbstract {
       const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label })
       labelGfx.name = LinkContainerChildNames.label
       labelGfx.visible = this.data.isLabelVisible
-      this.containerGfx.addChild(labelGfx)
+
+
+
+      // this.containerGfx.addChild(labelGfx)
       return labelGfx
     }
     //  else {
@@ -228,7 +183,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     // draw shapeName
     if (renderShape) {
-      if (this.shapeGfx){
+      if (this.shapeGfx){ // if already exist
         this.shapeGfx.removeChildren();
       }
       this.shapeGfx = this.drawShape();
@@ -236,12 +191,16 @@ export class LinkShapeBase extends LinkShapeAbstract {
     }
     // draw label
     if (renderLabel) {
-      if (this.labelGfx){
-        this.labelGfx.removeChildren();
+      if (this.labelGfx){ // if already exist
+        this.labelGfx.destroy();
       }
       this.labelGfx = this.drawLabel();
       if(this.labelGfx){
         this.containerGfx.addChild(this.labelGfx);
+        // const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
+        // if (textBg) {
+        //   textBg.visible = true
+        // }
       }
     }
 
@@ -253,19 +212,17 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     this.applyStateUpdate()
     this.setInteractiveRecursive(this.containerGfx)
-
   }
 
 
   redraw = (renderShape = true, renderLabel = true) => {
     console.debug("redraw ", renderShape, renderLabel)
     this.draw(renderShape, renderLabel);
-
-
   }
 
   destroy(): void {
-    this.containerGfx.destroy()
+    this.containerGfx.removeAllListeners();
+    this.containerGfx.destroy();
   }
 
 

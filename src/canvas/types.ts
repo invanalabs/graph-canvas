@@ -11,6 +11,7 @@ export interface ICanvasOptions {
     labels?: number
     icons?: number
     images?: number
+    svgImages?: number
   }
   debugMode?: boolean
   styles?: GraphicsStyles

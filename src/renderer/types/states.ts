@@ -7,24 +7,28 @@ export type IShapeState =  ':default' | ':highlighted' | ':selected' | ':inactiv
 // export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden';
 // export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden';
 
+export interface INodeStateStyle {
+  size?: number
+  shape?: INodeShapeStyle
+  label?: IShapeLabelStyle
+}
 
-export interface INodeStyle {
-  size: number
-  shape: INodeShapeStyle
-  label: IShapeLabelStyle
-  states: {
-      [key in  IShapeState] : INodeStyle
+export interface INodeStyle  extends INodeStateStyle{
+  states?: {
+      [key in  IShapeState] : INodeStateStyle
   }
 }
 
-export interface ILinkStyle {
-  shape: ILinkShapeStyle
-  label: IShapeLabelStyle
-  states: {
+export interface ILinkStateStyle {
+  shape?: ILinkShapeStyle
+  label?: IShapeLabelStyle
+}
+
+export interface ILinkStyle extends ILinkStateStyle {
+  states?: {
       [key in  IShapeState] : ILinkStyle
   }
 }
-
 
 export interface NodeStyleMapType {
   [key: string]: INodeStyle

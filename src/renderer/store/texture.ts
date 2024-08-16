@@ -46,7 +46,8 @@ export default class TextureStore {
 
 
   createImagePromise = (imageUrl: string) => {
-    return drawImageShape(imageUrl)
+    const resolution = imageUrl.endsWith('.svg') ? this.artBoard.canvas.options.resolution?.svgImages :this.artBoard.canvas.options.resolution?.images 
+    return drawImageShape(imageUrl, resolution)
   }
 
 
@@ -162,9 +163,9 @@ export default class TextureStore {
 
 
   getOrcreateImagePromise(imageUrl: string) {
-    const unique_key = imageUrl;
-    if (this.imagePromiseMap.has(unique_key)) {
-      return { imagePromise: this.imagePromiseMap.get(unique_key), isCreated: false }
+    // const unique_key = imageUrl;
+    if (this.imagePromiseMap.has(imageUrl)) {
+      return { imagePromise: this.imagePromiseMap.get(imageUrl), isCreated: false }
     } else {
       return { imagePromise: this.createImagePromise(imageUrl), isCreated: true }
     }

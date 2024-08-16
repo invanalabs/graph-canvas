@@ -26,8 +26,6 @@ export const LinkStyleDefaults: ILinkStyle = {
                 family: "Arial"
             }
         }
-        // fontSize: 12,
-        // fontFamily: "Arial"
     },
     labelDisplay: "onHover", // | alwaysOn | onHighlighted"
     states: {

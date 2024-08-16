@@ -50,7 +50,7 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
 
         // textBackground
         textBackground.name = NodeContainerChildNames.labelBackground
-        textBackground.visible = false
+        // textBackground.visible = false
         textBackground.x = text.x - props.padding 
         textBackground.y = text.y
         // add background and text to gfx
