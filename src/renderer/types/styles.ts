@@ -55,7 +55,7 @@ export interface IShapeImageStyle {
 export interface INodeShapeStyle {
   background: IShapeBgStyle
   border: IShapeBorderStyle
-  icon: IIconStyle
+  icon: IIconStyle // works with '\uf007'
   image: IShapeImageStyle
 }
 

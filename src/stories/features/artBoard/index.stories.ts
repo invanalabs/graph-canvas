@@ -1,7 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { createCanvas } from '../../utils/canvas';
-// import { notImplementedPage } from '../../utils/notImplementedPage';
-import { nodeStatesData, nodeStatesDataICanvasOptions } from '../nodes/data/nodeStatesData';
 import renderTemplate from '../../utils/render';
 
 import nodeColorBasedOnGroupExamplePlay from "./nodeColorBasedOnGroup/code"
@@ -14,17 +11,6 @@ import linkColorBasedOnGroupExampleSource from "./linkColorBasedOnGroup/code?raw
 
 const meta = {
   title: 'Features/ArtBoard',
-  render: () => createCanvas(nodeStatesData.nodes, nodeStatesData.links, nodeStatesDataICanvasOptions) ,
-  parameters: {
-    // More on how to position stories at: https://storybook.js.org/docs/configure/story-layout
-    layout: 'fullscreen',
-  },
-  // // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  // tags: ['autodocs'],
-  //   // More on argTypes: https://storybook.js.org/docs/api/argtypes
-  // argTypes: {
-  //   // customiseStyling: { control: 'color' },
-  // },
 } satisfies Meta;
 
 export default meta;
