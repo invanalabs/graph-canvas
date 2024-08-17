@@ -14,10 +14,10 @@ export default () => {
   });
 
   const nodes: ICanvasNode[] = [
-    {id: '1', group: 'DemoNode', label: 'Default', shapeName: 'circle', x: (window.innerWidth / 2) - 100, y: window.innerHeight / 2},
-    {id: '3', group: 'DemoNode', label: 'Highlighted', shapeName: 'circle', state: ':highlighted', x: (window.innerWidth / 2) + 100, y: window.innerHeight / 2},
-    {id: '4', group: 'DemoNode', label: 'Inactive', shapeName: 'circle', state: ':inactive', x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 100},
-    {id: '5', group: 'DemoNode', label: 'Selected', shapeName: 'circle', state: ':selected', x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) + 100}
+    {id: '1', group: 'DemoNode', label: 'Default',  x: (window.innerWidth / 2) - 100, y: window.innerHeight / 2},
+    {id: '3', group: 'DemoNode', label: 'Highlighted',  state: ':highlighted', x: (window.innerWidth / 2) + 100, y: window.innerHeight / 2},
+    {id: '4', group: 'DemoNode', label: 'Inactive',  state: ':inactive', x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 100},
+    {id: '5', group: 'DemoNode', label: 'Selected',  state: ':selected', x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) + 100}
 ]
 
   const links: ICanvasLink[] = []

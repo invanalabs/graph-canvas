@@ -6,7 +6,7 @@ export const exampleNodes : Array<ICanvasNode> = [
         id: '1',
         group: 'Person',
         label: 'Ravi',
-        shapeName: 'circle',
+        
         x: 50,
         y:50,
     },
@@ -14,7 +14,7 @@ export const exampleNodes : Array<ICanvasNode> = [
         id: '2',
         group: 'Project',
         label: 'Graph Canvas',
-        shapeName: 'circle',
+        
         x:50,
         y:200
     }

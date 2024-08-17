@@ -7,8 +7,8 @@ const largeData = {
         const nodeCleaned: ICanvasNode = {
             id: node.id,
             label: node.id.toString(),
-            group: 'TestNode',
-            shapeName: 'circle',
+            group: 'DemoNode',
+            
             x: node.x,
             y: node.y,
             // size: 10

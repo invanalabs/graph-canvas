@@ -7,7 +7,7 @@ export const helloWorldDataSet: { nodes: Array<ICanvasNode>, links: Array<ICanva
             id: '1',
             group: 'Person',
             label: 'Ravi',
-            shapeName: 'circle',
+            
             x: 100,
             y: 200,
         },
@@ -15,7 +15,7 @@ export const helloWorldDataSet: { nodes: Array<ICanvasNode>, links: Array<ICanva
             id: '2',
             group: 'Project',
             label: 'Graph Canvas',
-            shapeName: 'circle',
+            
             x: 450,
             y: 200
         },
@@ -23,7 +23,7 @@ export const helloWorldDataSet: { nodes: Array<ICanvasNode>, links: Array<ICanva
             id: '3',
             group: 'Project',
             label: 'Graph Engine',
-            shapeName: 'circle',
+            
             x: 350,
             y: 350
         }
