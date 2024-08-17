@@ -24,7 +24,8 @@ export const NodeStyleDefaults: INodeStyle = {
                 size: 18,
                 family: "FontAwesome",
                 weight: "bold",
-                align: "center"
+                align: "center",
+                style: "normal"
             }
         },
         // image: {

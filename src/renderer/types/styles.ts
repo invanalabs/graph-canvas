@@ -21,6 +21,7 @@ export interface IShapeFontStyle {
   size: number
   align: "center" | "left" | "right"
   weight: "normal" | "bold"
+  style: "normal" | "italic" | "oblique"
 }
 
 export interface ITextStyle {
@@ -30,7 +31,7 @@ export interface ITextStyle {
 }
 
 export interface IIconStyle extends ITextStyle {
-  // content: string
+  content: string
 }
 
 /* for links */

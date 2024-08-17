@@ -1,8 +1,8 @@
 import { Texture } from "pixi.js"
-import {  INodeStyle, IShapeState } from "../types";
+import {  IIconStyle, INodeStyle, IShapeState } from "../types";
 import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/nodes/circle";
 import { ArtBoard } from "../../artBoard";
-import drawIconShape, { IIconShape } from "../primitives/icon";
+import drawIconShape from "../primitives/icon";
 import drawImageShape from "../primitives/image";
 
 
@@ -51,7 +51,7 @@ export default class TextureStore {
   }
 
 
-  createIconTexture = (props: IIconShape) => {
+  createIconTexture = (props: IIconStyle) => {
     const resolution = this.artBoard.canvas.options.resolution?.icons;
     const iconText = drawIconShape(props, resolution)
     return this.artBoard.pixiApp.renderer.generateTexture({ target:iconText, resolution: resolution, antialias: true });
@@ -152,7 +152,7 @@ export default class TextureStore {
   }
 
 
-  getOrCreateIconTexture(props:   IIconShape) {
+  getOrCreateIconTexture(props:   IIconStyle) {
     const unique_key = props.content;
     if (this.iconTexturesMap.has(unique_key)) {
       return { iconTexture: this.iconTexturesMap.get(unique_key), isCreated: false }

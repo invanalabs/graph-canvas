@@ -1,12 +1,11 @@
-import { IIconStyle } from "../types";
 import { Assets} from "pixi.js";
 
 
-export interface IIconShape extends IIconStyle {
-    content: string
-    // style: IIconStyle
+// export interface IIconShape extends IIconStyle {
+//     content: string
+//     // style: IIconStyle
 
-}
+// }
 
 const drawImageShape = (imageUrl: string, resolution: number=  window.devicePixelRatio) => {
     const extras: any = {
