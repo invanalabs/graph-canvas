@@ -27,7 +27,6 @@ const drawImageShape = (imageUrl: string, resolution: number=  window.devicePixe
             }
         }
     })
-
 }
 
 export default drawImageShape;

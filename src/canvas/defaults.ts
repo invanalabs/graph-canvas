@@ -29,7 +29,7 @@ export const defaultCanvasOptions: ICanvasOptions = {
     labels: window.devicePixelRatio * 6,
     icons: window.devicePixelRatio * 6,
     images: window.devicePixelRatio,
-    svgImages: window.devicePixelRatio * 4 
+    svgImages: window.devicePixelRatio * 2
   },
   debugMode: true,
   styles: {

@@ -97,8 +97,15 @@ class Circle extends NodeShapeBase {
                         // } else {
                             // Create a sprite from the loaded texture
                             const imageGfx = new Sprite(texture);
-                            imageGfx.width = shape.width 
-                            imageGfx.height = shape.height 
+
+                            if (this.data.image?.endsWith(".svg")){
+                                imageGfx.width = shape.width/2 
+                                imageGfx.height = shape.height/2 
+    
+                            }else{
+                                imageGfx.width = shape.width 
+                                imageGfx.height = shape.height     
+                            }
                             // imageSprite.x = imageSprite.width/2 ;
                             // imageSprite.y = imageSprite.height/2 ;
                             imageGfx.anchor.set(0.5);
