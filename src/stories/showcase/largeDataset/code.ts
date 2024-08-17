@@ -9,7 +9,14 @@ export default () => {
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
-    debugMode: true
+    debugMode: true,
+    // styles: {
+    //   nodes: {
+    //     TestNode: {
+    //       size: 60
+    //     }
+    //   }
+    // }
   });
 
 

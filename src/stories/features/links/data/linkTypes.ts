@@ -7,7 +7,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '1',
             group: 'Person',
             // label: 'Ravi',
-            shapeName: 'circle',
+            
             x: 100,
             y: 100,
             style: { size: 2 },
@@ -16,7 +16,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '2',
             group: 'Project',
             // label: 'Graph Canvas',
-            shapeName: 'circle',
+            
             x: 450,
             y: 100,
             style: { size: 2 },
@@ -25,7 +25,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '3',
             group: 'Person',
             // label: 'Ravi',
-            shapeName: 'circle',
+            
             x: 100,
             y: 200,
             style: { size: 2 },
@@ -34,7 +34,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '4',
             group: 'Project',
             // label: 'Graph Canvas',
-            shapeName: 'circle',
+            
             x: 450,
             y: 200,
             style: { size: 2 },
@@ -43,7 +43,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '5',
             group: 'Person',
             // label: 'Ravi',
-            shapeName: 'circle',
+            
             x: 100,
             y: 300,
             style: { size: 2 },
@@ -52,7 +52,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '6',
             group: 'Project',
             // label: 'Graph Canvas',
-            shapeName: 'circle',
+            
             x: 450,
             y: 300,
             style: { size: 2 },
@@ -61,7 +61,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '7',
             group: 'Person',
             // label: 'Ravi',
-            shapeName: 'circle',
+            
             x: 100,
             y: 400,
             style: { size: 2 },
@@ -70,7 +70,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
             id: '8',
             group: 'Project',
             // label: 'Graph Canvas',
-            shapeName: 'circle',
+            
             x: 450,
             y: 400,
             style: { size: 2 },
@@ -79,7 +79,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
         //     id: '5',
         //     group: 'Person',
         //     // label: 'Ravi',
-        //     shapeName: 'circle',
+        //     
         //     x: 100,
         //     y: 400,
         //     style :{size: 2},
@@ -88,7 +88,7 @@ export const linkTypesData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
         //     id: '6',
         //     group: 'Project',
         //     // label: 'Graph Canvas',
-        //     shapeName: 'circle',
+        //     
         //     x: 450,
         //     y: 400,
         //     style :{size: 2},
