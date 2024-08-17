@@ -52,8 +52,8 @@ export default class TextureStore {
 
 
   createIconTexture = (props: IIconShape) => {
-    const iconText = drawIconShape(props)
     const resolution = this.artBoard.canvas.options.resolution?.icons;
+    const iconText = drawIconShape(props, resolution)
     return this.artBoard.pixiApp.renderer.generateTexture({ target:iconText, resolution: resolution, antialias: true });
   }
 

@@ -19,10 +19,12 @@ export const NodeStyleDefaults: INodeStyle = {
         },
         icon: {
             // content: "&#9737;", // https://www.toptal.com/designers/htmlarrows/symbols/
-            color: "#ffffff",
+            color: "#343434",
             font : {
-                size: 12,
-                family: "FontAwesome"
+                size: 18,
+                family: "FontAwesome",
+                weight: "bold",
+                align: "center"
             }
         },
         // image: {

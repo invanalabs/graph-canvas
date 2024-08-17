@@ -1,0 +1,38 @@
+import { GraphCanvas } from "../../../../../canvas";
+import { ICanvasLink, ICanvasNode } from "../../../../../store";
+import { onStoryDown } from "../../../../utils/storyDown";
+
+
+
+export default () => {
+
+  const canvasDiv = document.getElementById("graphCanvas") as HTMLCanvasElement
+
+  const canvas = new GraphCanvas({
+    viewElement: canvasDiv,
+    debugMode: true
+  });
+
+
+  // https://www.toptal.com/designers/htmlarrows/symbols/
+  const nodes: ICanvasNode[] = [
+    {id: '1', group: 'DemoNode', label: 'image:svg',  x: -100, y: -100, image: 'https://icons.getbootstrap.com/assets/icons/person.svg', },
+    {id: '3', group: 'DemoNode', label: 'image:png',  x: -100 , y: -200, image: 'https://cdn-icons-png.flaticon.com/128/12540/12540614.png'},
+    {id: '4', group: 'DemoNode', label: 'image:jpg',   x: -100, y: -300, image: 'https://pbs.twimg.com/profile_images/977119121002323969/Jg7jfoO8_400x400.jpg'},
+    {id: '5', group: 'DemoNode', label: 'icon:Unicode', x: 100, y: -100, icon: '\u2729' }, //'\uf007'}
+    {id: '6', group: 'DemoNode', label: 'icon:HTMLCode', x: 100, y: -200, icon: '&percnt;' }//'\uf007'}
+]
+
+  const links: ICanvasLink[] = []
+
+  canvas.artBoard.init().then(() => {
+    canvas.dataStore.add(nodes, links)
+    canvas.artBoard.camera.fitView();
+  })
+
+
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
+
+}

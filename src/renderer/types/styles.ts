@@ -19,11 +19,14 @@ export interface IShapeBorderStyle {
 export interface IShapeFontStyle {
   family : string
   size: number
+  align: "center" | "left" | "right"
+  weight: "normal" | "bold"
 }
 
 export interface ITextStyle {
   color: string | number
   font : IShapeFontStyle
+  resolution?: number
 }
 
 export interface IIconStyle extends ITextStyle {

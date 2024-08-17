@@ -8,7 +8,7 @@ export interface IIconShape extends IIconStyle {
 
 }
 
-const drawIconShape = (props: IIconShape) => {
+const drawIconShape = (props: IIconShape, resolution: number = window.devicePixelRatio) => {
 
     // if (!props.label){
     //     // if label is not found, not point it rendering, so return
@@ -19,11 +19,12 @@ const drawIconShape = (props: IIconShape) => {
     const style = new TextStyle({
         fontFamily: props?.font.family,
         fontSize: props?.font.size,
-        // fill: props?.color,
-        // align: "center"
+        fill: props?.color,
+        align: props?.font.align,
+        fontWeight: props?.font.weight
     })
-    const text = new Text( props.content, style);
-    // text.resolution = props?.resolution || 6 ;
+    const text = new Text( {text: props.content, style});
+    text.resolution =  resolution ;
 
     return text
 }

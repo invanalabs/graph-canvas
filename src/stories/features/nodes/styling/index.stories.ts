@@ -2,6 +2,10 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { notImplementedPage } from '../../../utils/notImplementedPage';
 
 
+import nodeImagesExamplePlay from "./codes/with-images-icons"
+import nodeImagesExampleCode from "./codes/with-images-icons"
+import renderTemplate from '../../../utils/render';
+
 
 const meta = {
   title: 'Features/Nodes/Styling',
@@ -11,8 +15,14 @@ export default meta;
 
 
 export const WithImageAndIcon: StoryObj = {
-  name: "With Images and Icons",
-  render: () => notImplementedPage("WithImageAndIcon") ,
+  name: "shape : images and icons",
+  render: () => renderTemplate() ,
+  play: nodeImagesExamplePlay,
+  parameters: {
+    storySource : {
+      source: nodeImagesExampleCode
+    }
+  }
 };
 
 
