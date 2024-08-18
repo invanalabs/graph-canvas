@@ -209,6 +209,12 @@ export class ArtBoardBase {
     return viewport;
   }
 
+  loadFont = (fontName: string, src: string) => {
+    PIXI.Assets.addBundle('fonts', [
+      { alias: fontName, src: src }
+    ]);
+    return PIXI.Assets.loadBundle('fonts')
+  }
 
 
 }

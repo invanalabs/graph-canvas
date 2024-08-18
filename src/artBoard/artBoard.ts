@@ -10,7 +10,7 @@ export class ArtBoard extends ArtBoardBase {
     this.canvas = canvas
   }
 
-  round = (value: number) => Math.round(value * 1000) / 1000;
+  // round = (value: number) => Math.round(value * 1000) / 1000;
 
   // updateVisibility = () => {
 
