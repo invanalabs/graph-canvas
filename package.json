@@ -53,6 +53,7 @@
     "vite-plugin-dts": "^3.7.3"
   },
   "dependencies": {
+    "@pixi/text-html": "^7.4.2",
     "gl-matrix": "^3.4.3",
     "pixi-viewport": "github:davidfig/pixi-viewport",
     "pixi.js": "^8.3.3",

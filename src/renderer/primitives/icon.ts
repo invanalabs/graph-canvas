@@ -1,31 +1,40 @@
-import { Text, TextStyle, HTMLText } from "pixi.js"
+import { Text, TextStyle, HTMLText, HTMLTextStyle } from "pixi.js"
 import { IIconStyle } from "../types";
 
 
-// export interface IIconShape extends IIconStyle {
-//     content: string
-//     // style: IIconStyle
-
-// }
 
 const drawIconShape = (props: IIconStyle, resolution: number = window.devicePixelRatio) => {
 
-    // if (!props.label){
-    //     // if label is not found, not point it rendering, so return
-    //     return 
-    // }
-
     // add text
-    const style = new TextStyle({
-        fontFamily: props?.font.family,
-        fontSize: props?.font.size,
-        fill: props?.color,
-        align: props?.font.align,
-        fontWeight: props?.font.weight,
-        fontStyle: props?.font.style
-    })
-    const text = new Text({text: props.content, style});
-    text.resolution =  resolution ;
+
+    let text;
+    if (props.content.startsWith("&")) {
+        const style = new HTMLTextStyle({
+            fontFamily: props?.font.family,
+            fontSize: props?.font.size,
+            fill: props?.color,
+            align: props?.font.align,
+            fontWeight: props?.font.weight,
+            fontStyle: props?.font.style
+        })
+    
+        text = new HTMLText({ text: `<p>Hello ${props.content}</p>`, style })
+    } else {
+
+        const style = new TextStyle({
+            fontFamily: props?.font.family,
+            fontSize: props?.font.size,
+            fill: props?.color,
+            align: props?.font.align,
+            fontWeight: props?.font.weight,
+            fontStyle: props?.font.style
+        })
+    
+        text = new Text({ text: props.content, style });
+
+    }
+    text.resolution = resolution;
+    // text.pivot.set(0.5)
 
     return text
 }

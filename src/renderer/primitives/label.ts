@@ -18,10 +18,20 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
 
     // add text
     const textStyle = new TextStyle({
+        // fontFamily: props?.text.font.family,
+        // fontSize: props?.text.font.size,
+        // fill: props?.text.color,
+        // align: "center"
+
+
         fontFamily: props?.text.font.family,
         fontSize: props?.text.font.size,
         fill: props?.text.color,
-        align: "center"
+        align: props?.text.font.align,
+        fontWeight: props?.text.font.weight,
+        fontStyle: props?.text.font.style
+
+
     })
     const text = new Text( props.label, textStyle);
     text.resolution = props.resolution || 6 ;

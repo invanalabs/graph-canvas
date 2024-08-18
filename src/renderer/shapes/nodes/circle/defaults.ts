@@ -25,7 +25,9 @@ export const NodeStyleDefaults: INodeStyle = {
                 family: "FontAwesome",
                 weight: "bold",
                 align: "center",
-                style: "normal"
+                style: "normal",
+                // wordWrap: true,
+                // wordWrapWidth: 200,
             }
         },
         // image: {

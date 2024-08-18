@@ -3,7 +3,7 @@ import { notImplementedPage } from '../../../utils/notImplementedPage';
 
 
 import nodeImagesExamplePlay from "./codes/with-images-icons"
-import nodeImagesExampleCode from "./codes/with-images-icons"
+import nodeImagesExampleCode from "./codes/with-images-icons?raw"
 import renderTemplate from '../../../utils/render';
 
 

@@ -17,11 +17,13 @@ export interface IShapeBorderStyle {
 }
 
 export interface IShapeFontStyle {
-  family : string
-  size: number
-  align: "center" | "left" | "right"
-  weight: "normal" | "bold"
-  style: "normal" | "italic" | "oblique"
+  family? : string
+  size?: number
+  align?: "center" | "left" | "right"
+  weight?: "normal" | "bold"
+  style?: "normal" | "italic" | "oblique"
+  wordWrap?: boolean,
+  wordWrapWidth?: number,
 }
 
 export interface ITextStyle {
