@@ -19,7 +19,7 @@ export default () => {
     {id: '1', group: 'DemoNode', label: 'all interactions enabled', isDraggable: true, isSelectable: true, isHoverable: true,  x: 200, y: -100,  },
     {id: '3', group: 'DemoNode', label: 'drag :: disabled', isDraggable: false,  x: -100 , y: -200, },
     {id: '4', group: 'DemoNode', label: 'select :: disabled', isSelectable: false,   x: -100, y: -300, },
-    {id: '5', group: 'DemoNode', label: 'hover :: disabled', isHoverable: false,  x: -100, y: -100,  icon: '\u2729' }, //'\uf007'}
+    {id: '5', group: 'DemoNode', label: 'hover :: disabled', isHoverable: false,  x: -100, y: -100, }, //'\uf007'}
     // {id: '6', group: 'DemoNode', label: 'icon:HTMLCode', x: 100, y: -200, icon: '&percnt;' },//'\uf007'}
 ]
 
