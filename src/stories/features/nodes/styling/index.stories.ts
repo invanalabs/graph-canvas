@@ -42,15 +42,5 @@ export const Styling: StoryObj = {
 };
 
 
-export const Interactions: StoryObj = {
-  name : "Interactions - hover in/out",
-  render: () => notImplementedPage('Interactions(disable hover in/out)') ,
-};
-
-export const Draggable: StoryObj = {
-  name : "Draggable or Locked",
-  render: () => notImplementedPage('Draggable or Locked') ,
-};
-
 
 

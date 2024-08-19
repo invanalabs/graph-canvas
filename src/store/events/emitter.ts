@@ -102,7 +102,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
   onNodePointerIn = ({ id, node, event }: OnNodeGfxEventData) => {
     console.log("emitter:onNodePointerIn", id, node);
     if (node && event){
-      node.gfxInstance?.pointerIn(event);
+      node.gfxInstance?.pointerOver(event);
     }
   }
 
