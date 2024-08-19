@@ -112,6 +112,16 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
       }
   }
 
+  getMaxHeight(){
+    // this.style.states?.[":highlighted"].shape?.border.thickness + 
+    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness
+  }
+
+  getMaxWidth(){
+    console.log('----this.style.states?.[":selected"].shape' , this.style.states?.[":selected"].shape)
+    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness
+
+  }
   // redrawNeighbors(){
   //   this.neighbors.links.forEach((link_: CanvasLink) => {
   //     const link = this.artBoard.canvas.dataStore.links.get(link_.id)

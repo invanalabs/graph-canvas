@@ -23,9 +23,10 @@ class Circle extends NodeShapeBase {
         }
         console.debug("==labelArgs", labelArgs)
         const labelGfx = drawLabelShape(labelArgs);
+        console.log("=====labelGfx",)
         if (labelGfx) {
-            labelGfx.name = NodeContainerChildNames.label;
-            labelGfx.position.set(shapeStyle.size + 5, -shapeStyle.size);
+            labelGfx.name = NodeContainerChildNames.label; 
+            labelGfx.position.set(shapeStyle.size + 5, -( labelGfx.height) );
         }
         console.debug("==labelGfx", labelGfx)
         return labelGfx

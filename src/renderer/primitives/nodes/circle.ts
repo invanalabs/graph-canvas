@@ -22,7 +22,7 @@ const drawCircleShape = (props: DrawCirclePrimitiveType) => {
         const opacity = props.border?.opacity ? props.border?.opacity : 1;
         // TODO - border.type not being used yet ;
         //  opacity: opacity
-        shapeName.stroke({width: props.border.thickness, color: props.border.color,});
+        shapeName.stroke({width: props.border.thickness, alpha: opacity,  color: props.border.color, alignment: 1}); // alignment (0.5 = middle, 1 = outter, 0 = inner).
     }
     shapeName.hitArea = new Circle(0, 0, props.size);
     shapeName.cursor = 'pointer';

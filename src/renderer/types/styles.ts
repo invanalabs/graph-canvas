@@ -24,6 +24,7 @@ export interface IShapeFontStyle {
   style?: "normal" | "italic" | "oblique"
   wordWrap?: boolean,
   wordWrapWidth?: number,
+  lineHeight?: number
 }
 
 export interface ITextStyle {

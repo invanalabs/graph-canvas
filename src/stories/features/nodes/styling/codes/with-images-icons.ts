@@ -21,7 +21,7 @@ export default () => {
     {id: '4', group: 'DemoNode', label: 'image:jpg',   x: -100, y: -300, image: 'https://pbs.twimg.com/profile_images/977119121002323969/Jg7jfoO8_400x400.jpg'},
     {id: '5', group: 'DemoNode', label: 'icon:Unicode', x: 100, y: -100, icon: '\u2729' }, //'\uf007'}
     {id: '6', group: 'DemoNode', label: 'icon:HTMLCode', x: 100, y: -200, icon: '&percnt;' },//'\uf007'}
-    {id: '7', group: 'DemoNode', label: 'icon:FontAwesome', x: 100, y: -300, icon: '\uf14e', 
+    {id: '7', group: 'DemoNode', label: 'icon:FontAwesome', x: 100, y: -300, icon: '\uF14E', 
       style: { shape: {icon: {font: {family: 'FontAwesome'}}}}  
     }//'\uf007'}
 

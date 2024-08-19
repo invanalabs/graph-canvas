@@ -88,7 +88,7 @@ export default class TextureStore {
 
     // hovered textures 
     // hovered - shape
-    const hoveredPadding = 0;
+    // const hoveredPadding = 0;
     // const hoveredStyle = props.style?.states[':hovered'];
 
     // const hoveredStateStyle: INodeStateTexture = {
@@ -101,23 +101,26 @@ export default class TextureStore {
 
     // selected textures
     // highlighted - shape
-    const highlightedPadding = hoveredPadding + 4;
+    // const highlightedPadding = props.style?.shape.border.thickness;
+    const padding = 2  
     const highlightedStyle = props.style?.states[':highlighted'];
+
+    const highlightedNodeSize = props.style.size + props.style?.shape.border.thickness + padding
 
     const highlightedStateStyle: INodeStateTexture = {
       shape: this.createNodeShapeTexture({
-        size: props.style.size + props.style?.shape.border.thickness + highlightedPadding,
+        size: highlightedNodeSize,
         background: highlightedStyle.shape.background,
         border: highlightedStyle.shape.border
       })
     }
 
-    const selectedPadding = hoveredPadding + 12;
+    // const selectedPadding = props.style?.shape.border.thickness + props.style?.states[':highlighted'].shape?.border.thickness + 2;
     const selectedStyle = props.style?.states[':selected'];
      // selected - shape
      const selectedStateStyle: INodeStateTexture = {
        shape: this.createNodeShapeTexture({
-         size: props.style.size + props.style?.shape.border.thickness + selectedPadding,
+         size: highlightedNodeSize +  props.style?.states[':selected'].shape?.border.thickness + padding,
          background: selectedStyle.shape.background,
          border: selectedStyle.shape.border
        })

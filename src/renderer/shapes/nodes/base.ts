@@ -32,6 +32,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   declare drawShape
   declare drawLabel
+  
 
 
   constructor(data: CanvasNode, artBoard: ArtBoard) {

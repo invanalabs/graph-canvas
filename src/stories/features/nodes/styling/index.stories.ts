@@ -1,10 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { notImplementedPage } from '../../../utils/notImplementedPage';
+import renderTemplate from '../../../utils/render';
 
 
 import nodeImagesExamplePlay from "./codes/with-images-icons"
 import nodeImagesExampleCode from "./codes/with-images-icons?raw"
-import renderTemplate from '../../../utils/render';
+
+
+import nodeLabelExamplePlay from "./codes/label-styling"
+import nodeLabelExampleCode from "./codes/label-styling?raw"
 
 
 const meta = {
@@ -27,8 +31,14 @@ export const WithImageAndIcon: StoryObj = {
 
 
 export const Styling: StoryObj = {
-  name : "Styling options",
-  render: () => notImplementedPage('Styling options') ,
+  name : "label",
+  render: () => renderTemplate() ,
+  play: nodeLabelExamplePlay,
+  parameters: {
+    storySource : {
+      source: nodeLabelExampleCode
+    }
+  }
 };
 
 

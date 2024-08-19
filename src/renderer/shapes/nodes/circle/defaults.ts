@@ -28,6 +28,7 @@ export const NodeStyleDefaults: INodeStyle = {
                 style: "normal",
                 // wordWrap: true,
                 // wordWrapWidth: 200,
+                lineHeight: 5,
             }
         },
         // image: {
@@ -55,29 +56,24 @@ export const NodeStyleDefaults: INodeStyle = {
        
     },
     states: {
-        ":selected": {
-            shape: {
-                // border: {
-                //     thickness: 2,
-                //     color: 0x999999,
-                //     opacity: 0.6,
-                // },
-                background: {
-                    color: "#888888",
-                    opacity: 0.3
-                },
-            }
-        },
         ":highlighted": {
             shape: {
                 border: {
-                    thickness: 4,
+                    thickness: 3,
                     color:  0xfeeb77 ,
-                    opacity: 0.6
+                    opacity: 0.8
                 }
             }
-        }
-
+        },
+        ":selected": {
+            shape: {
+                border: {
+                    thickness: 6,
+                    color: 0xee9a21,
+                    opacity: 1,
+                }
+            }
+        },
     }
 }
 
