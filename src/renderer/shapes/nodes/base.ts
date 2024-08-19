@@ -105,6 +105,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
         shapeSelectedBorder.visible = true
       }
       this.triggerHighlighted(event, true)
+      // this.triggerUnHighlighted(event)
     }
     // this.moveToFrontLayer();
   }
@@ -181,17 +182,17 @@ export class NodeShapeBase extends NodeShapeAbstract {
   onDragStart = (event: PIXI.FederatedPointerEvent) => {
     event.stopPropagation();
 
-    if (!this.data.isDraggable) return
-    this.dragData = event.data;
-    this.containerGfx.parent.on("pointermove", this.onDragMove);
-    // disable interactions on links 
+    if (this.data.isDraggable) {
+      this.dragData = event.data;
+      this.containerGfx.parent.on("pointermove", this.onDragMove);
+      // disable interactions on links 
+    }
   };
 
   onDragMove = (event: PIXI.FederatedPointerEvent) => {
     event.stopPropagation();
     console.log("onDragMove", this.data.id)
-    if (this.dragData) {
-      if (!this.data.isDraggable) return
+    if (this.dragData && this.data.isDraggable) {
 
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
       // console.log("onDragMove", this.data.id, newPoint, this.dragPoint)
@@ -226,28 +227,35 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerOver = (event: PIXI.FederatedPointerEvent) => {
     console.log("====pointerOver", this.data.id, this.data.state, this.data.isHoverable, !this.data.isHoverable)
     event.stopPropagation();
-    if (!this.data.isHoverable) return 
-    // if (!this.data.isSelectable) return
-    // if (!this.data.isDraggable) return
+    if(this.data.state === ":inactive") return 
 
     if (this.dragData) return
-    this.setState(":highlighted", true, event)
+
+    if (this.data.isHoverable){
+      this.setState(":highlighted", true, event)
+    }
+    // if (this.data.isHoverable || this.data.isSelectable){
+    // }
   }
 
   pointerDown = (event: PIXI.FederatedPointerEvent) => {
     console.log("pointerdown", this.data.id, this.data.state)
     event.stopPropagation();
+    if(this.data.state === ":inactive") return 
+
     // if (this.dragData) return 
     if (this.data.isSelectable) {  // disable clicks
       // if (!this.data.isDraggable) return
       console.log("clicked", this.data.id)
-
-      this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
       this.setState(":selected", true, event)
     }
-    if (!this.data.isDraggable) return 
+    if (this.data.isHoverable){
+      this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
+    }
+    if (this.data.isDraggable) {
+      this.onDragStart(event)
+    } 
     // if (!this.data.isDraggable) return  // disable drags
-    this.onDragStart(event)
   }
 
   // Function to check if the pointer is within the bounds of the parent sprite
@@ -264,10 +272,9 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerout = (event: PIXI.FederatedPointerEvent) => {
     // if (!this.data.isHoverable) return 
     event.stopPropagation();
-    // if ([":highlighted", ":hovered", ":selected"].includes(this.data.state)) return 
-    // console.log("====pointerout", this.data.id, this.data.state, this.isPointerInBounds(event, this.containerGfx), this.dragData)
-    if ([":highlighted", ":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
-    // console.log("pointerout", this.data.id, this.data.state, this.dragData)
+    if(this.data.state === ":inactive") return 
+    if ([":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
+
     this.setState(":default", true, event)
   }
 
@@ -276,6 +283,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const pointerPosition = event.data.global;
     // console.log("pointerup", this.data.id, this.data.state)
     console.log("un clicked", this.data.id)
+    if(this.data.state ===  ":inactive") return 
     event.stopPropagation();
     if (this.isPointerInBounds(event, this.containerGfx)) {
       this.setState(":highlighted", true, event)
@@ -288,11 +296,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   pointerUpOutside = (event: PIXI.FederatedPointerEvent) => {
-    // if (!this.data.isSelectable) return 
-    // console.log("pointerupoutside", this.data.id, this.data.state)
     console.log("un clicked", this.data.id)
-    // event.stopPropagation();
-    // this.onDragEnd(event)
     this.pointerUp(event)
 
   }
