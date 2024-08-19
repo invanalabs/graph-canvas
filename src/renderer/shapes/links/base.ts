@@ -159,7 +159,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
   drawLabel = () => {
     console.debug("Line.drawLabel")
     if (this.data.label) {
-      const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label })
+      const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label }, this.artBoard.canvas.options.resolution?.labels)
       labelGfx.name = LinkContainerChildNames.label
       labelGfx.visible = this.data.isLabelVisible
 

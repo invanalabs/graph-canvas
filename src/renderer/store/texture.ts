@@ -105,7 +105,7 @@ export default class TextureStore {
     const padding = 2  
     const highlightedStyle = props.style?.states[':highlighted'];
 
-    const highlightedNodeSize = props.style.size + props.style?.shape.border.thickness + padding
+    const highlightedNodeSize = props.style.size + highlightedStyle.shape.border.thickness + padding
 
     const highlightedStateStyle: INodeStateTexture = {
       shape: this.createNodeShapeTexture({
@@ -120,7 +120,7 @@ export default class TextureStore {
      // selected - shape
      const selectedStateStyle: INodeStateTexture = {
        shape: this.createNodeShapeTexture({
-         size: highlightedNodeSize +  props.style?.states[':selected'].shape?.border.thickness + padding,
+         size: highlightedNodeSize +  selectedStyle.shape?.border.thickness + padding,
          background: selectedStyle.shape.background,
          border: selectedStyle.shape.border
        })

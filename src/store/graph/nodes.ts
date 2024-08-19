@@ -113,14 +113,15 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   }
 
   getMaxHeight(){
-    // this.style.states?.[":highlighted"].shape?.border.thickness + 
-    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness
+    const padding = 2;
+    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness 
+    + this.style.states?.[":highlighted"].shape?.border.thickness + (padding * 2)
   }
 
   getMaxWidth(){
-    console.log('----this.style.states?.[":selected"].shape' , this.style.states?.[":selected"].shape)
-    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness
-
+    const padding = 2;
+    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness 
+    + this.style.states?.[":highlighted"].shape?.border.thickness + (padding * 2)
   }
   // redrawNeighbors(){
   //   this.neighbors.links.forEach((link_: CanvasLink) => {

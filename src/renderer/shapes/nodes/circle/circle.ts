@@ -2,7 +2,6 @@ import { Sprite, Graphics } from 'pixi.js';
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../../constants';
 import drawLabelShape from '../../../primitives/label';
-import { createDebugPoint } from '../../utils';
 // import { DraggableSprite } from '../../../sprites/draggable';
 
 
@@ -19,14 +18,14 @@ class Circle extends NodeShapeBase {
         shapeStyle.label.text.font.size = this.data.style.size
         const labelArgs = {
             label: this.data.label,
-            ...shapeStyle?.label
+            ...shapeStyle?.label,
         }
         console.debug("==labelArgs", labelArgs)
-        const labelGfx = drawLabelShape(labelArgs);
-        console.log("=====labelGfx",)
+        const labelGfx = drawLabelShape(labelArgs, this.artBoard.canvas.options.resolution?.labels);
         if (labelGfx) {
-            labelGfx.name = NodeContainerChildNames.label; 
-            labelGfx.position.set(shapeStyle.size + 5, -( labelGfx.height) );
+            labelGfx.label = NodeContainerChildNames.label;
+            labelGfx.position.set((this.data.getMaxWidth() - this.data.style.label?.padding * 2)  , - (this.data.getMaxHeight()) );
+            labelGfx.pivot.set(0.5)
         }
         console.debug("==labelGfx", labelGfx)
         return labelGfx

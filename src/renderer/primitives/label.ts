@@ -7,7 +7,7 @@ export interface LabelPrimitiveType extends IShapeLabelStyle {
     label: string
 }
 
-const drawLabelShape = (props: LabelPrimitiveType) => {
+const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.devicePixelRatio * 2) => {
     // console.log("===drawLabelShape props", props)
     const labelGfx = new Graphics();
 
@@ -35,8 +35,8 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
 
     })
     const text = new HTMLText( {text:props.label, style: textStyle});
-    text.resolution = props.resolution || 6 ;
-    text.name = NodeContainerChildNames.labelText
+    text.resolution = resolution ;
+    text.label = NodeContainerChildNames.labelText
     const textBounds = text.getBounds(); // Get the size of the text box
 
     if (props?.background?.color){

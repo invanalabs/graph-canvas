@@ -61,7 +61,7 @@ export const NodeStyleDefaults: INodeStyle = {
                 border: {
                     thickness: 3,
                     color:  0xfeeb77 ,
-                    opacity: 0.8
+                    opacity: 0.6
                 }
             }
         },
@@ -69,8 +69,8 @@ export const NodeStyleDefaults: INodeStyle = {
             shape: {
                 border: {
                     thickness: 6,
-                    color: 0xee9a21,
-                    opacity: 1,
+                    color: 0xFF4785,
+                    opacity: 0.6,
                 }
             }
         },
