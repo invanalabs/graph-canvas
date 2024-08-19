@@ -18,6 +18,10 @@ export interface ICanvasItemBase {
 
   // visible: boolean // should the item be visible on the canvas
   isLabelVisible?: boolean
+
+  isHoverable?: boolean
+  isSelectable?: boolean
+  isDraggable?: boolean
   // isShapeVisible: boolean
 
   // style?: ILinkStyle | INodeStyle

@@ -1,8 +1,8 @@
 import { Texture } from "pixi.js"
-import {  INodeStyle, IShapeState } from "../types";
+import {  IIconStyle, INodeStyle, IShapeState } from "../types";
 import drawCircleShape, { DrawCirclePrimitiveType } from "../primitives/nodes/circle";
 import { ArtBoard } from "../../artBoard";
-import drawIconShape, { IIconShape } from "../primitives/icon";
+import drawIconShape from "../primitives/icon";
 import drawImageShape from "../primitives/image";
 
 
@@ -46,20 +46,21 @@ export default class TextureStore {
 
 
   createImagePromise = (imageUrl: string) => {
-    return drawImageShape(imageUrl)
+    const resolution = imageUrl.endsWith('.svg') ? this.artBoard.canvas.options.resolution?.svgImages :this.artBoard.canvas.options.resolution?.images 
+    return drawImageShape(imageUrl, resolution)
   }
 
 
-  createIconTexture = (props: IIconShape) => {
-    const iconText = drawIconShape(props)
+  createIconTexture = (props: IIconStyle) => {
     const resolution = this.artBoard.canvas.options.resolution?.icons;
-    return this.artBoard.pixiApp.renderer.generateTexture({ target:iconText, resolution: resolution });
+    const iconText = drawIconShape(props, resolution)
+    return this.artBoard.pixiApp.renderer.generateTexture({ target:iconText, resolution: resolution, antialias: true });
   }
 
   createNodeShapeTexture = (props: DrawCirclePrimitiveType) => {
     const shapeGfx = drawCircleShape(props);
     const resolution = this.artBoard.canvas.options.resolution?.nodes;
-    return this.artBoard.pixiApp.renderer.generateTexture({ target: shapeGfx, resolution: resolution });
+    return this.artBoard.pixiApp.renderer.generateTexture({ target: shapeGfx, resolution: resolution, antialias: true });
   }
 
   // createLabelTexture = (props : LabelPrimitiveType) => {
@@ -87,7 +88,7 @@ export default class TextureStore {
 
     // hovered textures 
     // hovered - shape
-    const hoveredPadding = 0;
+    // const hoveredPadding = 0;
     // const hoveredStyle = props.style?.states[':hovered'];
 
     // const hoveredStateStyle: INodeStateTexture = {
@@ -100,23 +101,26 @@ export default class TextureStore {
 
     // selected textures
     // highlighted - shape
-    const highlightedPadding = hoveredPadding + 4;
+    // const highlightedPadding = props.style?.shape.border.thickness;
+    const padding = 2  
     const highlightedStyle = props.style?.states[':highlighted'];
+
+    const highlightedNodeSize = props.style.size + highlightedStyle.shape.border.thickness + padding
 
     const highlightedStateStyle: INodeStateTexture = {
       shape: this.createNodeShapeTexture({
-        size: props.style.size + props.style?.shape.border.thickness + highlightedPadding,
+        size: highlightedNodeSize,
         background: highlightedStyle.shape.background,
         border: highlightedStyle.shape.border
       })
     }
 
-    const selectedPadding = hoveredPadding + 12;
+    // const selectedPadding = props.style?.shape.border.thickness + props.style?.states[':highlighted'].shape?.border.thickness + 2;
     const selectedStyle = props.style?.states[':selected'];
      // selected - shape
      const selectedStateStyle: INodeStateTexture = {
        shape: this.createNodeShapeTexture({
-         size: props.style.size + props.style?.shape.border.thickness + selectedPadding,
+         size: highlightedNodeSize +  selectedStyle.shape?.border.thickness + padding,
          background: selectedStyle.shape.background,
          border: selectedStyle.shape.border
        })
@@ -131,8 +135,8 @@ export default class TextureStore {
         ":highlighted": highlightedStateStyle,
         ':selected': selectedStateStyle,
 
-        // fix :inactive and :hidden later
-        ":inactive": highlightedStateStyle,
+        // fix :muted and :hidden later
+        ":muted": highlightedStateStyle,
         // ":hidden": highlightedStateStyle
       }
     }
@@ -151,7 +155,7 @@ export default class TextureStore {
   }
 
 
-  getOrCreateIconTexture(props:   IIconShape) {
+  getOrCreateIconTexture(props:   IIconStyle) {
     const unique_key = props.content;
     if (this.iconTexturesMap.has(unique_key)) {
       return { iconTexture: this.iconTexturesMap.get(unique_key), isCreated: false }
@@ -162,9 +166,9 @@ export default class TextureStore {
 
 
   getOrcreateImagePromise(imageUrl: string) {
-    const unique_key = imageUrl;
-    if (this.imagePromiseMap.has(unique_key)) {
-      return { imagePromise: this.imagePromiseMap.get(unique_key), isCreated: false }
+    // const unique_key = imageUrl;
+    if (this.imagePromiseMap.has(imageUrl)) {
+      return { imagePromise: this.imagePromiseMap.get(imageUrl), isCreated: false }
     } else {
       return { imagePromise: this.createImagePromise(imageUrl), isCreated: true }
     }

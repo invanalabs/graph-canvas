@@ -1,10 +1,10 @@
 import { ArtBoard } from "../../artBoard";
-import { CanvasNode, ICanvasLink, ICanvasNode } from "../../store";
+import { ICanvasLink, ICanvasNode } from "../../store";
 import { PluginAbstract } from "../base";
 import { createToolBarButton, createToolBarToggleButton, IToolBarButton } from "./html";
 import "./toolbar.css"
 
-export default class ToolBar implements PluginAbstract{
+export default class ArtBoardToolBar implements PluginAbstract{
 
     artBoard: ArtBoard;
 

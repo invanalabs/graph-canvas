@@ -26,7 +26,6 @@ export default class D3ForceOptionsToolBar implements PluginAbstract {
         htmlType: "button",
         label: "restart layout",
         onClickListener: () => {
- 
           d3ForceLayoutInstance?.reComputeLayout()
           this.artBoard.renderer.tick()
         }

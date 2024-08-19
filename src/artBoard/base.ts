@@ -18,7 +18,7 @@ export class ArtBoardBase {
   events: EventEmitterAbstract
   isLabelsVisible: boolean = true
 
-  worldScale: number = 15
+  worldScale: number = 20
 
   constructor(canvas: GraphCanvas) {
     this.canvas = canvas
@@ -188,9 +188,10 @@ export class ArtBoardBase {
       .pinch({ percent: 0.5 })
       .wheel()
       .decelerate()
+      // .bounce({time: 200})
       .clampZoom({
-        minWidth: canvasSizeOptions.screenWidth / 5,
-        minHeight: canvasSizeOptions.screenHeight / 5,
+        minWidth: canvasSizeOptions.screenWidth / 10,
+        minHeight: canvasSizeOptions.screenHeight / 10,
         maxWidth: canvasSizeOptions.worldWidth,
         maxHeight: canvasSizeOptions.worldHeight
       })
@@ -208,6 +209,12 @@ export class ArtBoardBase {
     return viewport;
   }
 
+  loadFont = (fontName: string, src: string) => {
+    PIXI.Assets.addBundle('fonts', [
+      { alias: fontName, src: src }
+    ]);
+    return PIXI.Assets.loadBundle('fonts')
+  }
 
 
 }

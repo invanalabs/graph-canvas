@@ -1,5 +1,7 @@
-import { LayoutComputerAbstract } from "../layout/base";
-import { NoLayoutComputer } from "../layout/no-layout";
+// import { LayoutComputerAbstract } from "../layout/base";
+// import { NoLayoutComputer } from "../layout/no-layout";
+import { LinkStyleDefaults } from "../renderer/shapes/links/defaults";
+import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults";
 import { ICanvasOptions } from "./types"
 // import * as PIXI from "pixi.js" 
 
@@ -21,19 +23,23 @@ export const defaultCanvasOptions: ICanvasOptions = {
   viewElement: defaultViewDiv,
   background: "#222222",
   resolution: {
-    nodes: window.devicePixelRatio * 2,
+    nodes: window.devicePixelRatio * 6,
     links: window.devicePixelRatio,
     canvas: window.devicePixelRatio, // WARNING - dont change this;
-    labels: window.devicePixelRatio * 2,
-    icons: window.devicePixelRatio * 4,
-    images: window.devicePixelRatio
+    labels: window.devicePixelRatio * 6,
+    icons: window.devicePixelRatio * 6,
+    images: window.devicePixelRatio,
+    svgImages: window.devicePixelRatio * 2
   },
   debugMode: true,
-  styles: {},
+  styles: {
+    defaultNodeStyle: NodeStyleDefaults,
+    defaultLinkStyle: LinkStyleDefaults
+  },
   extraSettings: {
     nodeSizeBasedOn: 'default',
-    nodeColorBasedOn : 'group',
-    linkColorBasedOn : 'group',
+    nodeColorBasedOn : 'default',
+    linkColorBasedOn : 'default',
     labelVisibilityZoomThreshold: 0.30
   }
 }

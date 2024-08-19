@@ -1,4 +1,4 @@
-import { Graphics, TextStyle, Text } from "pixi.js"
+import { Graphics, TextStyle, Text, HTMLText, HTMLTextStyle } from "pixi.js"
 import { IShapeLabelStyle } from "../types";
 import { NodeContainerChildNames } from "../shapes/constants";
 
@@ -7,7 +7,7 @@ export interface LabelPrimitiveType extends IShapeLabelStyle {
     label: string
 }
 
-const drawLabelShape = (props: LabelPrimitiveType) => {
+const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.devicePixelRatio * 2) => {
     // console.log("===drawLabelShape props", props)
     const labelGfx = new Graphics();
 
@@ -17,15 +17,26 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
     // }
 
     // add text
-    const textStyle = new TextStyle({
+    const textStyle = new HTMLTextStyle({
+        // fontFamily: props?.text.font.family,
+        // fontSize: props?.text.font.size,
+        // fill: props?.text.color,
+        // align: "center"
+
+
         fontFamily: props?.text.font.family,
         fontSize: props?.text.font.size,
         fill: props?.text.color,
-        align: "center"
+        align: props?.text.font.align,
+        fontWeight: props?.text.font.weight,
+        fontStyle: props?.text.font.style,
+        lineHeight: props.text.font.lineHeight
+
+
     })
-    const text = new Text( props.label, textStyle);
-    text.resolution = props.resolution || 6 ;
-    text.name = NodeContainerChildNames.labelText
+    const text = new HTMLText( {text:props.label, style: textStyle});
+    text.resolution = resolution ;
+    text.label = NodeContainerChildNames.labelText
     const textBounds = text.getBounds(); // Get the size of the text box
 
     if (props?.background?.color){
@@ -50,7 +61,7 @@ const drawLabelShape = (props: LabelPrimitiveType) => {
 
         // textBackground
         textBackground.name = NodeContainerChildNames.labelBackground
-        textBackground.visible = false
+        // textBackground.visible = false
         textBackground.x = text.x - props.padding 
         textBackground.y = text.y
         // add background and text to gfx

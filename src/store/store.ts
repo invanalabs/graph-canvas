@@ -1,5 +1,5 @@
 import { FederatedPointerEvent } from "pixi.js"
-import { INodeStyle, IShapeState } from "../renderer/types"
+import { ILinkStyle, INodeStyle, IShapeState } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
 import { filterLinksOfNode } from "./graph/utils"
@@ -7,7 +7,6 @@ import { ICanvasItemProperties, ICanvasLink, ICanvasNode, IDataStore, IdString }
 import { IDataStoreListeners } from "./events/types"
 import { GraphCanvas } from "../canvas"
 import { deepMerge } from "../utils/merge"
-import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults"
 import stc from "string-to-color";
 
 
@@ -136,10 +135,10 @@ export class DataStore implements IDataStore {
     // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
     // P3 - color by group
     if (this.canvas.options.extraSettings?.nodeColorBasedOn === "group") {
-      style = deepMerge(NodeStyleDefaults, { shape: { background: { color: stc(node.group) } } })
+      style = deepMerge(this.canvas.options.styles?.defaultNodeStyle || {}, { shape: { background: { color: stc(node.group) } } })
       // console.log("====nodeColorBasedOn", style)
     } else {
-      style = NodeStyleDefaults
+      style = this.canvas.options.styles?.defaultNodeStyle
     }
 
     // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
@@ -272,10 +271,34 @@ export class DataStore implements IDataStore {
     }
   }
 
+  generateLinkStyle(link: ICanvasLink){
+
+    let style: ILinkStyle;
+    const linkStyles = this.canvas.options.styles?.links || {}
+
+    // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
+    // P3 - color by group
+    if (this.canvas.options.extraSettings?.linkColorBasedOn === "group") {
+      style = deepMerge(this.canvas.options.styles?.defaultLinkStyle || {}, { shape: { color: stc(link.group) } })
+      // console.log("====nodeColorBasedOn", style)
+    } else {
+      style = this.canvas.options.styles?.defaultLinkStyle
+    }
+
+    // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
+    style = deepMerge(style, linkStyles[link.group] || {})
+
+    // P1 - this has the highest priority, 
+    style = deepMerge(style, link?.style || {});
+
+    return style
+  }
+
   private addLink(link: ICanvasLink) {
 
     if (!this.links.has(link.id)) {
       // attach sourceInstance using sourceId
+      console.log("Adding link", link)
       const sourceId = link.source instanceof CanvasNode ? link.source.id : link.source
       const sourceNode = this.nodes.get(sourceId);
 
@@ -295,6 +318,8 @@ export class DataStore implements IDataStore {
       } else {
         throw Error(`${targetId} not found in node: ${this.nodes} `)
       }
+
+      link.style = this.generateLinkStyle(link);
 
       // create CanvasLink
       const linkInstance = new CanvasLink(link)
@@ -349,7 +374,7 @@ export class DataStore implements IDataStore {
    * @param links 
    */
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
-    // console.log("adding nodes and links", nodes, links)
+    console.log("adding nodes and links", nodes, links)
     this.canvas.dataStore.updateMessage("Drawing new data")
 
     nodes.map(node=> this.addNode(node))
@@ -389,6 +414,11 @@ export class DataStore implements IDataStore {
   updateMessage = (message: string | null) => {
     this.message = message
     this.trigger('artBoard:onMessageChanged', { message });
+  }
+
+  destroy(){
+    this.nodes.clear()
+    this.links.clear()
   }
 
 }

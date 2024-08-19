@@ -23,7 +23,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   icon?: string;
   image?: string
 
-  shapeName?: 'circle'; 
+  shapeName?: 'circle' 
 
   // links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
@@ -40,6 +40,11 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   state: IShapeState = ":default"
 
   style: INodeStyle = NodeStyleDefaults
+
+
+  isHoverable = true
+  isSelectable = true
+  isDraggable = true
 
   constructor(props: ICanvasNode){
     super(props)
@@ -63,6 +68,16 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     // this.style = NodeStyleDefaults 
     this.style = deepMerge( NodeStyleDefaults,  props?.style || {})
     // this.style = props?.style
+
+
+    this.isHoverable = props.isHoverable === undefined ? true : props.isHoverable 
+    this.isSelectable = props.isSelectable === undefined ? true : props.isSelectable
+    this.isDraggable = props.isDraggable === undefined ? true : props.isDraggable  
+
+
+    // this.isHoverable = props.isHoverable === undefined || props.isHoverable === true ? true : false 
+    // this.isSelectable = props.isSelectable === undefined || props.isSelectable === true ? true : false 
+    // this.isDraggable = props.isDraggable === undefined || props.isDraggable === true ? true : false  
   }
 
   toJson(): ICanvasNode{
@@ -112,6 +127,17 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
       }
   }
 
+  getMaxHeight(){
+    const padding = 2;
+    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness 
+    + this.style.states?.[":highlighted"].shape?.border.thickness + (padding * 2)
+  }
+
+  getMaxWidth(){
+    const padding = 2;
+    return this.style.size + this.style.states?.[":selected"].shape?.border.thickness 
+    + this.style.states?.[":highlighted"].shape?.border.thickness + (padding * 2)
+  }
   // redrawNeighbors(){
   //   this.neighbors.links.forEach((link_: CanvasLink) => {
   //     const link = this.artBoard.canvas.dataStore.links.get(link_.id)

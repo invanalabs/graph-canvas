@@ -17,17 +17,24 @@ export interface IShapeBorderStyle {
 }
 
 export interface IShapeFontStyle {
-  family : string
-  size: number
+  family? : string
+  size?: number
+  align?: "center" | "left" | "right"
+  weight?: "normal" | "bold"
+  style?: "normal" | "italic" | "oblique"
+  wordWrap?: boolean,
+  wordWrapWidth?: number,
+  lineHeight?: number
 }
 
 export interface ITextStyle {
   color: string | number
   font : IShapeFontStyle
+  resolution?: number
 }
 
 export interface IIconStyle extends ITextStyle {
-  // content: string
+  content: string
 }
 
 /* for links */
@@ -55,7 +62,7 @@ export interface IShapeImageStyle {
 export interface INodeShapeStyle {
   background: IShapeBgStyle
   border: IShapeBorderStyle
-  icon: IIconStyle
+  icon: IIconStyle // works with '\uf007'
   image: IShapeImageStyle
 }
 

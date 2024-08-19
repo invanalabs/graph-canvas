@@ -19,10 +19,16 @@ export const NodeStyleDefaults: INodeStyle = {
         },
         icon: {
             // content: "&#9737;", // https://www.toptal.com/designers/htmlarrows/symbols/
-            color: "#ffffff",
+            color: "#343434",
             font : {
-                size: 12,
-                family: "FontAwesome"
+                size: 18,
+                family: "FontAwesome",
+                weight: "bold",
+                align: "center",
+                style: "normal",
+                // wordWrap: true,
+                // wordWrapWidth: 200,
+                lineHeight: 5,
             }
         },
         // image: {
@@ -50,29 +56,24 @@ export const NodeStyleDefaults: INodeStyle = {
        
     },
     states: {
-        ":selected": {
-            shape: {
-                // border: {
-                //     thickness: 2,
-                //     color: 0x999999,
-                //     opacity: 0.6,
-                // },
-                background: {
-                    color: "#888888",
-                    opacity: 0.3
-                },
-            }
-        },
         ":highlighted": {
             shape: {
                 border: {
-                    thickness: 4,
+                    thickness: 3,
                     color:  0xfeeb77 ,
-                    opacity: 0.6
+                    opacity: 0.8
                 }
             }
-        }
-
+        },
+        ":selected": {
+            shape: {
+                border: {
+                    thickness: 3,
+                    color: 0xFF4785,
+                    opacity: 0.8,
+                }
+            }
+        },
     }
 }
 

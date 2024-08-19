@@ -30,6 +30,7 @@
     "@storybook/addon-essentials": "^8.0.9",
     "@storybook/addon-interactions": "^8.0.9",
     "@storybook/addon-links": "^8.0.9",
+    "@storybook/addon-storysource": "^8.2.6",
     "@storybook/blocks": "^8.0.9",
     "@storybook/html": "^8.0.9",
     "@storybook/html-vite": "^8.0.9",
@@ -54,7 +55,7 @@
   "dependencies": {
     "gl-matrix": "^3.4.3",
     "pixi-viewport": "github:davidfig/pixi-viewport",
-    "pixi.js": "^8.2.5",
+    "pixi.js": "^8.3.3",
     "string-to-color": "^2.2.2"
   }
 }

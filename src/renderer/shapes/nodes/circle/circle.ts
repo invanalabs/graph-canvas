@@ -2,7 +2,6 @@ import { Sprite, Graphics } from 'pixi.js';
 import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../../constants';
 import drawLabelShape from '../../../primitives/label';
-import { createDebugPoint } from '../../utils';
 // import { DraggableSprite } from '../../../sprites/draggable';
 
 
@@ -14,18 +13,19 @@ class Circle extends NodeShapeBase {
         }
         const shapeStyle = this.data.style
         console.debug("this.data.label", this.data.label)
-        console.debug("shapeStyle?.label",shapeStyle?.label)
+        console.debug("shapeStyle?.label", shapeStyle?.label)
 
         shapeStyle.label.text.font.size = this.data.style.size
         const labelArgs = {
             label: this.data.label,
-            ...shapeStyle?.label
+            ...shapeStyle?.label,
         }
         console.debug("==labelArgs", labelArgs)
-        const labelGfx = drawLabelShape(labelArgs);
+        const labelGfx = drawLabelShape(labelArgs, this.artBoard.canvas.options.resolution?.labels);
         if (labelGfx) {
-            labelGfx.name = NodeContainerChildNames.label;
-            labelGfx.position.set(shapeStyle.size + 5, -shapeStyle.size);
+            labelGfx.label = NodeContainerChildNames.label;
+            labelGfx.position.set((this.data.getMaxWidth() - this.data.style.label?.padding * 2)  , - (this.data.getMaxHeight()) );
+            labelGfx.pivot.set(0.5)
         }
         console.debug("==labelGfx", labelGfx)
         return labelGfx
@@ -40,81 +40,59 @@ class Circle extends NodeShapeBase {
             group: this.data.group,
             style: this.data.style
         })
-
-
         // console.log("===texture", this.data.id, texture,)
         if (texture) {
-
-            
             const shape = new Sprite(texture['states'][':default'].shape)
             shape.name = NodeContainerChildNames.shapeName;
             // shape.x = -shape.width / 2;
             // shape.y = -shape.height / 2;
-
             shape.anchor.set(0.5);
-
-
- 
-            
-
-            if (this.data.icon){
-
+            if (this.data.icon) {
                 const { iconTexture } = this.artBoard.renderer.textureStore.getOrCreateIconTexture({
                     ...this.data.style.shape.icon, content: this.data.icon
                 })
-                // console.log("===iconTexture", this.data.id, iconTexture,)
-
                 const icon = new Sprite(iconTexture);
                 icon.name = NodeContainerChildNames.icon;
-                // icon.x = icon.width ;
-                // icon.y = icon.height ;
+                // icon.x = shape.width /2 ;
+                // icon.y = shape.height / 2;
+                // icon.pivot = 0.5
                 icon.anchor.set(0.5);
-
                 icon.tint = this.data.style?.shape?.icon.color || "#222222";
                 shape.addChild(icon);
             }
 
-            if (this.data.image){
+            if (this.data.image) {
                 const { imagePromise } = this.artBoard.renderer.textureStore.getOrcreateImagePromise(
                     this.data.image
                 )
                 // console.log("===imagePromise", this.data.id, imagePromise,)
-                if (imagePromise){
+                if (imagePromise) {
                     imagePromise.then((texture) => {
+                        console.log("imagePromise", this.data.image, texture)
                         // Create a sprite from the loaded texture
-                        const imageSprite = new Sprite(texture);
-                        imageSprite.width = shape.width
-                        imageSprite.height = shape.height
-                        // imageSprite.x = imageSprite.width/2 ;
-                        // imageSprite.y = imageSprite.height/2 ;
-                        imageSprite.anchor.set(0.5);
-
-
-
+                        const imageGfx = new Sprite(texture);
+                        if (this.data.image?.endsWith(".svg")) {
+                            imageGfx.width = shape.width / 2
+                            imageGfx.height = shape.height / 2
+                        } else {
+                            imageGfx.width = shape.width
+                            imageGfx.height = shape.height
+                        }
+                        imageGfx.anchor.set(0.5);
                         // Create a circular mask
                         const mask = new Graphics();
                         // mask.beginFill(0xffffff);
                         mask.circle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
                         mask.fill(0xffffff);
-
-                        // mask.anchor.set(0.5)
-                        // Position the mask at the center of the sprite
-                        // mask.x = imageSprite.x;
-                        // mask.y = imageSprite.y;
-                        // mask.pivot.set(0.5);
-
                         // Apply the mask to the sprite
-                        imageSprite.mask = mask;
-
+                        imageGfx.mask = mask;
                         // Add the mask and sprite to the stage
                         shape.addChild(mask);
-                        shape.addChild(imageSprite);
-
+                        shape.addChild(imageGfx);
                     }).catch((error) => {
-                        console.error('Error loading texture:', error);
-                    });   
+                        console.error(`Error loading image ${this.data.image}:`, error);
+                    });
                 }
- 
             }
 
             // draw selected graphics

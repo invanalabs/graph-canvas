@@ -1,10 +1,11 @@
 import dagre from "@dagrejs/dagre";
 import { GraphCanvas } from "../canvas";
 import {  CanvasNode, ICanvasLink,  ICanvasNode } from "../store";
+import { LayoutComputerAbstract } from "./base";
 
 
 // TODO - implement LayoutComputerAbstract
-class DagreLayoutComputer {
+class DagreLayoutComputer implements LayoutComputerAbstract{
 
     canvas: GraphCanvas;
     // layout: dagre.graphlib.Graph;
@@ -32,8 +33,9 @@ class DagreLayoutComputer {
         return { centerX: worldWidth / 2, centerY: worldHeight / 2 }
     }
 
-    ticked = () => {
-        // this.canvas.renderer.tick()
+    onTick = () => {
+        this.canvas.artBoard.renderer.tick();
+        this.canvas.artBoard.camera.fitView();
     }
 
     generateLayoutedElements = (nodes: ICanvasNode[], links: ICanvasLink[], direction: string ) => {
@@ -47,16 +49,27 @@ class DagreLayoutComputer {
         // Default to assigning a new object as a label for each new edge.
         g.setDefaultEdgeLabel(function() { return {}; });
         console.log("===direction", direction)
+
+        const graphOptions = {
+            nodesep: 100,   // Horizontal space between nodes
+            ranksep: 40,   // Vertical space between nodes
+        }
+
+        if (direction == "LR" || direction == "RL" ){
+            graphOptions.nodesep = 40
+            graphOptions.ranksep = 100
+        }
+
         g.setGraph({ 
             rankdir: direction, 
-            nodesep: 100,   // Horizontal space between nodes
-            ranksep: 150,   // Vertical space between nodes
+            // nodesep: 100,   // Horizontal space between nodes
+            // ranksep: 40,   // Vertical space between nodes
             // ranker: "tight-tree",
             // width: 2000,
             // height: 1000,
-            // marginx: 200,
-            // marginy: 200,
-            // ...graphOptions
+            // marginx: 100,
+            // marginy: 50,
+            ...graphOptions
         });
 
         // set the nodes to dagre.layout
@@ -92,12 +105,21 @@ class DagreLayoutComputer {
         return { layoutedNodes: nodes, layoutedLinks: links };
     }
 
+
+    reComputeLayout(){
+        this.onLayoutComputationEnded()
+    }
+
+    onLayoutComputationEnded(){
+        this.canvas.artBoard.renderer.tick();
+        this.canvas.artBoard.camera.fitView();
+    }
+
     computeLayout(nodes: ICanvasNode[], links: ICanvasLink[],  direction: string = "LR") {
         const {layoutedNodes} = this.generateLayoutedElements(nodes, links , direction)
         console.log("====layoutedNodes", layoutedNodes)
         // this.canvas.artBoard.renderer.rePositionNodes(layoutedNodes);
-        this.canvas.artBoard.renderer.tick();
-        this.canvas.artBoard.camera.fitView();
+        this.onLayoutComputationEnded()
     }
  
 }
