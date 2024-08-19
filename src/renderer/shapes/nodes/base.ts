@@ -242,6 +242,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     console.log("pointerdown", this.data.id, this.data.state)
     event.stopPropagation();
     // if(this.data.state === ":muted") return 
+    if(this.data.state ===  ":muted") return 
 
     // if (this.dragData) return 
     if (this.data.isSelectable) {  // disable clicks
@@ -283,8 +284,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const pointerPosition = event.data.global;
     // console.log("pointerup", this.data.id, this.data.state)
     console.log("un clicked", this.data.id)
-    if(this.data.state ===  ":muted") return 
     event.stopPropagation();
+    if(this.data.state ===  ":muted") return 
     if (this.isPointerInBounds(event, this.containerGfx)) {
       this.setState(":highlighted", true, event)
     } else {
