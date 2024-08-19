@@ -82,8 +82,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
   // }
 
 
-  triggerInactive = (event?: PIXI.FederatedPointerEvent) => {
-    // console.debug(`triggerInactive triggered on node - ${this.data.id}`);
+  triggerMuted = (event?: PIXI.FederatedPointerEvent) => {
+    // console.debug(`triggerMuted triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
   }
 
@@ -227,7 +227,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerOver = (event: PIXI.FederatedPointerEvent) => {
     console.log("====pointerOver", this.data.id, this.data.state, this.data.isHoverable, !this.data.isHoverable)
     event.stopPropagation();
-    if(this.data.state === ":inactive") return 
+    if(this.data.state === ":muted") return 
 
     if (this.dragData) return
 
@@ -241,7 +241,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerDown = (event: PIXI.FederatedPointerEvent) => {
     console.log("pointerdown", this.data.id, this.data.state)
     event.stopPropagation();
-    if(this.data.state === ":inactive") return 
+    // if(this.data.state === ":muted") return 
 
     // if (this.dragData) return 
     if (this.data.isSelectable) {  // disable clicks
@@ -272,7 +272,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerout = (event: PIXI.FederatedPointerEvent) => {
     // if (!this.data.isHoverable) return 
     event.stopPropagation();
-    if(this.data.state === ":inactive") return 
+    if(this.data.state === ":muted") return 
     if ([":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
 
     this.setState(":default", true, event)
@@ -283,7 +283,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // const pointerPosition = event.data.global;
     // console.log("pointerup", this.data.id, this.data.state)
     console.log("un clicked", this.data.id)
-    if(this.data.state ===  ":inactive") return 
+    if(this.data.state ===  ":muted") return 
     event.stopPropagation();
     if (this.isPointerInBounds(event, this.containerGfx)) {
       this.setState(":highlighted", true, event)

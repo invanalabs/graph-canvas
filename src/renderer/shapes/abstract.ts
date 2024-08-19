@@ -51,8 +51,8 @@ abstract class ShapeAbstractBase {
     abstract triggerSelected(event?: PIXI.FederatedPointerEvent): void
     abstract triggerUnSelected(event?: PIXI.FederatedPointerEvent): void
 
-    // :inactive
-    abstract triggerInactive(event?: PIXI.FederatedPointerEvent): void
+    // :muted
+    abstract triggerMuted(event?: PIXI.FederatedPointerEvent): void
 
 
     // :hidden
@@ -243,8 +243,8 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
             //     this.triggerHighlightedOnNeighbors(event)
             // }
         }
-        else if (stateName === ":inactive") {
-            this.triggerInactive(event)
+        else if (stateName === ":muted") {
+            this.triggerMuted(event)
         }
         // else if (stateName === ":hidden") {
         //     this.triggerHidden(event)
@@ -309,8 +309,8 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
             //     this.triggerHighlightedOnNeighbors(event)
             // }
         }
-        else if (stateName === ":inactive") {
-            this.triggerInactive(event)
+        else if (stateName === ":muted") {
+            this.triggerMuted(event)
         }
         // else if (stateName === ":hidden") {
         //     this.triggerHidden(event)

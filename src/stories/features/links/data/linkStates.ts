@@ -79,11 +79,11 @@ export const linkStateData: { "nodes": ICanvasNode[], "links": ICanvasLink[] } =
         {
             id: '7-8',
             group: 'authored',
-            label: 'inactive',
+            label: 'muted',
             source: '7',
             target: '8',
             shapeName: 'straightLine',
-            state: ":inactive"
+            state: ":muted"
         }
     ]
 }

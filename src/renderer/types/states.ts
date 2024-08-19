@@ -1,11 +1,11 @@
 import { ILinkShapeStyle, INodeShapeStyle, IShapeLabelStyle } from "./styles";
 // TODO - merge this to styles.ts, both are styles anyways except, INodeStateTypes, ILinkStateTypes
 
-export type IShapeState =  ':default' | ':highlighted' | ':selected' | ':inactive'; // :hovered, :hidden removed 
+export type IShapeState =  ':default' | ':highlighted' | ':selected' | ':muted'; // :hovered, :hidden removed 
 
 
-// export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden';
-// export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':inactive' | ':hidden';
+// export type INodeStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':muted' | ':hidden';
+// export type ILinkStateTypes =  ':default' | ':hovered' | ':selected' | ':highlighted' | ':muted' | ':hidden';
 
 export interface INodeStateStyle {
   size?: number
@@ -53,5 +53,7 @@ export interface ExtraSettings {
   nodeColorBasedOn? : 'group' | 'default'
   linkColorBasedOn? : 'group' | 'default'
   // labels
-  labelVisibilityZoomThreshold? : number
+  labelVisibilityZoomThreshold? : number,
+
+
 }

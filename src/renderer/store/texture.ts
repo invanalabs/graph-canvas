@@ -135,8 +135,8 @@ export default class TextureStore {
         ":highlighted": highlightedStateStyle,
         ':selected': selectedStateStyle,
 
-        // fix :inactive and :hidden later
-        ":inactive": highlightedStateStyle,
+        // fix :muted and :hidden later
+        ":muted": highlightedStateStyle,
         // ":hidden": highlightedStateStyle
       }
     }

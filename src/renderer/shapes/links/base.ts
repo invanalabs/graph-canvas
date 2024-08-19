@@ -49,8 +49,8 @@ export class LinkShapeBase extends LinkShapeAbstract {
     // console.error("not implemented")
   }
 
-  triggerInactive = (event?: PIXI.FederatedPointerEvent) => {
-    console.debug(`triggerInactive triggered on link - ${this.data.id}`);
+  triggerMuted = (event?: PIXI.FederatedPointerEvent) => {
+    console.debug(`triggerMuted triggered on link - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
   }
 

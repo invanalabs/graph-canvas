@@ -21,7 +21,7 @@ export default () => {
       id: '3', group: 'DemoNode', label: 'Highlighted', state: ':highlighted', x: (window.innerWidth / 2) + 100, y: window.innerHeight / 2
     },
     {
-      id: '4', group: 'DemoNode', label: 'Inactive', state: ':inactive', x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 100
+      id: '4', group: 'DemoNode', label: 'Muted', state: ':muted', x: (window.innerWidth / 2) - 100, y: (window.innerHeight / 2) + 100
     },
     {
       id: '5', group: 'DemoNode', label: 'Selected', state: ':selected',  x: (window.innerWidth / 2) + 100, y: (window.innerHeight / 2) + 100
