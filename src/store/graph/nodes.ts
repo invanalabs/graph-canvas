@@ -69,9 +69,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     this.style = deepMerge( NodeStyleDefaults,  props?.style || {})
     // this.style = props?.style
 
-    console.log("=====props.isHoverable", this.id, props.isHoverable)
-    console.log("=====props.isSelectable", this.id, props.isSelectable)
-    console.log("=====props.isDraggable", this.id, props.isDraggable)
 
     this.isHoverable = props.isHoverable === undefined ? true : props.isHoverable 
     this.isSelectable = props.isSelectable === undefined ? true : props.isSelectable
