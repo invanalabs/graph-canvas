@@ -291,6 +291,7 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
             // this.triggerUnHovered(event);
             this.triggerUnHighlighted(event, setNeighborsToo);
             this.triggerDefault(event);
+            this.triggerUnSelected(event)
             // if (setNeighborsToo) {
             //     // this.triggerUnHoveredOnNeighbors(event)
             //     this.triggerUnHighlightedOnNeighbors(event)
@@ -308,6 +309,9 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
             // if (setNeighborsToo) {
             //     this.triggerHighlightedOnNeighbors(event)
             // }
+        }
+        else if (stateName === ":selected") {
+            this.triggerSelected(event)
         }
         else if (stateName === ":muted") {
             this.triggerMuted(event)

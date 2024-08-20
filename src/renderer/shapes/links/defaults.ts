@@ -43,6 +43,13 @@ export const LinkStyleDefaults: ILinkStyle = {
                 thickness: 3,
                 color: 0xfeeb77
             }
+        },
+        ":selected": {
+            shape: {
+                opacity: 0.6,
+                thickness: 5,
+                color: 0xf11b77
+            }
         }
     }
 

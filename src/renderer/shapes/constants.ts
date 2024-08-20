@@ -26,6 +26,8 @@ export enum LinkContainerChildNames {
   shapeLine = 'shapeLine',
   shapeHoveredBorder = 'shapeHoveredBorder',
   shapeHighlightedBorder = 'shapeHighlightedBorder',
+  shapeSelectedBorder = 'shapeSelectedBorder',
+
   // label
   label = 'label',
   labelBackground = 'labelBackground',

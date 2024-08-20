@@ -60,12 +60,36 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx.visible = true
   }
  
-  triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
-    // console.log(`Selected triggered on link - ${this.data.id}`);
+  triggerSelected = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
+    console.debug(`Selected triggered on link - ${this.data.id}`);
+    this.moveToFrontLayer();
+
+    if (this.shapeGfx) {
+      const selectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder);
+      if (selectedBorder) {
+        selectedBorder.visible = true
+      }
+    }
+    if (setNeighborsToo) {
+      this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerSelected()
+      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerSelected()
+    }
   }
 
-  triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
-    // console.log(`UnSelected triggered on link - ${this.data.id}`);
+  triggerUnSelected = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
+    console.debug(`UnSelected triggered on link - ${this.data.id}`);
+    this.moveToFrontLayer();
+
+    if (this.shapeGfx) {
+      const selectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder);
+      if (selectedBorder) {
+        selectedBorder.visible = false
+      }
+    }
+    if (setNeighborsToo) {
+      this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnSelected()
+      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnSelected()
+    }
   }
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
@@ -129,7 +153,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       .on('pointerdown', (event) => {
         this.dragData = event.data
         this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
-        this.setState(":highlighted", true, event)
+        this.setState(":selected", true, event)
       })
       .on("pointermove", (event) => {
         event.stopPropagation()
