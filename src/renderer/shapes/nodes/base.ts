@@ -232,12 +232,18 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
         if (link.gfxInstance) { link.gfxInstance.setupInteractionTriggers() }
     })
-    this.triggerUnHighlighted(event, true)
+    if (  this.isPointerInBounds(event, this.containerGfx)) {
+      this.triggerUnSelected()
+      this.setState(":highlighted", true, event) // if pointer is still on the node 
+    }else{
+      this.setState(":default")
+    }
+
 
   };
 
   pointerOver = (event: PIXI.FederatedPointerEvent) => {
-    console.log("====pointerOver", this.data.id, this.data.state, this.data.isHoverable, !this.data.isHoverable)
+    console.log("====pointerOver", this.data.id, this.data.state, this.dragData)
     event.stopPropagation();
     if (this.data.state === ":muted") return
     if (this.dragData) return
@@ -266,6 +272,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   };
 
   pointerOut = (event: PIXI.FederatedPointerEvent) => {
+    console.log("====pointer out", this.data.id, this.data.state, this.dragData)
     event.stopPropagation();
     if (this.dragData) return
     if (this.data.state === ":muted") return
@@ -275,16 +282,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
   }
 
   pointerUp = (event: PIXI.FederatedPointerEvent) => {
-    console.log("un clicked", this.data.id)
+    console.log("pointerUp", this.data.id, this.data.state)
     event.stopPropagation();
     if (this.data.state === ":muted") return
     this.artBoard.canvas.dataStore.removeFromHighlightedNodes(this.data)
-    this.setState(":highlighted", true, event)
     this.onDragEnd(event)
   }
 
   pointerUpOutside = (event: PIXI.FederatedPointerEvent) => {
-    console.log("un clicked", this.data.id)
+    console.log("pointerUpOutside", this.data.id, this.data.state)
     this.pointerUp(event)
   }
 
@@ -300,7 +306,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       .on("pointerout", this.pointerOut)
 
       .on('pointerdown', this.pointerDown)
-      .on('pointercancel', this.pointerUp)
+      // .on('pointercancel', this.pointerUp)
       // .on('pointerup', (event)=> event.stopPropagation())
       // .on('pointerupoutside', (event)=> event.stopPropagation())
 

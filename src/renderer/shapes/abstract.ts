@@ -176,6 +176,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     }
 
     applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
+        console.debug("pointer applyStateUpdate state", this.data.id, this.data.state)
         const stateName = this.data.state
         if (stateName === ":default") {
             this.triggerUnHighlighted(event, setNeighborsToo);
