@@ -199,6 +199,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     if (this.data.isDraggable) {
       this.dragData = event.data;
+      this.artBoard.canvas.dataStore.enableDraggingMode()
       this.containerGfx.parent.on("pointermove", this.onDragMove);
       // disable interactions on links 
     }
@@ -208,9 +209,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     console.log("onDragMove", this.data.id)
     if (this.dragData && this.data.isDraggable) {
-
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
-      // console.log("onDragMove", this.data.id, newPoint, this.dragPoint)
       // update node positions data 
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
       // remove interactions on neighbors
@@ -220,19 +219,19 @@ export class NodeShapeBase extends NodeShapeAbstract {
         }
       })
       this.triggerHighlighted(event, true)
-
     }
   };
 
   onDragEnd = (event: PIXI.FederatedPointerEvent) => {
     // console.log("onDragEnd triggered")
     event.stopPropagation()
-    this.dragData = null
+    this.dragData = null;
+    this.artBoard.canvas.dataStore.disableDraggingMode()
     this.containerGfx.parent.off('pointermove', this.onDragMove);
     this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
         if (link.gfxInstance) { link.gfxInstance.setupInteractionTriggers() }
     })
-    if (  this.isPointerInBounds(event, this.containerGfx)) {
+    if (this.isPointerInBounds(event, this.containerGfx)) {
       this.triggerUnSelected()
       this.setState(":highlighted", true, event) // if pointer is still on the node 
     }else{
@@ -244,9 +243,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   pointerOver = (event: PIXI.FederatedPointerEvent) => {
     console.log("====pointerOver", this.data.id, this.data.state, this.dragData)
+    console.log("====pointerOver====", this.data.id, this.data.state, this.artBoard.canvas.dataStore.isDragModeOn)
     event.stopPropagation();
     if (this.data.state === ":muted") return
-    if (this.dragData) return
+    if (this.dragData || this.data.state === ":selected") return
+    // ignore if the system is in drag mode and this node is not selected 
+    if (this.artBoard.canvas.dataStore.isDragModeOn === true ) return
+
+    console.log("====pointerOver== triggered====", this.data.id, this.data.state, this.artBoard.canvas.dataStore.isDragModeOn)
+
     if (this.data.isHoverable) { this.setState(":highlighted", true, event) }
   }
 
@@ -255,8 +260,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     if (this.data.state === ":muted") return
     // if (this.dragData) return 
-    if (this.data.isSelectable) { console.log("Clicked", this.data.id); this.setState(":selected", true, event) }
-    if (this.data.isHoverable) { this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data) }
+    if (this.data.isSelectable) { 
+      console.log("Clicked", this.data.id); 
+      this.setState(":selected", true, event);
+      this.artBoard.canvas.dataStore.addToSelectedNodes(this.data)
+    }
+    // if (this.data.isHoverable) { this.artBoard.canvas.dataStore.addToSelectedNodes(this.data) }
     if (this.data.isDraggable) { this.onDragStart(event) }
   }
 
@@ -274,6 +283,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerOut = (event: PIXI.FederatedPointerEvent) => {
     console.log("====pointer out", this.data.id, this.data.state, this.dragData)
     event.stopPropagation();
+    if (this.artBoard.canvas.dataStore.isDragModeOn === true ) return
     if (this.dragData) return
     if (this.data.state === ":muted") return
     if ([":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
@@ -285,7 +295,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     console.log("pointerUp", this.data.id, this.data.state)
     event.stopPropagation();
     if (this.data.state === ":muted") return
-    this.artBoard.canvas.dataStore.removeFromHighlightedNodes(this.data)
+    this.artBoard.canvas.dataStore.removeFromSelectedNodes(this.data)
     this.onDragEnd(event)
   }
 

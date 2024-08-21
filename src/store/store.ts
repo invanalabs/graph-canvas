@@ -21,6 +21,9 @@ export class DataStore implements IDataStore {
 
   canvas: GraphCanvas
 
+  // when any of the node is being in dragging, this will disable hover effect on other nodes 
+  isDragModeOn: boolean = false
+
   message: string | null = null
 
   selectedNodes: Map<IdString, CanvasNode> = new Map()
@@ -69,6 +72,14 @@ export class DataStore implements IDataStore {
     }
   }
 
+  enableDraggingMode(){
+    this.isDragModeOn = true;
+  }
+
+  disableDraggingMode(){
+    this.isDragModeOn = false;
+  }
+
   // Register event listeners
   on(event: keyof IDataStoreListeners, listener: any) {
     if (this.listeners[event]) {
@@ -99,19 +110,19 @@ export class DataStore implements IDataStore {
     }
   }
 
-  addToHighlightedNodes(node: CanvasNode) {
+  addToSelectedNodes(node: CanvasNode) {
     this.selectedNodes.set(node.id, node)
   }
 
-  removeFromHighlightedNodes(node: CanvasNode) {
+  removeFromSelectedNodes(node: CanvasNode) {
     this.selectedNodes.delete(node.id)
   }
 
-  addToHighlightedLinks(link: CanvasLink) {
+  addToSelectedLinks(link: CanvasLink) {
     this.selectedLinks.set(link.id, link)
   }
 
-  removeFromHighlightedLinks(link: CanvasLink) {
+  removeFromSelectedLinks(link: CanvasLink) {
     this.selectedLinks.delete(link.id)
   }
 

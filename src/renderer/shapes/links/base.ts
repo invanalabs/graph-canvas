@@ -160,7 +160,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       })
       .on('pointerdown', (event) => {
         this.dragData = event.data
-        this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
+        this.artBoard.canvas.dataStore.addToSelectedLinks(this.data)
         this.setState(":selected", true, event)
       })
       .on("pointermove", (event) => {
@@ -168,7 +168,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       })
       .on('pointerup', (event) => {
         this.dragData = null
-        this.artBoard.canvas.dataStore.removeFromHighlightedLinks(this.data)
+        this.artBoard.canvas.dataStore.removeFromSelectedLinks(this.data)
       })
   }
 
@@ -242,8 +242,6 @@ export class LinkShapeBase extends LinkShapeAbstract {
     if (renderShape) {
       if (this.labelGfx) {
         this.calcLabelPosition(this.labelGfx, this.shapeGfx)
-
-
       }
     }
 
