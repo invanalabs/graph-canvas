@@ -23,7 +23,9 @@ export const LinkStyleDefaults: ILinkStyle = {
             color: "#999999",
             font: {
                 size: 10,
-                family: "Arial"
+                family: "Arial",
+                wordWrap: true,
+                wordWrapWidth: 100,
             }
         }
     },

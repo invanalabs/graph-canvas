@@ -5,11 +5,15 @@ import renderTemplate from '../../../utils/render';
 import nodeImagesExamplePlay from "./codes/with-images-icons"
 import nodeImagesExampleCode from "./codes/with-images-icons?raw"
 
-import nodeLabelExamplePlay from "./codes/label-styling"
-import nodeLabelExampleCode from "./codes/label-styling?raw"
+import colorIndividualLinkExamplePlay from "./codes/colorIndividualLink"
+import colorIndividualLinkExampleCode from "./codes/colorIndividualLink?raw"
 
 import colorByGroupExamplePlay from "./codes/colorByGroup"
 import colotByGroupExampleCode from "./codes/colorByGroup?raw"
+
+import labelFormattingExamplePlay from "./codes/label-formatting"
+import labelFormattingExampleCode from "./codes/label-formatting?raw"
+
 
 const meta = {
   title: 'Features/Nodes/Styling',
@@ -30,13 +34,13 @@ export const WithImageAndIcon: StoryObj = {
 };
 
 
-export const Styling: StoryObj = {
-  name : "label",
+export const colorIndividualLink: StoryObj = {
+  name : "color: individual link",
   render: () => renderTemplate() ,
-  play: nodeLabelExamplePlay,
+  play: colorIndividualLinkExamplePlay,
   parameters: {
     storySource : {
-      source: nodeLabelExampleCode
+      source: colorIndividualLinkExampleCode
     }
   }
 };
@@ -44,12 +48,24 @@ export const Styling: StoryObj = {
 
 
 export const colorByGroup: StoryObj = {
-  name : "color by group",
+  name : "color: by group",
   render: () => renderTemplate() ,
   play: colorByGroupExamplePlay,
   parameters: {
     storySource : {
       source: colotByGroupExampleCode
+    }
+  }
+};
+
+
+export const labelFormattingByGroup: StoryObj = {
+  name : "label: formatting",
+  render: () => renderTemplate() ,
+  play: labelFormattingExamplePlay,
+  parameters: {
+    storySource : {
+      source: labelFormattingExampleCode
     }
   }
 };

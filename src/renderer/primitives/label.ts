@@ -16,14 +16,16 @@ const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.d
     // }
 
     // add text
-    const textStyle = new HTMLTextStyle({
+    const textStyle = new TextStyle({
         fontFamily: props?.text.font.family,
         fontSize: props?.text.font.size,
         fill: props?.text.color,
         align: props?.text.font.align,
         fontWeight: props?.text.font.weight,
         fontStyle: props?.text.font.style,
-        lineHeight: props.text.font.lineHeight
+        lineHeight: props.text.font.lineHeight,
+        wordWrap: props.text.font.wordWrap,
+        wordWrapWidth: props.text.font.wordWrapWidth,
 
 
     })
