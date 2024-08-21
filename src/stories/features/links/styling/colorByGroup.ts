@@ -9,9 +9,6 @@ export default () => {
 
     const canvasDiv = document.getElementById("graphCanvas") as HTMLCanvasElement
 
-
-
-
     const canvas = new GraphCanvas({
         viewElement: canvasDiv,
         debugMode: true,
@@ -45,22 +42,6 @@ export default () => {
                                 family: "Arial"
                             }
                         }
-                    },
-                    states: {
-                        ":highlighted": {
-                            shape: {
-                                opacity: 0.6,
-                                thickness: 3,
-                                color: 0xfeeb77
-                            }
-                        },
-                        ":selected": {
-                            shape: {
-                                opacity: 0.6,
-                                thickness: 5,
-                                color: 0xf11b77
-                            }
-                        }
                     }
                 }
             }
@@ -68,7 +49,7 @@ export default () => {
     });
 
     const nodes: ICanvasNode[] = [
-        { id: '1', group: 'Person', label: 'Person-1', x: 100, y: 100, image: 'https://icons.getbootstrap.com/assets/icons/person.svg' },
+        { id: '1', group: 'Person', label: 'Person-1', x: 100, y: 100 },
         { id: '2', group: 'Person', label: 'Person-2', x: 450, y: 100 },
         { id: '3', group: 'Person', label: 'Person-3', x: 100, y: 450 },
         { id: '4', group: 'Person', label: 'Person-4', x: 450, y: 450 },
