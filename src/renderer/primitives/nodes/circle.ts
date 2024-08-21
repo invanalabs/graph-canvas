@@ -11,8 +11,6 @@ export interface DrawCirclePrimitiveType {
 const drawCircleShape = (props: DrawCirclePrimitiveType) => {
     console.debug("drawCircle", props);
     const shapeName = new Graphics();
-
-
     shapeName.circle(0, 0, props.size);
     if (props.background){
         const alpha = props.background.color === "transparent" ? 0: props.background.opacity

@@ -1,5 +1,5 @@
-import { FederatedPointerEvent } from "pixi.js"
-import { ILinkStyle, INodeStyle, IShapeState } from "../renderer/types"
+import { Dict, FederatedPointerEvent } from "pixi.js"
+import { ILinkStyle, INodeShapeStyle, INodeStyle, IShapeState } from "../renderer/types"
 import { CanvasLink } from "./graph/links"
 import { CanvasNode } from "./graph/nodes"
 import { filterLinksOfNode } from "./graph/utils"
@@ -8,6 +8,7 @@ import { IDataStoreListeners } from "./events/types"
 import { GraphCanvas } from "../canvas"
 import { deepMerge } from "../utils/merge"
 import stc from "string-to-color";
+import { NodeStyleDefaults } from "../renderer/shapes/nodes/circle/defaults"
 
 
 /**
@@ -122,35 +123,31 @@ export class DataStore implements IDataStore {
     // if (size > style.size * 2){
     //     return style.size * 2
     // }
-    return 12
-    // return size
+    // return 12
+    return size
 
   }
   generateNodeStyle(node: ICanvasNode) {
     // const nodeStyles = this.canvas.options.styles?.nodes || {};
 
     let style: INodeStyle;
+    console.log("===generateNodeStyle node.id", node.id, this.canvas.options.styles)
     const nodeStyles = this.canvas.options.styles?.nodes || {}
+    // const nodeStyles = this.canvas.options.styles?.nodes || {};
+    const defaultNodeStyle: INodeStyle = this.canvas.options.styles?.defaultNodeStyle || NodeStyleDefaults as INodeStyle;
 
     // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
     // P3 - color by group
-    if (this.canvas.options.extraSettings?.nodeColorBasedOn === "group") {
-      style = deepMerge(this.canvas.options.styles?.defaultNodeStyle || {}, { shape: { background: { color: stc(node.group) } } })
-      // console.log("====nodeColorBasedOn", style)
-    } else {
-      style = this.canvas.options.styles?.defaultNodeStyle
-    }
-
+    style = this.canvas.options.extraSettings?.nodeColorBasedOn === "group"
+        ? deepMerge(defaultNodeStyle, { shape: { background: { color: stc(node.group) } } })
+        : defaultNodeStyle;
     // P2 - style defined in the nodeStyleFromICanvasOptions ie., use defined in ICanvasOptions 
     style = deepMerge(style, nodeStyles[node.group] || {})
-
     // P1 - this has the highest priority, 
+    console.log("=====style node.id", node.id,  style, nodeStyles[node.group], nodeStyles)
     style = deepMerge(style, node?.style || {});
-
-
     if (this.canvas.options.extraSettings?.nodeSizeBasedOn === "degree") {
       const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
-      // console.log("nodeSize", nodeSize);
       style = deepMerge(style, { size: nodeSize })
     }
 

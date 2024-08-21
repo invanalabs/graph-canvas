@@ -1,11 +1,9 @@
-
-
-
-import { GraphCanvas } from "../../../../canvas";
-import ArtBoardToolBar from "../../../../plugins/toolbar";
-import { ICanvasLink, ICanvasNode } from "../../../../store";
-import { onStoryDown } from "../../../utils/storyDown";
-
+import { GraphCanvas } from "../../../../../canvas";
+import ArtBoardToolBar from "../../../../../plugins/toolbar";
+import { ICanvasLink, ICanvasNode } from "../../../../../store";
+import { onStoryDown } from "../../../../utils/storyDown";
+ 
+ 
 export default () => {
 
     const canvasDiv = document.getElementById("graphCanvas") as HTMLCanvasElement
@@ -14,48 +12,25 @@ export default () => {
         viewElement: canvasDiv,
         debugMode: true,
         styles: {
-            // nodes: {
-            //     Person: {
-            //         // size: 10,
-            //         shape: {
-            //             background: {
-            //                 color: "#C0C78C"
-            //             }
-            //         }
-            //     },
-            // },
-            links: {
-                follows: {
+            nodes: {
+                Person: {
+                    size: 10,
                     shape: {
-                        color: "#C0C78C",
+                        background: {
+                            color: "#C0C78C"
+                        }
                     }
                 },
-                contributing_to: {
+                Project: {
+                    size: 40,
                     shape: {
-                        opacity: 0.5,
-                        thickness: 5,
-                        color: "#BEADFA",
-                    },
-                    label: {
-                        // background: {
-                        //     color: "transparent",
-                        //     opacity: 0.5
-                        // },
-                        padding: 3,
-                        border: {
-                            thickness: 0.5,
-                            color: "#999999",
-                        },
-                        text: {
-                            color: "#ffffff",
-                            font: {
-                                size: 14,
-                                family: "Arial"
-                            }
+                        background: {
+                            color: "#BEADFA"
                         }
                     }
                 }
-            }
+            },
+
         }
     });
 

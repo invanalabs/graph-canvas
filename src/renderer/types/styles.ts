@@ -6,7 +6,7 @@ export type IBorderStyle = 'solid' | 'dotted';
 /* generic */
 export interface IShapeBgStyle {
   color: string | number
-  opacity: number
+  opacity?: number
 }
 
 export interface IShapeBorderStyle {

@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { notImplementedPage } from '../../../utils/notImplementedPage';
 import renderTemplate from '../../../utils/render';
 
-
 import nodeImagesExamplePlay from "./codes/with-images-icons"
 import nodeImagesExampleCode from "./codes/with-images-icons?raw"
-
 
 import nodeLabelExamplePlay from "./codes/label-styling"
 import nodeLabelExampleCode from "./codes/label-styling?raw"
 
+import colorByGroupExamplePlay from "./codes/colorByGroup"
+import colotByGroupExampleCode from "./codes/colorByGroup?raw"
 
 const meta = {
   title: 'Features/Nodes/Styling',
@@ -37,6 +37,19 @@ export const Styling: StoryObj = {
   parameters: {
     storySource : {
       source: nodeLabelExampleCode
+    }
+  }
+};
+
+
+
+export const colorByGroup: StoryObj = {
+  name : "color by group",
+  render: () => renderTemplate() ,
+  play: colorByGroupExamplePlay,
+  parameters: {
+    storySource : {
+      source: colotByGroupExampleCode
     }
   }
 };
