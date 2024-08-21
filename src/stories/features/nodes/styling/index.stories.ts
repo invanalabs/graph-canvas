@@ -33,19 +33,6 @@ export const WithImageAndIcon: StoryObj = {
 };
 
 
-
-export const colorByGroup: StoryObj = {
-  name : "color: by group",
-  render: () => renderTemplate() ,
-  play: colorByGroupExamplePlay,
-  parameters: {
-    storySource : {
-      source: colotByGroupExampleCode
-    }
-  }
-};
-
-
 export const labelFormattingByGroup: StoryObj = {
   name : "label: formatting",
   render: () => renderTemplate() ,
@@ -56,6 +43,20 @@ export const labelFormattingByGroup: StoryObj = {
     }
   }
 };
+
+
+export const colorByGroup: StoryObj = {
+  name : "style by group",
+  render: () => renderTemplate() ,
+  play: colorByGroupExamplePlay,
+  parameters: {
+    storySource : {
+      source: colotByGroupExampleCode
+    }
+  }
+};
+
+
 
 
 export const styleIndividualNodes: StoryObj = {

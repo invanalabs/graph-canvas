@@ -15,7 +15,7 @@ const meta = {
 export default meta;
  
 export const Types: StoryObj = {
-  name : "color by group",
+  name : "style by group",
   render: () => renderTemplate() ,
   play: colorByGroupExamplePlay,
   parameters: {
@@ -29,7 +29,7 @@ export const Types: StoryObj = {
 
 
 export const colorIndividualLink: StoryObj = {
-  name : "color: individual links",
+  name : "style individual links",
   render: () => renderTemplate() ,
   play: colorIndividualLinkExamplePlay,
   parameters: {

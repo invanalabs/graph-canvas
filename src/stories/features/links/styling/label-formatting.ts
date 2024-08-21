@@ -1,7 +1,6 @@
-import { GraphCanvas } from "../../../../../canvas";
-import { ICanvasLink, ICanvasNode } from "../../../../../store";
-import { onStoryDown } from "../../../../utils/storyDown";
-
+import { GraphCanvas } from "../../../../canvas";
+import { ICanvasLink, ICanvasNode } from "../../../../store";
+import { onStoryDown } from "../../../utils/storyDown";
 
 
 export default () => {
@@ -47,14 +46,11 @@ export default () => {
         }
       } 
      },
-    { id: '2', group: 'Person', label: 'blue text, <strong><em>formatted</em></strong> and word wrapped ', x: 450, y: 100,
+    { id: '2', group: 'Person', label: 'Person-2', x: 450, y: 100,
       style:{
         label: {
           text: {
-            color:  "#51829B",
-            font: {
-              wordWrapWidth: 160
-            }
+            color:  "#51829B"
           }
         }
       } 

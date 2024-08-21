@@ -38,32 +38,13 @@ export default () => {
 
 
   const nodes: ICanvasNode[] = [
-    { id: '1', group: 'Person', label: 'Person-1', x: 100, y: 100, image: 'https://icons.getbootstrap.com/assets/icons/person.svg',
-      style:{
-        label: {
-          text: {
-            color:  "#A02334"
-          }
-        }
-      } 
-     },
-    { id: '2', group: 'Person', label: 'blue text, <strong><em>formatted</em></strong> and word wrapped ', x: 450, y: 100,
-      style:{
-        label: {
-          text: {
-            color:  "#51829B",
-            font: {
-              wordWrapWidth: 160
-            }
-          }
-        }
-      } 
-
-     },
+    { id: '1', group: 'Person', label: 'Big pink opaque Node', x: 100, y: 100, style: {size: 30, shape: {background: {color: "#ff00ff", opacity: 0.5}}, label: {text: {color :"#ff00ff"}} }},
+    { id: '2', group: 'Person', label: 'Person-2', x: 450, y: 100,  },
     { id: '3', group: 'Person', label: 'Person-3', x: 100, y: 450 },
     { id: '4', group: 'Person', label: 'Person-4', x: 450, y: 450 },
-    { id: '5', group: 'Project', label: '<h3>Invana Studio</h3><p>Opensource network based visualizer. <em>formated</em> <strong>text</strong> text.</p>',
+    { id: '5', group: 'Project', label: '<p>Small blue <em>formated</em> <strong>text</strong> here</p>',
         x: (100+450)/2, y: (100+450)/2,
+        style: {size: 12, label: {text: {color :"#0000ff"}} },
         image: 'https://icons.getbootstrap.com/assets/icons/building.svg',
     },
     { id: '6', group: 'Person', label: 'Person-6', x: 750, y: 450 }
