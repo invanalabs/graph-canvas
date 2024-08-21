@@ -1,7 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html';
+import renderTemplate from '../../../utils/render';
+
 import colorByGroupExamplePlay from "./colorByGroup"
 import colotByGroupExampleCode from "./colorByGroup?raw"
-import renderTemplate from '../../../utils/render';
+
+import colorIndividualLinkExamplePlay from "./colorIndividualLinks"
+import colorIndividualLinkExampleCode from "./colorIndividualLinks?raw"
 
 
 const meta = {
@@ -22,3 +26,16 @@ export const Types: StoryObj = {
 };
 
  
+
+
+export const colorIndividualLink: StoryObj = {
+  name : "color: individual links",
+  render: () => renderTemplate() ,
+  play: colorIndividualLinkExamplePlay,
+  parameters: {
+    storySource : {
+      source: colorIndividualLinkExampleCode
+    }
+  }
+};
+

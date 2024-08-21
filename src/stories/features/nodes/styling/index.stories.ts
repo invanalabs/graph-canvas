@@ -1,12 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { notImplementedPage } from '../../../utils/notImplementedPage';
 import renderTemplate from '../../../utils/render';
 
 import nodeImagesExamplePlay from "./codes/with-images-icons"
 import nodeImagesExampleCode from "./codes/with-images-icons?raw"
 
-import colorIndividualLinkExamplePlay from "./codes/colorIndividualLink"
-import colorIndividualLinkExampleCode from "./codes/colorIndividualLink?raw"
+import styleIndividualNodesExamplePlay from "./codes/style-individual-nodes"
+import styleIndividualNodesExampleCode from "./codes/style-individual-nodes?raw"
 
 import colorByGroupExamplePlay from "./codes/colorByGroup"
 import colotByGroupExampleCode from "./codes/colorByGroup?raw"
@@ -29,18 +28,6 @@ export const WithImageAndIcon: StoryObj = {
   parameters: {
     storySource : {
       source: nodeImagesExampleCode
-    }
-  }
-};
-
-
-export const colorIndividualLink: StoryObj = {
-  name : "color: individual link",
-  render: () => renderTemplate() ,
-  play: colorIndividualLinkExamplePlay,
-  parameters: {
-    storySource : {
-      source: colorIndividualLinkExampleCode
     }
   }
 };
@@ -71,5 +58,13 @@ export const labelFormattingByGroup: StoryObj = {
 };
 
 
-
-
+export const styleIndividualNodes: StoryObj = {
+  name : "style individual nodes",
+  render: () => renderTemplate() ,
+  play: styleIndividualNodesExamplePlay,
+  parameters: {
+    storySource : {
+      source: styleIndividualNodesExampleCode
+    }
+  }
+};
