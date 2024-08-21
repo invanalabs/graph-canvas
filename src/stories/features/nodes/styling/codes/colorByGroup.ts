@@ -22,7 +22,7 @@ export default () => {
                     }
                 },
                 Project: {
-                    size: 40,
+                    size: 30,
                     shape: {
                         background: {
                             color: "#BEADFA"
