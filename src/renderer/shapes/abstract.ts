@@ -91,7 +91,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.originalData = data
         this.artBoard = artBoard;
         this.containerGfx = new PIXI.Container(
-            // { isRenderGroup:true}
+            { isRenderGroup:true}
         )
         this.containerGfx.sortableChildren = true
         // this.containerGfx.interactive = true
