@@ -10,7 +10,7 @@ import { NodeContainerChildNames } from "../constants";
 export const ZIndexOrder = {
   DATA_LAYER_LINKS: 4,
   DATA_LAYER_NODES: 5,
-  
+
   FRONT_LAYER_LINKS: 9,
   FRONT_LAYER_NODES: 10,
 
@@ -32,7 +32,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   declare drawShape
   declare drawLabel
-  
+
 
 
   constructor(data: CanvasNode, artBoard: ArtBoard) {
@@ -131,7 +131,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
         shapeHighlightedBorder.visible = true
       }
 
-      if (this.labelGfx){
+      if (this.labelGfx) {
         const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
         if (textBg) {
           textBg.visible = true
@@ -139,13 +139,13 @@ export class NodeShapeBase extends NodeShapeAbstract {
       }
     }
 
-    if (setNeighborsToo){
+    if (setNeighborsToo) {
       this.data.neighbors.nodes.forEach((node: CanvasNode) => {
         node.gfxInstance?.setState(":highlighted", false, event)
       })
       this.data.neighbors.links.forEach((link: CanvasLink) => {
         link.gfxInstance?.setState(":highlighted", false, event)
-      });  
+      });
     }
   }
 
@@ -157,7 +157,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
       }
-      if (this.labelGfx){
+      if (this.labelGfx) {
         const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
         if (textBg) {
           textBg.visible = false
@@ -167,8 +167,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     }
 
-    if (setNeighborsToo){
-      
+    if (setNeighborsToo) {
+
       this.data.neighbors.nodes.forEach((node: CanvasNode) => {
         node.gfxInstance?.setState(":default", false, event)
       })
@@ -200,7 +200,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
       // remove interactions on neighbors
       this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
-        if (link.gfxInstance){
+        if (link.gfxInstance) {
           link.gfxInstance.removeInteractionTriggers()
         }
       })
@@ -213,12 +213,9 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // console.log("onDragEnd triggered")
     event.stopPropagation()
     this.dragData = null
-    // if (!this.data.isDraggable) return
-
     this.containerGfx.parent.off('pointermove', this.onDragMove);
     this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
-      if (link.gfxInstance)
-        link.gfxInstance.setupInteractionTriggers()
+        if (link.gfxInstance) { link.gfxInstance.setupInteractionTriggers() }
     })
     this.triggerUnHighlighted(event, true)
 
@@ -227,36 +224,19 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerOver = (event: PIXI.FederatedPointerEvent) => {
     console.log("====pointerOver", this.data.id, this.data.state, this.data.isHoverable, !this.data.isHoverable)
     event.stopPropagation();
-    if(this.data.state === ":muted") return 
-
+    if (this.data.state === ":muted") return
     if (this.dragData) return
-
-    if (this.data.isHoverable){
-      this.setState(":highlighted", true, event)
-    }
-    // if (this.data.isHoverable || this.data.isSelectable){
-    // }
+    if (this.data.isHoverable) { this.setState(":highlighted", true, event) }
   }
 
   pointerDown = (event: PIXI.FederatedPointerEvent) => {
     console.log("pointerdown", this.data.id, this.data.state)
     event.stopPropagation();
-    // if(this.data.state === ":muted") return 
-    if(this.data.state ===  ":muted") return 
-
+    if (this.data.state === ":muted") return
     // if (this.dragData) return 
-    if (this.data.isSelectable) {  // disable clicks
-      // if (!this.data.isDraggable) return
-      console.log("clicked", this.data.id)
-      this.setState(":selected", true, event)
-    }
-    if (this.data.isHoverable){
-      this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data)
-    }
-    if (this.data.isDraggable) {
-      this.onDragStart(event)
-    } 
-    // if (!this.data.isDraggable) return  // disable drags
+    if (this.data.isSelectable) { console.log("Clicked", this.data.id); this.setState(":selected", true, event) }
+    if (this.data.isHoverable) { this.artBoard.canvas.dataStore.addToHighlightedNodes(this.data) }
+    if (this.data.isDraggable) { this.onDragStart(event) }
   }
 
   // Function to check if the pointer is within the bounds of the parent sprite
@@ -273,26 +253,22 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerout = (event: PIXI.FederatedPointerEvent) => {
     // if (!this.data.isHoverable) return 
     event.stopPropagation();
-    if(this.data.state === ":muted") return 
+    if (this.data.state === ":muted") return
     if ([":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
-
     this.setState(":default", true, event)
   }
 
   pointerUp = (event: PIXI.FederatedPointerEvent) => {
-    // if (!this.data.isSelectable) return 
-    // const pointerPosition = event.data.global;
-    // console.log("pointerup", this.data.id, this.data.state)
     console.log("un clicked", this.data.id)
     event.stopPropagation();
-    if(this.data.state ===  ":muted") return 
-    if (this.isPointerInBounds(event, this.containerGfx)) {
+    if (this.data.state === ":muted") return
+    // if (this.isPointerInBounds(event, this.containerGfx)) {
+    //   this.setState(":highlighted", true, event)
+    // } else {
       this.setState(":highlighted", true, event)
-    } else {
-      this.setState(":highlighted", true, event)
-    }
-    this.onDragEnd(event)
+    // }
     this.artBoard.canvas.dataStore.removeFromHighlightedNodes(this.data)
+    this.onDragEnd(event)
 
   }
 
@@ -356,11 +332,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.draw(renderShape, renderLabel);
   }
 
-  reDrawNeighbors(){
-    this.data.neighbors.links.forEach((link: CanvasLink)=>{
+  reDrawNeighbors() {
+    this.data.neighbors.links.forEach((link: CanvasLink) => {
       link.gfxInstance?.redraw()
     })
-    this.data.neighbors.nodes.forEach((node: CanvasNode)=>{
+    this.data.neighbors.nodes.forEach((node: CanvasNode) => {
       node.gfxInstance?.redraw()
     })
   }

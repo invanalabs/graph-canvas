@@ -13,9 +13,10 @@ const drawStraightLineShape = ( props: DrawLinkPrimitiveType) => {
     console.debug("drawStraightLineShape", props);
     const shapeName = new Graphics();
     // draw the path 
+    // shapeName.lineStyle({ width: props.thickness, color: props.color }); // Thickness 5, Red color
     shapeName.moveTo(props.startPoint.x, props.startPoint.y);
     shapeName.lineTo(props.endPoint.x, props.endPoint.y);
-    shapeName.stroke({color: props.color});
+    shapeName.stroke({color: props.color, width: props.thickness});
     shapeName.fill({color: props.color})
     shapeName.interactive = true;
     // TODO - FIX this hitarea 

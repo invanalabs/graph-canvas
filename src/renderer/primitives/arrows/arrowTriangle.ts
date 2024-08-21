@@ -7,7 +7,7 @@ export interface DrawArrowPrimitiveType extends ILinkShapeStyle {
     // gfx: Graphics
 }
 
-const drawArrowTriangleShape = ( props: DrawArrowPrimitiveType, size: number = 5,  gfx?: Graphics) => {
+const drawArrowTriangleShape = ( props: DrawArrowPrimitiveType, size: number = 2,  gfx?: Graphics) => {
     console.debug("drawArrowHeadShape", props);
     // draw arrow 
     gfx = gfx ? gfx : new Graphics() 
@@ -24,7 +24,7 @@ const drawArrowTriangleShape = ( props: DrawArrowPrimitiveType, size: number = 5
     gfx.lineTo(arrowPoint1X, arrowPoint1Y);
     gfx.lineTo(arrowPoint2X, arrowPoint2Y);
     gfx.lineTo(props.endPoint.x, props.endPoint.y);
-    gfx.stroke({color: props.color});
+    gfx.stroke({color: props.color, width: props.thickness, alignment: 0.66});
     gfx.fill({color: props.color})
     return gfx;
 }

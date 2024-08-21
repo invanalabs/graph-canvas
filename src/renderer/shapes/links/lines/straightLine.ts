@@ -15,21 +15,28 @@ class StraightLine extends LinkShapeBase{
     
         const { startPoint, endPoint } = this.calcStartAndEndPoints();
         this.shapeGfx.removeChildren();
-        this.shapeGfx.name = LinkContainerChildNames.shapeName
+        this.shapeGfx.label = LinkContainerChildNames.shapeName
     
         // draw path
         const shapeLine = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.shape })
-        shapeLine.name = LinkContainerChildNames.shapeLine
+        shapeLine.label = LinkContainerChildNames.shapeLine
     
         drawArrowTriangleShape({ startPoint, endPoint, ...this.data.style.shape }, 10, shapeLine)
         this.shapeGfx.addChild(shapeLine)
     
         // shapeName hoveredBorder
         const shapeHighlightedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':highlighted'].shape })
-        shapeHighlightedBorder.name = LinkContainerChildNames.shapeHighlightedBorder
+        shapeHighlightedBorder.label = LinkContainerChildNames.shapeHighlightedBorder
         shapeHighlightedBorder.visible = false
         drawArrowTriangleShape({ startPoint, endPoint, ...this.data.style.states[':highlighted'].shape }, 12, shapeHighlightedBorder)
         this.shapeGfx.addChild(shapeHighlightedBorder)
+    
+        // shapeName hoveredBorder
+        const shapeSelectedBorder = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.states[':selected'].shape })
+        shapeSelectedBorder.label = LinkContainerChildNames.shapeSelectedBorder
+        shapeSelectedBorder.visible = false
+        drawArrowTriangleShape({ startPoint, endPoint, ...this.data.style.states[':selected'].shape }, 12, shapeSelectedBorder)
+        this.shapeGfx.addChild(shapeSelectedBorder)
     
     
         return this.shapeGfx
@@ -82,7 +89,7 @@ class StraightLine extends LinkShapeBase{
             // line color and thickness
             // console.log("calcStartAndEndPoints", JSON.stringify(this.data))
         console.debug("====calcStartAndEndPoints", this.data, this)
-        const arrowPadding = 3; 
+        const arrowPadding = 0; 
         const endPoint = getContactPointOnCircle(
             this.data.source,
             this.data.target,

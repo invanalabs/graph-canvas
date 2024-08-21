@@ -26,8 +26,7 @@ export const NodeStyleDefaults: INodeStyle = {
                 weight: "bold",
                 align: "center",
                 style: "normal",
-                // wordWrap: true,
-                // wordWrapWidth: 200,
+     
                 lineHeight: 5,
             }
         },
@@ -49,9 +48,12 @@ export const NodeStyleDefaults: INodeStyle = {
         text: {
             color: "#efefef",
             font: {
-                size: 12,
-                family: "Arial"
-            }
+                size: 10,
+                family: "Arial",
+                wordWrap: true,
+                wordWrapWidth: 300,
+            },
+
         }
        
     },

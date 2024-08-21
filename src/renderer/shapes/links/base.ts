@@ -59,13 +59,37 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx.alpha = 1;
     this.containerGfx.visible = true
   }
- 
-  triggerSelected = (event?: PIXI.FederatedPointerEvent) => {
-    // console.log(`Selected triggered on link - ${this.data.id}`);
+
+  triggerSelected = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
+    console.debug(`Selected triggered on link - ${this.data.id}`);
+    this.moveToFrontLayer();
+
+    if (this.shapeGfx) {
+      const selectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder);
+      if (selectedBorder) {
+        selectedBorder.visible = true
+      }
+    }
+    if (setNeighborsToo) {
+      this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerSelected()
+      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerSelected()
+    }
   }
 
-  triggerUnSelected = (event?: PIXI.FederatedPointerEvent) => {
-    // console.log(`UnSelected triggered on link - ${this.data.id}`);
+  triggerUnSelected = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
+    console.debug(`UnSelected triggered on link - ${this.data.id}`);
+    this.moveToFrontLayer();
+
+    if (this.shapeGfx) {
+      const selectedBorder = this.shapeGfx.getChildByName(LinkContainerChildNames.shapeSelectedBorder);
+      if (selectedBorder) {
+        selectedBorder.visible = false
+      }
+    }
+    if (setNeighborsToo) {
+      this.artBoard.canvas.dataStore.nodes.get(this.data.source.id)?.gfxInstance?.triggerUnSelected()
+      this.artBoard.canvas.dataStore.nodes.get(this.data.target.id)?.gfxInstance?.triggerUnSelected()
+    }
   }
 
   triggerHighlighted = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
@@ -129,7 +153,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       .on('pointerdown', (event) => {
         this.dragData = event.data
         this.artBoard.canvas.dataStore.addToHighlightedLinks(this.data)
-        this.setState(":highlighted", true, event)
+        this.setState(":selected", true, event)
       })
       .on("pointermove", (event) => {
         event.stopPropagation()
@@ -164,8 +188,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       labelGfx.visible = this.data.isLabelVisible
 
 
-
-      // this.containerGfx.addChild(labelGfx)
+      this.containerGfx.addChild(labelGfx)
       return labelGfx
     }
     //  else {
@@ -183,7 +206,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     // draw shapeName
     if (renderShape) {
-      if (this.shapeGfx){ // if already exist
+      if (this.shapeGfx) { // if already exist
         this.shapeGfx.removeChildren();
       }
       this.shapeGfx = this.drawShape();
@@ -191,22 +214,28 @@ export class LinkShapeBase extends LinkShapeAbstract {
     }
     // draw label
     if (renderLabel) {
-      if (this.labelGfx){ // if already exist
+      if (this.labelGfx) { // if already exist
         this.labelGfx.destroy();
       }
       this.labelGfx = this.drawLabel();
-      if(this.labelGfx){
+      if (this.labelGfx) {
         this.containerGfx.addChild(this.labelGfx);
         // const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
         // if (textBg) {
         //   textBg.visible = true
         // }
+
+
+
+
       }
     }
 
     if (renderShape) {
-      if (this.labelGfx){
+      if (this.labelGfx) {
         this.calcLabelPosition(this.labelGfx, this.shapeGfx)
+
+
       }
     }
 

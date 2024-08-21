@@ -10,7 +10,7 @@ export const LinkStyleDefaults: ILinkStyle = {
     },
     label: {
         background: {
-            color: "#555555",
+            color: "#222222",
             opacity: 0.5
         },
         padding: 3,
@@ -23,7 +23,9 @@ export const LinkStyleDefaults: ILinkStyle = {
             color: "#999999",
             font: {
                 size: 10,
-                family: "Arial"
+                family: "Arial",
+                wordWrap: true,
+                wordWrapWidth: 100,
             }
         }
     },
@@ -42,6 +44,13 @@ export const LinkStyleDefaults: ILinkStyle = {
                 opacity: 0.6,
                 thickness: 3,
                 color: 0xfeeb77
+            }
+        },
+        ":selected": {
+            shape: {
+                opacity: 0.6,
+                thickness: 5,
+                color: 0xf11b77
             }
         }
     }

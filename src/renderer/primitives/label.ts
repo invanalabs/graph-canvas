@@ -10,40 +10,35 @@ export interface LabelPrimitiveType extends IShapeLabelStyle {
 const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.devicePixelRatio * 2) => {
     // console.log("===drawLabelShape props", props)
     const labelGfx = new Graphics();
-
     // if (!props.label){
     //     // if label is not found, not point it rendering, so return
     //     return 
     // }
 
     // add text
-    const textStyle = new HTMLTextStyle({
-        // fontFamily: props?.text.font.family,
-        // fontSize: props?.text.font.size,
-        // fill: props?.text.color,
-        // align: "center"
-
-
+    const textStyle = new TextStyle({
         fontFamily: props?.text.font.family,
         fontSize: props?.text.font.size,
         fill: props?.text.color,
         align: props?.text.font.align,
         fontWeight: props?.text.font.weight,
         fontStyle: props?.text.font.style,
-        lineHeight: props.text.font.lineHeight
+        lineHeight: props.text.font.lineHeight,
+        wordWrap: props.text.font.wordWrap,
+        wordWrapWidth: props.text.font.wordWrapWidth,
 
 
     })
-    const text = new HTMLText( {text:props.label, style: textStyle});
-    text.resolution = resolution ;
+    const text = new HTMLText({ text: props.label, style: textStyle });
+    text.resolution = resolution;
     text.label = NodeContainerChildNames.labelText
     const textBounds = text.getBounds(); // Get the size of the text box
 
-    if (props?.background?.color){
+    if (props?.background?.color) {
         // console.log("===drawLabelShape props.background.color", props.background.color)
         // add background; TODO- move this to rectangle primitive later 
         const textBackground = new Graphics();
-        textBackground.lineStyle(props.border.thickness, props.border.color);
+        textBackground.lineStyle(props.border.thickness, props.border.color, props.border.opacity || 1);
 
         textBackground.beginFill(
             props?.background.color,
@@ -66,20 +61,16 @@ const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.d
         textBackground.y = text.y
         // add background and text to gfx
         labelGfx.addChild(textBackground)
+
     }
-    // const mask = new Graphics();
-    // mask.rect(
-    //     // props.padding * -1 , props.padding * -1, 
-    //     0, 0, 
-    //     textBounds.width + (props.padding * 2) , 
-    //     textBounds.height // + props.padding 
-    // ); // Draw rectangle behind the text
-    // // mask.fill(0xffffff);
-    // mask.fill("#222222")
-    // text.mask = mask
+
+
+
+
 
     // labelGfx.addChild(mask)
     labelGfx.addChild(text)
+
     return labelGfx
 }
 

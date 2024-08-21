@@ -13,12 +13,12 @@ export const getContactPointOnCircle = (
 
   // console.debug("====target", target, padding)
   // getCirclePont
-  const nodeRadius = target?.style?.size + padding ? target?.style?.size : 20
+  const nodeRadius = target?.style?.size ? target?.style?.size + padding : 20
   // console.debug("===nodeRadius", nodeRadius)
   const arrowheadLength = 0;
   const angle = Math.atan2(target.y - source.y, target.x - source.x);
-  let x = target.x - Math.cos(angle) * (nodeRadius + arrowheadLength);
-  let y = target.y - Math.sin(angle) * (nodeRadius + arrowheadLength);
+  const x : number = target.x - Math.cos(angle) * (nodeRadius + arrowheadLength);
+  const y: number = target.y - Math.sin(angle) * (nodeRadius + arrowheadLength);
   return new Point(x, y)
 };
 
