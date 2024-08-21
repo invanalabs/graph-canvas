@@ -22,12 +22,12 @@ export default () => {
                 contributing_to: {
                     shape: {
                         opacity: 0.5,
-                        thickness: 1,
+                        thickness: 5,
                         color: "#BEADFA",
                     },
                     label: {
                         background: {
-                            color: "#ffffff",
+                            color: "transparent",
                             opacity: 0.5
                         },
                         padding: 3,
@@ -36,7 +36,7 @@ export default () => {
                             color: "#999999",
                         },
                         text: {
-                            color: "#333333",
+                            color: "#ffffff",
                             font: {
                                 size: 14,
                                 family: "Arial"

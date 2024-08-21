@@ -43,7 +43,7 @@ const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.d
         // console.log("===drawLabelShape props.background.color", props.background.color)
         // add background; TODO- move this to rectangle primitive later 
         const textBackground = new Graphics();
-        textBackground.lineStyle(props.border.thickness, props.border.color);
+        textBackground.lineStyle(props.border.thickness, props.border.color, props.border.opacity || 1);
 
         textBackground.beginFill(
             props?.background.color,

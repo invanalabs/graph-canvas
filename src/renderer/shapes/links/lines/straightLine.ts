@@ -89,7 +89,7 @@ class StraightLine extends LinkShapeBase{
             // line color and thickness
             // console.log("calcStartAndEndPoints", JSON.stringify(this.data))
         console.debug("====calcStartAndEndPoints", this.data, this)
-        const arrowPadding = 3; 
+        const arrowPadding = 0; 
         const endPoint = getContactPointOnCircle(
             this.data.source,
             this.data.target,
