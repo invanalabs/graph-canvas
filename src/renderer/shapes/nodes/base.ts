@@ -265,15 +265,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
       globalPosition.y >= bounds.y && globalPosition.y <= bounds.y + bounds.height;
   };
 
-  pointerout = (event: PIXI.FederatedPointerEvent) => {
-    // if (!this.data.isHoverable) return 
+  pointerOut = (event: PIXI.FederatedPointerEvent) => {
     event.stopPropagation();
+    if (this.dragData) return
     if (this.data.state === ":muted") return
-    console.log("====pointer out", this.data.id)
-
     if ([":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
-    console.log("====pointer out", this.data.id)
-
+    console.log("====pointer out triggered", this.data.id)
     this.setState(":default", true, event)
   }
 
@@ -281,20 +278,14 @@ export class NodeShapeBase extends NodeShapeAbstract {
     console.log("un clicked", this.data.id)
     event.stopPropagation();
     if (this.data.state === ":muted") return
-    // if (this.isPointerInBounds(event, this.containerGfx)) {
-    //   this.setState(":highlighted", true, event)
-    // } else {
-      this.setState(":highlighted", true, event)
-    // }
     this.artBoard.canvas.dataStore.removeFromHighlightedNodes(this.data)
+    this.setState(":highlighted", true, event)
     this.onDragEnd(event)
-
   }
 
   pointerUpOutside = (event: PIXI.FederatedPointerEvent) => {
     console.log("un clicked", this.data.id)
     this.pointerUp(event)
-
   }
 
   setupInteractionTriggers() {
@@ -306,11 +297,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // listeners for hover effect
     this.containerGfx
       .on("pointerover", this.pointerOver)
-      .on("pointerout", this.pointerout)
+      .on("pointerout", this.pointerOut)
 
       .on('pointerdown', this.pointerDown)
+      .on('pointercancel', this.pointerUp)
+      // .on('pointerup', (event)=> event.stopPropagation())
+      // .on('pointerupoutside', (event)=> event.stopPropagation())
+
       .on('pointerup', this.pointerUp)
-      .on('pointerupoutside', this.pointerUpOutside)
+      // .on('pointerupoutside', this.pointerUpOutside)
       .on('rightclick', (event)=> event.stopPropagation())
       // for right click 
       .on('rightdown', (event)=> event.stopPropagation())
