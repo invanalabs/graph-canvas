@@ -11,6 +11,9 @@ abstract class ShapeAbstractBase {
     /* latest state of data */
     abstract data: CanvasLink | CanvasNode;
 
+    abstract isLabelVisible: boolean
+    abstract isShapeVisible: boolean
+
     /* graphics */
     abstract containerGfx: PIXI.Container;
     abstract shapeGfx: PIXI.Graphics;
@@ -102,6 +105,8 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     }
 
     hideLabel = () => { 
+        console.debug("===hideLabel triggered", this.data.id )
+
         if (this.labelGfx){
             this.labelGfx.visible = false
             this.data.isLabelVisible = false
@@ -109,6 +114,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     }
         
     showLabel = () => { 
+        console.debug("===showLabel triggered", this.data.id )
         if (this.labelGfx){
           this.labelGfx.visible = true
           this.data.isLabelVisible = true
@@ -144,11 +150,6 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         // this.state = stateName
     }
 
-
-
-
- 
-
     drawDebugBorder(x: number, y: number) {
         // Calculate the bounding box
         // console.log("===drawDebugBorder", this.data.id, x, y)
@@ -174,10 +175,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         // }
     }
 
-
-
     applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
-        console.log("====applyStateUpdate", this.data.id, setNeighborsToo)
         const stateName = this.data.state
         if (stateName === ":default") {
             this.triggerUnHighlighted(event, setNeighborsToo);

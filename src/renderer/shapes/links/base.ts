@@ -16,13 +16,21 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
   private dragData: PIXI.FederatedPointerEvent | null = null;
 
+  declare isLabelVisible: boolean
+  declare isShapeVisible: boolean
+
 
   constructor(data: CanvasLink, artBoard: ArtBoard) {
     super(data, artBoard)
     this.data = this.processData(data)
-    this.containerGfx.name = `link-${this.data.id}`
+    this.containerGfx.label = `link-${this.data.id}`
     this.shapeGfx = new PIXI.Graphics();
     this.labelGfx = new PIXI.Graphics();
+
+    this.isLabelVisible = false
+    this.isShapeVisible = false
+  
+
     // setup intractions
     this.data.setGfxInstance(this);
     // console.debug("this.data.gfxInstance ", this.data, this.data.gfxInstance)
@@ -184,7 +192,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     console.debug("Line.drawLabel")
     if (this.data.label) {
       const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label }, this.artBoard.canvas.options.resolution?.labels)
-      labelGfx.name = LinkContainerChildNames.label
+      labelGfx.label = LinkContainerChildNames.label
       labelGfx.visible = this.data.isLabelVisible
 
 

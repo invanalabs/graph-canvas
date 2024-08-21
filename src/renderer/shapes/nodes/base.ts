@@ -33,12 +33,18 @@ export class NodeShapeBase extends NodeShapeAbstract {
   declare drawShape
   declare drawLabel
 
-
+  declare isLabelVisible: boolean
+  declare isShapeVisible: boolean
 
   constructor(data: CanvasNode, artBoard: ArtBoard) {
     super(data, artBoard)
     this.data = this.processData(data)
-    this.containerGfx.name = `node-${this.data.id}`
+    this.containerGfx.label = `node-${this.data.id}`
+
+    this.isLabelVisible = false
+    this.isShapeVisible = false
+  
+
     // setup intractions
     // this.setupInteractionTriggers()
     this.data.setGfxInstance(this);
@@ -151,7 +157,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
-      this.showLabel()
+      // this.showLabel()
     }
 
     if (setNeighborsToo) {
@@ -172,7 +178,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
       }
-      this.hideLabel()
+      // this.hideLabel()
 
     }
 

@@ -13,16 +13,12 @@ export class Camera {
 
     constructor(artBoard: ArtBoard){
         this.artBoard = artBoard
-        // this.canvas = this.options.canvas;
         this.viewport = this.artBoard.viewport
     }
 
     fitView(selectedNodes: CanvasNode[] = [], zoomLevel?: number) {
         // console.log("==fitView", selectedNodes, zoomLevel);
-        if (selectedNodes.length == 0 ){
-            selectedNodes = this.artBoard.canvas.dataStore.getNodes()
-         
-        }
+        if (selectedNodes.length == 0 ){ selectedNodes = this.artBoard.canvas.dataStore.getNodes() }
         const { center, graphHeight, graphWidth } = getCenter(selectedNodes)
         this.viewport.moveCenter(center)
         const padding = 100;
@@ -31,7 +27,6 @@ export class Camera {
         this.onSetZoomLevel(this.viewport.scaled)
     }
 
-
     setZoomLevel = (zoomScale: number, center: true) =>{
         /* e.g., 1 would be 100%, 0.25 would be 25%  */
         this.viewport.setZoom(zoomScale, center)
@@ -39,30 +34,22 @@ export class Camera {
     }
 
     onSetZoomLevel = (zoomLevel: number) =>{
-        // console.log("==setZoomLevel", zoomLevel)
-        // this.setZoom(zoomLevel , true);
         this.artBoard.showLabelsBasedOnZoom(zoomLevel)
         this.artBoard.canvas.dataStore.updateMessage(`Zoomed to ${Math.ceil(this.viewport.scaled * 100)}%`)
     }
     
     zoomIn = () => {
         this.viewport.zoomPercent(this.zoomPercentage, true)
-        // console.log(`zoomIn now at ${this.viewport.scaled}`)
         this.artBoard.showLabelsBasedOnZoom(this.viewport.scaled)
         this.artBoard.canvas.dataStore.updateMessage(`Zoomed in to ${Math.ceil(this.viewport.scaled * 100)}%`)
-
     };
 
     zoomOut = () => {
         this.viewport.zoomPercent(-this.zoomPercentage, true)
-        // console.log(`zoomOut now at ${this.viewport.scaled}`)
         this.artBoard.showLabelsBasedOnZoom(this.viewport.scaled)
-
         this.artBoard.canvas.dataStore.updateMessage(`Zoomed out to ${Math.ceil(this.viewport.scaled * 100)}%`)
     };
 
-
-      
     resetViewport = () => {
         this.viewport.center = new Point(this.viewport.worldWidth / 2, this.viewport.worldHeight / 2);
         this.viewport.fitWorld(true);

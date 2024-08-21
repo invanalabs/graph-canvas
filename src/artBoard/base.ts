@@ -127,12 +127,15 @@ export class ArtBoardBase {
   }
 
   hideNodeLabels = () => {
+    console.log("hideNodeLabels")
     this.canvas.dataStore.getNodes().forEach((node: CanvasNode) => {
       node.gfxInstance?.hideLabel()
     })
   }
 
   showNodeLabels = () => {
+    console.log("showNodeLabels")
+
     this.canvas.dataStore.getNodes().forEach((node: CanvasNode) => {
       node.gfxInstance?.showLabel()
     })
@@ -151,8 +154,8 @@ export class ArtBoardBase {
   }
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
-    const labelVisiblitythreshold = this.canvas.options.extraSettings?.labelVisibilityZoomThreshold
-    // console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible)
+    const labelVisiblitythreshold = this.canvas.options.extraSettings?.labelVisibilityZoomThreshold as number
+    console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible, (zoomScale < labelVisiblitythreshold))
     if (labelVisiblitythreshold) {
       if (zoomScale < labelVisiblitythreshold) {
         if (this.isLabelsVisible === true) {
