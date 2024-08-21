@@ -42,7 +42,7 @@ const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.d
 
         textBackground.beginFill(
             props?.background.color,
-            // props?.background.opacity
+            props?.background.opacity
         ); // Background color
 
         textBackground.drawRect(
@@ -51,11 +51,10 @@ const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.d
             textBounds.width + (props.padding * 2) , 
             textBounds.height // + props.padding 
         ); // Draw rectangle behind the text
-        // console.log("====props.border.", props.border)
         textBackground.endFill()
 
         // textBackground
-        textBackground.name = NodeContainerChildNames.labelBackground
+        textBackground.label = NodeContainerChildNames.labelBackground
         // textBackground.visible = false
         textBackground.x = text.x - props.padding 
         textBackground.y = text.y
@@ -63,10 +62,6 @@ const drawLabelShape = (props: LabelPrimitiveType, resolution: number = window.d
         labelGfx.addChild(textBackground)
 
     }
-
-
-
-
 
     // labelGfx.addChild(mask)
     labelGfx.addChild(text)

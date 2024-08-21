@@ -174,6 +174,31 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         // }
     }
 
+
+
+    applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
+        console.log("====applyStateUpdate", this.data.id, setNeighborsToo)
+        const stateName = this.data.state
+        if (stateName === ":default") {
+            this.triggerUnHighlighted(event, setNeighborsToo);
+            this.triggerUnSelected(event)
+            this.triggerDefault(event);
+        }
+        else if (stateName === ":highlighted") {
+            this.triggerHighlighted(event, setNeighborsToo)
+        }
+        else if (stateName === ":selected") {
+            this.triggerSelected(event)
+        }
+        else if (stateName === ":muted") {
+            this.triggerUnHighlighted(event);
+            this.triggerUnSelected(event)
+            this.triggerMuted(event)
+        }
+        // else if (stateName === ":hidden") {
+        //     this.triggerHidden(event)
+        // }
+    }
 }
 
 
@@ -211,46 +236,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     abstract onDragStart(event?: PIXI.FederatedPointerEvent): void
     // abstract onDragMove(event?: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
     abstract onDragEnd(event?: PIXI.FederatedPointerEvent): void
-
-
-
-    applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
-        const stateName = this.data.state
-        if (stateName === ":default") {
-            // this.triggerUnHovered(event);
-            this.triggerUnHighlighted(event, setNeighborsToo);
-            this.triggerUnSelected(event)
-            this.triggerDefault(event);
-
-            // if (setNeighborsToo) {
-            //     // this.triggerUnHoveredOnNeighbors(event)
-            //     this.triggerUnHighlightedOnNeighbors(event)
-            // }
-        }
-        // else if (stateName === ":hovered") {
-        //     // this.triggerHovered(event)
-        //     if (setNeighborsToo) {
-        //         this.triggerHoveredOnNeighbors(event)
-        //     }
-        // }
-        else if (stateName === ":selected") {
-            this.triggerSelected(event)
-        }
-
-        else if (stateName === ":highlighted") {
-            this.triggerHighlighted(event, setNeighborsToo)
-            // if (setNeighborsToo) {
-            //     this.triggerHighlightedOnNeighbors(event)
-            // }
-        }
-        else if (stateName === ":muted") {
-            this.triggerMuted(event)
-        }
-        // else if (stateName === ":hidden") {
-        //     this.triggerHidden(event)
-        // }
-    }
-
+ 
 }
 
 
@@ -285,40 +271,6 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
         
     }
 
-    applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
-        const stateName = this.data.state
-        if (stateName === ":default") {
-            // this.triggerUnHovered(event);
-            this.triggerUnHighlighted(event, setNeighborsToo);
-            this.triggerDefault(event);
-            this.triggerUnSelected(event)
-            // if (setNeighborsToo) {
-            //     // this.triggerUnHoveredOnNeighbors(event)
-            //     this.triggerUnHighlightedOnNeighbors(event)
-            // }
-        }
-        // else if (stateName === ":hovered") {
-        //     this.triggerHovered(event)
-        //     if (setNeighborsToo) {
-        //         this.triggerHoveredOnNeighbors(event)
-        //     }
-        // }
 
-        else if (stateName === ":highlighted") {
-            this.triggerHighlighted(event, setNeighborsToo)
-            // if (setNeighborsToo) {
-            //     this.triggerHighlightedOnNeighbors(event)
-            // }
-        }
-        else if (stateName === ":selected") {
-            this.triggerSelected(event)
-        }
-        else if (stateName === ":muted") {
-            this.triggerMuted(event)
-        }
-        // else if (stateName === ":hidden") {
-        //     this.triggerHidden(event)
-        // }
-    }
 
 }

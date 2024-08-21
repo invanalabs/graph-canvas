@@ -15,7 +15,6 @@ class Circle extends NodeShapeBase {
         console.debug("this.data.label", this.data.label)
         console.debug("shapeStyle?.label", shapeStyle?.label)
 
-        shapeStyle.label.text.font.size = this.data.style.size
         const labelArgs = {
             label: this.data.label,
             ...shapeStyle?.label,
@@ -43,7 +42,7 @@ class Circle extends NodeShapeBase {
         // console.log("===texture", this.data.id, texture,)
         if (texture) {
             const shape = new Sprite(texture['states'][':default'].shape)
-            shape.name = NodeContainerChildNames.shapeName;
+            shape.label = NodeContainerChildNames.shapeName;
             // shape.x = -shape.width / 2;
             // shape.y = -shape.height / 2;
             shape.anchor.set(0.5);
@@ -52,7 +51,7 @@ class Circle extends NodeShapeBase {
                     ...this.data.style.shape.icon, content: this.data.icon
                 })
                 const icon = new Sprite(iconTexture);
-                icon.name = NodeContainerChildNames.icon;
+                icon.label = NodeContainerChildNames.icon;
                 // icon.x = shape.width /2 ;
                 // icon.y = shape.height / 2;
                 // icon.pivot = 0.5
@@ -100,7 +99,7 @@ class Circle extends NodeShapeBase {
             // shapeSelectedBorder.x = -(shapeSelectedBorder.width - shape.width) / 2;
             // shapeSelectedBorder.y = -(shapeSelectedBorder.height - shape.height) / 2;
             shapeSelectedBorder.visible = false
-            shapeSelectedBorder.name = NodeContainerChildNames.shapeSelectedBorder
+            shapeSelectedBorder.label = NodeContainerChildNames.shapeSelectedBorder
             shapeSelectedBorder.anchor.set(0.5);
 
             shape.addChild(shapeSelectedBorder)
@@ -110,7 +109,7 @@ class Circle extends NodeShapeBase {
             // shapeHighlightedBorder.x = -(shapeHighlightedBorder.width - shape.width) / 2;
             // shapeHighlightedBorder.y = -(shapeHighlightedBorder.height - shape.height) / 2;
             shapeHighlightedBorder.visible = false
-            shapeHighlightedBorder.name = NodeContainerChildNames.shapeHighlightedBorder
+            shapeHighlightedBorder.label = NodeContainerChildNames.shapeHighlightedBorder
             shapeHighlightedBorder.anchor.set(0.5);
 
             shape.addChild(shapeHighlightedBorder)

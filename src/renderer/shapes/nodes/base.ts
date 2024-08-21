@@ -82,15 +82,36 @@ export class NodeShapeBase extends NodeShapeAbstract {
   // }
 
 
+  showLabelBg(){
+    if (this.labelGfx) {
+      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
+      if (textBg) {
+        textBg.visible = true
+        // textBg.fi
+      }
+    }
+  }
+
+  hideLabelBg(){
+    if (this.labelGfx) {
+      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
+      if (textBg) {
+        textBg.visible = false
+      }
+    }
+  }
+
   triggerMuted = (event?: PIXI.FederatedPointerEvent) => {
     // console.debug(`triggerMuted triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 0.2
+    this.hideLabelBg()
   }
 
   triggerDefault = (event?: PIXI.FederatedPointerEvent) => {
     // console.debug(`triggerDefault triggered on node - ${this.data.id}`);
     this.containerGfx.alpha = 1;
-    this.containerGfx.visible = true
+    this.hideLabelBg()
+    // this.containerGfx.visible = true
   }
 
   // triggerHidden = (event?: PIXI.FederatedPointerEvent) => {
@@ -130,13 +151,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = true
       }
-
-      if (this.labelGfx) {
-        const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
-        if (textBg) {
-          textBg.visible = true
-        }
-      }
+      this.showLabel()
     }
 
     if (setNeighborsToo) {
@@ -157,13 +172,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       if (shapeHighlightedBorder) {
         shapeHighlightedBorder.visible = false
       }
-      if (this.labelGfx) {
-        const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
-        if (textBg) {
-          textBg.visible = false
-          // textBg.fi
-        }
-      }
+      this.hideLabel()
 
     }
 
@@ -254,7 +263,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // if (!this.data.isHoverable) return 
     event.stopPropagation();
     if (this.data.state === ":muted") return
+    console.log("====pointer out", this.data.id)
+
     if ([":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
+    console.log("====pointer out", this.data.id)
+
     this.setState(":default", true, event)
   }
 
@@ -292,6 +305,15 @@ export class NodeShapeBase extends NodeShapeAbstract {
       .on('pointerdown', this.pointerDown)
       .on('pointerup', this.pointerUp)
       .on('pointerupoutside', this.pointerUpOutside)
+      .on('rightclick', (event)=> event.stopPropagation())
+      // for right click 
+      .on('rightdown', (event)=> event.stopPropagation())
+      .on('rightup', (event)=> event.stopPropagation())
+      // Fired when a touch point is tapped twice 
+      .on('tap', (event)=> event.stopPropagation())
+      
+
+
   }
 
   draw = (renderShape = true, renderLabel = true) => {

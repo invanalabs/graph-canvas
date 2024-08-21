@@ -136,7 +136,6 @@ export class DataStore implements IDataStore {
     // const nodeStyles = this.canvas.options.styles?.nodes || {};
     const defaultNodeStyle: INodeStyle = this.canvas.options.styles?.defaultNodeStyle || NodeStyleDefaults as INodeStyle;
 
-    // console.log("====this.canvas.options.extraSettings.nodeColorBasedOn", this.canvas.options.extraSettings?.nodeColorBasedOn, node.id, node.style)
     // P3 - color by group
     style = this.canvas.options.extraSettings?.nodeColorBasedOn === "group"
         ? deepMerge(defaultNodeStyle, { shape: { background: { color: stc(node.group) } } })
@@ -146,6 +145,9 @@ export class DataStore implements IDataStore {
     // P1 - this has the highest priority, 
     console.log("=====style node.id", node.id,  style, nodeStyles[node.group], nodeStyles)
     style = deepMerge(style, node?.style || {});
+
+
+    // style.label.text.font.size = style.size 
     if (this.canvas.options.extraSettings?.nodeSizeBasedOn === "degree") {
       const nodeSize = this.getNodeSizeBasedOnDegree(node, style);
       style = deepMerge(style, { size: nodeSize })

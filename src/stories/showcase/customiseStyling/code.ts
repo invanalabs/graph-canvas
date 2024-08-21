@@ -49,7 +49,14 @@ export default () => {
       }),
       nodes: {
         Project: {
-          size: 30
+          size: 30,
+          label: {
+            text: {
+              font: {
+                size: 18
+              }
+            }
+          }
         }
       }
     },

@@ -131,12 +131,10 @@ export default class TextureStore {
       group: props.group,
       states: {
         ":default": defaultStateStyle,
-        // ":hovered": hoveredStateStyle,
         ":highlighted": highlightedStateStyle,
         ':selected': selectedStateStyle,
-
         // fix :muted and :hidden later
-        ":muted": highlightedStateStyle,
+        ":muted": defaultStateStyle,
         // ":hidden": highlightedStateStyle
       }
     }
