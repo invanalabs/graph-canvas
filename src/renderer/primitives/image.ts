@@ -8,15 +8,15 @@ import { Assets} from "pixi.js";
 // }
 
 const drawImageShape = (imageUrl: string, resolution: number=  window.devicePixelRatio) => {
-    const extras: any = {
-        data: {
-            resolution: resolution,
-            // resourceOptions: {
-            //     scale: window.devicePixelRatio
-            // }
-        }
-    }
-    console.log("drawImage extra", extras, imageUrl)
+    // const extras: any = {
+    //     data: {
+    //         resolution: resolution,
+    //         // resourceOptions: {
+    //         //     scale: window.devicePixelRatio
+    //         // }
+    //     }
+    // }
+    console.log("drawImage extra", imageUrl)
     return Assets.load({
         src: imageUrl,
         data: {

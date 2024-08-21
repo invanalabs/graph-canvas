@@ -14,13 +14,16 @@ const createArrowHeadPoints = () => {
 }
 
 const drawArrowHeadShape = ( props: DrawArrowPrimitiveType) => {
+    /*
+    deprecated 
+    */
     console.debug("drawArrowHeadShape", props);
     // draw arrow 
     // gfx = gfx ? gfx : new Graphics() 
     const gfx = new Graphics()
     const points = createArrowHeadPoints()
     // const points = [0, 0, 10, -5, 6.666666666666667, 0, 10, 5, 0, 0]
-    gfx.lineStyle(props.thickness,  props.color, props.opacity);
+    gfx.lineStyle(props.thickness,  props.color, props.opacity, alignment);
     gfx.beginFill(props.color, props.opacity );
     gfx.drawPolygon(points);
     gfx.endFill();

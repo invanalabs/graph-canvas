@@ -1,32 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { linkTypesData } from './code';
-import { createCanvas } from '../../../utils/canvas';
-import { notImplementedPage } from '../../../utils/notImplementedPage';
+import colorByGroupExamplePlay from "./colorByGroup"
+import colotByGroupExampleCode from "./colorByGroup?raw"
+import renderTemplate from '../../../utils/render';
 
 
 const meta = {
-  title: 'Features/Links/Styling',
-  render: () => createCanvas(linkTypesData.nodes, linkTypesData.links) ,
-  parameters: {
-    layout: 'fullscreen',
-  }
- 
+  title: 'Features/Links/Styling', 
 } satisfies Meta;
 
 export default meta;
  
 export const Types: StoryObj = {
-  name : "Types",
-  render: () => notImplementedPage('Types') ,
+  name : "color by group",
+  render: () => renderTemplate() ,
+  play: colorByGroupExamplePlay,
+  parameters: {
+    storySource : {
+      source: colotByGroupExampleCode
+    }
+  }
 };
 
-
-export const ParallelLinks: StoryObj = {
-  name : "Parallel links",
-  render: () => notImplementedPage('ParallelLinks') ,
-};
-
-export const labels: StoryObj = {
-  name : "Styling options",
-  render: () => notImplementedPage('Styling') ,
-};
+ 

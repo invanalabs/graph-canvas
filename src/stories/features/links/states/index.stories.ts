@@ -29,3 +29,8 @@ export const Types: StoryObj = {
 };
 
 
+export const ParallelLinks: StoryObj = {
+  name : "Parallel links",
+  render: () => notImplementedPage('ParallelLinks') ,
+};
+
