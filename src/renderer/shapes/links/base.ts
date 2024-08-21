@@ -59,7 +59,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
     this.containerGfx.alpha = 1;
     this.containerGfx.visible = true
   }
- 
+
   triggerSelected = (event?: PIXI.FederatedPointerEvent, setNeighborsToo: boolean = false) => {
     console.debug(`Selected triggered on link - ${this.data.id}`);
     this.moveToFrontLayer();
@@ -188,8 +188,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
       labelGfx.visible = this.data.isLabelVisible
 
 
-
-      // this.containerGfx.addChild(labelGfx)
+      this.containerGfx.addChild(labelGfx)
       return labelGfx
     }
     //  else {
@@ -207,7 +206,7 @@ export class LinkShapeBase extends LinkShapeAbstract {
 
     // draw shapeName
     if (renderShape) {
-      if (this.shapeGfx){ // if already exist
+      if (this.shapeGfx) { // if already exist
         this.shapeGfx.removeChildren();
       }
       this.shapeGfx = this.drawShape();
@@ -215,22 +214,28 @@ export class LinkShapeBase extends LinkShapeAbstract {
     }
     // draw label
     if (renderLabel) {
-      if (this.labelGfx){ // if already exist
+      if (this.labelGfx) { // if already exist
         this.labelGfx.destroy();
       }
       this.labelGfx = this.drawLabel();
-      if(this.labelGfx){
+      if (this.labelGfx) {
         this.containerGfx.addChild(this.labelGfx);
         // const textBg = this.labelGfx?.getChildByName(LinkContainerChildNames.labelBackground);
         // if (textBg) {
         //   textBg.visible = true
         // }
+
+
+
+
       }
     }
 
     if (renderShape) {
-      if (this.labelGfx){
+      if (this.labelGfx) {
         this.calcLabelPosition(this.labelGfx, this.shapeGfx)
+
+
       }
     }
 

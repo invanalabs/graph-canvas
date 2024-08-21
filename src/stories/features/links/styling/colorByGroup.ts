@@ -2,6 +2,7 @@
 
 
 import { GraphCanvas } from "../../../../canvas";
+import ArtBoardToolBar from "../../../../plugins/toolbar";
 import { ICanvasLink, ICanvasNode } from "../../../../store";
 import { onStoryDown } from "../../../utils/storyDown";
 
@@ -26,10 +27,10 @@ export default () => {
                         color: "#BEADFA",
                     },
                     label: {
-                        background: {
-                            color: "transparent",
-                            opacity: 0.5
-                        },
+                        // background: {
+                        //     color: "transparent",
+                        //     opacity: 0.5
+                        // },
                         padding: 3,
                         border: {
                             thickness: 0.5,
@@ -66,6 +67,11 @@ export default () => {
         { id: '2-5', group: 'contributing_to', label: 'contributing_to', source: '2', target: '5' },
         { id: '4-5', group: 'contributing_to', label: 'contributing_to', source: '4', target: '5' }
       ];
+
+
+    const toolbar = new ArtBoardToolBar(canvas.artBoard);
+    const toolBarHTMLDiv = toolbar.render()
+    canvasDiv.parentNode?.appendChild(toolBarHTMLDiv)
 
 
     canvas.artBoard.init().then(() => {
