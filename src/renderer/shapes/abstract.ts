@@ -14,10 +14,12 @@ abstract class ShapeAbstractBase {
     abstract isLabelVisible: boolean
     abstract isShapeVisible: boolean
 
+    // abstract isMuted: boolean // to remember the muted state, when highlighted on muted node 
+
     /* graphics */
     abstract containerGfx: PIXI.Container;
     abstract shapeGfx: PIXI.Graphics;
-    abstract labelGfx: PIXI.Graphics | undefined
+    abstract labelGfx?: PIXI.Graphics | undefined
 
     // debug border
     abstract debugBorderGfx: PIXI.Graphics | undefined

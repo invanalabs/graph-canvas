@@ -27,7 +27,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   declare dragPoint: PIXI.Point
   private dragData: PIXI.FederatedPointerEvent | null = null;
 
-  declare labelGfx: PIXI.Graphics
+  declare labelGfx?: PIXI.Graphics
   declare shapeGfx: PIXI.Graphics
 
   declare drawShape
