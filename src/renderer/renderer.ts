@@ -142,8 +142,9 @@ export class Renderer {
   }
 
   destroy(){
+    console.log("destroying renderer")
     this.clear()
-    this.artBoard.canvas.dataStore.destroy()
     this.artBoard.destroy()
+    this.artBoard.canvas.dataStore.destroy()
   }
 } 

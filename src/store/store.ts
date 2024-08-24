@@ -186,6 +186,11 @@ export class DataStore implements IDataStore {
 
     // const linkStyles = this.canvas.options.styles?.links || {};
 
+    if (this.canvas.artBoard.isDestroyed === true) {
+      console.debug("ArtBoard destroyed, ignoring adding the node ");
+      return
+    }
+
     // update the properties if node already exist
     if (!this.nodes.has(node.id)) {
       node.degree = this.calcDegree(node.id)
@@ -306,6 +311,12 @@ export class DataStore implements IDataStore {
 
   private addLink(link: ICanvasLink) {
 
+    if (this.canvas.artBoard.isDestroyed === true) {
+      console.debug("ArtBoard destroyed, ignoring adding the link ");
+      return
+    }
+
+
     if (!this.links.has(link.id)) {
       // attach sourceInstance using sourceId
       console.log("Adding link", link)
@@ -385,6 +396,14 @@ export class DataStore implements IDataStore {
    */
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
     console.log("adding nodes and links", nodes, links)
+
+    if (this.canvas.artBoard.isDestroyed === true) {
+      console.debug("ArtBoard destroyed, ignoring adding the data ");
+      this.canvas.dataStore.updateMessage("ArtBoard destroyed, ignoring adding the data")
+      return
+    }
+
+
     this.canvas.dataStore.updateMessage("Drawing new data")
 
     nodes.map(node=> this.addNode(node))

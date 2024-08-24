@@ -286,7 +286,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     if (this.artBoard.canvas.dataStore.isDragModeOn === true ) return
     if (this.dragData) return
     if (this.data.state === ":muted") return
-    if ([":highlighted", ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
+    if ([  ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
     console.log("====pointer out triggered", this.data.id)
     this.setState(":default", true, event)
   }
@@ -301,7 +301,9 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   pointerUpOutside = (event: PIXI.FederatedPointerEvent) => {
     console.log("pointerUpOutside", this.data.id, this.data.state)
+    if (this.data.state === ":selected") return 
     this.pointerUp(event)
+    this.setState(":default", true, event)
   }
 
   setupInteractionTriggers() {
@@ -321,7 +323,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       // .on('pointerupoutside', (event)=> event.stopPropagation())
 
       .on('pointerup', this.pointerUp)
-      // .on('pointerupoutside', this.pointerUpOutside)
+      .on('pointerupoutside', this.pointerUpOutside)
       .on('rightclick', (event)=> event.stopPropagation())
       // for right click 
       .on('rightdown', (event)=> event.stopPropagation())
