@@ -41,9 +41,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   style: INodeStyle = NodeStyleDefaults
 
-
-  isHoverable = true
-  isSelectable = true
   isDraggable = true
 
   constructor(props: ICanvasNode){
@@ -70,14 +67,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     // this.style = props?.style
 
 
-    this.isHoverable = props.isHoverable === undefined ? true : props.isHoverable 
-    this.isSelectable = props.isSelectable === undefined ? true : props.isSelectable
     this.isDraggable = props.isDraggable === undefined ? true : props.isDraggable  
 
-
-    // this.isHoverable = props.isHoverable === undefined || props.isHoverable === true ? true : false 
-    // this.isSelectable = props.isSelectable === undefined || props.isSelectable === true ? true : false 
-    // this.isDraggable = props.isDraggable === undefined || props.isDraggable === true ? true : false  
   }
 
   toJson(): ICanvasNode{

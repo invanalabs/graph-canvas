@@ -14,8 +14,7 @@ abstract class ShapeAbstractBase {
     abstract isLabelVisible: boolean
     abstract isShapeVisible: boolean
 
-    // abstract isMuted: boolean // to remember the muted state, when highlighted on muted node 
-
+    // abstract isMuted: boolean // to remember the muted state, when highlighted on muted node
     /* graphics */
     abstract containerGfx: PIXI.Container;
     abstract shapeGfx: PIXI.Graphics;
@@ -49,7 +48,7 @@ abstract class ShapeAbstractBase {
     abstract triggerDefault(event?: PIXI.FederatedPointerEvent): void
 
     // :highlighted
-    abstract triggerHighlighted(event?: PIXI.FederatedPointerEvent, setNeighborsToo?:boolean): void
+    abstract triggerHighlighted(event?: PIXI.FederatedPointerEvent, setNeighborsToo?: boolean): void
     abstract triggerUnHighlighted(event?: PIXI.FederatedPointerEvent, setNeighborsToo?: boolean): void
 
     // :selected
@@ -68,7 +67,7 @@ abstract class ShapeAbstractBase {
     abstract moveToDataLayer(): void
     // abstract moveToMapLayer(): void
 
-    abstract hideLabel() : void
+    abstract hideLabel(): void
     abstract showLabel(): void
 
 }
@@ -93,7 +92,8 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         this.originalData = data
         this.artBoard = artBoard;
         this.containerGfx = new PIXI.Container(
-            { isRenderGroup:true}
+            // this will make moving this container GPU powered
+            { isRenderGroup: true }
         )
         this.containerGfx.sortableChildren = true
         // this.containerGfx.interactive = true
@@ -106,20 +106,34 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
         // this.containerGfx.eventMode = 'static';
     }
 
-    hideLabel = () => { 
-        console.debug("===hideLabel triggered", this.data.id )
+    hideLabel = () => {
+        console.debug("===hideLabel triggered", this.data.id)
 
-        if (this.labelGfx){
+        if (this.labelGfx) {
             this.labelGfx.visible = false
             this.data.isLabelVisible = false
         }
     }
-        
-    showLabel = () => { 
-        console.debug("===showLabel triggered", this.data.id )
-        if (this.labelGfx){
-          this.labelGfx.visible = true
-          this.data.isLabelVisible = true
+
+    showLabel = () => {
+        console.debug("===showLabel triggered", this.data.id)
+        if (this.labelGfx) {
+            this.labelGfx.visible = true
+            this.data.isLabelVisible = true
+        }
+    }
+
+
+    setInteractive(val: boolean = true) {
+        console.log("=====setInteractive", val, this.data.isInteractive, this.data.is)
+        this.containerGfx.interactive = val;
+        if (val === true) {
+            console.log("setInteractive is true")
+            this.setInteractiveRecursive(this.containerGfx)
+            this.setupInteractionTriggers()
+        }
+        else {
+            this.containerGfx.removeAllListeners();
         }
     }
 
@@ -178,7 +192,7 @@ export abstract class ShapeAbstract extends ShapeAbstractBase {
     }
 
     applyStateUpdate(setNeighborsToo: boolean = false, event?: PIXI.FederatedPointerEvent) {
-        if (this.data.id.toString().length === 1){
+        if (this.data.id.toString().length === 1) {
             console.debug("pointer applyStateUpdate state", this.data.id, this.data.state)
         }
         const stateName = this.data.state
@@ -211,6 +225,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     /* latest state of data */
     declare data: CanvasNode;
 
+
     // // determines whether this is 
     // declare state: INodeStateTypes
 
@@ -239,7 +254,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstract {
     abstract onDragStart(event?: PIXI.FederatedPointerEvent): void
     // abstract onDragMove(event?: PIXI.FederatedPointerEvent,  newPoint: PIXI.Point): void
     abstract onDragEnd(event?: PIXI.FederatedPointerEvent): void
- 
+
 }
 
 
@@ -270,8 +285,8 @@ export abstract class LinkShapeAbstract extends ShapeAbstract {
     // abstract onMoved(event : OnLinkGfxEventData): void
 
 
-    drawPath(){
-        
+    drawPath() {
+
     }
 
 

@@ -30,6 +30,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
   declare labelGfx?: PIXI.Graphics
   declare shapeGfx: PIXI.Graphics
 
+
+
   declare drawShape
   declare drawLabel
 
@@ -44,6 +46,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.isLabelVisible = false
     this.isShapeVisible = false
   
+
+    // this.draggable = this.data.isDraggable
 
     // setup intractions
     // this.setupInteractionTriggers()
@@ -252,7 +256,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     console.log("====pointerOver== triggered====", this.data.id, this.data.state, this.artBoard.canvas.dataStore.isDragModeOn)
 
-    if (this.data.isHoverable) { this.setState(":highlighted", true, event) }
+    if (this.data.isInteractive) { this.setState(":highlighted", true, event) }
   }
 
   pointerDown = (event: PIXI.FederatedPointerEvent) => {
@@ -260,12 +264,10 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     if (this.data.state === ":muted") return
     // if (this.dragData) return 
-    if (this.data.isSelectable) { 
       console.log("Clicked", this.data.id); 
       this.setState(":selected", true, event);
       this.artBoard.canvas.dataStore.addToSelectedNodes(this.data)
-    }
-    // if (this.data.isHoverable) { this.artBoard.canvas.dataStore.addToSelectedNodes(this.data) }
+    // if (this.data.isInteractive) { this.artBoard.canvas.dataStore.addToSelectedNodes(this.data) }
     if (this.data.isDraggable) { this.onDragStart(event) }
   }
 
@@ -286,7 +288,9 @@ export class NodeShapeBase extends NodeShapeAbstract {
     if (this.artBoard.canvas.dataStore.isDragModeOn === true ) return
     if (this.dragData) return
     if (this.data.state === ":muted") return
-    if ([  ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
+    if (this.data.isDraggable === true){
+      if ([  ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
+    }
     console.log("====pointer out triggered", this.data.id)
     this.setState(":default", true, event)
   }
@@ -338,7 +342,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
   draw = (renderShape = true, renderLabel = true) => {
     // clear shapeName first
     this.clear();
-    this.setupInteractionTriggers()
     // draw shapeName
     if (renderShape) {
       this.shapeGfx = this.drawShape();
@@ -363,7 +366,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     // if (this.data.state) {
     this.applyStateUpdate()
-    this.setInteractiveRecursive(this.containerGfx)
+    this.setInteractive(this.data.isInteractive)
     this.drawDebugBorder(this.data.x, this.data.y)
     // }
   }

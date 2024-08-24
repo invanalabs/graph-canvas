@@ -21,10 +21,6 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
   shapeName: 'straightLine' | 'curvedLine' | 'loopLine' | 'bezierCurvedLine'
 
-  isHoverable = true
-  isSelectable = true
-  isDraggable = true
-
   constructor(props: ICanvasLink){
     super(props);
     //@ts-ignore
@@ -39,9 +35,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
     // this.style = props?.style
     this.style = deepMerge( LinkStyleDefaults,  props?.style || {})
 
-    this.isHoverable = props.isHoverable
-    this.isSelectable = props.isSelectable 
-    this.isDraggable = props.isDraggable 
+    this.isInteractive = props.isInteractive === undefined ? true : props.isInteractive 
   }
 
   toJson(): ICanvasLink{

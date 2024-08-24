@@ -16,6 +16,8 @@ export default class CanvasItemBase implements ICanvasItemBase {
   isLabelVisible: boolean = true
   // isShapeVisible: boolean = true
 
+  isInteractive: boolean = true
+
   gfxInstance: NodeShapeBase | LinkShapeBase | undefined = undefined
 
   constructor(props: ICanvasItemBase) {
@@ -25,6 +27,7 @@ export default class CanvasItemBase implements ICanvasItemBase {
     this.label = props.label ? props.label : undefined
     this.properties = props?.properties ? props.properties : {}
     // this.gfxInstance = null
+    this.isInteractive = props.isInteractive === undefined ? true : props.isInteractive 
   }
 
   setGfxInstance(gfxInstance: NodeShapeBase | LinkShapeBase){
