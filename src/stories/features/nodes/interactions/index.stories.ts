@@ -23,7 +23,7 @@ export default meta;
 
 
 export const Interactions: StoryObj = {
-  name : "disable hover, drag, select",
+  name : "disable interactions and drag",
   render: () => renderTemplate() ,
   play: disableDraggingExamplePlay,
   parameters: {
