@@ -9,6 +9,7 @@ export type IShapeState =  ':default' | ':highlighted' | ':selected' | ':muted';
 
 export interface INodeStateStyle {
   size?: number
+  // finalSize?:number // this is used for when size is manipulated by 
   shape?: INodeShapeStyle
   label?: IShapeLabelStyle
 }

@@ -33,7 +33,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   state: IShapeState = ":default"
 
-  style: INodeStyle;
+  style!: INodeStyle;
 
   isDraggable = true
 
