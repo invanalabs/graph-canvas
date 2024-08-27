@@ -127,13 +127,6 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     // node.gfxInstance?.setPosition(node.x, node.y);
     node.updateNodePosition(node.x, node.y)
     // reDraw links too 
-    // node.neighbors.links.forEach((link_: CanvasLink) => {
-    //   const link = this.artBoard.canvas.dataStore.links.get(link_.id)
-    //   if (link)
-    //     link.gfxInstance?.reDraw();
-    // })
-
-
     // this.artBoard.canvas.layout.reComputeLayout()
   }
 
