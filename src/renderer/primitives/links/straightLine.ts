@@ -11,22 +11,22 @@ export interface DrawLinkPrimitiveType extends ILinkShapeStyle {
 
 const drawStraightLineShape = ( props: DrawLinkPrimitiveType) => {
     console.debug("drawStraightLineShape", props);
-    const shapeName = new Graphics();
+    const shapeGfx = new Graphics({isRenderGroup: true});
     // draw the path 
-    // shapeName.lineStyle({ width: props.thickness, color: props.color }); // Thickness 5, Red color
-    shapeName.moveTo(props.startPoint.x, props.startPoint.y);
-    shapeName.lineTo(props.endPoint.x, props.endPoint.y);
-    shapeName.stroke({color: props.color, width: props.thickness});
-    shapeName.fill({color: props.color})
-    shapeName.interactive = true;
+    // shapeGfx.lineStyle({ width: props.thickness, color: props.color }); // Thickness 5, Red color
+    shapeGfx.moveTo(props.startPoint.x, props.startPoint.y);
+    shapeGfx.lineTo(props.endPoint.x, props.endPoint.y);
+    shapeGfx.stroke({color: props.color, width: props.thickness});
+    shapeGfx.fill({color: props.color})
+    shapeGfx.interactive = true;
     // TODO - FIX this hitarea 
-    // shapeName.hitArea = new Polygon(shapeName.currentPath.points);
-    // shapeName.hitArea = shapeName.getBounds();
-    // shapeName.hitArea = new Rectangle(props.startPoint.x, props.startPoint.y, props.endPoint.x, props.endPoint.y);
-    shapeName.cursor = 'pointer';
+    // shapeGfx.hitArea = new Polygon(shapeGfx.currentPath.points);
+    // shapeGfx.hitArea = shapeGfx.getBounds();
+    // shapeGfx.hitArea = new Rectangle(props.startPoint.x, props.startPoint.y, props.endPoint.x, props.endPoint.y);
+    shapeGfx.cursor = 'pointer';
 
 
-    return shapeName;
+    return shapeGfx;
 }
 
 export default drawStraightLineShape
