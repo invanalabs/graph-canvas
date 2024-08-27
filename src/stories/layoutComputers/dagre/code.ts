@@ -12,6 +12,9 @@ export default () => {
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
+    extraSettings: {
+      nodeSizeBasedOn: "degree"
+    }
     
   });
 

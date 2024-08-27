@@ -3,12 +3,16 @@ import { NodeContainerChildNames } from '../../constants';
 import drawLabelShape from '../../../primitives/label';
 import { NodeShapeAbstract } from '../../abstract';
 import { CanvasNode } from '../../../../store';
+import { getSizeBasedOnDegree } from '../utils';
 // import { DraggableSprite } from '../../../sprites/draggable';
 
 
 class Circle extends NodeShapeAbstract {
 
     declare data: CanvasNode;
+
+    // always use this instead of this.data.style.size, this will be final size ased on degree etc 
+    declare nodeSize: number 
 
     drawLabel = () => {
         if (!this.data.label) {
@@ -36,9 +40,14 @@ class Circle extends NodeShapeAbstract {
     drawShape = () => {
         console.debug("Circle.drawShape triggered", this.data.style)
         // const shapeStyle = this.data.style
+        const nodeSize =  (this.artBoard.canvas.options.extraSettings?.nodeSizeBasedOn == "degree") ?
+                         getSizeBasedOnDegree(this.data): this.data.style.size as number
+        
+        
+        console.log("====drawShape, ", nodeSize)
 
         const { texture } = this.artBoard.renderer.textureStore.getOrCreateShapeTexture({
-            size: this.data.style?.size,
+            size: nodeSize,
             group: this.data.group,
             style: this.data.style
         })
@@ -84,7 +93,7 @@ class Circle extends NodeShapeAbstract {
                         // Create a circular mask
                         const mask = new Graphics();
                         // mask.beginFill(0xffffff);
-                        mask.circle(0, 0, this.data.style.size - this.data.style.shape.border.thickness);
+                        mask.circle(0, 0, nodeSize- this.data.style.shape.border.thickness);
                         mask.fill(0xffffff);
                         // Apply the mask to the sprite
                         imageGfx.mask = mask;

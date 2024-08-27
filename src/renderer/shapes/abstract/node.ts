@@ -192,7 +192,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
 
   draw({ renderShape = true, renderLabel = true }: { renderShape?: boolean, renderLabel?: boolean } = {}) {
   // draw(renderShape: boolean = true, renderLabel: boolean = true) {
-    super.draw(renderShape, renderLabel) 
+    super.draw({renderShape, renderLabel}) 
     // update the position 
     if (renderShape) {
       if (this.data.x && this.data.y) {

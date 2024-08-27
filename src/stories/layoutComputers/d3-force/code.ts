@@ -12,7 +12,10 @@ export default () => {
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
-    
+    extraSettings: {
+      nodeColorBasedOn: 'group',
+      nodeSizeBasedOn: 'degree'
+    }
   });
 
   const toolbar = new D3ForceOptionsToolBar(canvas.artBoard);

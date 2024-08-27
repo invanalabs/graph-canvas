@@ -11,7 +11,8 @@ export default () => {
     viewElement: canvasDiv,
     
     extraSettings: {
-      nodeColorBasedOn: 'group'
+      nodeColorBasedOn: 'group',
+      nodeSizeBasedOn: 'degree'
     }
   });
 

@@ -2,6 +2,7 @@ import * as d3 from "d3";
 import { GraphCanvas } from "../canvas";
 import { CanvasLink, CanvasNode} from "../store";
 import { LayoutComputerAbstract } from "./base";
+import { getSizeBasedOnDegree } from "../renderer/shapes/nodes/utils";
 
 
 export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
@@ -23,13 +24,19 @@ export default class D3ForceLayoutComputer implements LayoutComputerAbstract{
         const { centerX, centerY } = this.getCenter();       
         const simulation = d3.forceSimulation(this.canvas.dataStore.getNodes())
         .force("link", d3.forceLink(this.canvas.dataStore.getLinks()).id((d) => d.id)
-            .distance(() => {
-                const desiredLength = 250;
-                return Math.max(minLinkLength, Math.min(maxLinkLength, desiredLength));
-            }))
+            // .distance(() => {
+            //     const desiredLength = 250;
+            //     return Math.max(minLinkLength, Math.min(maxLinkLength, desiredLength));
+            // })
+        )
         .force("charge", d3.forceManyBody().strength(-300))
         .force("center", d3.forceCenter(centerX, centerY))
-        .force("collide", d3.forceCollide().radius((d: CanvasNode) => d.style.size * 3))
+        .force("collide", d3.forceCollide().radius((d: CanvasNode) => {
+            const s =  (this.canvas.options.extraSettings?.nodeSizeBasedOn == "degree") ?
+            getSizeBasedOnDegree(d): d.style.size as number
+            return s * 1.5
+            
+        }))
         .tick(500)
         .on("tick", this.onTick.bind(this))
         .on("end", this.onLayoutComputationEnded.bind(this));

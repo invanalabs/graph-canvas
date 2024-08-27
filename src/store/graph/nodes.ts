@@ -56,7 +56,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
       total: 0,
     }
 
-    this.style = props.style ? deepMerge( NodeStyleDefaults,  props?.style || {}) : NodeStyleDefaults
+    const style = props.style ? deepMerge( NodeStyleDefaults,  props?.style || {}) : NodeStyleDefaults
+    this.setStyle(style)
     this.isDraggable = props.isDraggable === undefined ? true : props.isDraggable  
   }
 
