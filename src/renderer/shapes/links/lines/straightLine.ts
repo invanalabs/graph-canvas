@@ -37,11 +37,12 @@ class StraightLine extends LinkShapeAbstract {
 
     drawShape = () => {
         console.debug("Line.drawShape triggered", this.data)
-        const shapeGfx = new PIXI.Container({ isRenderGroup: true })
+        const shapeGfx = new PIXI.Graphics({ isRenderGroup: true })
         shapeGfx.label = LinkContainerChildNames.shapeName
 
-        const startPoint = this.sourcePoint
-        const endPoint = this.targetPoint
+        const { startPoint, endPoint } = this.calcStartAndEndPoints();
+        // const startPoint = this.sourcePoint
+        // const endPoint = this.targetPoint
         // draw path
         const shapeLine = drawStraightLineShape({ startPoint, endPoint, ...this.data.style.shape })
         shapeLine.label = LinkContainerChildNames.shapeLine
@@ -114,6 +115,8 @@ class StraightLine extends LinkShapeAbstract {
             this.data.target,
             arrowPadding
         );
+        this.sourcePoint = startPoint
+        this.targetPoint = endPoint
         return { startPoint, endPoint }
 
     }

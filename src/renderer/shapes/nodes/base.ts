@@ -44,7 +44,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     this.isLabelVisible = false
     this.isShapeVisible = false
-  
+
 
     // this.draggable = this.data.isDraggable
 
@@ -198,6 +198,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
       // update node positions data 
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
+      this.reDrawNeighbors({ nodes: false })
       // remove interactions on neighbors
       this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
         if (link.gfxInstance) {
@@ -215,12 +216,12 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.artBoard.canvas.dataStore.disableDraggingMode()
     this.containerGfx.parent.off('pointermove', this.onDragMove);
     this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
-        if (link.gfxInstance) { link.gfxInstance.setupInteractionTriggers() }
+      if (link.gfxInstance) { link.gfxInstance.setupInteractionTriggers() }
     })
     if (this.isPointerInBounds(event, this.containerGfx)) {
       this.triggerUnSelected()
       this.setState(":highlighted", true, event) // if pointer is still on the node 
-    }else{
+    } else {
       this.setState(":default")
     }
   };
@@ -232,7 +233,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
     if (this.data.state === ":muted") return
     if (this.dragData || this.data.state === ":selected") return
     // ignore if the system is in drag mode and this node is not selected 
-    if (this.artBoard.canvas.dataStore.isDragModeOn === true ) return
+    if (this.artBoard.canvas.dataStore.isDragModeOn === true) return
 
     console.log("====pointerOver== triggered====", this.data.id, this.data.state, this.artBoard.canvas.dataStore.isDragModeOn)
 
@@ -244,9 +245,9 @@ export class NodeShapeBase extends NodeShapeAbstract {
     event.stopPropagation();
     if (this.data.state === ":muted") return
     // if (this.dragData) return 
-      console.log("Clicked", this.data.id); 
-      this.setState(":selected", true, event);
-      this.artBoard.canvas.dataStore.addToSelectedNodes(this.data)
+    console.log("Clicked", this.data.id);
+    this.setState(":selected", true, event);
+    this.artBoard.canvas.dataStore.addToSelectedNodes(this.data)
     // if (this.data.isInteractive) { this.artBoard.canvas.dataStore.addToSelectedNodes(this.data) }
     if (this.data.isDraggable) { this.onDragStart(event) }
   }
@@ -265,11 +266,11 @@ export class NodeShapeBase extends NodeShapeAbstract {
   pointerOut = (event: PIXI.FederatedPointerEvent) => {
     console.log("====pointer out", this.data.id, this.data.state, this.dragData)
     event.stopPropagation();
-    if (this.artBoard.canvas.dataStore.isDragModeOn === true ) return
+    if (this.artBoard.canvas.dataStore.isDragModeOn === true) return
     if (this.dragData) return
     if (this.data.state === ":muted") return
-    if (this.data.isDraggable === true){
-      if ([  ":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
+    if (this.data.isDraggable === true) {
+      if ([":selected"].includes(this.data.state) && this.isPointerInBounds(event, this.containerGfx)) return
     }
     console.log("====pointer out triggered", this.data.id)
     this.setState(":default", true, event)
@@ -285,7 +286,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
   pointerUpOutside = (event: PIXI.FederatedPointerEvent) => {
     console.log("pointerUpOutside", this.data.id, this.data.state)
-    if (this.data.state === ":selected") return 
+    if (this.data.state === ":selected") return
     this.pointerUp(event)
     this.setState(":default", true, event)
   }
@@ -298,23 +299,23 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
     // listeners for hover effect
     this.containerGfx
-      .on("pointerover", this.pointerOver)
-      .on("pointerout", this.pointerOut)
+      .on("pointerover", this.pointerOver.bind(this))
+      .on("pointerout", this.pointerOut.bind(this))
 
-      .on('pointerdown', this.pointerDown)
+      .on('pointerdown', this.pointerDown.bind(this))
       // .on('pointercancel', this.pointerUp)
       // .on('pointerup', (event)=> event.stopPropagation())
       // .on('pointerupoutside', (event)=> event.stopPropagation())
 
-      .on('pointerup', this.pointerUp)
-      .on('pointerupoutside', this.pointerUpOutside)
-      .on('rightclick', (event)=> event.stopPropagation())
-      // for right click 
-      .on('rightdown', (event)=> event.stopPropagation())
-      .on('rightup', (event)=> event.stopPropagation())
-      // Fired when a touch point is tapped twice 
-      .on('tap', (event)=> event.stopPropagation())
-      
+      .on('pointerup', this.pointerUp.bind(this))
+      .on('pointerupoutside', this.pointerUpOutside.bind(this))
+    // .on('rightclick', (event)=> event.stopPropagation())
+    // // for right click 
+    // .on('rightdown', (event)=> event.stopPropagation())
+    // .on('rightup', (event)=> event.stopPropagation())
+    // // Fired when a touch point is tapped twice 
+    // .on('tap', (event)=> event.stopPropagation())
+
 
 
   }
@@ -356,13 +357,25 @@ export class NodeShapeBase extends NodeShapeAbstract {
     this.draw(renderShape, renderLabel);
   }
 
-  reDrawNeighbors() {
-    this.data.neighbors.links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.reDraw()
-    })
-    this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-      node.gfxInstance?.reDraw()
-    })
+  reDrawNeighbors({ nodes = true, links = true }: { nodes?: boolean, links?: boolean } = {}) {
+    console.log("=====reDrawNeighbors", nodes, links)
+    if (links === true) {
+      this.data.neighbors.links.forEach((link_: CanvasLink) => {
+        // link.gfxInstance?.reDraw()
+        const link = this.artBoard.canvas.dataStore.links.get(link_.id)
+        if (link) {
+          link.gfxInstance?.reDraw();
+        }
+      })
+    }
+    if (nodes === true) {
+      this.data.neighbors.nodes.forEach((node_: CanvasNode) => {
+        const node = this.artBoard.canvas.dataStore.nodes.get(node_.id)
+        if (node) {
+          node.gfxInstance?.reDraw();
+        }
+      })
+    }
   }
 
   destroy(): void {

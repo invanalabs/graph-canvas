@@ -15,8 +15,8 @@ export abstract class LinkShapeAbstract extends ShapeAbstractBase implements ILi
   targetPoint!: PIXI.Point
 
 
-  abstract drawShape(): PIXI.Graphics 
-  abstract drawLabel(): PIXI.Graphics 
+  // abstract drawShape(): PIXI.Graphics 
+  // abstract drawLabel(): PIXI.Graphics 
 
   constructor(data: CanvasLink, artBoard: ArtBoard) {
     super(data, artBoard)
@@ -117,14 +117,24 @@ export abstract class LinkShapeAbstract extends ShapeAbstractBase implements ILi
     // Remove all listeners
     this.containerGfx.removeAllListeners();
     this.containerGfx
-      .on("pointerover", this.onPointerOver)
-      .on("pointerout", this.onPointerOut)
-      .on('pointerdown', this.pointerDown)
+      .on("pointerover", this.onPointerOver.bind(this))
+      .on("pointerout", this.onPointerOut.bind(this))
+      .on('pointerdown', this.pointerDown.bind(this))
       // .on("pointermove", (event) => {
       //   event.stopPropagation()
       // })
-      .on('pointerup', this.pointerUp)
-      .on('pointerupoutside', this.pointerUpOutside)
+      .on('pointerup', this.pointerUp.bind(this))
+      .on('pointerupoutside', this.pointerUpOutside.bind(this))
   }
+
+
+  draw(renderShape: boolean = true, renderLabel: boolean = true) {
+    super.draw(renderShape, renderLabel) 
+    // update the position 
+    if (renderShape) {
+        this.calcLabelPosition()
+    }
+ 
+  };
 
 }

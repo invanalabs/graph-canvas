@@ -265,6 +265,7 @@ export abstract class ShapeAbstractBase implements ICanvasShape {
     }
 
     draw(renderShape: boolean = true, renderLabel: boolean = true){
+        console.log("====draw", renderShape, renderLabel)
         // clear shapeName first
         this.clear();
         // draw shapeName
@@ -283,7 +284,7 @@ export abstract class ShapeAbstractBase implements ICanvasShape {
     
 
     reDraw = (renderShape = true, renderLabel = true) => {
-        // console.log("reDraw ", this.data.id)
+        console.log("reDraw ", this.data.id)
         this.draw(renderShape, renderLabel);
     }
 
