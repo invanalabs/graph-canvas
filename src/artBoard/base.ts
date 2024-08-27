@@ -99,6 +99,8 @@ export class ArtBoardBase {
       autoDensity: true,
       resolution: window.devicePixelRatio, /// 2 for retina displays
       backgroundColor: this.canvas.options.background,
+      backgroundAlpha: this.canvas.options.backgroundAlpha,
+      // transparent: true
       // eventMode: 'static', //  Emit events and is hit tested. Same as interaction = true in v7
     }
 
@@ -158,7 +160,7 @@ export class ArtBoardBase {
 
   showLabelsBasedOnZoom = (zoomScale: number) => {
     const labelVisiblitythreshold = this.canvas.options.extraSettings?.labelVisibilityZoomThreshold as number
-    console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible, (zoomScale < labelVisiblitythreshold))
+    // console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible, (zoomScale < labelVisiblitythreshold))
     
     
     if (labelVisiblitythreshold) {
@@ -190,7 +192,7 @@ export class ArtBoardBase {
       passiveWheel: true,
       events: this.pixiApp.renderer.events
     })
-    viewport.name = "viewport"
+    viewport.label = "viewport"
     viewport
       .drag()
       .pinch({ percent: 0.5 })

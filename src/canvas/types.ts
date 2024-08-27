@@ -4,6 +4,7 @@ import { ExtraSettings, GraphicsStyles } from "../renderer/types"
 export interface ICanvasOptions {
   viewElement: HTMLCanvasElement //HTMLDivElement // 
   background?: string | number // use hex instead of number
+  backgroundAlpha?: number 
   resolution?: {
     nodes?: number
     links?: number
