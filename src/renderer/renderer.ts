@@ -6,9 +6,9 @@ import { GraphicsStore } from "./store/graphics";
 // import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "./shapes/layer";
 // import drawStraightLineShape from "./primitives/links/straightLine";
 import StraightLine from "./shapes/links/lines/straightLine";
-import CurvedLine from "./shapes/links/lines/curvedLine";
-import BezierCurvedLine from "./shapes/links/lines/bezierCurvedLine";
-import LoopLine from "./shapes/links/lines/loopLine";
+// import CurvedLine from "./shapes/links/lines/curvedLine";
+// import BezierCurvedLine from "./shapes/links/lines/bezierCurvedLine";
+// import LoopLine from "./shapes/links/lines/loopLine";
 import { LAYER_GRAPHICS_TYPES_CONSTANTS } from "./shapes/layer";
 
 
@@ -76,30 +76,30 @@ export class Renderer {
       // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
  
     }
-    else if (link.shapeName === "curvedLine"){
-      const gfxInstance = new CurvedLine(link, this.artBoard)
-      gfxInstance.draw()
-      console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-      this.artBoard.viewport.addChild(gfxInstance.containerGfx)     
-      // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+  //   else if (link.shapeName === "curvedLine"){
+  //     const gfxInstance = new CurvedLine(link, this.artBoard)
+  //     gfxInstance.draw()
+  //     console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+  //     this.artBoard.viewport.addChild(gfxInstance.containerGfx)     
+  //     // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
 
-    }
-    else if (link.shapeName === "bezierCurvedLine"){
-        const gfxInstance = new BezierCurvedLine(link, this.artBoard)
-        gfxInstance.draw()
-        console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-        this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
-        // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+  //   }
+  //   else if (link.shapeName === "bezierCurvedLine"){
+  //       const gfxInstance = new BezierCurvedLine(link, this.artBoard)
+  //       gfxInstance.draw()
+  //       console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+  //       this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
+  //       // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
 
-    }
-    else if (link.shapeName === "loopLine"){
-      const gfxInstance = new LoopLine(link, this.artBoard)
-      gfxInstance.draw()
-      console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
-      this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
-      // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
+  //   }
+  //   else if (link.shapeName === "loopLine"){
+  //     const gfxInstance = new LoopLine(link, this.artBoard)
+  //     gfxInstance.draw()
+  //     console.debug("Renderer.renderLink after .draw triggered ", link, gfxInstance)
+  //     this.artBoard.viewport.addChild(gfxInstance.containerGfx)      
+  //     // this.artBoard.renderer.gfxStore.addToDataLayer(link, LAYER_GRAPHICS_TYPES_CONSTANTS.LINKS)
 
-  }
+  // }
     else{
       console.error(`there is no link with shapeName=${link.shapeName} to render for ${link.id}`)
     }
@@ -120,7 +120,7 @@ export class Renderer {
   reRenderLinks(links: CanvasLink[]) {
     // const _this = this;
     links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.redraw(true, false);
+      link.gfxInstance?.reDraw(true, false);
     })
     // this.renderScreenBorderIfRequired()
   }
@@ -138,6 +138,7 @@ export class Renderer {
   clear() {
     console.debug("Renderer.clear triggered ")
     this.artBoard.viewport.removeChildren()
+    this.artBoard.viewport.removeAllListeners()
     this.artBoard.canvas.dataStore.updateMessage("Cleared the graphics on canvas (data still persist).")
   }
 

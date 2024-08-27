@@ -1,10 +1,10 @@
 import { ArtBoard } from "../../../artBoard";
 import { CanvasLink, CanvasNode } from "../../../store";
-import { NodeShapeAbstract } from "../abstract";
 import * as PIXI from 'pixi.js';
 import { deepMerge } from "../../../utils/merge";
 import { NodeStyleDefaults } from "./circle/defaults";
 import { NodeContainerChildNames } from "../constants";
+import { NodeShapeAbstract } from "../abstract";
 
 
 export const ZIndexOrder = {
@@ -21,7 +21,6 @@ export const ZIndexOrder = {
 
 export class NodeShapeBase extends NodeShapeAbstract {
 
-  declare originalData: CanvasNode;
   declare data: CanvasNode;
 
   declare dragPoint: PIXI.Point
@@ -32,8 +31,8 @@ export class NodeShapeBase extends NodeShapeAbstract {
 
 
 
-  declare drawShape
-  declare drawLabel
+  // declare drawShape
+  // declare drawLabel
 
   declare isLabelVisible: boolean
   declare isShapeVisible: boolean
@@ -92,24 +91,7 @@ export class NodeShapeBase extends NodeShapeAbstract {
   // }
 
 
-  showLabelBg(){
-    if (this.labelGfx) {
-      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
-      if (textBg) {
-        textBg.visible = true
-        // textBg.fi
-      }
-    }
-  }
 
-  hideLabelBg(){
-    if (this.labelGfx) {
-      const textBg = this.labelGfx.getChildByName(NodeContainerChildNames.labelBackground);
-      if (textBg) {
-        textBg.visible = false
-      }
-    }
-  }
 
   triggerMuted = (event?: PIXI.FederatedPointerEvent) => {
     // console.debug(`triggerMuted triggered on node - ${this.data.id}`);
@@ -241,8 +223,6 @@ export class NodeShapeBase extends NodeShapeAbstract {
     }else{
       this.setState(":default")
     }
-
-
   };
 
   pointerOver = (event: PIXI.FederatedPointerEvent) => {
@@ -371,17 +351,17 @@ export class NodeShapeBase extends NodeShapeAbstract {
     // }
   }
 
-  redraw = (renderShape = true, renderLabel = true) => {
-    // console.log("redraw ", this.data.id)
+  reDraw = (renderShape = true, renderLabel = true) => {
+    // console.log("reDraw ", this.data.id)
     this.draw(renderShape, renderLabel);
   }
 
   reDrawNeighbors() {
     this.data.neighbors.links.forEach((link: CanvasLink) => {
-      link.gfxInstance?.redraw()
+      link.gfxInstance?.reDraw()
     })
     this.data.neighbors.nodes.forEach((node: CanvasNode) => {
-      node.gfxInstance?.redraw()
+      node.gfxInstance?.reDraw()
     })
   }
 

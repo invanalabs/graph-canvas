@@ -17,7 +17,7 @@ export default () => {
     //     links: {}
     // }
     viewElement: canvasDiv,
-    debugMode: true,
+    
     extraSettings: {
       nodeColorBasedOn : 'group',
       linkColorBasedOn : 'default',

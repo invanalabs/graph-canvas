@@ -1,11 +1,14 @@
 import { Sprite, Graphics } from 'pixi.js';
-import { NodeShapeBase } from '../base';
 import { NodeContainerChildNames } from '../../constants';
 import drawLabelShape from '../../../primitives/label';
+import { NodeShapeAbstract } from '../../abstract';
+import { CanvasNode } from '../../../../store';
 // import { DraggableSprite } from '../../../sprites/draggable';
 
 
-class Circle extends NodeShapeBase {
+class Circle extends NodeShapeAbstract {
+
+    declare data: CanvasNode;
 
     drawLabel = () => {
         if (!this.data.label) {

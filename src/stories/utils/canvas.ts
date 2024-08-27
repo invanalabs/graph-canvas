@@ -92,8 +92,8 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
         // Creating a GUI and a subfolder.
         // const gui = new dat.GUI();
         // const folder1 = gui.addFolder('Renderer');
-        // const helperUtils = { redraw: ()=> canvas.artBoard.renderer.render()};
-        // gui.add(helperUtils,'redraw');
+        // const helperUtils = { reDraw: ()=> canvas.artBoard.renderer.render()};
+        // gui.add(helperUtils,'reDraw');
 
 
 

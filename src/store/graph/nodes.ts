@@ -1,4 +1,4 @@
-import { NodeShapeBase } from "../../renderer/shapes/nodes"
+import { NodeShapeAbstract } from "../../renderer/shapes/abstract"
 import { NodeStyleDefaults } from "../../renderer/shapes/nodes/circle/defaults"
 import { INodeStyle, IShapeState } from "../../renderer/types"
 import { deepMerge } from "../../utils/merge"
@@ -8,10 +8,6 @@ import {  ICanvasNode } from "./types"
 
 
 export class CanvasNode extends CanvasItemBase implements ICanvasNode {
-
-
-  // _x: number = 0
-  // _y: number = 0
 
   x: number = 0
   y: number = 0
@@ -25,7 +21,6 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
 
   shapeName?: 'circle' 
 
-  // links: CanvasLink[] = [];
   neighbors: {nodes: CanvasNode[], links: CanvasLink[]} ;
 
   degree?: {
@@ -34,12 +29,11 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     total: number
   }
 
-
-  gfxInstance: NodeShapeBase | undefined = undefined
+  declare gfxInstance: NodeShapeAbstract
 
   state: IShapeState = ":default"
 
-  style: INodeStyle = NodeStyleDefaults
+  style: INodeStyle;
 
   isDraggable = true
 
@@ -62,13 +56,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
       total: 0,
     }
 
-    // this.style = NodeStyleDefaults 
-    this.style = deepMerge( NodeStyleDefaults,  props?.style || {})
-    // this.style = props?.style
-
-
+    this.style = props.style ? deepMerge( NodeStyleDefaults,  props?.style || {}) : NodeStyleDefaults
     this.isDraggable = props.isDraggable === undefined ? true : props.isDraggable  
-
   }
 
   toJson(): ICanvasNode{
@@ -87,9 +76,9 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
   //   this.links = links
   // }
 
-  setState(stateName: IShapeState){
-    this.state = stateName
-  }
+  // setState(stateName: IShapeState){
+  //   this.state = stateName
+  // }
 
   setNeighbors(neighbors: {nodes: CanvasNode[], links: CanvasLink[]}){
     this.neighbors = neighbors
@@ -129,11 +118,11 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     return this.style.size + this.style.states?.[":selected"].shape?.border.thickness 
     + this.style.states?.[":highlighted"].shape?.border.thickness + (padding * 2)
   }
-  // redrawNeighbors(){
+  // reDrawNeighbors(){
   //   this.neighbors.links.forEach((link_: CanvasLink) => {
   //     const link = this.artBoard.canvas.dataStore.links.get(link_.id)
   //     if (link)
-  //       link.gfxInstance?.redraw();
+  //       link.gfxInstance?.reDraw();
   //   })
   // }
 

@@ -60,7 +60,7 @@ export default () => {
         }
       }
     },
-    debugMode: true,
+    
     extraSettings: {
       nodeColorBasedOn: 'default',
     }

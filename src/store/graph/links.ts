@@ -1,3 +1,4 @@
+import { LinkShapeAbstract } from "../../renderer/shapes/abstract"
 import { LinkShapeBase } from "../../renderer/shapes/links/base"
 import { LinkStyleDefaults } from "../../renderer/shapes/links/defaults"
 import { IShapeState, ILinkStyle } from "../../renderer/types"
@@ -13,7 +14,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
   readonly target: CanvasNode
   
-  gfxInstance: LinkShapeBase | undefined = undefined
+  declare gfxInstance: LinkShapeAbstract  
 
   state: IShapeState = ":default"
 
@@ -30,11 +31,7 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
 
     this.state = props.state ? props.state : ":default"
     this.shapeName = props.shapeName? props.shapeName :  "straightLine"
-
-        // this.style = NodeStyleDefaults 
-    // this.style = props?.style
     this.style = deepMerge( LinkStyleDefaults,  props?.style || {})
-
     this.isInteractive = props.isInteractive === undefined ? true : props.isInteractive 
   }
 
@@ -49,12 +46,15 @@ export class CanvasLink extends CanvasItemBase implements ICanvasLink {
       target: this.target.id
       
     }
+
   }
+
   setStyle(style: ILinkStyle) {
     this.style = style
   }
 
-  // reCalculateStyle(){
-
+  // setState(stateName: IShapeState){
+  //   this.state = stateName
   // }
+
 }

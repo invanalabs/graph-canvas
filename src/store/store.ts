@@ -239,6 +239,7 @@ export class DataStore implements IDataStore {
       this.nodes.set(nodeId, node)
       // node.gfxInstance?.setPosition(x, y);
       this.trigger('node:data:onPositionUpdated', { id: node.id, node: node, event: event });
+      // node.gfxInstance.reDrawNeighbors()
     }
   }
 
