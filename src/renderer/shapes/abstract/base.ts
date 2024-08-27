@@ -5,6 +5,7 @@ import { IShapeState } from '../../types';
 import { ArtBoard } from '../../../artBoard';
 import { ICanvasShape } from '../types';
 import { NodeContainerChildNames } from '../constants';
+import drawRectangleShape from '../../primitives/nodes/rectangle';
  
 
 export abstract class ShapeAbstractBase implements ICanvasShape {
@@ -124,12 +125,17 @@ export abstract class ShapeAbstractBase implements ICanvasShape {
             const bounds = this.containerGfx.getBounds();
             // const position = event ? event.data.getLocalPosition(): {x: bounds.x, y: bounds.y}
             // Draw a debug box around the bounding box
-            this.debugBorderGfx = new PIXI.Graphics();
+            const args = {
+                x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height, radius: 2,
+                border: {thickness: 1, color: "#666666"}
+            }
+            this.debugBorderGfx = drawRectangleShape({...args})
             this.debugBorderGfx.label = NodeContainerChildNames.debugBorder
-            this.debugBorderGfx.lineStyle(2, 0x00ff00);
-            this.debugBorderGfx.drawRect(bounds.x, bounds.y, bounds.width, bounds.height);
-            this.debugBorderGfx.endFill()
+            // this.debugBorderGfx.position.set(x, y)
+            this.debugBorderGfx.pivot.set(x, y)
             this.containerGfx.addChild(this.debugBorderGfx);
+
+
         }
     }
 

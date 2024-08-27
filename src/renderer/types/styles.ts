@@ -12,7 +12,7 @@ export interface IShapeBgStyle {
 export interface IShapeBorderStyle {
   thickness: number
   color: string | number
-  type: IBorderStyle
+  // type: IBorderStyle
   opacity?: null | number
 }
 
