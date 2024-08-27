@@ -54,19 +54,19 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
 
     // node.gfxInstance.data = node;
     // this.artBoard.canvas.dataStore.trigger('node:data:onStyleUpdated', { id: node.id, node: node })
-    // node.gfxInstance?.redraw()
+    // node.gfxInstance?.reDraw()
     // node.gfxInstance?.reDrawNeighbors() 
   }
 
   onNodeStyleUpdated = ({id, node}: OnNodeStyleUpdatedEventData) => {
     console.log("emitter:onNodeStyleUpdated", id)
-    node.gfxInstance?.redraw()
+    node.gfxInstance?.reDraw()
     node.gfxInstance?.reDrawNeighbors()
   }
 
   onLinkStyleUpdated = ({id, link}: OnLinkStyleUpdatedEventData) => {
     console.log("emitter:onLinkStyleUpdated", id)
-    link.gfxInstance?.redraw()
+    link.gfxInstance?.reDraw()
   }
 
   onLinkAdded = ({ id, link }: OnLinkAddedEventData) => {
@@ -126,13 +126,7 @@ export class DefaultEventEmitter extends EventEmitterAbstract {
     console.log("emitter:onNodePositionUpdated", id, node.x, node.y);
     // node.gfxInstance?.setPosition(node.x, node.y);
     node.updateNodePosition(node.x, node.y)
-    // redraw links too 
-    node.neighbors.links.forEach((link_: CanvasLink) => {
-      const link = this.artBoard.canvas.dataStore.links.get(link_.id)
-      if (link)
-        link.gfxInstance?.redraw();
-    })
-
+    // reDraw links too 
     // this.artBoard.canvas.layout.reComputeLayout()
   }
 

@@ -1,6 +1,5 @@
 
-import { LinkShapeBase } from "../../renderer/shapes/links/base"
-import { NodeShapeBase } from "../../renderer/shapes/nodes"
+import { LinkShapeAbstract, NodeShapeAbstract } from "../../renderer/shapes/abstract"
 import { ICanvasItemBase, ICanvasItemProperties, IdString } from "./types"
 
 
@@ -13,10 +12,12 @@ export default class CanvasItemBase implements ICanvasItemBase {
 
   layer: string = "default" // cover this to use LAYER_TYPES_CONSTANTS.keys
 
-  isLabelVisible: boolean = true
+  // isLabelVisible: boolean = true
   // isShapeVisible: boolean = true
 
-  gfxInstance: NodeShapeBase | LinkShapeBase | undefined = undefined
+  isInteractive: boolean = true
+
+  gfxInstance!: NodeShapeAbstract | LinkShapeAbstract  
 
   constructor(props: ICanvasItemBase) {
     this.id = props.id
@@ -25,9 +26,10 @@ export default class CanvasItemBase implements ICanvasItemBase {
     this.label = props.label ? props.label : undefined
     this.properties = props?.properties ? props.properties : {}
     // this.gfxInstance = null
+    this.isInteractive = props.isInteractive === undefined ? true : props.isInteractive 
   }
 
-  setGfxInstance(gfxInstance: NodeShapeBase | LinkShapeBase){
+  setGfxInstance(gfxInstance: NodeShapeAbstract | LinkShapeAbstract){
     this.gfxInstance = gfxInstance
   }
 

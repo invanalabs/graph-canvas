@@ -14,7 +14,7 @@ export const NodeStyleDefaults: INodeStyle = {
         border: {
             thickness: 2,
             color: "#ffffff",
-            type: "solid",
+            // type: "solid",
             opacity: 0.9
         },
         icon: {

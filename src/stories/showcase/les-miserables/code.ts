@@ -9,9 +9,10 @@ export default () => {
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
-    debugMode: true,
+    
     extraSettings: {
-      nodeColorBasedOn: 'group'
+      nodeColorBasedOn: 'group',
+      nodeSizeBasedOn: 'degree'
     }
   });
 

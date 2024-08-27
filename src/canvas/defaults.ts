@@ -31,7 +31,7 @@ export const defaultCanvasOptions: ICanvasOptions = {
     images: window.devicePixelRatio,
     svgImages: window.devicePixelRatio * 2
   },
-  debugMode: true,
+  debugMode: false,
   styles: {
     defaultNodeStyle: NodeStyleDefaults,
     defaultLinkStyle: LinkStyleDefaults

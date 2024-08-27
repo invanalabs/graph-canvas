@@ -12,7 +12,10 @@ export default () => {
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
-    debugMode: true
+    extraSettings: {
+      nodeSizeBasedOn: "degree"
+    }
+    
   });
 
   const toolbar = new DagreOptionsToolBar(canvas.artBoard);

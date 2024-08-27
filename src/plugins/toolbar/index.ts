@@ -24,7 +24,7 @@ export default class ArtBoardToolBar implements PluginAbstract{
         const toolBarItems: IToolBarButton[] = [
             {
                 htmlType: "button",
-                label: "redraw",
+                label: "reDraw",
                 helpText: "re draw the items on the canvas",
                 onClickListener: () => this.artBoard.renderer.reRender()
             },

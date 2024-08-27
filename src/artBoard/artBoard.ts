@@ -1,14 +1,29 @@
 import { ArtBoardBase } from "./base";
 import { GraphCanvas } from "../canvas";
+import { TextureSource } from "pixi.js";
 
 
 export class ArtBoard extends ArtBoardBase {
 
 
   constructor(canvas: GraphCanvas) {
-    super(canvas)
-    this.canvas = canvas
+    super(canvas);
+    this.disableDefaultBrowserDoubleClick()
   }
+
+  disableDefaultBrowserDoubleClick() {
+
+    document.addEventListener('mousedown', function (event) {
+      if (event.detail > 1) {
+        event.preventDefault();
+        // of course, you still do not know what you prevent here...
+        // You could also check event.ctrlKey/event.shiftKey/event.altKey
+        // to not prevent something useful.
+      }
+    }, false);
+  }
+
+
 
   // round = (value: number) => Math.round(value * 1000) / 1000;
 
@@ -81,15 +96,27 @@ export class ArtBoard extends ArtBoardBase {
   //     console.log("font loaded ", fontFamilyname )
   //     document.fonts.add(loadedFont);
   //   })
-    
+
   // }
 
   // draw() {
   //   this.renderer.render()
   // }
 
+
+
   destroy() {
-    this.pixiApp.destroy()
+    if (!this.isDestroyed) {
+      this.pixiApp.destroy(true, { children: true, texture: true, textureSource: true, context: true, style: true });
+      this.isDestroyed = true; // Set the custom flag to true
+      // Remove the canvas element from the DOM
+      if (this.pixiApp.canvas && this.pixiApp.canvas.parentNode) {
+        this.pixiApp.canvas.parentNode.removeChild(this.pixiApp.canvas);
+      }
+      // Optionally, nullify the reference to the canvas
+      // this.pixiApp.canvas = null;
+      console.log("The PIXI app and canvas have been destroyed.");
+    }
   }
 
 }

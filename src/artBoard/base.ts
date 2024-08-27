@@ -18,6 +18,9 @@ export class ArtBoardBase {
   events: EventEmitterAbstract
   isLabelsVisible: boolean = true
 
+  isDestroyed: boolean = false
+
+
   worldScale: number = 20
 
   constructor(canvas: GraphCanvas) {
@@ -156,6 +159,8 @@ export class ArtBoardBase {
   showLabelsBasedOnZoom = (zoomScale: number) => {
     const labelVisiblitythreshold = this.canvas.options.extraSettings?.labelVisibilityZoomThreshold as number
     console.debug("===labelVisiblitythreshold", zoomScale, labelVisiblitythreshold, this.isLabelsVisible, (zoomScale < labelVisiblitythreshold))
+    
+    
     if (labelVisiblitythreshold) {
       if (zoomScale < labelVisiblitythreshold) {
         if (this.isLabelsVisible === true) {
@@ -190,7 +195,11 @@ export class ArtBoardBase {
       .drag()
       .pinch({ percent: 0.5 })
       .wheel()
-      .decelerate()
+      .decelerate({
+        friction: 0.5,
+        bounce: 0.5,
+        // minSpeed?: number;
+      })
       // .bounce({time: 200})
       .clampZoom({
         minWidth: canvasSizeOptions.screenWidth / 10,

@@ -21,6 +21,9 @@ export class DataStore implements IDataStore {
 
   canvas: GraphCanvas
 
+  // when any of the node is being in dragging, this will disable hover effect on other nodes 
+  isDragModeOn: boolean = false
+
   message: string | null = null
 
   selectedNodes: Map<IdString, CanvasNode> = new Map()
@@ -69,6 +72,14 @@ export class DataStore implements IDataStore {
     }
   }
 
+  enableDraggingMode(){
+    this.isDragModeOn = true;
+  }
+
+  disableDraggingMode(){
+    this.isDragModeOn = false;
+  }
+
   // Register event listeners
   on(event: keyof IDataStoreListeners, listener: any) {
     if (this.listeners[event]) {
@@ -99,19 +110,19 @@ export class DataStore implements IDataStore {
     }
   }
 
-  addToHighlightedNodes(node: CanvasNode) {
+  addToSelectedNodes(node: CanvasNode) {
     this.selectedNodes.set(node.id, node)
   }
 
-  removeFromHighlightedNodes(node: CanvasNode) {
+  removeFromSelectedNodes(node: CanvasNode) {
     this.selectedNodes.delete(node.id)
   }
 
-  addToHighlightedLinks(link: CanvasLink) {
+  addToSelectedLinks(link: CanvasLink) {
     this.selectedLinks.set(link.id, link)
   }
 
-  removeFromHighlightedLinks(link: CanvasLink) {
+  removeFromSelectedLinks(link: CanvasLink) {
     this.selectedLinks.delete(link.id)
   }
 
@@ -175,6 +186,11 @@ export class DataStore implements IDataStore {
 
     // const linkStyles = this.canvas.options.styles?.links || {};
 
+    if (this.canvas.artBoard.isDestroyed === true) {
+      console.debug("ArtBoard destroyed, ignoring adding the node ");
+      return
+    }
+
     // update the properties if node already exist
     if (!this.nodes.has(node.id)) {
       node.degree = this.calcDegree(node.id)
@@ -223,6 +239,7 @@ export class DataStore implements IDataStore {
       this.nodes.set(nodeId, node)
       // node.gfxInstance?.setPosition(x, y);
       this.trigger('node:data:onPositionUpdated', { id: node.id, node: node, event: event });
+      // node.gfxInstance.reDrawNeighbors()
     }
   }
 
@@ -294,6 +311,12 @@ export class DataStore implements IDataStore {
   }
 
   private addLink(link: ICanvasLink) {
+
+    if (this.canvas.artBoard.isDestroyed === true) {
+      console.debug("ArtBoard destroyed, ignoring adding the link ");
+      return
+    }
+
 
     if (!this.links.has(link.id)) {
       // attach sourceInstance using sourceId
@@ -374,6 +397,14 @@ export class DataStore implements IDataStore {
    */
   add(nodes: ICanvasNode[], links: ICanvasLink[]) {
     console.log("adding nodes and links", nodes, links)
+
+    if (this.canvas.artBoard.isDestroyed === true) {
+      console.debug("ArtBoard destroyed, ignoring adding the data ");
+      this.canvas.dataStore.updateMessage("ArtBoard destroyed, ignoring adding the data")
+      return
+    }
+
+
     this.canvas.dataStore.updateMessage("Drawing new data")
 
     nodes.map(node=> this.addNode(node))

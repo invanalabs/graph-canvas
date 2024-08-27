@@ -14,6 +14,7 @@ export default () => {
   const canvasOptions: ICanvasOptions = {
     background: "#08345c",
     viewElement: canvasDiv,
+    // debugMode: true,
     styles: {
       defaultLinkStyle: deepMerge(LinkStyleDefaults, {
         shape: { color: "#ffffff" },
@@ -23,7 +24,7 @@ export default () => {
             opacity: 0.5
           },
           text: {
-            color: "#3c5369"
+            color: "#f2f2f2"
           }
         },
       }),
@@ -60,7 +61,7 @@ export default () => {
         }
       }
     },
-    debugMode: true,
+    
     extraSettings: {
       nodeColorBasedOn: 'default',
     }
