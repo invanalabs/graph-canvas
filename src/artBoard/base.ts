@@ -100,7 +100,7 @@ export class ArtBoardBase {
       resolution: window.devicePixelRatio, /// 2 for retina displays
       backgroundColor: this.canvas.options.background,
       backgroundAlpha: this.canvas.options.backgroundAlpha,
-      // transparent: true
+      transparent: true
       // eventMode: 'static', //  Emit events and is hit tested. Same as interaction = true in v7
     }
 

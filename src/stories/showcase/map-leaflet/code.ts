@@ -23,11 +23,32 @@ class PixiOverlay {
     this.overlay = L.layerGroup().addTo(this.map);
     this.initLeafletOverlay();
   }
+ 
 
   private initLeafletOverlay(): void {
     L.DomUtil.setPosition(this.app.canvas as HTMLElement, L.point(0, 0));
     L.DomEvent.on(this.app.canvas as HTMLElement, 'click', L.DomEvent.stopPropagation);
+    // L.DomEvent.on(this.app.canvas as HTMLElement, 'click', ()=>{
+    //   alert("map clicked")
+    // });
 
+    
+    // Add a zoomend event listener
+    this.map.on('zoom', () => {
+      console.log("zoom")
+      // const zoomLevel = this.map.getZoom();
+      // console.log('Zoom level:', zoomLevel);
+      this.redraw();
+    });
+    
+
+    this.map.on('moveend', () => {
+      console.log("moveended")
+      // const center = this.map.getCenter();
+      // console.log('Map center:', center);
+      this.redraw();
+    });
+    
     this.overlay.on('add', () => {
       this.map.getPanes().overlayPane.appendChild(this.app.canvas as HTMLElement);
       this.app.renderer.resize(this.map.getSize().x, this.map.getSize().y);
@@ -42,6 +63,7 @@ class PixiOverlay {
   }
 
   private redraw(): void {
+    console.log("=====redraw")
     const bounds = this.map.getBounds();
     const topLeft = this.map.latLngToLayerPoint(bounds.getNorthWest());
 
@@ -62,7 +84,6 @@ class PixiOverlay {
     node.beginFill(0xff0000);
     node.drawCircle(0, 0, 10);
     node.endFill();
-    node.zIndex = 700;
 
     (node as PIXI.Sprite & { latLng: L.LatLng }).latLng = L.latLng(lat, lng);
 
@@ -72,13 +93,13 @@ class PixiOverlay {
 }
 
 export default () => {
-  const canvasDiv = document.getElementById("graphCanvas") as HTMLDivElement;
+  const canvasDiv = document.getExlementById("graphCanvas") as HTMLCanvasElement;
   const mapContainer = document.getElementById("mapContainer") as HTMLDivElement;
 
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
-    backgroundAlpha: 0.4,
+    backgroundAlpha: 0,
     extraSettings: {
       nodeColorBasedOn: 'group',
       nodeSizeBasedOn: 'degree'
@@ -86,7 +107,7 @@ export default () => {
   });
 
   canvas.artBoard.init().then(() => {
-    const map = L.map(mapContainer).setView([51.505, -0.09], 13);
+    const map = L.map(mapContainer, {zoomControl: false}).setView([51.505, -0.09], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19
@@ -97,12 +118,9 @@ export default () => {
     pixiOverlay.addNode(51.505, -0.09); // Center
     pixiOverlay.addNode(51.515, -0.1);  // North-West
     pixiOverlay.addNode(51.495, -0.08); // South-East
-
-
-    onStoryDown(() => {
-      canvas.artBoard.renderer.destroy();
-    });
   });
 
-
+  onStoryDown(() => {
+    canvas.artBoard.renderer.destroy();
+  });
 }

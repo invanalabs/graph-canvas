@@ -1,34 +1,50 @@
 <style>
   html,
   body,
-  #storybook-root,
-  #mapContainer,
-  #graphCanvasContainer,
-  #graphCanvas{
+  #storybook-root {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+
   }
+
+
+  #graphCanvas,
+  #mapContainer {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+  }
+
+
+  #graphCanvas {
+    z-index: 900;
+    pointer-events: none;
+  }
+
   /*
-  #graphCanvas{
-    background-color: transparent;
-  }
+
 
   .leaflet-overlay-pane {
     z-index: 400;
-}
+  }
+
 
 
   body{
     background-color: red;
   }
-  */
- 
+   */
 </style>
 <!-- <div id="graphCanvasContainer"> -->
-  <canvas id="graphCanvas"></canvas>
-  <div id="mapContainer"></div>
+
+<canvas id="graphCanvas"></canvas>
+
+<div id="mapContainer"></div>
+
+
 
 <!-- </div> -->
