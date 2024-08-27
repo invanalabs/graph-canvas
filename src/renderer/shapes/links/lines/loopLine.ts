@@ -35,7 +35,7 @@
 //       }
 
 //     //@ts-ignore
-//     curveType: ILinkShapeStyles = 'straight'
+//     curveType: ILinkShapeTypes = 'straight'
 
 //     calcLabelPosition = (labelGfx: PIXI.Graphics, shapeGfx: PIXI.Graphics) => {
 //         // console.log("calcLabelPosition===", this.data.source.x, this.data.source.y, this.data.target.x, this.data.target.y)

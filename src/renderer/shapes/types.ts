@@ -3,8 +3,8 @@ import { CanvasLink, CanvasNode } from '../../store';
 import { IShapeState } from '../types';
  
 
-export type NodeShapeTypes = 'circle'; //| 'square' | 'rectangle' | 'traingle';
-export type ILinkShapeStyles = 'straight'; //| 'quadratic' | 'loop';
+export type INodeShapeTypes = 'circle'; //| 'square' | 'rectangle' | 'traingle';
+export type ILinkShapeTypes = 'straight'; //| 'quadratic' | 'loop';
 
 
 export interface ICanvasShape {
@@ -16,7 +16,7 @@ export interface ICanvasShape {
   containerGfx: PIXI.Container;
   shapeGfx: PIXI.Graphics;
   // shapes::conditionally rendered shapes 
-  labelGfx?: PIXI.Graphics;
+  labelGfx?: PIXI.Graphics | undefined;
   hoveredGfx: PIXI.Graphics;
   highlightedGfx: PIXI.Graphics;
   debugBorderGfx?: PIXI.Graphics;
@@ -52,7 +52,7 @@ export interface ICanvasShape {
   // drawing
   drawShape(): PIXI.Graphics | undefined;
   drawLabel(): PIXI.Graphics | undefined;
-  draw(drawShape: boolean, drawLabel: boolean): void;
+  draw(options: { renderShape?: boolean; renderLabel?: boolean }): void;
   reDraw(): void;
   clear(): void;
   destroy(): void;

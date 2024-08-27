@@ -6,13 +6,14 @@ import drawArrowTriangleShape from '../../../primitives/arrows/arrowTriangle';
 import { LinkShapeAbstract } from '../../abstract';
 import { CanvasLink } from '../../../../store';
 import { ArtBoard } from '../../../../artBoard';
-import { ILinkShapeStyles } from '../../types';
+import { ILinkShapeTypes } from '../../types';
 import drawLabelShape from '../../../primitives/label';
 
 
 class StraightLine extends LinkShapeAbstract {
 
-    curveType: ILinkShapeStyles = 'straight'
+    curveType: ILinkShapeTypes = 'straight'
+    declare data: CanvasLink
 
     constructor(data: CanvasLink, artBoard: ArtBoard) {
         super(data, artBoard)
@@ -22,17 +23,12 @@ class StraightLine extends LinkShapeAbstract {
     drawLabel = () => {
         console.debug("Line.drawLabel")
         if (this.data.label) {
-          const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label }, this.artBoard.canvas.options.resolution?.labels)
+          const labelGfx = drawLabelShape({ label: this.data.label, ...this.data.style.label }, 
+            this.artBoard.canvas.options.resolution?.labels)
           labelGfx.label = LinkContainerChildNames.label
-        //   labelGfx.visible = this.data.isLabelVisible
-    
-    
           this.containerGfx.addChild(labelGfx)
           return labelGfx
         }
-        //  else {
-        //   return new PIXI.Graphics()
-        // }
       }
 
     drawShape = () => {
@@ -63,7 +59,6 @@ class StraightLine extends LinkShapeAbstract {
         shapeSelectedBorder.visible = false
         drawArrowTriangleShape({ startPoint, endPoint, ...this.data.style.states[':selected'].shape }, 12, shapeSelectedBorder)
         shapeGfx.addChild(shapeSelectedBorder)
-
 
         return shapeGfx
     }
@@ -106,19 +101,14 @@ class StraightLine extends LinkShapeAbstract {
         console.debug("====calcStartAndEndPoints", this.data, this)
         const arrowPadding = 0;
         const endPoint = getContactPointOnCircle(
-            this.data.source,
-            this.data.target,
-            arrowPadding
+            this.data.source, this.data.target, arrowPadding
         );
         const startPoint = getContactPointFromCircle(
-            this.data.source,
-            this.data.target,
-            arrowPadding
+            this.data.source, this.data.target, arrowPadding
         );
         this.sourcePoint = startPoint
         this.targetPoint = endPoint
         return { startPoint, endPoint }
-
     }
 
     // drawPath = (shapeLine: PIXI.Graphics, startPoint: PIXI.Point, endPoint: PIXI.Point) => {

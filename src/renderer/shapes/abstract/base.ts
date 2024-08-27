@@ -270,7 +270,7 @@ export abstract class ShapeAbstractBase implements ICanvasShape {
 
     }
 
-    draw(renderShape: boolean = true, renderLabel: boolean = true){
+    draw({ renderShape = true, renderLabel = true }: { renderShape?: boolean; renderLabel?: boolean } = {}) {
         console.log("====draw", renderShape, renderLabel)
         // clear shapeName first
         this.clear();
@@ -291,7 +291,7 @@ export abstract class ShapeAbstractBase implements ICanvasShape {
 
     reDraw = (renderShape = true, renderLabel = true) => {
         console.log("reDraw ", this.data.id)
-        this.draw(renderShape, renderLabel);
+        this.draw({renderShape, renderLabel});
     }
 
 

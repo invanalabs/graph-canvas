@@ -67,7 +67,12 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
       const newPoint = this.dragData.getLocalPosition(this.containerGfx.parent);
       // update node positions data 
       this.artBoard.canvas.dataStore.moveNodeTo(this.data.id, newPoint.x, newPoint.y, event)
-      this.reDrawNeighbors({nodes: false})
+      // this.reDrawNeighbors({nodes: false})
+
+      this.data.neighbors.links.forEach((link: CanvasLink) => {
+        link.gfxInstance?.draw({renderLabel: false})
+      })
+
       // remove interactions on neighbors
       this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
          link.gfxInstance.removeInteractionTriggers()
@@ -83,6 +88,9 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
     this.artBoard.canvas.dataStore.disableDraggingMode();
     this.reDrawNeighbors({nodes: false})
     this.containerGfx.parent.off('pointermove', this.onDragMove);
+    this.data.neighbors.links.forEach((link: CanvasLink) => {
+      link.gfxInstance?.draw()
+    })
     this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
         link.gfxInstance.setupInteractionTriggers()
     })
@@ -182,7 +190,8 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
   }
 
 
-  draw(renderShape: boolean = true, renderLabel: boolean = true) {
+  draw({ renderShape = true, renderLabel = true }: { renderShape?: boolean, renderLabel?: boolean } = {}) {
+  // draw(renderShape: boolean = true, renderLabel: boolean = true) {
     super.draw(renderShape, renderLabel) 
     // update the position 
     if (renderShape) {
@@ -200,7 +209,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
     console.log("=====reDrawNeighbors", nodes, links)
     if (links === true) {
       this.data.neighbors.links.forEach((link: CanvasLink) => {
-        link.gfxInstance?.reDraw()
+        link.gfxInstance?.draw()
         // const link = this.artBoard.canvas.dataStore.links.get(link_.id)
         // if (link) {
         //   link.gfxInstance?.reDraw();

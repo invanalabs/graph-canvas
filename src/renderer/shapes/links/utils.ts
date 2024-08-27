@@ -1,7 +1,7 @@
 import { Graphics, Point } from "pixi.js";
 import { vec2 } from 'gl-matrix';
 import type { Polygon } from "pixi.js";
-import { ILinkShapeStyles } from "../types";
+import { ILinkShapeTypes } from "../types";
 import { CanvasNode } from "../../../store";
 
 
@@ -32,11 +32,11 @@ export const getContactPointFromCircle = (
   return getContactPointOnCircle(target, source, padding * -1)
 }
 
-export const getLinkLabelPosition = (source: CanvasNode, target: CanvasNode, shapeType: ILinkShapeStyles) => {
+export const getLinkLabelPosition = (source: CanvasNode, target: CanvasNode, shapeType: ILinkShapeTypes) => {
   return getCenterBetweenTwoPoints(source, target, shapeType)
 }
 
-export const getCenterBetweenTwoPoints = (source: CanvasNode, target: CanvasNode, shapeType: ILinkShapeStyles) => {
+export const getCenterBetweenTwoPoints = (source: CanvasNode, target: CanvasNode, shapeType: ILinkShapeTypes) => {
   console.debug("getCenterBetweenTwoPoints", source.x, source.y, target.x, target.y)
   // if (startX && startY && endX && endY){
     const centerX = (source.x + target.x) / 2;

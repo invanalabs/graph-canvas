@@ -2,7 +2,7 @@ import { ArtBoard } from "../../../artBoard";
 import { CanvasLink, CanvasNode } from "../../../store";
 import { ZIndexOrder } from "../constants";
 import { getAngle, getCenterOfRectangle, getContactPointFromCircle, getContactPointOnCircle, getLinkLabelPosition } from "../links/utils";
-import { ILinkShape } from "../types";
+import { ILinkShape, ILinkShapeTypes } from "../types";
 import { ShapeAbstractBase } from "./base";
 import * as PIXI from 'pixi.js';
 
@@ -10,6 +10,8 @@ import * as PIXI from 'pixi.js';
 export abstract class LinkShapeAbstract extends ShapeAbstractBase implements ILinkShape {
 
   data: CanvasLink;
+
+  curveType!: ILinkShapeTypes
 
   sourcePoint!: PIXI.Point
   targetPoint!: PIXI.Point
@@ -128,11 +130,11 @@ export abstract class LinkShapeAbstract extends ShapeAbstractBase implements ILi
   }
 
 
-  draw(renderShape: boolean = true, renderLabel: boolean = true) {
-    console.log("=====draw-link")
-    super.draw(renderShape, renderLabel) 
+  draw({ renderShape = true, renderLabel = true }: { renderShape?: boolean; renderLabel?: boolean } = {}) {
+    console.log("=====draw-link", renderShape, renderLabel)
+    super.draw({renderShape, renderLabel}) 
     // update the position 
-    if (renderShape) {
+    if (renderLabel === true) {
         this.calcLabelPosition()
     }
  

@@ -24,7 +24,7 @@ export default () => {
             opacity: 0.5
           },
           text: {
-            color: "#3c5369"
+            color: "#f2f2f2"
           }
         },
       }),
