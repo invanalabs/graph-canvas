@@ -12,7 +12,7 @@ export default () => {
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
-    debugMode: true
+    
   });
 
   const toolbar = new DagreOptionsToolBar(canvas.artBoard);

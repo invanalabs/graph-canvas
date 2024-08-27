@@ -25,7 +25,7 @@ export const createCanvas = (nodes: ICanvasNode[], links: ICanvasLink[], canvasO
     // console.log("=DOM is ready", event,)
     const options: ICanvasOptions = (canvasOptions) ? { ...canvasOptions, viewElement: canvasDiv } : {
       viewElement: canvasDiv,
-      debugMode: true
+      
     }
 
     // options.plugins = [ArtBoardToolBar, ArtBoardStatusBar]
