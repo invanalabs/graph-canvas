@@ -93,7 +93,7 @@ class PixiOverlay {
 }
 
 export default () => {
-  const canvasDiv = document.getExlementById("graphCanvas") as HTMLCanvasElement;
+  const canvasDiv = document.getElementById("graphCanvas") as HTMLCanvasElement;
   const mapContainer = document.getElementById("mapContainer") as HTMLDivElement;
 
 
