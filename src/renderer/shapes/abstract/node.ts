@@ -80,7 +80,8 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
     // console.log("onDragEnd triggered")
     event.stopPropagation()
     this.dragData = null;
-    this.artBoard.canvas.dataStore.disableDraggingMode()
+    this.artBoard.canvas.dataStore.disableDraggingMode();
+    this.reDrawNeighbors({nodes: false})
     this.containerGfx.parent.off('pointermove', this.onDragMove);
     this.artBoard.canvas.dataStore.getNeighborLinks(this.data.id).forEach((link: CanvasLink) => {
         link.gfxInstance.setupInteractionTriggers()
@@ -198,20 +199,21 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
   reDrawNeighbors({ nodes = true, links = true }: { nodes?: boolean, links?: boolean } = {}) {
     console.log("=====reDrawNeighbors", nodes, links)
     if (links === true) {
-      this.data.neighbors.links.forEach((link_: CanvasLink) => {
-        // link.gfxInstance?.reDraw()
-        const link = this.artBoard.canvas.dataStore.links.get(link_.id)
-        if (link) {
-          link.gfxInstance?.reDraw();
-        }
+      this.data.neighbors.links.forEach((link: CanvasLink) => {
+        link.gfxInstance?.reDraw()
+        // const link = this.artBoard.canvas.dataStore.links.get(link_.id)
+        // if (link) {
+        //   link.gfxInstance?.reDraw();
+        // }
       })
     }
     if (nodes === true) {
-      this.data.neighbors.nodes.forEach((node_: CanvasNode) => {
-        const node = this.artBoard.canvas.dataStore.nodes.get(node_.id)
-        if (node) {
-          node.gfxInstance?.reDraw();
-        }
+      this.data.neighbors.nodes.forEach((node: CanvasNode) => {
+        node.gfxInstance?.reDraw();
+        // const node = this.artBoard.canvas.dataStore.nodes.get(node_.id)
+        // if (node) {
+        //   node.gfxInstance?.reDraw();
+        // }
       })
     }
   }

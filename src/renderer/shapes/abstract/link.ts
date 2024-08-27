@@ -129,6 +129,7 @@ export abstract class LinkShapeAbstract extends ShapeAbstractBase implements ILi
 
 
   draw(renderShape: boolean = true, renderLabel: boolean = true) {
+    console.log("=====draw-link")
     super.draw(renderShape, renderLabel) 
     // update the position 
     if (renderShape) {
