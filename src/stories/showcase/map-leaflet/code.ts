@@ -22,24 +22,24 @@ export default () => {
     // { latlng: [51.495, -0.08] },
   ];
 
-  const pixiLayer = new PixiLayer({ markers }).addTo(map);
 
   // Create an instance of the PixiLayer and add it to the map
   // const pixiLayer = createPixiLayer({ markers }).addTo(map);
 
 
-  // const canvas = new GraphCanvas({
-  //   viewElement: canvasDiv,
-  //   backgroundAlpha: 1,
-  //   extraSettings: {
-  //     nodeColorBasedOn: 'group',
-  //     nodeSizeBasedOn: 'degree'
-  //   },
-  // });
+  const canvas = new GraphCanvas({
+    viewElement: canvasDiv,
+    backgroundAlpha: 1,
+    extraSettings: {
+      nodeColorBasedOn: 'group',
+      nodeSizeBasedOn: 'degree'
+    },
+  });
 
-  // canvas.artBoard.init().then(() => {
+  canvas.artBoard.init().then(() => {
+    const pixiLayer = new PixiLayer({ graphCanvas, shouldRedrawOnMove: true }).addTo(map);
 
-  // });
+  });
 
   // onStoryDown(() => {
   //   canvas.artBoard.renderer.destroy();

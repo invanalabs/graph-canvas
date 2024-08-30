@@ -110,9 +110,9 @@ export class ArtBoard extends ArtBoardBase {
       this.pixiApp.destroy(true, { children: true, texture: true, textureSource: true, context: true, style: true });
       this.isDestroyed = true; // Set the custom flag to true
       // Remove the canvas element from the DOM
-      if (this.pixiApp.canvas && this.pixiApp.canvas.parentNode) {
-        this.pixiApp.canvas.parentNode.removeChild(this.pixiApp.canvas);
-      }
+      // if (this.pixiApp.canvas && this.pixiApp.canvas.parentNode) {
+      //   this.pixiApp.canvas.parentNode.removeChild(this.pixiApp.canvas);
+      // }
       // Optionally, nullify the reference to the canvas
       // this.pixiApp.canvas = null;
       console.log("The PIXI app and canvas have been destroyed.");
