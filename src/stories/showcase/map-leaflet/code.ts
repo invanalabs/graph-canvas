@@ -1,7 +1,7 @@
 import { ArtBoard } from "../../../artBoard";
 import { GraphCanvas } from "../../../canvas";
 import { onStoryDown } from "../../utils/storyDown";
-import { createPixiLayer, MarkerData, PixiLayer } from "./pixiLayer";
+import { createPixiLayer, MarkerData, PixiLayer } from "./pixiLeaflet";
 import L, { Map as LeafletMap, LatLngExpression, Point, Layer } from 'leaflet';
 
 
@@ -18,8 +18,8 @@ export default () => {
   // Define some marker data with lat/lng positions
   const markers: MarkerData[] = [
     { latlng: [17.3662545, 78.3517307] },
-    // { latlng: [51.515, -0.1] },
-    // { latlng: [51.495, -0.08] },
+    { latlng: [51.515, -0.1] },
+    { latlng: [51.495, -0.08] },
   ];
 
 
@@ -29,7 +29,8 @@ export default () => {
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
-    backgroundAlpha: 1,
+    backgroundAlpha: 0, // 0 is transparent
+    // background: "#ff00ff",
     extraSettings: {
       nodeColorBasedOn: 'group',
       nodeSizeBasedOn: 'degree'
@@ -37,8 +38,8 @@ export default () => {
   });
 
   canvas.artBoard.init().then(() => {
-    const pixiLayer = new PixiLayer({ graphCanvas, shouldRedrawOnMove: true }).addTo(map);
-
+    const pixiLayer = new PixiLayer({ graphCanvas: canvas, markers: markers }).addTo(map);
+    // pixiLayer.addMarker()
   });
 
   // onStoryDown(() => {

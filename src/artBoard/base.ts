@@ -91,16 +91,16 @@ export class ArtBoardBase {
     const pixiAppArgs = {
       width: screenWidth,
       height: screenHeight,
-      view: this.canvas.options.viewElement,
+      // canvas: this.canvas.options.viewElement,
       antialias: true,
-      resizeTo: window,
-      // preference: "webgpu",
+      resizeTo: this.canvas.options.viewElement,
+      preference: "webgpu",
       autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
       autoDensity: true,
       resolution: window.devicePixelRatio, /// 2 for retina displays
       backgroundColor: this.canvas.options.background,
       backgroundAlpha: this.canvas.options.backgroundAlpha,
-      transparent: true
+      // transparent: true
       // eventMode: 'static', //  Emit events and is hit tested. Same as interaction = true in v7
     }
 
