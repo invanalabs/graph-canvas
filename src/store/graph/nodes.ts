@@ -29,6 +29,8 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     total: number
   }
 
+  geoPosition?: [number, number]
+
   declare gfxInstance: NodeShapeAbstract
 
   state: IShapeState = ":default"
@@ -59,6 +61,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
     const style = props.style ? deepMerge( NodeStyleDefaults,  props?.style || {}) : NodeStyleDefaults
     this.setStyle(style)
     this.isDraggable = props.isDraggable === undefined ? true : props.isDraggable  
+    this.geoPosition = props.geoPosition
   }
 
   toJson(): ICanvasNode{
@@ -104,7 +107,7 @@ export class CanvasNode extends CanvasItemBase implements ICanvasNode {
         this.x = x;
         this.y = y;
         
-        this.gfxInstance?.setPosition(x, y)
+        this.gfxInstance?._setPosition(x, y)
       }
   }
 

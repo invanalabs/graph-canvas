@@ -6,7 +6,7 @@ import L, { Map as LeafletMap, LatLngExpression, Point } from 'leaflet';
 export default class LeafletMapPlugin implements PluginAbstract {
 
     artBoard: ArtBoard;
-    private map: LeafletMap;
+    private map: L.LeafletMap;
 
     constructor(artBoard: ArtBoard) {
         this.artBoard = artBoard
@@ -19,15 +19,9 @@ export default class LeafletMapPlugin implements PluginAbstract {
         div.style.left = "0";
         div.style.position = "absolute";
         div.style.width = "100%";
-        div.style.height = "100%";
+        div.style.height = "absolute";
 
-
-
-        initialCoords: LatLngExpression, initialZoom: number
-
-
-        
-        this.map = L.map(div).setView(initialCoords, initialZoom);
+        // this.map = L.map(div).setView(initialCoords, initialZoom);
 
 
         return div

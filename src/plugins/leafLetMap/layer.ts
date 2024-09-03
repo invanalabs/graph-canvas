@@ -1,15 +1,14 @@
-import L from 'leaflet';
+import * as L from 'leaflet';
 import * as PIXI from 'pixi.js';
-import { GraphCanvas } from '../../../canvas';
 import 'leaflet/dist/leaflet.css';
-import { CanvasLink, CanvasNode } from '../../../store';
+import { GraphCanvas } from '../../canvas';
+import { CanvasNode } from '../../store';
 
 export interface MarkerData {
     latlng: L.LatLngExpression;
 }
 
 export interface PixiLayerOptions extends L.LayerOptions {
-    markers?: MarkerData[];
     graphCanvas: GraphCanvas; // Accept pixiApp as an option
 }
 
@@ -25,6 +24,7 @@ export class PixiLayer extends L.Layer {
         this._markers = {};
         this.options = options
         this._pixiApp = options.graphCanvas.artBoard.pixiApp 
+        this._update = this._update.bind(this)
     }
 
     addMarkers(nodes: CanvasNode[]){
@@ -58,13 +58,12 @@ export class PixiLayer extends L.Layer {
         map.on('viewreset', this._update, this);
 
         this._update();
-
         return this;
     }
 
     onRemove(map: L.Map): this {
         // Only remove the PIXI canvas from the map if this layer added it
-        if (this._pixiApp.view.parentNode === this._map.getPanes().overlayPane) {
+        if (this._pixiApp.canvas.parentNode === this._map.getPanes().overlayPane) {
             L.DomUtil.remove(this._container);
         }
 

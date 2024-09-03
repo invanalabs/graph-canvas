@@ -63,6 +63,8 @@ export interface ICanvasNode extends ICanvasItemBase {
   icon? : string,
   image?: string
   // links?: CanvasLink[]
+
+  geoPosition?: [number, number]
 }
 
 export interface IDataStore {

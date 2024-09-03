@@ -33,7 +33,8 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
     return data
   }
 
-  setPosition = (x: number, y: number) => {
+  _setPosition = (x: number, y: number) => {
+    // dont call this method directly, use updateNodePosition
     this.containerGfx.position.set(x, y);
   }
   // layers
@@ -196,7 +197,7 @@ export abstract class NodeShapeAbstract extends ShapeAbstractBase implements INo
     // update the position 
     if (renderShape) {
       if (this.data.x && this.data.y) {
-        this.setPosition(this.data?.x, this.data?.y)
+        this._setPosition(this.data?.x, this.data?.y)
       }
     }
     if (this.artBoard.canvas.options.debugMode === true){

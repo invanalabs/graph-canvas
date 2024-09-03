@@ -65,18 +65,22 @@ export class ArtBoardBase {
     const _this = this;
     // console.log("start_drawing this.options", this.canvas.options)
     const { screenWidth, screenHeight } = this.getCanvasSizeOptions()
-    const pixiAppArgs = {
+    let pixiAppArgs = {
       width: screenWidth,
       height: screenHeight,
-      // canvas: this.canvas.options.viewElement,
       antialias: true,
       resizeTo: this.canvas.options.viewElement,
+      // canvas : this.canvas.options.viewElement,
       // preference: "webgpu",
       autoStart: true, // // disable automatic rendering by ticker, render manually instead, only when needed
       autoDensity: true,
       resolution: window.devicePixelRatio, /// 2 for retina displays
       backgroundColor: this.canvas.options.background,
       backgroundAlpha: this.canvas.options.backgroundAlpha,
+    }
+
+    if (this.canvas.options?.backgroundAlpha !== 0){
+      pixiAppArgs['canvas'] = this.canvas.options.viewElement;
     }
 
     return this.pixiApp.init(pixiAppArgs).then(() => {
