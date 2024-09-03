@@ -65,7 +65,7 @@ export class ArtBoardBase {
     const _this = this;
     // console.log("start_drawing this.options", this.canvas.options)
     const { screenWidth, screenHeight } = this.getCanvasSizeOptions()
-    let pixiAppArgs = {
+    const pixiAppArgs = {
       width: screenWidth,
       height: screenHeight,
       antialias: true,

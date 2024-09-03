@@ -24,14 +24,14 @@ export class PixiLayer extends L.Layer {
         super(options);
         this._markers = {};
         this.options = options
-        this._pixiApp = options.graphCanvas.artBoard.pixiApp 
+        this._pixiApp = options.graphCanvas.artBoard.pixiApp
     }
 
     addMarkers(nodes: CanvasNode[]){
         nodes.forEach(node => { this._markers[node.id] = node })
         // links.forEach(link => { this._markers[link.id] = link })
-        this._update()
         // draw the marker on canvas 
+        this._update()
     }
 
     // removeMarker(marker: MarkerData ){
@@ -54,8 +54,8 @@ export class PixiLayer extends L.Layer {
         map.on('move', this._update, this);
         map.on('zoomend', this._update, this);
         map.on('moveend', this._update, this);
-        // Optionally, call this to update the layer on zoom/pan
-        map.on('viewreset', this._update, this);
+        // // Optionally, call this to update the layer on zoom/pan
+        // map.on('viewreset', this._update, this);
 
         this._update();
 
@@ -82,30 +82,36 @@ export class PixiLayer extends L.Layer {
     }
 
     private _update = (): void => {
-        console.log("=====_update")
+        console.log("=====_update", this._map)
         // Update the layer on zoom/pan (optional)
+    
         const bounds = this._map.getBounds();
         const topLeft = this._map.latLngToLayerPoint(bounds.getNorthWest());
-        const size = this._map.getSize();
+        const mapSize = this._map.getSize();
+        const canvasSize = this._pixiApp.renderer.screen;
 
         // Position the PIXI container
         L.DomUtil.setPosition(this._container, topLeft);
-        this._pixiApp.renderer.resize(size.x, size.y);
+        console.log("====size", mapSize.x, mapSize.y, this._pixiApp.renderer.screen)
+        if (mapSize.x !== canvasSize.x || mapSize.y !== canvasSize.y){
+            this._pixiApp.renderer.resize(mapSize.x, mapSize.y);
+        }
 
         // Update PIXI graphics based on map state
-        this._drawMarkers();
+        this._positionMarkers();
     }
 
-    private _drawMarkers(): void {
-        this.options.graphCanvas.artBoard.viewport.removeChildren()
+    private _positionMarkers(): void {
+        // this.options.graphCanvas.artBoard.viewport.removeChildren()
 
         Object.keys(this._markers).forEach(nodeId => {
             const node: CanvasNode = this._markers[nodeId];
             console.log(`Key: ${nodeId}, Value: ${node.geoPosition}`);
-            const markerPosition = this._map.latLngToLayerPoint(node.geoPosition);
-            console.log("Node, is ", nodeId, markerPosition)
-            node.updateNodePosition(markerPosition.x, markerPosition.y)
-            // node.updateNodePosition(node.geoPosition[0], node.geoPosition[1])
+            // const markerPosition = this._map.latLngToLayerPoint(node.geoPosition);
+            // console.log("Node, is ", nodeId, markerPosition)
+            // node.updateNodePosition(markerPosition.x, markerPosition.y)
+            // //@ts-ignore
+            node.updateNodePosition(node.geoPosition[0], node.geoPosition[1])
         });
 
  

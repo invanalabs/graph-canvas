@@ -49,6 +49,9 @@ export default () => {
 
     // addd the data 
     const newData = canvas.dataStore.add(nodes, links)
+    canvas.artBoard.camera.fitView()
+
+
     // Create a Leaflet map
     const map = L.map('mapContainer').setView([17.3662545, 78.3517307], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -57,7 +60,6 @@ export default () => {
 
     const pixiLayer: PixiLayer = new PixiLayer({ graphCanvas: canvas }).addTo(map);
     pixiLayer.addMarkers(newData.nodes)
-    // canvas.artBoard.camera.fitView()
   });
 
   // canvas.dataStore.on("node:data:onAdded", ({ node}: OnNodeAddedEventData) =>{
