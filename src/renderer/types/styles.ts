@@ -47,9 +47,9 @@ export interface ILinkShapeStyle {
 
 /* for nodes */
 export interface IShapeLabelStyle {
-  background: IShapeBgStyle
-  border: IShapeBorderStyle
-  text: ITextStyle
+  background?: IShapeBgStyle
+  border?: IShapeBorderStyle
+  text?: ITextStyle
   padding : number
   resolution?: number
 }

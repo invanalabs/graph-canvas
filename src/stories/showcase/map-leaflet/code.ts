@@ -1,10 +1,9 @@
-import { ArtBoard } from "../../../artBoard";
 import { GraphCanvas } from "../../../canvas";
 import { CanvasNode, ICanvasLink, ICanvasNode } from "../../../store";
-import { OnNodeAddedEventData } from "../../../store/events/types";
 import { onStoryDown } from "../../utils/storyDown";
-import { createPixiLayer, MarkerData, PixiLayer } from "./pixiLeaflet";
-import L, { Map as LeafletMap, LatLngExpression, Point, Layer } from 'leaflet';
+import { PIXILeafLetOverlay } from "./pixiLeafletOverlay";
+import L, { Map } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 
 export default () => {
@@ -14,29 +13,26 @@ export default () => {
 
   // Define some marker data with lat/lng positions
   const nodes: ICanvasNode[] = [
-    { id: "hyderabad", group: "City", label: "Hyderabad ", x: 10, y: 0, geoPosition: [17.3662545, 78.3517307] },
-    { id: "chennai", group: "City", label: "Chennai", x: 100, y: 100, geoPosition: [13.0474733, 80.0442028] },
+    { id: "hyderabad", group: "MetroCity", label: "Hyderabad ", geoPosition: [17.4273732,78.3944216] },
+    { id: "chennai", group: "MetroCity", label: "Chennai", geoPosition: [13.0474733, 80.0442028] },
     // { latlng: [51.495, -0.08] },
   ];
 
-  // const markers: ICanvasNode[] = [
-  //   { id: '1', group: 'Person', label: 'Ravi',  x: 100, y: 200 },
-  //   { id: '2', group: 'Project', label: 'Graph Canvas',  x: 450, y: 200 },
-  //   { id: '3', group: 'Project', label: 'Graph Engine',  x: 350, y: 350 }    
-  // ]
   const links: ICanvasLink[] = [
     { id: 'hyderabad-chennai', group: 'route', label: 'hyd-che-route', source: 'hyderabad', target: 'chennai', shapeName: 'straightLine' },
   ]
-
-
-  // Create an instance of the PixiLayer and add it to the map
-  // const pixiLayer = createPixiLayer({ markers }).addTo(map);
 
 
   const canvas = new GraphCanvas({
     viewElement: canvasDiv,
     backgroundAlpha: 0, // 0 is transparent
     // background: "#ff00ff",
+    styles: {
+      defaultNodeStyle: {
+        shape: { background: {color: "#ff0000"}},
+        label: { text: {color: "#ff0000"}}
+      }
+    },
     extraSettings: {
       nodeColorBasedOn: 'group',
       nodeSizeBasedOn: 'degree'
@@ -49,22 +45,48 @@ export default () => {
 
     // addd the data 
     const newData = canvas.dataStore.add(nodes, links)
-    canvas.artBoard.camera.fitView()
-
-
     // Create a Leaflet map
-    const map = L.map('mapContainer').setView([17.3662545, 78.3517307], 13);
+    const map = L.map('mapContainer').setView([17.3662545, 78.3517307], 6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19
     }).addTo(map)
 
-    const pixiLayer: PixiLayer = new PixiLayer({ graphCanvas: canvas }).addTo(map);
-    pixiLayer.addMarkers(newData.nodes)
+
+    let firstDraw = true;
+    let prevZoom: any;
+
+    // Define your draw callback (will be used when redrawing the overlay)
+    function drawCallback(utils: any, event: L.LeafletEvent): void {
+      // This is where markers and other things should be drawn/redrawn
+      console.log("drawCallback", event)
+      const zoom = utils.getMap().getZoom();
+      const container = utils.getContainer();
+      const renderer = utils.getRenderer();
+      const project = utils.latLngToLayerPoint;
+      const scale = utils.getScale();
+
+      canvas.dataStore.getNodes().forEach((node: CanvasNode) => {
+        if (firstDraw) {
+          const markerCoords = project(node.geoPosition);
+          node.updateNodePosition(markerCoords.x, markerCoords.y)
+        }
+        if (firstDraw || prevZoom !== zoom) {
+          node.gfxInstance.containerGfx.scale.set(1 / scale);
+        }
+      })
+      firstDraw = false;
+      prevZoom = zoom;
+      renderer.render(container);
+
+    }
+
+
+
+    const pixiLayer: PIXILeafLetOverlay = new PIXILeafLetOverlay(drawCallback, canvas.artBoard.pixiApp)
+    pixiLayer.addTo(map);
+    // pixiLayer.addMarkers(newData.nodes)
   });
 
-  // canvas.dataStore.on("node:data:onAdded", ({ node}: OnNodeAddedEventData) =>{
-  //   node.updateNodePosition(node.geoPosition[0], node.geoPosition[1])
-  // })
 
   onStoryDown(() => {
     canvas.artBoard.renderer.destroy();
