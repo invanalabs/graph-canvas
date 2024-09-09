@@ -14,7 +14,11 @@ import customiseStylingExamplePlay from "./customiseStyling/code"
 import customiseStylingExampleSource from "./customiseStyling/code?raw"
 
 
+import leafLetMapExamplePlay from "./map-leaflet/code"
+import leafLetMapExampleSource from "./map-leaflet/code?raw"
 
+
+import mapTemplate from "./map-leaflet/index.html?raw";
 
 
 const meta: Meta = {
@@ -62,12 +66,25 @@ export const LargeDatasetStory: Story = {
 
 
 export const CustomiseStyling: StoryObj = {
-  name : "Customise Styling",
+  name : "Theming :: Customise Styling",
   render: () => renderTemplate(),
   play: customiseStylingExamplePlay,
   parameters: {
     storySource: {
       source: customiseStylingExampleSource
+    }
+  }
+};
+
+
+
+export const LeafletMap: StoryObj = {
+  name : "Map :: Leaflet",
+  render: () => mapTemplate,
+  play: leafLetMapExamplePlay,
+  parameters: {
+    storySource: {
+      source: leafLetMapExampleSource
     }
   }
 };

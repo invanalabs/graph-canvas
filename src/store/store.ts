@@ -395,7 +395,7 @@ export class DataStore implements IDataStore {
    * @param nodes 
    * @param links 
    */
-  add(nodes: ICanvasNode[], links: ICanvasLink[]) {
+  add(nodes: ICanvasNode[], links: ICanvasLink[]): {nodes: CanvasNode[], links: CanvasLink[]} {
     console.log("adding nodes and links", nodes, links)
 
     if (this.canvas.artBoard.isDestroyed === true) {
@@ -413,6 +413,7 @@ export class DataStore implements IDataStore {
     const newLinks = links.map(link=> this.links.get(link.id)).filter(link => link !== undefined)
     // this.canvas.layout.computeLayout(newNodes, newLinks)
     this.canvas.artBoard.renderer.renderSelection(newNodes, newLinks)
+    return {nodes: newNodes, links:  newLinks} 
   }
 
   getNeighborLinks(nodeId: IdString): CanvasLink[] {

@@ -1,5 +1,4 @@
 import { GraphCanvas } from "../../../../canvas";
-import D3ForceLayoutComputer from "../../../../layout/d3-force";
 import ArtBoardStatusBar from "../../../../plugins/statusBar";
 import { ICanvasLink, ICanvasNode } from "../../../../store";
 import { onStoryDown } from "../../../utils/storyDown";

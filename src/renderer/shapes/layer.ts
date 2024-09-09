@@ -38,7 +38,7 @@ export class GraphicsLayer {
     const layer = new Container({
       isRenderGroup:true // this containers transform is now handled on the GPU!
     })
-    layer.name = LayerName
+    layer.label = LayerName
     layer.zIndex = zIndex
     layer.interactive = true
     // this.baseLayer.addChild(layer)
