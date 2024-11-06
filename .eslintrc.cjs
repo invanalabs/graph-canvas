@@ -26,6 +26,7 @@ module.exports = {
         "sourceType": "module"
     },
     "rules": {
+        'import/first': 'off',
         // "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
         // 'block-spacing': ['error', 'always'],
     }

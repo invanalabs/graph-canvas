@@ -7,7 +7,7 @@ import dagreLayoutExampleSource from "./code?raw"
  
 
 const meta = {
-  title: 'Layout Computers/DagreForceLayoutComputer',
+  title: 'Layout Computers/dagre',
 } satisfies Meta;
 
 export default meta;

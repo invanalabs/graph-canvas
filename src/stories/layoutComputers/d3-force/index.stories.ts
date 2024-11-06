@@ -6,7 +6,7 @@ import renderTemplate from '../../utils/render';
 
  
 const meta = {
-  title: 'Layout Computers/D3ForceLayoutComputer',
+  title: 'Layout Computers/d3-force',
 } satisfies Meta;
 
 export default meta;

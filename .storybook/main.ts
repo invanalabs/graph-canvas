@@ -8,7 +8,8 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     '@storybook/addon-docs',
     "@storybook/addon-interactions",
-    "@storybook/addon-storysource"
+    "@storybook/addon-storysource",
+    "@chromatic-com/storybook"
   ],
   framework: {
     name: "@storybook/html-vite",
@@ -20,9 +21,7 @@ const config: StorybookConfig = {
   // core: {
   //   disableTelemetry: true,
   // },
-  docs: {
-    autodocs: "tag"
-  },
+  docs: {},
   viteFinal: async (config, { configType }) => {
     config.plugins.push({
       name: 'storybook-addon-storysource',
