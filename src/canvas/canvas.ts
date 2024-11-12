@@ -16,7 +16,7 @@ export class GraphCanvas {
   constructor(options: ICanvasOptions) {
     console.log("GraphCanvas.options before", options, defaultCanvasOptions)
     this.originalOptions = options
-    //@ts-ignore
+    //@ts-expect-error
     const styles = deepMerge(defaultCanvasOptions.styles, options.styles || {})
     defaultCanvasOptions.styles = styles;
 

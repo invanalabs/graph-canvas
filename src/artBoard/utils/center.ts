@@ -7,13 +7,9 @@ export const getNodesPOV = (nodes: CanvasNode[]) => {
   const nodesX = nodes.map((node: CanvasNode) => node.x);
   const nodesY = nodes.map((node: CanvasNode) => node.y);
 
-  // @ts-ignore
   const minX = Math.min(...nodesX);
-  // @ts-ignore
   const maxX = Math.max(...nodesX);
-  // @ts-ignore
   const minY = Math.min(...nodesY);
-  // @ts-ignore
   const maxY = Math.max(...nodesY);
 
   const min = new Point(minX, minY);
@@ -25,7 +21,6 @@ export const getNodesPOV = (nodes: CanvasNode[]) => {
 export const getCenter = (nodes: CanvasNode[], padding: number = 50) => {
 
   const { min, max } = getNodesPOV(nodes)
-
   const graphWidth = Math.abs(max.x - min.x) + (padding * 2);
   const graphHeight = Math.abs(max.y - min.y);
 
