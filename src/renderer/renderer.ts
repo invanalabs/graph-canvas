@@ -61,11 +61,18 @@ export class Renderer {
       height: height,
       antialias: true,
       preference: options.preference,
-      resizeTo: options.viewElement,
+      resizeTo: window,
       canvas: options.viewElement,
       resolution: options.stageOptions?.resolution?.stage,
       backgroundColor: options.stageOptions?.background,
       backgroundAlpha: options.stageOptions?.backgroundAlpha,
+
+      //   eventFeatures: {
+      //     move: false,
+      //     globalMove: false,
+      //     click: false,
+      //     wheel: false,
+      // },
     }
     if (options.stageOptions?.backgroundAlpha === 0) {
       delete pixiAppArgs.canvas
