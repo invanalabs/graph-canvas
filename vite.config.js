@@ -9,6 +9,16 @@ export default defineConfig({
       name: 'graph-canvas',
       fileName: 'graph-canvas',
     },
+    minify: 'terser', // Enable minification
+    terserOptions: {  // Configure Terser options
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      },
+      format: {
+        comments: false
+      }
+    },
     rollupOptions: {
       external: ['vue'],
       input: {

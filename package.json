@@ -49,6 +49,7 @@
     "leaflet": "^1.9.4",
     "live-server": "^1.1.0",
     "storybook": "^8.4.2",
+    "terser": "^5.36.0",
     "typedoc": "^0.25.13",
     "typescript": "^5.4.5",
     "typescript-eslint": "^7.10.0",
