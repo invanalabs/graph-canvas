@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { wrapStory } from "../../utils";
 import play from "./index";
-import template from "./index.html?raw";
+import template from "./../../html-templates/full-screen.html?raw";
 import source from "./index?raw";
 
 
