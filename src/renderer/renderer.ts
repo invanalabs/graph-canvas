@@ -37,7 +37,7 @@ export class Renderer {
   //   }
   //   return this.viewport;
   // }
-  
+
   getCanvasSizeOptions() {
     const divRectangle = this.options.viewElement.getBoundingClientRect();
     if (divRectangle?.width == 0 || divRectangle?.height == 0) {
@@ -62,7 +62,7 @@ export class Renderer {
       antialias: true,
       preference: options.preference,
       resizeTo: options.viewElement,
-      canvas : options.viewElement,
+      canvas: options.viewElement,
       resolution: options.stageOptions?.resolution?.stage,
       backgroundColor: options.stageOptions?.background,
       backgroundAlpha: options.stageOptions?.backgroundAlpha,

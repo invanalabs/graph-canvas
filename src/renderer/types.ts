@@ -21,6 +21,4 @@ export interface IRendererOptions {
   preference?: 'webgl' | 'webgpu'
   debugMode?: boolean
   stageOptions?: IStageOptions
-  // styles?: GraphicsStyles
-  // extraSettings?: ExtraSettings
 }
