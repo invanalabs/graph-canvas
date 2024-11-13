@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { wrapStory } from "../../utils";
-import play from "./index";
-import template from "./../../html-templates/full-screen.html?raw";
-import source from "./index?raw";
+import { wrapStory } from "../utils";
+import simpleExamplePlay from "./simple-example/index";
+import source from "./simple-example/index?raw";
+
+import template from "./../html-templates/full-screen.html?raw";
 
 
 const meta = {
@@ -20,7 +21,7 @@ type Story = StoryObj;
 export const story: Story = {
   name: "Simple Example",
   render: () => template,
-  play: wrapStory(play),
+  play: wrapStory(simpleExamplePlay),
   args: {},
   parameters: {
     storySource: {
