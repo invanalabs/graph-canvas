@@ -58,6 +58,7 @@
   "dependencies": {
     "gl-matrix": "^3.4.3",
     "pixi-viewport": "github:davidfig/pixi-viewport",
-    "pixi.js": "^8.5.2"
+    "pixi.js": "^8.5.2",
+    "vis-network": "^9.1.9"
   }
 }
