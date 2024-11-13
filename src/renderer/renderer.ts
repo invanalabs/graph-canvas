@@ -12,6 +12,7 @@ export class Renderer {
   viewport!: Viewport
 
   constructor(options: IRendererOptions) {
+    console.log("===options", options)
     this.options = deepMerge(defaultCanvasOptions, options || {}) as IRendererOptions
     this.pixiApp = new PIXI.Application()
   }

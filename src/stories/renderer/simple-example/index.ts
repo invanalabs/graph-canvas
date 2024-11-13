@@ -5,6 +5,7 @@ export default () => {
   const options: IRendererOptions = {
     viewElement: document.getElementById("invana-container") as HTMLCanvasElement
   }
+  console.log("===story options", options)
   const renderer = new Renderer(options);
   renderer.init().then(() => {
     console.log("Renderer initialized");

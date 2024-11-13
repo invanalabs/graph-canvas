@@ -9,7 +9,7 @@ const meta = {
   title: 'Renderer',
   parameters: {
     layout: 'fullscreen',
-  },
+  }
 
 } satisfies Meta;
 

@@ -38,14 +38,14 @@ export default defineConfig({
         }
       }
     },
-    {
-      name: 'raw-loader',
-      transform(code, id) {
-        if (id.endsWith('?raw')) {
-          return `export default ${JSON.stringify(code)}`;
-        }
-      }
-    }
+    // {
+    //   name: 'raw-loader',
+    //   transform(code, id) {
+    //     if (id.endsWith('?raw')) {
+    //       return `export default ${JSON.stringify(code)}`;
+    //     }
+    //   }
+    // }
   ]
 })
 
