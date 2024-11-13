@@ -10,6 +10,7 @@ export default () => {
   renderer.init().then(() => {
     console.log("Renderer initialized");
 
+    // const
     // Create a graphics object
     const circle = new PIXI.Graphics();
     // Draw the circle

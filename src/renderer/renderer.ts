@@ -12,23 +12,19 @@ export class Renderer {
   viewport!: Viewport
 
   constructor(options: IRendererOptions) {
-    console.log("===options", options)
     this.options = deepMerge(defaultCanvasOptions, options || {}) as IRendererOptions
     this.pixiApp = new PIXI.Application()
   }
 
   init = () => {
     const pixiAppArgs = this.generatePIXIAppArgs(this.options)
-    console.log("====pixiAppArgs", pixiAppArgs)
     return this.pixiApp.init(pixiAppArgs).then(() => {
-      console.log("===PIXI APP INITIALIZED===", this.pixiApp)
       this.pixiApp.stage.interactive = true;
       this.pixiApp.stage.hitArea = this.pixiApp.screen;
       this.pixiApp.stage.sortableChildren = true
       this.viewport = this.createViewport(this.pixiApp)
       this.pixiApp.stage.addChild(this.viewport)
     }).finally(() => {
-      console.log("===finally===", this.pixiApp)
     })
   }
 

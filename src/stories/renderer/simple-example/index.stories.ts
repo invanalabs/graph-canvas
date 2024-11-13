@@ -1,9 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { wrapStory } from "../utils";
-import simpleExamplePlay from "./simple-example/index";
-import source from "./simple-example/index?raw";
-
-import template from "./../html-templates/full-screen.html?raw";
+import { wrapStory } from "../../utils";
+import simpleExamplePlay from "./index";
+import source from "./index?raw";
+import template from "./../../html-templates/full-screen.html?raw";
 
 
 const meta = {
