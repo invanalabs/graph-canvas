@@ -1,4 +1,4 @@
-import { Renderer, IRendererOptions } from "../../../"
+import { Renderer, IRendererOptions } from "../../.."
 import * as PIXI from "pixi.js";
 
 export default () => {
