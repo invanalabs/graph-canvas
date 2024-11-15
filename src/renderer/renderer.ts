@@ -95,17 +95,25 @@ export class Renderer {
       .decelerate({
         friction: 0.5,
         bounce: 0.5,
-        // minSpeed?: number;
+        minSpeed: 300
       })
-      // .bounce({time: 200})
+      // .bounce({ time: 200 })
       .clampZoom({
         minWidth: canvasSizeOptions.screenWidth / 10,
         minHeight: canvasSizeOptions.screenHeight / 10,
         maxWidth: canvasSizeOptions.worldWidth,
         maxHeight: canvasSizeOptions.worldHeight
       })
-      .clamp({ direction: "all" })
+    // .clamp({ direction: "all" })
     return viewport;
+  }
+
+  addGfx(graphics: PIXI.Graphics) {
+    this.viewport.addChild(graphics)
+  }
+
+  removeGfx(graphics: PIXI.Graphics) {
+    this.viewport.removeChild(graphics)
   }
 
   destroy() {

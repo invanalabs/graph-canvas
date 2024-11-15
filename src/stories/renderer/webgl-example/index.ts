@@ -20,7 +20,7 @@ export default () => {
     circle.circle(300, 200, 10); // x, y, radius
     circle.fill(0xff0000); // Red color
 
-    renderer.viewport.addChild(circle);
+    renderer.addGfx(circle);
   });
 
   return () => {
