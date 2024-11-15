@@ -11,8 +11,7 @@ export default () => {
   renderer.init().then(() => {
     console.log("Renderer initialized");
 
-    const positions = generateGridPositions({ rows: 10, columns: 50, gridSpacing: 50, size: 10 });
-
+    const positions = generateGridPositions({ rows: 100, columns: 100, gridSpacing: 50, size: 10 });
 
     for (const position of positions) {
       const circle = new PIXI.Graphics();

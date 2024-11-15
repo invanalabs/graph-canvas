@@ -1,5 +1,6 @@
 import { Renderer, IRendererOptions } from "../../../"
 import * as PIXI from "pixi.js";
+import { generateGridPositions } from "../../utils";
 
 export default () => {
   const options: IRendererOptions = {
@@ -10,18 +11,14 @@ export default () => {
   renderer.init().then(() => {
     console.log("Renderer initialized");
 
-    // Create a graphics object
-    const circle = new PIXI.Graphics();
-    circle.circle(100, 100, 10); // x, y, radius
-    circle.fill(0xff0000); // Red color
+    const positions = generateGridPositions({ rows: 100, columns: 100, gridSpacing: 50, size: 10 });
 
-    circle.circle(200, 200, 10); // x, y, radius
-    circle.fill(0xff0000); // Red color
-
-    circle.circle(300, 200, 10); // x, y, radius
-    circle.fill(0xff0000); // Red color
-
-    renderer.addGfx(circle);
+    for (const position of positions) {
+      const circle = new PIXI.Graphics();
+      circle.circle(position.x, position.y, position.size); // x, y, radius
+      circle.fill(0xff0000); // Red color
+      renderer.addGfx(circle);
+    }
   });
 
   return () => {
