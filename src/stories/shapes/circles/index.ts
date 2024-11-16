@@ -19,7 +19,7 @@ export default () => {
 
     // with border
     const circleWithBorder = new Circle({ border: { width: 10 } });
-    circleWithBorder.x = 200
+    circleWithBorder.x = 300
     circleWithBorder.y = 100;
     renderer.addGfx(circleWithBorder);
 

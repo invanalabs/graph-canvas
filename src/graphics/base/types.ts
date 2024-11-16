@@ -1,6 +1,6 @@
 import {
   ColorSource, FillGradient,
-  Matrix, Texture, FillPattern, StrokeStyle,
+  Matrix, Texture, FillPattern,
   LineCap, LineJoin
 } from "pixi.js";
 
