@@ -9,8 +9,8 @@ import rectangleShapeExamplePlay from "./rectangle/index";
 import rectangleShapeExampleSource from "./rectangle/index?raw";
 
 
-import triangleShapeExamplePlay from "./triangle/index";
-import triangleShapeExampleSource from "./triangle/index?raw";
+import symmetricalPolygonShapeExamplePlay from "./symmetricalPolygon/index";
+import symmetricalPolygonShapeExampleSource from "./symmetricalPolygon/index?raw";
 
 
 const meta = {
@@ -52,13 +52,13 @@ export const Rectangle: Story = {
 
 
 export const Triangle: Story = {
-  name: "Triangle",
+  name: "SymmetricalPolygon",
   render: () => template,
-  play: wrapStory(triangleShapeExamplePlay),
+  play: wrapStory(symmetricalPolygonShapeExamplePlay),
   args: {},
   parameters: {
     storySource: {
-      triangleShapeExampleSource,
+      symmetricalPolygonShapeExampleSource,
     },
   },
 };
