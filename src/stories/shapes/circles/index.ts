@@ -12,16 +12,16 @@ export default () => {
     console.log("Renderer initialized");
 
     // with default styling
-    const circle = new Circle();
-    circle.x = 100
-    circle.y = 100;
-    renderer.addGfx(circle);
+    const shape = new Circle();
+    shape.x = 100
+    shape.y = 100;
+    renderer.addGfx(shape);
 
     // with border
-    const circleWithBorder = new Circle({ border: { width: 10 } });
-    circleWithBorder.x = 300
-    circleWithBorder.y = 100;
-    renderer.addGfx(circleWithBorder);
+    const shapeWithBorder = new Circle({ border: { width: 10 } });
+    shapeWithBorder.x = 300
+    shapeWithBorder.y = 100;
+    renderer.addGfx(shapeWithBorder);
 
   });
 

@@ -9,6 +9,10 @@ import rectangleShapeExamplePlay from "./rectangle/index";
 import rectangleShapeExampleSource from "./rectangle/index?raw";
 
 
+import triangleShapeExamplePlay from "./triangle/index";
+import triangleShapeExampleSource from "./triangle/index?raw";
+
+
 const meta = {
   title: 'Shapes',
   parameters: {
@@ -42,6 +46,19 @@ export const Rectangle: Story = {
   parameters: {
     storySource: {
       rectangleShapeExampleSource,
+    },
+  },
+};
+
+
+export const Triangle: Story = {
+  name: "Triangle",
+  render: () => template,
+  play: wrapStory(triangleShapeExamplePlay),
+  args: {},
+  parameters: {
+    storySource: {
+      triangleShapeExampleSource,
     },
   },
 };
