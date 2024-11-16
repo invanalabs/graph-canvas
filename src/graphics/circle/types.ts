@@ -1,7 +1,6 @@
-import { INodeGfxOptionsBase } from "../types";
+import { INodeStyle } from "../types";
 
 
-
-export interface ICircleOptions extends INodeGfxOptionsBase {
+export interface ICircleStyle extends INodeStyle {
   radius: number;
 }
