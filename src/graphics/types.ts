@@ -43,6 +43,7 @@ export interface IShapeStyle {
 }
 
 export interface INodeStyle extends IShapeStyle {
+  size: number;
   x: number;
   y: number;
 }

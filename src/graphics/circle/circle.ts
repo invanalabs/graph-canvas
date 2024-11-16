@@ -25,7 +25,7 @@ export class Circle extends PIXI.Graphics {
 
   drawShape() {
     // draw circle
-    this.circle(this.options.x, this.options.y, this.options.radius);
+    this.circle(this.options.x, this.options.y, this.options.size);
 
 
     // draw fill

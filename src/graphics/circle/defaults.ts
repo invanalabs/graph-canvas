@@ -4,9 +4,9 @@ import { ICircleStyle } from "./types";
 export const circleDefauts: ICircleStyle = {
   x: 100,
   y: 100,
-  radius: 20,
+  size: 20,
   fill: {
-    color: 0xf00f00,
+    color: 0x0C88CF,
     alpha: 1
   },
   border: {
