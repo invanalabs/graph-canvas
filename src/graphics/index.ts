@@ -1,4 +1,4 @@
 export * from "./base"
-export * from "./circle"
-export * from "./rectangle"
-export * from "./symmetricalPolygon"
+export * from "./nodes/circle"
+export * from "./nodes/rectangle"
+export * from "./nodes/symmetricalPolygon"
