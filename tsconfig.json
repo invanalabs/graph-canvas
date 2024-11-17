@@ -1,5 +1,10 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["vite/client"],
     "target": "ES2020",
     "useDefineForClassFields": true,
     "module": "ESNext",
@@ -17,10 +22,9 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "types": ["vite/client"]
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src",],
-  "exclude": ["**/*.stories.ts", "**/stories/**"]
+  "include": ["src/**/*",],
+  "exclude": ["src/**/*.stories.ts", "src/**/stories/**"]
 
 }
