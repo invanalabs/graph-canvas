@@ -2,8 +2,8 @@ import { INodeStyle } from "./types";
 
 
 export const nodeStyleDefaults: INodeStyle = {
-  x: 100,
-  y: 100,
+  x: 0,
+  y: 0,
   size: 20,
   fill: {
     color: 0x0C88CF,

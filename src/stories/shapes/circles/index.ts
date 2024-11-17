@@ -1,5 +1,5 @@
 import { Renderer, IRendererOptions } from "@/renderer"
-import { Circle } from "@/shapes";
+import { Circle } from "../../../shapes";
 
 
 export default () => {
@@ -18,7 +18,7 @@ export default () => {
     renderer.addGfx(shape);
 
     // with border
-    const shapeWithBorder = new Circle({ border: { width: 10 } });
+    const shapeWithBorder = new Circle({ fill: { color: "red" }, border: { width: 10 } });
     shapeWithBorder.x = 300
     shapeWithBorder.y = 100;
     renderer.addGfx(shapeWithBorder);

@@ -1,5 +1,6 @@
-import { deepMerge } from "@/utils"
+import * as PIXI from 'pixi.js';
 import { INodeStyle, NodeShapeBase, nodeStyleDefaults } from "../base"
+import { deepMerge } from '@/utils';
 
 export interface IRectangleStyle extends INodeStyle {
   radius: number
@@ -18,14 +19,11 @@ export const rectangleDefaults: IRectangleStyle = {
 
 export class Rectangle extends NodeShapeBase {
 
-  style: IRectangleStyle
+  declare style: IRectangleStyle
 
-  constructor(style: Partial<IRectangleStyle> = rectangleDefaults) {
-    super();
-    this.style = deepMerge(rectangleDefaults, style) as IRectangleStyle
-
-    this.drawBase()
-    this.setShapeStyle()
+  constructor(style: Partial<IRectangleStyle>, options?: PIXI.GraphicsOptions) {
+    style = deepMerge(rectangleDefaults, style) as IRectangleStyle;
+    super(style, options);
   }
 
   drawBase(): void {
@@ -38,6 +36,5 @@ export class Rectangle extends NodeShapeBase {
       this.style.radius
     );
   }
-
 
 }

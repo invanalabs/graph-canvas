@@ -9,8 +9,9 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
 
   style: INodeStyle
 
-  constructor(style: Partial<INodeStyle> = nodeStyleDefaults) {
-    super();
+  constructor(style: Partial<INodeStyle> = nodeStyleDefaults, options?: PIXI.GraphicsOptions) {
+    console.log('NodeShapeBase style', style)
+    super(options);
     this.style = deepMerge(nodeStyleDefaults, style) as INodeStyle
     this.drawBase()
     this.setShapeStyle(this.style)
@@ -21,16 +22,21 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
   */
   abstract drawBase(): void;
 
+  setPosition(x: number, y: number) {
+    this.x = x;
+    this.y = y;
+  }
+
   /*
   * This will set the style of the shape like fill, border, etc.
   */
   setShapeStyle(style: Partial<INodeStyle> = {}) {
-
+    console.log('Setting shape style', style)
     if (isEmptyObject(style)) {
       style = this.style
     }
     // draw fill
-    if (style.fill) {
+    if (style.fill && isEmptyObject(style.fill) === false) {
       const fillStyle: Partial<IShapeFillStyle> = {
         color: style.fill.color,
         alpha: style.fill.alpha,
