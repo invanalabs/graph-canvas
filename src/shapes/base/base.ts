@@ -5,42 +5,51 @@ import { deepMerge } from '../../utils';
 import { isEmptyObject } from '@/utils/validation';
 
 
-export class NodeShapeBase extends PIXI.Graphics {
+export abstract class NodeShapeBase extends PIXI.Graphics {
 
-  options: INodeStyle
+  style: INodeStyle
 
-  constructor(options: Partial<INodeStyle> = nodeStyleDefaults) {
+  constructor(style: Partial<INodeStyle> = nodeStyleDefaults) {
     super();
-    this.options = deepMerge(nodeStyleDefaults, options) as INodeStyle
-    this.drawShape(this.options)
+    this.style = deepMerge(nodeStyleDefaults, style) as INodeStyle
+    this.drawBase()
+    this.setShapeStyle(this.style)
   }
 
-  drawShape(options: Partial<INodeStyle> = {}) {
+  /*
+  *  Abstract method to draw the base shape like circle, rectangle, etc.
+  */
+  abstract drawBase(): void;
 
-    if (isEmptyObject(options)) {
-      options = this.options
+  /*
+  * This will set the style of the shape like fill, border, etc.
+  */
+  setShapeStyle(style: Partial<INodeStyle> = {}) {
+
+    if (isEmptyObject(style)) {
+      style = this.style
     }
     // draw fill
-    if (options.fill) {
+    if (style.fill) {
       const fillStyle: Partial<IShapeFillStyle> = {
-        color: options.fill.color,
-        alpha: options.fill.alpha,
+        color: style.fill.color,
+        alpha: style.fill.alpha,
       }
       // if using pattern
-      if (options.fill.pattern) {
-        fillStyle['pattern'] = options.fill.pattern
+      if (style.fill.pattern) {
+        fillStyle['pattern'] = style.fill.pattern
       }
       // if using matrix
-      if (options.fill.matrix) {
-        fillStyle['matrix'] = options.fill.matrix
+      if (style.fill.matrix) {
+        fillStyle['matrix'] = style.fill.matrix
       }
       // if using texture
-      if (options.fill.texture) {
-        fillStyle['texture'] = options.fill.texture
+      if (style.fill.texture) {
+        fillStyle['texture'] = style.fill.texture
       }
       // if using gradient
-      if (options.fill.gradient) {
-        fillStyle['gradient'] = options.fill.gradient
+      if (style.fill.gradient) {
+        fillStyle['gradient'] = style.fill.gradient
       }
       this.fill(fillStyle);
     } else {
@@ -48,15 +57,15 @@ export class NodeShapeBase extends PIXI.Graphics {
     }
 
     // draw border if exist
-    if (options.border) {
+    if (style.border) {
       this.stroke({
-        width: options.border.width,
-        color: options.border.fill?.color,
-        alpha: options.fill.alpha,
-        alignment: options.border.alignment,
-        cap: options.border.cap,
-        join: options.border.join,
-        miterLimit: options.border.miterLimit
+        width: style.border.width,
+        color: style.border.fill?.color,
+        alpha: style.fill.alpha,
+        alignment: style.border.alignment,
+        cap: style.border.cap,
+        join: style.border.join,
+        miterLimit: style.border.miterLimit
       });
     }
   }
@@ -64,6 +73,6 @@ export class NodeShapeBase extends PIXI.Graphics {
 
   // drawBorder() {
   //   // draw border
-  //   this.lineStyle(options.border.width, options.border.fill.color);
+  //   this.lineStyle(style.border.width, style.border.fill.color);
   // }
 }
