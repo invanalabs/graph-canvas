@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import { nodeStyleDefaults } from './defaults';
 import { INodeStyle, IShapeFillStyle } from './types';
 import { deepMerge } from '../../utils';
+import { isEmptyObject } from '@/utils/validation';
 
 
 export class NodeShapeBase extends PIXI.Graphics {
@@ -11,32 +12,35 @@ export class NodeShapeBase extends PIXI.Graphics {
   constructor(options: Partial<INodeStyle> = nodeStyleDefaults) {
     super();
     this.options = deepMerge(nodeStyleDefaults, options) as INodeStyle
-    this.drawShape()
+    this.drawShape(this.options)
   }
 
-  drawShape() {
+  drawShape(options: Partial<INodeStyle> = {}) {
 
+    if (isEmptyObject(options)) {
+      options = this.options
+    }
     // draw fill
-    if (this.options.fill) {
+    if (options.fill) {
       const fillStyle: Partial<IShapeFillStyle> = {
-        color: this.options.fill.color,
-        alpha: this.options.fill.alpha,
+        color: options.fill.color,
+        alpha: options.fill.alpha,
       }
       // if using pattern
-      if (this.options.fill.pattern) {
-        fillStyle['pattern'] = this.options.fill.pattern
+      if (options.fill.pattern) {
+        fillStyle['pattern'] = options.fill.pattern
       }
       // if using matrix
-      if (this.options.fill.matrix) {
-        fillStyle['matrix'] = this.options.fill.matrix
+      if (options.fill.matrix) {
+        fillStyle['matrix'] = options.fill.matrix
       }
       // if using texture
-      if (this.options.fill.texture) {
-        fillStyle['texture'] = this.options.fill.texture
+      if (options.fill.texture) {
+        fillStyle['texture'] = options.fill.texture
       }
       // if using gradient
-      if (this.options.fill.gradient) {
-        fillStyle['gradient'] = this.options.fill.gradient
+      if (options.fill.gradient) {
+        fillStyle['gradient'] = options.fill.gradient
       }
       this.fill(fillStyle);
     } else {
@@ -44,15 +48,15 @@ export class NodeShapeBase extends PIXI.Graphics {
     }
 
     // draw border if exist
-    if (this.options.border) {
+    if (options.border) {
       this.stroke({
-        width: this.options.border.width,
-        color: this.options.border.fill?.color,
-        alpha: this.options.fill.alpha,
-        alignment: this.options.border.alignment,
-        cap: this.options.border.cap,
-        join: this.options.border.join,
-        miterLimit: this.options.border.miterLimit
+        width: options.border.width,
+        color: options.border.fill?.color,
+        alpha: options.fill.alpha,
+        alignment: options.border.alignment,
+        cap: options.border.cap,
+        join: options.border.join,
+        miterLimit: options.border.miterLimit
       });
     }
   }
@@ -60,6 +64,6 @@ export class NodeShapeBase extends PIXI.Graphics {
 
   // drawBorder() {
   //   // draw border
-  //   this.lineStyle(this.options.border.width, this.options.border.fill.color);
+  //   this.lineStyle(options.border.width, options.border.fill.color);
   // }
 }
