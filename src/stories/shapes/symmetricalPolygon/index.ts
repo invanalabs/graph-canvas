@@ -1,5 +1,5 @@
 import { Renderer, IRendererOptions } from "../../.."
-import { SymmetricalPolygon } from "../../../graphics";
+import { SymmetricalPolygon } from "../../../shapes";
 
 
 export default () => {

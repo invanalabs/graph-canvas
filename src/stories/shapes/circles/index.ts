@@ -1,5 +1,5 @@
 import { Renderer, IRendererOptions } from "../../.."
-import { Circle } from "../../../graphics";
+import { Circle } from "../../../shapes";
 
 
 export default () => {
