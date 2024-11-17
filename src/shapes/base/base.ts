@@ -10,9 +10,8 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
   style: INodeStyle
 
   constructor(style: Partial<INodeStyle> = nodeStyleDefaults, options?: PIXI.GraphicsOptions) {
-    console.log('NodeShapeBase style', style)
     super(options);
-    this.style = deepMerge(nodeStyleDefaults, style) as INodeStyle
+    this.style = deepMerge(nodeStyleDefaults, style || {}) as INodeStyle
     this.drawBase()
     this.setShapeStyle(this.style)
   }

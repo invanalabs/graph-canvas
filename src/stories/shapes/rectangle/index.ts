@@ -13,14 +13,12 @@ export default () => {
 
     // with default styling
     const shape = new Rectangle({ fill: { alpha: 0.5 } });
-    shape.x = 100
-    shape.y = 100;
+    shape.setPosition(100, 100)
     renderer.addGfx(shape);
 
     // with border
     const shapeWithBorder = new Rectangle({ fill: { color: "green" }, border: { width: 10 } });
-    shapeWithBorder.x = 300
-    shapeWithBorder.y = 100;
+    shapeWithBorder.setPosition(300, 100)
     renderer.addGfx(shapeWithBorder);
 
   });
