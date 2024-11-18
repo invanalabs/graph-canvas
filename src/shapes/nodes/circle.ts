@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import { INodeStyle, NodeShapeBase, nodeStyleDefaults } from "../base";
+import { INodeStyle, NodeShapeBase, nodeStyleDefaults } from ".";
 import { deepMerge } from '@/utils';
 import { drawCircleShape } from '@/shapes/utils';
 
