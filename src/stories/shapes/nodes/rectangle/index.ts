@@ -1,5 +1,5 @@
 import { Renderer, IRendererOptions } from "@/renderer"
-import { Rectangle } from "../../../shapes"
+import { Rectangle } from "../../../../shapes"
 
 
 export default () => {

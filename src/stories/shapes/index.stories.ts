@@ -2,15 +2,15 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { wrapStory } from "../utils";
 import template from "./../html-templates/full-screen.html?raw";
 
-import circleShapeExamplePlay from "./circles/index";
-import circleShapeExampleSource from "./circles/index?raw";
+import circleShapeExamplePlay from "./nodes/circles/index";
+import circleShapeExampleSource from "./nodes/circles/index?raw";
 
-import rectangleShapeExamplePlay from "./rectangle/index";
-import rectangleShapeExampleSource from "./rectangle/index?raw";
+import rectangleShapeExamplePlay from "./nodes/rectangle/index";
+import rectangleShapeExampleSource from "./nodes/rectangle/index?raw";
 
 
-import symmetricalPolygonShapeExamplePlay from "./symmetricalPolygon/index";
-import symmetricalPolygonShapeExampleSource from "./symmetricalPolygon/index?raw";
+import symmetricalPolygonShapeExamplePlay from "./nodes/symmetricalPolygon/index";
+import symmetricalPolygonShapeExampleSource from "./nodes/symmetricalPolygon/index?raw";
 
 
 const meta = {

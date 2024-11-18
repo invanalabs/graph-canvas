@@ -1,5 +1,5 @@
 import { Renderer, IRendererOptions } from "@/renderer"
-import { Circle } from "../../../shapes";
+import { Circle } from "../../../../shapes";
 import { initDevtools } from '@pixi/devtools';
 
 
