@@ -3,7 +3,6 @@ import { nodeStyleDefaults } from './defaults';
 import { INodeStyle, IShapeFillStyle } from './types';
 import { deepMerge } from '@/utils';
 import { isEmptyObject } from '@/utils/validation';
-import { drawCircleShape } from '../utils';
 
 
 export abstract class NodeShapeBase extends PIXI.Graphics {
@@ -136,44 +135,6 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
       this.addChild(mask);
       this.addChild(this.imageSprite);
     })
-
-    // const texture = PIXI.Texture.from(imageUrl);
-    // this.imageSprite = new PIXI.Sprite(texture);
-
-    // // Create a mask
-    // const mask = new PIXI.Graphics();
-    // this.drawBase(mask);
-    // mask.fill({ color: this.style.fill.color, alpha: this.style.fill.alpha });
-    // // add mask to sprite
-    // this.imageSprite.mask = mask;
-    // this.addChild(this.imageSprite);
-    // this.addChild(mask);
-
-    // if (this.imageSprite) {
-    //   // Maintain aspect ratio
-    //   texture.source.once('update', () => {
-    //     const aspectRatio = texture.width / texture.height;
-    //     if (this.imageSprite) {
-    //       if (aspectRatio > 1) {
-    //         // Landscape image
-    //         this.imageSprite.width = texture.width;
-    //         this.imageSprite.height = texture.width / aspectRatio;
-    //       } else {
-    //         // Portrait or square image
-    //         this.imageSprite.height = texture.width;
-    //         this.imageSprite.width = texture.width * aspectRatio;
-    //       }
-    //       // Center the sprite within the circle
-    //       this.imageSprite.x = -this.imageSprite.width / 2;
-    //       this.imageSprite.y = -this.imageSprite.height / 2;
-    //     }
-
-
-    //   });
-    // }
-
-
-
   }
 
   // drawBorder() {

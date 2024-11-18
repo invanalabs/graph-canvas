@@ -44,6 +44,16 @@ export default () => {
     shapeWithImage.setPosition(500, 100)
     renderer.addGfx(shapeWithImage);
 
+
+    // with image
+    const gradientFill = new Circle({
+      // x: 500, y: 100,
+      border: { fill: { color: "red" } },
+      fill: { imageUrl: "https://invana.io/public/img/vendor-logos/janusgraph.png" }
+    });
+    gradientFill.setPosition(100, 300)
+    renderer.addGfx(gradientFill);
+
   });
 
   return () => {
