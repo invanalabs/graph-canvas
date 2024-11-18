@@ -14,7 +14,7 @@ import symmetricalPolygonShapeExampleSource from "./nodes/symmetricalPolygon/ind
 
 
 const meta = {
-  title: 'Shapes',
+  title: 'Shapes/Nodes',
   parameters: {
     layout: 'fullscreen',
   }
