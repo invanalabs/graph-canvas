@@ -21,6 +21,15 @@ export default () => {
     shapeWithBorder.setPosition(500, 100)
     renderer.addGfx(shapeWithBorder);
 
+
+    // with image
+    const shapeWithImage = new Rectangle({
+      // x: 500, y: 100,
+      fill: { alpha: 0.5, imageUrl: "https://invana.io/public/img/vendor-logos/janusgraph.png" }
+    });
+    shapeWithImage.setPosition(900, 100)
+    renderer.addGfx(shapeWithImage);
+
   });
 
   return () => {

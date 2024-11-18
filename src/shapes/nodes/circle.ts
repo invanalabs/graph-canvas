@@ -19,8 +19,10 @@ export class Circle extends NodeShapeBase {
   }
 
   drawBase(gfx: PIXI.Graphics): void {
-    drawCircleShape(gfx, this.style.x, this.style.y, this.style.size);
-    // drawCircleShape(gfx, 0, 0, this.style.size);
+    // This means that gfx.drawCircle(0, 0, 50) will
+    // draw a circle centered at (0, 0) within the graphics
+    // object's local coordinates.
+    drawCircleShape(gfx, 0, 0, this.style.size);
 
   }
 

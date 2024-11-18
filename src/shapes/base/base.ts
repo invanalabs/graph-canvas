@@ -10,11 +10,19 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
 
   style: INodeStyle
 
+  imageSprite: PIXI.Sprite | null = null;
+  iconSprite: PIXI.Sprite | null = null;
+
+
   constructor(style: Partial<INodeStyle> = nodeStyleDefaults, options?: PIXI.GraphicsOptions) {
     super(options);
     this.style = deepMerge(nodeStyleDefaults, style || {}) as INodeStyle
     this.drawBase(this)
+    // this.pivot.set(0.5);
     this.setShapeStyle(this.style)
+    if (this.x && this.y) {
+      this.setPosition(this.x, this.y)
+    }
   }
 
   /*
@@ -25,6 +33,11 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
   setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
+
+    if (this.imageSprite) {
+      this.imageSprite.x = x;
+      this.imageSprite.y = y;
+    }
     // this.pivot.set(0.5);
 
   }
@@ -96,22 +109,22 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
     // When the promise resolves, we have the texture!
     texturePromise.then((texture) => {
       // const texture = PIXI.Texture.from(imageUrl);
-      const sprite = PIXI.Sprite.from(texture);
-      sprite.width = this.width;
-      sprite.height = this.height;
-      sprite.x = this.x;
-      sprite.y = this.y;
-      sprite.anchor.set(0.5);
+      // const borderWidth = this.style.border?.width || 0;
+
+      this.imageSprite = PIXI.Sprite.from(texture);
+      this.imageSprite.width = this.width //+ borderWidth;
+      this.imageSprite.height = this.height //+ borderWidth;
+      this.imageSprite.anchor.set(0.5);
 
       // Create mask
       const mask = new PIXI.Graphics();
       this.drawBase(mask);
       mask.fill(0xffffff);
       // Apply the mask to the sprite
-      sprite.mask = mask;
+      this.imageSprite.mask = mask;
       // Add the sprite and the mask to the stage
       this.addChild(mask);
-      this.addChild(sprite);
+      this.addChild(this.imageSprite);
     })
 
   }

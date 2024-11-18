@@ -29,8 +29,7 @@ export class Rectangle extends NodeShapeBase {
   drawBase(gfx: PIXI.Graphics): void {
     // draw circle
     gfx.roundRect(
-      this.style.x,
-      this.style.y,
+      0, 0,
       this.style.width * this.style.size,
       this.style.height * this.style.size,
       this.style.radius

@@ -19,20 +19,26 @@ export default () => {
     console.log("Renderer initialized");
 
     // with default styling
-    const shape = new Circle({ x: 100, y: 100 });
+    const shape = new Circle({
+      //  x: 100, y: 100
+    }
+    );
     shape.setPosition(100, 100)
     renderer.addGfx(shape);
 
     // with border
-    const shapeWithBorder = new Circle({ x: 300, y: 100, fill: { color: "red" }, border: { width: 10 } });
+    const shapeWithBorder = new Circle({
+      x: 300, y: 100,
+      fill: { color: "red" }, border: { width: 10 }
+    });
     shapeWithBorder.setPosition(300, 100)
     renderer.addGfx(shapeWithBorder);
 
 
-    // with border
+    // with image
     const shapeWithImage = new Circle({
-      x: 500, y: 100,
-      fill: { alpha: 0.5, imageUrl: "https://invana.io/public/img/vendor-logos/janusgraph.png" }
+      // x: 500, y: 100,
+      fill: { imageUrl: "https://invana.io/public/img/vendor-logos/janusgraph.png" }
     });
     shapeWithImage.setPosition(500, 100)
     renderer.addGfx(shapeWithImage);

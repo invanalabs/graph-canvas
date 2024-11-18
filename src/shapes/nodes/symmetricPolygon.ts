@@ -32,8 +32,7 @@ export class SymmetricalPolygon extends NodeShapeBase {
     console.log('Drawing symmetrical polygon', this.style)
     // Draw the symmetrical polygon
     gfx.roundPoly(
-      this.style.x,
-      this.style.y,
+      0, 0,
       this.style.sideLength * this.style.size,
       this.style.sidesCount,
       this.style.radius,
