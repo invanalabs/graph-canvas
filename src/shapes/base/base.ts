@@ -105,14 +105,26 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
     const imageUrl = style.fill.imageUrl
     const texturePromise = PIXI.Assets.load(imageUrl);
 
-    console.log("this.width, this.height", this.width, this.height)
-    // When the promise resolves, we have the texture!
+    // console.log("this.width, this.height", this.width, this.height)
+    // // When the promise resolves, we have the texture!
     texturePromise.then((texture) => {
 
       this.imageSprite = PIXI.Sprite.from(texture);
-      this.imageSprite.width = this.width //+ borderWidth;
-      this.imageSprite.height = this.height //+ borderWidth;
       this.imageSprite.anchor.set(0.5);
+
+      // Keeping the aspect ratio of the image
+      const aspectRatio = this.imageSprite.texture.width / this.imageSprite.texture.height;
+      const textureWidth = this.width + (this.style.border?.width || 0);
+      if (aspectRatio > 1) {
+        // Landscape image
+        this.imageSprite.width = textureWidth;
+        this.imageSprite.height = textureWidth / aspectRatio;
+      } else {
+        // Portrait or square image
+        this.imageSprite.height = textureWidth;
+        this.imageSprite.width = textureWidth * aspectRatio;
+      }
+
 
       // Create mask
       const mask = new PIXI.Graphics();
@@ -124,6 +136,43 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
       this.addChild(mask);
       this.addChild(this.imageSprite);
     })
+
+    // const texture = PIXI.Texture.from(imageUrl);
+    // this.imageSprite = new PIXI.Sprite(texture);
+
+    // // Create a mask
+    // const mask = new PIXI.Graphics();
+    // this.drawBase(mask);
+    // mask.fill({ color: this.style.fill.color, alpha: this.style.fill.alpha });
+    // // add mask to sprite
+    // this.imageSprite.mask = mask;
+    // this.addChild(this.imageSprite);
+    // this.addChild(mask);
+
+    // if (this.imageSprite) {
+    //   // Maintain aspect ratio
+    //   texture.source.once('update', () => {
+    //     const aspectRatio = texture.width / texture.height;
+    //     if (this.imageSprite) {
+    //       if (aspectRatio > 1) {
+    //         // Landscape image
+    //         this.imageSprite.width = texture.width;
+    //         this.imageSprite.height = texture.width / aspectRatio;
+    //       } else {
+    //         // Portrait or square image
+    //         this.imageSprite.height = texture.width;
+    //         this.imageSprite.width = texture.width * aspectRatio;
+    //       }
+    //       // Center the sprite within the circle
+    //       this.imageSprite.x = -this.imageSprite.width / 2;
+    //       this.imageSprite.y = -this.imageSprite.height / 2;
+    //     }
+
+
+    //   });
+    // }
+
+
 
   }
 
