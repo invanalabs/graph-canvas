@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js';
 import { nodeStyleDefaults } from './defaults';
 import { INodeStyle, IShapeFillStyle } from './types';
-import { deepMerge } from '../../utils';
+import { deepMerge } from '@/utils';
 import { isEmptyObject } from '@/utils/validation';
+import { drawCircleShape } from '../utils';
 
 
 export abstract class NodeShapeBase extends PIXI.Graphics {
@@ -12,18 +13,20 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
   constructor(style: Partial<INodeStyle> = nodeStyleDefaults, options?: PIXI.GraphicsOptions) {
     super(options);
     this.style = deepMerge(nodeStyleDefaults, style || {}) as INodeStyle
-    this.drawBase()
+    this.drawBase(this)
     this.setShapeStyle(this.style)
   }
 
   /*
   *  Abstract method to draw the base shape like circle, rectangle, etc.
   */
-  abstract drawBase(): void;
+  abstract drawBase(gfx: PIXI.Graphics): void;
 
   setPosition(x: number, y: number) {
     this.x = x;
     this.y = y;
+    // this.pivot.set(0.5);
+
   }
 
   /*
@@ -56,10 +59,17 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
       if (style.fill.gradient) {
         fillStyle['gradient'] = style.fill.gradient
       }
+
       this.fill(fillStyle);
+
+      // if using imageUrl
+      if (style.fill.imageUrl) {
+        this.createShapeFillImage(style)
+      }
     } else {
       throw new Error("Fill style is required for the node shape")
     }
+
 
     // draw border if exist
     if (style.border) {
@@ -75,6 +85,36 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
     }
   }
 
+  createShapeFillImage(style: Partial<INodeStyle>) {
+    if (!style.fill?.imageUrl) {
+      throw new Error("Image URL is required when calling this method")
+    }
+    const imageUrl = style.fill.imageUrl
+    const texturePromise = PIXI.Assets.load(imageUrl);
+
+    console.log("this.width, this.height", this.width, this.height)
+    // When the promise resolves, we have the texture!
+    texturePromise.then((texture) => {
+      // const texture = PIXI.Texture.from(imageUrl);
+      const sprite = PIXI.Sprite.from(texture);
+      sprite.width = this.width;
+      sprite.height = this.height;
+      sprite.x = this.x;
+      sprite.y = this.y;
+      sprite.anchor.set(0.5);
+
+      // Create mask
+      const mask = new PIXI.Graphics();
+      this.drawBase(mask);
+      mask.fill(0xffffff);
+      // Apply the mask to the sprite
+      sprite.mask = mask;
+      // Add the sprite and the mask to the stage
+      this.addChild(mask);
+      this.addChild(sprite);
+    })
+
+  }
 
   // drawBorder() {
   //   // draw border

@@ -28,10 +28,10 @@ export class SymmetricalPolygon extends NodeShapeBase {
     super(style, options);
   }
 
-  drawBase() {
+  drawBase(gfx: PIXI.Graphics): void {
     console.log('Drawing symmetrical polygon', this.style)
     // Draw the symmetrical polygon
-    this.roundPoly(
+    gfx.roundPoly(
       this.style.x,
       this.style.y,
       this.style.sideLength * this.style.size,

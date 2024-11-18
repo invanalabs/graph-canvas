@@ -16,6 +16,7 @@ export interface IShapeFillStyle {
   texture?: Texture | null;
   /** The matrix to apply. */
   matrix?: Matrix | null;
+  imageUrl?: string;
 }
 
 export interface IShapeBorderStyle {
