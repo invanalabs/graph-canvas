@@ -17,6 +17,6 @@ export const nodeStyleDefaults: INodeStyle = {
     // join?: LineJoin;
     // /** The miter limit to use. */
     // miterLimit?: number;
-    fill: { color: 0x555555, alpha: 1 }
+    fill: { color: 0xf0f2f1, alpha: 1 }
   }
 }
