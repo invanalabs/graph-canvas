@@ -12,13 +12,13 @@ export default () => {
     console.log("Renderer initialized");
 
     // with default styling
-    const shape = new Rectangle({ fill: { alpha: 0.5 } });
+    const shape = new Rectangle({ fill: { alpha: 0.8 } });
     shape.setPosition(100, 100)
     renderer.addGfx(shape);
 
     // with border
     const shapeWithBorder = new Rectangle({ fill: { color: "green" }, border: { width: 10 } });
-    shapeWithBorder.setPosition(300, 100)
+    shapeWithBorder.setPosition(500, 100)
     renderer.addGfx(shapeWithBorder);
 
   });
