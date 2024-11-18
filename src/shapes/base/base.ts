@@ -108,8 +108,6 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
     console.log("this.width, this.height", this.width, this.height)
     // When the promise resolves, we have the texture!
     texturePromise.then((texture) => {
-      // const texture = PIXI.Texture.from(imageUrl);
-      // const borderWidth = this.style.border?.width || 0;
 
       this.imageSprite = PIXI.Sprite.from(texture);
       this.imageSprite.width = this.width //+ borderWidth;
@@ -119,7 +117,7 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
       // Create mask
       const mask = new PIXI.Graphics();
       this.drawBase(mask);
-      mask.fill(0xffffff);
+      mask.fill({ color: this.style.fill.color, alpha: this.style.fill.alpha });
       // Apply the mask to the sprite
       this.imageSprite.mask = mask;
       // Add the sprite and the mask to the stage

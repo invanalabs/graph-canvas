@@ -38,6 +38,7 @@ export default () => {
     // with image
     const shapeWithImage = new Circle({
       // x: 500, y: 100,
+      border: { fill: { color: "red" } },
       fill: { imageUrl: "https://invana.io/public/img/vendor-logos/janusgraph.png" }
     });
     shapeWithImage.setPosition(500, 100)
