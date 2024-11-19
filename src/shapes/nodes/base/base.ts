@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 import { nodeStyleDefaults } from './defaults';
-import { INodeStyle, IShapeFillStyle } from './types';
+import { INodeStyle, INodeFillStyle } from './types';
 import { deepMerge } from '@/utils';
 import { isEmptyObject } from '@/utils/validation';
 
@@ -51,26 +51,26 @@ export abstract class NodeShapeBase extends PIXI.Graphics {
     }
     // draw fill
     if (style.fill && isEmptyObject(style.fill) === false) {
-      const fillStyle: Partial<IShapeFillStyle> = {
+      const fillStyle: Partial<INodeFillStyle> = {
         color: style.fill.color,
         alpha: style.fill.alpha,
       }
       // if using pattern
-      if (style.fill.pattern) {
-        fillStyle['pattern'] = style.fill.pattern
-      }
-      // if using matrix
-      if (style.fill.matrix) {
-        fillStyle['matrix'] = style.fill.matrix
-      }
-      // if using texture
-      if (style.fill.texture) {
-        fillStyle['texture'] = style.fill.texture
-      }
-      // if using gradient
-      if (style.fill.gradient) {
-        fillStyle['gradient'] = style.fill.gradient
-      }
+      // if (style.fill.pattern) {
+      //   fillStyle['pattern'] = style.fill.pattern
+      // }
+      // // if using matrix
+      // if (style.fill.matrix) {
+      //   fillStyle['matrix'] = style.fill.matrix
+      // }
+      // // if using texture
+      // if (style.fill.texture) {
+      //   fillStyle['texture'] = style.fill.texture
+      // }
+      // // if using gradient
+      // if (style.fill.gradient) {
+      //   fillStyle['gradient'] = style.fill.gradient
+      // }
 
       this.fill(fillStyle);
 

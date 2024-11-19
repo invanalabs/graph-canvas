@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { INodeStyle, NodeShapeBase, nodeStyleDefaults } from ".";
 import { deepMerge } from '@/utils';
-import { drawCircleShape } from '@/shapes/utils';
+import { drawCircleShape } from '@/shapes/nodes/base/utils';
 
 
 export const circleDefauts: ICircleStyle = nodeStyleDefaults
