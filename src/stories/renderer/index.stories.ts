@@ -28,8 +28,8 @@ export const webglExample: Story = {
   args: {},
   parameters: {
     storySource: {
-      webglExampleSource,
-    },
+      source: webglExampleSource
+    }
   },
 };
 
@@ -40,7 +40,7 @@ export const webgpuExample: Story = {
   args: {},
   parameters: {
     storySource: {
-      webgpuExampleSource,
+      source: webgpuExampleSource,
     },
   },
 };

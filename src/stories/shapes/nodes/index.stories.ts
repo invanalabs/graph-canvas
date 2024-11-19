@@ -37,7 +37,7 @@ export const Circle: Story = {
   args: {},
   parameters: {
     storySource: {
-      circleShapeExampleSource,
+      source: circleShapeExampleSource,
     },
   },
 };
@@ -50,7 +50,7 @@ export const Rectangle: Story = {
   args: {},
   parameters: {
     storySource: {
-      rectangleShapeExampleSource,
+      source: rectangleShapeExampleSource,
     },
   },
 };
@@ -63,7 +63,7 @@ export const Triangle: Story = {
   args: {},
   parameters: {
     storySource: {
-      symmetricalPolygonShapeExampleSource,
+      source: symmetricalPolygonShapeExampleSource,
     },
   },
 };

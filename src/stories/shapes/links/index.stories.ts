@@ -29,7 +29,7 @@ export const StraightLine: Story = {
   args: {},
   parameters: {
     storySource: {
-      straightLineShapeExampleSource,
+      source: straightLineShapeExampleSource,
     },
   },
 };
@@ -42,7 +42,7 @@ export const BezierCurveLine: Story = {
   args: {},
   parameters: {
     storySource: {
-      bezierCurveLineShapeExampleSource,
+      source: bezierCurveLineShapeExampleSource,
     },
   },
 };
