@@ -5,6 +5,10 @@ import template from "./../../html-templates/full-screen.html?raw";
 import straightLineShapeExamplePlay from "./straightLine/index";
 import straightLineShapeExampleSource from "./straightLine/index?raw";
 
+import bezierCurveLineShapeExamplePlay from "./bezierCurveLine/index";
+import bezierCurveLineShapeExampleSource from "./bezierCurveLine/index?raw";
+
+
 
 const meta = {
   title: 'Shapes/Links',
@@ -26,6 +30,19 @@ export const StraightLine: Story = {
   parameters: {
     storySource: {
       straightLineShapeExampleSource,
+    },
+  },
+};
+
+
+export const BezierCurveLine: Story = {
+  name: "BezierCurveLine",
+  render: () => template,
+  play: wrapStory(bezierCurveLineShapeExamplePlay),
+  args: {},
+  parameters: {
+    storySource: {
+      bezierCurveLineShapeExampleSource,
     },
   },
 };

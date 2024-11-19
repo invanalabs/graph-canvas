@@ -1,6 +1,6 @@
 import { Renderer, IRendererOptions } from "@/renderer"
 import { initDevtools } from '@pixi/devtools';
-import { StraightLine } from "../../../../shapes";
+import { BezierCurveLine } from "../../../../shapes";
 
 
 export default () => {
@@ -19,7 +19,7 @@ export default () => {
     console.log("Renderer initialized");
 
     // with default styling
-    const shape = new StraightLine({
+    const shape = new BezierCurveLine({
       source: { x: 100, y: 100 },
       target: { x: 200, y: 200 }
     });
@@ -27,7 +27,7 @@ export default () => {
 
 
     // with default styling
-    const shapeWithColor = new StraightLine({
+    const shapeWithColor = new BezierCurveLine({
       source: { x: 100, y: 150 },
       target: { x: 200, y: 250 },
       style: { fill: { color: 'red' } }
