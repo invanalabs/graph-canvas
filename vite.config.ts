@@ -8,7 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/main.tsx'), // Entry point of your library
+      entry: path.resolve(__dirname, 'src/index.tsx'), // Entry point of your library
       name: 'flow-canvas', // Global variable name for UMD builds
       fileName: (format) => `flow-canvas.${format}.js`,
     },
