@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import { useReactFlow } from 'reactflow';
+import { ContextMenuType } from './types';
 
 const styles: React.CSSProperties= {
     background: "white",
@@ -9,9 +10,7 @@ const styles: React.CSSProperties= {
     zIndex: 10
 }
 
-export default function GenericNodeContextMenu({ id, type, top, left, right, bottom, ...props }: {
-    id: string, type: string, top: number, left: number, right: number, bottom: number, props: object
-}) {
+const GenericNodeContextMenu: React.FC<ContextMenuType> =({ id, type, top, left, right, bottom }: ContextMenuType) => {
     console.log("====GenericNodeContextMenu", id, type);
     // type = edge/node 
 
@@ -32,7 +31,7 @@ export default function GenericNodeContextMenu({ id, type, top, left, right, bot
     }, [id, setNodes, setEdges]);
     console.log("=====top", top, left, right, bottom);
     return (
-        <div style={{ top, left, right, bottom, ...styles }} className="c"  {...props}>
+        <div style={{ top, left, right, bottom, ...styles }} className="c">
             <p style={{ margin: '0.5em' }}>
                 <small>node: {id}</small>
             </p>
@@ -41,3 +40,5 @@ export default function GenericNodeContextMenu({ id, type, top, left, right, bot
         </div>
     );
 }
+
+export default GenericNodeContextMenu

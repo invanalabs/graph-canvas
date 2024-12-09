@@ -2,7 +2,8 @@ import React from "react";
 import { Node, Edge, ConnectionLineType, XYPosition, NodeTypes, EdgeTypes } from "reactflow"
 import { CanvasNodeStylingOptions } from "../styling/types";
 // import DagreLayoutEngine from "../layouts/dagre";
-import { FlowInstanceType } from "../interactions/interactions";
+import CanvasInteractions, { FlowInstanceType } from "../interactions/interactions";
+import { ContextMenuType } from "../components/ContextMenu/types";
 //https://stackoverflow.com/a/55032655/3448851
 // Example usage : Modify<Node, { a: string}> // to override `a` data type
 type Modify<T, R> = Omit<T, keyof R> & R;
@@ -92,21 +93,26 @@ export type LayoutEngineFuncProps = {
 }
 
 export type FlowCanvasProps = {
-    children?: React.ReactNode,
     initialNodes: CanvasNode[],
-    initialEdges?: CanvasEdge[],
+    initialEdges: CanvasEdge[],
+
+
+    onLayoutChange ?: (
+        nodes: CanvasNode[], 
+        edges: CanvasEdge[], 
+        flowInstance: FlowInstanceType, 
+        direction: string 
+    ) => LayoutEngineResponse,
+    children?: React.ReactNode,
     canvasSettings?: CanvasSettingsType,
     style?: React.CSSProperties,
     canvasNodeTemplates?: NodeTypes,
     canvasEdgeTemplates?: EdgeTypes ,
-    onLayoutChange: (   nodes: CanvasNode[], 
-        edges: CanvasEdge[], 
-        flowInstance: FlowInstanceType, 
-        direction: string) => LayoutEngineResponse,
     // onLayoutChange?: (nodes: CanvasNode[], edges: CanvasEdge[], flowInstance: ReactFlowInstance, direction: string) => {} | null,
-    canvasInteractions: object | null,
-    NodeContextMenu: React.ReactElement
-    EdgeContextMenu: React.ReactElement
+    canvasInteractions?: CanvasInteractions,
+    NodeContextMenu?: React.FC<ContextMenuType>
+    EdgeContextMenu?: React.FC<ContextMenuType>
+    hideAttribution?: boolean
 }
 
 
