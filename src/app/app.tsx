@@ -16,7 +16,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { darkTheme, lightTheme } from "./theme";
 import React from "react";
 import "reactflow/dist/style.css";
-import { FlowCanvasProps } from "../core/types";
+import { CanvasEdge, CanvasNode, FlowCanvasProps } from "../core/types";
 import { CanvasNodeTemplates } from "../nodeTemplates";
 import { CanvasEdgeTemplates } from "../edgeTemplates";
 import CanvasInteractions from "../interactions/interactions";
@@ -42,7 +42,7 @@ const FlowCanvas = ({
   hideAttribution = false
 }: FlowCanvasProps) => {
   console.log("==FlowCanvas canvasSettings", canvasSettings)
-  const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null | undefined>(null);
+  const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null>(null);
 
   const { layoutedNodes, layoutedEdges } = onLayoutChange(
     initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
@@ -58,8 +58,9 @@ const FlowCanvas = ({
     setMode((m) => (m === 'light' ? 'dark' : 'dark'));
   };
 
-  const [nodes, setNodes] = useNodesState(layoutedNodes);
-  const [edges, setEdges] = useEdgesState(layoutedEdges);
+  //@ts-expect-error
+  const [nodes, setNodes] = useNodesState<CanvasNode>(layoutedNodes);
+  const [edges, setEdges] = useEdgesState<CanvasEdge>(layoutedEdges);
 
   const [contextMenuItem, setContextMenuItem] = useState<ContextMenuType | null>(null);
 
@@ -86,10 +87,10 @@ const FlowCanvas = ({
       setContextMenuItem({
         id: node.id,
         type: "node",
-        top: event.clientY < pane.height - 200 ? event.clientY : false,
-        left: event.clientX < pane.width - 200 ? event.clientX : false,
-        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : false,
-        bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : false,
+        top: event.clientY < pane.height - 200 ? event.clientY : 0,
+        left: event.clientX < pane.width - 200 ? event.clientX : 0,
+        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : 0,
+        bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : 0,
       });
     },
     [setContextMenuItem]
@@ -102,10 +103,10 @@ const FlowCanvas = ({
       setContextMenuItem({
         id: edge.id,
         type: "edge",
-        top: event.clientY < pane.height - 200 ? event.clientY : false,
-        left: event.clientX < pane.width - 200 ? event.clientX : false,
-        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : false,
-        bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : false,
+        top: event.clientY < pane.height - 200 ? event.clientY : 0,
+        left: event.clientX < pane.width - 200 ? event.clientX : 0,
+        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : 0,
+        bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : 0,
       });
     },
     [setContextMenuItem]

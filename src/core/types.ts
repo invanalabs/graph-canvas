@@ -21,7 +21,7 @@ export type CanvasNodeData = {
     commentText?: string // TODO - move this to seperate CommentNode type 
 
     //
-    label: string  // display label
+    label?: string  // display label
     properties?: object
     type? : string // this equal to node label in graph ex: Person, Project, 
     stylingOptions?: CanvasNodeStylingOptions // coloring options
@@ -46,7 +46,7 @@ export type NodeStyles  = {
 
 
 export type CanvasNode = Modify<Node, {
-    data: CanvasNodeData
+    data?: CanvasNodeData
     position?: XYPosition
     // fields?: NodeField[]
 }>
@@ -118,7 +118,7 @@ export type FlowCanvasProps = {
 
 export interface BaseNodeProps {
     id: string;
-    label: string;
+    label?: string;
     selected: boolean;
     nodeStyles?: NodeStyles;
     header? : React.ReactNode;
