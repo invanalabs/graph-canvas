@@ -94,7 +94,7 @@ export type LayoutEngineFuncProps = {
 
 export type FlowCanvasProps = {
     initialNodes: CanvasNode[],
-    initialEdges: CanvasEdge[],
+    initialEdges?: CanvasEdge[],
 
 
     onLayoutChange ?: (
