@@ -134,6 +134,8 @@ const FlowCanvas = ({
         flowInstance,
         direction
       );
+      console.log("=====layoutedNodes", layoutedNodes, layoutedEdges)
+      //@ts-expect-error
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
