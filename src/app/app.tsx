@@ -30,7 +30,7 @@ const FlowCanvas = ({
   initialNodes = [],
   initialEdges = [],
   layoutEngine = new NoLayoutEngine(),
-  NodeContextMenu , 
+  NodeContextMenu, 
   EdgeContextMenu,
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
