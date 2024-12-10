@@ -41,33 +41,35 @@ const FlowCanvas = ({
 }: FlowCanvasProps) => {
   console.log("==FlowCanvas canvasSettings", canvasSettings)
 
-//  onLayoutChange = layoutEngine.  
-  
+
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null>(null);
+  const [direction, setDirection] = useState("LR");
 
-
- 
-  const { layoutedNodes, layoutedEdges } = layoutEngine.getLayoutedElements(
-    initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
-    initialEdges,
-    flowInstance,
-    "LR"
-  );
-
+  // for theming
   const [mode, setMode] = useState('dark');
   const theme = mode === 'light' ? lightTheme : darkTheme;
-
   const toggleMode = () => {
     setMode((m) => (m === 'light' ? 'dark' : 'dark'));
   };
+  // ends for theming
 
-  //@ts-expect-error
-  const [nodes, setNodes] = useNodesState<CanvasNode | string>(layoutedNodes);
-  const [edges, setEdges] = useEdgesState<CanvasEdge>(layoutedEdges);
+  // for data
+  const [nodes, setNodes] = useNodesState<CanvasNode | string>(initialNodes);
+  const [edges, setEdges] = useEdgesState<CanvasEdge>(initialEdges);
 
-  const [contextMenuItem, setContextMenuItem] = useState<ContextMenuType | null>(null);
+ 
+  // const { layoutedNodes, layoutedEdges } = layoutEngine.getLayoutedElements(
+  //   initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
+  //   initialEdges,
+  //   flowInstance,
+  //   direction
+  // );
 
-  const [direction, setDirection] = useState("LR");
+
+
+
+  // const [contextMenuItem, setContextMenuItem] = useState<ContextMenuType | null>(null);
+
 
   console.log("===setDirection", setDirection)
 
@@ -81,39 +83,39 @@ const FlowCanvas = ({
   );
   const ref = useRef(null);
 
-  const onNodeContextMenu = useCallback(
-    (event: React.MouseEvent, node: Node) => {
-      event.preventDefault();
+  // const onNodeContextMenu = useCallback(
+  //   (event: React.MouseEvent, node: Node) => {
+  //     event.preventDefault();
       
-      const pane = ref.current ? (ref.current as HTMLDivElement).getBoundingClientRect() : { width: 0, height: 0 };
+  //     const pane = ref.current ? (ref.current as HTMLDivElement).getBoundingClientRect() : { width: 0, height: 0 };
 
-      setContextMenuItem({
-        id: node.id,
-        type: "node",
-        top: event.clientY < pane.height - 200 ? event.clientY : 0,
-        left: event.clientX < pane.width - 200 ? event.clientX : 0,
-        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : 0,
-        bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : 0,
-      });
-    },
-    [setContextMenuItem]
-  );
+  //     setContextMenuItem({
+  //       id: node.id,
+  //       type: "node",
+  //       top: event.clientY < pane.height - 200 ? event.clientY : 0,
+  //       left: event.clientX < pane.width - 200 ? event.clientX : 0,
+  //       right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : 0,
+  //       bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : 0,
+  //     });
+  //   },
+  //   [setContextMenuItem]
+  // );
 
-  const onEdgeContextMenu = useCallback(
-    (event: React.MouseEvent, edge: Edge) => {
-      event.preventDefault();
-      const pane = ref.current ? (ref.current as HTMLDivElement).getBoundingClientRect() : { width: 0, height: 0 };
-      setContextMenuItem({
-        id: edge.id,
-        type: "edge",
-        top: event.clientY < pane.height - 200 ? event.clientY : 0,
-        left: event.clientX < pane.width - 200 ? event.clientX : 0,
-        right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : 0,
-        bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : 0,
-      });
-    },
-    [setContextMenuItem]
-  );
+  // const onEdgeContextMenu = useCallback(
+  //   (event: React.MouseEvent, edge: Edge) => {
+  //     event.preventDefault();
+  //     const pane = ref.current ? (ref.current as HTMLDivElement).getBoundingClientRect() : { width: 0, height: 0 };
+  //     setContextMenuItem({
+  //       id: edge.id,
+  //       type: "edge",
+  //       top: event.clientY < pane.height - 200 ? event.clientY : 0,
+  //       left: event.clientX < pane.width - 200 ? event.clientX : 0,
+  //       right: event.clientX >= pane.width - 200 ? pane.width - event.clientX : 0,
+  //       bottom: event.clientY >= pane.height - 200 ? pane.height - event.clientY : 0,
+  //     });
+  //   },
+  //   [setContextMenuItem]
+  // );
 
   // const onPaneClick = useCallback(() => setContextMenuItem(null), [setContextMenuItem]);
 
@@ -138,11 +140,11 @@ const FlowCanvas = ({
         direction
       );
       console.log("=====layoutedNodes", layoutedNodes, layoutedEdges)
-      //@ts-expect-error
+
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
-    [layoutEngine, nodes, edges, flowInstance, setNodes, setEdges]
+    [nodes, edges]
   );
 
   // const onLayout = useCallback(
@@ -213,8 +215,8 @@ const FlowCanvas = ({
             onEdgeMouseLeave={(event: React.MouseEvent, edge: Edge) => canvasInteractions && canvasInteractions.onEdgeMouseLeave(event, edge, flowInstance)}
             onNodeMouseEnter={(event: React.MouseEvent, node: Node) => canvasInteractions && canvasInteractions.onNodeMouseEnter(event, node, flowInstance)}
             onNodeMouseLeave={(event: React.MouseEvent, node: Node) => canvasInteractions && canvasInteractions.onNodeMouseLeave(event, node, flowInstance)}
-            onNodeContextMenu={onNodeContextMenu}
-            onEdgeContextMenu={onEdgeContextMenu}
+            // onNodeContextMenu={onNodeContextMenu}
+            // onEdgeContextMenu={onEdgeContextMenu}
             fitView
             minZoom={0.2}
             attributionPosition="top-right"
@@ -224,8 +226,8 @@ const FlowCanvas = ({
             proOptions={{ hideAttribution: hideAttribution }}
           >
              {/* onClick={onPaneClick} */}
-            {contextMenuItem && EdgeContextMenu && contextMenuItem.type === "edge" && <EdgeContextMenu {...contextMenuItem} />}
-            {contextMenuItem && NodeContextMenu && contextMenuItem.type === "node" && <NodeContextMenu {...contextMenuItem} />}
+            {/* {contextMenuItem && EdgeContextMenu && contextMenuItem.type === "edge" && <EdgeContextMenu {...contextMenuItem} />}
+            {contextMenuItem && NodeContextMenu && contextMenuItem.type === "node" && <NodeContextMenu {...contextMenuItem} />} */}
             <MiniMapStyled
               nodeColor={(node) => {
                 switch (node.type) {
