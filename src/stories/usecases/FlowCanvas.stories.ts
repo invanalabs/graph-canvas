@@ -3,7 +3,7 @@ import { initialNodes as erInitialNodes, initialEdges as erInitialEdges  } from 
 // import { initialNodes, initialEdges } from '../example-datasets/raw/simple-hello-world';
 // import { initialNodes as allNodesInitialNodes, initialEdges as allEdgesInitialEdges  } from "../example-datasets/raw/all-nodes";
 // import { initialNodes as allNodesInitialNodes2, initialEdges as allEdgesInitialEdges2  } from "../example-datasets/raw/all-nodes-2";
-import {getNodesAndEdges } from "../example-datasets/raw/large-data";
+import {getNodesAndEdges } from "./largeDataSet/data";
 import FlowCanvas from '../../app/app';
 import DagreLayoutEngine from '../../layouts/dagre';
 import { CanvasEdge, CanvasNode } from '../../core/types';
@@ -17,15 +17,9 @@ const meta = {
     title: 'Canvas/FlowCanvas',
     component: FlowCanvas,
     parameters: {
-      // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
       layout: 'fullscreen',
     },
-    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
     tags: ['autodocs'],
-    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-    argTypes: {
-    //   backgroundColor: { control: 'color' },
-    },
   } satisfies Meta<typeof FlowCanvas>;
   
   export default meta;

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {nodes, edges} from "../example-datasets/BaseLayout/BaseLayoutData"
-import {getNodesAndEdges,   } from "../example-datasets/raw/large-data";
+import {getNodesAndEdges,   } from "./largeDataSet/data";
 import FlowCanvas from '../../app/app';
 
 
