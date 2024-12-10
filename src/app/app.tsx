@@ -117,9 +117,8 @@ const FlowCanvas = ({
 
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     setFlowInstance(reactFlowInstance);
-    reactFlowInstance?.zoomTo(1);
-    reactFlowInstance?.fitView();
-    onLayoutUpdated(direction);
+
+    onLayoutUpdated(direction, reactFlowInstance);
   };
 
   const onConnect = useCallback(
@@ -128,7 +127,9 @@ const FlowCanvas = ({
   );
 
   const onLayoutUpdated = useCallback(
-    (direction: string) => {
+    (direction: string, flowInstance: ReactFlowInstance) => {
+
+      flowInstance = flowInstance ? flowInstance : flowInstance;
       const { layoutedNodes, layoutedEdges } = layoutEngine.getLayoutedElements(
         nodes,
         edges,
@@ -138,6 +139,8 @@ const FlowCanvas = ({
       console.log("=====layoutedNodes", layoutedNodes, layoutedEdges)
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
+      flowInstance?.zoomTo(1);
+      flowInstance?.fitView();
     },
     [nodes, edges, flowInstance]
   );
