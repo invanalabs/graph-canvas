@@ -21,7 +21,7 @@ import { CanvasNodeTemplates } from "../nodeTemplates";
 import { CanvasEdgeTemplates } from "../edgeTemplates";
 import CanvasInteractions from "../interactions/interactions";
 import { defaultCanvasSettings, defaultCanvasStyle } from "./defaults";
-import NoLayoutEngine, { defaultLayoutChange } from "../layouts/noLayout";
+import NoLayoutEngine from "../layouts/noLayout";
 import { ContextMenuType } from "../components/ContextMenu/types";
 
 
