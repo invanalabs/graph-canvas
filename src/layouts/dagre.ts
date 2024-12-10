@@ -37,10 +37,14 @@ export default class DagreLayoutEngine extends LayoutEngine {
         return nodeSizeInfo?.width || this.options.nodeWidth
     }
     
-    getLayoutedElements = (nodes: CanvasNode[], edges: CanvasEdge[], 
-        flowInstance: FlowInstanceType,  direction: string = "LR") => {
-            console.log("getLayoutedElements", flowInstance, direction)
-        // https://v9.reactflow.dev/examples/layouting/
+    getLayoutedElements = (
+        nodes: CanvasNode[], 
+        edges: CanvasEdge[], 
+        flowInstance: FlowInstanceType,  
+        direction: string = "LR") => {
+
+        console.log("=====DagreLayoutEngine", nodes, edges, flowInstance, direction);
+            // https://v9.reactflow.dev/examples/layouting/
         // In order to keep this example simple the node width and height are hardcoded.
         // In a real world app you would use the correct width and height values of
         // const nodes = useStoreState(state => state.nodes) and then node.__rf.width, node.__rf.height
@@ -51,8 +55,8 @@ export default class DagreLayoutEngine extends LayoutEngine {
         const isHorizontal = direction === "LR";
         const graphOptions =  direction === "LR" ? {rankSep: 150} : {rankSep: 100}
     
-    
-        this.dagreGraph.setGraph({ rankdir: direction, 
+        this.dagreGraph.setGraph({ 
+            rankdir: direction, 
             // nodesep:200,
             ...graphOptions
         });

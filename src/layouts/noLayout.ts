@@ -12,6 +12,10 @@ export default class NoLayoutEngine extends LayoutEngine {
     direction: string
   ): LayoutEngineResponse {
     console.log("=====NoLayoutEngine", nodes, edges, flowInstance, direction);
-    return { layoutedNodes: nodes, layoutedEdges: edges };
+
+    return {
+      layoutedNodes: nodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
+      layoutedEdges: edges
+    };
   }
 }
