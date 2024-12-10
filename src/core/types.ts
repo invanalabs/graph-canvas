@@ -13,10 +13,13 @@ export type NodeField = {
     label: string
     data_type?: string
 }
+
+export type CanvasIcon = React.ReactNode
+
 export type CanvasNodeData = {
     // data property in the Node 
     fields?: NodeField[]
-    icon?: any, 
+    icon?: CanvasIcon, 
     body?: React.ReactNode,
     commentText?: string // TODO - move this to seperate CommentNode type 
 

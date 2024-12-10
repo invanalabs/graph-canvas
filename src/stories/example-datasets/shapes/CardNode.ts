@@ -6,7 +6,7 @@ const exampleData = [{
   type: "CardNode",
   data: {
     label: "Card with Html String based Form",
-    // icon: <BsFillBuildingsFill />,
+    icon: BsFillBuildingsFill,
     body: `
 <label>name</label>
 <input type='text'>      

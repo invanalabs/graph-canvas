@@ -64,7 +64,7 @@ const CardNode = ({ id, data, selected }: CanvasNodeProps) => {
       header={
     
         <div  style={{ margin: "5px 10px" }} >
-            {data.icon? <RenderIconOrImgString html={data.icon} />: <></>}
+            {data.icon && <RenderIconOrImgString icon={data.icon} />}
             <strong>{data.label}</strong>
         </div>
       }
