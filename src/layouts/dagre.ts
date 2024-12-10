@@ -18,10 +18,12 @@ export default class DagreLayoutEngine {
 
     defaultNodeWidth = 180 + 30;
     defaultNodeHeight = 36;
+    
+    padding = 30
 
     
     calcNodeHeight = (nodeSizeInfo: CanvasNode) => {
-        return  nodeSizeInfo?.height ||  this.defaultNodeHeight
+        return  nodeSizeInfo?.height  ||  this.defaultNodeHeight 
     }
     
     calcNodeWidth = (nodeSizeInfo: CanvasNode) => {

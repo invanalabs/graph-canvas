@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 import FlowCanvas from '../../app/app';
 import exampleData from '../example-datasets/shapes/CardNode';
 
-
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
     title: 'Shapes/CardNode',

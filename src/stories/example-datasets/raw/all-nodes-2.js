@@ -1,5 +1,6 @@
 import { BsFillBuildingsFill } from "react-icons/bs";
 import { MarkerType } from "reactflow";
+// import { CanvasNode } from "../../../core/types";
 
 
 export const initialNodes = [
@@ -25,8 +26,7 @@ export const initialNodes = [
         type: "CardNode",
         data: {
             label: "Card with Html String based Form",
-            icon: <BsFillBuildingsFill />,
- 
+            icon: <BsFillBuildingsFill />
         },
         style: {
             width: "200px",
@@ -39,7 +39,7 @@ export const initialNodes = [
         data: {
             label: "Hello World",
             icon: <BsFillBuildingsFill />,
- 
+
         },
         style: {
             width: "200px",
@@ -52,7 +52,7 @@ export const initialNodes = [
         data: {
             label: "CommentNode 1",
             // icon: <StickNotes />,
- 
+
         },
         style: {
             width: "200px",
