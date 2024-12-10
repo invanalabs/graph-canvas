@@ -4,6 +4,7 @@ import { CanvasNodeStylingOptions } from "../styling/types";
 // import DagreLayoutEngine from "../layouts/dagre";
 import CanvasInteractions, { FlowInstanceType } from "../interactions/interactions";
 import { ContextMenuType } from "../components/ContextMenu/types";
+import { LayoutEngine } from "../layouts/abstract";
 //https://stackoverflow.com/a/55032655/3448851
 // Example usage : Modify<Node, { a: string}> // to override `a` data type
 type Modify<T, R> = Omit<T, keyof R> & R;
@@ -99,13 +100,14 @@ export type FlowCanvasProps = {
     initialNodes: CanvasNode[],
     initialEdges?: CanvasEdge[],
 
+    layoutEngine?: LayoutEngine,
 
-    onLayoutChange ?: (
-        nodes: CanvasNode[], 
-        edges: CanvasEdge[], 
-        flowInstance: FlowInstanceType, 
-        direction: string 
-    ) => LayoutEngineResponse,
+    // onLayoutChange ?: (
+    //     nodes: CanvasNode[], 
+    //     edges: CanvasEdge[], 
+    //     flowInstance: FlowInstanceType, 
+    //     direction: string 
+    // ) => LayoutEngineResponse,
     children?: React.ReactNode,
     canvasSettings?: CanvasSettingsType,
     style?: React.CSSProperties,

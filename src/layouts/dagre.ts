@@ -1,36 +1,44 @@
-import { CanvasNode } from "../core/types";
+import { CanvasEdge, CanvasNode } from "../core/types";
 import dagre from "dagre";
 import { Position } from 'reactflow';
+import { LayoutEngine } from "./abstract";
+import { FlowInstanceType } from "../interactions/interactions";
 
 
+export interface DagreLayoutOptions {
+    nodeWidth?: number
+    nodeHeight?: number
+    padding?: number
+}
 
-export default class DagreLayoutEngine {
+export const defaultDagreLayoutOptions: DagreLayoutOptions = {
+    nodeWidth: 180 + 30,
+    nodeHeight: 36,
+    padding: 30
+}
 
+export default class DagreLayoutEngine extends LayoutEngine {
 
     // should have the method getLayoutedElements(nodes, edges, flowInstance, direction)
 
+    options: DagreLayoutOptions = defaultDagreLayoutOptions
     dagreGraph = new dagre.graphlib.Graph();
-    // dagreGraph.setDefaultEdgeLabel(() => ({}));
 
-    // constructor(){
-    //     this.dagreGraph.setDefaultEdgeLabel(() => ({}));
-    // }
+    constructor(options: DagreLayoutOptions = defaultDagreLayoutOptions) {
+        super()
+        this.options = {...this.options, ...options}
+    }
 
-    defaultNodeWidth = 180 + 30;
-    defaultNodeHeight = 36;
-    
-    padding = 30
-
-    
     calcNodeHeight = (nodeSizeInfo: CanvasNode) => {
-        return  nodeSizeInfo?.height  ||  this.defaultNodeHeight 
+        return  nodeSizeInfo?.height  ||  this.options.nodeHeight 
     }
     
     calcNodeWidth = (nodeSizeInfo: CanvasNode) => {
-        return nodeSizeInfo?.width || this.defaultNodeWidth
+        return nodeSizeInfo?.width || this.options.nodeWidth
     }
     
-    getLayoutedElements = (nodes: any[], edges: any[], flowInstance: any= null,  direction: string = "LR") => {
+    getLayoutedElements = (nodes: CanvasNode[], edges: CanvasEdge[], 
+        flowInstance: FlowInstanceType= null,  direction: string = "LR") => {
         // https://v9.reactflow.dev/examples/layouting/
         // In order to keep this example simple the node width and height are hardcoded.
         // In a real world app you would use the correct width and height values of
@@ -49,11 +57,13 @@ export default class DagreLayoutEngine {
         });
     
         nodes.forEach((node: CanvasNode) => {
-            const nodeSizeInfo = flowInstance ? flowInstance.getNode(node.id)  :{}
-            _this.dagreGraph.setNode(node.id, {
-                width: _this.calcNodeWidth(nodeSizeInfo),
-                height: _this.calcNodeHeight(nodeSizeInfo)
-            });
+            const nodeSizeInfo = flowInstance ? flowInstance.getNode(node.id) : null;
+            if (nodeSizeInfo){
+                _this.dagreGraph.setNode(node.id, {
+                    width: _this.calcNodeWidth(nodeSizeInfo),
+                    height: _this.calcNodeHeight(nodeSizeInfo)
+                });
+            }
         });
     
         edges.forEach((edge: { source: string; target: string; }) => {

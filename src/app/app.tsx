@@ -21,19 +21,17 @@ import { CanvasNodeTemplates } from "../nodeTemplates";
 import { CanvasEdgeTemplates } from "../edgeTemplates";
 import CanvasInteractions from "../interactions/interactions";
 import { defaultCanvasSettings, defaultCanvasStyle } from "./defaults";
-import { defaultLayoutChange } from "../layouts/noLayout";
+import NoLayoutEngine, { defaultLayoutChange } from "../layouts/noLayout";
 import { ContextMenuType } from "../components/ContextMenu/types";
-import GenericNodeContextMenu from "../components/ContextMenu/GenericNodeContextMenu";
-import GenericEdgeContextMenu from "../components/ContextMenu/GenericEdgeContextMenu";
 
 
 const FlowCanvas = ({
   children,
   initialNodes = [],
   initialEdges = [],
-  onLayoutChange = defaultLayoutChange,
-  NodeContextMenu = GenericNodeContextMenu , 
-  EdgeContextMenu = GenericEdgeContextMenu,
+  layoutEngine = new NoLayoutEngine(),
+  NodeContextMenu , 
+  EdgeContextMenu,
   style = defaultCanvasStyle,
   canvasSettings = defaultCanvasSettings,
   canvasNodeTemplates = CanvasNodeTemplates,
@@ -42,9 +40,12 @@ const FlowCanvas = ({
   hideAttribution = false
 }: FlowCanvasProps) => {
   console.log("==FlowCanvas canvasSettings", canvasSettings)
+
+//  onLayoutChange = layoutEngine.  
+  
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null>(null);
 
-  const { layoutedNodes, layoutedEdges } = onLayoutChange(
+  const { layoutedNodes, layoutedEdges } = layoutEngine.getLayoutedElements(
     initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
     initialEdges,
     flowInstance,
@@ -128,7 +129,7 @@ const FlowCanvas = ({
 
   const onLayout = useCallback(
     (direction: string) => {
-      const { layoutedNodes, layoutedEdges } = onLayoutChange(
+      const { layoutedNodes, layoutedEdges } = layoutEngine.getLayoutedElements(
         nodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
         edges,
         flowInstance,
@@ -139,7 +140,7 @@ const FlowCanvas = ({
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
-    [nodes, edges, flowInstance, onLayoutChange]
+    [layoutEngine, nodes, edges, flowInstance, setNodes, setEdges]
   );
 
   const edgesWithUpdatedTypes = edges.map((edge) => {
