@@ -1,4 +1,4 @@
-import { useCallback, useState, useRef } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 import ReactFlow, {
   addEdge,
   MiniMap,
@@ -44,35 +44,26 @@ const FlowCanvas = ({
 
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null>(null);
   const [direction, setDirection] = useState("LR");
+  console.log("===setDirection", setDirection)
 
   // for theming
   const [mode, setMode] = useState('dark');
   const theme = mode === 'light' ? lightTheme : darkTheme;
   const toggleMode = () => {
-    setMode((m) => (m === 'light' ? 'dark' : 'dark'));
+    setMode((m) => (m === 'light' ? 'dark' : 'light'));
   };
+  // Detect changes to the mode state
+  useEffect(() => {
+    console.log("Mode changed to:", mode);
+    document.querySelector("html")?.setAttribute("data-canvas-theme", mode);
+  }, [mode]);
+
   // ends for theming
 
-
-  initialNodes = initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } }))
   // for data
+  initialNodes = initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } }))
   const [nodes, setNodes] = useNodesState<CanvasNode>(initialNodes);
   const [edges, setEdges] = useEdgesState<CanvasEdge>(initialEdges);
-
- 
-  // const { layoutedNodes, layoutedEdges } = layoutEngine.getLayoutedElements(
-  //   initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
-  //   initialEdges,
-  //   flowInstance,
-  //   direction
-  // );
-
-
-
-
-
-
-  console.log("===setDirection", setDirection)
 
   const onNodesChange = useCallback(
     (changes: NodeChange[]) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -122,7 +113,7 @@ const FlowCanvas = ({
     [setContextMenuItem]
   );
 
-  const onPaneClick = useCallback(() => setContextMenuItem(null), [setContextMenuItem]);
+  // const onPaneClick = useCallback(() => setContextMenuItem(null), [setContextMenuItem]);
 
   const onInit = (reactFlowInstance: ReactFlowInstance) => {
     setFlowInstance(reactFlowInstance);
@@ -132,7 +123,7 @@ const FlowCanvas = ({
   };
 
   const onConnect = useCallback(
-    (params: any) => setEdges((eds) => addEdge({ ...params }, eds)),
+    (params: Edge) => setEdges((eds) => addEdge({ ...params }, eds)),
     []
   );
 
@@ -148,7 +139,7 @@ const FlowCanvas = ({
       setNodes([...layoutedNodes]);
       setEdges([...layoutedEdges]);
     },
-    [nodes, edges]
+    [nodes, edges, flowInstance]
   );
 
   const edgesWithUpdatedTypes = edges.map((edge) => {
@@ -186,8 +177,6 @@ const FlowCanvas = ({
     }
   `;
 
-  document.querySelector("html")?.setAttribute("data-canvas-theme", mode);
-
   return (
     <div style={style}>
       <ThemeProvider theme={theme}>
@@ -195,7 +184,7 @@ const FlowCanvas = ({
           <ReactFlow
             ref={ref}
             nodes={nodes}
-            className="dark-theme"
+            // className="dark-theme"
             edges={edgesWithUpdatedTypes}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
@@ -216,7 +205,7 @@ const FlowCanvas = ({
 
             proOptions={{ hideAttribution: hideAttribution }}
           >
-             onClick={onPaneClick}
+             {/* onClick={onPaneClick} */}
             {contextMenuItem && EdgeContextMenu && contextMenuItem.type === "edge" && <EdgeContextMenu {...contextMenuItem} />}
             {contextMenuItem && NodeContextMenu && contextMenuItem.type === "node" && <NodeContextMenu {...contextMenuItem} />}
             <MiniMapStyled

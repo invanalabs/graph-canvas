@@ -1,4 +1,21 @@
+import type { Meta, StoryObj } from '@storybook/react';
+import FlowCanvas from '../../app/app';
 import {BsFillBuildingsFill} from "react-icons/bs";
+
+
+// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+const meta = {
+    title: 'Shapes/GenericNode',
+    component: FlowCanvas,
+    parameters: {
+      layout: 'fullscreen',
+    },
+  } satisfies Meta<typeof FlowCanvas>;
+  
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+
 
 
  const exampleData = [{
@@ -11,7 +28,8 @@ import {BsFillBuildingsFill} from "react-icons/bs";
         "identifier": "string",
         "is_active": false
       }
-    }
+    },
+    position: { x: -200, y: -100 }
   },
   {
     id: "2.3",
@@ -22,7 +40,8 @@ import {BsFillBuildingsFill} from "react-icons/bs";
         "identifier": "string",
         "is_active": false
       }
-    }
+    },
+    position: {x: 200, y: -100}
   },
   {
     id: "2.2",
@@ -37,7 +56,8 @@ import {BsFillBuildingsFill} from "react-icons/bs";
         "is_active": false,
         "description": "string"
       }
-    }
+    },
+    position: {x: -200, y: 100}
   },
   {
     id: "2.4",
@@ -52,9 +72,16 @@ import {BsFillBuildingsFill} from "react-icons/bs";
         "is_active": false,
         "description": "string"
       }
-    }
+    },
+    position: {x: 200, y: 100}
   }
 
 ];
 
-export default exampleData;
+export const GenericNode: Story = {
+    args: {
+        initialNodes:  exampleData,
+        // initialEdges: initialEdges,
+    },
+};
+

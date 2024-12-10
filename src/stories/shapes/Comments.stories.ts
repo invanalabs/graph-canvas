@@ -1,7 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import FlowCanvas from '../../app/app';
-import exampleData from '../example-datasets/shapes/Comments';
-// import FlowCanvas from '../../flow-canvas/canvasTypes/FlowCanvas';
 
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -9,22 +7,38 @@ const meta = {
     title: 'Shapes/CommentNode',
     component: FlowCanvas,
     parameters: {
-      // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
       layout: 'fullscreen',
-    },
-    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
-    // tags: ['autodocs'],
-    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-    argTypes: {
-    //   backgroundColor: { control: 'color' },
-    },
+    }
   } satisfies Meta<typeof FlowCanvas>;
   
-  export default meta;
+export default meta;
 type Story = StoryObj<typeof meta>;
 
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
+const exampleData = [{
+  id: "2.1",
+  type: "CommentNode",
+  data: {
+    label: "CommentNode 1",
+    // icon: <StickNotes />,
+    commentText: "Hello World ! this is yet another attempt to create beautiful visualisations"
+  },
+  position: { x: -300, y: -300 },
+  style:{
+    height: "200px"
+  }
+},
+{
+  id: "2.2",
+  type: "CommentNode",
+  data: {
+    label: "CommentNode 2",
+    // icon: <StickNotes />,
+    commentText: "<strong>Hello World !</strong> this is yet another attempt to create beautiful visualisations.  This is also just a node 🥳"
+  },
+  position: { x: 0, y: -100 }
+}];
+
 export const CommentNode: Story = {
     args: {
         initialNodes:  exampleData,

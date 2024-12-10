@@ -1,6 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-// import FlowCanvas from '../../flow-canvas/canvasTypes/FlowCanvas';
-import exampleData from '../example-datasets/shapes/other';
 import FlowCanvas from '../../app/app';
 
 
@@ -9,22 +7,33 @@ const meta = {
     title: 'Shapes/Other',
     component: FlowCanvas,
     parameters: {
-      // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
       layout: 'fullscreen',
-    },
-    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
-    // tags: ['autodocs'],
-    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-    argTypes: {
-    //   backgroundColor: { control: 'color' },
     },
   } satisfies Meta<typeof FlowCanvas>;
   
-  export default meta;
+export default meta;
 type Story = StoryObj<typeof meta>;
 
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
+const exampleData = [{
+  id: "2.1",
+  type: "Other",
+  data: {
+    label: "Other 1",
+    commentText: "Hello World ! this is yet another attempt to create beautiful visualisations"
+  },
+  position: {x: 0, y: 100}
+},
+{
+  id: "2.2",
+  type: "Other",
+  data: {
+    label: "Other 2",
+    commentText: "<strong>Hello World !</strong> this is yet another attempt to create beautiful visualisations"
+  },
+  position: {x: 0, y: -100}
+}];
+
 export const Other: Story = {
     args: {
         initialNodes:  exampleData,
