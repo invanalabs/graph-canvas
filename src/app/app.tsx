@@ -45,6 +45,8 @@ const FlowCanvas = ({
   
   const [flowInstance, setFlowInstance] = useState<ReactFlowInstance | null>(null);
 
+
+ 
   const { layoutedNodes, layoutedEdges } = layoutEngine.getLayoutedElements(
     initialNodes.map(node => ({ ...node, position: node.position || { x: 0, y: 0 } })),
     initialEdges,
@@ -60,7 +62,7 @@ const FlowCanvas = ({
   };
 
   //@ts-expect-error
-  const [nodes, setNodes] = useNodesState<CanvasNode>(layoutedNodes);
+  const [nodes, setNodes] = useNodesState<CanvasNode | string>(layoutedNodes);
   const [edges, setEdges] = useEdgesState<CanvasEdge>(layoutedEdges);
 
   const [contextMenuItem, setContextMenuItem] = useState<ContextMenuType | null>(null);
@@ -142,6 +144,19 @@ const FlowCanvas = ({
     },
     [layoutEngine, nodes, edges, flowInstance, setNodes, setEdges]
   );
+
+  // const onLayout = useCallback(
+
+  //   (direction: string) => {
+  //     const {
+  //       layoutedNodes,
+  //       layoutedEdges
+  //     } = layoutEngine.getLayoutedElements(nodes, edges, flowInstance, direction);
+  //     setNodes([...layoutedNodes]);
+  //     setEdges([...layoutedEdges]);
+  //   },
+  //   [nodes, edges, setFlowInstance, flowInstance]
+  // );
 
   const edgesWithUpdatedTypes = edges.map((edge) => {
     if (edge.source === edge.target) {
